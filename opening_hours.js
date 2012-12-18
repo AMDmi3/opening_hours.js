@@ -209,7 +209,6 @@
 					at += 3;
 				} else if (tokens[at][1] == 'weekday' && tokens[at+1][0] == '[') {
 					// Conditional weekday (Mo[3])
-					sys.puts('  Spec weekday: ' + tokens[at][0]);
 					at = parseNumRange(tokens, at+2);
 				} else if (tokens[at][1] == 'weekday') {
 					// Single weekday (Mo)
@@ -243,16 +242,15 @@
 
 		// Numeric list parser (1,2,3-4,-1), used in weekday parser above
 		function parseNumRange(tokens, at) {
-			sys.puts('    Numbers');
 			while (at < tokens.length) {
 				if (tokens[at][1] == 'number' && tokens[at+1][0] == '-' && tokens[at+2][1] == 'number') {
-					sys.puts('      Range: ' + tokens[at][0] + '-' + tokens[at+2][0]);
+					// Number range
 					at += 3;
 				} else if (tokens[at][0] == '-' && tokens[at+1][1] == 'number') {
-					sys.puts('      Number: ' + -tokens[at+1][0]);
+					// Negative number
 					at += 2
 				} else if (tokens[at][1] == 'number') {
-					sys.puts('      Number: ' + tokens[at][0]);
+					// Single number
 					at++;
 				} else {
 					throw 'Unexpected token in number range: "' + tokens[at][0] + '"';
