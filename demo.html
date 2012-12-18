@@ -1,0 +1,53 @@
+<html>
+	<head>
+		<title>opening_hours demo</title>
+		<script type="text/javascript" src="opening_hours.js"></script>
+	</head>
+	<body>
+		<script>
+			var examples = [
+				'00:00-12:00',
+				'12:00-24:00',
+				'Mo-Fr 00:00-24:00',
+				'Sa-Su 00:00-24:00',
+				'00:00-24:00; 0:00-12:00 off',
+				'00:00-24:00; 12:00-24:00 off',
+			];
+
+			var now = new Date();
+
+			for (var e in examples) {
+				document.write('<h1>' + examples[e] + '</h1>');
+				var oh = new opening_hours(examples[e]);
+				var isopen = oh.isOpen(now);
+				var nextchange = oh.nextChange(now);
+				var delta = (nextchange.getTime() - now.getTime()) / 1000;
+
+				var deltastr = (delta % 60).toFixed(0) + ' сек.';
+				delta /= 60;
+
+				if (delta > 0) {
+					deltastr = (delta % 60).toFixed(0) + ' мин., ' + deltastr;
+					delta /= 60;
+				}
+
+				if (delta > 0) {
+					deltastr = (delta % 24).toFixed(0) + ' ч., ' + deltastr;
+					delta /= 24;
+				}
+
+				if (delta > 0) {
+					deltastr = delta.toFixed(0) + ' дн., ' + deltastr;
+				}
+
+				if (isopen) {
+					document.write('<p>Сейчас заведение открыто</p>');
+					document.write('<p>Закроется ' + nextchange + ' (через ' + deltastr + ')</p>');
+				} else {
+					document.write('<p>Сейчас заведение закрыто</p>');
+					document.write('<p>Откроется ' + nextchange + ' (через ' + deltastr + ')</p>');
+				}
+			}
+		</script>
+	</body>
+</html>
