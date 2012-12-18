@@ -140,7 +140,10 @@
 						var minutes_from = tokens[at][0] * 60 + tokens[at+2][0] * 1;
 						var minutes_to = tokens[at+4][0] * 60 + tokens[at+6][0] * 1;
 
-						// normalize minutes into range (XXX: what if it's further than tomorrow?)
+						// normalize minutes into range
+						// XXX: what if it's further than tomorrow?
+						// XXX: this is incorrect, as it assumes the same day
+						//      should cooperate with date selectors to select the next day
 						if (minutes_to > minutes_in_day)
 							minutes_to -= minutes_in_day;
 
