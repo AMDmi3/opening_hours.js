@@ -119,7 +119,7 @@ function test(values, checks) {
 				error = true;
 			}
 			if (typeof expected_change !== 'undefined' && (typeof change === 'undefined' || change.getTime() !== expected_change.getTime())) {
-				sys.puts('    [[1;31mFAILED[0m], mismatch of date=' + state[1]);
+				sys.puts('    [[1;31mFAILED[0m], mismatch of date=' + change);
 				error = true;
 			}
 
