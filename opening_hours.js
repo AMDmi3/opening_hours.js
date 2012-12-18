@@ -195,12 +195,20 @@
 		//======================================================================
 		function parseWeekdayRange(tokens, at, selectors) {
 			while (at < tokens.length) {
-				if (tokens[at][1] == 'weekday' && tokens[at+1][0] == '-' && tokens[at+2][1] == 'weekday') {
-					// Weekday range (Mo-Fr)
-					selectors.weekday.push(function(tokens, at) { return function(date) {
+				if (tokens[at][1] == 'weekday' && tokens[at+1][0] == '[') {
+					// Conditional weekday (Mo[3])
+					at = parseNumRange(tokens, at+2);
+					if (tokens[at][1] !== ']')
+						throw '"]" expected';
+					at++;
+				} else if (tokens[at][1] == 'weekday') {
+					// Single weekday (Mo) or weekday range (Mo-Fr)
+					var is_range = tokens[at+1][0] == '-' && tokens[at+2][1] == 'weekday';
+
+					selectors.weekday.push(function(tokens, at, is_range) { return function(date) {
 						var ourweekday = date.getDay();
 						var weekday_from = tokens[at][0];
-						var weekday_to = tokens[at+2][0];
+						var weekday_to = is_range ? tokens[at+2][0] : weekday_from;
 
 						// handle reversed range
 						var inside = true;
@@ -217,29 +225,9 @@
 						} else {
 							return [inside, dateAtNextWeekday(date, weekday_to + 1)];
 						}
-					}}(tokens, at));
+					}}(tokens, at, is_range));
 
-					at += 3;
-				} else if (tokens[at][1] == 'weekday' && tokens[at+1][0] == '[') {
-					// Conditional weekday (Mo[3])
-					at = parseNumRange(tokens, at+2);
-					if (tokens[at][1] !== ']')
-						throw '"]" expected';
-					at++;
-				} else if (tokens[at][1] == 'weekday') {
-					// Single weekday (Mo)
-					selectors.weekday.push(function(tokens, at) { return function(date) {
-						var ourweekday = date.getDay();
-						var weekday_at = tokens[at][0];
-
-						if (ourweekday == weekday_at) {
-							return [true, dateAtNextWeekday(date, weekday_at + 1)];
-						} else {
-							return [false, dateAtNextWeekday(date, weekday_at)];
-						}
-					}}(tokens, at));
-
-					at++;
+					at += is_range ? 3 : 1;
 				} else {
 					throw 'Unexpected token in weekday range: "' + tokens[at] + '"';
 				}
