@@ -210,6 +210,9 @@
 				} else if (tokens[at][1] == 'weekday' && tokens[at+1][0] == '[') {
 					// Conditional weekday (Mo[3])
 					at = parseNumRange(tokens, at+2);
+					if (tokens[at][1] !== ']')
+						throw '"]" expected';
+					at++;
 				} else if (tokens[at][1] == 'weekday') {
 					// Single weekday (Mo)
 					selectors.weekday.push(function(tokens, at) { return function(date) {
@@ -259,12 +262,10 @@
 				if (at >= tokens.length)
 					break;
 
-				if (tokens[at][0] == ',') {
+				if (tokens[at][0] == ',')
 					at++;
-				} else if (tokens[at][0] == ']') {
-					at++;
+				else
 					break;
-				}
 			}
 
 			return at;
