@@ -33,39 +33,39 @@ This library is on the early stage of development, so only the most basic openin
 
 ### General rules ###
 
-* Supports multiple subsets of rules separated by semicolon ```Mo 10:00-20:00; Tu 12:00-18:00```
-* Supports off keyword ```Mo-Fr 10:00-20:00; 12:00-14:00 off```
+* Supports multiple rules separated by semicolon (```Mo 10:00-20:00; Tu 12:00-18:00```)
+* Supports off keyword (```Mo-Fr 10:00-20:00; 12:00-14:00 off```)
 * Handles exception rules correctly, e.g ```Mo-Fr 10:00-16:00; We 12:00-18:00``` is processed according to wiki, e.g. rule for Wednesday override, not extend previous rule
 
 ### Time ranges ###
 
-* Supports set of time ranges ```10:00-12:00,14:00-16:00```
-* Supports 24/7 keyword
-* Doesn't support ranges that wrap over midnight ```10:00-26:00```, ```10:00-02:00```
-* Doesn't support open end
-* Doesn't support ommitting time range ```Mo-Fr 10:00-20:00; Tu off```
+* Supports set of simple time ranges (```10:00-12:00,14:00-16:00```)
+* Supports 24/7 keyword, but not as a 00:00-24:00 placeholder (e.g. ```24/7``` is ok, but not ```Mo-Fr 24/7```, which is somewhat widely used according to tagwatch but still erroneous)
+* Doesn't support ranges that wrap over midnight (```10:00-26:00```, ```10:00-02:00```)
+* Doesn't support omitting time range (```Mo-Fr 10:00-20:00; Tu off```)
+* Doesn't support open end (```10:00+```)
+* Doesn't support sunrise/sunset keywords (```10:00-sunset```)
 
 ### Weekday ranges ###
 
-* Supports set of weekdays and weekday ranges ```Mo-We,Fr```
-* Supports weekdays which wrap to the next weeh ```Fr-Mo```
-* Doesn't support constrained weekdays ```Th[1]```, ```Fr[-1]```
+* Supports set of weekdays and weekday ranges (```Mo-We,Fr```)
+* Supports weekdays which wrap to the next week (```Fr-Mo```)
+* Doesn't support constrained weekdays (```Th[1]```, ```Fr[-1]```)
 
 ### Month ranges ###
 
-* Not supported
+* Not supported (```10:00-20:00; Feb off```)
 
 ### Monthday ranges ###
 
-* Not supported
+* Not supported (```Jan 01-26 10:00-20:00```, ```Jan 01-Feb 03 10:00-20:00```)
 
 ### Week ranges ###
 
-* Not supported
+* Not supported (```week 04-07 10:00-20:00```, ```week 2-53/2 10:00-20:00```)
 
 ### Other ###
 
-* Doesn't support sunrise/sunset keywords
 * Doesn't support PH/SH keywords
 
 ## Test ##
