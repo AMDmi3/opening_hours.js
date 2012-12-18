@@ -61,14 +61,22 @@
 					document.write('<p>Откроется ' + nextchange + ' (через ' + deltastr + ')</p>');
 				}
 
-				function drawTable(oh,date,number) {
-					date = new Date(date);
-					date.setHours(0, 0, 0, 0);
+				function drawTable(oh,date_today,number) {
+					var date_today = new Date(date_today);
+					date_today.setHours(0, 0, 0, 0);
+
+					var date = new Date(date_today);
+					date.setDate(date.getDate() - date.getDay() + 7);
 
 					document.write('<table>');
 
 					for (var row = 0; row < number; row++) {
-						document.write('<tr><td class="day ' + (date.getDay() % 6 == 0 ? 'weekend' : 'workday') + (row == 0 ? ' today' : '')+ '">');
+						date.setDate(date.getDate()+1);
+						if (date.getDay() == date_today.getDay()) {
+							date.setDate(date.getDate()-7);
+						}
+
+						document.write('<tr><td class="day ' + (date.getDay() % 6 == 0 ? 'weekend' : 'workday') + (date.getDay() == date_today.getDay() ? ' today' : '')+ '">');
 						document.write(months[date.getMonth()] + ' ' + date.getDate() + ', ' + weekdays[date.getDay()]);
 						document.write('</td><td class="times">');
 
@@ -96,7 +104,6 @@
 						}
 
 						document.write('</td></tr>');
-						date.setDate(date.getDate()+1);
 					}
 
 					document.write('</table>');
