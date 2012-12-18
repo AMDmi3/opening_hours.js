@@ -392,22 +392,15 @@
 
 		// return array of open intervals between two dates
 		this.openIntervals = function(from, to) {
-			var prevdate = from;
-			var curdate = from;
-
 			var res = [];
 
 			var state = this.isOpen(from);
+			var prevdate = from, curdate = this.nextChange(from);
 
 			if (state)
 				res.push([from]);
 
-			for (;;) {
-				curdate = this.nextChange(curdate);
-
-				if (curdate.getTime() >= to.getTime())
-					break;
-
+			for (; curdate.getTime() < to.getTime(); curdate = this.nextChange(curdate)) {
 				state = !state;
 
 				if (state)
@@ -426,19 +419,12 @@
 
 		// return total number of milliseconds a facility is open without a given date range
 		this.openDuration = function(from, to) {
-			var prevdate = from;
-			var curdate = from;
-
 			var res = 0;
 
 			var state = this.isOpen(from);
+			var prevdate = from, curdate = this.nextChange(prevdate);
 
-			for (;;) {
-				curdate = this.nextChange(curdate);
-
-				if (curdate.getTime() >= to.getTime())
-					break;
-
+			for (;curdate.getTime() < to.getTime(); curdate = this.nextChange(curdate)) {
 				state = !state;
 
 				if (!state)
