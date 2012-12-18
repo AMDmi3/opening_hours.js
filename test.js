@@ -77,6 +77,23 @@ test('Mo,Tu,We-Su 00:00-24:00', [
 	[ '2012.10.16 0:0', true ],
 ]);
 
+// Intervals
+intervals_test(['10:00-12:00,14:00-16:00', '10:00-16:00;12:00-14:00 off'], '2012.10.10 00:00', '2012.10.12 00:00', [
+	[ '2012.10.10 10:00', '2012.10.10 12:00' ],
+	[ '2012.10.10 14:00', '2012.10.10 16:00' ],
+	[ '2012.10.11 10:00', '2012.10.11 12:00' ],
+	[ '2012.10.11 14:00', '2012.10.11 16:00' ],
+]);
+intervals_test(['00:00-02:00;22:00-24:00', '22:00-02:00', '22:00-26:00'], '2012.10.10 00:00', '2012.10.12 00:00', [
+	[ '2012.10.10 00:00', '2012.10.10 02:00' ],
+	[ '2012.10.10 22:00', '2012.10.11 02:00' ],
+	[ '2012.10.11 22:00', '2012.10.12 00:00' ],
+]);
+
+// Durations
+duration_test(['10:00-12:00,14:00-16:00', '10:00-16:00;12:00-14:00 off'], '2012.10.10 00:00', '2012.10.12 00:00', 8*60*60*1000);
+duration_test(['00:00-02:00;22:00-24:00', '22:00-02:00', '22:00-26:00'], '2012.10.10 00:00', '2012.10.12 00:00', 8*60*60*1000);
+
 sys.puts(successfull_tests + '/' + total_tests + ' successfull')
 
 function test(values, checks) {
@@ -84,13 +101,13 @@ function test(values, checks) {
 		values = [ values ];
 	for (var value = 0; value < values.length; value++) {
 		var oh = new opening_hours(values[value]);
-		sys.puts('opening_hours=' + value);
+		sys.puts('opening_hours=' + values[value]);
 		for (var ncheck = 0; ncheck < checks.length; ncheck++) {
 			var sample = new Date(checks[ncheck][0]);
 			var expected_state = checks[ncheck][1];
 			var expected_change = typeof checks[ncheck][2] === 'undefined' ? undefined : new Date(checks[ncheck][2]);
 
-			sys.puts('  #' + ncheck + ': sample=' + sample + ', expected state=' + expected_state + ', expected change=' + expected_change + ': ');
+			sys.puts('  #' + ncheck + ': sample=' + sample + ', exp.state=' + expected_state + ', exp.change=' + expected_change + ': ');
 
 			var state = oh.isOpen(sample);
 			var change = oh.nextChange(sample);
@@ -110,5 +127,61 @@ function test(values, checks) {
 			if (!error)
 				successfull_tests++;
 		}
+	}
+}
+
+function intervals_test(values, from, to, expected_intervals) {
+	if (typeof values === 'string')
+		values = [ values ];
+	for (var value = 0; value < values.length; value++) {
+		var oh = new opening_hours(values[value]);
+		sys.puts('opening_hours=' + values[value]);
+
+		sys.puts('  intervals at (' + from + ', ' + to + '), exp.intervals=(' + expected_intervals.join('; ') + '):');
+
+		var error = false;
+
+		var intervals = oh.openIntervals(new Date(from), new Date(to));
+
+		if (intervals.length != expected_intervals.length) {
+			sys.puts('    [[1;31mFAILED[0m], unexpected number of intervals: ' + intervals.length);
+			error = true;
+		} else {
+			for (var nint = 0; nint < intervals.length; nint++) {
+				var expected_from = new Date(expected_intervals[nint][0]);
+				var expected_to = new Date(expected_intervals[nint][1]);
+
+				if (intervals[nint][0].getTime() !== expected_from.getTime() || intervals[nint][1].getTime() !== expected_to.getTime()) {
+					sys.puts('    [[1;31mFAILED[0m], unexpected interval ' + nint + ': [' + intervals[nint][0] + ':' + intervals[nint][1] + ']');
+					error = true;
+					break;
+				}
+			}
+		}
+
+		total_tests++;
+		if (!error)
+			successfull_tests++;
+	}
+}
+
+function duration_test(values, from, to, expected_duration) {
+	if (typeof values === 'string')
+		values = [ values ];
+	for (var value = 0; value < values.length; value++) {
+		var oh = new opening_hours(values[value]);
+		sys.puts('opening_hours=' + values[value]);
+		sys.puts('  open duration at (' + from + ', ' + to + '), exp.duration=' + expected_duration + '):');
+
+		var duration = oh.openDuration(new Date(from), new Date(to));
+
+		if (duration != expected_duration) {
+			sys.puts('    [[1;31mFAILED[0m], unexpected open duration: ' + duration);
+			error = true;
+		} else {
+			successfull_tests++;
+		}
+
+		total_tests++;
 	}
 }

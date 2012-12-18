@@ -389,5 +389,68 @@
 			} while (state[0] === prevstate[0]);
 			return prevstate[1];
 		}
+
+		// return array of open intervals between two dates
+		this.openIntervals = function(from, to) {
+			var prevdate = from;
+			var curdate = from;
+
+			var res = [];
+
+			var state = this.isOpen(from);
+
+			if (state)
+				res.push([from]);
+
+			for (;;) {
+				curdate = this.nextChange(curdate);
+
+				if (curdate.getTime() >= to.getTime())
+					break;
+
+				state = !state;
+
+				if (state)
+					res.push([curdate]);
+				else
+					res[res.length - 1].push(curdate);
+
+				prevdate = curdate;
+			}
+
+			if (state)
+				res[res.length - 1].push(to);
+
+			return res;
+		}
+
+		// return total number of milliseconds a facility is open without a given date range
+		this.openDuration = function(from, to) {
+			var prevdate = from;
+			var curdate = from;
+
+			var res = 0;
+
+			var state = this.isOpen(from);
+
+			for (;;) {
+				curdate = this.nextChange(curdate);
+
+				if (curdate.getTime() >= to.getTime())
+					break;
+
+				state = !state;
+
+				if (!state)
+					res += curdate.getTime() - prevdate.getTime();
+
+				prevdate = curdate;
+			}
+
+			if (state)
+				res += to.getTime() - prevdate.getTime()
+
+			return res;
+		}
 	}
 }));
