@@ -19,11 +19,17 @@ around-the-clock shop with some breaks.
 ## Library API
 
 ```javascript
+// constructor takes opening_hours tag value
 var oh = new opening_hours('Mo-Fr 12:00');
 
+// you can feed any date to library functions
+// here we take current date, but for the same result you may just omit date argument
 var now = new Date();
 
+// check whether the facility is `open' at the given date
 var state = 'The facility is now ' + oh.isOpen(now) ? 'open' : 'close';
+
+// get the date of the closest status change (opening or closing)
 var next = 'And that will change on' + oh.nextChange(now);
 ```
 
