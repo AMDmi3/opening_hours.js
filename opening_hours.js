@@ -389,6 +389,30 @@
 			} while (state[0] === prevstate[0]);
 			return prevstate[1];
 		}
+		
+		// return number of working hours per day
+    this.openHours = function(date) {
+			if (typeof date === 'undefined')
+				date = new Date();
+    
+      var onlyDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      var curdate = onlyDate;
+      var openTime = 0;
+      
+      while (curdate.getTime() - onlyDate.getTime() < 24*60*60*1000) {
+        var endDate = this.nextChange(curdate);
+        if (this.isOpen(curdate))
+          openTime = openTime + endDate.getTime() - curdate.getTime();
+        curdate = endDate;
+      }
+	    
+      onlyDate.setDate(onlyDate.getDate()+1)
+      if (curdate>onlyDate)
+        openTime = openTime - (curdate.getTime()-onlyDate.getTime());
+      
+      return openTime/60/60/1000;
+	  }
+		
 
 		// return array of open intervals between two dates
 		this.openIntervals = function(from, to) {
