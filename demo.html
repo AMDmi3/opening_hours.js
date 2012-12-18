@@ -2,16 +2,29 @@
 	<head>
 		<title>opening_hours demo</title>
 		<script type="text/javascript" src="opening_hours.js"></script>
+		<style type="text/css">
+			body { font-family: sans-serif }
+			table {}
+			td.day { text-align: center; padding: 0px 10px }
+			td.workday { background-color: #E0E0FF }
+			td.weekend { background-color: #FFC0C0 }
+			td.today { font-weight: bold }
+			td.times { width: 400; background-color: #E0E0E0 }
+
+			div.timebar { height: 20px; display: inline-block }
+			div.open { background-color: #FFFFFF; margin: 0px -1px; border: 1px solid #808080; border-radius: 5px }
+			div.closed {}
+		</style>
 	</head>
 	<body>
 		<script>
+			var months = ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
+			var weekdays = ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+
 			var examples = [
-				'00:00-12:00',
-				'12:00-24:00',
-				'Mo-Fr 00:00-24:00',
-				'Sa-Su 00:00-24:00',
-				'00:00-24:00; 0:00-12:00 off',
-				'00:00-24:00; 12:00-24:00 off',
+				'Mo-Fr 10:00-20:00',
+				'Mo,Tu,Th,Fr 12:00-18:00;Sa 12:00-17:00',
+				'00:00-24:00; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off',
 			];
 
 			var now = new Date();
@@ -47,6 +60,49 @@
 					document.write('<p>Сейчас заведение закрыто</p>');
 					document.write('<p>Откроется ' + nextchange + ' (через ' + deltastr + ')</p>');
 				}
+
+				function drawTable(oh,date,number) {
+					date = new Date(date);
+					date.setHours(0, 0, 0, 0);
+
+					document.write('<table>');
+
+					for (var row = 0; row < number; row++) {
+						document.write('<tr><td class="day ' + (date.getDay() % 6 == 0 ? 'weekend' : 'workday') + (row == 0 ? ' today' : '')+ '">');
+						document.write(months[date.getMonth()] + ' ' + date.getDate() + ', ' + weekdays[date.getDay()]);
+						document.write('</td><td class="times">');
+
+						var state = oh.isOpen(date);
+						var prevdate = date;
+						var curdate = date;
+
+						while (curdate.getTime() - date.getTime() < 24*60*60*1000) {
+							curdate = oh.nextChange(curdate);
+
+							var fr = prevdate.getTime() - date.getTime();
+							var to = curdate.getTime() - date.getTime();
+
+							if (to > 24*60*60*1000)
+								to = 24*60*60*1000;
+
+							fr *= 100/1000/60/60/24;
+							to *= 100/1000/60/60/24;
+
+							document.write('<div class="timebar ' + (state?'open':'closed') + '" style="width:' + (to-fr) + '%"></div>');
+							//document.write(fr + '-' + to + ',' );
+
+							prevdate = curdate;
+							state = !state;
+						}
+
+						document.write('</td></tr>');
+						date.setDate(date.getDate()+1);
+					}
+
+					document.write('</table>');
+				}
+
+				drawTable(oh, now, 7);
 			}
 		</script>
 	</body>
