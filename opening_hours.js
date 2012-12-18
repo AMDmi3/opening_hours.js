@@ -130,6 +130,8 @@
 		// Time range parser (10:00-12:00,14:00-16:00)
 		//======================================================================
 		function parseTimeRange(tokens, at, selectors) {
+			var minutes_in_day = 24 * 60;
+
 			while (at < tokens.length) {
 				if (tokens[at][1] == 'number' && tokens[at+1][0] == ':' && tokens[at+2][1] == 'number' && tokens[at+3][0] == '-' && tokens[at+4][1] == 'number' && tokens[at+5][0] == ':' && tokens[at+6][1] == 'number') {
 					// Time range
@@ -138,20 +140,26 @@
 						var minutes_from = tokens[at][0] * 60 + tokens[at+2][0] * 1;
 						var minutes_to = tokens[at+4][0] * 60 + tokens[at+6][0] * 1;
 
-						if (ourminutes < minutes_from) {
-							var eventdate = new Date(date);
-							eventdate.setHours(0, minutes_from, 0, 0);
-							return [false, eventdate];
-						} else if (ourminutes < minutes_to) {
-							var eventdate = new Date(date);
-							eventdate.setHours(0, minutes_to, 0, 0);
-							return [true, eventdate];
-						} else {
-							var eventdate = new Date(date);
-							eventdate.setHours(0, minutes_from, 0, 0);
-							eventdate.setDate(eventdate.getDate()+1);
-							return [false, eventdate];
+						// normalize minutes into range (XXX: what if it's further than tomorrow?)
+						if (minutes_to > minutes_in_day)
+							minutes_to -= minutes_in_day;
+
+						// handle reversed range
+						var inside = true;
+
+						if (minutes_to < minutes_from) {
+							var tmp = minutes_to;
+							minutes_to = minutes_from;
+							minutes_from = tmp;
+							inside = false;
 						}
+
+						if (ourminutes < minutes_from)
+							return [!inside, dateAtNextDayMinutes(date, minutes_from)];
+						else if (ourminutes < minutes_to)
+							return [inside, dateAtNextDayMinutes(date, minutes_to)];
+						else
+							return [!inside, dateAtNextDayMinutes(date, minutes_from + minutes_in_day)];
 					}}(tokens, at));
 
 					at += 7;

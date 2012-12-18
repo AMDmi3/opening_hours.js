@@ -46,8 +46,8 @@ This library is on the early stage of development, so only the most basic openin
 ### Time ranges ###
 
 * Supports set of simple time ranges (```10:00-12:00,14:00-16:00```)
+* Supports ranges wrapping over midnight (```10:00-26:00```, ```10:00-02:00```)
 * Supports 24/7 keyword, but not as a 00:00-24:00 placeholder (e.g. ```24/7``` is ok, but not ```Mo-Fr 24/7```, which is somewhat widely used according to tagwatch but still erroneous)
-* Doesn't support ranges that wrap over midnight (```10:00-26:00```, ```10:00-02:00```)
 * Doesn't support omitting time range (```Mo-Fr 10:00-20:00; Tu off```)
 * Doesn't support open end (```10:00+```)
 * Doesn't support sunrise/sunset keywords (```10:00-sunset```)
