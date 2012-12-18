@@ -199,18 +199,20 @@
 						var weekday_from = tokens[at][0];
 						var weekday_to = tokens[at+2][0];
 
-						if (weekday_from <= weekday_to) {
-							if (ourweekday < weekday_from || ourweekday > weekday_to) {
-								return [false, dateAtNextWeekday(date, weekday_from)];
-							} else {
-								return [true, dateAtNextWeekday(date, weekday_to + 1)];
-							}
+						// handle reversed range
+						var inside = true;
+
+						if (weekday_to < weekday_from) {
+							var tmp = weekday_to;
+							weekday_to = weekday_from - 1;
+							weekday_from = tmp + 1;
+							inside = false;
+						}
+
+						if (ourweekday < weekday_from || ourweekday > weekday_to) {
+							return [!inside, dateAtNextWeekday(date, weekday_from)];
 						} else {
-							if (ourweekday <= weekday_to || ourweekday >= weekday_from) {
-								return [true, dateAtNextWeekday(date, weekday_to + 1)];
-							} else {
-								return [false, dateAtNextWeekday(date, weekday_from)];
-							}
+							return [inside, dateAtNextWeekday(date, weekday_to + 1)];
 						}
 					}}(tokens, at));
 
