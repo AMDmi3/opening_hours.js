@@ -156,10 +156,6 @@ test.addTest('Complex monthday ranges (not documented)', [
 		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
 	], 1000 * 60 * 60 * 24 * 21);
 
-// TODO: monthday ranges
-// TODO: monthday ranges w/o month
-// TODO: monthday ranges with /n
-
 process.exit(test.run() ? 0 : 1);
 
 //======================================================================
