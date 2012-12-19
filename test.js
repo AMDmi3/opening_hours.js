@@ -1,4 +1,3 @@
-var assert = require('assert');
 var sys = require('sys');
 
 var opening_hours = require('./opening_hours.js');
