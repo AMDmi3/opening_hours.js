@@ -133,7 +133,7 @@
 		function parseTimeRange(tokens, at, selectors) {
 			var minutes_in_day = 24 * 60;
 
-			while (at < tokens.length) {
+			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'number', ':', 'number', '-', 'number', ':', 'number')) {
 					// Time range
 					selectors.time.push(function(tokens, at) { return function(date) {
@@ -171,11 +171,8 @@
 					throw 'Unexpected token in time range: "' + tokens[at][0] + '"';
 				}
 
-				if (at < tokens.length && tokens[at][0] == ',')
-					at++;
-				else
+				if (!matchTokens(tokens, at, ','))
 					break;
-
 			}
 
 			return at;
@@ -192,7 +189,7 @@
 		// Weekday range parser (Mo,We-Fr,Sa[1-2,-1])
 		//======================================================================
 		function parseWeekdayRange(tokens, at, selectors) {
-			while (at < tokens.length) {
+			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'weekday', '[')) {
 					// Conditional weekday (Mo[3])
 					at = parseNumRange(tokens, at+2);
@@ -234,9 +231,7 @@
 					throw 'Unexpected token in weekday range: "' + tokens[at] + '"';
 				}
 
-				if (at < tokens.length && tokens[at][0] == ',')
-					at++;
-				else
+				if (!matchTokens(tokens, at, ','))
 					break;
 			}
 
@@ -245,7 +240,7 @@
 
 		// Numeric list parser (1,2,3-4,-1), used in weekday parser above
 		function parseNumRange(tokens, at) {
-			while (at < tokens.length) {
+			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'number', '-', 'number')) {
 					// Number range
 					at += 3;
@@ -259,9 +254,7 @@
 					throw 'Unexpected token in number range: "' + tokens[at][0] + '"';
 				}
 
-				if (at < tokens.length && tokens[at][0] == ',')
-					at++;
-				else
+				if (!matchTokens(tokens, at, ','))
 					break;
 			}
 
@@ -293,7 +286,7 @@
 		// Month range parser (Jan,Feb-Mar)
 		//======================================================================
 		function parseMonthRange(tokens, at) {
-			while (at < tokens.length) {
+			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'month')) {
 					// Single month (Jan) or month range (Feb-Mar)
 					var is_range = matchTokens(tokens, at+1, '-', 'month');
@@ -329,9 +322,7 @@
 					throw 'Unexpected token in weekday range: "' + tokens[at] + '"';
 				}
 
-				if (at < tokens.length && tokens[at][0] == ',')
-					at++;
-				else
+				if (!matchTokens(tokens, at, ','))
 					break;
 			}
 
