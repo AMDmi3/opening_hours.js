@@ -27,20 +27,22 @@ var oh = new opening_hours('Mo-Fr 12:00-14:00');
 var now = new Date();
 
 // check whether the facility is `open' at the given date
-var state = 'The facility is now ' + oh.isOpen(now) ? 'open' : 'close';
+var state_msg = 'The facility is now ' + oh.isOpen(now) ? 'open' : 'close';
 
 // get the date of the closest status change (opening or closing)
-var next = 'And that will change on' + oh.nextChange(now);
+var next_msg = 'And that will change on' + oh.nextChange(now);
 
 // let us use another date, 1 day from now to the future
 var then = new Date(now); then.setDate(then.getDate() + 1);
 
 // get array of open intervals for a given date range
 var intervals = oh.openIntervals(now, then);
-var first_interval = 'We are open from ' + intervals[0][0] + ' till ' + intervals[0][1];
+for (var i in intervals)  {
+	var interval_msg = 'We are open from ' + intervals[i][0] + ' till ' + intervals[i][1];
+}
 
 // get a open duration for a given date range
-var durmsg = 'We are open for ' + oh.openDuraton(now, then) + ' milliseconds today';
+var duration_msg = 'We are open for ' + oh.openDuraton(now, then) + ' milliseconds today';
 ```
 
 ## Features
