@@ -393,7 +393,7 @@
 			if (state)
 				res.push([from]);
 
-			for (; curdate.getTime() < to.getTime(); curdate = this.nextChange(curdate)) {
+			for (; typeof curdate !== 'undefined' && curdate.getTime() < to.getTime(); curdate = this.nextChange(curdate)) {
 				state = !state;
 
 				if (state)
@@ -417,7 +417,7 @@
 			var state = this.isOpen(from);
 			var prevdate = from, curdate = this.nextChange(prevdate);
 
-			for (;curdate.getTime() < to.getTime(); curdate = this.nextChange(curdate)) {
+			for (; typeof curdate !== 'undefined' && curdate.getTime() < to.getTime(); curdate = this.nextChange(curdate)) {
 				state = !state;
 
 				if (!state)
