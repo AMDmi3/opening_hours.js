@@ -189,6 +189,9 @@ function opening_hours_test() {
 	function intervalsToString(intervals) {
 		var res = '';
 
+		if (intervals.length == 0)
+			return '(none)';
+
 		for (var interval = 0; interval < intervals.length; interval++) {
 			var from = formatDate(intervals[interval][0]);
 			var to = formatDate(intervals[interval][1]);
