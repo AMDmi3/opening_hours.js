@@ -40,7 +40,7 @@ test.addTest('Weekdays', [
 		'Mo,Th,Sa-Su 10:00-12:00',
 		'Th,Sa-Mo 10:00-12:00',
 		'10:00-12:00; Tu-We 00:00-24:00 off; Fr 00:00-24:00 off',
-		ignored('10:00-12:00; Tu-We off; Fr off', 'omitting time interval not implemented'),
+		'10:00-12:00; Tu-We off; Fr off',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 12:00' ],
 		[ '2012.10.04 10:00', '2012.10.04 12:00' ],
@@ -49,8 +49,8 @@ test.addTest('Weekdays', [
 	], 1000 * 60 * 60 * 2 * 4);
 
 test.addTest('Omitted time', [
-		ignored('Mo,We'),
-		ignored('Mo-We; Tu off'),
+		'Mo,We',
+		'Mo-We; Tu off',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.02 0:00' ],
 		[ '2012.10.03 0:00', '2012.10.04 0:00' ],

@@ -59,8 +59,8 @@ This library is on the early stage of development, so only the most basic openin
 
 * Supports set of simple time ranges (```10:00-12:00,14:00-16:00```)
 * Supports 24/7 keyword (as a synonym for ```00:00-24:00```, so ```Mo-Fr 24/7```, though not correct, will be handled as intended)
+* Supports omitting time range (```Mo-Fr; Tu off```)
 * Doesn't support ranges wrapping over midnight (```10:00-26:00```, ```10:00-02:00```) correctly (wrapped interval goes to the *same* day, while it should go to the *next* one)
-* Doesn't support omitting time range (```Mo-Fr 10:00-20:00; Tu off```)
 * Doesn't support open end (```10:00+```)
 * Doesn't support sunrise/sunset keywords (```10:00-sunset```)
 

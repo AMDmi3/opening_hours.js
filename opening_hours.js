@@ -349,6 +349,9 @@
 			for (var nblock = 0; nblock < date_matching_blocks.length; nblock++) {
 				var block = date_matching_blocks[nblock];
 
+				if (blocks[block].time.length == 0)
+					resultstate = blocks[block].meaning;
+
 				for (var timesel = 0; timesel < blocks[block].time.length; timesel++) {
 					var res = blocks[block].time[timesel](date);
 					if (res[0])
