@@ -468,9 +468,6 @@
 		// Main selector traversing function
 		//======================================================================
 		function getState(date) {
-			if (typeof date === 'undefined')
-				date = new Date();
-
 			var resultstate = false;
 			var changedate;
 
@@ -532,21 +529,32 @@
 
 		// check whether facility is `open' on the given date (or now)
 		this.isOpen = function(date) {
+			if (typeof date === 'undefined')
+				date = new Date();
+
 			return getState(date)[0];
 		}
 
 		// returns time of next status change
 		this.nextChange = function(date, maxdate) {
-			var state = getState(date);
-			var firststate = state;
-			var prevstate;
+			if (typeof date === 'undefined')
+				date = new Date();
+
+			// sane default
 			if (typeof maxdate === 'undefined')
-				maxdate = new Date(date + 1000*60*60*24*365*5);
-			do {
+				maxdate = new Date(date.getTime() + 1000*60*60*24*365*5);
+
+			var state = [ undefined, date ], prevstate;
+
+			while (1) {
 				prevstate = state;
 				state = getState(prevstate[1]);
 
-				// full range
+				// breaks when the state has changed, and prev. state is known
+				if (!state[0] === prevstate[0])
+					break;
+
+				// open range
 				if (typeof state[1] === 'undefined')
 					return undefined;
 
@@ -556,9 +564,10 @@
 
 				// this may happen if the facility is always open/closed,
 				// we may need a better way of checking for that
-				if (state[1].getTime() > maxdate)
+				if (state[1].getTime() > maxdate.getTime())
 					return undefined;
-			} while (state[0] === prevstate[0]);
+			}
+
 			return prevstate[1];
 		}
 
