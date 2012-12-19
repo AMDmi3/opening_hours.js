@@ -159,11 +159,11 @@
 						}
 
 						if (ourminutes < minutes_from)
-							return [!inside, dateAtNextDayMinutes(date, minutes_from)];
+							return [!inside, dateAtDayMinutes(date, minutes_from)];
 						else if (ourminutes < minutes_to)
-							return [inside, dateAtNextDayMinutes(date, minutes_to)];
+							return [inside, dateAtDayMinutes(date, minutes_to)];
 						else
-							return [!inside, dateAtNextDayMinutes(date, minutes_from + minutes_in_day)];
+							return [!inside, dateAtDayMinutes(date, minutes_from + minutes_in_day)];
 					}}(tokens, at));
 
 					at += 7;
@@ -179,7 +179,7 @@
 		}
 
 		// for given date, returns date moved to the start of specified day minute
-		function dateAtNextDayMinutes(date, minutes) {
+		function dateAtDayMinutes(date, minutes) {
 			var tmpdate = new Date(date);
 			tmpdate.setHours(0, minutes, 0, 0);
 			return tmpdate;
@@ -233,13 +233,13 @@
 
 							// we hit the target day
 							if (date.getDate() == target_day_this_month.getDate())
-								return [true, dateAtNextDayMinutes(date, minutes_in_day)];
+								return [true, dateAtDayMinutes(date, minutes_in_day)];
 
 							// we're before target day
 							if (date.getDate() < target_day_this_month.getDate())
 								return [false, target_day_this_month];
 
-							// we're after target day, set chack date to next month
+							// we're after target day, set check date to next month
 							return [false, start_of_next_month];
 						}}(tokens[at][0], numbers[nnumber]));
 					}
