@@ -76,7 +76,7 @@
 					tokens.push([tmp[0], 'number']);
 					value = value.substr(tmp[0].length);
 				} else if (value.match(/^\s/)) {
-					// whitespace are fixed
+					// whitespace is ignored
 					value = value.substr(1)
 				} else {
 					// other single-character tokens
