@@ -147,9 +147,9 @@
 						if (minutes_to > minutes_in_day)
 							minutes_to -= minutes_in_day;
 
-						// handle reversed range
 						var inside = true;
 
+						// handle reversed range
 						if (minutes_to < minutes_from) {
 							var tmp = minutes_to;
 							minutes_to = minutes_from;
@@ -207,15 +207,19 @@
 						var weekday_from = tokens[at][0];
 						var weekday_to = is_range ? tokens[at+2][0] : weekday_from;
 
-						// handle reversed range
 						var inside = true;
 
+						// handle reversed range
 						if (weekday_to < weekday_from) {
 							var tmp = weekday_to;
 							weekday_to = weekday_from - 1;
 							weekday_from = tmp + 1;
 							inside = false;
 						}
+
+						// handle full range
+						if (weekday_to < weekday_from)
+							return [!inside];
 
 						if (ourweekday < weekday_from || ourweekday > weekday_to) {
 							return [!inside, dateAtNextWeekday(date, weekday_from)];
