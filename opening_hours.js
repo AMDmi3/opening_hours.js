@@ -474,11 +474,12 @@
 		}
 
 		// returns time of next status change
-		this.nextChange = function(date) {
+		this.nextChange = function(date, maxdate) {
 			var state = getState(date);
 			var firststate = state;
 			var prevstate;
-			var maxdelta = 60*60*24*365*1000;
+			if (typeof maxdate === 'undefined')
+				maxdate = new Date(date + 1000*60*60*24*365*5);
 			do {
 				prevstate = state;
 				state = getState(prevstate[1]);
@@ -493,7 +494,7 @@
 
 				// this may happen if the facility is always open/closed,
 				// we may need a better way of checking for that
-				if (state[1].getTime() - firststate[1].getTime() > maxdelta)
+				if (state[1].getTime() > maxdate)
 					return undefined;
 			} while (state[0] === prevstate[0]);
 			return prevstate[1];
@@ -504,12 +505,12 @@
 			var res = [];
 
 			var state = this.isOpen(from);
-			var prevdate = from, curdate = this.nextChange(from);
+			var prevdate = from, curdate = this.nextChange(from, to);
 
 			if (state)
 				res.push([from]);
 
-			for (; typeof curdate !== 'undefined' && curdate.getTime() < to.getTime(); curdate = this.nextChange(curdate)) {
+			for (; typeof curdate !== 'undefined' && curdate.getTime() < to.getTime(); curdate = this.nextChange(curdate, to)) {
 				state = !state;
 
 				if (state)
@@ -531,9 +532,9 @@
 			var res = 0;
 
 			var state = this.isOpen(from);
-			var prevdate = from, curdate = this.nextChange(prevdate);
+			var prevdate = from, curdate = this.nextChange(prevdate, to);
 
-			for (; typeof curdate !== 'undefined' && curdate.getTime() < to.getTime(); curdate = this.nextChange(curdate)) {
+			for (; typeof curdate !== 'undefined' && curdate.getTime() < to.getTime(); curdate = this.nextChange(curdate, to)) {
 				state = !state;
 
 				if (!state)
