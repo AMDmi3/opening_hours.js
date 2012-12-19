@@ -40,6 +40,7 @@
 			var selectors = {
 				time: [],
 				weekday: [],
+				month: [],
 
 				meaning: true,
 			};
@@ -292,7 +293,63 @@
 		// Month range parser (Jan,Feb-Mar)
 		//======================================================================
 		function parseMonthRange(tokens, at) {
-			return at + 1;
+			while (at < tokens.length) {
+				if (matchTokens(tokens, at, 'month')) {
+					// Single month (Jan) or month range (Feb-Mar)
+					var is_range = matchTokens(tokens, at+1, '-', 'month');
+
+					selectors.month.push(function(tokens, at, is_range) { return function(date) {
+						var ourmonth = date.getMonth();
+						var month_from = tokens[at][0];
+						var month_to = is_range ? tokens[at+2][0] : month_from;
+
+						var inside = true;
+
+						// handle reversed range
+						if (month_to < month_from) {
+							var tmp = month_to;
+							month_to = month_from - 1;
+							month_from = tmp + 1;
+							inside = false;
+						}
+
+						// handle full range
+						if (month_to < month_from)
+							return [!inside];
+
+						if (ourmonth < month_from || ourmonth > month_to) {
+							return [!inside, dateAtNextMonth(date, month_from)];
+						} else {
+							return [inside, dateAtNextMonth(date, month_to + 1)];
+						}
+					}}(tokens, at, is_range));
+
+					at += is_range ? 3 : 1;
+				} else {
+					throw 'Unexpected token in weekday range: "' + tokens[at] + '"';
+				}
+
+				if (at < tokens.length && tokens[at][0] == ',')
+					at++;
+				else
+					break;
+			}
+
+			return at;
+		}
+
+		function dateAtNextMonth(date, month) {
+			var tmpdate = new Date(date);
+
+			tmpdate.setHours(0, 0, 0, 0);
+			tmpdate.setDate(1);
+
+			if (tmpdate.getMonth() < month)
+				tmpdate.setMonth(month);
+			else if (tmpdate.getMonth() > month)
+				tmpdate.setMonth(month + 12);
+
+			return tmpdate;
 		}
 
 		//======================================================================
@@ -312,7 +369,7 @@
 			var resultstate = false;
 			var changedate;
 
-			var dateseltypes = [ 'weekday' ];
+			var dateseltypes = [ 'weekday', 'month' ];
 			var date_matching_blocks = [];
 
 			for (var block = 0; block < blocks.length; block++) {
@@ -333,7 +390,7 @@
 							changedate = res[1];
 					}
 
-					if (has_date_selectors && !has_matching_selector) {
+					if (dateselectors.length > 0 && !has_matching_selector) {
 						matching_date_block = false;
 						// XXX: do we need to break here, or we need to adjust time?
 					}

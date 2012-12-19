@@ -72,7 +72,8 @@ This library is on the early stage of development, so only the most basic openin
 
 ### Month ranges ###
 
-* Not supported (```10:00-20:00; Feb off```)
+* Supports set of months and month ranges (```Jan,Mar-Apr```)
+* Supports months which wrap to the next year (```Dec-Jan```)
 
 ### Monthday ranges ###
 

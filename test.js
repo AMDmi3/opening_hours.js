@@ -106,9 +106,9 @@ test.addTest('Exception rules', [
 	], 1000 * 60 * 60 * 6 * 5);
 
 test.addTest('Month ranges', [
-		ignored('Nov-Feb 00:00-24:00'),
-		ignored('Jan,Feb,Nov,Dec 00:00-24:00'),
-		ignored('00:00-24:00; Mar-Oct off'),
+		'Nov-Feb 00:00-24:00',
+		'Jan,Feb,Nov,Dec 00:00-24:00',
+		'00:00-24:00; Mar-Oct off',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.01 00:00', '2012.03.01 00:00' ],
 		[ '2012.11.01 00:00', '2013.01.01 00:00' ],
