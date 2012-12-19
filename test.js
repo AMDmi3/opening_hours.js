@@ -208,6 +208,7 @@ function opening_hours_test() {
 			passed = true;
 		} else if (ignored) {
 			str += '[1;33mIGNORED[0m, reason: ' + ignored;
+			passed = true;
 		} else if (crashed) {
 			str += '[1;35mCRASHED[0m, reason: ' + crashed;
 		} else {
