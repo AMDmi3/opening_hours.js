@@ -68,7 +68,7 @@ This library is on the early stage of development, so only the most basic openin
 
 * Supports set of weekdays and weekday ranges (```Mo-We,Fr```)
 * Supports weekdays which wrap to the next week (```Fr-Mo```)
-* Doesn't support constrained weekdays (```Th[1]```, ```Fr[-1]```)
+* Supports constrained weekdays (```Th[1]```, ```Fr[-1]```)
 
 ### Month ranges ###
 

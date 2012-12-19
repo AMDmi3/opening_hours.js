@@ -14,6 +14,8 @@
 		var months = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
 		var weekdays = { Su: 0, Mo: 1, Tu: 2, We: 3, Th: 4, Fr: 5, Sa: 6 };
 
+		var minutes_in_day = 24 * 60;
+
 		//======================================================================
 		// Constructor - entry to parsing code
 		//======================================================================
@@ -131,8 +133,6 @@
 		// Time range parser (10:00-12:00,14:00-16:00)
 		//======================================================================
 		function parseTimeRange(tokens, at, selectors) {
-			var minutes_in_day = 24 * 60;
-
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'number', ':', 'number', '-', 'number', ':', 'number')) {
 					// Time range
@@ -192,10 +192,59 @@
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'weekday', '[')) {
 					// Conditional weekday (Mo[3])
-					at = parseNumRange(tokens, at+2);
-					if (tokens[at][1] !== ']')
+					var numbers = [];
+
+					// Get list of contstaints
+					var endat = parseNumRange(tokens, at+2, function(from, to) {
+						if (from == to)
+							numbers.push(from);
+						else if (from < to)
+							for (var i = from; i <= to; i++)
+								numbers.push(i);
+						else
+							throw 'Bad range ' + from + '-' + to;
+					});
+
+					if (!matchTokens(tokens, endat, ']'))
 						throw '"]" expected';
-					at++;
+
+					// Create selector for each list element
+					for (var nnumber = 0; nnumber < numbers.length; nnumber++) {
+						// Ignore bad numbers
+						if (numbers[nnumber] == 0 || numbers[nnumber] < -5 || numbers[nnumber] > 5)
+							continue;
+
+						selectors.weekday.push(function(weekday, number) { return function(date) {
+							var start_of_this_month = new Date(date.getFullYear(), date.getMonth(), 1);
+							var start_of_next_month = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+
+							var target_day_this_month;
+
+							if (number > 0) {
+								target_day_this_month = dateAtNextWeekday(start_of_this_month, weekday);
+								target_day_this_month.setDate(target_day_this_month.getDate() + (number - 1) * 7);
+							} else {
+								target_day_this_month = dateAtNextWeekday(start_of_next_month, weekday);
+								target_day_this_month.setDate(target_day_this_month.getDate() + number * 7);
+							}
+
+							if (target_day_this_month < start_of_this_month || target_day_this_month >= start_of_next_month)
+								return [false, start_of_next_month];
+
+							// we hit the target day
+							if (date.getDate() == target_day_this_month.getDate())
+								return [true, dateAtNextDayMinutes(date, minutes_in_day)];
+
+							// we're before target day
+							if (date.getDate() < target_day_this_month.getDate())
+								return [false, target_day_this_month];
+
+							// we're after target day, set chack date to next month
+							return [false, start_of_next_month];
+						}}(tokens[at][0], numbers[nnumber]));
+					}
+
+					at = endat + 1;
 				} else if (matchTokens(tokens, at, 'weekday')) {
 					// Single weekday (Mo) or weekday range (Mo-Fr)
 					var is_range = matchTokens(tokens, at+1, '-', 'weekday');
@@ -239,16 +288,19 @@
 		}
 
 		// Numeric list parser (1,2,3-4,-1), used in weekday parser above
-		function parseNumRange(tokens, at) {
+		function parseNumRange(tokens, at, func) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'number', '-', 'number')) {
 					// Number range
+					func(tokens[at][0], tokens[at+2][0]);
 					at += 3;
 				} else if (matchTokens(tokens, at, '-', 'number')) {
 					// Negative number
+					func(-tokens[at+1][0], -tokens[at+1][0]);
 					at += 2
 				} else if (matchTokens(tokens, at, 'number')) {
 					// Single number
+					func(tokens[at][0], tokens[at][0]);
 					at++;
 				} else {
 					throw 'Unexpected token in number range: "' + tokens[at][0] + '"';
