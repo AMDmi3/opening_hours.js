@@ -376,9 +376,13 @@
 				prevstate = state;
 				state = getState(prevstate[1]);
 
+				// full range
+				if (typeof state[1] === 'undefined')
+					return undefined;
+
 				// this indicates error in some selector generating code above
 				if (state[1].getTime() <= prevstate[1].getTime())
-					throw "Fatal: infinite loop in nextChange";
+					throw 'Fatal: infinite loop in nextChange';
 
 				// this may happen if the facility is always open/closed,
 				// we may need a better way of checking for that
