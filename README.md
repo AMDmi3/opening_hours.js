@@ -81,7 +81,8 @@ This library is on the early stage of development, so only the most basic openin
 
 ### Week ranges ###
 
-* Not supported (```week 04-07 10:00-20:00```, ```week 2-53/2 10:00-20:00```)
+* Supports week ranges (```week 04-07 10:00-20:00```)
+* Supports periodic weeks (```week 2-53/2 10:00-20:00```)
 
 ### Other ###
 

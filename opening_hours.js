@@ -14,7 +14,8 @@
 		var months = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
 		var weekdays = { Su: 0, Mo: 1, Tu: 2, We: 3, Th: 4, Fr: 5, Sa: 6 };
 
-		var minutes_in_day = 24 * 60;
+		var minutes_in_day = 60 * 24;
+		var msec_in_week = 1000 * 60 * 60 * 24 * 7;
 
 		//======================================================================
 		// Constructor - entry to parsing code
@@ -41,7 +42,9 @@
 
 			var selectors = {
 				time: [],
+
 				weekday: [],
+				week: [],
 				month: [],
 
 				meaning: true,
@@ -112,7 +115,7 @@
 				} else if (matchTokens(tokens, at, 'month')) {
 					at = parseMonthRange(tokens, at);
 				} else if (matchTokens(tokens, at, 'week')) {
-					at = parseWeekRange(tokens, at);
+					at = parseWeekRange(tokens, at + 1);
 				} else if (matchTokens(tokens, at, 'number', ':')) {
 					at = parseTimeRange(tokens, at, selectors);
 				} else if (matchTokens(tokens, at, 'off')) {
@@ -331,7 +334,66 @@
 		// Week range parser (week 11-20, week 1-53/2)
 		//======================================================================
 		function parseWeekRange(tokens, at) {
-			return at + 1;
+			for (; at < tokens.length; at++) {
+				if (matchTokens(tokens, at, 'number')) {
+					var is_range = matchTokens(tokens, at+1, '-', 'number'), has_period = false;
+					if (is_range)
+						has_period = matchTokens(tokens, at+3, '/', 'number');
+
+					selectors.week.push(function(tokens, at, is_range, has_period) { return function(date) {
+						var ourweek = Math.floor((date - dateAtWeek(date, 0)) / msec_in_week);
+
+						var week_from = tokens[at][0] - 1;
+						var week_to = is_range ? tokens[at+2][0] - 1 : week_from;
+
+						var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
+
+						// before range
+						if (ourweek < week_from)
+							return [false, dateLimitYear(dateAtWeek(date, week_from), date.getFullYear())];
+
+						// we're after range, set check date to next year
+						if (ourweek > week_to)
+							return [false, start_of_next_year];
+
+						// we're in range
+						var period;
+						if (has_period) {
+							var period = +tokens[at+4][0];
+							if (period > 1) {
+								var in_period = (ourweek - week_from) % period == 0;
+								if (in_period)
+									return [true, dateLimitYear(dateAtWeek(date, ourweek + 1), date.getFullYear())];
+								else
+									return [false, dateLimitYear(dateAtWeek(date, ourweek + period - 1), date.getFullYear())];
+							}
+						}
+
+						return [true, dateLimitYear(dateAtWeek(date, week_to + 1), date.getFullYear())];
+					}}(tokens, at, is_range, has_period));
+
+					at += 1 + (is_range ? 2 : 0) + (has_period ? 2 : 0);
+				} else {
+					throw 'Unexpected token in weekday range: "' + tokens[at] + '"';
+				}
+
+				if (!matchTokens(tokens, at, ','))
+					break;
+			}
+
+			return at;
+		}
+
+		function dateAtWeek(date, week) {
+			var tmpdate = new Date(date.getFullYear(), 0, 1); // start of year
+			tmpdate.setDate(tmpdate.getDate() - (tmpdate.getDay() + 6) % 7 + week * 7); // start of week n
+			return tmpdate;
+		}
+
+		function dateLimitYear(date, year) {
+			if (date.getFullYear() > year)
+				return new Date(date.getFullYear(), 0, 1);
+			return date;
 		}
 
 		//======================================================================
@@ -412,7 +474,7 @@
 			var resultstate = false;
 			var changedate;
 
-			var dateseltypes = [ 'weekday', 'month' ];
+			var dateseltypes = [ 'weekday', 'week', 'month' ];
 			var date_matching_blocks = [];
 
 			for (var block = 0; block < blocks.length; block++) {
