@@ -86,11 +86,11 @@
 		}
 
 		// Function to check token array for specific pattern
-		function matchTokens(tokens, at, match) {
-			for (var i = 0; i < match.length; i++) {
+		function matchTokens(tokens, at /*, matches... */) {
+			for (var i = 0; i < arguments.length - 2; i++) {
 				if (typeof tokens[at + i] === 'undefined')
 					return false;
-				if (tokens[at + i][1] !== match[i])
+				if (tokens[at + i][1] !== arguments[i + 2])
 					return false;
 			}
 
@@ -102,20 +102,20 @@
 		//======================================================================
 		function parseGroup(tokens, at, selectors) {
 			while (at < tokens.length) {
-				if (tokens[at][1] == 'weekday') {
+				if (matchTokens(tokens, at, 'weekday')) {
 					at = parseWeekdayRange(tokens, at, selectors);
-				} else if (tokens[at][1] == 'month' && tokens[at+1][1] == 'number') {
+				} else if (matchTokens(tokens, at, 'month', 'number')) {
 					at = parseMonthDayRange(tokens, at);
-				} else if (tokens[at][1] == 'month') {
+				} else if (matchTokens(tokens, at, 'month')) {
 					at = parseMonthRange(tokens, at);
-				} else if (tokens[at][0] == 'week') {
+				} else if (matchTokens(tokens, at, 'week')) {
 					at = parseWeekRange(tokens, at);
-				} else if (tokens[at][1] == 'number' && tokens[at+1][1] == ':') {
+				} else if (matchTokens(tokens, at, 'number', ':')) {
 					at = parseTimeRange(tokens, at, selectors);
-				} else if (tokens[at][0] == 'off') {
+				} else if (matchTokens(tokens, at, 'off')) {
 					selectors.meaning = false;
 					at++;
-				} else if (tokens[at][0] == '24/7') {
+				} else if (matchTokens(tokens, at, '24/7')) {
 					selectors.time.push(function(date) { return [true]; });
 					at++;
 				} else {
@@ -133,7 +133,7 @@
 			var minutes_in_day = 24 * 60;
 
 			while (at < tokens.length) {
-				if (tokens[at][1] == 'number' && tokens[at+1][0] == ':' && tokens[at+2][1] == 'number' && tokens[at+3][0] == '-' && tokens[at+4][1] == 'number' && tokens[at+5][0] == ':' && tokens[at+6][1] == 'number') {
+				if (matchTokens(tokens, at, 'number', ':', 'number', '-', 'number', ':', 'number')) {
 					// Time range
 					selectors.time.push(function(tokens, at) { return function(date) {
 						var ourminutes = date.getHours() * 60 + date.getMinutes();
@@ -170,10 +170,7 @@
 					throw 'Unexpected token in time range: "' + tokens[at][0] + '"';
 				}
 
-				if (at >= tokens.length)
-					break;
-
-				if (tokens[at][0] == ',')
+				if (at < tokens.length && tokens[at][0] == ',')
 					at++;
 				else
 					break;
@@ -195,15 +192,15 @@
 		//======================================================================
 		function parseWeekdayRange(tokens, at, selectors) {
 			while (at < tokens.length) {
-				if (tokens[at][1] == 'weekday' && tokens[at+1][0] == '[') {
+				if (matchTokens(tokens, at, 'weekday', '[')) {
 					// Conditional weekday (Mo[3])
 					at = parseNumRange(tokens, at+2);
 					if (tokens[at][1] !== ']')
 						throw '"]" expected';
 					at++;
-				} else if (tokens[at][1] == 'weekday') {
+				} else if (matchTokens(tokens, at, 'weekday')) {
 					// Single weekday (Mo) or weekday range (Mo-Fr)
-					var is_range = tokens[at+1][0] == '-' && tokens[at+2][1] == 'weekday';
+					var is_range = matchTokens(tokens, at+1, '-', 'weekday');
 
 					selectors.weekday.push(function(tokens, at, is_range) { return function(date) {
 						var ourweekday = date.getDay();
@@ -232,10 +229,7 @@
 					throw 'Unexpected token in weekday range: "' + tokens[at] + '"';
 				}
 
-				if (at >= tokens.length)
-					break;
-
-				if (tokens[at][0] == ',')
+				if (at < tokens.length && tokens[at][0] == ',')
 					at++;
 				else
 					break;
@@ -247,23 +241,20 @@
 		// Numeric list parser (1,2,3-4,-1), used in weekday parser above
 		function parseNumRange(tokens, at) {
 			while (at < tokens.length) {
-				if (tokens[at][1] == 'number' && tokens[at+1][0] == '-' && tokens[at+2][1] == 'number') {
+				if (matchTokens(tokens, at, 'number', '-', 'number')) {
 					// Number range
 					at += 3;
-				} else if (tokens[at][0] == '-' && tokens[at+1][1] == 'number') {
+				} else if (matchTokens(tokens, at, '-', 'number')) {
 					// Negative number
 					at += 2
-				} else if (tokens[at][1] == 'number') {
+				} else if (matchTokens(tokens, at, 'number')) {
 					// Single number
 					at++;
 				} else {
 					throw 'Unexpected token in number range: "' + tokens[at][0] + '"';
 				}
 
-				if (at >= tokens.length)
-					break;
-
-				if (tokens[at][0] == ',')
+				if (at < tokens.length && tokens[at][0] == ',')
 					at++;
 				else
 					break;
