@@ -261,7 +261,7 @@ function opening_hours_test() {
 			if (runSingleTest(tests[test][0], tests[test][1], tests[test][2], tests[test][3], tests[test][4], tests[test][5]))
 				success++;
 		}
-				
+
 		sys.puts(success + '/' + tests.length + ' tests passed');
 	}
 
