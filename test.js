@@ -161,7 +161,7 @@ test.addTest('Complex monthday ranges (not documented)', [
 // TODO: monthday ranges w/o month
 // TODO: monthday ranges with /n
 
-test.run();
+process.exit(test.run() ? 0 : 1);
 
 //======================================================================
 // Test framework
@@ -267,6 +267,8 @@ function opening_hours_test() {
 		}
 
 		sys.puts(success + '/' + tests.length + ' tests passed');
+
+		return success == tests.length;
 	}
 
 	this.addTest = function(name, values, from, to, expected_intervals, expected_duration) {
