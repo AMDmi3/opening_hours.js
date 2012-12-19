@@ -56,7 +56,7 @@ This library is on the early stage of development, so only the most basic openin
 ### Time ranges ###
 
 * Supports set of simple time ranges (```10:00-12:00,14:00-16:00```)
-* Supports 24/7 keyword, but not as a 00:00-24:00 placeholder (e.g. ```24/7``` is ok, but not ```Mo-Fr 24/7```, which is somewhat widely used according to tagwatch but still erroneous)
+* Supports 24/7 keyword (as a synonym for ```00:00-24:00```, so ```Mo-Fr 24/7```, though not correct, will be handled as intended)
 * Doesn't support ranges wrapping over midnight (```10:00-26:00```, ```10:00-02:00```) correctly (wrapped interval goes to the *same* day, while it should go to the *next* one)
 * Doesn't support omitting time range (```Mo-Fr 10:00-20:00; Tu off```)
 * Doesn't support open end (```10:00+```)
