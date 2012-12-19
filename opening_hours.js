@@ -110,7 +110,7 @@
 					at = parseMonthRange(tokens, at);
 				} else if (tokens[at][0] == 'week') {
 					at = parseWeekRange(tokens, at);
-				} else if (tokens[at][1] == 'number') {
+				} else if (tokens[at][1] == 'number' && tokens[at+1][1] == ':') {
 					at = parseTimeRange(tokens, at, selectors);
 				} else if (tokens[at][0] == 'off') {
 					selectors.meaning = false;
