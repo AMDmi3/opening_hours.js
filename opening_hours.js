@@ -11,8 +11,8 @@
 		//======================================================================
 		// Constants
 		//======================================================================
-		var months = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
-		var weekdays = { Su: 0, Mo: 1, Tu: 2, We: 3, Th: 4, Fr: 5, Sa: 6 };
+		var months = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
+		var weekdays = { su: 0, mo: 1, tu: 2, we: 3, th: 4, fr: 5, sa: 6 };
 
 		var minutes_in_day = 60 * 24;
 		var msec_in_week = 1000 * 60 * 60 * 24 * 7;
@@ -35,22 +35,34 @@
 		// - Run toplevel (block) parser
 		//   - Which calls subparser for specific selector types
 		//     - Which produce selectors
-		var blocks = value.split(/\s*;\s*/);
+		var blocks = value.toLowerCase().split(/\s*;\s*/);
 
 		for (var block = 0; block < blocks.length; block++) {
 			var tokens = tokenize(blocks[block]);
 
 			var selectors = {
+				// Time selectors
 				time: [],
 
+				// Date selectors
 				weekday: [],
 				week: [],
 				month: [],
+
+				// Array with non-empty date selector types, with most optimal ordering
+				date: [],
 
 				meaning: true,
 			};
 
 			parseGroup(tokens, 0, selectors);
+
+			if (selectors.month.length > 0)
+				selectors.date.push(selectors.month);
+			if (selectors.week.length > 0)
+				selectors.date.push(selectors.week);
+			if (selectors.weekday.length > 0)
+				selectors.date.push(selectors.weekday);
 
 			blocks[block] = selectors;
 		}
@@ -66,17 +78,17 @@
 					// reserved word
 					tokens.push([tmp[0], tmp[0]]);
 					value = value.substr(tmp[0].length)
-				} else if (tmp = value.match(/^(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/)) {
+				} else if (tmp = value.match(/^(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/)) {
 					// month name
 					tokens.push([months[tmp[0]], 'month']);
 					value = value.substr(3);
-				} else if (tmp = value.match(/^(?:Mo|Tu|We|Th|Fr|Sa|Su)/)) {
+				} else if (tmp = value.match(/^(?:mo|tu|we|th|fr|sa|su)/)) {
 					// weekday name
 					tokens.push([weekdays[tmp[0]], 'weekday']);
 					value = value.substr(2);
 				} else if (tmp = value.match(/^\d+/)) {
 					// number
-					tokens.push([tmp[0], 'number']);
+					tokens.push([+tmp[0], 'number']);
 					value = value.substr(tmp[0].length);
 				} else if (value.match(/^\s/)) {
 					// whitespace is ignored
@@ -93,9 +105,9 @@
 
 		// Function to check token array for specific pattern
 		function matchTokens(tokens, at /*, matches... */) {
+			if (at + arguments.length - 2 > tokens.length)
+				return false;
 			for (var i = 0; i < arguments.length - 2; i++) {
-				if (typeof tokens[at + i] === 'undefined')
-					return false;
 				if (tokens[at + i][1] !== arguments[i + 2])
 					return false;
 			}
@@ -141,8 +153,8 @@
 					// Time range
 					selectors.time.push(function(tokens, at) { return function(date) {
 						var ourminutes = date.getHours() * 60 + date.getMinutes();
-						var minutes_from = tokens[at][0] * 60 + tokens[at+2][0] * 1;
-						var minutes_to = tokens[at+4][0] * 60 + tokens[at+6][0] * 1;
+						var minutes_from = tokens[at][0] * 60 + tokens[at+2][0];
+						var minutes_to = tokens[at+4][0] * 60 + tokens[at+6][0];
 
 						// normalize minutes into range
 						// XXX: what if it's further than tomorrow?
@@ -183,7 +195,7 @@
 
 		// for given date, returns date moved to the start of specified day minute
 		function dateAtDayMinutes(date, minutes) {
-			var tmpdate = new Date(date);
+			var tmpdate = new Date(date.getTime());
 			tmpdate.setHours(0, minutes, 0, 0);
 			return tmpdate;
 		}
@@ -231,7 +243,7 @@
 								target_day_this_month.setDate(target_day_this_month.getDate() + number * 7);
 							}
 
-							if (target_day_this_month < start_of_this_month || target_day_this_month >= start_of_next_month)
+							if (target_day_this_month.getTime() < start_of_this_month.getTime() || target_day_this_month.getTime() >= start_of_next_month.getTime())
 								return [false, start_of_next_month];
 
 							// we hit the target day
@@ -269,7 +281,7 @@
 
 						// handle full range
 						if (weekday_to < weekday_from)
-							return [!inside];
+							return [true];
 
 						if (ourweekday < weekday_from || ourweekday > weekday_to) {
 							return [!inside, dateAtNextWeekday(date, weekday_from)];
@@ -318,7 +330,7 @@
 
 		// for given date, returns date moved to the specific day of week
 		function dateAtNextWeekday(date, day) {
-			var tmpdate = new Date(date);
+			var tmpdate = new Date(date.getTime());
 
 			if (tmpdate.getDay() < day)
 				tmpdate.setDate(tmpdate.getDate() + day - tmpdate.getDay());
@@ -350,7 +362,7 @@
 
 						// before range
 						if (ourweek < week_from)
-							return [false, dateLimitYear(dateAtWeek(date, week_from), date.getFullYear())];
+							return [false, getMinDate(dateAtWeek(date, week_from), start_of_next_year)];
 
 						// we're after range, set check date to next year
 						if (ourweek > week_to)
@@ -363,13 +375,13 @@
 							if (period > 1) {
 								var in_period = (ourweek - week_from) % period == 0;
 								if (in_period)
-									return [true, dateLimitYear(dateAtWeek(date, ourweek + 1), date.getFullYear())];
+									return [true, getMinDate(dateAtWeek(date, ourweek + 1), start_of_next_year)];
 								else
-									return [false, dateLimitYear(dateAtWeek(date, ourweek + period - 1), date.getFullYear())];
+									return [false, getMinDate(dateAtWeek(date, ourweek + period - 1), start_of_next_year)];
 							}
 						}
 
-						return [true, dateLimitYear(dateAtWeek(date, week_to + 1), date.getFullYear())];
+						return [true, getMinDate(dateAtWeek(date, week_to + 1), start_of_next_year)];
 					}}(tokens, at, is_range, has_period));
 
 					at += 1 + (is_range ? 2 : 0) + (has_period ? 2 : 0);
@@ -390,9 +402,10 @@
 			return tmpdate;
 		}
 
-		function dateLimitYear(date, year) {
-			if (date.getFullYear() > year)
-				return new Date(date.getFullYear(), 0, 1);
+		function getMinDate(date /*, ...*/) {
+			for (var i = 1; i < arguments.length; i++)
+				if (arguments[i].getTime() < date.getTime())
+					date = arguments[i];
 			return date;
 		}
 
@@ -444,7 +457,7 @@
 		}
 
 		function dateAtNextMonth(date, month) {
-			var tmpdate = new Date(date);
+			var tmpdate = new Date(date.getTime());
 
 			tmpdate.setHours(0, 0, 0, 0);
 			tmpdate.setDate(1);
@@ -465,43 +478,45 @@
 		}
 
 		//======================================================================
-		// Main selector traversing function
+		// Main selector traversal function
 		//======================================================================
 		function getState(date) {
 			var resultstate = false;
 			var changedate;
 
-			var dateseltypes = [ 'weekday', 'week', 'month' ];
 			var date_matching_blocks = [];
 
-			for (var block = 0; block < blocks.length; block++) {
-				var has_date_selectors = false;
+			for (var nblock = 0; nblock < blocks.length; nblock++) {
 				var matching_date_block = true;
 
 				// Try each date selector type
-				for (var dateseltype = 0; dateseltype < dateseltypes.length; dateseltype++) {
-					var dateselectors = blocks[block][dateseltypes[dateseltype]];
-					if (dateselectors.length > 0)
-						has_date_selectors = true;
+				for (var ndateselector = 0; ndateselector < blocks[nblock].date.length; ndateselector++) {
+					var dateselectors = blocks[nblock].date[ndateselector];
+
 					var has_matching_selector = false;
 					for (var datesel = 0; datesel < dateselectors.length; datesel++) {
 						var res = dateselectors[datesel](date);
 						if (res[0])
 							has_matching_selector = true;
-						if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate))
+						if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1].getTime() < changedate.getTime()))
 							changedate = res[1];
 					}
 
-					if (dateselectors.length > 0 && !has_matching_selector) {
+					if (!has_matching_selector) {
 						matching_date_block = false;
-						// XXX: do we need to break here, or we need to adjust time?
+						// We can ignore other date selectors, as the state won't change
+						// anyway until THIS selector matches (due to conjunction of date
+						// selectors of different types)
+						// This is also an optimization, if widest date selector types
+						// are checked first
+						break;
 					}
 				}
 
 				if (matching_date_block) {
-					if (has_date_selectors && blocks[block].meaning)
+					if (blocks[nblock].date.length > 0 && blocks[nblock].meaning)
 						date_matching_blocks = [];
-					date_matching_blocks.push(block);
+					date_matching_blocks.push(nblock);
 				}
 			}
 
