@@ -41,16 +41,28 @@
 			var tokens = tokenize(blocks[block]);
 
 			var selectors = {
+				// Time selectors
 				time: [],
 
+				// Date selectors
 				weekday: [],
 				week: [],
 				month: [],
+
+				// Array with non-empty date selector types, with most optimal ordering
+				date: [],
 
 				meaning: true,
 			};
 
 			parseGroup(tokens, 0, selectors);
+
+			if (selectors.month.length > 0)
+				selectors.date.push(selectors.month);
+			if (selectors.week.length > 0)
+				selectors.date.push(selectors.week);
+			if (selectors.weekday.length > 0)
+				selectors.date.push(selectors.weekday);
 
 			blocks[block] = selectors;
 		}
@@ -466,24 +478,21 @@
 		}
 
 		//======================================================================
-		// Main selector traversing function
+		// Main selector traversal function
 		//======================================================================
 		function getState(date) {
 			var resultstate = false;
 			var changedate;
 
-			var dateseltypes = [ 'weekday', 'week', 'month' ];
 			var date_matching_blocks = [];
 
-			for (var block = 0; block < blocks.length; block++) {
-				var has_date_selectors = false;
+			for (var nblock = 0; nblock < blocks.length; nblock++) {
 				var matching_date_block = true;
 
 				// Try each date selector type
-				for (var dateseltype = 0; dateseltype < dateseltypes.length; dateseltype++) {
-					var dateselectors = blocks[block][dateseltypes[dateseltype]];
-					if (dateselectors.length > 0)
-						has_date_selectors = true;
+				for (var ndateselector = 0; ndateselector < blocks[nblock].date.length; ndateselector++) {
+					var dateselectors = blocks[nblock].date[ndateselector];
+
 					var has_matching_selector = false;
 					for (var datesel = 0; datesel < dateselectors.length; datesel++) {
 						var res = dateselectors[datesel](date);
@@ -493,16 +502,21 @@
 							changedate = res[1];
 					}
 
-					if (dateselectors.length > 0 && !has_matching_selector) {
+					if (!has_matching_selector) {
 						matching_date_block = false;
-						// XXX: do we need to break here, or we need to adjust time?
+						// We can ignore other date selectors, as the state won't change
+						// anyway until THIS selector matches (due to conjunction of date
+						// selectors of different types)
+						// This is also an optimization, if widest date selector types
+						// are checked first
+						break;
 					}
 				}
 
 				if (matching_date_block) {
-					if (has_date_selectors && blocks[block].meaning)
+					if (blocks[nblock].date.length > 0 && blocks[nblock].meaning)
 						date_matching_blocks = [];
-					date_matching_blocks.push(block);
+					date_matching_blocks.push(nblock);
 				}
 			}
 
