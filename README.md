@@ -77,7 +77,8 @@ This library is on the early stage of development, so only the most basic openin
 
 ### Monthday ranges ###
 
-* Not supported (```Jan 01-26 10:00-20:00```, ```Jan 01-Feb 03 10:00-20:00```)
+* Supports monthday ranges across multiple months (```Jan 01-Feb 03 10:00-20:00```)
+* Supports monthday ranges within single month (```Jan 01-26 10:00-20:00```), with periods as well ```Jan 01-29/7 10:00-20:00```)
 
 ### Week ranges ###
 
