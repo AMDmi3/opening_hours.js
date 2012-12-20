@@ -157,6 +157,13 @@
 						var minutes_from = tokens[at][0] * 60 + tokens[at+2][0];
 						var minutes_to = tokens[at+4][0] * 60 + tokens[at+6][0];
 
+						// this shortcut makes always-open range check faster
+						// and is also useful in tests, as it doesn't produce
+						// extra check points which may hide errors in other
+						// selectors
+						if (minutes_from == 0 && minutes_to == minutes_in_day)
+							return [true];
+
 						// normalize minutes into range
 						// XXX: what if it's further than tomorrow?
 						// XXX: this is incorrect, as it assumes the same day
