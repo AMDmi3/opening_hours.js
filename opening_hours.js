@@ -93,9 +93,9 @@
 
 		// Function to check token array for specific pattern
 		function matchTokens(tokens, at /*, matches... */) {
+			if (at + arguments.length - 2 > tokens.length)
+				return false;
 			for (var i = 0; i < arguments.length - 2; i++) {
-				if (typeof tokens[at + i] === 'undefined')
-					return false;
 				if (tokens[at + i][1] !== arguments[i + 2])
 					return false;
 			}
