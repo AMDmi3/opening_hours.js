@@ -11,8 +11,8 @@
 		//======================================================================
 		// Constants
 		//======================================================================
-		var months = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
-		var weekdays = { Su: 0, Mo: 1, Tu: 2, We: 3, Th: 4, Fr: 5, Sa: 6 };
+		var months = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
+		var weekdays = { su: 0, mo: 1, tu: 2, we: 3, th: 4, fr: 5, sa: 6 };
 
 		var minutes_in_day = 60 * 24;
 		var msec_in_week = 1000 * 60 * 60 * 24 * 7;
@@ -35,7 +35,7 @@
 		// - Run toplevel (block) parser
 		//   - Which calls subparser for specific selector types
 		//     - Which produce selectors
-		var blocks = value.split(/\s*;\s*/);
+		var blocks = value.toLowerCase().split(/\s*;\s*/);
 
 		for (var block = 0; block < blocks.length; block++) {
 			var tokens = tokenize(blocks[block]);
@@ -78,11 +78,11 @@
 					// reserved word
 					tokens.push([tmp[0], tmp[0]]);
 					value = value.substr(tmp[0].length)
-				} else if (tmp = value.match(/^(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/)) {
+				} else if (tmp = value.match(/^(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/)) {
 					// month name
 					tokens.push([months[tmp[0]], 'month']);
 					value = value.substr(3);
-				} else if (tmp = value.match(/^(?:Mo|Tu|We|Th|Fr|Sa|Su)/)) {
+				} else if (tmp = value.match(/^(?:mo|tu|we|th|fr|sa|su)/)) {
 					// weekday name
 					tokens.push([weekdays[tmp[0]], 'weekday']);
 					value = value.substr(2);
