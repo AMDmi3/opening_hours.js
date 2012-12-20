@@ -171,15 +171,7 @@ test.addTest('Selector order', [
 		[ '2012.02.06 0:00', '2012.02.13 00:00' ],
 	], 1000 * 60 * 60 * 24 * 7);
 
-test.addTest('Complex monthday ranges (not documented)', [
-		ignored('Jan 23-31,Feb 1-12 00:00-24:00'),
-		ignored('Jan 23-Feb 11,Feb 12 00:00-24:00'),
-		ignored('Jan 23-30,31-Feb 1-2,3-12 12 00:00-24:00'),
-	], '2012.01.01 0:00', '2013.01.01 0:00', [
-		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
-	], 1000 * 60 * 60 * 24 * 21);
-
-test.addTest('Real-world data: case and whitespace', [
+test.addTest('Input tolerance: case and whitespace', [
 		'   mo,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00    Off  ',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 12:00', '2012.10.01 14:00' ],
@@ -192,7 +184,15 @@ test.addTest('Real-world data: case and whitespace', [
 		[ '2012.10.04 16:00', '2012.10.04 20:00' ],
 	], 1000 * 60 * 60 * 6 * 4);
 
-test.addTest('Real-world data: missing time range separators', [
+test.addTest('Extensions: complex monthday ranges', [
+		ignored('Jan 23-31,Feb 1-12 00:00-24:00'),
+		ignored('Jan 23-Feb 11,Feb 12 00:00-24:00'),
+		ignored('Jan 23-30,31-Feb 1-2,3-12 12 00:00-24:00'),
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
+	], 1000 * 60 * 60 * 24 * 21);
+
+test.addTest('Extensions: missing time range separators', [
 		'Mo 12:00-14:00 16:00-18:00 20:00-22:00',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 12:00', '2012.10.01 14:00' ],
