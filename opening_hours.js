@@ -196,9 +196,7 @@
 
 		// for given date, returns date moved to the start of specified day minute
 		function dateAtDayMinutes(date, minutes) {
-			var tmpdate = new Date(date.getTime());
-			tmpdate.setHours(0, minutes, 0, 0);
-			return tmpdate;
+			return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, minutes);
 		}
 
 		//======================================================================
@@ -331,16 +329,8 @@
 
 		// for given date, returns date moved to the specific day of week
 		function dateAtNextWeekday(date, day) {
-			var tmpdate = new Date(date.getTime());
-
-			if (tmpdate.getDay() < day)
-				tmpdate.setDate(tmpdate.getDate() + day - tmpdate.getDay());
-			else if (tmpdate.getDay() > day)
-				tmpdate.setDate(tmpdate.getDate() + 7 + day - tmpdate.getDay());
-
-			tmpdate.setHours(0, 0, 0, 0);
-
-			return tmpdate;
+			var delta = day - date.getDay();
+			return new Date(date.getFullYear(), date.getMonth(), date.getDate() + delta + (delta < 0 ? 7 : 0));
 		}
 
 		//======================================================================
@@ -399,7 +389,7 @@
 
 		function dateAtWeek(date, week) {
 			var tmpdate = new Date(date.getFullYear(), 0, 1); // start of year
-			tmpdate.setDate(tmpdate.getDate() - (tmpdate.getDay() + 6) % 7 + week * 7); // start of week n
+			tmpdate.setDate(1 - (tmpdate.getDay() + 6) % 7 + week * 7); // start of week n where week starts on Monday
 			return tmpdate;
 		}
 
@@ -458,17 +448,7 @@
 		}
 
 		function dateAtNextMonth(date, month) {
-			var tmpdate = new Date(date.getTime());
-
-			tmpdate.setHours(0, 0, 0, 0);
-			tmpdate.setDate(1);
-
-			if (tmpdate.getMonth() < month)
-				tmpdate.setMonth(month);
-			else if (tmpdate.getMonth() > month)
-				tmpdate.setMonth(month + 12);
-
-			return tmpdate;
+			return new Date(date.getFullYear(), month < date.getMonth() ? month + 12 : month);
 		}
 
 		//======================================================================
