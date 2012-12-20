@@ -483,12 +483,21 @@
 						var from_date = new Date(date.getFullYear(), tokens[at][0], tokens[at+1][0]);
 						var to_date = new Date(date.getFullYear(), tokens[at+3][0], tokens[at+4][0] + 1);
 
+						var inside = true;
+
+						if (to_date < from_date) {
+							var tmp = to_date;
+							to_date = from_date;
+							from_date = tmp;
+							inside = false;
+						}
+
 						if (date.getTime() < from_date.getTime())
-							return [false, from_date];
+							return [!inside, from_date];
 						else if (date.getTime() < to_date.getTime())
-							return [true, to_date];
+							return [inside, to_date];
 						else
-							return [false, start_of_next_year];
+							return [!inside, start_of_next_year];
 					}}(tokens, at, is_range, has_period));
 
 					at += 5;
