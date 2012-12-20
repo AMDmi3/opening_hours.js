@@ -350,7 +350,7 @@
 
 						// before range
 						if (ourweek < week_from)
-							return [false, dateLimitYear(dateAtWeek(date, week_from), date.getFullYear())];
+							return [false, getMinDate(dateAtWeek(date, week_from), start_of_next_year)];
 
 						// we're after range, set check date to next year
 						if (ourweek > week_to)
@@ -363,13 +363,13 @@
 							if (period > 1) {
 								var in_period = (ourweek - week_from) % period == 0;
 								if (in_period)
-									return [true, dateLimitYear(dateAtWeek(date, ourweek + 1), date.getFullYear())];
+									return [true, getMinDate(dateAtWeek(date, ourweek + 1), start_of_next_year)];
 								else
-									return [false, dateLimitYear(dateAtWeek(date, ourweek + period - 1), date.getFullYear())];
+									return [false, getMinDate(dateAtWeek(date, ourweek + period - 1), start_of_next_year)];
 							}
 						}
 
-						return [true, dateLimitYear(dateAtWeek(date, week_to + 1), date.getFullYear())];
+						return [true, getMinDate(dateAtWeek(date, week_to + 1), start_of_next_year)];
 					}}(tokens, at, is_range, has_period));
 
 					at += 1 + (is_range ? 2 : 0) + (has_period ? 2 : 0);
@@ -390,9 +390,10 @@
 			return tmpdate;
 		}
 
-		function dateLimitYear(date, year) {
-			if (date.getFullYear() > year)
-				return new Date(date.getFullYear(), 0, 1);
+		function getMinDate(date /*, ...*/) {
+			for (var i = 1; i < arguments.length; i++)
+				if (arguments[i].getTime() < date.getTime())
+					date = arguments[i];
 			return date;
 		}
 
