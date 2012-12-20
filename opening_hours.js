@@ -270,31 +270,33 @@
 					// Single weekday (Mo) or weekday range (Mo-Fr)
 					var is_range = matchTokens(tokens, at+1, '-', 'weekday');
 
-					selectors.weekday.push(function(tokens, at, is_range) { return function(date) {
-						var ourweekday = date.getDay();
-						var weekday_from = tokens[at][0];
-						var weekday_to = is_range ? tokens[at+2][0] : weekday_from;
+					var weekday_from = tokens[at][0];
+					var weekday_to = is_range ? tokens[at+2][0] : weekday_from;
 
-						var inside = true;
+					var inside = true;
 
-						// handle reversed range
-						if (weekday_to < weekday_from) {
-							var tmp = weekday_to;
-							weekday_to = weekday_from - 1;
-							weekday_from = tmp + 1;
-							inside = false;
-						}
+					// handle reversed range
+					if (weekday_to < weekday_from) {
+						var tmp = weekday_to;
+						weekday_to = weekday_from - 1;
+						weekday_from = tmp + 1;
+						inside = false;
+					}
 
+					if (weekday_to < weekday_from) {
 						// handle full range
-						if (weekday_to < weekday_from)
-							return [true];
+						selectors.weekday.push(function(date) { return [true]; });
+					} else {
+						selectors.weekday.push(function(weekday_from, weekday_to, inside) { return function(date) {
+							var ourweekday = date.getDay();
 
-						if (ourweekday < weekday_from || ourweekday > weekday_to) {
-							return [!inside, dateAtNextWeekday(date, weekday_from)];
-						} else {
-							return [inside, dateAtNextWeekday(date, weekday_to + 1)];
-						}
-					}}(tokens, at, is_range));
+							if (ourweekday < weekday_from || ourweekday > weekday_to) {
+								return [!inside, dateAtNextWeekday(date, weekday_from)];
+							} else {
+								return [inside, dateAtNextWeekday(date, weekday_to + 1)];
+							}
+						}}(weekday_from, weekday_to, inside));
+					}
 
 					at += is_range ? 3 : 1;
 				} else {
