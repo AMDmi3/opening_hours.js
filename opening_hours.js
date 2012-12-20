@@ -269,7 +269,7 @@
 
 						// handle full range
 						if (weekday_to < weekday_from)
-							return [!inside];
+							return [true];
 
 						if (ourweekday < weekday_from || ourweekday > weekday_to) {
 							return [!inside, dateAtNextWeekday(date, weekday_from)];
