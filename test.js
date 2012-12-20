@@ -155,7 +155,7 @@ test.addTest('Periodical monthdays', [
 		[ '2012.01.09 0:00', '2012.01.10 00:00' ],
 		[ '2012.01.17 0:00', '2012.01.18 00:00' ],
 		[ '2012.01.25 0:00', '2012.01.26 00:00' ],
-	], 1000 * 60 * 60 * 24 * 21);
+	], 1000 * 60 * 60 * 24 * 4);
 
 test.addTest('Selector order', [ // result should not depend on selector order
 		'Feb week 6',
