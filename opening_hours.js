@@ -183,7 +183,7 @@
 
 		// for given date, returns date moved to the start of specified day minute
 		function dateAtDayMinutes(date, minutes) {
-			var tmpdate = new Date(date);
+			var tmpdate = new Date(date.getTime());
 			tmpdate.setHours(0, minutes, 0, 0);
 			return tmpdate;
 		}
@@ -318,7 +318,7 @@
 
 		// for given date, returns date moved to the specific day of week
 		function dateAtNextWeekday(date, day) {
-			var tmpdate = new Date(date);
+			var tmpdate = new Date(date.getTime());
 
 			if (tmpdate.getDay() < day)
 				tmpdate.setDate(tmpdate.getDate() + day - tmpdate.getDay());
@@ -444,7 +444,7 @@
 		}
 
 		function dateAtNextMonth(date, month) {
-			var tmpdate = new Date(date);
+			var tmpdate = new Date(date.getTime());
 
 			tmpdate.setHours(0, 0, 0, 0);
 			tmpdate.setDate(1);
