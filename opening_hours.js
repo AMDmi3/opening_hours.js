@@ -76,7 +76,7 @@
 					value = value.substr(2);
 				} else if (tmp = value.match(/^\d+/)) {
 					// number
-					tokens.push([tmp[0], 'number']);
+					tokens.push([+tmp[0], 'number']);
 					value = value.substr(tmp[0].length);
 				} else if (value.match(/^\s/)) {
 					// whitespace is ignored
@@ -141,8 +141,8 @@
 					// Time range
 					selectors.time.push(function(tokens, at) { return function(date) {
 						var ourminutes = date.getHours() * 60 + date.getMinutes();
-						var minutes_from = tokens[at][0] * 60 + tokens[at+2][0] * 1;
-						var minutes_to = tokens[at+4][0] * 60 + tokens[at+6][0] * 1;
+						var minutes_from = tokens[at][0] * 60 + tokens[at+2][0];
+						var minutes_to = tokens[at+4][0] * 60 + tokens[at+6][0];
 
 						// normalize minutes into range
 						// XXX: what if it's further than tomorrow?
