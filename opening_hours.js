@@ -490,7 +490,7 @@
 						var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
 
 						var from_date = new Date(date.getFullYear(), tokens[at][0], tokens[at+1][0]);
-						var to_date = new Date(date.getFullYear(), tokens[at][0], tokens[at+is_range?3:1][0] + 1);
+						var to_date = new Date(date.getFullYear(), tokens[at][0], tokens[at+(is_range?3:1)][0] + 1);
 
 						if (date.getTime() < from_date.getTime())
 							return [false, from_date];
