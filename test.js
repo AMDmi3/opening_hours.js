@@ -157,6 +157,20 @@ test.addTest('Periodical monthday ranges', [
 		[ '2012.01.25 0:00', '2012.01.26 00:00' ],
 	], 1000 * 60 * 60 * 24 * 21);
 
+test.addTest('Selector order', [ // result should not depend on selector order
+		'Feb week 6',
+		'week 6 Feb',
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+		[ '2012.02.01 0:00', '2012.02.06 00:00' ],
+	], 1000 * 60 * 60 * 24 * 5);
+
+test.addTest('Selector order', [
+		'Feb week 7',
+		'week 7 Feb',
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+		[ '2012.02.06 0:00', '2012.02.13 00:00' ],
+	], 1000 * 60 * 60 * 24 * 7);
+
 test.addTest('Complex monthday ranges (not documented)', [
 		ignored('Jan 23-31,Feb 1-12 00:00-24:00'),
 		ignored('Jan 23-Feb 11,Feb 12 00:00-24:00'),
