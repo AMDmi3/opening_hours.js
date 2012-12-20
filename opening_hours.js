@@ -488,7 +488,7 @@
 						var res = dateselectors[datesel](date);
 						if (res[0])
 							has_matching_selector = true;
-						if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate))
+						if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1].getTime() < changedate.getTime()))
 							changedate = res[1];
 					}
 
