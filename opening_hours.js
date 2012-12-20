@@ -457,7 +457,7 @@
 		function parseMonthdayRange(tokens, at) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'month', 'number', '-', 'month', 'number')) {
-					selectors.week.push(function(tokens, at, is_range, has_period) { return function(date) {
+					selectors.week.push(function(tokens, at) { return function(date) {
 						var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
 
 						var from_date = new Date(date.getFullYear(), tokens[at][0], tokens[at+1][0]);
@@ -478,7 +478,7 @@
 							return [inside, to_date];
 						else
 							return [!inside, start_of_next_year];
-					}}(tokens, at, is_range, has_period));
+					}}(tokens, at));
 
 					at += 5;
 				} else if (matchTokens(tokens, at, 'month', 'number')) {
