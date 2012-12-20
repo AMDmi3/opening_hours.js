@@ -386,7 +386,7 @@
 
 					at += 1 + (is_range ? 2 : 0) + (has_period ? 2 : 0);
 				} else {
-					throw 'Unexpected token in weekday range: "' + tokens[at] + '"';
+					throw 'Unexpected token in week range: "' + tokens[at] + '"';
 				}
 
 				if (!matchTokens(tokens, at, ','))
