@@ -160,6 +160,7 @@ test.addTest('Periodical monthday ranges', [
 test.addTest('Complex monthday ranges (not documented)', [
 		ignored('Jan 23-31,Feb 1-12 00:00-24:00'),
 		ignored('Jan 23-Feb 11,Feb 12 00:00-24:00'),
+		ignored('Jan 23-30,31-Feb 1-2,3-12 12 00:00-24:00'),
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
 	], 1000 * 60 * 60 * 24 * 21);
