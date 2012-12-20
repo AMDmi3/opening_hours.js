@@ -371,7 +371,7 @@
 						// we're in range
 						var period;
 						if (has_period) {
-							var period = +tokens[at+4][0];
+							var period = tokens[at+4][0];
 							if (period > 1) {
 								var in_period = (ourweek - week_from) % period == 0;
 								if (in_period)
