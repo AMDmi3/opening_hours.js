@@ -231,7 +231,7 @@
 								target_day_this_month.setDate(target_day_this_month.getDate() + number * 7);
 							}
 
-							if (target_day_this_month < start_of_this_month || target_day_this_month >= start_of_next_month)
+							if (target_day_this_month.getTime() < start_of_this_month.getTime() || target_day_this_month.getTime() >= start_of_next_month.getTime())
 								return [false, start_of_next_month];
 
 							// we hit the target day
