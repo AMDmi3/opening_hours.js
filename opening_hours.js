@@ -123,7 +123,7 @@
 				if (matchTokens(tokens, at, 'weekday')) {
 					at = parseWeekdayRange(tokens, at, selectors);
 				} else if (matchTokens(tokens, at, 'month', 'number')) {
-					at = parseMonthDayRange(tokens, at);
+					at = parseMonthdayRange(tokens, at);
 				} else if (matchTokens(tokens, at, 'month')) {
 					at = parseMonthRange(tokens, at);
 				} else if (matchTokens(tokens, at, 'week')) {
@@ -473,8 +473,24 @@
 		//======================================================================
 		// Month day range parser (Jan 26-31; Jan 26-Feb 26)
 		//======================================================================
-		function parseMonthDayRange(tokens, at) {
-			return at + 1;
+		function parseMonthdayRange(tokens, at) {
+			for (; at < tokens.length; at++) {
+				if (matchTokens(tokens, at, 'month', 'number', '-', 'month', 'number')) {
+					at += 5;
+				} else if (matchTokens(tokens, at, 'month', 'number')) {
+					var is_range = matchTokens(tokens, at+2, '-', 'number'), has_period = false;
+					if (is_range)
+						has_period = matchTokens(tokens, at+4, '/', 'number');
+					at += 2 + (is_range ? 2 : 0) + (has_period ? 2 : 0);
+				} else {
+					throw 'Unexpected token in monthday range: "' + tokens[at] + '"';
+				}
+
+				if (!matchTokens(tokens, at, ','))
+					break;
+			}
+
+			return at;
 		}
 
 		//======================================================================
