@@ -47,22 +47,24 @@ var duration_msg = 'We are open for ' + oh.openDuraton(now, then) + ' millisecon
 
 ## Features
 
-This library is on the early stage of development, so only the most basic opening_hours features are supported. Still, these should cover larger part of real-world data.
+Almost everything from opening_hours definition is supported, as well as some extensions (indicated as **EXT:** below)
 
-### General rules ###
-
-* Supports multiple rules separated by semicolon (```Mo 10:00-20:00; Tu 12:00-18:00```)
-* Supports off keyword (```Mo-Fr 10:00-20:00; 12:00-14:00 off```)
-* Handles exception rules correctly, e.g ```Mo-Fr 10:00-16:00; We 12:00-18:00``` is processed according to wiki, e.g. rule for Wednesday override, not extend previous rule
+* Opening hours consist of multiple rules separated by semicolon (```Mo 10:00-20:00; Tu 12:00-18:00```)
+* Rule may use ```off``` keyword to indicate that the facility is closed at that time (```Mo-Fr 10:00-20:00; 12:00-14:00 off```)
+* Rule consists of multiple date (```Mo-Fr```, ```Jan-Feb```, ```week 2-10```, ```Jan 10-Feb 10```) and time (```12:00-16:00```, ```12:00-14:00,16:00-18:00```) conditions
+* If a rule's date condition overlap with previous rule, it overrides (as opposed to extends) the previous rule. E.g. ```Mo-Fr 10:00-16:00; We 12:00-18:00``` means that on Wednesday the facility is open from 12:00 till 18:00, not from 10:00 to 18:00.
 
 ### Time ranges ###
 
-* Supports set of simple time ranges (```10:00-12:00,14:00-16:00```)
-* Supports 24/7 keyword (as a synonym for ```00:00-24:00```, so ```Mo-Fr 24/7```, though not correct, will be handled as intended)
-* Supports omitting time range (```Mo-Fr; Tu off```)
-* Doesn't support ranges wrapping over midnight (```10:00-26:00```, ```10:00-02:00```) correctly (wrapped interval goes to the *same* day, while it should go to the *next* one)
-* Doesn't support open end (```10:00+```)
-* Doesn't support sunrise/sunset keywords (```10:00-sunset```)
+* Supports sets of time ranges (```10:00-12:00,14:00-16:00```)
+  * *Doesn't support ranges wrapping over midnight (```10:00-26:00```, ```10:00-02:00```) correctly: wrapped interval goes to the same day, while it should go to the next one*
+* Supports 24/7 keyword
+  * **EXT:** 24/7 is handled as a synonym for ```00:00-24:00```, so ```Mo-Fr 24/7``` (though not really correct) it valid and will be handled correctly
+* **EXT:** Supports omitting time range (```Mo-Fr; Tu off```)
+* **EXT:** Supports dot as time separator, so ```12.00-16.00``` is valid (this is used quite widely)
+* **EXT:** Supports space as time interval separator, i.e. ```Mo 12:00-14:00,16:00-20:00``` and ```Mo 12:00-14:00 16:00-20:00``` are the same thing
+* *Doesn't support open end (```10:00+```)*
+* *Doesn't support sunrise/sunset keywords (```10:00-sunset```)*
 
 ### Weekday ranges ###
 
@@ -79,6 +81,7 @@ This library is on the early stage of development, so only the most basic openin
 
 * Supports monthday ranges across multiple months (```Jan 01-Feb 03 10:00-20:00```)
 * Supports monthday ranges within single month (```Jan 01-26 10:00-20:00```), with periods as well ```Jan 01-29/7 10:00-20:00```)
+* **EXT:** Supports multiple monthday ranges separated by a comma (```Jan 23-31/3,Feb 1-12,Mar 1```)
 
 ### Week ranges ###
 
@@ -87,7 +90,7 @@ This library is on the early stage of development, so only the most basic openin
 
 ### Other ###
 
-* Doesn't support PH/SH keywords
+* *Doesn't support PH/SH keywords*
 
 ## Test ##
 
