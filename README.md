@@ -101,7 +101,7 @@ Simple node.js based test framework is bundled. You can run it with ```node test
 
 Simple node.js based benchmark is bundled. You can run it with ```node benchmark.js``` or with ```make benchmark```.
 
-On author's Intel Core i5-2400 library allows ~20k/sec constructor calls and ~5.8k/sec openIntervals() calls with one week period. This is going to improve.
+On author's Intel Core i5-2400 library allows ~20k/sec constructor calls and ~7.5k/sec openIntervals() calls with one week period. This is going to improve.
 
 ## Author ##
 
