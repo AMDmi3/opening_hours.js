@@ -87,6 +87,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 * Supports week ranges (```week 04-07 10:00-20:00```)
 * Supports periodic weeks (```week 2-53/2 10:00-20:00```)
+* **EXT:** Supports multiple week ranges (```week 1,3-5,7-30/2 10:00-20:00```)
 
 ### Other ###
 
