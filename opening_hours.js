@@ -537,7 +537,7 @@
 		//======================================================================
 		// Main selector traversal function
 		//======================================================================
-		function getState(date) {
+		this.getState = function(date) {
 			var resultstate = false;
 			var changedate;
 
@@ -596,75 +596,86 @@
 		}
 
 		//======================================================================
+		// Iterator interface
+		//======================================================================
+		this.getIterator = function(date) {
+			return new function(oh) {
+				if (typeof date === 'undefined')
+					date = new Date();
+
+				var prevstate = [ undefined, date ], state = oh.getState(date);
+
+				this.getState = function() {
+					return state[0];
+				}
+
+				this.getDate = function() {
+					return prevstate[1];
+				}
+
+				this.getNextDate = function() {
+					return state[1];
+				}
+
+				this.advance = function(datelimit) {
+					do {
+						// open range, we won't be able to advance
+						if (typeof state[1] === 'undefined')
+							return false;
+
+						// we're going backwards or staying at place
+						// this always indicates coding error in a selector code
+						if (state[1].getTime() <= prevstate[1].getTime())
+							throw 'Fatal: infinite loop in nextChange';
+
+						// don't advance beyond limits (same as open range)
+						if (state[1].getTime() >= datelimit.getTime())
+							return false;
+
+						// do advance
+						prevstate = state;
+						state = oh.getState(state[1]);
+					} while (state[0] === prevstate[0]);
+					return true;
+				}
+			}(this);
+		}
+
+		//======================================================================
 		// Public interface
 		//======================================================================
 
 		// check whether facility is `open' on the given date (or now)
 		this.isOpen = function(date) {
-			if (typeof date === 'undefined')
-				date = new Date();
-
-			return getState(date)[0];
+			var it = this.getIterator(date);
+			return it.getState();
 		}
 
 		// returns time of next status change
 		this.nextChange = function(date, maxdate) {
-			if (typeof date === 'undefined')
-				date = new Date();
-
-			// sane default
 			if (typeof maxdate === 'undefined')
-				maxdate = new Date(date.getTime() + 1000*60*60*24*365*5);
-
-			var state = [ undefined, date ], prevstate;
-
-			while (1) {
-				prevstate = state;
-				state = getState(prevstate[1]);
-
-				// breaks when the state has changed, and prev. state is known
-				if (!state[0] === prevstate[0])
-					break;
-
-				// open range
-				if (typeof state[1] === 'undefined')
-					return undefined;
-
-				// this indicates error in some selector generating code above
-				if (state[1].getTime() <= prevstate[1].getTime())
-					throw 'Fatal: infinite loop in nextChange';
-
-				// this may happen if the facility is always open/closed,
-				// we may need a better way of checking for that
-				if (state[1].getTime() > maxdate.getTime())
-					return undefined;
-			}
-
-			return prevstate[1];
+				maxdate = new Date(date.getTime() + 1000 * 60 * 60 * 24 * 365 * 5);
+			var it = this.getIterator(date);
+			return it.getNextDate(maxdate);
 		}
 
 		// return array of open intervals between two dates
 		this.openIntervals = function(from, to) {
 			var res = [];
 
-			var state = this.isOpen(from);
-			var prevdate = from, curdate = this.nextChange(from, to);
+			var iterator = this.getIterator(from);
 
-			if (state)
+			if (iterator.getState())
 				res.push([from]);
 
-			for (; typeof curdate !== 'undefined' && curdate.getTime() < to.getTime(); curdate = this.nextChange(curdate, to)) {
-				state = !state;
-
-				if (state)
-					res.push([curdate]);
+			while (iterator.advance(to)) {
+				if (iterator.getState())
+					res.push([iterator.getDate()]);
 				else
-					res[res.length - 1].push(curdate);
-
-				prevdate = curdate;
+					res[res.length - 1].push(iterator.getDate());
 			}
 
-			if (state)
+			if (res[res.length - 1].length == 1)
 				res[res.length - 1].push(to);
 
 			return res;
@@ -674,20 +685,20 @@
 		this.openDuration = function(from, to) {
 			var res = 0;
 
-			var state = this.isOpen(from);
-			var prevdate = from, curdate = this.nextChange(prevdate, to);
+			var iterator = this.getIterator(from);
+			var prevdate = iterator.getState() ? from : undefined;
 
-			for (; typeof curdate !== 'undefined' && curdate.getTime() < to.getTime(); curdate = this.nextChange(curdate, to)) {
-				state = !state;
-
-				if (!state)
-					res += curdate.getTime() - prevdate.getTime();
-
-				prevdate = curdate;
+			while (iterator.advance(to)) {
+				if (iterator.getState()) {
+					prevdate = iterator.getDate();
+				} else {
+					res += iterator.getDate().getTime() - prevdate.getTime();
+					prevdate = undefined;
+				}
 			}
 
-			if (state)
-				res += to.getTime() - prevdate.getTime()
+			if (typeof prevdate !== 'undefined')
+				res += to.getTime() - prevdate.getTime();
 
 			return res;
 		}
