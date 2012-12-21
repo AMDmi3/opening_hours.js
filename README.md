@@ -16,7 +16,7 @@ a library which works from 12:00 to 18:00 on workdays except Wednesday, and from
 
 around-the-clock shop with some breaks.
 
-## Library API
+## Synopsis
 
 ```javascript
 // constructor takes opening_hours tag value
