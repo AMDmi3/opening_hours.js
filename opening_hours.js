@@ -78,7 +78,7 @@
 				if (tmp = value.match(/^(?:week|24\/7|off)/)) {
 					// reserved word
 					tokens.push([tmp[0], tmp[0]]);
-					value = value.substr(tmp[0].length)
+					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/)) {
 					// month name
 					tokens.push([months[tmp[0]], 'month']);
@@ -93,11 +93,15 @@
 					value = value.substr(tmp[0].length);
 				} else if (value.match(/^\s/)) {
 					// whitespace is ignored
-					value = value.substr(1)
+					value = value.substr(1);
+				} else if (value.match(/^[:.]/)) {
+					// other single-character tokens
+					tokens.push([value[0], 'timesep']);
+					value = value.substr(1);
 				} else {
 					// other single-character tokens
 					tokens.push([value[0], value[0]]);
-					value = value.substr(1)
+					value = value.substr(1);
 				}
 			}
 
@@ -129,7 +133,7 @@
 					at = parseMonthRange(tokens, at);
 				} else if (matchTokens(tokens, at, 'week')) {
 					at = parseWeekRange(tokens, at + 1);
-				} else if (matchTokens(tokens, at, 'number', ':')) {
+				} else if (matchTokens(tokens, at, 'number', 'timesep')) {
 					at = parseTimeRange(tokens, at, selectors);
 				} else if (matchTokens(tokens, at, 'off')) {
 					selectors.meaning = false;
@@ -150,7 +154,7 @@
 		//======================================================================
 		function parseTimeRange(tokens, at, selectors) {
 			for (; at < tokens.length; at++) {
-				if (matchTokens(tokens, at, 'number', ':', 'number', '-', 'number', ':', 'number')) {
+				if (matchTokens(tokens, at, 'number', 'timesep', 'number', '-', 'number', 'timesep', 'number')) {
 					// Time range
 					selectors.time.push(function(tokens, at) { return function(date) {
 						var ourminutes = date.getHours() * 60 + date.getMinutes();
