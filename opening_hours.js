@@ -37,6 +37,7 @@
 		//   - Which calls subparser for specific selector types
 		//     - Which produce selectors
 		var blocks = value.toLowerCase().split(/\s*;\s*/);
+		var week_stable = true;
 
 		for (var block = 0; block < blocks.length; block++) {
 			var tokens = tokenize(blocks[block]);
@@ -129,10 +130,13 @@
 					at = parseWeekdayRange(tokens, at, selectors);
 				} else if (matchTokens(tokens, at, 'month', 'number')) {
 					at = parseMonthdayRange(tokens, at);
+					week_stable = false;
 				} else if (matchTokens(tokens, at, 'month')) {
 					at = parseMonthRange(tokens, at);
+					week_stable = false;
 				} else if (matchTokens(tokens, at, 'week')) {
 					at = parseWeekRange(tokens, at + 1);
+					week_stable = false;
 				} else if (matchTokens(tokens, at, 'number', 'timesep')) {
 					at = parseTimeRange(tokens, at, selectors);
 				} else if (matchTokens(tokens, at, 'off')) {
@@ -232,6 +236,8 @@
 
 					if (!matchTokens(tokens, endat, ']'))
 						throw '"]" expected';
+
+					week_stable = false;
 
 					// Create selector for each list element
 					for (var nnumber = 0; nnumber < numbers.length; nnumber++) {
@@ -702,6 +708,10 @@
 				res += to.getTime() - prevdate.getTime();
 
 			return res;
+		}
+
+		this.isWeekStable = function() {
+			return week_stable;
 		}
 	}
 }));
