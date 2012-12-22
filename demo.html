@@ -31,30 +31,23 @@
 
 			var now = new Date();
 
-			var pad = function (n) { return n < 10 ? '0'+n : n; };
-
 			for (var e in examples) {
 				document.write('<h1>' + examples[e] + '</h1>');
 				var oh = new opening_hours(examples[e]);
 				var isopen = oh.getState(now);
 				var nextchange = oh.getNextChange(now);
-				var delta = Math.floor((nextchange.getTime() - now.getTime()) / 1000);
+				var delta = Math.floor((nextchange.getTime() - now.getTime()) / 1000 / 60);
 
-				var deltastr = pad(delta % 60) + ' сек.';
+				var deltastr = (delta % 60) + ' ' + plural(delta % 60, 'минуту', 'минуты', 'минут');
 				delta = Math.floor(delta / 60);
 
 				if (delta > 0) {
-					deltastr = pad(delta % 60) + ' мин., ' + deltastr;
-					delta = Math.floor(delta / 60);
-				}
-
-				if (delta > 0) {
-					deltastr = pad(delta % 24) + ' ч., ' + deltastr;
+					deltastr = (delta % 24) + ' ' + plural(delta % 24, 'час', 'часа', 'часов') + ' ' + deltastr;
 					delta = Math.floor(delta / 24);
 				}
 
 				if (delta > 0) {
-					deltastr = delta.toFixed(0) + ' дн., ' + deltastr;
+					deltastr = delta.toFixed(0) + ' ' + plural(delta, 'день', 'дня', 'дней') + ' ' + deltastr;
 				}
 
 				if (isopen) {
@@ -70,6 +63,17 @@
 				if (!oh.isWeekStable()) {
 					document.write('<p><b>ВНИМАНИЕ! Расписание только на ближайшие 7 дней и может меняться в другие недели.</b></p>');
 				}
+			}
+
+			function pad(n) { return n < 10 ? '0'+n : n; };
+
+			function plural(n, one, several, many) {
+				if (n % 10 >= 5 || n % 10 == 0 || (n % 100 >= 10 && n % 100 < 20)) {
+					return many;
+				} else if (n % 10 < 2) {
+					return one;
+				}
+				return several;
 			}
 
 			function drawTable(oh, date_today) {
