@@ -621,7 +621,7 @@
 
 				this.advance = function(datelimit) {
 					if (typeof datelimit === 'undefined')
-						datelimit = new Date(state[1].getTime() + 1000 * 60 * 60 * 24 * 365 * 5);
+						datelimit = new Date(prevstate[1].getTime() + 1000 * 60 * 60 * 24 * 366 * 5);
 
 					do {
 						// open range, we won't be able to advance
