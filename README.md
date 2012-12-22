@@ -19,31 +19,129 @@ around-the-clock shop with some breaks.
 ## Synopsis
 
 ```javascript
-// constructor takes opening_hours tag value
-var oh = new opening_hours('Mo-Fr 12:00-14:00');
+// For node.js:
+// var opening_hours = require('./opening_hours.js');
 
-// you can feed any date to library functions
-// here we take current date, but for the same result you may just omit date argument
-var now = new Date();
+// Constructor takes opening_hours tag value
+var oh = new opening_hours('We 12:00-14:00');
+//var oh = new opening_hours('24/7');
 
-// check whether the facility is `open' at the given date
-var state_msg = 'The facility is now ' + oh.isOpen(now) ? 'open' : 'close';
+// Let us define a range of two dates
+var from = new Date("01 Jan 2012"), to = new Date("01 Feb 2012");
 
-// get the date of the closest status change (opening or closing)
-var next_msg = 'And that will change on' + oh.nextChange(now);
+// high-level API
+{
+	// get an array of open intervals for given date range
+	var intervals = oh.openIntervals(from, to);
+	for (var i in intervals)  {
+		console.log('We are open from ' + intervals[i][0] + ' till ' + intervals[i][1]);
+	}
 
-// let us use another date, 1 day from now to the future
-var then = new Date(now); then.setDate(then.getDate() + 1);
-
-// get array of open intervals for a given date range
-var intervals = oh.openIntervals(now, then);
-for (var i in intervals)  {
-	var interval_msg = 'We are open from ' + intervals[i][0] + ' till ' + intervals[i][1];
+	// get open duration for the interval (in milliseconds)
+	console.log('Between ' + from + ' and ' + to + ', we are open for ' + (oh.openDuration(from, to) / 1000 / 60 / 60) + ' hours');
 }
 
-// get a open duration for a given date range
-var duration_msg = 'We are open for ' + oh.openDuraton(now, then) + ' milliseconds today';
+// you may not have predefined interval and/or you may need some
+// custom processing. For this, there's low-level API:
+{
+	// create an iterator to go through open/close points
+	// at beginning, it points to `from'
+	var iterator = oh.getIterator(from); // argument is needed to limit iteration in case there's no n
+
+	// getDate() and getState() methods return current state of an iterator
+	console.log('Initially, at ' + iterator.getDate() + ', we\'re ' + (iterator.getState() ? 'open' : 'close'));
+
+	// advance moves an iterator to the next point where state changes
+	// if it cannot move any further (for example, when opening_hours=24/7)
+	// or it would move past given limit, iterator is not advanced and false
+	// us returned
+	while (iterator.advance(to)) {
+		console.log('Then we ' + (iterator.getState() ? 'open' : 'close') + ' at ' + iterator.getDate());
+	}
+
+	// get final state of an iterator; that'd be state at `to` as well
+	console.log('Finally, at ' + to + ', we\'re ' + (iterator.getState() ? 'open' : 'closed'));
+
+	// you can get date of next change as well
+	// but note that it may return undefined if 
+	if (typeof iterator.getNextDate() === 'undefined')
+		console.log('And that will never change');
+	else
+		console.log('And that will change on ' + iterator.getNextDate());
+}
+
+// simple API may do one-shot checks without creating an iterator (it still uses iterator internally)
+// semantics are the same as iterator's getState() and getNextChange(), but these require a date argument
+// don't use this for iteration, as it's less effective than using an iterator
+{
+	console.log('Finally, at ' + to + ', we\'re ' + (oh.getState(to) ? 'open' : 'closed'));
+
+	if (typeof oh.getNextChange(to) === 'undefined')
+		console.log('And that will never change');
+	else
+		console.log('And that will change on ' + oh.getNextChange(to));
+}
 ```
+
+## Library API
+
+### Constructor
+
+* ```var oh = new opening_hours('We 12:00-14:00');```
+
+  Constructs opening_hours object, given the opening_hours tag value
+
+  Will throw an error string if the latter is malformed or unsupported
+
+### High-level API
+
+Here and below, unless noted otherwise, all arguments are expected to be and all output will be in the form of Date objects.
+
+* ```var intervals = oh.getOpenIntervals(from, to);```
+
+  Returns array of open intervals in a given range, in a form of ```[ [ from1, to1 ], [ from2, to2 ], [ from3, to3 ] ]```
+
+  Intervals are cropped with the input range.
+
+* ```var duration = oh.getOpenDuration(from, to);```
+
+  Returns duration for which the facility is open in a given date range, in milliseconds.
+
+### Simple API
+
+This API is useful for one-shot checks, but for iteration over intervals you should use more effecient iterator API.
+
+* ```var is_open = oh.getState(date);```
+
+  Checks whether the facility is open at the given *date*. You may omit *date* to use current date.
+
+* ```var next_change = oh.getNextDate(date, limit);```
+
+  Returns date of next state change. You may omit *date* to use current date. Search won't go beyond *limit* (which is *date* + ~5 years if omitted and is used to prevent infinite loop on non-pediodic opening_hours, e.g. ```24/7```).
+
+### Iterator API
+
+* ```var iterator = oh.getIterator(date);```
+
+  Constructs an iterator which can go through open/close points, starting at *date*. You may omit *date* to use current date.
+
+* ```var current_date = iterator.getDate();```
+
+  Returns current iterator position.
+
+* ```var is_open = iterator.getState();```
+
+  Returns whether the facility is open at the current iterator position in time.
+
+* ```var next_change = iterator.getNextDate(limit);```
+
+  Returns date of next iterator position. Search won't go beyond *limit* (which is current position + ~5 years if omitted and is used to prevent infinite loop on non-pediodic opening_hours, e.g. ```24/7```).
+
+* ```var had_advanced = iterator.advance(limit);```
+
+  Advances an iterator to the next position, but not further that a *limit* (which is current position + ~5 years if omitted and is used to prevent infinite loop on non-pediodic opening_hours, e.g. ```24/7```), returns whether the iterator was moved.
+
+  For instance, returns false if the iterator would go beyond *limit* or if there's no next position (```24/7``` case).
 
 ## Features
 
