@@ -65,7 +65,9 @@ var to = new Date("01 Feb 2012");
 
 ### Constructor
 
-* ```var oh = new opening_hours('We 12:00-14:00');```
+* ```javascript
+  var oh = new opening_hours('We 12:00-14:00');
+  ```
 
   Constructs opening_hours object, given the opening_hours tag value
 
@@ -75,13 +77,17 @@ var to = new Date("01 Feb 2012");
 
 Here and below, unless noted otherwise, all arguments are expected to be and all output will be in the form of Date objects.
 
-* ```var intervals = oh.getOpenIntervals(from, to);```
+* ```javascript
+  var intervals = oh.getOpenIntervals(from, to);
+  ```
 
   Returns array of open intervals in a given range, in a form of ```[ [ from1, to1 ], [ from2, to2 ], [ from3, to3 ] ]```
 
   Intervals are cropped with the input range.
 
-* ```var duration = oh.getOpenDuration(from, to);```
+* ```javascript
+  var duration = oh.getOpenDuration(from, to);
+  ```
 
   Returns duration for which the facility is open in a given date range, in milliseconds.
 
@@ -89,33 +95,47 @@ Here and below, unless noted otherwise, all arguments are expected to be and all
 
 This API is useful for one-shot checks, but for iteration over intervals you should use more effecient iterator API.
 
-* ```var is_open = oh.getState(date);```
+* ```javascript
+  var is_open = oh.getState(date);
+  ```
 
   Checks whether the facility is open at the given *date*. You may omit *date* to use current date.
 
-* ```var next_change = oh.getNextDate(date, limit);```
+* ```javascript
+  var next_change = oh.getNextDate(date, limit);
+  ```
 
   Returns date of next state change. You may omit *date* to use current date. Search won't go beyond *limit* (which is *date* + ~5 years if omitted and is used to prevent infinite loop on non-pediodic opening_hours, e.g. ```24/7```).
 
 ### Iterator API
 
-* ```var iterator = oh.getIterator(date);```
+* ```javascript
+  var iterator = oh.getIterator(date);
+  ```
 
   Constructs an iterator which can go through open/close points, starting at *date*. You may omit *date* to use current date.
 
-* ```var current_date = iterator.getDate();```
+* ```javascript
+  var current_date = iterator.getDate();
+  ```
 
   Returns current iterator position.
 
-* ```var is_open = iterator.getState();```
+* ```javascript
+  var is_open = iterator.getState();
+  ```
 
   Returns whether the facility is open at the current iterator position in time.
 
-* ```var next_change = iterator.getNextDate(limit);```
+* ```javascript
+  var next_change = iterator.getNextDate(limit);
+  ```
 
   Returns date of next iterator position. Search won't go beyond *limit* (which is current position + ~5 years if omitted and is used to prevent infinite loop on non-pediodic opening_hours, e.g. ```24/7```).
 
-* ```var had_advanced = iterator.advance(limit);```
+* ```javascript
+  var had_advanced = iterator.advance(limit);
+  ```
 
   Advances an iterator to the next position, but not further that a *limit* (which is current position + ~5 years if omitted and is used to prevent infinite loop on non-pediodic opening_hours, e.g. ```24/7```), returns whether the iterator was moved.
 
