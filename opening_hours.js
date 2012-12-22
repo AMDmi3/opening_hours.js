@@ -663,7 +663,9 @@
 		// returns time of next status change
 		this.getNextChange = function(date, maxdate) {
 			var it = this.getIterator(date);
-			return it.getNextDate(maxdate);
+			if (!it.advance(maxdate))
+				return undefined;
+			return it.getDate();
 		}
 
 		// return array of open intervals between two dates
