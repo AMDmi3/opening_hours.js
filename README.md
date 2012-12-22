@@ -69,9 +69,9 @@ var to = new Date("01 Feb 2012");
   var oh = new opening_hours('We 12:00-14:00');
   ```
 
-  Constructs opening_hours object, given the opening_hours tag value
+  Constructs opening_hours object, given the opening_hours tag value.
 
-  Will throw an error string if the latter is malformed or unsupported
+  Throws an error string if the expression is malformed or unsupported.
 
 ### High-level API
 
@@ -93,7 +93,7 @@ Here and below, unless noted otherwise, all arguments are expected to be and all
 
 ### Simple API
 
-This API is useful for one-shot checks, but for iteration over intervals you should use more effecient iterator API.
+This API is useful for one-shot checks, but for iteration over intervals you should use more effecient **Iterator API**.
 
 * ```javascript
   var is_open = oh.getState(date);
@@ -105,7 +105,9 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   var next_change = oh.getNextDate(date, limit);
   ```
 
-  Returns date of next state change. You may omit *date* to use current date. Search won't go beyond *limit* (which is *date* + ~5 years if omitted and is used to prevent infinite loop on non-pediodic opening_hours, e.g. ```24/7```).
+  Returns date of next state change. You may omit *date* to use current date.
+
+  Returns undefined if the next change cannot be found. This may happen if there's no such position (e.g. ```24/7```) or if seatch goes beyond *limit* (which is *date* + ~5 years if omitted).
 
 ### Iterator API
 
@@ -131,7 +133,9 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   var next_change = iterator.getNextDate(limit);
   ```
 
-  Returns date of next iterator position. Search won't go beyond *limit* (which is current position + ~5 years if omitted and is used to prevent infinite loop on non-pediodic opening_hours, e.g. ```24/7```).
+  Returns date of next iterator position.
+
+  Returns undefined if the next change cannot be found. This may happen if there's no such position (e.g. ```24/7```) or if seatch goes beyond *limit* (which is *date* + ~5 years if omitted).
 
 * ```javascript
   var had_advanced = iterator.advance(limit);
