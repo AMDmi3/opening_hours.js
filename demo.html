@@ -66,6 +66,10 @@
 				}
 
 				drawTable(oh, now);
+
+				if (!oh.isWeekStable()) {
+					document.write('<p><b>ВНИМАНИЕ! Расписание только на ближайшие 7 дней и может меняться в другие недели.</b></p>');
+				}
 			}
 
 			function drawTable(oh, date_today) {
