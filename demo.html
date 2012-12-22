@@ -1,15 +1,17 @@
 <html>
 	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>opening_hours demo</title>
 		<script type="text/javascript" src="opening_hours.js"></script>
 		<style type="text/css">
 			body { font-family: sans-serif }
 			table {}
-			td.day { text-align: center; padding: 0px 10px }
+			td { background-color: #E0E0E0; padding: 0px 10px }
+			td.day { text-align: center }
 			td.workday { background-color: #E0E0FF }
 			td.weekend { background-color: #FFC0C0 }
 			td.today { font-weight: bold }
-			td.times { width: 400; background-color: #E0E0E0 }
+			td.times { width: 400; background-color: #E0E0E0; padding: 0px 1px }
 
 			div.timebar { height: 20px; display: inline-block }
 			div.open { background-color: #FFFFFF; margin: 0px -1px; border: 1px solid #808080; border-radius: 5px }
@@ -29,24 +31,26 @@
 
 			var now = new Date();
 
+			var pad = function (n) { return n < 10 ? '0'+n : n; };
+
 			for (var e in examples) {
 				document.write('<h1>' + examples[e] + '</h1>');
 				var oh = new opening_hours(examples[e]);
-				var isopen = oh.isOpen(now);
-				var nextchange = oh.nextChange(now);
-				var delta = (nextchange.getTime() - now.getTime()) / 1000;
+				var isopen = oh.getState(now);
+				var nextchange = oh.getNextChange(now);
+				var delta = Math.floor((nextchange.getTime() - now.getTime()) / 1000);
 
-				var deltastr = (delta % 60).toFixed(0) + ' сек.';
-				delta /= 60;
+				var deltastr = pad(delta % 60) + ' сек.';
+				delta = Math.floor(delta / 60);
 
 				if (delta > 0) {
-					deltastr = (delta % 60).toFixed(0) + ' мин., ' + deltastr;
-					delta /= 60;
+					deltastr = pad(delta % 60) + ' мин., ' + deltastr;
+					delta = Math.floor(delta / 60);
 				}
 
 				if (delta > 0) {
-					deltastr = (delta % 24).toFixed(0) + ' ч., ' + deltastr;
-					delta /= 24;
+					deltastr = pad(delta % 24) + ' ч., ' + deltastr;
+					delta = Math.floor(delta / 24);
 				}
 
 				if (delta > 0) {
@@ -61,48 +65,71 @@
 					document.write('<p>Откроется ' + nextchange + ' (через ' + deltastr + ')</p>');
 				}
 
-				function drawTable(oh,date,number) {
-					date = new Date(date);
-					date.setHours(0, 0, 0, 0);
+				drawTable(oh, now);
 
-					document.write('<table>');
+				if (!oh.isWeekStable()) {
+					document.write('<p><b>ВНИМАНИЕ! Расписание только на ближайшие 7 дней и может меняться в другие недели.</b></p>');
+				}
+			}
 
-					for (var row = 0; row < number; row++) {
-						document.write('<tr><td class="day ' + (date.getDay() % 6 == 0 ? 'weekend' : 'workday') + (row == 0 ? ' today' : '')+ '">');
-						document.write(months[date.getMonth()] + ' ' + date.getDate() + ', ' + weekdays[date.getDay()]);
-						document.write('</td><td class="times">');
+			function drawTable(oh, date_today) {
+				var date_today = new Date(date_today);
+				date_today.setHours(0, 0, 0, 0);
 
-						var state = oh.isOpen(date);
-						var prevdate = date;
-						var curdate = date;
+				var date = new Date(date_today);
+				date.setDate(date.getDate() - date.getDay() + 7);
 
-						while (curdate.getTime() - date.getTime() < 24*60*60*1000) {
-							curdate = oh.nextChange(curdate);
+				var table = [];
 
-							var fr = prevdate.getTime() - date.getTime();
-							var to = curdate.getTime() - date.getTime();
-
-							if (to > 24*60*60*1000)
-								to = 24*60*60*1000;
-
-							fr *= 100/1000/60/60/24;
-							to *= 100/1000/60/60/24;
-
-							document.write('<div class="timebar ' + (state?'open':'closed') + '" style="width:' + (to-fr) + '%"></div>');
-							//document.write(fr + '-' + to + ',' );
-
-							prevdate = curdate;
-							state = !state;
-						}
-
-						document.write('</td></tr>');
-						date.setDate(date.getDate()+1);
+				for (var row = 0; row < 7; row++) {
+					date.setDate(date.getDate()+1);
+					if (date.getDay() == date_today.getDay()) {
+						date.setDate(date.getDate()-7);
 					}
 
-					document.write('</table>');
+					var state = oh.getState(date);
+					var prevdate = date;
+					var curdate = date;
+
+					table[row] = {
+						date: new Date(date),
+						times: '',
+						text: []
+					};
+
+					while (curdate.getTime() - date.getTime() < 24*60*60*1000) {
+						curdate = oh.getNextChange(curdate);
+
+						var fr = prevdate.getTime() - date.getTime();
+						var to = curdate.getTime() - date.getTime();
+
+						if (to > 24*60*60*1000)
+							to = 24*60*60*1000;
+
+						fr *= 100/1000/60/60/24;
+						to *= 100/1000/60/60/24;
+
+						table[row].times += '<div class="timebar ' + (state?'open':'closed') + '" style="width:' + (to-fr) + '%"></div>';
+						if (state) {
+							table[row].text.push('с ' + pad(prevdate.getHours()) + ':' + pad(prevdate.getMinutes()) + ' до ' + pad(curdate.getHours()) + ':' + pad(curdate.getMinutes()));
+						}
+
+						prevdate = curdate;
+						state = !state;
+					}
 				}
 
-				drawTable(oh, now, 7);
+				document.write('<table>');
+				for (var row in table) {
+					document.write('<tr><td class="day ' + (table[row].date.getDay() % 6 == 0 ? 'weekend' : 'workday') + (table[row].date.getDay() == date_today.getDay() ? ' today' : '')+ '">');
+					document.write(months[table[row].date.getMonth()] + ' ' + table[row].date.getDate() + ', ' + weekdays[table[row].date.getDay()]);
+					document.write('</td><td class="times">');
+					document.write(table[row].times);
+					document.write('</td><td>');
+					document.write(table[row].text.join(', '));
+					document.write('</td></tr>');
+				}
+				document.write('</table>');
 			}
 		</script>
 	</body>
