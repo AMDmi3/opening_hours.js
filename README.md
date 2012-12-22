@@ -63,8 +63,6 @@ var to = new Date("01 Feb 2012");
 
 ## Library API
 
-### Constructor
-
 * ```javascript
   var oh = new opening_hours('We 12:00-14:00');
   ```
@@ -72,6 +70,12 @@ var to = new Date("01 Feb 2012");
   Constructs opening_hours object, given the opening_hours tag value.
 
   Throws an error string if the expression is malformed or unsupported.
+
+* ```javascript
+  var every_week_is_same = oh.isWeekSame();
+  ```
+
+  Checks whether open intervals are same for every week. Useful for giving a user hint whether time table may change for another week.
 
 ### High-level API
 
