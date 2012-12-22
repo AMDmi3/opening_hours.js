@@ -6,11 +6,12 @@
 		<style type="text/css">
 			body { font-family: sans-serif }
 			table {}
-			td.day { text-align: center; padding: 0px 10px }
+			td { background-color: #E0E0E0; padding: 0px 10px }
+			td.day { text-align: center }
 			td.workday { background-color: #E0E0FF }
 			td.weekend { background-color: #FFC0C0 }
 			td.today { font-weight: bold }
-			td.times { width: 400; background-color: #E0E0E0 }
+			td.times { width: 400; background-color: #E0E0E0; padding: 0px 1px }
 
 			div.timebar { height: 20px; display: inline-block }
 			div.open { background-color: #FFFFFF; margin: 0px -1px; border: 1px solid #808080; border-radius: 5px }
@@ -117,7 +118,7 @@
 						document.write(months[table[row].date.getMonth()] + ' ' + table[row].date.getDate() + ', ' + weekdays[table[row].date.getDay()]);
 						document.write('</td><td class="times">');
 						document.write(table[row].times);
-						document.write('</td><td class="times">');
+						document.write('</td><td>');
 						document.write(table[row].text.join(', '));
 						document.write('</td></tr>');
 					}
