@@ -30,24 +30,26 @@
 
 			var now = new Date();
 
+			var pad = function (n) { return n < 10 ? '0'+n : n; };
+
 			for (var e in examples) {
 				document.write('<h1>' + examples[e] + '</h1>');
 				var oh = new opening_hours(examples[e]);
 				var isopen = oh.getState(now);
 				var nextchange = oh.getNextChange(now);
-				var delta = (nextchange.getTime() - now.getTime()) / 1000;
+				var delta = Math.floor((nextchange.getTime() - now.getTime()) / 1000);
 
-				var deltastr = (delta % 60).toFixed(0) + ' сек.';
-				delta /= 60;
+				var deltastr = pad(delta % 60) + ' сек.';
+				delta = Math.floor(delta / 60);
 
 				if (delta > 0) {
-					deltastr = (delta % 60).toFixed(0) + ' мин., ' + deltastr;
-					delta /= 60;
+					deltastr = pad(delta % 60) + ' мин., ' + deltastr;
+					delta = Math.floor(delta / 60);
 				}
 
 				if (delta > 0) {
-					deltastr = (delta % 24).toFixed(0) + ' ч., ' + deltastr;
-					delta /= 24;
+					deltastr = pad(delta % 24) + ' ч., ' + deltastr;
+					delta = Math.floor(delta / 24);
 				}
 
 				if (delta > 0) {
@@ -63,9 +65,6 @@
 				}
 
 				function drawTable(oh,date_today,number) {
-
-					var pad = function (n) { return n<10 ? '0'+n : n };
-
 					var date_today = new Date(date_today);
 					date_today.setHours(0, 0, 0, 0);
 
