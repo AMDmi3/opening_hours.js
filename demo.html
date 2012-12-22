@@ -60,9 +60,10 @@
 
 				drawTable(oh, now);
 
-				if (!oh.isWeekStable()) {
-					document.write('<p><b>ВНИМАНИЕ! Расписание только на ближайшие 7 дней и может меняться в другие недели.</b></p>');
-				}
+				if (oh.isWeekStable())
+					document.write('<p><b>Расписание верно для любой недели.</b></p>');
+				else
+					document.write('<p><b>ВНИМАНИЕ! Расписание меняется в другие недели.</b></p>');
 			}
 
 			function pad(n) { return n < 10 ? '0'+n : n; };
