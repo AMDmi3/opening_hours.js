@@ -65,67 +65,67 @@
 					document.write('<p>Откроется ' + nextchange + ' (через ' + deltastr + ')</p>');
 				}
 
-				function drawTable(oh,date_today) {
-					var date_today = new Date(date_today);
-					date_today.setHours(0, 0, 0, 0);
+				drawTable(oh, now);
+			}
 
-					var date = new Date(date_today);
-					date.setDate(date.getDate() - date.getDay() + 7);
+			function drawTable(oh, date_today) {
+				var date_today = new Date(date_today);
+				date_today.setHours(0, 0, 0, 0);
 
-					var table = [];
+				var date = new Date(date_today);
+				date.setDate(date.getDate() - date.getDay() + 7);
 
-					for (var row = 0; row < 7; row++) {
-						date.setDate(date.getDate()+1);
-						if (date.getDay() == date_today.getDay()) {
-							date.setDate(date.getDate()-7);
-						}
+				var table = [];
 
-						var state = oh.getState(date);
-						var prevdate = date;
-						var curdate = date;
-
-						table[row] = {
-							date: new Date(date),
-							times: '',
-							text: []
-						};
-
-						while (curdate.getTime() - date.getTime() < 24*60*60*1000) {
-							curdate = oh.getNextChange(curdate);
-
-							var fr = prevdate.getTime() - date.getTime();
-							var to = curdate.getTime() - date.getTime();
-
-							if (to > 24*60*60*1000)
-								to = 24*60*60*1000;
-
-							fr *= 100/1000/60/60/24;
-							to *= 100/1000/60/60/24;
-
-							table[row].times += '<div class="timebar ' + (state?'open':'closed') + '" style="width:' + (to-fr) + '%"></div>';
-							if (state) {
-								table[row].text.push('с ' + pad(prevdate.getHours()) + ':' + pad(prevdate.getMinutes()) + ' до ' + pad(curdate.getHours()) + ':' + pad(curdate.getMinutes()));
-							}
-
-							prevdate = curdate;
-							state = !state;
-						}
+				for (var row = 0; row < 7; row++) {
+					date.setDate(date.getDate()+1);
+					if (date.getDay() == date_today.getDay()) {
+						date.setDate(date.getDate()-7);
 					}
 
-					document.write('<table>');
-					for (var row in table) {
-						document.write('<tr><td class="day ' + (table[row].date.getDay() % 6 == 0 ? 'weekend' : 'workday') + (table[row].date.getDay() == date_today.getDay() ? ' today' : '')+ '">');
-						document.write(months[table[row].date.getMonth()] + ' ' + table[row].date.getDate() + ', ' + weekdays[table[row].date.getDay()]);
-						document.write('</td><td class="times">');
-						document.write(table[row].times);
-						document.write('</td><td>');
-						document.write(table[row].text.join(', '));
-						document.write('</td></tr>');
+					var state = oh.getState(date);
+					var prevdate = date;
+					var curdate = date;
+
+					table[row] = {
+						date: new Date(date),
+						times: '',
+						text: []
+					};
+
+					while (curdate.getTime() - date.getTime() < 24*60*60*1000) {
+						curdate = oh.getNextChange(curdate);
+
+						var fr = prevdate.getTime() - date.getTime();
+						var to = curdate.getTime() - date.getTime();
+
+						if (to > 24*60*60*1000)
+							to = 24*60*60*1000;
+
+						fr *= 100/1000/60/60/24;
+						to *= 100/1000/60/60/24;
+
+						table[row].times += '<div class="timebar ' + (state?'open':'closed') + '" style="width:' + (to-fr) + '%"></div>';
+						if (state) {
+							table[row].text.push('с ' + pad(prevdate.getHours()) + ':' + pad(prevdate.getMinutes()) + ' до ' + pad(curdate.getHours()) + ':' + pad(curdate.getMinutes()));
+						}
+
+						prevdate = curdate;
+						state = !state;
 					}
-					document.write('</table>');
 				}
 
-				drawTable(oh, now);
+				document.write('<table>');
+				for (var row in table) {
+					document.write('<tr><td class="day ' + (table[row].date.getDay() % 6 == 0 ? 'weekend' : 'workday') + (table[row].date.getDay() == date_today.getDay() ? ' today' : '')+ '">');
+					document.write(months[table[row].date.getMonth()] + ' ' + table[row].date.getDate() + ', ' + weekdays[table[row].date.getDay()]);
+					document.write('</td><td class="times">');
+					document.write(table[row].times);
+					document.write('</td><td>');
+					document.write(table[row].text.join(', '));
+					document.write('</td></tr>');
+				}
+				document.write('</table>');
 			}
 		</script>
 	</body>
