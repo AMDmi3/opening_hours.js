@@ -106,12 +106,12 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   Checks whether the facility is open at the given *date*. You may omit *date* to use current date.
 
 * ```javascript
-  var next_change = oh.getNextDate(date, limit);
+  var next_change = oh.getNextChange(date, limit);
   ```
 
   Returns date of next state change. You may omit *date* to use current date.
 
-  Returns undefined if the next change cannot be found. This may happen if there's no such position (e.g. ```24/7```) or if seatch goes beyond *limit* (which is *date* + ~5 years if omitted).
+  Returns undefined if the next change cannot be found. This may happen if the state won't ever change (e.g. ```24/7```) or if search goes beyond *limit* (which is *date* + ~5 years if omitted).
 
 ### Iterator API
 
