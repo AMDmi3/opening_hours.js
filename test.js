@@ -18,7 +18,7 @@ test.addTest('Time intervals', [
 		[ '2012.10.05 10:00', '2012.10.05 12:00' ],
 		[ '2012.10.06 10:00', '2012.10.06 12:00' ],
 		[ '2012.10.07 10:00', '2012.10.07 12:00' ],
-	], 1000 * 60 * 60 * 2 * 7);
+	], 1000 * 60 * 60 * 2 * 7, true);
 
 test.addTest('Time ranges spanning midnight', [
 		'22:00-02:00',
@@ -32,7 +32,7 @@ test.addTest('Time ranges spanning midnight', [
 		[ '2012.10.05 22:00', '2012.10.06 02:00' ],
 		[ '2012.10.06 22:00', '2012.10.07 02:00' ],
 		[ '2012.10.07 22:00', '2012.10.08 00:00' ],
-	], 1000 * 60 * 60 * 4 * 7);
+	], 1000 * 60 * 60 * 4 * 7, true);
 
 test.addTest('Weekdays', [
 		'Mo,Th,Sa,Su 10:00-12:00',
@@ -45,7 +45,7 @@ test.addTest('Weekdays', [
 		[ '2012.10.04 10:00', '2012.10.04 12:00' ],
 		[ '2012.10.06 10:00', '2012.10.06 12:00' ],
 		[ '2012.10.07 10:00', '2012.10.07 12:00' ],
-	], 1000 * 60 * 60 * 2 * 4);
+	], 1000 * 60 * 60 * 2 * 4, true);
 
 test.addTest('Omitted time', [
 		'Mo,We',
@@ -53,14 +53,14 @@ test.addTest('Omitted time', [
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.02 0:00' ],
 		[ '2012.10.03 0:00', '2012.10.04 0:00' ],
-	], 1000 * 60 * 60 * 24 * 2);
+	], 1000 * 60 * 60 * 24 * 2, true);
 
 test.addTest('Time ranges spanning midnight w/weekdays', [
 		ignored('We 22:00-02:00'),
 		ignored('We 22:00-26:00'),
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.03 22:00', '2012.10.04 02:00' ],
-	], 1000 * 60 * 60 * 4);
+	], 1000 * 60 * 60 * 4, true);
 
 test.addTest('Full range', [
 		'00:00-24:00',
@@ -72,20 +72,20 @@ test.addTest('Full range', [
 		'Sa-Fr 00:00-24:00',
 		'Su-Sa 00:00-24:00',
 		'24/7',
-		'Jan-Dec',
-		'Feb-Jan',
-		'Jan 01-Dec 31',
-		'week 1-54',
+		'Jan-Dec', // week stable actually, but check for that needs extra logic
+		'Feb-Jan', // week stable actually, but check for that needs extra logic
+		'Jan 01-Dec 31', // week stable actually, but check for that needs extra logic
+		'week 1-54', // week stable actually, but check for that needs extra logic
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
-	], 1000 * 60 * 60 * 24 * 7);
+	], 1000 * 60 * 60 * 24 * 7, undefined);
 
 test.addTest('24/7 as time interval alias', [
 		'Mo,We 24/7',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.02 0:00' ],
 		[ '2012.10.03 0:00', '2012.10.04 0:00' ],
-	], 1000 * 60 * 60 * 24 * 2);
+	], 1000 * 60 * 60 * 24 * 2, true);
 
 test.addTest('Constrained weekdays', [
 		'We[4,5] 10:00-12:00',
@@ -96,7 +96,7 @@ test.addTest('Constrained weekdays', [
 	], '2012.10.01 0:00', '2012.11.01 0:00', [
 		[ '2012.10.24 10:00', '2012.10.24 12:00' ],
 		[ '2012.10.31 10:00', '2012.10.31 12:00' ],
-	], 1000 * 60 * 60 * 2 * 2);
+	], 1000 * 60 * 60 * 2 * 2, false);
 
 test.addTest('Exception rules', [
 		'Mo-Fr 10:00-16:00; We 12:00-18:00'
@@ -106,7 +106,7 @@ test.addTest('Exception rules', [
 		[ '2012.10.03 12:00', '2012.10.03 18:00' ], // Not 10:00-18:00
 		[ '2012.10.04 10:00', '2012.10.04 16:00' ],
 		[ '2012.10.05 10:00', '2012.10.05 16:00' ],
-	], 1000 * 60 * 60 * 6 * 5);
+	], 1000 * 60 * 60 * 6 * 5, true);
 
 test.addTest('Month ranges', [
 		'Nov-Feb 00:00-24:00',
@@ -115,7 +115,7 @@ test.addTest('Month ranges', [
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.01 00:00', '2012.03.01 00:00' ],
 		[ '2012.11.01 00:00', '2013.01.01 00:00' ],
-	], 1000 * 60 * 60 * 24 * (31 + 29 + 30 + 31));
+	], 1000 * 60 * 60 * 24 * (31 + 29 + 30 + 31), false);
 
 test.addTest('Week ranges', [
 		'week 1,3 00:00-24:00',
@@ -123,7 +123,7 @@ test.addTest('Week ranges', [
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.01 00:00', '2012.01.02 00:00' ],
 		[ '2012.01.09 00:00', '2012.01.16 00:00' ],
-	], 1000 * 60 * 60 * 24 * (1 + 7));
+	], 1000 * 60 * 60 * 24 * (1 + 7), false);
 
 test.addTest('Week ranges', [
 		'week 2,4 00:00-24:00',
@@ -131,7 +131,7 @@ test.addTest('Week ranges', [
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.02 00:00', '2012.01.09 00:00' ],
 		[ '2012.01.16 00:00', '2012.01.23 00:00' ],
-	], 1000 * 60 * 60 * 24 * (7 + 7));
+	], 1000 * 60 * 60 * 24 * (7 + 7), false);
 
 test.addTest('Week range limit', [
 		'week 2-54 00:00-24:00',
@@ -139,14 +139,14 @@ test.addTest('Week range limit', [
 	], '2012.01.01 0:00', '2014.01.01 0:00', [
 		[ '2012.01.02 00:00', '2013.01.01 00:00' ],
 		[ '2013.01.07 00:00', '2014.01.01 00:00' ],
-	], 1000 * 60 * 60 * 24 * 724);
+	], 1000 * 60 * 60 * 24 * 724, false);
 
 test.addTest('Monthday ranges', [
 		'Jan 23-31 00:00-24:00; Feb 1-12 00:00-24:00',
 		'Jan 23-Feb 12 00:00-24:00',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
-	], 1000 * 60 * 60 * 24 * 21);
+	], 1000 * 60 * 60 * 24 * 21, false);
 
 test.addTest('Monthday ranges spanning year boundary', [
 		'Dec 31-Jan 01',
@@ -154,7 +154,7 @@ test.addTest('Monthday ranges spanning year boundary', [
 		[ '2012.01.01 0:00', '2012.01.02 00:00' ],
 		[ '2012.12.31 0:00', '2013.01.02 00:00' ],
 		[ '2013.12.31 0:00', '2014.01.01 00:00' ],
-	], 1000 * 60 * 60 * 24 * 4);
+	], 1000 * 60 * 60 * 24 * 4, false);
 
 test.addTest('Periodical monthdays', [
 		'Jan 01-31/8 00:00-24:00',
@@ -163,7 +163,7 @@ test.addTest('Periodical monthdays', [
 		[ '2012.01.09 0:00', '2012.01.10 00:00' ],
 		[ '2012.01.17 0:00', '2012.01.18 00:00' ],
 		[ '2012.01.25 0:00', '2012.01.26 00:00' ],
-	], 1000 * 60 * 60 * 24 * 4);
+	], 1000 * 60 * 60 * 24 * 4, false);
 
 test.addTest('Periodical monthdays', [
 		'Jan 10-31/7',
@@ -172,21 +172,21 @@ test.addTest('Periodical monthdays', [
 		[ '2012.01.17 0:00', '2012.01.18 00:00' ],
 		[ '2012.01.24 0:00', '2012.01.25 00:00' ],
 		[ '2012.01.31 0:00', '2012.02.01 00:00' ],
-	], 1000 * 60 * 60 * 24 * 4);
+	], 1000 * 60 * 60 * 24 * 4, false);
 
 test.addTest('Selector order', [ // result should not depend on selector order
 		'Feb week 6',
 		'week 6 Feb',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.02.01 0:00', '2012.02.06 00:00' ],
-	], 1000 * 60 * 60 * 24 * 5);
+	], 1000 * 60 * 60 * 24 * 5, false);
 
 test.addTest('Selector order', [
 		'Feb week 7',
 		'week 7 Feb',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.02.06 0:00', '2012.02.13 00:00' ],
-	], 1000 * 60 * 60 * 24 * 7);
+	], 1000 * 60 * 60 * 24 * 7, false);
 
 test.addTest('Input tolerance: case and whitespace', [
 		'   mo,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00    Off  ',
@@ -199,7 +199,7 @@ test.addTest('Input tolerance: case and whitespace', [
 		[ '2012.10.03 16:00', '2012.10.03 20:00' ],
 		[ '2012.10.04 12:00', '2012.10.04 14:00' ],
 		[ '2012.10.04 16:00', '2012.10.04 20:00' ],
-	], 1000 * 60 * 60 * 6 * 4);
+	], 1000 * 60 * 60 * 6 * 4, true);
 
 test.addTest('Input tolerance: dot as time separator', [
 		'10.00-12.00',
@@ -215,7 +215,7 @@ test.addTest('Input tolerance: dot as time separator', [
 		[ '2012.10.05 10:00', '2012.10.05 12:00' ],
 		[ '2012.10.06 10:00', '2012.10.06 12:00' ],
 		[ '2012.10.07 10:00', '2012.10.07 12:00' ],
-	], 1000 * 60 * 60 * 2 * 7);
+	], 1000 * 60 * 60 * 2 * 7, true);
 
 test.addTest('Extensions: complex monthday ranges', [
 		'Jan 23-31,Feb 1-12 00:00-24:00',
@@ -223,7 +223,7 @@ test.addTest('Extensions: complex monthday ranges', [
 		ignored('Jan 23-30,31-Feb 1-2,3-12 12 00:00-24:00'),
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
-	], 1000 * 60 * 60 * 24 * 21);
+	], 1000 * 60 * 60 * 24 * 21, false);
 
 test.addTest('Extensions: missing time range separators', [
 		'Mo 12:00-14:00 16:00-18:00 20:00-22:00',
@@ -231,7 +231,7 @@ test.addTest('Extensions: missing time range separators', [
 		[ '2012.10.01 12:00', '2012.10.01 14:00' ],
 		[ '2012.10.01 16:00', '2012.10.01 18:00' ],
 		[ '2012.10.01 20:00', '2012.10.01 22:00' ],
-	], 1000 * 60 * 60 * 6);
+	], 1000 * 60 * 60 * 6, true);
 
 process.exit(test.run() ? 0 : 1);
 
@@ -241,23 +241,25 @@ process.exit(test.run() ? 0 : 1);
 function opening_hours_test() {
 	var tests = [];
 
-	function runSingleTest(name, value, from, to, expected_intervals, expected_duration) {
+	function runSingleTest(name, value, from, to, expected_intervals, expected_duration, expected_weekstable) {
 		var ignored = typeof value !== 'string';
 		if (ignored) {
 			ignored = value[1];
 			value = value[0];
 		}
 
-		var oh, intervals, duration, intervals_ok, duration_ok, crashed = true;
+		var oh, intervals, duration, weekstable, intervals_ok, duration_ok, weekstable_ok, crashed = true;
 
 		try {
 			oh = new opening_hours(value);
 
 			intervals = oh.getOpenIntervals(new Date(from), new Date(to));
 			duration = oh.getOpenDuration(new Date(from), new Date(to));
+			weekstable = oh.isWeekStable();
 
-			intervals_ok = intervals.length == expected_intervals.length;
-			duration_ok = duration === expected_duration;
+			intervals_ok = typeof expected_intervals === 'undefined' || intervals.length == expected_intervals.length;
+			duration_ok = typeof expected_durartion === 'undefined' || duration === expected_duration;
+			weekstable_ok = typeof expected_weekstable === 'undefined' || weekstable === expected_weekstable;
 
 			crashed = false;
 		} catch (err) {
@@ -277,7 +279,7 @@ function opening_hours_test() {
 
 		var passed = false;
 		var str = '"' + name + '" for "' + value + '": ';
-		if (intervals_ok && duration_ok) {
+		if (intervals_ok && duration_ok && weekstable_ok) {
 			str += '[1;32mPASSED[0m';
 			if (ignored)
 				str += ', [1;33malso ignored, please unignore since the test passes![0m';
@@ -293,6 +295,8 @@ function opening_hours_test() {
 				str += ', bad duration: ' + duration + ', expected ' + expected_duration;
 			if (!intervals_ok)
 				str += ', bad intervals: \n' + intervalsToString(intervals) + '\nexpected:\n' + intervalsToString(expected_intervals);
+			if (!weekstable_ok)
+				str += ', bad weekstable flag: ' + weekstable + ', expected ' + expected_weekstable;
 		}
 
 		sys.puts(str);
@@ -334,7 +338,7 @@ function opening_hours_test() {
 	this.run = function() {
 		var success = 0;
 		for (var test = 0; test < tests.length; test++) {
-			if (runSingleTest(tests[test][0], tests[test][1], tests[test][2], tests[test][3], tests[test][4], tests[test][5]))
+			if (runSingleTest(tests[test][0], tests[test][1], tests[test][2], tests[test][3], tests[test][4], tests[test][5], tests[test][6]))
 				success++;
 		}
 
@@ -343,12 +347,12 @@ function opening_hours_test() {
 		return success == tests.length;
 	}
 
-	this.addTest = function(name, values, from, to, expected_intervals, expected_duration) {
+	this.addTest = function(name, values, from, to, expected_intervals, expected_duration, expected_weekstable) {
 		if (typeof values === 'string')
-			tests.push([name, values, from, to, expected_intervals, expected_duration]);
+			tests.push([name, values, from, to, expected_intervals, expected_duration, expected_weekstable]);
 		else
 			for (var value = 0; value < values.length; value++)
-				tests.push([name, values[value], from, to, expected_intervals, expected_duration]);
+				tests.push([name, values[value], from, to, expected_intervals, expected_duration, expected_weekstable]);
 	}
 }
 
