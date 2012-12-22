@@ -65,7 +65,7 @@
 					document.write('<p>Откроется ' + nextchange + ' (через ' + deltastr + ')</p>');
 				}
 
-				function drawTable(oh,date_today,number) {
+				function drawTable(oh,date_today) {
 					var date_today = new Date(date_today);
 					date_today.setHours(0, 0, 0, 0);
 
@@ -74,7 +74,7 @@
 
 					var table = [];
 
-					for (var row = 0; row < number; row++) {
+					for (var row = 0; row < 7; row++) {
 						date.setDate(date.getDate()+1);
 						if (date.getDay() == date_today.getDay()) {
 							date.setDate(date.getDate()-7);
@@ -125,7 +125,7 @@
 					document.write('</table>');
 				}
 
-				drawTable(oh, now, 7);
+				drawTable(oh, now);
 			}
 		</script>
 	</body>
