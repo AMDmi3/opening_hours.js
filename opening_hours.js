@@ -619,10 +619,6 @@
 					return prevstate[1];
 				}
 
-				this.getNextDate = function() {
-					return state[1];
-				}
-
 				this.advance = function(datelimit) {
 					if (typeof datelimit === 'undefined')
 						datelimit = new Date(state[1].getTime() + 1000 * 60 * 60 * 24 * 365 * 5);

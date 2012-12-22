@@ -134,14 +134,6 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   Returns whether the facility is open at the current iterator position in time.
 
 * ```javascript
-  var next_change = iterator.getNextDate(limit);
-  ```
-
-  Returns date of next iterator position.
-
-  Returns undefined if the next change cannot be found. This may happen if there's no such position (e.g. ```24/7```) or if seatch goes beyond *limit* (which is *date* + ~5 years if omitted).
-
-* ```javascript
   var had_advanced = iterator.advance(limit);
   ```
 
