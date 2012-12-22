@@ -22,7 +22,7 @@ for (var t = 0; t < tests; t++) {
 	var oh = new opening_hours('Mo,Tu,Th,Fr 12:00-18:00;Sa 12:00-17:00; Th[3] off; Th[-1] off');
 	var before = new Date();
 	for (var i = 0; i < iterations; i++)
-		oh.openIntervals(new Date('2012.01.01 00:00'), new Date('2012.01.07 00:00'));
+		oh.getOpenIntervals(new Date('2012.01.01 00:00'), new Date('2012.01.07 00:00'));
 	var delta = (new Date()).getTime() - before.getTime();
 
 	sys.puts(iterations + ' iterations, ' + delta + ' ms (' + (iterations/delta*1000).toFixed(2) + ' n/sec)');

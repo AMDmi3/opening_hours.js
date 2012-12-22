@@ -537,7 +537,7 @@
 		//======================================================================
 		// Main selector traversal function
 		//======================================================================
-		this.getState = function(date) {
+		this.getStatePair = function(date) {
 			var resultstate = false;
 			var changedate;
 
@@ -603,7 +603,7 @@
 				if (typeof date === 'undefined')
 					date = new Date();
 
-				var prevstate = [ undefined, date ], state = oh.getState(date);
+				var prevstate = [ undefined, date ], state = oh.getStatePair(date);
 
 				this.getState = function() {
 					return state[0];
@@ -618,6 +618,9 @@
 				}
 
 				this.advance = function(datelimit) {
+					if (typeof datelimit === 'undefined')
+						datelimit = new Date(state[1].getTime() + 1000 * 60 * 60 * 24 * 365 * 5);
+
 					do {
 						// open range, we won't be able to advance
 						if (typeof state[1] === 'undefined')
@@ -634,7 +637,7 @@
 
 						// do advance
 						prevstate = state;
-						state = oh.getState(state[1]);
+						state = oh.getStatePair(state[1]);
 					} while (state[0] === prevstate[0]);
 					return true;
 				}
@@ -646,21 +649,19 @@
 		//======================================================================
 
 		// check whether facility is `open' on the given date (or now)
-		this.isOpen = function(date) {
+		this.getState = function(date) {
 			var it = this.getIterator(date);
 			return it.getState();
 		}
 
 		// returns time of next status change
-		this.nextChange = function(date, maxdate) {
-			if (typeof maxdate === 'undefined')
-				maxdate = new Date(date.getTime() + 1000 * 60 * 60 * 24 * 365 * 5);
+		this.getNextChange = function(date, maxdate) {
 			var it = this.getIterator(date);
 			return it.getNextDate(maxdate);
 		}
 
 		// return array of open intervals between two dates
-		this.openIntervals = function(from, to) {
+		this.getOpenIntervals = function(from, to) {
 			var res = [];
 
 			var iterator = this.getIterator(from);
@@ -682,7 +683,7 @@
 		}
 
 		// return total number of milliseconds a facility is open without a given date range
-		this.openDuration = function(from, to) {
+		this.getOpenDuration = function(from, to) {
 			var res = 0;
 
 			var iterator = this.getIterator(from);

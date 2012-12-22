@@ -253,8 +253,8 @@ function opening_hours_test() {
 		try {
 			oh = new opening_hours(value);
 
-			intervals = oh.openIntervals(new Date(from), new Date(to));
-			duration = oh.openDuration(new Date(from), new Date(to));
+			intervals = oh.getOpenIntervals(new Date(from), new Date(to));
+			duration = oh.getOpenDuration(new Date(from), new Date(to));
 
 			intervals_ok = intervals.length == expected_intervals.length;
 			duration_ok = duration === expected_duration;
