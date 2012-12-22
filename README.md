@@ -19,67 +19,45 @@ around-the-clock shop with some breaks.
 ## Synopsis
 
 ```javascript
-// For node.js:
-// var opening_hours = require('./opening_hours.js');
-
-// Constructor takes opening_hours tag value
 var oh = new opening_hours('We 12:00-14:00');
-//var oh = new opening_hours('24/7');
 
-// Let us define a range of two dates
-var from = new Date("01 Jan 2012"), to = new Date("01 Feb 2012");
+var from = new Date("01 Jan 2012");
+var to = new Date("01 Feb 2012");
 
 // high-level API
 {
-	// get an array of open intervals for given date range
-	var intervals = oh.openIntervals(from, to);
-	for (var i in intervals)  {
+	var intervals = oh.getOpenIntervals(from, to);
+	for (var i in intervals)
 		console.log('We are open from ' + intervals[i][0] + ' till ' + intervals[i][1]);
-	}
 
-	// get open duration for the interval (in milliseconds)
-	console.log('Between ' + from + ' and ' + to + ', we are open for ' + (oh.openDuration(from, to) / 1000 / 60 / 60) + ' hours');
+	var duration_hours = oh.getOpenDuration(from, to) / 1000 / 60 / 60;
+	console.log('For a given range, we are open for ' + duration_hours + ' hours');
 }
 
-// you may not have predefined interval and/or you may need some
-// custom processing. For this, there's low-level API:
+// simple API
 {
-	// create an iterator to go through open/close points
-	// at beginning, it points to `from'
-	var iterator = oh.getIterator(from); // argument is needed to limit iteration in case there's no n
+	var state = oh.getState(); // we use current date
+	var nextchange = oh.getNextChange();
 
-	// getDate() and getState() methods return current state of an iterator
-	console.log('Initially, at ' + iterator.getDate() + ', we\'re ' + (iterator.getState() ? 'open' : 'close'));
+	console.log('Currently we\'re ' + (state ? 'open' : 'closed'));
 
-	// advance moves an iterator to the next point where state changes
-	// if it cannot move any further (for example, when opening_hours=24/7)
-	// or it would move past given limit, iterator is not advanced and false
-	// us returned
-	while (iterator.advance(to)) {
-		console.log('Then we ' + (iterator.getState() ? 'open' : 'close') + ' at ' + iterator.getDate());
-	}
-
-	// get final state of an iterator; that'd be state at `to` as well
-	console.log('Finally, at ' + to + ', we\'re ' + (iterator.getState() ? 'open' : 'closed'));
-
-	// you can get date of next change as well
-	// but note that it may return undefined if 
-	if (typeof iterator.getNextDate() === 'undefined')
-		console.log('And that will never change');
+	if (typeof nextchange === 'undefined')
+		console.log('And we will never ' + (state ? 'close' : 'open'));
 	else
-		console.log('And that will change on ' + iterator.getNextDate());
+		console.log('And we will ' + (state ? 'close' : 'open') + ' on ' + nextchange);
 }
 
-// simple API may do one-shot checks without creating an iterator (it still uses iterator internally)
-// semantics are the same as iterator's getState() and getNextChange(), but these require a date argument
-// don't use this for iteration, as it's less effective than using an iterator
+// iterator API
 {
-	console.log('Finally, at ' + to + ', we\'re ' + (oh.getState(to) ? 'open' : 'closed'));
+	var iterator = oh.getIterator(from);
 
-	if (typeof oh.getNextChange(to) === 'undefined')
-		console.log('And that will never change');
-	else
-		console.log('And that will change on ' + oh.getNextChange(to));
+	console.log('Initially, we\'re ' + (iterator.getState() ? 'open' : 'close'));
+
+	while (iterator.advance(to))
+		console.log('Then we ' + (iterator.getState() ? 'open' : 'close') +
+			' at ' + iterator.getDate());
+
+	console.log('Finally, at we\'re ' + (iterator.getState() ? 'open' : 'closed'));
 }
 ```
 
