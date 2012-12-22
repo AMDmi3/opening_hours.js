@@ -51,13 +51,13 @@ var to = new Date("01 Feb 2012");
 {
 	var iterator = oh.getIterator(from);
 
-	console.log('Initially, we\'re ' + (iterator.getState() ? 'open' : 'close'));
+	console.log('Initially, we\'re ' + (iterator.getState() ? 'open' : 'closed'));
 
 	while (iterator.advance(to))
 		console.log('Then we ' + (iterator.getState() ? 'open' : 'close') +
 			' at ' + iterator.getDate());
 
-	console.log('Finally, at we\'re ' + (iterator.getState() ? 'open' : 'closed'));
+	console.log('And till the end we\'re ' + (iterator.getState() ? 'open' : 'closed'));
 }
 ```
 
