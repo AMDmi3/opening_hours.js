@@ -39,26 +39,13 @@
 				var oh = new opening_hours(examples[e]);
 				var isopen = oh.getState(now);
 				var nextchange = oh.getNextChange(now);
-				var delta = Math.floor((nextchange.getTime() - now.getTime()) / 1000 / 60);
-
-				var deltastr = (delta % 60) + ' ' + plural(delta % 60, 'минуту', 'минуты', 'минут');
-				delta = Math.floor(delta / 60);
-
-				if (delta > 0) {
-					deltastr = (delta % 24) + ' ' + plural(delta % 24, 'час', 'часа', 'часов') + ' ' + deltastr;
-					delta = Math.floor(delta / 24);
-				}
-
-				if (delta > 0) {
-					deltastr = delta.toFixed(0) + ' ' + plural(delta, 'день', 'дня', 'дней') + ' ' + deltastr;
-				}
 
 				if (isopen) {
 					document.write('<p class="open">Сейчас заведение открыто</p>');
-					document.write('<p class="closed">Закроется ' + nextchange + ' (через ' + deltastr + ')</p>');
+					document.write('<p class="closed">Закроется ' + formatdate(now, nextchange, false) + '</p>');
 				} else {
 					document.write('<p class="closed">Сейчас заведение закрыто</p>');
-					document.write('<p class="open">Откроется ' + nextchange + ' (через ' + deltastr + ')</p>');
+					document.write('<p class="open">Откроется ' + formatdate(now, nextchange, true) + '</p>');
 				}
 
 				drawTable(oh, now);
@@ -67,6 +54,49 @@
 					document.write('<p><b>Расписание верно для любой недели.</b></p>');
 				else
 					document.write('<p><b>ВНИМАНИЕ! Расписание меняется в другие недели.</b></p>');
+			}
+
+			function formatdate(now, nextchange, from) {
+				var now_daystart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+				var nextdays = (nextchange.getTime() - now_daystart.getTime()) / 1000 / 60 / 60 / 24;
+
+				var timediff = '';
+
+				var delta = Math.floor((nextchange.getTime() - now.getTime()) / 1000 / 60); // delta is minutes
+				if (delta < 60)
+					timediff = 'через ' + delta + ' ' + plural(delta, 'минуту', 'минуты', 'минут');
+
+				var deltaminutes = delta % 60;
+				delta = Math.floor(delta / 60); // delta is now hours
+
+				if (delta < 48)
+					timediff = 'через ' + delta + ' ' + plural(delta, 'час', 'часа', 'часов') + ' ' + pad(deltaminutes) + ' ' + plural(deltaminutes, 'минуту', 'минуты', 'минут');
+
+				var deltahours = delta % 24;
+				delta = Math.floor(delta / 24); // delta is now days
+
+				if (delta < 14)
+					timediff = 'через ' + delta + ' ' + plural(delta, 'день', 'дня', 'дней') + ' ' + deltahours + ' ' + plural(deltahours, 'час', 'часа', 'часов')
+				else
+					timediff = 'через ' + delta + ' ' + plural(delta, 'день', 'дня', 'дней');
+
+				var atday = '';
+				if (from ? (nextdays < 1) : (nextdays <= 1))
+					atday = 'сегодня';
+				else if (from ? (nextdays < 2) : (nextdays <= 2))
+					atday = 'завтра';
+				else if (from ? (nextdays < 7) : (nextdays <= 7))
+					atday = 'в ' + [ 'ближайшее воскресенье', 'ближайший понедельник', 'ближайший вторник', 'ближайшую среду', 'ближайший четверг', 'ближайшую пятницу', 'ближайшую субботу'][nextchange.getDay()];
+
+				var atdate = nextchange.getDate() + ' ' + ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'][nextchange.getMonth()];
+
+				var res = [];
+
+				if (atday != '') res.push(atday);
+				if (atdate != '') res.push(atdate);
+				if (timediff != '') res.push(timediff);
+
+				return res.join(', ');
 			}
 
 			function pad(n) { return n < 10 ? '0'+n : n; };
