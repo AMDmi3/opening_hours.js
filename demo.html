@@ -2,20 +2,23 @@
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>opening_hours demo</title>
-		<script type="text/javascript" src="opening_hours.js"></script>
-		<style type="text/css">
+		<script src="opening_hours.js"></script>
+		<style>
 			body { font-family: sans-serif }
 			table {}
-			td { background-color: #E0E0E0; padding: 0px 10px }
+			tr.today td { border-top: 2px solid #BBBBCC }
+			tr.today td.day { font-weight: bold }
+			td { background: #E0E0E0; padding: 0px 10px }
 			td.day { text-align: center }
-			td.workday { background-color: #E0E0FF }
-			td.weekend { background-color: #FFC0C0 }
-			td.today { font-weight: bold }
-			td.times { width: 400; background-color: #E0E0E0; padding: 0px 1px }
+			td.workday { background: #CCFF99 }
+			td.weekend { background: #FFCC99 }
+			td.times { width: 400px; padding: 0px 1px }
 
 			div.timebar { height: 20px; display: inline-block }
-			div.open { background-color: #FFFFFF; margin: 0px -1px; border: 1px solid #808080; border-radius: 5px }
+			div.open { background: #FFFFFF; margin: 0px -1px; border: 1px solid #AAAAAA; border-radius: 5px }
 			div.closed {}
+			p.open { color: #44AA00 }
+			p.closed { color: #AA4400 }
 		</style>
 	</head>
 	<body>
@@ -51,10 +54,10 @@
 				}
 
 				if (isopen) {
-					document.write('<p>Сейчас заведение открыто</p>');
+					document.write('<p class="open">Сейчас заведение открыто</p>');
 					document.write('<p>Закроется ' + nextchange + ' (через ' + deltastr + ')</p>');
 				} else {
-					document.write('<p>Сейчас заведение закрыто</p>');
+					document.write('<p class="closed">Сейчас заведение закрыто</p>');
 					document.write('<p>Откроется ' + nextchange + ' (через ' + deltastr + ')</p>');
 				}
 
@@ -116,7 +119,7 @@
 
 						table[row].times += '<div class="timebar ' + (state?'open':'closed') + '" style="width:' + (to-fr) + '%"></div>';
 						if (state) {
-							table[row].text.push('с ' + pad(prevdate.getHours()) + ':' + pad(prevdate.getMinutes()) + ' до ' + pad(curdate.getHours()) + ':' + pad(curdate.getMinutes()));
+							table[row].text.push('с ' + prevdate.getHours() + ':' + pad(prevdate.getMinutes()) + ' до ' + curdate.getHours() + ':' + pad(curdate.getMinutes()));
 						}
 
 						prevdate = curdate;
@@ -126,7 +129,7 @@
 
 				document.write('<table>');
 				for (var row in table) {
-					document.write('<tr><td class="day ' + (table[row].date.getDay() % 6 == 0 ? 'weekend' : 'workday') + (table[row].date.getDay() == date_today.getDay() ? ' today' : '')+ '">');
+					document.write('<tr' + (table[row].date.getDay() == date_today.getDay() ? ' class="today"' : '') + '><td class="day ' + (table[row].date.getDay() % 6 == 0 ? 'weekend' : 'workday') + '">');
 					document.write(months[table[row].date.getMonth()] + ' ' + table[row].date.getDate() + ', ' + weekdays[table[row].date.getDay()]);
 					document.write('</td><td class="times">');
 					document.write(table[row].times);
