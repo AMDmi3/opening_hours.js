@@ -170,7 +170,7 @@
 					document.write('</td><td class="times">');
 					document.write(table[row].times);
 					document.write('</td><td>');
-					document.write(table[row].text.join(', '));
+					document.write(table[row].text.join(', ') || '&nbsp;');
 					document.write('</td></tr>');
 				}
 				document.write('</table>');
