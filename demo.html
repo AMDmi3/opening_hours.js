@@ -149,7 +149,13 @@
 
 						table[row].times += '<div class="timebar ' + (state?'open':'closed') + '" style="width:' + (to-fr) + '%"></div>';
 						if (state) {
-							table[row].text.push('с ' + prevdate.getHours() + ':' + pad(prevdate.getMinutes()) + ' до ' + curdate.getHours() + ':' + pad(curdate.getMinutes()));
+							var text = 'с ' + prevdate.getHours() + ':' + pad(prevdate.getMinutes()) + ' до ';
+							if (prevdate.getDay() != curdate.getDay())
+								text += '24:00';
+							else
+								text += curdate.getHours() + ':' + pad(curdate.getMinutes());
+
+							table[row].text.push(text);
 						}
 
 						prevdate = curdate;
