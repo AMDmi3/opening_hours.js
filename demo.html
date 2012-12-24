@@ -6,7 +6,9 @@
 		<style>
 			body { font-family: sans-serif }
 			table {}
-			tr.today td { border-top: 2px solid #BBBBCC }
+			tr.separator td { height: 2px; background: none }
+			tr.endweek td { border-bottom: 1px solid #BBBBCC; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px }
+			tr.today td { border-top: 1px solid #BBBBCC; border-top-left-radius: 5px; border-top-right-radius: 5px }
 			tr.today td.day { font-weight: bold }
 			td { background: #E0E0E0; padding: 0px 10px }
 			td.day { text-align: center }
@@ -165,7 +167,13 @@
 
 				document.write('<table>');
 				for (var row in table) {
-					document.write('<tr' + (table[row].date.getDay() == date_today.getDay() ? ' class="today"' : '') + '><td class="day ' + (table[row].date.getDay() % 6 == 0 ? 'weekend' : 'workday') + '">');
+					var today = table[row].date.getDay() == date_today.getDay();
+					var endweek = ((table[row].date.getDay() + 1) % 7) == date_today.getDay();
+					var cl = today ? ' class="today"' : endweek ? ' class="endweek"' : '';
+
+					if (today && date_today.getDay() != 1)
+						document.write('<tr class="separator"><td colspan="3"></td></tr>');
+					document.write('<tr' + cl + '><td class="day ' + (table[row].date.getDay() % 6 == 0 ? 'weekend' : 'workday') + '">');
 					document.write(months[table[row].date.getMonth()] + ' ' + table[row].date.getDate() + ', ' + weekdays[table[row].date.getDay()]);
 					document.write('</td><td class="times">');
 					document.write(table[row].times);
