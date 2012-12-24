@@ -143,7 +143,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
 
 ## Features
 
-Almost everything from opening_hours definition is supported, as well as some extensions (indicated as **EXT:** below). For instance, the library is able to process 98% of opening_hours values from Russia OSM data.
+Almost everything from opening_hours definition is supported, as well as some extensions (indicated as **EXT:** below). For instance, the library is able to process 99.4% of all opening_hours tags from Russia OSM data.
 
 * Opening hours consist of multiple rules separated by semicolon (```Mo 10:00-20:00; Tu 12:00-18:00```)
 * Rule may use ```off``` keyword to indicate that the facility is closed at that time (```Mo-Fr 10:00-20:00; 12:00-14:00 off```)
@@ -197,7 +197,7 @@ Simple node.js based test framework is bundled. You can run it with ```node test
 
 Simple node.js based benchmark is bundled. You can run it with ```node benchmark.js``` or with ```make benchmark```.
 
-On author's Intel Core i5-2400 library allows ~20k/sec constructor calls and ~7.5k/sec openIntervals() calls with one week period. This may further improve in future.
+On author's Intel Core i5-2400 library allows ~20k/sec constructor calls and ~10k/sec openIntervals() calls with one week period. This may further improve in future.
 
 ## Author ##
 
