@@ -71,15 +71,15 @@
 				var deltaminutes = delta % 60;
 				delta = Math.floor(delta / 60); // delta is now hours
 
-				if (delta < 48)
+				if (delta < 48 && timediff == '')
 					timediff = 'через ' + delta + ' ' + plural(delta, 'час', 'часа', 'часов') + ' ' + pad(deltaminutes) + ' ' + plural(deltaminutes, 'минуту', 'минуты', 'минут');
 
 				var deltahours = delta % 24;
 				delta = Math.floor(delta / 24); // delta is now days
 
-				if (delta < 14)
+				if (delta < 14 && timediff == '')
 					timediff = 'через ' + delta + ' ' + plural(delta, 'день', 'дня', 'дней') + ' ' + deltahours + ' ' + plural(deltahours, 'час', 'часа', 'часов')
-				else
+				else if (timediff == '')
 					timediff = 'через ' + delta + ' ' + plural(delta, 'день', 'дня', 'дней');
 
 				var atday = '';
