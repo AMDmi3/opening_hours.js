@@ -15,7 +15,7 @@ for (var t = 0; t < tests; t++) {
 	sys.puts(iterations + ' iterations, ' + delta + ' ms (' + (iterations/delta*1000).toFixed(2) + ' n/sec)');
 }
 
-var iterations = 10000;
+var iterations = 20000;
 
 sys.puts('Checking:');
 for (var t = 0; t < tests; t++) {
