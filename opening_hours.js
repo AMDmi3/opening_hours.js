@@ -159,35 +159,35 @@
 		function parseTimeRange(tokens, at, selectors) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'number', 'timesep', 'number', '-', 'number', 'timesep', 'number')) {
-					// Time range
-					selectors.time.push(function(tokens, at) { return function(date) {
+					var minutes_from = tokens[at][0] * 60 + tokens[at+2][0];
+					var minutes_to = tokens[at+4][0] * 60 + tokens[at+6][0];
+
+					// this shortcut makes always-open range check faster
+					// and is also useful in tests, as it doesn't produce
+					// extra check points which may hide errors in other
+					// selectors
+					if (minutes_from == 0 && minutes_to == minutes_in_day)
+						selectors.time.push(function(date) { return [true]; });
+
+					// normalize minutes into range
+					// XXX: what if it's further than tomorrow?
+					// XXX: this is incorrect, as it assumes the same day
+					//      should cooperate with date selectors to select the next day
+					if (minutes_to > minutes_in_day)
+						minutes_to -= minutes_in_day;
+
+					var inside = true;
+
+					// handle reversed range
+					if (minutes_to < minutes_from) {
+						var tmp = minutes_to;
+						minutes_to = minutes_from;
+						minutes_from = tmp;
+						inside = false;
+					}
+
+					selectors.time.push(function(minutes_from, minutes_to, inside) { return function(date) {
 						var ourminutes = date.getHours() * 60 + date.getMinutes();
-						var minutes_from = tokens[at][0] * 60 + tokens[at+2][0];
-						var minutes_to = tokens[at+4][0] * 60 + tokens[at+6][0];
-
-						// this shortcut makes always-open range check faster
-						// and is also useful in tests, as it doesn't produce
-						// extra check points which may hide errors in other
-						// selectors
-						if (minutes_from == 0 && minutes_to == minutes_in_day)
-							return [true];
-
-						// normalize minutes into range
-						// XXX: what if it's further than tomorrow?
-						// XXX: this is incorrect, as it assumes the same day
-						//      should cooperate with date selectors to select the next day
-						if (minutes_to > minutes_in_day)
-							minutes_to -= minutes_in_day;
-
-						var inside = true;
-
-						// handle reversed range
-						if (minutes_to < minutes_from) {
-							var tmp = minutes_to;
-							minutes_to = minutes_from;
-							minutes_from = tmp;
-							inside = false;
-						}
 
 						if (ourminutes < minutes_from)
 							return [!inside, dateAtDayMinutes(date, minutes_from)];
@@ -195,7 +195,7 @@
 							return [inside, dateAtDayMinutes(date, minutes_to)];
 						else
 							return [!inside, dateAtDayMinutes(date, minutes_from + minutes_in_day)];
-					}}(tokens, at));
+					}}(minutes_from, minutes_to, inside));
 
 					at += 7;
 				} else {
