@@ -1,5 +1,3 @@
-var sys = require('sys');
-
 var opening_hours = require('./opening_hours.js');
 
 var test = new opening_hours_test();
@@ -299,7 +297,7 @@ function opening_hours_test() {
 				str += ', bad weekstable flag: ' + weekstable + ', expected ' + expected_weekstable;
 		}
 
-		sys.puts(str);
+		console.log(str);
 		return passed;
 	}
 
@@ -342,7 +340,7 @@ function opening_hours_test() {
 				success++;
 		}
 
-		sys.puts(success + '/' + tests.length + ' tests passed');
+		console.log(success + '/' + tests.length + ' tests passed');
 
 		return success == tests.length;
 	}
