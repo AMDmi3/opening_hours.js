@@ -43,7 +43,11 @@
 				var isopen = oh.getState(now);
 				var nextchange = oh.getNextChange(now);
 
-				if (isopen) {
+				if (isopen && typeof nextchange === 'undefined') {
+					document.write('<p class="open">Заведение всегда открыто</p>');
+				} else if (!isopen && typeof nextchange === 'undefined') {
+					document.write('<p class="closed">Заведение всегда закрыто</p>');
+				} else if (isopen) {
 					document.write('<p class="open">Сейчас заведение открыто</p>');
 					document.write('<p class="closed">Закроется ' + formatdate(now, nextchange, false) + '</p>');
 				} else {
