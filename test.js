@@ -231,6 +231,33 @@ test.addTest('Extensions: missing time range separators', [
 		[ '2012.10.01 20:00', '2012.10.01 22:00' ],
 	], 1000 * 60 * 60 * 6, true);
 
+test.addTest('Selector combination', [
+		'week 3 We', // week + weekday
+		'week 3 Jan 11-Jan 11', // week + monthday
+		'week 3 Jan 11', // week + monthday
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+		[ '2012.01.11 0:00', '2012.01.12 00:00' ],
+	], 1000 * 60 * 60 * 24, false);
+
+test.addTest('Selector combination', [
+		'week 3 Jan', // week + month
+		'Jan-Feb Jan 9-Jan 15', // month + monthday
+		'Jan-Feb Jan 9-15', // month + monthday
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+		[ '2012.01.09 0:00', '2012.01.16 00:00' ],
+	], 1000 * 60 * 60 * 24, false);
+
+test.addTest('Selector combination', [
+		'Jan We', // month + weekday
+		'Jan 2-27 We', // weekday + monthday
+		'Dec 30-Jan 27 We', // weekday + monthday
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+		[ '2012.01.04 0:00', '2012.01.05 00:00' ],
+		[ '2012.01.11 0:00', '2012.01.12 00:00' ],
+		[ '2012.01.18 0:00', '2012.01.19 00:00' ],
+		[ '2012.01.25 0:00', '2012.01.26 00:00' ],
+	], 1000 * 60 * 60 * 24 * 4, false);
+
 process.exit(test.run() ? 0 : 1);
 
 //======================================================================
