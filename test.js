@@ -56,8 +56,8 @@ test.addTest('Omitted time', [
 	], 1000 * 60 * 60 * 24 * 2, true);
 
 test.addTest('Time ranges spanning midnight w/weekdays', [
-		ignored('We 22:00-02:00'),
-		ignored('We 22:00-26:00'),
+		'We 22:00-02:00',
+		'We 22:00-26:00',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.03 22:00', '2012.10.04 02:00' ],
 	], 1000 * 60 * 60 * 4, true);

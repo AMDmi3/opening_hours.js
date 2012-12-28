@@ -36,15 +36,20 @@
 		// - Run toplevel (block) parser
 		//   - Which calls subparser for specific selector types
 		//     - Which produce selectors
-		var blocks = value.toLowerCase().split(/\s*;\s*/);
+		var rules = value.toLowerCase().split(/\s*;\s*/);
 		var week_stable = true;
 
-		for (var block = 0; block < blocks.length; block++) {
-			var tokens = tokenize(blocks[block]);
+		var blocks = [];
+
+		for (var rule = 0; rule < rules.length; rule++) {
+			var tokens = tokenize(rules[rule]);
 
 			var selectors = {
 				// Time selectors
 				time: [],
+
+				// Temporary array of selectors from time wrapped to the next day
+				wraptime: [],
 
 				// Date selectors
 				weekday: [],
@@ -66,7 +71,31 @@
 			if (selectors.weekday.length > 0)
 				selectors.date.push(selectors.weekday);
 
-			blocks[block] = selectors;
+			blocks.push(selectors);
+
+			// this handles selectors with time ranges wrapping over midnight (e.g. 10:00-02:00)
+			// it generates wrappers for all selectors and creates a new block
+			if (selectors.wraptime.length > 0) {
+				var wrapselectors = {
+					time: selectors.wraptime,
+					date: [],
+
+					meaning: selectors.meaning,
+
+					wrapped: true,
+				};
+
+				for (var dselg = 0; dselg < selectors.date.length; dselg++) {
+					wrapselectors.date.push([]);
+					for (var dsel = 0; dsel < selectors.date[dselg].length; dsel++) {
+						wrapselectors.date[wrapselectors.date.length-1].push(
+								generateDateShifter(selectors.date[dselg][dsel], -1000 * 60 * 60 * 24)
+							);
+					}
+				}
+
+				blocks.push(wrapselectors);
+			}
 		}
 
 		// Tokenization function: splits string into parts
@@ -121,6 +150,16 @@
 			return true;
 		}
 
+		function generateDateShifter(func, shift) {
+			return function(date) {
+				var res = func(new Date(date.getTime() + shift));
+
+				if (typeof res[1] === 'undefined')
+					return res;
+				return [ res[0], new Date(res[1].getTime() - shift) ];
+			}
+		}
+
 		//======================================================================
 		// Top-level parser
 		//======================================================================
@@ -173,29 +212,43 @@
 					// XXX: what if it's further than tomorrow?
 					// XXX: this is incorrect, as it assumes the same day
 					//      should cooperate with date selectors to select the next day
-					if (minutes_to > minutes_in_day)
-						minutes_to -= minutes_in_day;
+					if (minutes_from >= minutes_in_day)
+						throw 'Time range start outside a day';
+					if (minutes_to < minutes_from)
+						minutes_to += minutes_in_day;
+					if (minutes_to > minutes_in_day * 2)
+						throw 'Time spanning more than two midnights not supported';
 
-					var inside = true;
+					if (minutes_to > minutes_in_day) {
+						selectors.time.push(function(minutes_from, minutes_to) { return function(date) {
+							var ourminutes = date.getHours() * 60 + date.getMinutes();
 
-					// handle reversed range
-					if (minutes_to < minutes_from) {
-						var tmp = minutes_to;
-						minutes_to = minutes_from;
-						minutes_from = tmp;
-						inside = false;
+							if (ourminutes < minutes_from)
+								return [false, dateAtDayMinutes(date, minutes_from)];
+							else
+								return [true, dateAtDayMinutes(date, minutes_to)];
+						}}(minutes_from, minutes_to));
+
+						selectors.wraptime.push(function(minutes_from, minutes_to) { return function(date) {
+							var ourminutes = date.getHours() * 60 + date.getMinutes();
+
+							if (ourminutes < minutes_to)
+								return [true, dateAtDayMinutes(date, minutes_to)];
+							else
+								return [false, undefined];
+						}}(minutes_from, minutes_to - minutes_in_day));
+					} else {
+						selectors.time.push(function(minutes_from, minutes_to) { return function(date) {
+							var ourminutes = date.getHours() * 60 + date.getMinutes();
+
+							if (ourminutes < minutes_from)
+								return [false, dateAtDayMinutes(date, minutes_from)];
+							else if (ourminutes < minutes_to)
+								return [true, dateAtDayMinutes(date, minutes_to)];
+							else
+								return [false, dateAtDayMinutes(date, minutes_from + minutes_in_day)];
+						}}(minutes_from, minutes_to));
 					}
-
-					selectors.time.push(function(minutes_from, minutes_to, inside) { return function(date) {
-						var ourminutes = date.getHours() * 60 + date.getMinutes();
-
-						if (ourminutes < minutes_from)
-							return [!inside, dateAtDayMinutes(date, minutes_from)];
-						else if (ourminutes < minutes_to)
-							return [inside, dateAtDayMinutes(date, minutes_to)];
-						else
-							return [!inside, dateAtDayMinutes(date, minutes_from + minutes_in_day)];
-					}}(minutes_from, minutes_to, inside));
 
 					at += 7;
 				} else {
@@ -577,7 +630,9 @@
 				}
 
 				if (matching_date_block) {
-					if (blocks[nblock].date.length > 0 && blocks[nblock].meaning)
+					// The following lines implements date overriding logic (e.g. for
+					// Mo-Fr 10:00-20:00;We 10:00-16:00, We rule overrides Mo-Fr rule
+					if (blocks[nblock].date.length > 0 && blocks[nblock].meaning && !blocks[nblock].wrapped)
 						date_matching_blocks = [];
 					date_matching_blocks.push(nblock);
 				}
