@@ -735,7 +735,7 @@
 					res[res.length - 1].push(iterator.getDate());
 			}
 
-			if (res[res.length - 1].length == 1)
+			if (res.length > 0 && res[res.length - 1].length == 1)
 				res[res.length - 1].push(to);
 
 			return res;
