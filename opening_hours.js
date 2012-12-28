@@ -55,6 +55,7 @@
 				weekday: [],
 				week: [],
 				month: [],
+				monthday: [],
 
 				// Array with non-empty date selector types, with most optimal ordering
 				date: [],
@@ -66,6 +67,8 @@
 
 			if (selectors.month.length > 0)
 				selectors.date.push(selectors.month);
+			if (selectors.monthday.length > 0)
+				selectors.date.push(selectors.monthday);
 			if (selectors.week.length > 0)
 				selectors.date.push(selectors.week);
 			if (selectors.weekday.length > 0)
@@ -529,7 +532,7 @@
 		function parseMonthdayRange(tokens, at) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'month', 'number', '-', 'month', 'number')) {
-					selectors.week.push(function(tokens, at) { return function(date) {
+					selectors.monthday.push(function(tokens, at) { return function(date) {
 						var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
 
 						var from_date = new Date(date.getFullYear(), tokens[at][0], tokens[at+1][0]);
@@ -558,7 +561,7 @@
 					if (is_range)
 						has_period = matchTokens(tokens, at+4, '/', 'number');
 
-					selectors.week.push(function(tokens, at, is_range, has_period) { return function(date) {
+					selectors.monthday.push(function(tokens, at, is_range, has_period) { return function(date) {
 						var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
 
 						var from_date = new Date(date.getFullYear(), tokens[at][0], tokens[at+1][0]);
