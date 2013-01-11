@@ -153,7 +153,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 ### Time ranges ###
 
 * Supports sets of time ranges (```10:00-12:00,14:00-16:00```)
-  * *Doesn't support ranges wrapping over midnight (```10:00-26:00```, ```10:00-02:00```) correctly: wrapped interval goes to the same day, while it should go to the next one*
+  * **EXT:** Correctly supports ranges wrapping over midnight (```10:00-26:00```, ```10:00-02:00```)
 * Supports 24/7 keyword
   * **EXT:** 24/7 is handled as a synonym for ```00:00-24:00```, so ```Mo-Fr 24/7``` (though not really correct) it valid and will be handled correctly
 * **EXT:** Supports omitting time range (```Mo-Fr; Tu off```)
@@ -202,6 +202,10 @@ On author's Intel Core i5-2400 library allows ~20k/sec constructor calls and ~10
 ## Author ##
 
 * [Dmitry Marakasov](https://github.com/AMDmi3) <amdmi3@amdmi3.ru>
+
+## Contributors ##
+
+* [Sergey Leschina](https://github.com/putnik) (demo improvements)
 
 ## License ##
 
