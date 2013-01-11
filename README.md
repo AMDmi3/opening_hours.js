@@ -206,6 +206,7 @@ On author's Intel Core i5-2400 library allows ~20k/sec constructor calls and ~10
 ## Contributors ##
 
 * [Sergey Leschina](https://github.com/putnik) (demo improvements)
+* [Charly Koza](https://github.com/Cactusbone) (package.json)
 
 ## License ##
 
