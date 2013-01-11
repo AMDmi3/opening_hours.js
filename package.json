@@ -1,0 +1,7 @@
+{
+    "name": "opening_hours.js",
+    "description": "opening_hours tag is used in OpenStreetMap project to describe time ranges when a specific facility (for example, a cafe) is open. As it has pretty complex syntax which require special parsing and additional processing to extract some useful information (e.g. whether a facility is open at specific time, next time it's going to open/close, or a readable set of working hours), this library was written.",
+    "repository": "git://github.com/AMDmi3/opening_hours.js.git",
+    "version": "1.0.0",
+    "main": "opening_hours.js"
+}
