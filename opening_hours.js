@@ -11,12 +11,12 @@
 		//======================================================================
 		// Constants
 		//======================================================================
-		var months = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
+		var months   = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
 		var weekdays = { su: 0, mo: 1, tu: 2, we: 3, th: 4, fr: 5, sa: 6 };
 
 		var minutes_in_day = 60 * 24;
-		var msec_in_day = 1000 * 60 * 60 * 24;
-		var msec_in_week = msec_in_day * 7;
+		var msec_in_day    = 1000 * 60 * minutes_in_day;
+		var msec_in_week   = msec_in_day * 7;
 
 		//======================================================================
 		// Constructor - entry to parsing code
@@ -36,6 +36,8 @@
 		// - Run toplevel (block) parser
 		//   - Which calls subparser for specific selector types
 		//     - Which produce selectors
+
+		// FIXME: This will also convert comments to lower case
 		var rules = value.toLowerCase().split(/\s*;\s*/);
 		var week_stable = true;
 
@@ -92,7 +94,7 @@
 					wrapselectors.date.push([]);
 					for (var dsel = 0; dsel < selectors.date[dselg].length; dsel++) {
 						wrapselectors.date[wrapselectors.date.length-1].push(
-								generateDateShifter(selectors.date[dselg][dsel], -1000 * 60 * 60 * 24)
+								generateDateShifter(selectors.date[dselg][dsel], -msec_in_day)
 							);
 					}
 				}
@@ -101,7 +103,7 @@
 			}
 		}
 
-		// Tokenization function: splits string into parts
+		// Tokenization function: Splits string into parts.
 		// output: array of pairs [content, type]
 		function tokenize(value) {
 			var tokens = new Array();
@@ -279,7 +281,7 @@
 					// Conditional weekday (Mo[3])
 					var numbers = [];
 
-					// Get list of contstaints
+					// Get list of constraints
 					var endat = parseNumRange(tokens, at+2, function(from, to) {
 						if (from == to)
 							numbers.push(from);
@@ -463,9 +465,9 @@
 		}
 
 		function dateAtWeek(date, week) {
-			var tmpdate = new Date(date.getFullYear(), 0, 1); // start of year
-			tmpdate.setDate(1 - (tmpdate.getDay() + 6) % 7 + week * 7); // start of week n where week starts on Monday
-			return tmpdate;
+			var start_of_this_year = new Date(date.getFullYear(), 0, 1);
+			start_of_this_year.setDate(1 - (start_of_this_year.getDay() + 6) % 7 + week * 7); // start of week n where week starts on Monday
+			return start_of_this_year;
 		}
 
 		function getMinDate(date /*, ...*/) {
@@ -512,7 +514,7 @@
 
 					at += is_range ? 3 : 1;
 				} else {
-					throw 'Unexpected token in weekday range: "' + tokens[at] + '"';
+					throw 'Unexpected token in month range: "' + tokens[at] + '"';
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -576,7 +578,7 @@
 
 						var period = tokens[at+5][0];
 						var nday = Math.floor((date.getTime() - from_date.getTime()) / msec_in_day);
-						var in_period = (nday) % period;
+						var in_period = nday % period;
 
 						if (in_period == 0)
 							return [true, new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)];

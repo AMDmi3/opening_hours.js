@@ -22,7 +22,7 @@ around-the-clock shop with some breaks.
 var oh = new opening_hours('We 12:00-14:00');
 
 var from = new Date("01 Jan 2012");
-var to = new Date("01 Feb 2012");
+var to   = new Date("01 Feb 2012");
 
 // high-level API
 {
@@ -97,7 +97,7 @@ Here and below, unless noted otherwise, all arguments are expected to be and all
 
 ### Simple API
 
-This API is useful for one-shot checks, but for iteration over intervals you should use more effecient **Iterator API**.
+This API is useful for one-shot checks, but for iteration over intervals you should use the more efficient **Iterator API**.
 
 * ```javascript
   var is_open = oh.getState(date);
@@ -137,7 +137,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   var had_advanced = iterator.advance(limit);
   ```
 
-  Advances an iterator to the next position, but not further that a *limit* (which is current position + ~5 years if omitted and is used to prevent infinite loop on non-pediodic opening_hours, e.g. ```24/7```), returns whether the iterator was moved.
+  Advances an iterator to the next position, but not further that a *limit* (which is current position + ~5 years if omitted and is used to prevent infinite loop on non-periodic opening_hours, e.g. ```24/7```), returns whether the iterator was moved.
 
   For instance, returns false if the iterator would go beyond *limit* or if there's no next position (```24/7``` case).
 
@@ -155,7 +155,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Supports sets of time ranges (```10:00-12:00,14:00-16:00```)
   * **EXT:** Correctly supports ranges wrapping over midnight (```10:00-26:00```, ```10:00-02:00```)
 * Supports 24/7 keyword
-  * **EXT:** 24/7 is handled as a synonym for ```00:00-24:00```, so ```Mo-Fr 24/7``` (though not really correct) it valid and will be handled correctly
+  * **EXT:** 24/7 is handled as a synonym for ```00:00-24:00```, so ```Mo-Fr 24/7``` (though not really correct) is valid and will be handled correctly
 * **EXT:** Supports omitting time range (```Mo-Fr; Tu off```)
 * **EXT:** Supports dot as time separator, so ```12.00-16.00``` is valid (this is used quite widely)
 * **EXT:** Supports space as time interval separator, i.e. ```Mo 12:00-14:00,16:00-20:00``` and ```Mo 12:00-14:00 16:00-20:00``` are the same thing
@@ -176,6 +176,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 ### Monthday ranges ###
 
 * Supports monthday ranges across multiple months (```Jan 01-Feb 03 10:00-20:00```)
+ <!-- FIXME: This is not in compliance with the specification. A colon should be used to seperate the month from the weekdays -->
 * Supports monthday ranges within single month (```Jan 01-26 10:00-20:00```), with periods as well ```Jan 01-29/7 10:00-20:00```)
 * **EXT:** Supports multiple monthday ranges separated by a comma (```Jan 23-31/3,Feb 1-12,Mar 1```)
 
@@ -187,7 +188,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 ### Other ###
 
-* *Doesn't support PH/SH keywords*
+* *Doesn't support PH/SH keywords yet*
 
 ## Test ##
 
