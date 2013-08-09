@@ -245,7 +245,7 @@ test.addTest('Selector combination', [
 		'Jan-Feb Jan 9-15', // month + monthday
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.09 0:00', '2012.01.16 00:00' ],
-	], 1000 * 60 * 60 * 24, false);
+	], 1000 * 60 * 60 * 24 * 7, false);
 
 test.addTest('Selector combination', [
 		'Jan We', // month + weekday
