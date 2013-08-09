@@ -282,8 +282,8 @@ function opening_hours_test() {
 			duration = oh.getOpenDuration(new Date(from), new Date(to));
 			weekstable = oh.isWeekStable();
 
-			intervals_ok = typeof expected_intervals === 'undefined' || intervals.length == expected_intervals.length;
-			duration_ok = typeof expected_durartion === 'undefined' || duration === expected_duration;
+			intervals_ok  = typeof expected_intervals  === 'undefined' || intervals.length == expected_intervals.length;
+			duration_ok   = typeof expected_duration   === 'undefined' || duration === expected_duration;
 			weekstable_ok = typeof expected_weekstable === 'undefined' || weekstable === expected_weekstable;
 
 			crashed = false;
