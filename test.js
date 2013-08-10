@@ -266,8 +266,22 @@ test.addTest('Selector combination', [
 		[ '2012.01.25 0:00', '2012.01.26 00:00' ],
 	], 1000 * 60 * 60 * 24 * 4, false);
 
+test.addTest('Additional modifies for time', [
+		'24/7; Mo 12:00-14:00 off,15:00-16:00',
+		'24/7; Mo 15:00-16:00 off',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 15:00', '2012.10.01 16:00' ],
+		[ '2012.10.01 00:00', '2012.10.02 00:00' ],
+		[ '2012.10.02 00:00', '2012.10.03 00:00' ],
+		[ '2012.10.03 00:00', '2012.10.04 00:00' ],
+		[ '2012.10.04 00:00', '2012.10.05 00:00' ],
+		[ '2012.10.05 00:00', '2012.10.06 00:00' ],
+		[ '2012.10.06 00:00', '2012.10.07 00:00' ],
+		[ '2012.10.07 00:00', '2012.10.010 00:00' ],
+	], 1000 * 60 * 60 * 24 * 6 + 1000 * 60 * 60, true);
+
 test.addTest('Additional comments', [
-		'Mo,Tu 10:00-16:00 open "no warranty"; We 12:00-18:00 open "female only"; Th closed "Not open because we are coding :)"; Fr 10:00-16:00 open "male only"'
+		'Mo,Tu 10:00-16:00 open "no warranty"; We 12:00-18:00 open "female only"; Th closed "Not open because we are coding :)"; Fr 10:00-16:00 open "male only"; Sa 10:00-12:00 "Maybe open. Call us."'
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 16:00' ],
 		[ '2012.10.02 10:00', '2012.10.02 16:00' ],
@@ -275,6 +289,26 @@ test.addTest('Additional comments', [
 		// [ '2012.10.04 10:00', '2012.10.04 16:00' ],
 		[ '2012.10.05 10:00', '2012.10.05 16:00' ],
 	], 1000 * 60 * 60 * 6 * 4, true);
+
+test.addTest('Additional comments for unknown', [
+		'Sa 10:00-12:00 "Maybe open. Call us."',
+		'Sa 10:00-12:00 unknown "Maybe open. Call us. (unknown resolts in opening state: false)"'
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+	], 0, true);
+
+test.addTest('Additional comments with time ranges spanning midnight', [
+		'22:00-02:00 open "Lets party"; We 12:00-14:00 "Maybe open. Call us."',
+		'22:00-26:00; We 12:00-14:00 unknown "Maybe open. Call us."',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 00:00', '2012.10.01 02:00' ],
+		[ '2012.10.01 22:00', '2012.10.02 02:00' ],
+		[ '2012.10.02 22:00', '2012.10.03 02:00' ],
+		[ '2012.10.03 22:00', '2012.10.04 02:00' ],
+		[ '2012.10.04 22:00', '2012.10.05 02:00' ],
+		[ '2012.10.05 22:00', '2012.10.06 02:00' ],
+		[ '2012.10.06 22:00', '2012.10.07 02:00' ],
+		[ '2012.10.07 22:00', '2012.10.08 00:00' ],
+	], 1000 * 60 * 60 * 4 * 7, true);
 
 process.exit(test.run() ? 0 : 1);
 
@@ -297,7 +331,7 @@ function opening_hours_test() {
 			oh = new opening_hours(value);
 
 			intervals  = oh.getOpenIntervals(new Date(from), new Date(to));
-			duration   = oh.getOpenDuration( new Date(from), new Date(to));
+			duration   = oh.getOpenDuration(new Date(from), new Date(to));
 			weekstable = oh.isWeekStable();
 
 			intervals_ok  = typeof expected_intervals  === 'undefined' || intervals.length == expected_intervals.length;
