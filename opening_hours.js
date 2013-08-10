@@ -299,9 +299,9 @@
 
 					// Create selector for each list element
 					for (var nnumber = 0; nnumber < numbers.length; nnumber++) {
-						// Ignore bad numbers
+						// bad number
 						if (numbers[nnumber] == 0 || numbers[nnumber] < -5 || numbers[nnumber] > 5)
-							continue;
+							throw 'Number between -5 and 5 (except 0) expected';
 
 						selectors.weekday.push(function(weekday, number) { return function(date) {
 							var start_of_this_month = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -627,16 +627,16 @@
 						matching_date_block = false;
 						// We can ignore other date selectors, as the state won't change
 						// anyway until THIS selector matches (due to conjunction of date
-						// selectors of different types)
+						// selectors of different types).
 						// This is also an optimization, if widest date selector types
-						// are checked first
+						// are checked first.
 						break;
 					}
 				}
 
 				if (matching_date_block) {
-					// The following lines implements date overriding logic (e.g. for
-					// Mo-Fr 10:00-20:00;We 10:00-16:00, We rule overrides Mo-Fr rule
+					// The following lines implements date overwriting logic (e.g. for
+					// Mo-Fr 10:00-20:00;We 10:00-16:00, We rule overrides Mo-Fr rule.
 					if (blocks[nblock].date.length > 0 && blocks[nblock].meaning && !blocks[nblock].wrapped)
 						date_matching_blocks = [];
 					date_matching_blocks.push(nblock);
@@ -681,7 +681,7 @@
 
 				this.advance = function(datelimit) {
 					if (typeof datelimit === 'undefined')
-						datelimit = new Date(prevstate[1].getTime() + 1000 * 60 * 60 * 24 * 366 * 5);
+						datelimit = new Date(prevstate[1].getTime() + msec_in_day * 366 * 5);
 
 					do {
 						// open range, we won't be able to advance
@@ -728,16 +728,16 @@
 		this.getOpenIntervals = function(from, to) {
 			var res = [];
 
-			var iterator = this.getIterator(from);
+			var it = this.getIterator(from);
 
-			if (iterator.getState())
+			if (it.getState())
 				res.push([from]);
 
-			while (iterator.advance(to)) {
-				if (iterator.getState())
-					res.push([iterator.getDate()]);
+			while (it.advance(to)) {
+				if (it.getState())
+					res.push([it.getDate()]);
 				else
-					res[res.length - 1].push(iterator.getDate());
+					res[res.length - 1].push(it.getDate());
 			}
 
 			if (res.length > 0 && res[res.length - 1].length == 1)
@@ -750,14 +750,14 @@
 		this.getOpenDuration = function(from, to) {
 			var res = 0;
 
-			var iterator = this.getIterator(from);
-			var prevdate = iterator.getState() ? from : undefined;
+			var it = this.getIterator(from);
+			var prevdate = it.getState() ? from : undefined;
 
-			while (iterator.advance(to)) {
-				if (iterator.getState()) {
-					prevdate = iterator.getDate();
+			while (it.advance(to)) {
+				if (it.getState()) {
+					prevdate = it.getDate();
 				} else {
-					res += iterator.getDate().getTime() - prevdate.getTime();
+					res += it.getDate().getTime() - prevdate.getTime();
 					prevdate = undefined;
 				}
 			}
