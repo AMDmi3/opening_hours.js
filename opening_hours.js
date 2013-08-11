@@ -200,11 +200,17 @@
 					at++;
 				} else if (matchTokens(tokens, at, 'comment')) {
 					selectors.comment = tokens[at][0];
-					if (!matchTokens(tokens, at - 1, 'open')
-						&& !matchTokens(tokens, at - 1, 'closed')
-						&& !matchTokens(tokens, at - 1, 'off')) {
-						// Then it is unknown. Either with unknown explicitly
-						// specified or just a comment behind.
+					if (at > 0) {
+						if (!matchTokens(tokens, at - 1, 'open')
+							&& !matchTokens(tokens, at - 1, 'closed')
+							&& !matchTokens(tokens, at - 1, 'off')) {
+							// Then it is unknown. Either with unknown explicitly
+							// specified or just a comment behind.
+							selectors.meaning = false;
+							selectors.unknown = true;
+						}
+					} else { // rule starts with comment
+						selectors.time.push(function(date) { return [true]; });
 						selectors.meaning = false;
 						selectors.unknown = true;
 					}

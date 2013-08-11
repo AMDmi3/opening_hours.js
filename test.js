@@ -285,7 +285,9 @@ test.addTest('Additional comments', [
 
 test.addTest('Additional comments for unknown', [
 		'Sa 10:00-12:00 "Maybe open. Call us."',
-		'Sa 10:00-12:00 unknown "Maybe open. Call us. (unknown resolts in opening state: false)"'
+		'Sa 10:00-12:00 unknown "Maybe open. Call us. (unknown resolts in opening state: false)"',
+		'unknown "For 24/7: Maybe open. Call us."',
+		'"For 24/7: Maybe open. Call us."',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 	], 0, true);
 

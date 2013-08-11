@@ -210,9 +210,10 @@ Almost everything from opening_hours definition is supported, as well as some ex
   In that case the main state is false and unknown is true.
 
 ### Comments ###
-* Supports additional comments (Mo unknown "on appointment"; Th-Fr 09:00-18:00 open "female only"; Su closed "really")
+* Supports (additional) comments (Mo unknown "on appointment"; Th-Fr 09:00-18:00 open "female only"; Su closed "really")
   * unknown can be omitted (this will also result in unknown)
   * **EXT:** instead of "closed" "off" will also work
+  * value can also be just a double-quoted string ("on appointment")
 
 ### Other ###
 
