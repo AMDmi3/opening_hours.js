@@ -37,8 +37,7 @@
 		//   - Which calls subparser for specific selector types
 		//     - Which produce selectors
 
-		// FIXME: This will also convert comments to lower case
-		var rules = value.toLowerCase().split(/\s*;\s*/);
+		var rules = value.split(/\s*;\s*/);
 		var week_stable = true;
 
 		var blocks = [];
@@ -112,36 +111,36 @@
 
 			while (value != '') {
 				var tmp;
-				if (tmp = value.match(/^(?:week|24\/7|off|open|closed|unknown)/)) {
+				if (tmp = value.match(/^(?:week|24\/7|off|open|closed|unknown)/i)) {
 					// reserved word
-					tokens.push([tmp[0], tmp[0]]);
+					tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase()]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/)) {
+				} else if (tmp = value.match(/^(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i)) {
 					// month name
-					tokens.push([months[tmp[0]], 'month']);
+					tokens.push([months[tmp[0].toLowerCase()], 'month']);
 					value = value.substr(3);
-				} else if (tmp = value.match(/^(?:mo|tu|we|th|fr|sa|su)/)) {
+				} else if (tmp = value.match(/^(?:mo|tu|we|th|fr|sa|su)/i)) {
 					// weekday name
-					tokens.push([weekdays[tmp[0]], 'weekday']);
+					tokens.push([weekdays[tmp[0].toLowerCase()], 'weekday']);
 					value = value.substr(2);
 				} else if (tmp = value.match(/^\d+/)) {
 					// number
 					tokens.push([+tmp[0], 'number']);
+					value = value.substr(tmp[0].length);
+				} else if (tmp = value.match(/^"([^"]+)"/)) {
+					// comment
+					tokens.push([tmp[1], 'comment']);
 					value = value.substr(tmp[0].length);
 				} else if (value.match(/^\s/)) {
 					// whitespace is ignored
 					value = value.substr(1);
 				} else if (value.match(/^[:.]/)) {
 					// other single-character tokens
-					tokens.push([value[0], 'timesep']);
+					tokens.push([value[0].toLowerCase(), 'timesep']);
 					value = value.substr(1);
-				} else if (tmp = value.match(/^"([^"]+)"/)) {
-					// comment
-					tokens.push([tmp[1], 'comment']);
-					value = value.substr(tmp[0].length);
 				} else {
 					// other single-character tokens
-					tokens.push([value[0], value[0]]);
+					tokens.push([value[0].toLowerCase(), value[0]]);
 					value = value.substr(1);
 				}
 			}

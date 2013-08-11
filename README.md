@@ -212,7 +212,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 ### Comments ###
 * Supports additional comments (Mo unknown "on appointment"; Th-Fr 09:00-18:00 open "female only"; Su closed "really")
   * unknown can be omitted (this will also result in unknown)
-  * instead of "closed" "off" will also work
+  * **EXT:** instead of "closed" "off" will also work
 
 ### Other ###
 
@@ -236,6 +236,7 @@ On author's Intel Core i5-2400 library allows ~20k/sec constructor calls and ~10
 
 * [Sergey Leschina](https://github.com/putnik) (demo improvements)
 * [Charly Koza](https://github.com/Cactusbone) (package.json)
+* [Robin Schneider](https://github.com/ypid)   (improvements, more features)
 
 ## License ##
 
