@@ -36,10 +36,12 @@ var to   = new Date("01 Feb 2012");
 
 // simple API
 {
-	var state = oh.getState(); // we use current date
+	var state      = oh.getState(); // we use current date
+	var unknown    = oh.getUnknown();
+	var comment    = oh.getComment();
 	var nextchange = oh.getNextChange();
 
-	console.log('Currently we\'re ' + (state ? 'open' : 'closed'));
+	console.log('Currently we\'re ' + (unknown ? 'probably ' : '') + (state ? 'open' : 'closed') +', comment: "'+ comment +'"');
 
 	if (typeof nextchange === 'undefined')
 		console.log('And we will never ' + (state ? 'close' : 'open'));

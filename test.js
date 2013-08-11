@@ -274,7 +274,7 @@ test.addTest('Selector combination', [
 	], 1000 * 60 * 60 * 24 * 4, false);
 
 test.addTest('Additional comments', [
-		'Mo,Tu 10:00-16:00 open "no warranty"; We 12:00-18:00 open "female only"; Th closed "Not open because we are coding :)"; Fr 10:00-16:00 open "male only"; Sa 10:00-12:00 "Maybe open. Call us."'
+		'Mo,Tu 10:00-16:00 open "no warranty"; We 12:00-18:00 open "female only"; Th closed "Not open because we are coding :)"; Fr 10:00-16:00 open "male only"; Sa 10:00-12:00 "Maybe open. Call us."',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 16:00' ],
 		[ '2012.10.02 10:00', '2012.10.02 16:00' ],
@@ -286,6 +286,7 @@ test.addTest('Additional comments', [
 test.addTest('Additional comments for unknown', [
 		'Sa 10:00-12:00 "Maybe open. Call us."',
 		'Sa 10:00-12:00 unknown "Maybe open. Call us. (unknown resolts in opening state: false)"',
+		'closed "For 24/7: Maybe open. Call us."',
 		'unknown "For 24/7: Maybe open. Call us."',
 		'"For 24/7: Maybe open. Call us."',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
