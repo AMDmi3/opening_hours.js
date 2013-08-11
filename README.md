@@ -41,7 +41,12 @@ var to   = new Date("01 Feb 2012");
 	var comment    = oh.getComment();
 	var nextchange = oh.getNextChange();
 
-	console.log('Currently we\'re ' + (unknown ? 'probably ' : '') + (state ? 'open' : 'closed') +', comment: "'+ comment +'"');
+  if (unknown)
+    console.log('We\'re maybe open'
+      + (comment ? ' but that depends on: "' + comment + '"' : ''));
+  else
+    console.log('Currently we\'re ' + (state ? 'open' : 'closed')
+      + (comment ? ', comment "' + comment + '"' : ''));
 
 	if (typeof nextchange === 'undefined')
 		console.log('And we will never ' + (state ? 'close' : 'open'));
