@@ -18,6 +18,13 @@ test.addTest('Time intervals', [
 		[ '2012.10.07 10:00', '2012.10.07 12:00' ],
 	], 1000 * 60 * 60 * 2 * 7, true);
 
+test.addTest('Time intervals', [
+		'24/7; Mo 15:00-16:00 off',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 00:00', '2012.10.01 15:00' ],
+		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
+	], 1000 * 60 * 60 * 24 * 6 + 1000 * 60 * 60 * 23, true);
+
 test.addTest('Time ranges spanning midnight', [
 		'22:00-02:00',
 		'22:00-26:00',
@@ -266,20 +273,6 @@ test.addTest('Selector combination', [
 		[ '2012.01.25 0:00', '2012.01.26 00:00' ],
 	], 1000 * 60 * 60 * 24 * 4, false);
 
-test.addTest('Additional modifies for time', [
-		'24/7; Mo 12:00-14:00 off,15:00-16:00',
-		'24/7; Mo 15:00-16:00 off',
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 15:00', '2012.10.01 16:00' ],
-		[ '2012.10.01 00:00', '2012.10.02 00:00' ],
-		[ '2012.10.02 00:00', '2012.10.03 00:00' ],
-		[ '2012.10.03 00:00', '2012.10.04 00:00' ],
-		[ '2012.10.04 00:00', '2012.10.05 00:00' ],
-		[ '2012.10.05 00:00', '2012.10.06 00:00' ],
-		[ '2012.10.06 00:00', '2012.10.07 00:00' ],
-		[ '2012.10.07 00:00', '2012.10.010 00:00' ],
-	], 1000 * 60 * 60 * 24 * 6 + 1000 * 60 * 60, true);
-
 test.addTest('Additional comments', [
 		'Mo,Tu 10:00-16:00 open "no warranty"; We 12:00-18:00 open "female only"; Th closed "Not open because we are coding :)"; Fr 10:00-16:00 open "male only"; Sa 10:00-12:00 "Maybe open. Call us."'
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -299,6 +292,8 @@ test.addTest('Additional comments for unknown', [
 test.addTest('Additional comments with time ranges spanning midnight', [
 		'22:00-02:00 open "Lets party"; We 12:00-14:00 "Maybe open. Call us."',
 		'22:00-26:00; We 12:00-14:00 unknown "Maybe open. Call us."',
+		'22:00-26:00; We 12:00-14:00 off "Not open because we are too tired"',
+		'22:00-26:00; We 12:00-14:00 closed "Not open because we are too tired"',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 02:00' ],
 		[ '2012.10.01 22:00', '2012.10.02 02:00' ],

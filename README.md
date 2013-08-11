@@ -106,6 +106,21 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   Checks whether the facility is open at the given *date*. You may omit *date* to use current date.
 
 * ```javascript
+  var unknown = oh.getUnknown();
+  ```
+
+  Checks whether the facility is conditional at the given *date*. You may omit *date* to use current date.
+  Conditions can be expressed in comments.
+
+* ```javascript
+ 	var comment = oh.getComment();
+  ```
+
+  Returns the comment (if one is specified) for the facility at the given *date*. You may omit *date* to use current date.
+  Comments can be specified for any state.
+
+
+* ```javascript
   var next_change = oh.getNextChange(date, limit);
   ```
 
@@ -185,6 +200,19 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Supports week ranges (```week 04-07 10:00-20:00```)
 * Supports periodic weeks (```week 2-53/2 10:00-20:00```)
 * **EXT:** Supports multiple week ranges (```week 1,3-5,7-30/2 10:00-20:00```)
+
+### States ###
+* A facility can be in two main states for a given point in time: open (true) or
+ closed (false).
+ * But since the state can also depend on other information (e.g. weather
+ * depending, call us) than just the time a third state can be expressed (Mo unknown; Th-Fr 09:00-18:00 open)
+  <br/>
+  In that case the main state is false and unknown is true.
+
+### Comments ###
+* Supports additional comments (Mo unknown "on appointment"; Th-Fr 09:00-18:00 open "female only"; Su closed "really")
+  * unknown can be omitted (this will also result in unknown)
+  * instead of "closed" "off" will also work
 
 ### Other ###
 

@@ -63,6 +63,8 @@
 				date: [],
 
 				meaning: true,
+				unknown: false,
+				comment: '',
 			};
 
 			parseGroup(tokens, 0, selectors);
@@ -110,7 +112,7 @@
 
 			while (value != '') {
 				var tmp;
-				if (tmp = value.match(/^(?:week|24\/7|off)/)) {
+				if (tmp = value.match(/^(?:week|24\/7|off|open|closed|unknown)/)) {
 					// reserved word
 					tokens.push([tmp[0], tmp[0]]);
 					value = value.substr(tmp[0].length);
@@ -133,6 +135,10 @@
 					// other single-character tokens
 					tokens.push([value[0], 'timesep']);
 					value = value.substr(1);
+				} else if (tmp = value.match(/^"([^"]+)"/)) {
+					// comment
+					tokens.push([tmp[1], 'comment']);
+					value = value.substr(tmp[0].length);
 				} else {
 					// other single-character tokens
 					tokens.push([value[0], value[0]]);
@@ -183,8 +189,26 @@
 					week_stable = false;
 				} else if (matchTokens(tokens, at, 'number', 'timesep')) {
 					at = parseTimeRange(tokens, at, selectors);
-				} else if (matchTokens(tokens, at, 'off')) {
+				} else if (matchTokens(tokens, at, 'off') || matchTokens(tokens, at, 'closed')) {
 					selectors.meaning = false;
+					at++;
+				} else if (matchTokens(tokens, at, 'open')) {
+					selectors.meaning = true;
+					at++;
+				} else if (matchTokens(tokens, at, 'unknown')) {
+					selectors.meaning = false;
+					selectors.unknown = true;
+					at++;
+				} else if (matchTokens(tokens, at, 'comment')) {
+					selectors.comment = tokens[at][0];
+					if (!matchTokens(tokens, at - 1, 'open')
+						&& !matchTokens(tokens, at - 1, 'closed')
+						&& !matchTokens(tokens, at - 1, 'off')) {
+						// Then it is unknown. Either with unknown explicitly
+						// specified or just a comment behind.
+						selectors.meaning = false;
+						selectors.unknown = true;
+					}
 					at++;
 				} else if (matchTokens(tokens, at, '24/7')) {
 					selectors.time.push(function(date) { return [true]; });
@@ -317,7 +341,8 @@
 								target_day_this_month.setDate(target_day_this_month.getDate() + number * 7);
 							}
 
-							if (target_day_this_month.getTime() < start_of_this_month.getTime() || target_day_this_month.getTime() >= start_of_next_month.getTime())
+							if (target_day_this_month.getTime() < start_of_this_month.getTime()
+								|| target_day_this_month.getTime() >= start_of_next_month.getTime())
 								return [false, start_of_next_month];
 
 							// we hit the target day
@@ -567,7 +592,7 @@
 						var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
 
 						var from_date = new Date(date.getFullYear(), tokens[at][0], tokens[at+1][0]);
-						var to_date = new Date(date.getFullYear(), tokens[at][0], tokens[at+(is_range?3:1)][0] + 1);
+						var to_date   = new Date(date.getFullYear(), tokens[at][0], tokens[at+(is_range ? 3 : 1)][0] + 1);
 
 						if (date.getTime() < from_date.getTime())
 							return [false, from_date];
@@ -604,6 +629,8 @@
 		this.getStatePair = function(date) {
 			var resultstate = false;
 			var changedate;
+			var unknown = false;
+			var comment = '';
 
 			var date_matching_blocks = [];
 
@@ -646,19 +673,24 @@
 			for (var nblock = 0; nblock < date_matching_blocks.length; nblock++) {
 				var block = date_matching_blocks[nblock];
 
-				if (blocks[block].time.length == 0)
+				if (blocks[block].time.length == 0) {
 					resultstate = blocks[block].meaning;
+					comment     = blocks[block].comment;
+					unknown     = blocks[block].unknown;
+				}
 
 				for (var timesel = 0; timesel < blocks[block].time.length; timesel++) {
 					var res = blocks[block].time[timesel](date);
 					if (res[0])
 						resultstate = blocks[block].meaning;
+						comment     = blocks[block].comment;
+						unknown     = blocks[block].unknown;
 					if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate))
 						changedate = res[1];
 				}
 			}
 
-			return [ resultstate, changedate ];
+			return [ resultstate, changedate, unknown, comment ];
 		}
 
 		//======================================================================
@@ -669,10 +701,19 @@
 				if (typeof date === 'undefined')
 					date = new Date();
 
-				var prevstate = [ undefined, date ], state = oh.getStatePair(date);
+				var prevstate = [ undefined, date, undefined, '' ];
+				var state = oh.getStatePair(date);
 
 				this.getState = function() {
 					return state[0];
+				}
+
+				this.getUnknown = function() {
+					return state[2];
+				}
+
+				this.getComment = function() {
+					return state[3];
 				}
 
 				this.getDate = function() {
@@ -714,6 +755,23 @@
 		this.getState = function(date) {
 			var it = this.getIterator(date);
 			return it.getState();
+		}
+
+		// If the state of a amenity is conditional. Conditions can be expressed in comments.
+		// True will only be returned if the state is false as the getState only
+		// returns true if the amenity is really open. So you may want to check
+		// the resold of getUnknown if getState returned false.
+		this.getUnknown = function(date) {
+			var it = this.getIterator(date);
+			return it.getUnknown();
+		}
+
+		// Returns the comment.
+		// Most often this will be an empty string as comments are not used that
+		// often in OSM yet.
+		this.getComment = function(date) {
+			var it = this.getIterator(date);
+			return it.getComment();
 		}
 
 		// returns time of next status change
