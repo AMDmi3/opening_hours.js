@@ -13,6 +13,10 @@
 		//======================================================================
 		var months   = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
 		var weekdays = { su: 0, mo: 1, tu: 2, we: 3, th: 4, fr: 5, sa: 6 };
+		var word_replacement = {
+			sunrise: '06:00',
+			sunset:  '18:00',
+		};
 
 		var minutes_in_day = 60 * 24;
 		var msec_in_day    = 1000 * 60 * minutes_in_day;
@@ -115,6 +119,11 @@
 					// reserved word
 					tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase()]);
 					value = value.substr(tmp[0].length);
+				} else if (tmp = value.match(/^(?:sunrise|sunset)/i)) {
+					// Reserved word which are replaced with fix values in the
+					// current implementation.
+					var name = tmp[0].toLowerCase();
+					value = word_replacement[name] + value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i)) {
 					// month name
 					tokens.push([months[tmp[0].toLowerCase()], 'month']);

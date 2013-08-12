@@ -181,8 +181,8 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * **EXT:** Supports omitting time range (```Mo-Fr; Tu off```)
 * **EXT:** Supports dot as time separator, so ```12.00-16.00``` is valid (this is used quite widely)
 * **EXT:** Supports space as time interval separator, i.e. ```Mo 12:00-14:00,16:00-20:00``` and ```Mo 12:00-14:00 16:00-20:00``` are the same thing
+* Rudimentary support for sunrise/sunset keywords (```10:00-sunset```) (sunrise: '06:00', sunset: '18:00')
 * *Doesn't support open end (```10:00+```)*
-* *Doesn't support sunrise/sunset keywords (```10:00-sunset```)*
 
 ### Weekday ranges ###
 
