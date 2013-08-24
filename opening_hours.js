@@ -67,7 +67,7 @@
 
 				meaning: true,
 				unknown: false,
-				comment: '',
+				comment: undefined,
 			};
 
 			parseGroup(tokens, 0, selectors);
@@ -91,6 +91,8 @@
 					date: [],
 
 					meaning: selectors.meaning,
+					unknown: selectors.unknown,
+					comment: selectors.comment,
 
 					wrapped: true,
 				};
@@ -241,8 +243,8 @@
 		function parseTimeRange(tokens, at, selectors) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'number', 'timesep', 'number', '-', 'number', 'timesep', 'number')) {
-					var minutes_from = tokens[at][0] * 60 + tokens[at+2][0];
-					var minutes_to = tokens[at+4][0] * 60 + tokens[at+6][0];
+					var minutes_from = tokens[at][0]   * 60 + tokens[at+2][0];
+					var minutes_to   = tokens[at+4][0] * 60 + tokens[at+6][0];
 
 					// this shortcut makes always-open range check faster
 					// and is also useful in tests, as it doesn't produce
@@ -676,8 +678,8 @@
 				}
 
 				if (matching_date_block) {
-					// The following lines implements date overwriting logic (e.g. for
-					// Mo-Fr 10:00-20:00;We 10:00-16:00, We rule overrides Mo-Fr rule.
+					// The following lines implement date overwriting logic (e.g. for
+					// "Mo-Fr 10:00-20:00; We 10:00-16:00", We rule overrides Mo-Fr rule.
 					if (blocks[nblock].date.length > 0 && blocks[nblock].meaning && !blocks[nblock].wrapped)
 						date_matching_blocks = [];
 					date_matching_blocks.push(nblock);
@@ -687,6 +689,7 @@
 			for (var nblock = 0; nblock < date_matching_blocks.length; nblock++) {
 				var block = date_matching_blocks[nblock];
 
+				// there is no time specified, state applies to the whole day
 				if (blocks[block].time.length == 0) {
 					resultstate = blocks[block].meaning;
 					comment     = blocks[block].comment;
@@ -695,10 +698,12 @@
 
 				for (var timesel = 0; timesel < blocks[block].time.length; timesel++) {
 					var res = blocks[block].time[timesel](date);
-					if (res[0])
+
+					if (res[0]) {
 						resultstate = blocks[block].meaning;
 						comment     = blocks[block].comment;
 						unknown     = blocks[block].unknown;
+					}
 					if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate))
 						changedate = res[1];
 				}
@@ -706,6 +711,11 @@
 
 			return [ resultstate, changedate, unknown, comment ];
 		}
+
+		//======================================================================
+		// Public interface
+		// All functions below are considered public.
+		//======================================================================
 
 		//======================================================================
 		// Iterator interface
@@ -754,16 +764,13 @@
 
 						// do advance
 						prevstate = state;
-						state = oh.getStatePair(state[1]);
-					} while (state[0] === prevstate[0]);
+						state = oh.getStatePair(prevstate[1]);
+// console.log('  state continue (prev ' + prevstate[0] + ', curr ' + state[0] +' = '+ (state[0] === prevstate[0]) +'); unknown continue (prev ' + prevstate[2] + ', curr ' + state[2] +' = '+ (state[2] === prevstate[2]) +') at '+ state[1].toLocaleString() );
+					} while (state[0] === prevstate[0] && state[2] === prevstate[2]);
 					return true;
 				}
 			}(this);
 		}
-
-		//======================================================================
-		// Public interface
-		//======================================================================
 
 		// check whether facility is `open' on the given date (or now)
 		this.getState = function(date) {

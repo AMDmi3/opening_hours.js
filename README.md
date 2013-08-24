@@ -41,12 +41,12 @@ var to   = new Date("01 Feb 2012");
 	var comment    = oh.getComment();
 	var nextchange = oh.getNextChange();
 
-  if (unknown)
-    console.log('We\'re maybe open'
-      + (comment ? ' but that depends on: "' + comment + '"' : ''));
-  else
-    console.log('Currently we\'re ' + (state ? 'open' : 'closed')
-      + (comment ? ', comment "' + comment + '"' : ''));
+	if (unknown)
+		console.log('We\'re maybe open'
+			+ (comment ? ' but that depends on: "' + comment + '"' : ''));
+	else
+		console.log('Currently we\'re ' + (state ? 'open' : 'closed')
+			+ (comment ? ', comment "' + comment + '"' : ''));
 
 	if (typeof nextchange === 'undefined')
 		console.log('And we will never ' + (state ? 'close' : 'open'));
@@ -116,8 +116,9 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   var unknown = oh.getUnknown();
   ```
 
-  Checks whether the facility is conditional at the given *date*. You may omit *date* to use current date.
+  Checks whether the opening state is conditional or unknown at the given *date*. You may omit *date* to use current date.
   Conditions can be expressed in comments.
+  If unknown is true then is_open will be false since it is not sure if it is open.
 
 * ```javascript
  	var comment = oh.getComment();
@@ -126,6 +127,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   Returns the comment (if one is specified) for the facility at the given *date*. You may omit *date* to use current date.
   Comments can be specified for any state.
 
+  If no comment is specified this function will return undefined.
 
 * ```javascript
   var next_change = oh.getNextChange(date, limit);
@@ -154,6 +156,20 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   ```
 
   Returns whether the facility is open at the current iterator position in time.
+
+* ```javascript
+  var unknown = iterator.getUnknown();
+  ```
+
+  Checks whether the opening state is conditional or unknown at the current iterator position in time.
+
+* ```javascript
+ 	var comment = iterator.getComment();
+  ```
+
+  Returns the comment (if one is specified) for the facility at the current iterator position in time.
+
+  If no comment is specified this function will return undefined.
 
 * ```javascript
   var had_advanced = iterator.advance(limit);
@@ -212,15 +228,15 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * A facility can be in two main states for a given point in time: open (true) or
  closed (false).
  * But since the state can also depend on other information (e.g. weather
- * depending, call us) than just the time a third state can be expressed (Mo unknown; Th-Fr 09:00-18:00 open)
+  depending, call us) than just the time, a third state can be expressed (Mo unknown; Th-Fr 09:00-18:00 open)
   <br/>
-  In that case the main state is false and unknown is true.
+  In that case the main state is false and unknown is true for Monday.
 
 ### Comments ###
 * Supports (additional) comments (Mo unknown "on appointment"; Th-Fr 09:00-18:00 open "female only"; Su closed "really")
   * unknown can be omitted (this will also result in unknown)
   * **EXT:** instead of "closed" "off" will also work
-  * value can also be just a double-quoted string ("on appointment")
+  * value can also be just a double-quoted string ("on appointment") which will result in unknown.
 
 ### Other ###
 
