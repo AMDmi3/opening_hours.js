@@ -28,10 +28,31 @@ var to   = new Date("01 Feb 2012");
 {
 	var intervals = oh.getOpenIntervals(from, to);
 	for (var i in intervals)
-		console.log('We are open from ' + intervals[i][0] + ' till ' + intervals[i][1]);
+		console.log('We are ' + (intervals[i][2] ? 'maybe ' : '')
+			+ 'open from ' + (intervals[i][3] ? '("' + intervals[i][3] + '") ' : '')
+			+ intervals[i][0] + ' till ' + intervals[i][1] + '.');
 
-	var duration_hours = oh.getOpenDuration(from, to) / 1000 / 60 / 60;
-	console.log('For a given range, we are open for ' + duration_hours + ' hours');
+	var duration_hours = oh.getOpenDuration(from, to).map(function(x) { return x / 1000 / 60 / 60 });
+	if (duration_hours[0])
+		console.log('For a given range, we are open for ' + duration_hours[0] + ' hours');
+	if (duration_hours[1])
+		console.log('For a given range, we are maybe open for ' + duration_hours[1] + ' hours');
+}
+
+// helper function
+function logState(startString, endString, oh, past) {
+	if (past === true) past = 'd';
+	else past = '';
+
+	var output = '';
+	if (oh.getUnknown()) {
+		output += ' maybe open'
+			+ (oh.getComment() ? ' but that depends on: "' + oh.getComment() + '"' : '');
+	} else {
+		output += ' ' + (oh.getState() ? 'open' : 'close' + past)
+			+ (oh.getComment() ? ', comment "' + oh.getComment() + '"' : '');
+	}
+	console.log(startString + output + endString + '.');
 }
 
 // simple API
@@ -41,30 +62,26 @@ var to   = new Date("01 Feb 2012");
 	var comment    = oh.getComment();
 	var nextchange = oh.getNextChange();
 
-	if (unknown)
-		console.log('We\'re maybe open'
-			+ (comment ? ' but that depends on: "' + comment + '"' : ''));
-	else
-		console.log('Currently we\'re ' + (state ? 'open' : 'closed')
-			+ (comment ? ', comment "' + comment + '"' : ''));
+	logState('We\'re', '', oh, true);
 
 	if (typeof nextchange === 'undefined')
 		console.log('And we will never ' + (state ? 'close' : 'open'));
 	else
-		console.log('And we will ' + (state ? 'close' : 'open') + ' on ' + nextchange);
+		console.log('And we will '
+			+ (oh.getUnknown(nextchange) ? 'maybe ' : '')
+			+ (state ? 'close' : 'open') + ' on ' + nextchange);
 }
 
 // iterator API
 {
 	var iterator = oh.getIterator(from);
 
-	console.log('Initially, we\'re ' + (iterator.getState() ? 'open' : 'closed'));
+	logState('Initially, we\'re', '', iterator, true);
 
 	while (iterator.advance(to))
-		console.log('Then we ' + (iterator.getState() ? 'open' : 'close') +
-			' at ' + iterator.getDate());
+		logState('Then we', ' at ' + iterator.getDate(), iterator);
 
-	console.log('And till the end we\'re ' + (iterator.getState() ? 'open' : 'closed'));
+	logState('And till the end we\'re', '', iterator, true);
 }
 ```
 
@@ -92,7 +109,7 @@ Here and below, unless noted otherwise, all arguments are expected to be and all
   var intervals = oh.getOpenIntervals(from, to);
   ```
 
-  Returns array of open intervals in a given range, in a form of ```[ [ from1, to1 ], [ from2, to2 ], [ from3, to3 ] ]```
+  Returns array of open intervals in a given range, in a form of ```[ [ from1, to1, unknown1, comment2 ], [ from2, to2, unknown2, comment2 ] ]```
 
   Intervals are cropped with the input range.
 
@@ -100,7 +117,7 @@ Here and below, unless noted otherwise, all arguments are expected to be and all
   var duration = oh.getOpenDuration(from, to);
   ```
 
-  Returns duration for which the facility is open in a given date range, in milliseconds.
+  Returns an array with two durations for a given date range, in milliseconds. The first element is the duration for which the facility is open and the second is the duration for which the facility is maybe open (unknown is used).
 
 ### Simple API
 

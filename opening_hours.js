@@ -767,6 +767,7 @@
 						state = oh.getStatePair(prevstate[1]);
 // console.log('  state continue (prev ' + prevstate[0] + ', curr ' + state[0] +' = '+ (state[0] === prevstate[0]) +'); unknown continue (prev ' + prevstate[2] + ', curr ' + state[2] +' = '+ (state[2] === prevstate[2]) +') at '+ state[1].toLocaleString() );
 					} while (state[0] === prevstate[0] && state[2] === prevstate[2]);
+					// Comment could also change …
 					return true;
 				}
 			}(this);
@@ -809,42 +810,53 @@
 
 			var it = this.getIterator(from);
 
-			if (it.getState())
-				res.push([from]);
+			if (it.getState() || it.getUnknown())
+				res.push([from, undefined, it.getUnknown(), it.getComment()]);
 
 			while (it.advance(to)) {
-				if (it.getState())
-					res.push([it.getDate()]);
+				if (it.getState() || it.getUnknown())
+					res.push([it.getDate(), undefined, it.getUnknown(), it.getComment()]);
 				else
-					res[res.length - 1].push(it.getDate());
+					res[res.length - 1][1] = it.getDate();
 			}
 
-			if (res.length > 0 && res[res.length - 1].length == 1)
-				res[res.length - 1].push(to);
+			if (res.length > 0 && typeof res[res.length - 1][1] === 'undefined')
+				res[res.length - 1][1] = to;
 
 			return res;
 		}
 
 		// return total number of milliseconds a facility is open without a given date range
 		this.getOpenDuration = function(from, to) {
-			var res = 0;
+			var open    = 0;
+			var unknown = 0;
 
 			var it = this.getIterator(from);
-			var prevdate = it.getState() ? from : undefined;
+			var prevdate = (it.getState() || it.getUnknown()) ? from : undefined;
+			var prevunknown = undefined;
 
 			while (it.advance(to)) {
-				if (it.getState()) {
-					prevdate = it.getDate();
+				if (it.getState() || it.getUnknown()) {
+					prevdate    = it.getDate();
+					prevunknown = it.getUnknown();
 				} else {
-					res += it.getDate().getTime() - prevdate.getTime();
+					if (prevunknown)
+						unknown += it.getDate().getTime() - prevdate.getTime();
+					else
+						open    += it.getDate().getTime() - prevdate.getTime();
 					prevdate = undefined;
 				}
 			}
 
-			if (typeof prevdate !== 'undefined')
-				res += to.getTime() - prevdate.getTime();
+			if (typeof prevdate !== 'undefined') {
+				if (prevunknown)
+					unknown += to.getTime() - prevdate.getTime();
+				else
+					open    += to.getTime() - prevdate.getTime();
+						console.log(prevdate, to.getDate(), (to.getTime() - prevdate.getTime()) / 1000 / 60 / 60);
+			}
 
-			return res;
+			return [ open, unknown ];
 		}
 
 		this.isWeekStable = function() {
