@@ -245,7 +245,7 @@ test.addTest('Selector combination', [
 		'Jan-Feb Jan 9-15', // month + monthday
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.09 0:00', '2012.01.16 00:00' ],
-	], 1000 * 60 * 60 * 24, false);
+	], 1000 * 60 * 60 * 24 * 7, false);
 
 test.addTest('Selector combination', [
 		'Jan We', // month + weekday
@@ -270,7 +270,7 @@ function opening_hours_test() {
 		var ignored = typeof value !== 'string';
 		if (ignored) {
 			ignored = value[1];
-			value = value[0];
+			value   = value[0];
 		}
 
 		var oh, intervals, duration, weekstable, intervals_ok, duration_ok, weekstable_ok, crashed = true;
@@ -278,12 +278,12 @@ function opening_hours_test() {
 		try {
 			oh = new opening_hours(value);
 
-			intervals = oh.getOpenIntervals(new Date(from), new Date(to));
-			duration = oh.getOpenDuration(new Date(from), new Date(to));
+			intervals  = oh.getOpenIntervals(new Date(from), new Date(to));
+			duration   = oh.getOpenDuration(new Date(from), new Date(to));
 			weekstable = oh.isWeekStable();
 
-			intervals_ok = typeof expected_intervals === 'undefined' || intervals.length == expected_intervals.length;
-			duration_ok = typeof expected_durartion === 'undefined' || duration === expected_duration;
+			intervals_ok  = typeof expected_intervals  === 'undefined' || intervals.length == expected_intervals.length;
+			duration_ok   = typeof expected_duration   === 'undefined' || duration === expected_duration;
 			weekstable_ok = typeof expected_weekstable === 'undefined' || weekstable === expected_weekstable;
 
 			crashed = false;
@@ -294,7 +294,7 @@ function opening_hours_test() {
 		if (intervals_ok) {
 			for (var interval = 0; interval < intervals.length; interval++) {
 				var expected_from = new Date(expected_intervals[interval][0]);
-				var expected_to = new Date(expected_intervals[interval][1]);
+				var expected_to   = new Date(expected_intervals[interval][1]);
 
 				if (intervals[interval][0].getTime() != expected_from.getTime() ||
 						intervals[interval][1].getTime() != expected_to.getTime())
@@ -336,7 +336,7 @@ function opening_hours_test() {
 
 		for (var interval = 0; interval < intervals.length; interval++) {
 			var from = formatDate(intervals[interval][0]);
-			var to = formatDate(intervals[interval][1]);
+			var to   = formatDate(intervals[interval][1]);
 
 			if (interval != 0)
 				res += '\n';

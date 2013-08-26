@@ -11,12 +11,12 @@
 		//======================================================================
 		// Constants
 		//======================================================================
-		var months = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
+		var months   = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
 		var weekdays = { su: 0, mo: 1, tu: 2, we: 3, th: 4, fr: 5, sa: 6 };
 
 		var minutes_in_day = 60 * 24;
-		var msec_in_day = 1000 * 60 * 60 * 24;
-		var msec_in_week = msec_in_day * 7;
+		var msec_in_day    = 1000 * 60 * minutes_in_day;
+		var msec_in_week   = msec_in_day * 7;
 
 		//======================================================================
 		// Constructor - entry to parsing code
@@ -36,6 +36,8 @@
 		// - Run toplevel (block) parser
 		//   - Which calls subparser for specific selector types
 		//     - Which produce selectors
+
+		// FIXME: This will also convert comments to lower case
 		var rules = value.toLowerCase().split(/\s*;\s*/);
 		var week_stable = true;
 
@@ -92,7 +94,7 @@
 					wrapselectors.date.push([]);
 					for (var dsel = 0; dsel < selectors.date[dselg].length; dsel++) {
 						wrapselectors.date[wrapselectors.date.length-1].push(
-								generateDateShifter(selectors.date[dselg][dsel], -1000 * 60 * 60 * 24)
+								generateDateShifter(selectors.date[dselg][dsel], -msec_in_day)
 							);
 					}
 				}
@@ -101,7 +103,7 @@
 			}
 		}
 
-		// Tokenization function: splits string into parts
+		// Tokenization function: Splits string into parts.
 		// output: array of pairs [content, type]
 		function tokenize(value) {
 			var tokens = new Array();
@@ -279,7 +281,7 @@
 					// Conditional weekday (Mo[3])
 					var numbers = [];
 
-					// Get list of contstaints
+					// Get list of constraints
 					var endat = parseNumRange(tokens, at+2, function(from, to) {
 						if (from == to)
 							numbers.push(from);
@@ -297,9 +299,9 @@
 
 					// Create selector for each list element
 					for (var nnumber = 0; nnumber < numbers.length; nnumber++) {
-						// Ignore bad numbers
+						// bad number
 						if (numbers[nnumber] == 0 || numbers[nnumber] < -5 || numbers[nnumber] > 5)
-							continue;
+							throw 'Number between -5 and 5 (except 0) expected';
 
 						selectors.weekday.push(function(weekday, number) { return function(date) {
 							var start_of_this_month = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -463,7 +465,7 @@
 		}
 
 		function dateAtWeek(date, week) {
-			var tmpdate = new Date(date.getFullYear(), 0, 1); // start of year
+			var tmpdate = new Date(date.getFullYear(), 0, 1);
 			tmpdate.setDate(1 - (tmpdate.getDay() + 6) % 7 + week * 7); // start of week n where week starts on Monday
 			return tmpdate;
 		}
@@ -512,7 +514,7 @@
 
 					at += is_range ? 3 : 1;
 				} else {
-					throw 'Unexpected token in weekday range: "' + tokens[at] + '"';
+					throw 'Unexpected token in month range: "' + tokens[at] + '"';
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -576,7 +578,7 @@
 
 						var period = tokens[at+5][0];
 						var nday = Math.floor((date.getTime() - from_date.getTime()) / msec_in_day);
-						var in_period = (nday) % period;
+						var in_period = nday % period;
 
 						if (in_period == 0)
 							return [true, new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)];
@@ -625,16 +627,16 @@
 						matching_date_block = false;
 						// We can ignore other date selectors, as the state won't change
 						// anyway until THIS selector matches (due to conjunction of date
-						// selectors of different types)
+						// selectors of different types).
 						// This is also an optimization, if widest date selector types
-						// are checked first
+						// are checked first.
 						break;
 					}
 				}
 
 				if (matching_date_block) {
-					// The following lines implements date overriding logic (e.g. for
-					// Mo-Fr 10:00-20:00;We 10:00-16:00, We rule overrides Mo-Fr rule
+					// The following lines implements date overwriting logic (e.g. for
+					// Mo-Fr 10:00-20:00;We 10:00-16:00, We rule overrides Mo-Fr rule.
 					if (blocks[nblock].date.length > 0 && blocks[nblock].meaning && !blocks[nblock].wrapped)
 						date_matching_blocks = [];
 					date_matching_blocks.push(nblock);
@@ -679,7 +681,7 @@
 
 				this.advance = function(datelimit) {
 					if (typeof datelimit === 'undefined')
-						datelimit = new Date(prevstate[1].getTime() + 1000 * 60 * 60 * 24 * 366 * 5);
+						datelimit = new Date(prevstate[1].getTime() + msec_in_day * 366 * 5);
 
 					do {
 						// open range, we won't be able to advance
@@ -726,16 +728,16 @@
 		this.getOpenIntervals = function(from, to) {
 			var res = [];
 
-			var iterator = this.getIterator(from);
+			var it = this.getIterator(from);
 
-			if (iterator.getState())
+			if (it.getState())
 				res.push([from]);
 
-			while (iterator.advance(to)) {
-				if (iterator.getState())
-					res.push([iterator.getDate()]);
+			while (it.advance(to)) {
+				if (it.getState())
+					res.push([it.getDate()]);
 				else
-					res[res.length - 1].push(iterator.getDate());
+					res[res.length - 1].push(it.getDate());
 			}
 
 			if (res.length > 0 && res[res.length - 1].length == 1)
@@ -748,14 +750,14 @@
 		this.getOpenDuration = function(from, to) {
 			var res = 0;
 
-			var iterator = this.getIterator(from);
-			var prevdate = iterator.getState() ? from : undefined;
+			var it = this.getIterator(from);
+			var prevdate = it.getState() ? from : undefined;
 
-			while (iterator.advance(to)) {
-				if (iterator.getState()) {
-					prevdate = iterator.getDate();
+			while (it.advance(to)) {
+				if (it.getState()) {
+					prevdate = it.getDate();
 				} else {
-					res += iterator.getDate().getTime() - prevdate.getTime();
+					res += it.getDate().getTime() - prevdate.getTime();
 					prevdate = undefined;
 				}
 			}
