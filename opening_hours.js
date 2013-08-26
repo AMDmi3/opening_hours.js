@@ -146,12 +146,16 @@
 					// whitespace is ignored
 					value = value.substr(1);
 				} else if (value.match(/^[:.]/)) {
-					// other single-character tokens
+					// time separator
 					tokens.push([value[0].toLowerCase(), 'timesep']);
+					value = value.substr(1);
+				} else if (value.match(/^\+/)) {
+					// open end +
+					tokens.push([value[0], 'openend']);
 					value = value.substr(1);
 				} else {
 					// other single-character tokens
-					tokens.push([value[0].toLowerCase(), value[0]]);
+					tokens.push([value[0].toLowerCase(), value[0].toLowerCase()]);
 					value = value.substr(1);
 				}
 			}
@@ -296,6 +300,10 @@
 					}
 
 					at += 7;
+				} else if (matchTokens(tokens, at, 'number', 'timesep', 'number', 'openend')) {
+					var minutes_from = tokens[at][0] * 60 + tokens[at+2][0];
+					throw 'Open end times not yet supported';
+					at += 4;
 				} else {
 					throw 'Unexpected token in time range: "' + tokens[at][0] + '"';
 				}
