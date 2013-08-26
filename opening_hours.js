@@ -465,9 +465,9 @@
 		}
 
 		function dateAtWeek(date, week) {
-			var start_of_this_year = new Date(date.getFullYear(), 0, 1);
-			start_of_this_year.setDate(1 - (start_of_this_year.getDay() + 6) % 7 + week * 7); // start of week n where week starts on Monday
-			return start_of_this_year;
+			var tmpdate = new Date(date.getFullYear(), 0, 1);
+			tmpdate.setDate(1 - (tmpdate.getDay() + 6) % 7 + week * 7); // start of week n where week starts on Monday
+			return tmpdate;
 		}
 
 		function getMinDate(date /*, ...*/) {
