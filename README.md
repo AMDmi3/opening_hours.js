@@ -28,36 +28,60 @@ var to   = new Date("01 Feb 2012");
 {
 	var intervals = oh.getOpenIntervals(from, to);
 	for (var i in intervals)
-		console.log('We are open from ' + intervals[i][0] + ' till ' + intervals[i][1]);
+		console.log('We are ' + (intervals[i][2] ? 'maybe ' : '')
+			+ 'open from ' + (intervals[i][3] ? '("' + intervals[i][3] + '") ' : '')
+			+ intervals[i][0] + ' till ' + intervals[i][1] + '.');
 
-	var duration_hours = oh.getOpenDuration(from, to) / 1000 / 60 / 60;
-	console.log('For a given range, we are open for ' + duration_hours + ' hours');
+	var duration_hours = oh.getOpenDuration(from, to).map(function(x) { return x / 1000 / 60 / 60 });
+	if (duration_hours[0])
+		console.log('For a given range, we are open for ' + duration_hours[0] + ' hours');
+	if (duration_hours[1])
+		console.log('For a given range, we are maybe open for ' + duration_hours[1] + ' hours');
+}
+
+// helper function
+function logState(startString, endString, oh, past) {
+	if (past === true) past = 'd';
+	else past = '';
+
+	var output = '';
+	if (oh.getUnknown()) {
+		output += ' maybe open'
+			+ (oh.getComment() ? ' but that depends on: "' + oh.getComment() + '"' : '');
+	} else {
+		output += ' ' + (oh.getState() ? 'open' : 'close' + past)
+			+ (oh.getComment() ? ', comment "' + oh.getComment() + '"' : '');
+	}
+	console.log(startString + output + endString + '.');
 }
 
 // simple API
 {
-	var state = oh.getState(); // we use current date
+	var state      = oh.getState(); // we use current date
+	var unknown    = oh.getUnknown();
+	var comment    = oh.getComment();
 	var nextchange = oh.getNextChange();
 
-	console.log('Currently we\'re ' + (state ? 'open' : 'closed'));
+	logState('We\'re', '', oh, true);
 
 	if (typeof nextchange === 'undefined')
 		console.log('And we will never ' + (state ? 'close' : 'open'));
 	else
-		console.log('And we will ' + (state ? 'close' : 'open') + ' on ' + nextchange);
+		console.log('And we will '
+			+ (oh.getUnknown(nextchange) ? 'maybe ' : '')
+			+ (state ? 'close' : 'open') + ' on ' + nextchange);
 }
 
 // iterator API
 {
 	var iterator = oh.getIterator(from);
 
-	console.log('Initially, we\'re ' + (iterator.getState() ? 'open' : 'closed'));
+	logState('Initially, we\'re', '', iterator, true);
 
 	while (iterator.advance(to))
-		console.log('Then we ' + (iterator.getState() ? 'open' : 'close') +
-			' at ' + iterator.getDate());
+		logState('Then we', ' at ' + iterator.getDate(), iterator);
 
-	console.log('And till the end we\'re ' + (iterator.getState() ? 'open' : 'closed'));
+	logState('And till the end we\'re', '', iterator, true);
 }
 ```
 
@@ -85,7 +109,7 @@ Here and below, unless noted otherwise, all arguments are expected to be and all
   var intervals = oh.getOpenIntervals(from, to);
   ```
 
-  Returns array of open intervals in a given range, in a form of ```[ [ from1, to1 ], [ from2, to2 ], [ from3, to3 ] ]```
+  Returns array of open intervals in a given range, in a form of ```[ [ from1, to1, unknown1, comment1 ], [ from2, to2, unknown2, comment2 ] ]```
 
   Intervals are cropped with the input range.
 
@@ -93,7 +117,7 @@ Here and below, unless noted otherwise, all arguments are expected to be and all
   var duration = oh.getOpenDuration(from, to);
   ```
 
-  Returns duration for which the facility is open in a given date range, in milliseconds.
+  Returns an array with two durations for a given date range, in milliseconds. The first element is the duration for which the facility is open and the second is the duration for which the facility is maybe open (unknown is used).
 
 ### Simple API
 
@@ -104,6 +128,23 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   ```
 
   Checks whether the facility is open at the given *date*. You may omit *date* to use current date.
+
+* ```javascript
+  var unknown = oh.getUnknown();
+  ```
+
+  Checks whether the opening state is conditional or unknown at the given *date*. You may omit *date* to use current date.
+  Conditions can be expressed in comments.
+  If unknown is true then is_open will be false since it is not sure if it is open.
+
+* ```javascript
+ 	var comment = oh.getComment();
+  ```
+
+  Returns the comment (if one is specified) for the facility at the given *date*. You may omit *date* to use current date.
+  Comments can be specified for any state.
+
+  If no comment is specified this function will return undefined.
 
 * ```javascript
   var next_change = oh.getNextChange(date, limit);
@@ -134,6 +175,20 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   Returns whether the facility is open at the current iterator position in time.
 
 * ```javascript
+  var unknown = iterator.getUnknown();
+  ```
+
+  Checks whether the opening state is conditional or unknown at the current iterator position in time.
+
+* ```javascript
+ 	var comment = iterator.getComment();
+  ```
+
+  Returns the comment (if one is specified) for the facility at the current iterator position in time.
+
+  If no comment is specified this function will return undefined.
+
+* ```javascript
   var had_advanced = iterator.advance(limit);
   ```
 
@@ -149,6 +204,9 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Rule may use ```off``` keyword to indicate that the facility is closed at that time (```Mo-Fr 10:00-20:00; 12:00-14:00 off```)
 * Rule consists of multiple date (```Mo-Fr```, ```Jan-Feb```, ```week 2-10```, ```Jan 10-Feb 10```) and time (```12:00-16:00```, ```12:00-14:00,16:00-18:00```) conditions
 * If a rule's date condition overlap with previous rule, it overrides (as opposed to extends) the previous rule. E.g. ```Mo-Fr 10:00-16:00; We 12:00-18:00``` means that on Wednesday the facility is open from 12:00 till 18:00, not from 10:00 to 18:00.
+* Date ranges (calender ranges) can be seperated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][specification]
+
+[specification]: http://www.netzwolf.info/en/cartography/osm/time_domain/specification
 
 ### Time ranges ###
 
@@ -159,8 +217,8 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * **EXT:** Supports omitting time range (```Mo-Fr; Tu off```)
 * **EXT:** Supports dot as time separator, so ```12.00-16.00``` is valid (this is used quite widely)
 * **EXT:** Supports space as time interval separator, i.e. ```Mo 12:00-14:00,16:00-20:00``` and ```Mo 12:00-14:00 16:00-20:00``` are the same thing
+* Rudimentary support for sunrise/sunset keywords (```10:00-sunset```) (sunrise: '06:00', sunset: '18:00')
 * *Doesn't support open end (```10:00+```)*
-* *Doesn't support sunrise/sunset keywords (```10:00-sunset```)*
 
 ### Weekday ranges ###
 
@@ -185,6 +243,20 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Supports periodic weeks (```week 2-53/2 10:00-20:00```)
 * **EXT:** Supports multiple week ranges (```week 1,3-5,7-30/2 10:00-20:00```)
 
+### States ###
+* A facility can be in two main states for a given point in time: open (true) or
+ closed (false).
+ * But since the state can also depend on other information (e.g. weather
+  depending, call us) than just the time, a third state can be expressed (```Mo unknown; Th-Fr 09:00-18:00 open```)
+  <br/>
+  In that case the main state is false and unknown is true for Monday.
+
+### Comments ###
+* Supports (additional) comments (```Mo unknown "on appointment"; Th-Fr 09:00-18:00 open "female only"; Su closed "really"```)
+  * unknown can be omitted (this will also result in unknown)
+  * **EXT:** instead of "closed" "off" will also work
+  * value can also be just a double-quoted string (```"on appointment"```) which will result in unknown.
+
 ### Other ###
 
 * *Doesn't support PH/SH keywords yet*
@@ -207,6 +279,7 @@ On author's Intel Core i5-2400 library allows ~20k/sec constructor calls and ~10
 
 * [Sergey Leschina](https://github.com/putnik) (demo improvements)
 * [Charly Koza](https://github.com/Cactusbone) (package.json)
+* [Robin Schneider](https://github.com/ypid)   (improvements, more features)
 
 ## License ##
 

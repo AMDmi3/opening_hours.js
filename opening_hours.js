@@ -13,6 +13,10 @@
 		//======================================================================
 		var months   = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
 		var weekdays = { su: 0, mo: 1, tu: 2, we: 3, th: 4, fr: 5, sa: 6 };
+		var word_replacement = {
+			sunrise: '06:00',
+			sunset:  '18:00',
+		};
 
 		var minutes_in_day = 60 * 24;
 		var msec_in_day    = 1000 * 60 * minutes_in_day;
@@ -37,8 +41,7 @@
 		//   - Which calls subparser for specific selector types
 		//     - Which produce selectors
 
-		// FIXME: This will also convert comments to lower case
-		var rules = value.toLowerCase().split(/\s*;\s*/);
+		var rules = value.split(/\s*;\s*/);
 		var week_stable = true;
 
 		var blocks = [];
@@ -63,6 +66,8 @@
 				date: [],
 
 				meaning: true,
+				unknown: false,
+				comment: undefined,
 			};
 
 			parseGroup(tokens, 0, selectors);
@@ -86,6 +91,8 @@
 					date: [],
 
 					meaning: selectors.meaning,
+					unknown: selectors.unknown,
+					comment: selectors.comment,
 
 					wrapped: true,
 				};
@@ -110,32 +117,45 @@
 
 			while (value != '') {
 				var tmp;
-				if (tmp = value.match(/^(?:week|24\/7|off)/)) {
+				if (tmp = value.match(/^(?:week|24\/7|off|open|closed|unknown)/i)) {
 					// reserved word
-					tokens.push([tmp[0], tmp[0]]);
+					tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase()]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/)) {
+				} else if (tmp = value.match(/^(?:sunrise|sunset)/i)) {
+					// Reserved word which are replaced with fix values in the
+					// current implementation.
+					var name = tmp[0].toLowerCase();
+					value = word_replacement[name] + value.substr(tmp[0].length);
+				} else if (tmp = value.match(/^(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i)) {
 					// month name
-					tokens.push([months[tmp[0]], 'month']);
+					tokens.push([months[tmp[0].toLowerCase()], 'month']);
 					value = value.substr(3);
-				} else if (tmp = value.match(/^(?:mo|tu|we|th|fr|sa|su)/)) {
+				} else if (tmp = value.match(/^(?:mo|tu|we|th|fr|sa|su)/i)) {
 					// weekday name
-					tokens.push([weekdays[tmp[0]], 'weekday']);
+					tokens.push([weekdays[tmp[0].toLowerCase()], 'weekday']);
 					value = value.substr(2);
 				} else if (tmp = value.match(/^\d+/)) {
 					// number
 					tokens.push([+tmp[0], 'number']);
 					value = value.substr(tmp[0].length);
+				} else if (tmp = value.match(/^"([^"]+)"/)) {
+					// comment
+					tokens.push([tmp[1], 'comment']);
+					value = value.substr(tmp[0].length);
 				} else if (value.match(/^\s/)) {
 					// whitespace is ignored
 					value = value.substr(1);
 				} else if (value.match(/^[:.]/)) {
-					// other single-character tokens
-					tokens.push([value[0], 'timesep']);
+					// time separator
+					tokens.push([value[0].toLowerCase(), 'timesep']);
+					value = value.substr(1);
+				} else if (value.match(/^\+/)) {
+					// open end +
+					tokens.push([value[0], 'openend']);
 					value = value.substr(1);
 				} else {
 					// other single-character tokens
-					tokens.push([value[0], value[0]]);
+					tokens.push([value[0].toLowerCase(), value[0].toLowerCase()]);
 					value = value.substr(1);
 				}
 			}
@@ -181,10 +201,42 @@
 				} else if (matchTokens(tokens, at, 'week')) {
 					at = parseWeekRange(tokens, at + 1);
 					week_stable = false;
+				} else if (tokens[at][0] === ':') {
+					// Ignore colon if they are appear somewhere else than as time separator.
+					// This provides compatibility with the proposed by Netzwolf:
+					// http://www.netzwolf.info/en/cartography/osm/time_domain/specification
+					// Note that it ignores the colon *anywhere* if it is not
+					// handled by a function like parseTimeRange. This is not
+					// really intended but anyway it should do the job.
+					at++;
 				} else if (matchTokens(tokens, at, 'number', 'timesep')) {
 					at = parseTimeRange(tokens, at, selectors);
-				} else if (matchTokens(tokens, at, 'off')) {
+				} else if (matchTokens(tokens, at, 'off') || matchTokens(tokens, at, 'closed')) {
 					selectors.meaning = false;
+					at++;
+				} else if (matchTokens(tokens, at, 'open')) {
+					selectors.meaning = true;
+					at++;
+				} else if (matchTokens(tokens, at, 'unknown')) {
+					selectors.meaning = false;
+					selectors.unknown = true;
+					at++;
+				} else if (matchTokens(tokens, at, 'comment')) {
+					selectors.comment = tokens[at][0];
+					if (at > 0) {
+						if (!matchTokens(tokens, at - 1, 'open')
+							&& !matchTokens(tokens, at - 1, 'closed')
+							&& !matchTokens(tokens, at - 1, 'off')) {
+							// Then it is unknown. Either with unknown explicitly
+							// specified or just a comment behind.
+							selectors.meaning = false;
+							selectors.unknown = true;
+						}
+					} else { // rule starts with comment
+						selectors.time.push(function(date) { return [true]; });
+						selectors.meaning = false;
+						selectors.unknown = true;
+					}
 					at++;
 				} else if (matchTokens(tokens, at, '24/7')) {
 					selectors.time.push(function(date) { return [true]; });
@@ -203,8 +255,8 @@
 		function parseTimeRange(tokens, at, selectors) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'number', 'timesep', 'number', '-', 'number', 'timesep', 'number')) {
-					var minutes_from = tokens[at][0] * 60 + tokens[at+2][0];
-					var minutes_to = tokens[at+4][0] * 60 + tokens[at+6][0];
+					var minutes_from = tokens[at][0]   * 60 + tokens[at+2][0];
+					var minutes_to   = tokens[at+4][0] * 60 + tokens[at+6][0];
 
 					// this shortcut makes always-open range check faster
 					// and is also useful in tests, as it doesn't produce
@@ -256,6 +308,10 @@
 					}
 
 					at += 7;
+				} else if (matchTokens(tokens, at, 'number', 'timesep', 'number', 'openend')) {
+					var minutes_from = tokens[at][0] * 60 + tokens[at+2][0];
+					throw 'Open end times not yet supported';
+					at += 4;
 				} else {
 					throw 'Unexpected token in time range: "' + tokens[at][0] + '"';
 				}
@@ -317,7 +373,8 @@
 								target_day_this_month.setDate(target_day_this_month.getDate() + number * 7);
 							}
 
-							if (target_day_this_month.getTime() < start_of_this_month.getTime() || target_day_this_month.getTime() >= start_of_next_month.getTime())
+							if (target_day_this_month.getTime() < start_of_this_month.getTime()
+								|| target_day_this_month.getTime() >= start_of_next_month.getTime())
 								return [false, start_of_next_month];
 
 							// we hit the target day
@@ -567,7 +624,7 @@
 						var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
 
 						var from_date = new Date(date.getFullYear(), tokens[at][0], tokens[at+1][0]);
-						var to_date = new Date(date.getFullYear(), tokens[at][0], tokens[at+(is_range?3:1)][0] + 1);
+						var to_date   = new Date(date.getFullYear(), tokens[at][0], tokens[at+(is_range ? 3 : 1)][0] + 1);
 
 						if (date.getTime() < from_date.getTime())
 							return [false, from_date];
@@ -604,6 +661,8 @@
 		this.getStatePair = function(date) {
 			var resultstate = false;
 			var changedate;
+			var unknown = false;
+			var comment = '';
 
 			var date_matching_blocks = [];
 
@@ -635,8 +694,8 @@
 				}
 
 				if (matching_date_block) {
-					// The following lines implements date overwriting logic (e.g. for
-					// Mo-Fr 10:00-20:00;We 10:00-16:00, We rule overrides Mo-Fr rule.
+					// The following lines implement date overwriting logic (e.g. for
+					// "Mo-Fr 10:00-20:00; We 10:00-16:00", We rule overrides Mo-Fr rule.
 					if (blocks[nblock].date.length > 0 && blocks[nblock].meaning && !blocks[nblock].wrapped)
 						date_matching_blocks = [];
 					date_matching_blocks.push(nblock);
@@ -646,20 +705,33 @@
 			for (var nblock = 0; nblock < date_matching_blocks.length; nblock++) {
 				var block = date_matching_blocks[nblock];
 
-				if (blocks[block].time.length == 0)
+				// there is no time specified, state applies to the whole day
+				if (blocks[block].time.length == 0) {
 					resultstate = blocks[block].meaning;
+					comment     = blocks[block].comment;
+					unknown     = blocks[block].unknown;
+				}
 
 				for (var timesel = 0; timesel < blocks[block].time.length; timesel++) {
 					var res = blocks[block].time[timesel](date);
-					if (res[0])
+
+					if (res[0]) {
 						resultstate = blocks[block].meaning;
+						comment     = blocks[block].comment;
+						unknown     = blocks[block].unknown;
+					}
 					if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate))
 						changedate = res[1];
 				}
 			}
 
-			return [ resultstate, changedate ];
+			return [ resultstate, changedate, unknown, comment ];
 		}
+
+		//======================================================================
+		// Public interface
+		// All functions below are considered public.
+		//======================================================================
 
 		//======================================================================
 		// Iterator interface
@@ -669,10 +741,19 @@
 				if (typeof date === 'undefined')
 					date = new Date();
 
-				var prevstate = [ undefined, date ], state = oh.getStatePair(date);
+				var prevstate = [ undefined, date, undefined, '' ];
+				var state = oh.getStatePair(date);
 
 				this.getState = function() {
 					return state[0];
+				}
+
+				this.getUnknown = function() {
+					return state[2];
+				}
+
+				this.getComment = function() {
+					return state[3];
 				}
 
 				this.getDate = function() {
@@ -699,21 +780,36 @@
 
 						// do advance
 						prevstate = state;
-						state = oh.getStatePair(state[1]);
-					} while (state[0] === prevstate[0]);
+						state = oh.getStatePair(prevstate[1]);
+// console.log('  state continue (prev ' + prevstate[0] + ', curr ' + state[0] +' = '+ (state[0] === prevstate[0]) +'); unknown continue (prev ' + prevstate[2] + ', curr ' + state[2] +' = '+ (state[2] === prevstate[2]) +') at '+ state[1].toLocaleString() );
+					} while (state[0] === prevstate[0] && state[2] === prevstate[2]);
+					// Comment could also change …
 					return true;
 				}
 			}(this);
 		}
 
-		//======================================================================
-		// Public interface
-		//======================================================================
-
 		// check whether facility is `open' on the given date (or now)
 		this.getState = function(date) {
 			var it = this.getIterator(date);
 			return it.getState();
+		}
+
+		// If the state of a amenity is conditional. Conditions can be expressed in comments.
+		// True will only be returned if the state is false as the getState only
+		// returns true if the amenity is really open. So you may want to check
+		// the resold of getUnknown if getState returned false.
+		this.getUnknown = function(date) {
+			var it = this.getIterator(date);
+			return it.getUnknown();
+		}
+
+		// Returns the comment.
+		// Most often this will be an empty string as comments are not used that
+		// often in OSM yet.
+		this.getComment = function(date) {
+			var it = this.getIterator(date);
+			return it.getComment();
 		}
 
 		// returns time of next status change
@@ -730,42 +826,53 @@
 
 			var it = this.getIterator(from);
 
-			if (it.getState())
-				res.push([from]);
+			if (it.getState() || it.getUnknown())
+				res.push([from, undefined, it.getUnknown(), it.getComment()]);
 
 			while (it.advance(to)) {
-				if (it.getState())
-					res.push([it.getDate()]);
+				if (it.getState() || it.getUnknown())
+					res.push([it.getDate(), undefined, it.getUnknown(), it.getComment()]);
 				else
-					res[res.length - 1].push(it.getDate());
+					res[res.length - 1][1] = it.getDate();
 			}
 
-			if (res.length > 0 && res[res.length - 1].length == 1)
-				res[res.length - 1].push(to);
+			if (res.length > 0 && typeof res[res.length - 1][1] === 'undefined')
+				res[res.length - 1][1] = to;
 
 			return res;
 		}
 
 		// return total number of milliseconds a facility is open without a given date range
 		this.getOpenDuration = function(from, to) {
-			var res = 0;
+			var open    = 0;
+			var unknown = 0;
 
 			var it = this.getIterator(from);
-			var prevdate = it.getState() ? from : undefined;
+			var prevdate = (it.getState() || it.getUnknown()) ? from : undefined;
+			var prevunknown = undefined;
 
 			while (it.advance(to)) {
-				if (it.getState()) {
-					prevdate = it.getDate();
+				if (it.getState() || it.getUnknown()) {
+					prevdate    = it.getDate();
+					prevunknown = it.getUnknown();
 				} else {
-					res += it.getDate().getTime() - prevdate.getTime();
+					if (prevunknown)
+						unknown += it.getDate().getTime() - prevdate.getTime();
+					else
+						open    += it.getDate().getTime() - prevdate.getTime();
 					prevdate = undefined;
 				}
 			}
 
-			if (typeof prevdate !== 'undefined')
-				res += to.getTime() - prevdate.getTime();
+			if (typeof prevdate !== 'undefined') {
+				if (prevunknown)
+					unknown += to.getTime() - prevdate.getTime();
+				else
+					open    += to.getTime() - prevdate.getTime();
+						console.log(prevdate, to.getDate(), (to.getTime() - prevdate.getTime()) / 1000 / 60 / 60);
+			}
 
-			return res;
+			return [ open, unknown ];
 		}
 
 		this.isWeekStable = function() {
