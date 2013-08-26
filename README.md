@@ -204,6 +204,9 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Rule may use ```off``` keyword to indicate that the facility is closed at that time (```Mo-Fr 10:00-20:00; 12:00-14:00 off```)
 * Rule consists of multiple date (```Mo-Fr```, ```Jan-Feb```, ```week 2-10```, ```Jan 10-Feb 10```) and time (```12:00-16:00```, ```12:00-14:00,16:00-18:00```) conditions
 * If a rule's date condition overlap with previous rule, it overrides (as opposed to extends) the previous rule. E.g. ```Mo-Fr 10:00-16:00; We 12:00-18:00``` means that on Wednesday the facility is open from 12:00 till 18:00, not from 10:00 to 18:00.
+* Date ranges (calender ranges) can be seperated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][specification]
+
+[specification]: http://www.netzwolf.info/en/cartography/osm/time_domain/specification
 
 ### Time ranges ###
 
@@ -231,7 +234,6 @@ Almost everything from opening_hours definition is supported, as well as some ex
 ### Monthday ranges ###
 
 * Supports monthday ranges across multiple months (```Jan 01-Feb 03 10:00-20:00```)
- <!-- FIXME: This is not in compliance with the specification. A colon should be used to seperate the month from the weekdays -->
 * Supports monthday ranges within single month (```Jan 01-26 10:00-20:00```), with periods as well ```Jan 01-29/7 10:00-20:00```)
 * **EXT:** Supports multiple monthday ranges separated by a comma (```Jan 23-31/3,Feb 1-12,Mar 1```)
 

@@ -123,7 +123,7 @@ test.addTest('Exception rules', [
 	], 1000 * 60 * 60 * 6 * 5, 0, true);
 
 test.addTest('Additional rules', [
-		'Mo-Fr 10:00-16:00, We 12:00-18:00'
+		ignored('Mo-Fr 10:00-16:00, We 12:00-18:00'),
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 16:00' ],
 		[ '2012.10.02 10:00', '2012.10.02 16:00' ],
@@ -134,6 +134,7 @@ test.addTest('Additional rules', [
 
 test.addTest('Month ranges', [
 		'Nov-Feb 00:00-24:00',
+		'Nov-Feb: 00:00-24:00',
 		'Jan,Feb,Nov,Dec 00:00-24:00',
 		'00:00-24:00; Mar-Oct off',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
@@ -143,6 +144,7 @@ test.addTest('Month ranges', [
 
 test.addTest('Week ranges', [
 		'week 1,3 00:00-24:00',
+		'week 1,3: 00:00-24:00',
 		'week 1-3/2 00:00-24:00',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.01 00:00', '2012.01.02 00:00' ],
@@ -159,6 +161,7 @@ test.addTest('Week ranges', [
 
 test.addTest('Week range limit', [
 		'week 2-54 00:00-24:00',
+		'week 2-54: 00:00-24:00',
 		'week 2-57',
 	], '2012.01.01 0:00', '2014.01.01 0:00', [
 		[ '2012.01.02 00:00', '2013.01.01 00:00' ],
@@ -168,6 +171,7 @@ test.addTest('Week range limit', [
 test.addTest('Monthday ranges', [
 		'Jan 23-31 00:00-24:00; Feb 1-12 00:00-24:00',
 		'Jan 23-Feb 12 00:00-24:00',
+		'Jan 23-Feb 12: 00:00-24:00',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
 	], 1000 * 60 * 60 * 24 * 21, 0, false);
@@ -181,7 +185,7 @@ test.addTest('Monthday ranges spanning year boundary', [
 	], 1000 * 60 * 60 * 24 * 4, 0, false);
 
 test.addTest('Date range which only applies for one year', [
-		'2013 Dec 31-2014 Jan 01',
+		ignored('2013 Dec 31-2014 Jan 01'),
 	], '2011.01.01 0:00', '2015.01.01 0:00', [
 		[ '2012.01.01 0:00', '2012.01.02 00:00' ],
 		[ '2012.12.31 0:00', '2013.01.02 00:00' ],
@@ -190,6 +194,7 @@ test.addTest('Date range which only applies for one year', [
 
 test.addTest('Periodical monthdays', [
 		'Jan 01-31/8 00:00-24:00',
+		'Jan 01-31/8: 00:00-24:00',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.01 0:00', '2012.01.02 00:00' ],
 		[ '2012.01.09 0:00', '2012.01.10 00:00' ],
@@ -338,6 +343,14 @@ test.addTest('Additional comments for closed with time ranges spanning midnight'
 		[ '2012.10.07 22:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * 4 * 7, 0, true);
 
+test.addShouldFail('Incorrect syntax which should throw an error', [
+		'sdasdlasdj a3reaw', // Test for the test framwork. This test should pass :)
+		':week 2-54 00:00-24:00',
+		'week :2-54 00:00-24:00',
+		'week 2-54 00:00-24:00:',
+		'week 2-54 00::00-24:00',
+	]);
+
 process.exit(test.run() ? 0 : 1);
 
 //======================================================================
@@ -345,6 +358,28 @@ process.exit(test.run() ? 0 : 1);
 //======================================================================
 function opening_hours_test() {
 	var tests = [];
+	var tests_should_fail = [];
+
+	function runSingleTestShouldFail(name, value) {
+		try {
+			oh = new opening_hours(value);
+
+			crashed = false;
+		} catch (err) {
+			crashed = err;
+		}
+
+		var passed = false;
+		var str = '"' + name + '" for "' + value + '": ';
+		if (crashed) {
+			str += '[1;32mPASSED[0m';
+			passed = true;
+		} else {
+			str += '[1;31mFAILED[0m';
+		}
+
+		console.log(str);
+	}
 
 	function runSingleTest(name, value, from, to, expected_intervals, expected_durations, expected_weekstable) {
 		var ignored = typeof value !== 'string';
@@ -454,8 +489,12 @@ function opening_hours_test() {
 			if (runSingleTest(tests[test][0], tests[test][1], tests[test][2], tests[test][3], tests[test][4], tests[test][5], tests[test][6]))
 				success++;
 		}
+		for (var test = 0; test < tests_should_fail.length; test++) {
+			if (runSingleTestShouldFail(tests_should_fail[test][0], tests_should_fail[test][1]))
+				success++;
+		}
 
-		console.log(success + '/' + tests.length + ' tests passed');
+		console.log(success + '/' + (tests.length + tests_should_fail.length) + ' tests passed');
 
 		return success == tests.length;
 	}
@@ -472,6 +511,14 @@ function opening_hours_test() {
 		else
 			for (var value = 0; value < values.length; value++)
 				tests.push([name, values[value], from, to, expected_intervals, [ expected_duration, expected_unknown_duration ], expected_weekstable]);
+	}
+
+	this.addShouldFail = function(name, values) {
+		if (typeof values === 'string')
+			tests_should_fail.push([name, values]);
+		else
+			for (var value = 0; value < values.length; value++)
+				tests_should_fail.push([name, values[value]]);
 	}
 }
 
