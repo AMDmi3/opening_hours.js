@@ -279,7 +279,7 @@ function opening_hours_test() {
 			oh = new opening_hours(value);
 
 			intervals  = oh.getOpenIntervals(new Date(from), new Date(to));
-			duration   = oh.getOpenDuration( new Date(from), new Date(to));
+			duration   = oh.getOpenDuration(new Date(from), new Date(to));
 			weekstable = oh.isWeekStable();
 
 			intervals_ok  = typeof expected_intervals  === 'undefined' || intervals.length == expected_intervals.length;
