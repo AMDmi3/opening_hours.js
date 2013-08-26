@@ -176,7 +176,6 @@ Almost everything from opening_hours definition is supported, as well as some ex
 ### Monthday ranges ###
 
 * Supports monthday ranges across multiple months (```Jan 01-Feb 03 10:00-20:00```)
- <!-- FIXME: This is not in compliance with the specification. A colon should be used to seperate the month from the weekdays -->
 * Supports monthday ranges within single month (```Jan 01-26 10:00-20:00```), with periods as well ```Jan 01-29/7 10:00-20:00```)
 * **EXT:** Supports multiple monthday ranges separated by a comma (```Jan 23-31/3,Feb 1-12,Mar 1```)
 
