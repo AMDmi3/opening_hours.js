@@ -696,7 +696,7 @@
 				if (matching_date_block) {
 					// The following lines implement date overwriting logic (e.g. for
 					// "Mo-Fr 10:00-20:00; We 10:00-16:00", We rule overrides Mo-Fr rule.
-					if (blocks[nblock].date.length > 0 && blocks[nblock].meaning && !blocks[nblock].wrapped)
+					if (blocks[nblock].date.length > 0 && (blocks[nblock].meaning || blocks[nblock].unknown) && !blocks[nblock].wrapped)
 						date_matching_blocks = [];
 					date_matching_blocks.push(nblock);
 				}

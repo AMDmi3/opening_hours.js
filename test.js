@@ -24,7 +24,7 @@ test.addTest('Time intervals', [
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 15:00' ],
 		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
-	], 1000 * 60 * 60 * 24 * 6 + 1000 * 60 * 60 * 23, 0, true);
+	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true);
 
 test.addTest('sunrise, sunset (current implementation uses fix times)', [
 		'Mo sunrise-sunset',
@@ -86,10 +86,10 @@ test.addTest('Full range', [
 		'Sa-Fr 00:00-24:00',
 		'Su-Sa 00:00-24:00',
 		'24/7',
-		'Jan-Dec', // week stable actually, but check for that needs extra logic
-		'Feb-Jan', // week stable actually, but check for that needs extra logic
+		'Jan-Dec',       // week stable actually, but check for that needs extra logic
+		'Feb-Jan',       // week stable actually, but check for that needs extra logic
 		'Jan 01-Dec 31', // week stable actually, but check for that needs extra logic
-		'week 1-54', // week stable actually, but check for that needs extra logic
+		'week 1-54',     // week stable actually, but check for that needs extra logic
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
 	], 1000 * 60 * 60 * 24 * 7, 0, undefined);
@@ -130,7 +130,7 @@ test.addTest('Additional rules', [
 		[ '2012.10.03 10:00', '2012.10.03 18:00' ],
 		[ '2012.10.04 10:00', '2012.10.04 16:00' ],
 		[ '2012.10.05 10:00', '2012.10.05 16:00' ],
-	], 1000 * 60 * 60 * 6 * 5 + 1000 * 60 * 60 * 2, 0, true);
+	], 1000 * 60 * 60 * (6 * 5 + 2), 0, true);
 
 test.addTest('Month ranges', [
 		'Nov-Feb 00:00-24:00',
@@ -271,24 +271,24 @@ test.addTest('Extensions: missing time range separators', [
 	], 1000 * 60 * 60 * 6, 0, true);
 
 test.addTest('Selector combination', [
-		'week 3 We', // week + weekday
+		'week 3 We',            // week + weekday
 		'week 3 Jan 11-Jan 11', // week + monthday
-		'week 3 Jan 11', // week + monthday
+		'week 3 Jan 11',        // week + monthday
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.11 0:00', '2012.01.12 00:00' ],
 	], 1000 * 60 * 60 * 24, 0, false);
 
 test.addTest('Selector combination', [
-		'week 3 Jan', // week + month
+		'week 3 Jan',           // week + month
 		'Jan-Feb Jan 9-Jan 15', // month + monthday
-		'Jan-Feb Jan 9-15', // month + monthday
+		'Jan-Feb Jan 9-15',     // month + monthday
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.09 0:00', '2012.01.16 00:00' ],
 	], 1000 * 60 * 60 * 24 * 7, 0, false);
 
 test.addTest('Selector combination', [
-		'Jan We', // month + weekday
-		'Jan 2-27 We', // weekday + monthday
+		'Jan We',           // month + weekday
+		'Jan 2-27 We',      // weekday + monthday
 		'Dec 30-Jan 27 We', // weekday + monthday
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.04 0:00', '2012.01.05 00:00' ],
@@ -312,6 +312,16 @@ test.addTest('Additional comments for unknown', [
 		'Sa 10:00-12:00 unknown "Maybe open. Call us."',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.06 10:00', '2012.10.06 12:00', true, "Maybe open. Call us." ],
+	], 0, 1000 * 60 * 60 * 2, true);
+
+test.addTest('Date overwriting with additional comments for unknown ', [
+		'Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 "Maybe open. Call us."',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 10:00', '2012.10.01 20:00', true, "Maybe" ],
+		[ '2012.10.02 10:00', '2012.10.02 20:00', true, "Maybe" ],
+		[ '2012.10.03 10:00', '2012.10.03 16:00', true, "Maybe open. Call us." ],
+		[ '2012.10.04 10:00', '2012.10.04 20:00', true, "Maybe" ],
+		[ '2012.10.05 10:00', '2012.10.05 20:00', true, "Maybe" ],
 	], 0, 1000 * 60 * 60 * 2, true);
 
 test.addTest('Additional comments with time ranges spanning midnight', [
