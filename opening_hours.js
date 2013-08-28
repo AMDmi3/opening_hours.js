@@ -869,7 +869,6 @@
 					unknown += to.getTime() - prevdate.getTime();
 				else
 					open    += to.getTime() - prevdate.getTime();
-						console.log(prevdate, to.getDate(), (to.getTime() - prevdate.getTime()) / 1000 / 60 / 60);
 			}
 
 			return [ open, unknown ];
