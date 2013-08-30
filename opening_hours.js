@@ -211,13 +211,10 @@
 				} else if (matchTokens(tokens, at, 'week')) {
 					at = parseWeekRange(tokens, at + 1);
 					week_stable = false;
-				} else if (tokens[at][0] === ':') {
+				} else if (at != 0 && at != tokens.length - 1 && tokens[at][0] === ':') {
 					// Ignore colon if they appear somewhere else than as time separator.
 					// This provides compatibility with the syntax proposed by Netzwolf:
 					// http://www.netzwolf.info/en/cartography/osm/time_domain/specification
-					// Note that it ignores the colon *anywhere* if it is not
-					// handled by a function like parseTimeRange. This is not
-					// really intended but anyway it should do the job.
 					at++;
 				} else if (matchTokens(tokens, at, 'number', 'timesep')) {
 					at = parseTimeRange(tokens, at, selectors);

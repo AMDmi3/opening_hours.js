@@ -429,8 +429,10 @@ test.addTest('Complex example used in README and benchmark', [
 test.addShouldFail('Incorrect syntax which should throw an error', [
 		'sdasdlasdj a3reaw', // Test for the test framwork. This test should pass :)
 		':week 2-54 00:00-24:00',
+		':::week 2-54 00:00-24:00',
 		'week :2-54 00:00-24:00',
 		'week 2-54 00:00-24:00:',
+		'week 2-54 00:00-24:00:::',
 		'week 2-54 00::00-24:00',
 	]);
 
