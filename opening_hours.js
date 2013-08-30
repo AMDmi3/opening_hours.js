@@ -61,6 +61,7 @@
 				week: [],
 				month: [],
 				monthday: [],
+				year: [],
 
 				// Array with non-empty date selector types, with most optimal ordering
 				date: [],
@@ -76,6 +77,8 @@
 				selectors.date.push(selectors.month);
 			if (selectors.monthday.length > 0)
 				selectors.date.push(selectors.monthday);
+			if (selectors.year.length > 0) // FIXME: Can not be put in optimal order (at the top).
+				selectors.date.push(selectors.year);
 			if (selectors.week.length > 0)
 				selectors.date.push(selectors.week);
 			if (selectors.weekday.length > 0)
@@ -136,7 +139,10 @@
 					value = value.substr(2);
 				} else if (tmp = value.match(/^\d+/)) {
 					// number
-					tokens.push([+tmp[0], 'number']);
+					if (tmp[0] > 1900) // assumed to be a year number
+						tokens.push([tmp[0], 'year']);
+					else
+						tokens.push([+tmp[0], 'number']);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^"([^"]+)"/)) {
 					// comment
@@ -189,9 +195,13 @@
 		// Top-level parser
 		//======================================================================
 		function parseGroup(tokens, at, selectors) {
+			// console.log(tokens); // useful for debugging
 			while (at < tokens.length) {
 				if (matchTokens(tokens, at, 'weekday')) {
 					at = parseWeekdayRange(tokens, at, selectors);
+				} else if (matchTokens(tokens, at, 'year')) {
+					at = parseYearRange(tokens, at);
+					week_stable = false;
 				} else if (matchTokens(tokens, at, 'month', 'number')) {
 					at = parseMonthdayRange(tokens, at);
 					week_stable = false;
@@ -468,6 +478,75 @@
 		}
 
 		//======================================================================
+		// Year range parser (2013,2016-2018,2020/2)
+		//======================================================================
+		function parseYearRange(tokens, at) {
+			for (; at < tokens.length; at++) {
+				if (matchTokens(tokens, at, 'year')) {
+					var is_range = false, has_period = false;
+					if (matchTokens(tokens, at+1, '-', 'year', '/', 'number')) {
+						var is_range   = true;
+						var has_period = true;
+					} else {
+						var is_range   = matchTokens(tokens, at+1, '-', 'year');
+						var has_period = matchTokens(tokens, at+1, '/', 'number');
+					}
+
+					selectors.year.push(function(tokens, at, is_range, has_period) { return function(date) {
+						var ouryear = date.getFullYear();
+						var year_from = tokens[at][0];
+						var year_to = is_range ? tokens[at+2][0] : year_from;
+
+						// handle reversed range
+						if (year_to < year_from) {
+							var tmp = year_to;
+							year_to = year_from;
+							year_from = tmp;
+						}
+
+						if (has_period) {
+							if (year_from <= ouryear) {
+								if (is_range) {
+									var period = tokens[at+4][0];
+
+									if (year_to < ouryear)
+										return [false];
+								} else {
+									var period = tokens[at+2][0];
+								}
+								if (period > 1) {
+									if ((ouryear - year_from) % period == 0) {
+										return [true, new Date(ouryear + 1, 0, 1)];
+									}
+									else {
+										return [false, new Date(ouryear + period - 1, 0, 1)];
+									}
+								}
+							}
+						} else if (is_range) {
+							if (year_from <= ouryear && ouryear <= year_to)
+								return [true, new Date(year_to + 1, 0, 1)];
+						} else if (ouryear == year_from) {
+							return [true];
+						}
+
+						return [false];
+
+					}}(tokens, at, is_range, has_period));
+
+					at += 1 + (is_range ? 2 : 0) + (has_period ? 2 : 0);
+				} else {
+					throw 'Unexpected token in year range: "' + tokens[at] + '"';
+				}
+
+				if (!matchTokens(tokens, at, ','))
+					break;
+			}
+
+			return at;
+		}
+
+		//======================================================================
 		// Week range parser (week 11-20, week 1-53/2)
 		//======================================================================
 		function parseWeekRange(tokens, at) {
@@ -595,7 +674,7 @@
 						var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
 
 						var from_date = new Date(date.getFullYear(), tokens[at][0], tokens[at+1][0]);
-						var to_date = new Date(date.getFullYear(), tokens[at+3][0], tokens[at+4][0] + 1);
+						var to_date   = new Date(date.getFullYear(), tokens[at+3][0], tokens[at+4][0] + 1);
 
 						var inside = true;
 

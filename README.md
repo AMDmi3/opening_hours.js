@@ -226,6 +226,11 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Supports weekdays which wrap to the next week (```Fr-Mo```)
 * Supports constrained weekdays (```Th[1,2-3]```, ```Fr[-1]```)
 
+### Year ranges ###
+
+* **EXT:** Supports year ranges (```2013,2015,2050-2053,2055/2,2020-2029/3 10:00-20:00```)
+* **EXT:** Supports periodic year (either limited by range or unlimited starting with given year) (```2020-2029/3,2055/2 10:00-20:00```)
+
 ### Month ranges ###
 
 * Supports set of months and month ranges (```Jan,Mar-Apr```)
