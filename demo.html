@@ -218,6 +218,7 @@
 							"en": "английский",
 							"de": "немецкий",
 							"ru": "русский",
+							"choose": "Выберите язык",
 						},
 						"months": {
 							"short": {
@@ -282,7 +283,7 @@
 							"always open": "Заведение всегда открыто.",
 							"always closed": "Заведение всегда закрыто.",
 							"open now": "Сейчас заведение открыто",
-							"closed now": "Сейчас заведение закрыто<",
+							"closed now": "Сейчас заведение закрыто",
 							"will close": "Закроется __timestring__.",
 							"will open": "Откроется __timestring__.",
 							"week stable": "Расписание верно для любой недели.",
@@ -458,7 +459,7 @@
 
 					var state = oh.getState(date);
 					var prevdate = date;
-					var curdate = date;
+					var curdate  = date;
 
 					table[row] = {
 						date: new Date(date),
