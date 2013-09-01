@@ -22,11 +22,244 @@
 			p.open { color: #44AA00 }
 			p.closed { color: #AA4400 }
 		</style>
+		<!-- <script type="text/javascript" src="js/jquery&#45;1.10.2.min.js"></script> -->
+		<script type="text/javascript" src="js/i18next-1.6.3.min.js"></script>
+		<script type="text/javascript">
+			var resources = {
+				en: { translation: {
+						"lang": {
+							"en": "English",
+							"de": "German",
+							"ru": "Russian",
+							"choose": "Choose Language",
+						},
+						"months": {
+							"short": {
+								"jan": "Jan",
+								"feb": "Feb",
+								"mar": "Mar",
+								"apr": "Apr",
+								"may": "May",
+								"jun": "Jun",
+								"jul": "Jul",
+								"aug": "Aug",
+								"sep": "Sep",
+								"oct": "Oct",
+								"nov": "Nov",
+								"dec": "Dec",
+							},
+							"full": {
+								"jan": "January",
+								"feb": "February",
+								"mar": "March",
+								"apr": "April",
+								"may": "May",
+								"jun": "June",
+								"jul": "July",
+								"aug": "August",
+								"sep": "September",
+								"oct": "October",
+								"nov": "November",
+								"dec": "December",
+							},
+						},
+
+						"weekdays": {
+							"short": {
+								"su": "Su",
+								"mo": "Mo",
+								"tu": "Tu",
+								"we": "We",
+								"th": "Th",
+								"fr": "Fr",
+								"sa": "Sa",
+							},
+							"full": {
+								"su": "Sunday",
+								"mo": "Monday",
+								"tu": "Tuesday",
+								"we": "Wednesday",
+								"th": "Thursday",
+								"fr": "Friday",
+								"sa": "Saturday",
+							},
+							"word next": { // The Russian language seems to use other words for next for some weekdays.
+								"su": "next",
+								"mo": "next",
+								"tu": "next",
+								"we": "next",
+								"th": "next",
+								"fr": "next",
+								"sa": "next",
+							}
+						},
+						"texts": {
+							"always open": "Facility is always open",
+							"always closed": "Facility is always closed",
+							"open now": "Facility is now open",
+							"closed now": "Facility is now closed",
+							"will close": "but will close",
+							"will open": "but will open",
+							"week stable": "Schedule is valid in any given week.",
+							"not week stable": "Attention! This schedule might change for other weeks.",
+						},
+						"words": {
+							"to": "to",
+							"open": "open",
+							"today": "today",
+							"tomorrow": "tomorrow",
+							// "on weekday": "on", // not needed in this context
+							"on weekday": " ",
+							"in duration": "in",
+							"time": { // __count__ Can not cover need for Russian language (one, several, many).
+								"minute": "minute",
+								"minute plural": "minutes",
+								"minute many": "minutes",
+								"hour": "hour",
+								"hour plural": "hours",
+								"hour many": "hours",
+								"day": "day",
+								"day plural": "days",
+								"day many": "days",
+							},
+						},
+					},
+				},
+				ru: { translation: {
+						"lang": {
+							"en": "английский",
+							"de": "немецкий",
+							"ru": "русский",
+						},
+						"months": {
+							"short": {
+								"jan": "Янв",
+								"feb": "Фев",
+								"mar": "Мар",
+								"apr": "Апр",
+								"may": "Май",
+								"jun": "Июн",
+								"jul": "Июл",
+								"aug": "Авг",
+								"sep": "Сен",
+								"oct": "Окт",
+								"nov": "Ноя",
+								"dec": "Дек",
+							},
+							"full": {
+								"jan": "Января",
+								"feb": "Февраля",
+								"mar": "Марта",
+								"apr": "Апреля",
+								"may": "Мая",
+								"jun": "Июня",
+								"jul": "Июля",
+								"aug": "Августа",
+								"sep": "Сентября",
+								"oct": "Октября",
+								"nov": "Ноября",
+								"dec": "Декабря",
+							},
+						},
+						"weekdays": {
+							"short": {
+								"su": "Вс",
+								"mo": "Пн",
+								"tu": "Вт",
+								"we": "Ср",
+								"th": "Чт",
+								"fr": "Пт",
+								"sa": "Сб",
+							},
+							"full": {
+								"su": "воскресенье",
+								"mo": "понедельник",
+								"tu": "вторник",
+								"we": "среду",
+								"th": "четверг",
+								"fr": "пятницу",
+								"sa": "субботу",
+							},
+							"word next": {
+								"su": "ближайшее",
+								"mo": "ближайший",
+								"tu": "ближайший",
+								"we": "ближайшую",
+								"th": "ближайший",
+								"fr": "ближайшую",
+								"sa": "ближайшую",
+							},
+						},
+						"texts": {
+							"always open": "Заведение всегда открыто",
+							"always closed": "Заведение всегда закрыто",
+							"open now": "Сейчас заведение открыто",
+							"closed now": "Сейчас заведение закрыто<",
+							"will close": "Закроется",
+							"will open": "Откроется",
+							"week stable": "Расписание верно для любой недели.",
+							"not week stable": "ВНИМАНИЕ! Расписание меняется в другие недели.",
+						},
+						"words": {
+							"to": "до",
+							"open": "c",
+							"today": "сегодня",
+							"tomorrow": "завтра",
+							"on weekday": "в ", // optionally in other languages
+							"in duration": "через",
+							"time": {
+								"minute": "минуту",
+								"minute plural": "минуты",
+								"minute many": "минут",
+								"hour": "час",
+								"hour plural": "часа",
+								"hour many": "часов",
+								"day": "день",
+								"day plural": "дня",
+								"day many": "дней",
+							},
+						},
+					},
+				},
+			};
+
+			function translatePage() { // gets called when localization is loaded.
+				// $(".lang").i18n();
+				// $("headline").i18n();
+			}
+
+			// function reloadLang (language) {
+				i18n.init({ fallbackLng: 'en', resStore:
+						resources, getAsync: true, useCookie: true, debug: true }, translatePage);
+//			}
+
+			// language_complete = navigator.language.split("-");
+			// language = (language_complete[0]);
+
+			// reloadLang(language);
+		</script>
 	</head>
 	<body>
+		<script type="text/javascript">
+			document.write(i18n.t('lang.choose')
+					+ (i18n.lng() !== 'en' ? ' ('+ i18n.t('lang.choose', { lng: 'en' }) +')' : '' )
+					+ ':');
+			document.write('<ul class="lang">');
+				for (var lang in resources) {
+					if (resources.hasOwnProperty(lang)) {
+						document.write('<li><a id="' + lang + '" href="?setLng='
+							+ lang +'">' + i18n.t('lang.' + lang)
+							+ (i18n.lng() !== 'en' ? ' ('+ i18n.t('lang.' +lang, { lng: 'en' }) +')' : '' )
+							+ '</a></li>');
+					}
+				}
+			document.write('</ul>');
+		</script>
+
 		<script>
-			var months = ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
-			var weekdays = ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+			// In English. Localization is done somewhere else (above).
+			var months   = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+			var weekdays = ['su','mo','tu','we','th','fr','sa'];
 
 			var examples = [
 				'Mo-Fr 10:00-20:00',
@@ -44,23 +277,23 @@
 				var nextchange = oh.getNextChange(now);
 
 				if (isopen && typeof nextchange === 'undefined') {
-					document.write('<p class="open">Заведение всегда открыто</p>');
+					document.write('<p class="open">' + i18n.t('texts.always open') +'</p>');
 				} else if (!isopen && typeof nextchange === 'undefined') {
-					document.write('<p class="closed">Заведение всегда закрыто</p>');
+					document.write('<p class="closed">' + i18n.t('texts.always closed') +'</p>');
 				} else if (isopen) {
-					document.write('<p class="open">Сейчас заведение открыто</p>');
-					document.write('<p class="closed">Закроется ' + formatdate(now, nextchange, false) + '</p>');
+					document.write('<p class="open">' + i18n.t('texts.open now') +'</p>');
+					document.write('<p class="closed">' + i18n.t('texts.will close') +' '+ formatdate(now, nextchange, false) + '</p>');
 				} else {
-					document.write('<p class="closed">Сейчас заведение закрыто</p>');
-					document.write('<p class="open">Откроется ' + formatdate(now, nextchange, true) + '</p>');
+					document.write('<p class="closed">' + i18n.t('texts.closed now') +'</p>');
+					document.write('<p class="open">' + i18n.t('texts.will open') +' '+ formatdate(now, nextchange, true) + '</p>');
 				}
 
 				drawTable(oh, now);
 
 				if (oh.isWeekStable())
-					document.write('<p><b>Расписание верно для любой недели.</b></p>');
+					document.write('<p><b>'+ i18n.t('texts.week stable') +'</b></p>');
 				else
-					document.write('<p><b>ВНИМАНИЕ! Расписание меняется в другие недели.</b></p>');
+					document.write('<p><b>'+ i18n.t('texts.not week stable') +'</b></p>');
 			}
 
 			function formatdate(now, nextchange, from) {
@@ -71,31 +304,31 @@
 
 				var delta = Math.floor((nextchange.getTime() - now.getTime()) / 1000 / 60); // delta is minutes
 				if (delta < 60)
-					timediff = 'через ' + delta + ' ' + plural(delta, 'минуту', 'минуты', 'минут');
+					timediff = i18n.t("words.in duration") +' '+ delta + ' ' + plural(delta, 'words.time.minute');
 
 				var deltaminutes = delta % 60;
 				delta = Math.floor(delta / 60); // delta is now hours
 
 				if (delta < 48 && timediff == '')
-					timediff = 'через ' + delta + ' ' + plural(delta, 'час', 'часа', 'часов') + ' ' + pad(deltaminutes) + ' ' + plural(deltaminutes, 'минуту', 'минуты', 'минут');
+					timediff = i18n.t("words.in duration") +' '+ delta + ' ' + plural(delta, 'words.time.hour') + ' ' + pad(deltaminutes) + ' ' + plural(deltaminutes, 'words.time.minute');
 
 				var deltahours = delta % 24;
 				delta = Math.floor(delta / 24); // delta is now days
 
 				if (delta < 14 && timediff == '')
-					timediff = 'через ' + delta + ' ' + plural(delta, 'день', 'дня', 'дней') + ' ' + deltahours + ' ' + plural(deltahours, 'час', 'часа', 'часов')
+					timediff = i18n.t("words.in duration") +' '+ delta + ' ' + plural(delta, 'words.time.day') + ' ' + deltahours + ' ' + plural(deltahours, 'words.time.hour')
 				else if (timediff == '')
-					timediff = 'через ' + delta + ' ' + plural(delta, 'день', 'дня', 'дней');
+					timediff = i18n.t("words.in duration") +' '+ delta + ' ' + plural(delta, 'words.time.day');
 
 				var atday = '';
 				if (from ? (nextdays < 1) : (nextdays <= 1))
-					atday = 'сегодня';
+					atday = i18n.t('words.today');
 				else if (from ? (nextdays < 2) : (nextdays <= 2))
-					atday = 'завтра';
+					atday = i18n.t('words.tomorrow');
 				else if (from ? (nextdays < 7) : (nextdays <= 7))
-					atday = 'в ' + [ 'ближайшее воскресенье', 'ближайший понедельник', 'ближайший вторник', 'ближайшую среду', 'ближайший четверг', 'ближайшую пятницу', 'ближайшую субботу'][nextchange.getDay()];
+					atday = i18n.t('words.on weekday') + i18n.t('weekdays.word next.' + weekdays[nextchange.getDay()]) +' '+ i18n.t('weekdays.full.' + weekdays[nextchange.getDay()]);
 
-				var atdate = nextchange.getDate() + ' ' + ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'][nextchange.getMonth()];
+				var atdate = nextchange.getDate() + ' ' + i18n.t('months.full.' + months[nextchange.getMonth()]);
 
 				var res = [];
 
@@ -108,13 +341,18 @@
 
 			function pad(n) { return n < 10 ? '0'+n : n; };
 
-			function plural(n, one, several, many) {
+			function plural(n, trans_base) {
 				if (n % 10 >= 5 || n % 10 == 0 || (n % 100 >= 10 && n % 100 < 20)) {
-					return many;
+					return i18n.t(trans_base + ' many');
 				} else if (n % 10 < 2) {
-					return one;
+					return i18n.t(trans_base); // singular form
 				}
-				return several;
+				return i18n.t(trans_base + ' plural');
+			}
+
+			function printDate(date) {
+					return i18n.t('months.short.' + months[date.getMonth()]) + ' ' +
+						date.getDate() + ', ' + i18n.t('weekdays.short.' + weekdays[date.getDay()]);
 			}
 
 			function drawTable(oh, date_today) {
@@ -154,9 +392,9 @@
 						fr *= 100/1000/60/60/24;
 						to *= 100/1000/60/60/24;
 
-						table[row].times += '<div class="timebar ' + (state?'open':'closed') + '" style="width:' + (to-fr) + '%"></div>';
+						table[row].times += '<div class="timebar ' + (state ? 'open' : 'closed') + '" style="width:' + (to-fr) + '%"></div>';
 						if (state) {
-							var text = 'с ' + prevdate.getHours() + ':' + pad(prevdate.getMinutes()) + ' до ';
+							var text = i18n.t('words.open') + ' ' + prevdate.getHours() + ':' + pad(prevdate.getMinutes()) + ' ' + i18n.t('words.to') + ' ';
 							if (prevdate.getDay() != curdate.getDay())
 								text += '24:00';
 							else
@@ -179,7 +417,7 @@
 					if (today && date_today.getDay() != 1)
 						document.write('<tr class="separator"><td colspan="3"></td></tr>');
 					document.write('<tr' + cl + '><td class="day ' + (table[row].date.getDay() % 6 == 0 ? 'weekend' : 'workday') + '">');
-					document.write(months[table[row].date.getMonth()] + ' ' + table[row].date.getDate() + ', ' + weekdays[table[row].date.getDay()]);
+					document.write(printDate(table[row].date));
 					document.write('</td><td class="times">');
 					document.write(table[row].times);
 					document.write('</td><td>');
