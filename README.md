@@ -16,6 +16,12 @@ a library which works from 12:00 to 18:00 on workdays except Wednesday, and from
 
 around-the-clock shop with some breaks.
 
+## demo.html
+
+Please have a look at the [demo page][] which can give you an impression how this library can be used and what is possibly with it.
+
+[demo page]: http://amdmi3.ru/files/opening_hours.js/demo.html
+
 ## Synopsis
 
 ```javascript
