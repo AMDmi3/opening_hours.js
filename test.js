@@ -494,6 +494,7 @@ function opening_hours_test() {
 		}
 
 		console.log(str);
+		return crashed;
 	}
 
 	function runSingleTest(name, value, from, to, expected_intervals, expected_durations, expected_weekstable) {
@@ -599,6 +600,7 @@ function opening_hours_test() {
 	}
 
 	this.run = function() {
+		var tests_length = tests.length + tests_should_fail.length;
 		var success = 0;
 		for (var test = 0; test < tests.length; test++) {
 			if (runSingleTest(tests[test][0], tests[test][1], tests[test][2], tests[test][3], tests[test][4], tests[test][5], tests[test][6]))
@@ -609,9 +611,9 @@ function opening_hours_test() {
 				success++;
 		}
 
-		console.log(success + '/' + (tests.length + tests_should_fail.length) + ' tests passed');
+		console.log(success + '/' + tests_length + ' tests passed');
 
-		return success == tests.length;
+		return success == tests_length;
 	}
 
 	this.addTest = function(name, values, from, to, expected_intervals, expected_duration, expected_unknown_duration, expected_weekstable) {
