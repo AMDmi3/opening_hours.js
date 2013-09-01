@@ -166,6 +166,7 @@
 				}
 			}
 
+			if (tokens.length == 0) throw 'Value contains meaningful nothing which can be parsed';
 			return tokens;
 		}
 

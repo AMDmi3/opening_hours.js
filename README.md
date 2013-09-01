@@ -273,6 +273,12 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 Simple node.js based test framework is bundled. You can run it with ```node test.js``` or with ```make test```.
 
+## Testing with real data ##
+
+To see how this library performance in the real OpenStreetMap world you can run ```make real_test``` or ```node real_test.js``` (data needs to be exported first ```make osm_export```) to export every value which uses the opening_hours syntax from [taginfo][] and try to parse it with this library.
+
+[taginfo]: http://taginfo.openstreetmap.org/
+
 ## Performance ##
 
 Simple node.js based benchmark is bundled. You can run it with ```node benchmark.js``` or with ```make benchmark```.
