@@ -176,6 +176,12 @@ test.addTest('Monthday ranges', [
 		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
 	], 1000 * 60 * 60 * 24 * 21, 0, false);
 
+test.addTest('Monthday ranges (with year)', [
+		'2012 Jan 23-31 00:00-24:00; Feb 1-12 00:00-24:00 2012',
+	], '2012.01.01 0:00', '2015.01.01 0:00', [
+		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
+	], 1000 * 60 * 60 * 24 * 21, 0, false);
+
 test.addTest('Monthday ranges spanning year boundary', [
 		'Dec 31-Jan 01',
 	], '2012.01.01 0:00', '2014.01.01 0:00', [
@@ -184,11 +190,29 @@ test.addTest('Monthday ranges spanning year boundary', [
 		[ '2013.12.31 0:00', '2014.01.01 00:00' ],
 	], 1000 * 60 * 60 * 24 * 4, 0, false);
 
-test.addTest('Date range which only applies for one year', [
-		'2013 Dec 31-2014 Jan 01',
+test.addTest('Full date (with year)', [
+		'2013 Dec 31,2014 Jan 5',
+		'2013 Dec 31;2014 Jan 5',
+		'2013-2013 Dec 31;2014-2014 Jan 5', // force to use parseYearRange
+		// '2013-2013 Dec 31,2014 Jan 5',   // FIXME: infinite loop
 	], '2011.01.01 0:00', '2015.01.01 0:00', [
-		[ '2013.12.31 0:00', '2014.01.02 00:00' ],
+		[ '2013.12.31 00:00', '2014.01.01 00:00' ],
+		[ '2014.01.05 00:00', '2014.01.06 00:00' ],
 	], 1000 * 60 * 60 * 24 * 2, 0, false);
+
+test.addTest('Date range which only applies for one year', [
+		'2013 Dec 31',
+		'2013 Dec 31;2014 Jan 5; 2014/1 off',
+	], '2011.01.01 0:00', '2015.01.01 0:00', [
+		[ '2013.12.31 0:00', '2014.01.01 00:00' ],
+	], 1000 * 60 * 60 * 24, 0, false);
+
+test.addTest('Monthday (with year) ranges spanning year boundary', [
+		'2013 Dec 31-2014 Jan 02',
+		'24/7; 2010 Jan 01-2013 Dec 30 off; 2014 Jan 03-2016 Jan 01 off',
+	], '2011.01.01 0:00', '2015.01.01 0:00', [
+		[ '2013.12.31 0:00', '2014.01.03 00:00' ],
+	], 1000 * 60 * 60 * 24 * 3, 0, false);
 
 test.addTest('Date range which only applies for specific year', [
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060/1 Jan 1',
