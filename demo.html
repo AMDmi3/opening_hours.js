@@ -94,12 +94,12 @@
 							}
 						},
 						"texts": {
-							"always open": "Facility is always open",
-							"always closed": "Facility is always closed",
+							"always open": "Facility is always open.",
+							"always closed": "Facility is always closed.",
 							"open now": "Facility is now open",
 							"closed now": "Facility is now closed",
-							"will close": "but will close __timestring__",
-							"will open": "but will open __timestring__",
+							"will close": "but will close __timestring__.",
+							"will open": "but will open __timestring__.",
 							"week stable": "Schedule is valid in any given week.",
 							"not week stable": "Attention! This schedule might change for other weeks.",
 						},
@@ -121,6 +121,7 @@
 								"day": "day",
 								"day plural": "days",
 								"day many": "days",
+								"hours minutes sep": "and ",
 							},
 						},
 					},
@@ -181,12 +182,12 @@
 							}
 						},
 						"texts": {
-							"always open": "Die Einrichtung hat immer geöffnet",
-							"always closed": "Die Einrichtung hat nie geöffnet",
+							"always open": "Die Einrichtung hat immer geöffnet.",
+							"always closed": "Die Einrichtung hat nie geöffnet.",
 							"open now": "Die Einrichtung hat jetzt geöffnet",
 							"closed now": "Die Einrichtung ist jetzt geschlossen",
-							"will close": "aber wird __timestring__ schließen",
-							"will open": "aber wird __timestring__ öffnen",
+							"will close": "aber wird __timestring__ schließen.",
+							"will open": "aber wird __timestring__ öffnen.",
 							"week stable": "Dieser Wochenplan gilt für jede Woche.",
 							"not week stable": "Achtung! Dieser Wochenplan kann sich in anderen Wochen ändern.",
 						},
@@ -207,6 +208,7 @@
 								"day": "Tag",
 								"day plural": "Tage",
 								"day many": "Tage",
+								"hours minutes sep": "und ",
 							},
 						},
 					},
@@ -277,12 +279,12 @@
 							},
 						},
 						"texts": {
-							"always open": "Заведение всегда открыто",
-							"always closed": "Заведение всегда закрыто",
+							"always open": "Заведение всегда открыто.",
+							"always closed": "Заведение всегда закрыто.",
 							"open now": "Сейчас заведение открыто",
 							"closed now": "Сейчас заведение закрыто<",
-							"will close": "Закроется __timestring__",
-							"will open": "Откроется __timestring__",
+							"will close": "Закроется __timestring__.",
+							"will open": "Откроется __timestring__.",
 							"week stable": "Расписание верно для любой недели.",
 							"not week stable": "ВНИМАНИЕ! Расписание меняется в другие недели.",
 						},
@@ -309,20 +311,18 @@
 				},
 			};
 
-			function translatePage() { // gets called when localization is loaded.
+			function translatePage() { // Gets called when localization is loaded.
 				// $(".lang").i18n();
 				// $("headline").i18n();
 			}
 
-			// function reloadLang (language) {
-				i18n.init({ fallbackLng: 'en', resStore:
-						resources, getAsync: true, useCookie: true, debug: true }, translatePage);
-//			}
-
-			// language_complete = navigator.language.split("-");
-			// language = (language_complete[0]);
-
-			// reloadLang(language);
+			i18n.init({
+					fallbackLng: 'en',
+					resStore: resources,
+					getAsync: true,
+					useCookie: true,
+					debug: true
+				}, translatePage);
 		</script>
 	</head>
 	<body>
@@ -396,7 +396,7 @@
 				delta = Math.floor(delta / 60); // delta is now hours
 
 				if (delta < 48 && timediff == '')
-					timediff = i18n.t("words.in duration") +' '+ delta + ' ' + plural(delta, 'words.time.hour') + ' ' + pad(deltaminutes) + ' ' + plural(deltaminutes, 'words.time.minute');
+					timediff = i18n.t("words.in duration") +' '+ delta + ' ' + plural(delta, 'words.time.hour') +' '+ i18n.t('words.time.hours minutes sep') + pad(deltaminutes) + ' ' + plural(deltaminutes, 'words.time.minute');
 
 				var deltahours = delta % 24;
 				delta = Math.floor(delta / 24); // delta is now days
