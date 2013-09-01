@@ -25,7 +25,7 @@
 		<!-- <script type="text/javascript" src="js/jquery&#45;1.10.2.min.js"></script> -->
 		<script type="text/javascript" src="js/i18next-1.6.3.min.js"></script>
 		<script type="text/javascript">
-			var resources = {
+			var resources = { // English is fallback language.
 				en: { translation: {
 						"lang": {
 							"en": "English",
@@ -98,8 +98,8 @@
 							"always closed": "Facility is always closed",
 							"open now": "Facility is now open",
 							"closed now": "Facility is now closed",
-							"will close": "but will close",
-							"will open": "but will open",
+							"will close": "but will close __timestring__",
+							"will open": "but will open __timestring__",
 							"week stable": "Schedule is valid in any given week.",
 							"not week stable": "Attention! This schedule might change for other weeks.",
 						},
@@ -121,6 +121,92 @@
 								"day": "day",
 								"day plural": "days",
 								"day many": "days",
+							},
+						},
+					},
+				},
+				de: { translation: {
+						"lang": {
+							"en": "Englisch",
+							"de": "Deutsch",
+							"ru": "Russisch",
+							"choose": "Wähle eine Sprache",
+						},
+						"months": {
+							"short": {
+								"mar": "Mär",
+								"may": "Mai",
+								"oct": "Okt",
+								"dec": "Dez",
+							},
+							"full": {
+								"jan": "Januar",
+								"feb": "Februar",
+								"mar": "März",
+								"may": "Mai",
+								"jun": "Juni",
+								"jul": "Juli",
+								"oct": "Oktober",
+								"dec": "Dezember",
+							},
+						},
+
+						"weekdays": {
+							"short": {
+								"su": "So",
+								"mo": "Mo",
+								"tu": "Di",
+								"we": "Mi",
+								"th": "Do",
+								"fr": "Fr",
+								"sa": "Sa",
+							},
+							"full": {
+								"su": "Sonntag",
+								"mo": "Montag",
+								"tu": "Dienstag",
+								"we": "Mittwoch",
+								"th": "Donnerstag",
+								"fr": "Freitag",
+								"sa": "Samstag",
+							},
+							"word next": {
+								"su": "nächsten",
+								"mo": "nächsten",
+								"tu": "nächsten",
+								"we": "nächsten",
+								"th": "nächsten",
+								"fr": "nächsten",
+								"sa": "nächsten",
+							}
+						},
+						"texts": {
+							"always open": "Die Einrichtung hat immer geöffnet",
+							"always closed": "Die Einrichtung hat nie geöffnet",
+							"open now": "Die Einrichtung hat jetzt geöffnet",
+							"closed now": "Die Einrichtung ist jetzt geschlossen",
+							"will close": "aber wird __timestring__ schließen",
+							"will open": "aber wird __timestring__ öffnen",
+							"week stable": "Dieser Wochenplan gilt für jede Woche.",
+							"not week stable": "Achtung! Dieser Wochenplan kann sich in anderen Wochen ändern.",
+						},
+						"words": {
+							"to": "-",
+							"open": "geöffnet",
+							"today": "heute",
+							"tomorrow": "morgen",
+							// "on weekday": "on", // not needed in this context
+							"on weekday": " ",
+							"time": { // __count__ Can not cover need for Russian language (one, several, many).
+								"minute": "Minute",
+								"minute plural": "Minuten",
+								"minute many": "Minuten",
+								"hour": "Stunde",
+								"hour plural": "Stunden",
+								"hour many": "Stunden",
+								"day": "Tag",
+								"day plural": "Tage",
+								"day many": "Tage",
 							},
 						},
 					},
@@ -195,8 +281,8 @@
 							"always closed": "Заведение всегда закрыто",
 							"open now": "Сейчас заведение открыто",
 							"closed now": "Сейчас заведение закрыто<",
-							"will close": "Закроется",
-							"will open": "Откроется",
+							"will close": "Закроется __timestring__",
+							"will open": "Откроется __timestring__",
 							"week stable": "Расписание верно для любой недели.",
 							"not week stable": "ВНИМАНИЕ! Расписание меняется в другие недели.",
 						},
@@ -282,10 +368,10 @@
 					document.write('<p class="closed">' + i18n.t('texts.always closed') +'</p>');
 				} else if (isopen) {
 					document.write('<p class="open">' + i18n.t('texts.open now') +'</p>');
-					document.write('<p class="closed">' + i18n.t('texts.will close') +' '+ formatdate(now, nextchange, false) + '</p>');
+					document.write('<p class="closed">' + i18n.t('texts.will close', { timestring: formatdate(now, nextchange, false) }) + '</p>');
 				} else {
 					document.write('<p class="closed">' + i18n.t('texts.closed now') +'</p>');
-					document.write('<p class="open">' + i18n.t('texts.will open') +' '+ formatdate(now, nextchange, true) + '</p>');
+					document.write('<p class="open">' + i18n.t('texts.will open', { timestring: formatdate(now, nextchange, true) }) + '</p>');
 				}
 
 				drawTable(oh, now);
