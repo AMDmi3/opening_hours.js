@@ -710,6 +710,12 @@
 					if (is_range)
 						has_period = matchTokens(tokens, at+4+has_year, '/', 'number');
 
+					var at_timesep_if_monthRange = at + has_year + 1 // at month number
+						+ (is_range ? 2 : 0) + (has_period ? 2 : 0)
+						+ !(is_range || has_period); // if not range nor has_period, add one
+					if (matchTokens(tokens, at_timesep_if_monthRange, 'timesep'))
+						return parseMonthRange(tokens, at);
+
 					selectors.monthday.push(function(tokens, at, is_range, has_period) { return function(date) {
 						var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
 
