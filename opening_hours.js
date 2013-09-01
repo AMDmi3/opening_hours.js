@@ -512,7 +512,8 @@
 									var period = tokens[at+2][0];
 								}
 								if (period > 0) {
-									if (period == 1 && is_range) throw 'Please don’t use year ranges with period equals one (see README)';
+									if (period == 1 && is_range)
+										throw 'Please don’t use year ranges with period equals one (see README)';
 									if ((ouryear - year_from) % period == 0) {
 										return [true, new Date(ouryear + 1, 0, 1)];
 									}
