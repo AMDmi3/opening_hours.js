@@ -10,7 +10,7 @@ var test = new opening_hours_test();
 
 test.export_json('opening_hours');
 
-test.export_json('lit', { ignore: [ 'yes', 'no', 'on', 'automatic', 'interval' ]});
+test.export_json('lit', { ignore: [ 'yes', 'no', 'on', 'automatic', 'interval', 'limited' ]});
 
 test.export_json('opening_hours:kitchen', { ignore: [ 'opening_hours' ]});
 
@@ -39,9 +39,14 @@ function opening_hours_test() {
 
 			var data = JSON.parse(data);
 
-			total_differ = data.data.length;
+			for (var i = 0; i < data.data.length; i++) {
+				if (indexOf.call(ignored_values, data.data[i].value) == -1) {
+					total_differ++;
+					total += data.data[i].count;
+				}
+			}
+
 			for (var i = 0; i < total_differ; i++)
-				total += data.data[i].count;
 
 			var before = new Date();
 
