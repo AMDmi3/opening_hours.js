@@ -19,6 +19,8 @@ test.export_json('opening_hours:kitchen', { ignore: [ 'opening_hours' ]});
 //======================================================================
 function opening_hours_test() {
 	this.export_json = function (tagname /* file exported by the taginfo API */, options) {
+		var how_often_print_stats = 15000;
+
 		fs.readFile(__dirname + '/export.' + tagname + '.json', 'utf8', function (err, data) {
 			if (err) {
 				console.log('Error: ' + err);
@@ -29,7 +31,7 @@ function opening_hours_test() {
 			if (typeof options !== 'undefined' && typeof options.ignore !== 'undefined')
 				ignored_values = options.ignore;
 
-			console.log('Parsing ' + tagname + (ignored_values.length != 0 ? ' (ignoring ' + ignored_values + ')': '') + ' …');
+			console.log('[1;34mParsing ' + tagname + '[0m' + (ignored_values.length != 0 ? ' (ignoring ' + ignored_values + ')': '') + ' …');
 
 			var success_differ = 0; // increment only by one despite that the value might appears more than one time
 			var success        = 0; // increment by number of appearances
@@ -61,7 +63,7 @@ function opening_hours_test() {
 					}
 					parsed_values += data.data[i].count;
 
-					if (i != 0 && i % 15000 == 0) {
+					if (i != 0 && i % how_often_print_stats == 0) {
 						var delta = (new Date()).getTime() - before.getTime();
 						console.log(success + '/' + total + ' ([1;32m' + Math.round(success / parsed_values * 100) + ' %[0m),'
 							+ ' only different values: '+ success_differ +'/'+ total_differ
@@ -72,7 +74,10 @@ function opening_hours_test() {
 				}
 			}
 
-			console.log('\nDone :)');
+			if (total_differ >= how_often_print_stats)
+				console.log('\n');
+
+			console.log('Done :)');
 			console.log(success + '/' + total + ' ([1;32m' + Math.round(success / total * 100) + ' %[0m),'
 				+ ' only different values: '+ success_differ +'/'+ total_differ
 				+' ([1;32m'+ Math.round(success_differ / total_differ * 100) + ' %[0m)'
