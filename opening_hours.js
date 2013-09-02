@@ -41,6 +41,8 @@
 		//   - Which calls subparser for specific selector types
 		//     - Which produce selectors
 
+		if (value.match(/^(\s*;?\s*)+$/)) throw 'Value contains nothing meaningful which can be parsed';
+
 		var rules = value.split(/\s*;\s*/);
 		var week_stable = true;
 
@@ -48,6 +50,8 @@
 
 		for (var rule = 0; rule < rules.length; rule++) {
 			var tokens = tokenize(rules[rule]);
+			if (tokens.length == 0) continue; // Rule does contain nothing useful e.g. second rule of '10:00-12:00;' which needs to be handled.
+
 
 			var selectors = {
 				// Time selectors
@@ -166,7 +170,6 @@
 				}
 			}
 
-			if (tokens.length == 0) throw 'Value contains meaningful nothing which can be parsed';
 			return tokens;
 		}
 

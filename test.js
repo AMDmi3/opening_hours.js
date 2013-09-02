@@ -4,6 +4,7 @@ var test = new opening_hours_test();
 
 test.addTest('Time intervals', [
 		'10:00-12:00',
+		'10:00-12:00;',
 		'10:00-11:00,11:00-12:00',
 		'10:00-11:00;11:00-12:00',
 		'10:00-14:00;12:00-14:00 off',
@@ -479,6 +480,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'week 2-54 00::00-24:00',
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1',
 		'', // empty string
+		';', // only rule delimiter
 		' ', // empty string
 		"\n", // newline
 	]);
