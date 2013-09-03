@@ -275,7 +275,7 @@ Simple node.js based test framework is bundled. You can run it with ```node test
 
 ## Testing with real data ##
 
-To see how this library performance in the real OpenStreetMap world you can run ```make real_test``` or ```node real_test.js``` (data needs to be exported first ```make osm_export```) to export every value which uses the opening_hours syntax from [taginfo][] and try to parse it with this library.
+To see how this library performance in the real OpenStreetMap world you can run ```make real_test``` or ```node real_test.js``` (data needs to be exported first) to export every value which uses the opening_hours syntax from [taginfo][] and try to parse it with this library.
 
 Currently (September 2013) this library can parse 86 % of all opening_hours values in OSM.
 

@@ -12,4 +12,4 @@ real_test: opening_hours.js real_test.js export.opening_hours.json export.lit.js
 	${NODE} real_test.js
 
 export.%.json:
-	wget -O "export.$(shell echo "$@"	| sed 's/^export\.\(.*\)\.json/\1/;s/\\//g' ).json" "http://taginfo.openstreetmap.org/api/4/key/values?key=$(shell echo "$@"	| sed 's/^export\.\(.*\)\.json/\1/;s/\\//g' )"
+	wget -O "$(shell echo "$@" | sed 's/\\//g' )" "http://taginfo.openstreetmap.org/api/4/key/values?key=$(shell echo "$@" | sed 's/^export\.\(.*\)\.json/\1/;s/\\//g' )"
