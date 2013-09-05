@@ -1,0 +1,78 @@
+#!/usr/bin/env python
+# encoding: utf-8
+
+import sys
+import json
+import re
+import codecs
+from termcolor import colored
+import signal
+import subprocess
+
+page_width = 20
+
+file = 'export.opening_hours.json'
+if len(sys.argv) > 1:
+    file = sys.argv[1]
+
+def signal_handler(signal, frame):
+    print('\nBye')
+    sys.exit(0)
+signal.signal(signal.SIGINT, signal_handler)
+
+try:    json_data = codecs.open(file, 'r', 'utf-8')
+except IOError as detail:
+    print('File '+ file +' is not readable: '+ detail[1])
+    sys.exit(1)
+
+taginfo_tag_export = json.load(json_data)
+json_data.close()
+
+oh = subprocess.Popen(['node', 'interactive_testing.js'],
+                     stdout=subprocess.PIPE,
+                     stdin=subprocess.PIPE)
+
+print 'Loaded %s.' % file
+while True:
+    regex = raw_input('regex search> ')
+    if re.match(r'\s*\Z', regex):
+        print('Bye')
+        break
+
+    try:
+        user_reg = re.compile('(?P<pre>.*?)(?P<match>'+regex+')(?P<post>.*)')
+    except re.error, err:
+        print('Your regular expression did not compile: %s' % err)
+        continue
+
+    matched = []
+    for taginfo_hash in taginfo_tag_export['data']:
+        res = user_reg.match(taginfo_hash['value'])
+        if res:
+            matched.append([taginfo_hash, res])
+
+    if len(matched) == 0:
+        print('Did not match any value with regular expression: %s' % regex)
+    else:
+        matched = sorted(matched, key=lambda k: k[0]['count'], reverse=True)
+        print('Matched %d time%s:' % (len(matched), ('' if len(matched) == 1 else 's')))
+        if (len(matched) < page_width or re.match(r'^y', raw_input('Print values? '), re.I)):
+            c = 1
+            for taginfo_hash, res in matched:
+                if c % page_width == 0 and not re.match(r'^y', raw_input('Continue? '), re.I):
+                    break
+                oh.stdin.write(taginfo_hash['value'] + '\n')
+                oh_res = oh.stdout.readline().strip()
+                oh_ok  = 0 if int(oh_res[0]) else 1
+                if oh_ok:
+                    passed_failed = {
+                            'open'    : colored('Passed', 'green'),
+                            'unknown' : colored('Passed', 'magenta'),
+                            'closed'  : colored('Passed', 'blue'),
+                        }[oh_res[2:]]
+                else:
+                    passed_failed = colored('Failed', 'red')
+                print 'Matched (count: %d, status: %s): %s%s%s' % (taginfo_hash['count'], passed_failed, res.group('pre'), colored(res.group('match'), 'blue'), res.group('post'))
+                c += 1
+        else:
+            continue

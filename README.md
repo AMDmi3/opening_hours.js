@@ -275,11 +275,20 @@ Simple node.js based test framework is bundled. You can run it with ```node test
 
 ## Testing with real data ##
 
-To see how this library performance in the real OpenStreetMap world you can run ```make real_test``` or ```node real_test.js``` (data needs to be exported first) to export every value which uses the opening_hours syntax from [taginfo][] and try to parse it with this library.
+### Large scale ###
+To see how this library performance in the real OpenStreetMap world you can run ```make real_test``` or ```node real_test.js``` (data needs to be exported first) to try to process every value which uses the opening_hours syntax from [taginfo][] with this library.
 
 Currently (September 2013) this library can parse 86 % of all opening_hours values in OSM.
 
 [taginfo]: http://taginfo.openstreetmap.org/
+
+### Small scale ###
+Python script to search with regular expressions over OSM opening_hours style tags is bundled. You can run it with ```./regex_search``` or ```make regex_search``` which will search on the opening_hours tag. To search over different tags either change the make file (this also makes sure that the data you would like to search on will be downloaded if necessary) or run ```./regex_search $path_to_downloaded_taginfo_json_file```.
+
+This script not only shows you if the found value can be processed with this library or not, it also indicates using different colors if the facility is currently open (open: green, unknown: magenta, closed: blue).
+
+## Test it yourself ##
+You want to try some opening_hours yourself? Just run ```make interactive_testing``` or ```node interactive_testing.js``` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message).
 
 ## Performance ##
 

@@ -13,3 +13,10 @@ real_test: opening_hours.js real_test.js export.opening_hours.json export.lit.js
 
 export.%.json:
 	wget -O "$(shell echo "$@" | sed 's/\\//g' )" "http://taginfo.openstreetmap.org/api/4/key/values?key=$(shell echo "$@" | sed 's/^export\.\(.*\)\.json/\1/;s/\\//g' )"
+
+.PHONY : regex_search
+regex_search: export.opening_hours.json interactive_testing.js
+	./regex_search $<
+
+interactive_testing: interactive_testing.js
+	${NODE} interactive_testing.js
