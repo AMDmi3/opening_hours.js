@@ -283,7 +283,7 @@ Currently (September 2013) this library can parse 86 % of all opening_hours valu
 [taginfo]: http://taginfo.openstreetmap.org/
 
 ### Small scale ###
-Python script to search with regular expressions over OSM opening_hours style tags is bundled. You can run it with ```./regex_search``` or ```make regex_search``` which will search on the opening_hours tag. To search over different tags either change the make file (this also makes sure that the data you would like to search on will be downloaded if necessary) or run ```./regex_search $path_to_downloaded_taginfo_json_file```.
+Python script to search with regular expressions over OSM opening_hours style tags is bundled. You can run it with ```make regex_search``` or ```./regex_search``` which will search on the opening_hours tag. To search over different tags either use ```make regex_search SEARCH=$tagname``` (this also makes sure that the tag you would like to search on will be downloaded if necessary) or run ```./regex_search $path_to_downloaded_taginfo_json_file```.
 
 This script not only shows you if the found value can be processed with this library or not, it also indicates using different colors if the facility is currently open (open: green, unknown: magenta, closed: blue).
 
