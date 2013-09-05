@@ -8,17 +8,17 @@ var test = new opening_hours_test();
 // Tests will not be executed in order listed here due to non-blocking aspect
 // of JS and node.js.
 
-test.export_json('opening_hours');
+test.exported_json('opening_hours');
 
-test.export_json('lit', { ignore: [ 'yes', 'no', 'on', 'automatic', 'interval', 'limited' ]});
+test.exported_json('lit', { ignore: [ 'yes', 'no', 'on', 'automatic', 'interval', 'limited' ]});
 
-test.export_json('opening_hours:kitchen', { ignore: [ 'opening_hours' ]});
+test.exported_json('opening_hours:kitchen', { ignore: [ 'opening_hours' ]});
 
 //======================================================================
 // Test framework
 //======================================================================
 function opening_hours_test() {
-	this.export_json = function (tagname /* file exported by the taginfo API */, options) {
+	this.exported_json = function (tagname /* file exported by the taginfo API */, options) {
 		var how_often_print_stats = 15000;
 
 		fs.readFile(__dirname + '/export.' + tagname + '.json', 'utf8', function (err, data) {
@@ -48,8 +48,6 @@ function opening_hours_test() {
 				}
 			}
 
-			for (var i = 0; i < total_differ; i++)
-
 			var before = new Date();
 
 			var parsed_values = 0; // total number of values which are "parsed" (if one value appears more than one, it counts more than one)
@@ -75,7 +73,7 @@ function opening_hours_test() {
 			}
 
 			if (total_differ >= how_often_print_stats)
-				console.log('\n');
+				console.log();
 
 			console.log('Done :)');
 			console.log(success + '/' + total + ' ([1;32m' + Math.round(success / total * 100) + ' %[0m),'
@@ -93,7 +91,7 @@ function opening_hours_test() {
 					console.log('Failed with value which appears ' + count + ' times:\t' + value);
 				}
 			}
-			console.log('\n');
+			console.log();
 		});
 	}
 
