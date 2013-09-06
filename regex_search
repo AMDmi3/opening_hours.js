@@ -47,6 +47,7 @@ while True:
 
     matched = []
     for taginfo_hash in taginfo_tag_export['data']:
+        taginfo_hash['value'] = taginfo_hash['value'].replace('\n', '*newline*') # Would destroy the order (communication with node process)
         res = user_reg.match(taginfo_hash['value'])
         if res:
             matched.append([taginfo_hash, res])
@@ -55,13 +56,32 @@ while True:
         print('Did not match any value with regular expression: %s' % regex)
     else:
         matched = sorted(matched, key=lambda k: k[0]['count'], reverse=True)
-        print('Matched %d time%s:' % (len(matched), ('' if len(matched) == 1 else 's')))
+        do_parse_all_values_before = True
+        if len(matched) > 10000 and not re.match(r'^y', raw_input('Try to parse each value (probably takes a second)? '), re.I):
+            do_parse_all_values_before = False
+        total_in_use = 0
+        passed_diff_values = 0
+        total_passed = 0
+        for taginfo_hash, res in matched:
+            total_in_use += taginfo_hash['count']
+            if do_parse_all_values_before:
+                oh.stdin.write(taginfo_hash['value'].encode("utf-8") + '\n')
+                oh_res = oh.stdout.readline().strip()
+                oh_ok  = 0 if int(oh_res[0]) else 1
+                passed_diff_values += oh_ok
+                total_passed += oh_ok * taginfo_hash['count']
+
+        if do_parse_all_values_before:
+            passed_diff_values = ' (%d passed)' % passed_diff_values
+            # replace \n with someting else
+        print('Matched %d%s different values%s%s' % (len(matched), passed_diff_values, ('' if len(matched) == 1 else 's'),
+            (', total in use: %d (%d passed)' % (total_in_use, total_passed) if len(matched) != 1 else '')))
         if (len(matched) < page_width or re.match(r'^y', raw_input('Print values? '), re.I)):
             c = 1
             for taginfo_hash, res in matched:
                 if c % page_width == 0 and not re.match(r'^y', raw_input('Continue? '), re.I):
                     break
-                oh.stdin.write(taginfo_hash['value'] + '\n')
+                oh.stdin.write(taginfo_hash['value'].encode("utf-8") + '\n')
                 oh_res = oh.stdout.readline().strip()
                 oh_ok  = 0 if int(oh_res[0]) else 1
                 if oh_ok:
