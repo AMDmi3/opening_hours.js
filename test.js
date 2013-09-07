@@ -45,16 +45,23 @@ test.addTest('Variable times e.g. sunrise, sunset', [
 		[ '2012.10.01 07:22', '2012.10.01 19:00' ],
 	], 1000 * 60 * (60 * 11 + 38), 0, false, nominatiomTestJSON);
 
+test.addTest('Variable times e.g. sunrise, sunset over a few days', [
+		'sunrise-sunset', // If your timezone uses daylight saving times you will see a difference of around one hours between two days.
+	], '2012.10.01 0:00', '2012.10.04 0:00', [
+                [ '2012.10.01 07:22', '2012.10.01 19:00' ],
+                [ '2012.10.02 07:23', '2012.10.02 18:58' ],
+                [ '2012.10.03 07:25', '2012.10.03 18:56' ],
+	], 1000 * 60 * ((60 * 11 + 38) + (60 * 11 + 37 - 2) + (60 * 11 + 35 - 4)), 0, false, nominatiomTestJSON);
+
 test.addTest('Variable times spanning midnight', [
-		'18:00-sunrise',
-		'sunset-06:00',
-		'sunset-06:00 Mo-Su',
+		'sunset-sunrise',
+		'sunset-sunrise Mo-Su',
 	], '2012.10.01 0:00', '2012.10.03 0:00', [
-                [ '2012.10.01 00:00', '2012.10.01 06:00' ],
-                [ '2012.10.01 18:00', '2012.10.02 06:00' ],
-                [ '2012.10.02 18:00', '2012.10.03 00:00' ],
-	], 1000 * 60 * 60 * 6 * (1 + 2 + 1), 0, false, nominatiomTestJSON);
-/*
+                [ '2012.10.01 00:00', '2012.10.01 07:22' ],
+                [ '2012.10.01 19:00', '2012.10.02 07:23' ],
+                [ '2012.10.02 18:58', '2012.10.03 00:00' ],
+	], 1000 * 60 * ((60 * 7 + 22) + (60 * (5 + 7) + 23) + (60 * 5 + 2)), 0, false, nominatiomTestJSON);
+
 test.addTest('Time ranges spanning midnight', [
 		'22:00-02:00',
 		'22:00-26:00',
@@ -499,12 +506,12 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'week 2-54 00:00-24:00:::',
 		'week 2-54 00::00-24:00',
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1',
+		'27:00-29:00',
 		'', // empty string
 		';', // only rule delimiter
 		' ', // empty string
 		"\n", // newline
 	]);
-*/
 
 process.exit(test.run() ? 0 : 1);
 
@@ -525,7 +532,7 @@ function opening_hours_test() {
 		}
 
 		var passed = false;
-		var str = '"' + name + '" for "' + value + '": ';
+		var str = '"' + name + '" for "' + value.replace('\n', '*newline*') + '": ';
 		if (crashed) {
 			str += '[1;32mPASSED[0m';
 			passed = true;

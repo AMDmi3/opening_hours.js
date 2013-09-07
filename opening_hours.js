@@ -331,10 +331,19 @@
 					if (minutes_to > minutes_in_day) { // ends_with_normal_time must be true
 						selectors.time.push(function(minutes_from, minutes_to, start_timevar, end_timevar) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
-							// if (!starts_with_normal_time) {
-							// 	// minutes_to = eval('SunCalc.getTimes(date, lat, lon).'+ tokens[at][0]);
-							// 	console.log(true);
-							// }
+
+							if (start_timevar) {
+								var date_from = eval('SunCalc.getTimes(date, lat, lon).' + start_timevar);
+								minutes_from  = date_from.getHours() * 60 + date_from.getMinutes();
+							}
+							if (end_timevar) {
+								var date_to = eval('SunCalc.getTimes(date, lat, lon).' + end_timevar);
+								minutes_to  = date_to.getHours() * 60 + date_to.getMinutes();
+								minutes_to += minutes_in_day;
+								// Needs to be added because it was added by
+								// normal times in: if (minutes_to < // minutes_from)
+								// above the selector construction.
+							}
 
 							if (ourminutes < minutes_from)
 								return [false, dateAtDayMinutes(date, minutes_from)];
@@ -342,14 +351,28 @@
 								return [true, dateAtDayMinutes(date, minutes_to)];
 						}}(minutes_from, minutes_to, start_timevar, end_timevar));
 
-						selectors.wraptime.push(function(minutes_from, minutes_to) { return function(date) {
+						selectors.wraptime.push(function(minutes_from, minutes_to, start_timevar, end_timevar) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
+
+							if (start_timevar) {
+								var date_from = eval('SunCalc.getTimes(date, lat, lon).' + start_timevar);
+								minutes_from  = date_from.getHours() * 60 + date_from.getMinutes();
+							}
+							if (end_timevar) {
+								var date_to = eval('SunCalc.getTimes(date, lat, lon).' + end_timevar);
+								minutes_to  = date_to.getHours() * 60 + date_to.getMinutes();
+								// minutes_in_day does not need to be added.
+								// For normal times in it was added in: if (minutes_to < // minutes_from)
+								// above the selector construction and
+								// subtracted in the selector construction call
+								// which returns the selector function.
+							}
 
 							if (ourminutes < minutes_to)
 								return [true, dateAtDayMinutes(date, minutes_to)];
 							else
 								return [false, undefined];
-						}}(minutes_from, minutes_to - minutes_in_day));
+						}}(minutes_from, minutes_to - minutes_in_day, start_timevar, end_timevar));
 					} else {
 						selectors.time.push(function(minutes_from, minutes_to, start_timevar, end_timevar) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
@@ -924,6 +947,7 @@
 						if (typeof state[1] === 'undefined')
 							return false;
 
+						// console.log('previours check time: ' + prevstate[1] + ', current check time: ' + state[1]);
 						// we're going backwards or staying at place
 						// this always indicates coding error in a selector code
 						if (state[1].getTime() <= prevstate[1].getTime())
