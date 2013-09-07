@@ -8,6 +8,7 @@
 		root.opening_hours = factory();
 	}
 }(this, function (SunCalc) {
+	var SunCalc;
 	return function(value, nominatiomJSON) {
 		//======================================================================
 		// Constants
@@ -64,21 +65,12 @@
 
 		var rules = value.split(/\s*;\s*/);
 		var week_stable = true;
-		//
-		// // get today's sunlight times for London
-		// var times = SunCalc.getTimes(new Date(), lat, lon);
-
-		// // format sunrise time from the Date object
-		// var sunriseStr = times.sunrise.getHours() + ':' + times.sunrise.getMinutes();
-		// console.log(sunriseStr);
-		// console.log(times.dawn);
 
 		var blocks = [];
 
 		for (var rule = 0; rule < rules.length; rule++) {
 			var tokens = tokenize(rules[rule]);
-			if (tokens.length == 0) continue; // Rule does contain nothing useful e.g. second rule of '10:00-12:00;' which needs to be handled.
-
+			if (tokens.length == 0) continue; // Rule does contain nothing useful e.g. second rule of '10:00-12:00;' (empty) which needs to be handled.
 
 			var selectors = {
 				// Time selectors
@@ -229,7 +221,7 @@
 			while (at < tokens.length) {
 				// console.log('Parsing at position '+ at +': '+tokens[at]);
 				if (matchTokens(tokens, at, 'weekday')) {
-					at = parseWeekdayRange(tokens, at, selectors, country_code);
+					at = parseWeekdayRange(tokens, at, selectors);
 				} else if (matchTokens(tokens, at, 'month', 'number') || matchTokens(tokens, at, 'year', 'month', 'number')) {
 					at = parseMonthdayRange(tokens, at);
 					week_stable = false;
@@ -248,7 +240,7 @@
 					// http://www.netzwolf.info/en/cartography/osm/time_domain/specification
 					at++;
 				} else if (matchTokens(tokens, at, 'number', 'timesep') || matchTokens(tokens, at, 'timevar')) {
-					at = parseTimeRange(tokens, at, selectors, lat, lon);
+					at = parseTimeRange(tokens, at, selectors);
 				} else if (matchTokens(tokens, at, 'off') || matchTokens(tokens, at, 'closed')) {
 					selectors.meaning = false;
 					at++;
@@ -290,7 +282,7 @@
 		//======================================================================
 		// Time range parser (10:00-12:00,14:00-16:00)
 		//======================================================================
-		function parseTimeRange(tokens, at, selectors, lat, lon) {
+		function parseTimeRange(tokens, at, selectors) {
 			for (; at < tokens.length; at++) {
 				var starts_with_normal_time = matchTokens(tokens, at, 'number', 'timesep', 'number');
 				if (starts_with_normal_time || matchTokens(tokens, at, 'timevar')) { // relying on the fact that always *one* of them is true
@@ -301,7 +293,9 @@
 					if (!ends_with_normal_time && !matchTokens(tokens, at+(starts_with_normal_time ? 3 : 1)+1, 'timevar'))
 						throw 'time range does not continue as expected';
 
-					var has_timevar = !starts_with_normal_time || !ends_with_normal_time;
+					if (!starts_with_normal_time || !ends_with_normal_time) {
+						week_stable = false;
+					}
 
 					var minutes_from = starts_with_normal_time ? tokens[at][0] * 60 + tokens[at+2][0] : word_replacement[tokens[at][0]];
 					var minutes_to   = ends_with_normal_time
@@ -326,14 +320,16 @@
 					if (minutes_to > minutes_in_day * 2)
 						throw 'Time spanning more than two midnights not supported';
 
-					var pos_and_starts_with_timevar = false, pos_and_ends_with_timevar = false;
-					if (typeof lat != 'undefined') {
-						pos_and_starts_with_timevar = !starts_with_normal_time;
-						pos_and_ends_with_timevar   = !ends_with_normal_time;
+					var start_timevar, end_timevar;
+					if (typeof lat != 'undefined') { // lon will also be defined (see above)
+						if (!starts_with_normal_time)
+							start_timevar = tokens[at][0];
+						if (!ends_with_normal_time)
+							end_timevar   = tokens[at+(starts_with_normal_time ? 3 : 1)+1][0]
 					} // else: we can not calculate exact times so we use the already applied constants (word_replacement).
 
 					if (minutes_to > minutes_in_day) { // ends_with_normal_time must be true
-						selectors.time.push(function(minutes_from, minutes_to, lat, lo, pos_and_starts_with_timevar) { return function(date) {
+						selectors.time.push(function(minutes_from, minutes_to, start_timevar, end_timevar) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
 							// if (!starts_with_normal_time) {
 							// 	// minutes_to = eval('SunCalc.getTimes(date, lat, lon).'+ tokens[at][0]);
@@ -344,7 +340,7 @@
 								return [false, dateAtDayMinutes(date, minutes_from)];
 							else
 								return [true, dateAtDayMinutes(date, minutes_to)];
-						}}(minutes_from, minutes_to, lat, lon, pos_and_starts_with_timevar));
+						}}(minutes_from, minutes_to, start_timevar, end_timevar));
 
 						selectors.wraptime.push(function(minutes_from, minutes_to) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
@@ -355,13 +351,17 @@
 								return [false, undefined];
 						}}(minutes_from, minutes_to - minutes_in_day));
 					} else {
-						selectors.time.push(function(minutes_from, minutes_to, lat, lon, pos_and_starts_with_timevar, pos_and_ends_with_timevar) { return function(date) {
+						selectors.time.push(function(minutes_from, minutes_to, start_timevar, end_timevar) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
 
-							// if (!starts_with_normal_time)
-							// 	minutes_to = eval('SunCalc.getTimes(date, lat, lon).'+ tokens[at][0]);
-							// if (!ends_with_normal_time)
-							// 	minutes_from = eval('SunCalc.getTimes(date, lat, lon).'+ tokens[at+(starts_with_normal_time ? 3 : 1)+1][0]);
+							if (start_timevar) {
+								var date_from = eval('SunCalc.getTimes(date, lat, lon).' + start_timevar);
+								minutes_from  = date_from.getHours() * 60 + date_from.getMinutes();
+							}
+							if (end_timevar) {
+								var date_to = eval('SunCalc.getTimes(date, lat, lon).' + end_timevar);
+								minutes_to  = date_to.getHours() * 60 + date_to.getMinutes();
+							}
 
 							if (ourminutes < minutes_from)
 								return [false, dateAtDayMinutes(date, minutes_from)];
@@ -369,7 +369,7 @@
 								return [true, dateAtDayMinutes(date, minutes_to)];
 							else
 								return [false, dateAtDayMinutes(date, minutes_from + minutes_in_day)];
-						}}(minutes_from, minutes_to, lat, lon, pos_and_starts_with_timevar, pos_and_ends_with_timevar));
+						}}(minutes_from, minutes_to, start_timevar, end_timevar));
 					}
 
 					at += (starts_with_normal_time ? 3 : 1) + 1 + (ends_with_normal_time ? 3 : 1);

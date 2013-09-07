@@ -2,6 +2,10 @@ var opening_hours = require('./opening_hours.js');
 
 var test = new opening_hours_test();
 
+// used for sunrise, sunset … and PH,SH
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1
+var nominatiomTestJSON = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
+
 test.addTest('Time intervals', [
 		'10:00-12:00',
 		'10:00-12:00;',
@@ -27,26 +31,30 @@ test.addTest('Time intervals', [
 		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true);
 
+test.addTest('Variable times e.g. dawn, dusk', [
+		'Mo dawn-dusk',
+		'dawn-dusk',
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+                [ '2012.10.01 06:50', '2012.10.01 19:32' ],
+	], 1000 * 60 * (60 * 12 + 10 + 32), 0, false, nominatiomTestJSON);
+
 test.addTest('Variable times e.g. sunrise, sunset', [
 		'Mo sunrise-sunset',
-		'sunrise-18:00',
-		'06:00-sunset',
-		'06:00-18:00',
+		'sunrise-sunset',
 	], '2012.10.01 0:00', '2012.10.02 0:00', [
-		[ '2012.10.01 06:00', '2012.10.01 18:00' ],
-	], 1000 * 60 * 60 * 12, 0, true);
+		[ '2012.10.01 07:22', '2012.10.01 19:00' ],
+	], 1000 * 60 * (60 * 11 + 38), 0, false, nominatiomTestJSON);
 
 test.addTest('Variable times spanning midnight', [
 		'18:00-sunrise',
 		'sunset-06:00',
 		'sunset-06:00 Mo-Su',
-		'18:00-06:00',
 	], '2012.10.01 0:00', '2012.10.03 0:00', [
                 [ '2012.10.01 00:00', '2012.10.01 06:00' ],
                 [ '2012.10.01 18:00', '2012.10.02 06:00' ],
                 [ '2012.10.02 18:00', '2012.10.03 00:00' ],
-	], 1000 * 60 * 60 * 6 * (1 + 2 + 1), 0, true);
-
+	], 1000 * 60 * 60 * 6 * (1 + 2 + 1), 0, false, nominatiomTestJSON);
+/*
 test.addTest('Time ranges spanning midnight', [
 		'22:00-02:00',
 		'22:00-26:00',
@@ -59,7 +67,7 @@ test.addTest('Time ranges spanning midnight', [
 		[ '2012.10.05 22:00', '2012.10.06 02:00' ],
 		[ '2012.10.06 22:00', '2012.10.07 02:00' ],
 		[ '2012.10.07 22:00', '2012.10.08 00:00' ],
-	], 1000 * 60 * 60 * 4 * 7, 0, true);
+	], 1000 * 60 * 60 * 4 * 7, 0, true, nominatiomTestJSON);
 
 test.addTest('Time ranges spanning midnight with date overwriting', [
 		'22:00-02:00; Tu 12:00-14:00',
@@ -496,6 +504,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		' ', // empty string
 		"\n", // newline
 	]);
+*/
 
 process.exit(test.run() ? 0 : 1);
 
@@ -528,7 +537,7 @@ function opening_hours_test() {
 		return crashed;
 	}
 
-	function runSingleTest(name, value, from, to, expected_intervals, expected_durations, expected_weekstable) {
+	function runSingleTest(name, value, from, to, expected_intervals, expected_durations, expected_weekstable, nominatiomJSON) {
 		var ignored = typeof value !== 'string';
 		if (ignored) {
 			ignored = value[1];
@@ -538,7 +547,7 @@ function opening_hours_test() {
 		var oh, intervals, durations, weekstable, intervals_ok, duration_ok, weekstable_ok, crashed = true;
 
 		try {
-			oh = new opening_hours(value);
+			oh = new opening_hours(value, nominatiomJSON);
 
 			intervals  = oh.getOpenIntervals(new Date(from), new Date(to));
 			durations  = oh.getOpenDuration(new Date(from), new Date(to));
@@ -634,7 +643,7 @@ function opening_hours_test() {
 		var tests_length = tests.length + tests_should_fail.length;
 		var success = 0;
 		for (var test = 0; test < tests.length; test++) {
-			if (runSingleTest(tests[test][0], tests[test][1], tests[test][2], tests[test][3], tests[test][4], tests[test][5], tests[test][6]))
+			if (runSingleTest(tests[test][0], tests[test][1], tests[test][2], tests[test][3], tests[test][4], tests[test][5], tests[test][6], tests[test][7]))
 				success++;
 		}
 		for (var test = 0; test < tests_should_fail.length; test++) {
@@ -647,7 +656,7 @@ function opening_hours_test() {
 		return success == tests_length;
 	}
 
-	this.addTest = function(name, values, from, to, expected_intervals, expected_duration, expected_unknown_duration, expected_weekstable) {
+	this.addTest = function(name, values, from, to, expected_intervals, expected_duration, expected_unknown_duration, expected_weekstable, nominatiomJSON) {
 		for (var expected_interval = 0; expected_interval < expected_intervals.length; expected_interval++) {
 			// Set default of unknown to false. If you expect something else you
 			// will have to specify it.
@@ -655,10 +664,10 @@ function opening_hours_test() {
 				expected_intervals[expected_interval][2] = false;
 		}
 		if (typeof values === 'string')
-			tests.push([name, values, from, to, expected_intervals, [ expected_duration, expected_unknown_duration ], expected_weekstable]);
+			tests.push([name, values, from, to, expected_intervals, [ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON]);
 		else
 			for (var value = 0; value < values.length; value++)
-				tests.push([name, values[value], from, to, expected_intervals, [ expected_duration, expected_unknown_duration ], expected_weekstable]);
+				tests.push([name, values[value], from, to, expected_intervals, [ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON]);
 	}
 
 	this.addShouldFail = function(name, values) {
