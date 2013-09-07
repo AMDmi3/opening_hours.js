@@ -1,14 +1,14 @@
 (function (root, factory) {
 	if (typeof exports === 'object') {
 		// For nodejs
-		module.exports = factory();
+		var SunCalc = require('suncalc');
+		module.exports = factory(SunCalc);
 	} else {
 		// For browsers
 		root.opening_hours = factory();
 	}
-}(this, function () {
+}(this, function (SunCalc) {
 	return function(value, nominatiomJSON) {
-		var SunCalc = require('suncalc');
 		//======================================================================
 		// Constants
 		//======================================================================
