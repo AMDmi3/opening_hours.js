@@ -27,13 +27,25 @@ test.addTest('Time intervals', [
 		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true);
 
-test.addTest('sunrise, sunset (current implementation uses fix times)', [
+test.addTest('Variable times e.g. sunrise, sunset', [
 		'Mo sunrise-sunset',
 		'sunrise-18:00',
+		'06:00-sunset',
 		'06:00-18:00',
 	], '2012.10.01 0:00', '2012.10.02 0:00', [
 		[ '2012.10.01 06:00', '2012.10.01 18:00' ],
 	], 1000 * 60 * 60 * 12, 0, true);
+
+test.addTest('Variable times spanning midnight', [
+		'18:00-sunrise',
+		'sunset-06:00',
+		'sunset-06:00 Mo-Su',
+		'18:00-06:00',
+	], '2012.10.01 0:00', '2012.10.03 0:00', [
+                [ '2012.10.01 00:00', '2012.10.01 06:00' ],
+                [ '2012.10.01 18:00', '2012.10.02 06:00' ],
+                [ '2012.10.02 18:00', '2012.10.03 00:00' ],
+	], 1000 * 60 * 60 * 6 * (1 + 2 + 1), 0, true);
 
 test.addTest('Time ranges spanning midnight', [
 		'22:00-02:00',
