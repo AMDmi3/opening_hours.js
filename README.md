@@ -93,7 +93,7 @@ function logState(startString, endString, oh, past) {
 
   Constructs opening_hours object, given the opening_hours tag value.
 
-  In order to calculate the correct times for variable times (e.g. sunrise, dusk) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates of the facility (where the opening hours do apply) anything else can be queried for using [reverse Geocoding with Nominatim][nominatim]. So just use as second parameter the returned JSON from [nominatim][] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1) and you are good to go. Note that this second parameter is optional.
+  In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges](#time-ranges)) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates of the facility (where the opening hours do apply) anything else can be queried for using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim][] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1) and you are good to go. Note that this second parameter is optional.
 
   Throws an error string if the expression is malformed or unsupported.
 
@@ -219,7 +219,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * **EXT:** Supports omitting time range (```Mo-Fr; Tu off```)
 * **EXT:** Supports dot as time separator, so ```12.00-16.00``` is valid (this is used quite widely)
 * **EXT:** Supports space as time interval separator, i.e. ```Mo 12:00-14:00,16:00-20:00``` and ```Mo 12:00-14:00 16:00-20:00``` are the same thing
-* Complete support for dawn/sunrise/sunset/dusk keywords (```10:00-sunset```, ```dawn-dusk```). To calculate the correct values, the latitude and longitude is required which is included in the JSON returned by [nominatim] (see in the <a href="#library-api">Library API</a> how to provide it). The calculation is done by [suncalc][].
+* Complete support for dawn/sunrise/sunset/dusk keywords (```10:00-sunset```, ```dawn-dusk```). To calculate the correct values, the latitude and longitude is required which is included in the JSON returned by [Nominatim] \(see in the [Library API](#library-api) how to provide it\). The calculation is done by [suncalc][].
  If the coordinates are missing, constant times will be used (dawn: '05:30', sunrise: '06:00', sunset: '18:00', dusk: '18:30')
 * *Doesn't support open end (```10:00+```)*
 
@@ -316,4 +316,4 @@ On author's Intel Core i5-2400 library allows ~20k/sec constructor calls and ~10
 * opening_hours.js is published under the New (2-clause) BSD license
 
 
-[nominatim]: http://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding_.2F_Address_lookup
+[Nominatim]: http://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding_.2F_Address_lookup
