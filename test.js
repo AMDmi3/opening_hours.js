@@ -48,6 +48,20 @@ test.addTest('Variable times e.g. sunrise, sunset', [
 		[ '2012.10.01 07:22', '2012.10.01 19:00' ],
 	], 1000 * 60 * (60 * 11 + 38), 0, false, nominatiomTestJSON);
 
+test.addTest('Variable times e.g. sunrise, sunset without coordinates (→ constant times)', [
+		'sunrise-sunset',
+	], '2012.10.01 0:00', '2012.10.03 0:00', [
+		[ '2012.10.01 06:00', '2012.10.01 18:00' ],
+		[ '2012.10.02 06:00', '2012.10.02 18:00' ],
+	], 1000 * 60 * 60 * 12 * 2, 0, true);
+
+test.addTest('Variable times e.g. sunrise, sunset without coordinates (→ constant times)', [
+		'dawn-dusk',
+	], '2012.10.01 0:00', '2012.10.03 0:00', [
+		[ '2012.10.01 05:30', '2012.10.01 18:30' ],
+		[ '2012.10.02 05:30', '2012.10.02 18:30' ],
+	], 1000 * 60 * 60 * 13 * 2, 0, true);
+
 test.addTest('Variable times e.g. sunrise, sunset over a few days', [
 		'sunrise-sunset', // If your timezone uses daylight saving times you will see a difference of around one hours between two days.
 	], '2012.10.01 0:00', '2012.10.04 0:00', [
@@ -110,9 +124,7 @@ test.addTest('Variable times which moves over fix end time', [
 test.addTest('Variable times which moves over fix end time', [
 		'sunrise-05:59', // from time < end time <= constant time
 	], '2013.04.15 0:00', '2013.04.19 0:00', [
-                // something else
-                [ '2013.04.18 05:57', '2013.04.18 06:00' ],
-                [ '2013.04.18 05:57', '2013.04.18 06:00' ],
+                [ 'something else', '' ],
 	], 1000 * 60 * 3, 0, false, nominatiomTestJSON_sunrise_below_default);
 
 test.addTest('Variable times spanning midnight', [

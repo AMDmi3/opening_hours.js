@@ -219,9 +219,14 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * **EXT:** Supports omitting time range (```Mo-Fr; Tu off```)
 * **EXT:** Supports dot as time separator, so ```12.00-16.00``` is valid (this is used quite widely)
 * **EXT:** Supports space as time interval separator, i.e. ```Mo 12:00-14:00,16:00-20:00``` and ```Mo 12:00-14:00 16:00-20:00``` are the same thing
-* Complete support for dawn/sunrise/sunset/dusk keywords (```10:00-sunset```, ```dawn-dusk```). To calculate the correct values, the latitude and longitude is required which is included in the JSON returned by [Nominatim] \(see in the [Library API](#library-api) how to provide it\). The calculation is done by [suncalc][].
+* Complete support for dawn/sunrise/sunset/dusk keywords (```10:00-sunset```, ```dawn-dusk```). To calculate the correct values, the latitude and longitude are required which are included in the JSON returned by [Nominatim] \(see in the [Library API](#library-api) how to provide it\). The calculation is done by [suncalc][].
+
  If the coordinates are missing, constant times will be used (dawn: '05:30', sunrise: '06:00', sunset: '18:00', dusk: '18:30').
- If the end time (second time in time range) is near the sunrise for instance (```sunrise-08:00```) than it can happen that the sunrise would actually be after 08:00 which would normally be interpreded as as time spanning midnight. But with variable times, this only partly applies. The rule here is that if the end time is lesser than the constant time (or the actual time) for the variable time in the start time (in that example sunrise: '06:00') then it is interpreted as the end time spanning over midnight. A second thing to notice is that if the variable time becomes greater than the end time and the end time is greater than the constant time than this time range will be ignored (e.g ```sunrise-08:00``` becomes ```08:03-08:00``` for one day, it  is ignored for this day).
+
+ If the end time (second time in time range) is near the sunrise for instance (```sunrise-08:00```) than it can happen that the sunrise would actually be after 08:00 which would normally be interpreted as as time spanning midnight. But with variable times, this only partly applies. The rule here is that if the end time is lesser than the constant time (or the actual time) for the variable time in the start time (in that example sunrise: '06:00') then it is interpreted as the end time spanning over midnight. So this would be a valid time range spanning midnight: ```sunrise-05:59```.
+
+A second thing to notice is that if the variable time becomes greater than the end time and the end time is greater than the constant time than this time range will be ignored (e.g ```sunrise-08:00``` becomes ```08:03-08:00``` for one day, it  is ignored for this day).
+
 
 * *Doesn't support open end (```10:00+```)*
 
