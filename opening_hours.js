@@ -181,10 +181,6 @@
 					// time separator
 					tokens.push([value[0].toLowerCase(), 'timesep']);
 					value = value.substr(1);
-				} else if (value.match(/^\+/)) {
-					// open end +
-					tokens.push([value[0], 'openend']);
-					value = value.substr(1);
 				} else {
 					// other single-character tokens
 					tokens.push([value[0].toLowerCase(), value[0].toLowerCase()]);
@@ -221,7 +217,7 @@
 		// Top-level parser
 		//======================================================================
 		function parseGroup(tokens, at, selectors) {
-			// console.log(tokens); // useful for debugging
+			// console.log(tokens); // useful for debugging of tokenize
 			while (at < tokens.length) {
 				// console.log('Parsing at position '+ at +': '+tokens[at]);
 				if (matchTokens(tokens, at, 'weekday')) {
@@ -243,7 +239,9 @@
 					// This provides compatibility with the syntax proposed by Netzwolf:
 					// http://www.netzwolf.info/en/cartography/osm/time_domain/specification
 					at++;
-				} else if (matchTokens(tokens, at, 'number', 'timesep') || matchTokens(tokens, at, 'timevar')) {
+				} else if (matchTokens(tokens, at, 'number', 'timesep')
+						|| matchTokens(tokens, at, 'timevar')
+						|| matchTokens(tokens, at, '(', 'timevar')) {
 					at = parseTimeRange(tokens, at, selectors);
 				} else if (matchTokens(tokens, at, 'off') || matchTokens(tokens, at, 'closed')) {
 					selectors.meaning = false;
@@ -288,28 +286,49 @@
 		//======================================================================
 		function parseTimeRange(tokens, at, selectors) {
 			for (; at < tokens.length; at++) {
+				var has_time_var_calc = []; // element 0: start time, 1: end time
 				var starts_with_normal_time = matchTokens(tokens, at, 'number', 'timesep', 'number');
-				if (starts_with_normal_time || matchTokens(tokens, at, 'timevar')) { // relying on the fact that always *one* of them is true
+				has_time_var_calc[0] = matchTokens(tokens, at, '(', 'timevar');
+				if (starts_with_normal_time || matchTokens(tokens, at, 'timevar') || has_time_var_calc[0]) {
+					// relying on the fact that always *one* of them is true
+
 					var has_open_end = false;
-					if (!matchTokens(tokens, at+(starts_with_normal_time ? 3 : 1), '-')) {
-						if (matchTokens(tokens, at+(starts_with_normal_time ? 3 : 1), 'openend'))
+					if (!matchTokens(tokens, at+(starts_with_normal_time ? 3 : (has_time_var_calc[0] ? 7 : 1)), '-')) {
+						if (matchTokens(tokens, at+(starts_with_normal_time ? 3 : (has_time_var_calc[0] ? 7 : 1))), '+')
 							has_open_end = true;
 						else
 							throw 'hyphen or open end (+) in time range expected';
 					}
 
-					var minutes_from = starts_with_normal_time ? tokens[at][0] * 60 + tokens[at+2][0] : word_replacement[tokens[at][0]];
+					if (starts_with_normal_time)
+						var minutes_from = tokens[at+has_time_var_calc[0]][0] * 60 + tokens[at+has_time_var_calc[0]+2][0];
+					else
+						var minutes_from = word_replacement[tokens[at+has_time_var_calc[0]][0]];
 
-					if (!has_open_end) {
-						var ends_with_normal_time = matchTokens(tokens, at+(starts_with_normal_time ? 3 : 1)+1, 'number', 'timesep', 'number');
-						if (!ends_with_normal_time && !matchTokens(tokens, at+(starts_with_normal_time ? 3 : 1)+1, 'timevar'))
+					var time_var_add = [];
+					if (has_time_var_calc[0]) {
+						time_var_add[0] = parseTimevarCalc(tokens, at);
+						minutes_from += time_var_add[0];
+					}
+
+					var at_end_time = at+(starts_with_normal_time ? 3 : (has_time_var_calc[0] ? 7 : 1))+1; // after '-'
+					if (has_open_end) {
+						var minutes_to = minutes_from + 1;
+					} else {
+						var ends_with_normal_time = matchTokens(tokens, at_end_time, 'number', 'timesep', 'number');
+						has_time_var_calc[1]      = matchTokens(tokens, at_end_time, '(', 'timevar');
+						if (!ends_with_normal_time && !matchTokens(tokens, at_end_time, 'timevar') && !has_time_var_calc[1])
 							throw 'time range does not continue as expected';
 
-						var minutes_to   = ends_with_normal_time
-							? tokens[at+(starts_with_normal_time ? 3 : 1)+1][0] * 60 + tokens[at+(starts_with_normal_time ? 3 : 1)+3][0]
-							: word_replacement[tokens[at+(starts_with_normal_time ? 3 : 1)+1][0]];
-					} else { // open end
-						var minutes_to = minutes_from + 1;
+						if (ends_with_normal_time)
+							var minutes_to = tokens[at_end_time][0] * 60 + tokens[at_end_time+2][0]
+						else
+							var minutes_to = word_replacement[tokens[at_end_time+has_time_var_calc[1]][0]];
+
+						if (has_time_var_calc[1]) {
+							time_var_add[1] = parseTimevarCalc(tokens, at_end_time);
+							minutes_to += time_var_add[1];
+						}
 					}
 
 					// this shortcut makes always-open range check faster
@@ -335,9 +354,9 @@
 						if (!starts_with_normal_time || !ends_with_normal_time) // has_open_end does not count here
 							week_stable = false;
 						if (!starts_with_normal_time)
-							start_timevar = tokens[at][0];
+							start_timevar = tokens[at+has_time_var_calc[0]][0];
 						if (!ends_with_normal_time)
-							end_timevar   = tokens[at+(starts_with_normal_time ? 3 : 1)+1][0]
+							end_timevar   = tokens[at_end_time+has_time_var_calc[1]][0]
 					} // else: we can not calculate exact times so we use the already applied constants (word_replacement).
 
 					if (minutes_to > minutes_in_day) { // ends_with_normal_time must be true
@@ -407,7 +426,7 @@
 						}}(minutes_from, minutes_to, start_timevar, end_timevar));
 					}
 
-					at += (starts_with_normal_time ? 3 : 1) + 1 + (ends_with_normal_time ? 3 : 1);
+					at = at_end_time + (ends_with_normal_time ? 3 : (has_time_var_calc[1] ? 7 : 1));
 				} else {
 					throw 'Unexpected token in time range: "' + tokens[at][0] + '"';
 				}
@@ -422,6 +441,18 @@
 		// for given date, returns date moved to the start of specified day minute
 		function dateAtDayMinutes(date, minutes) {
 			return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, minutes);
+		}
+
+		// extract the added or subtracted time of "(sunrise-01:30)"
+		// returns in minutes e.g. -90
+		function parseTimevarCalc(tokens, at) {
+			if ((matchTokens(tokens, at+2, '+') || matchTokens(tokens, at+2, '-'))
+					&& matchTokens(tokens, at+3, 'number', 'timesep', 'number')) {
+				var add_or_subtract = tokens[at+2][0] == '+' ? '1' : '-1';
+				return (tokens[at+3][0] * 60 + tokens[at+5][0]) * add_or_subtract;
+			} else {
+				throw 'Calculcation with variable time is not in the right syntax.';
+			}
 		}
 
 		//======================================================================

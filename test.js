@@ -61,8 +61,18 @@ test.addTest('Variable times e.g. sunrise, sunset without coordinates (→ const
 		[ '2012.10.02 06:00', '2012.10.02 18:00' ],
 	], 1000 * 60 * 60 * 12 * 2, 0, true);
 
+test.addTest('Variable times calculation without coordinates', [
+		'(sunrise+01:02)-(sunset-00:30)',
+	], '2012.10.01 0:00', '2012.10.03 0:00', [
+		[ '2012.10.01 07:02', '2012.10.01 17:30' ],
+		[ '2012.10.02 07:02', '2012.10.02 17:30' ],
+	], 1000 * 60 * (60 * 10 + 28) * 2, 0, true, {}, 'not last test');
+
 test.addTest('Variable times e.g. sunrise, sunset without coordinates (→ constant times)', [
 		'dawn-dusk',
+		'(dawn+0:00)-dusk', // testing variable time calculation, should not change time
+		'dawn-(dusk-0:00)',
+		'(dawn+0:00)-(dusk-0:00)',
 	], '2012.10.01 0:00', '2012.10.03 0:00', [
 		[ '2012.10.01 05:30', '2012.10.01 18:30' ],
 		[ '2012.10.02 05:30', '2012.10.02 18:30' ],
@@ -75,6 +85,14 @@ test.addTest('Variable times e.g. sunrise, sunset over a few days', [
                 [ '2012.10.02 07:23', '2012.10.02 18:58' ],
                 [ '2012.10.03 07:25', '2012.10.03 18:56' ],
 	], 1000 * 60 * ((60 * 11 + 38) + (60 * 11 + 37 - 2) + (60 * 11 + 35 - 4)), 0, false, nominatiomTestJSON);
+
+test.addTest('Variable times calculation with coordinates', [
+		'(sunrise+02:00)-sunset',
+	], '2012.10.01 0:00', '2012.10.04 0:00', [
+                [ '2012.10.01 07:22', '2012.10.01 19:00' ],
+                [ '2012.10.02 07:23', '2012.10.02 18:58' ],
+                [ '2012.10.03 07:25', '2012.10.03 18:56' ],
+	], 1000 * 60 * ((60 * 11 + 38) + (60 * 11 + 37 - 2) + (60 * 11 + 35 - 4)), 0, false, nominatiomTestJSON, 'last test');
 
 test.addTest('Variable times which moves over fix end time', [
 		'sunrise-08:02',
@@ -179,6 +197,12 @@ test.addTest('Time ranges spanning midnight with date overwriting', [
         [ '2012.10.05 22:00', '2012.10.06 02:00' ],
         [ '2012.10.06 22:00', '2012.10.07 02:00' ],
         [ '2012.10.07 22:00', '2012.10.08 00:00' ],
+	], 1000 * 60 * 60 * (6 * 4 + 2), 0, true);
+
+test.addTest('Time ranges spanning midnight with date overwriting (complex real world)', [
+		'Su-Tu 11:00-01:00; We-Th 11:00-03:00; Fr 11:00-06:00; Sa 11:00-07:00',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+        [ 'something else', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * (6 * 4 + 2), 0, true);
 
 test.addTest('Weekdays', [
@@ -597,6 +621,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'week 2-54 00:00-24:00:::',
 		'week 2-54 00::00-24:00',
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1',
+		'(sunrise+01:00-sunset',
 		'27:00-29:00',
 		'', // empty string
 		';', // only rule delimiter
