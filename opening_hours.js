@@ -159,6 +159,10 @@
 					// weekday name
 					tokens.push([weekdays[tmp[0].toLowerCase()], 'weekday']);
 					value = value.substr(2);
+				} else if (tmp = value.match(/^(?:PH|SH)/i)) {
+					// special day name (holidays)
+					tokens.push([weekdays[tmp[0].toUpperCase()], 'holiday']);
+					value = value.substr(2);
 				} else if (tmp = value.match(/^\d+/)) {
 					// number
 					if (tmp[0] > 1900) // assumed to be a year number
