@@ -286,21 +286,21 @@
 		//======================================================================
 		function parseTimeRange(tokens, at, selectors) {
 			for (; at < tokens.length; at++) {
-				var has_time_var_calc = []; // element 0: start time, 1: end time
-				var starts_with_normal_time = matchTokens(tokens, at, 'number', 'timesep', 'number');
+				var has_time_var_calc = [], has_normal_time = []; // element 0: start time, 1: end time
+				has_normal_time[0] = matchTokens(tokens, at, 'number', 'timesep', 'number');
 				has_time_var_calc[0] = matchTokens(tokens, at, '(', 'timevar');
-				if (starts_with_normal_time || matchTokens(tokens, at, 'timevar') || has_time_var_calc[0]) {
+				if (has_normal_time[0] || matchTokens(tokens, at, 'timevar') || has_time_var_calc[0]) {
 					// relying on the fact that always *one* of them is true
 
 					var has_open_end = false;
-					if (!matchTokens(tokens, at+(starts_with_normal_time ? 3 : (has_time_var_calc[0] ? 7 : 1)), '-')) {
-						if (matchTokens(tokens, at+(starts_with_normal_time ? 3 : (has_time_var_calc[0] ? 7 : 1))), '+')
+					if (!matchTokens(tokens, at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 7 : 1)), '-')) {
+						if (matchTokens(tokens, at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 7 : 1))), '+')
 							has_open_end = true;
 						else
 							throw 'hyphen or open end (+) in time range expected';
 					}
 
-					if (starts_with_normal_time)
+					if (has_normal_time[0])
 						var minutes_from = tokens[at+has_time_var_calc[0]][0] * 60 + tokens[at+has_time_var_calc[0]+2][0];
 					else
 						var minutes_from = word_replacement[tokens[at+has_time_var_calc[0]][0]];
@@ -311,16 +311,16 @@
 						minutes_from += time_var_add[0];
 					}
 
-					var at_end_time = at+(starts_with_normal_time ? 3 : (has_time_var_calc[0] ? 7 : 1))+1; // after '-'
+					var at_end_time = at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 7 : 1))+1; // after '-'
 					if (has_open_end) {
 						var minutes_to = minutes_from + 1;
 					} else {
-						var ends_with_normal_time = matchTokens(tokens, at_end_time, 'number', 'timesep', 'number');
+						has_normal_time[1] = matchTokens(tokens, at_end_time, 'number', 'timesep', 'number');
 						has_time_var_calc[1]      = matchTokens(tokens, at_end_time, '(', 'timevar');
-						if (!ends_with_normal_time && !matchTokens(tokens, at_end_time, 'timevar') && !has_time_var_calc[1])
+						if (!has_normal_time[1] && !matchTokens(tokens, at_end_time, 'timevar') && !has_time_var_calc[1])
 							throw 'time range does not continue as expected';
 
-						if (ends_with_normal_time)
+						if (has_normal_time[1])
 							var minutes_to = tokens[at_end_time][0] * 60 + tokens[at_end_time+2][0]
 						else
 							var minutes_to = word_replacement[tokens[at_end_time+has_time_var_calc[1]][0]];
@@ -349,26 +349,26 @@
 					if (minutes_to > minutes_in_day * 2)
 						throw 'Time spanning more than two midnights not supported';
 
-					var start_timevar, end_timevar;
+					var timevar_string = [];
 					if (typeof lat != 'undefined') { // lon will also be defined (see above)
-						if (!starts_with_normal_time || !ends_with_normal_time) // has_open_end does not count here
+						if (!has_normal_time[0] || !has_normal_time[1]) // has_open_end does not count here
 							week_stable = false;
-						if (!starts_with_normal_time)
-							start_timevar = tokens[at+has_time_var_calc[0]][0];
-						if (!ends_with_normal_time)
-							end_timevar   = tokens[at_end_time+has_time_var_calc[1]][0]
+						if (!has_normal_time[0])
+							timevar_string[0] = tokens[at+has_time_var_calc[0]][0];
+						if (!has_normal_time[1])
+							timevar_string[1]   = tokens[at_end_time+has_time_var_calc[1]][0]
 					} // else: we can not calculate exact times so we use the already applied constants (word_replacement).
 
-					if (minutes_to > minutes_in_day) { // ends_with_normal_time must be true
-						selectors.time.push(function(minutes_from, minutes_to, start_timevar, end_timevar) { return function(date) {
+					if (minutes_to > minutes_in_day) { // has_normal_time[1] must be true
+						selectors.time.push(function(minutes_from, minutes_to, timevar_string) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
 
-							if (start_timevar) {
-								var date_from = eval('SunCalc.getTimes(date, lat, lon).' + start_timevar);
+							if (timevar_string[0]) {
+								var date_from = eval('SunCalc.getTimes(date, lat, lon).' + timevar_string[0]);
 								minutes_from  = date_from.getHours() * 60 + date_from.getMinutes();
 							}
-							if (end_timevar) {
-								var date_to = eval('SunCalc.getTimes(date, lat, lon).' + end_timevar);
+							if (timevar_string[1]) {
+								var date_to = eval('SunCalc.getTimes(date, lat, lon).' + timevar_string[1]);
 								minutes_to  = date_to.getHours() * 60 + date_to.getMinutes();
 								minutes_to += minutes_in_day;
 								// Needs to be added because it was added by
@@ -380,17 +380,17 @@
 								return [false, dateAtDayMinutes(date, minutes_from)];
 							else
 								return [true, dateAtDayMinutes(date, minutes_to)];
-						}}(minutes_from, minutes_to, start_timevar, end_timevar));
+						}}(minutes_from, minutes_to, timevar_string));
 
-						selectors.wraptime.push(function(minutes_from, minutes_to, start_timevar, end_timevar) { return function(date) {
+						selectors.wraptime.push(function(minutes_from, minutes_to, timevar_string) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
 
-							if (start_timevar) {
-								var date_from = eval('SunCalc.getTimes(date, lat, lon).' + start_timevar);
+							if (timevar_string[0]) {
+								var date_from = eval('SunCalc.getTimes(date, lat, lon).' + timevar_string[0]);
 								minutes_from  = date_from.getHours() * 60 + date_from.getMinutes();
 							}
-							if (end_timevar) {
-								var date_to = eval('SunCalc.getTimes(date, lat, lon).' + end_timevar);
+							if (timevar_string[1]) {
+								var date_to = eval('SunCalc.getTimes(date, lat, lon).' + timevar_string[1]);
 								minutes_to  = date_to.getHours() * 60 + date_to.getMinutes();
 								// minutes_in_day does not need to be added.
 								// For normal times in it was added in: if (minutes_to < // minutes_from)
@@ -403,17 +403,17 @@
 								return [true, dateAtDayMinutes(date, minutes_to)];
 							else
 								return [false, undefined];
-						}}(minutes_from, minutes_to - minutes_in_day, start_timevar, end_timevar));
+						}}(minutes_from, minutes_to - minutes_in_day, timevar_string));
 					} else {
-						selectors.time.push(function(minutes_from, minutes_to, start_timevar, end_timevar) { return function(date) {
+						selectors.time.push(function(minutes_from, minutes_to, timevar_string) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
 
-							if (start_timevar) {
-								var date_from = eval('SunCalc.getTimes(date, lat, lon).' + start_timevar);
+							if (timevar_string[0]) {
+								var date_from = eval('SunCalc.getTimes(date, lat, lon).' + timevar_string[0]);
 								minutes_from  = date_from.getHours() * 60 + date_from.getMinutes();
 							}
-							if (end_timevar) {
-								var date_to = eval('SunCalc.getTimes(date, lat, lon).' + end_timevar);
+							if (timevar_string[1]) {
+								var date_to = eval('SunCalc.getTimes(date, lat, lon).' + timevar_string[1]);
 								minutes_to  = date_to.getHours() * 60 + date_to.getMinutes();
 							}
 
@@ -423,10 +423,10 @@
 								return [true, dateAtDayMinutes(date, minutes_to)];
 							else
 								return [false, dateAtDayMinutes(date, minutes_from + minutes_in_day)];
-						}}(minutes_from, minutes_to, start_timevar, end_timevar));
+						}}(minutes_from, minutes_to, timevar_string));
 					}
 
-					at = at_end_time + (ends_with_normal_time ? 3 : (has_time_var_calc[1] ? 7 : 1));
+					at = at_end_time + (has_normal_time[1] ? 3 : (has_time_var_calc[1] ? 7 : 1));
 				} else {
 					throw 'Unexpected token in time range: "' + tokens[at][0] + '"';
 				}
