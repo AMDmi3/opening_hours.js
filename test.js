@@ -89,10 +89,10 @@ test.addTest('Variable times e.g. sunrise, sunset over a few days', [
 test.addTest('Variable times calculation with coordinates', [
 		'(sunrise+02:00)-sunset',
 	], '2012.10.01 0:00', '2012.10.04 0:00', [
-                [ '2012.10.01 07:22', '2012.10.01 19:00' ],
-                [ '2012.10.02 07:23', '2012.10.02 18:58' ],
-                [ '2012.10.03 07:25', '2012.10.03 18:56' ],
-	], 1000 * 60 * ((60 * 11 + 38) + (60 * 11 + 37 - 2) + (60 * 11 + 35 - 4)), 0, false, nominatiomTestJSON, 'not last test');
+                [ '2012.10.01 09:22', '2012.10.01 19:00' ],
+                [ '2012.10.02 09:23', '2012.10.02 18:58' ],
+                [ '2012.10.03 09:25', '2012.10.03 18:56' ],
+	], 1000 * 60 * ((60 * 11 + 38) + (60 * 11 + 37 - 2) + (60 * 11 + 35 - 4) - 60 * 2 * 3), 0, false, nominatiomTestJSON, 'last test');
 
 test.addTest('Variable times which moves over fix end time', [
 		'sunrise-08:02',

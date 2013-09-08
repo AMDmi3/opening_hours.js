@@ -305,10 +305,10 @@
 					else
 						var minutes_from = word_replacement[tokens[at+has_time_var_calc[0]][0]];
 
-					var time_var_add = [];
+					var timevar_add = [ 0, 0 ];
 					if (has_time_var_calc[0]) {
-						time_var_add[0] = parseTimevarCalc(tokens, at);
-						minutes_from += time_var_add[0];
+						timevar_add[0] = parseTimevarCalc(tokens, at);
+						minutes_from += timevar_add[0];
 					}
 
 					var at_end_time = at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 7 : 1))+1; // after '-'
@@ -326,17 +326,17 @@
 							var minutes_to = word_replacement[tokens[at_end_time+has_time_var_calc[1]][0]];
 
 						if (has_time_var_calc[1]) {
-							time_var_add[1] = parseTimevarCalc(tokens, at_end_time);
-							minutes_to += time_var_add[1];
+							timevar_add[1] = parseTimevarCalc(tokens, at_end_time);
+							minutes_to += timevar_add[1];
 						}
-					}
 
-					// this shortcut makes always-open range check faster
-					// and is also useful in tests, as it doesn't produce
-					// extra check points which may hide errors in other
-					// selectors
-					if (minutes_from == 0 && minutes_to == minutes_in_day)
-						selectors.time.push(function(date) { return [true]; });
+						// this shortcut makes always-open range check faster
+						// and is also useful in tests, as it doesn't produce
+						// extra check points which may hide errors in other
+						// selectors
+						if (minutes_from == 0 && minutes_to == minutes_in_day)
+							selectors.time.push(function(date) { return [true]; });
+					}
 
 					// normalize minutes into range
 					// XXX: what if it's further than tomorrow?
@@ -360,16 +360,16 @@
 					} // else: we can not calculate exact times so we use the already applied constants (word_replacement).
 
 					if (minutes_to > minutes_in_day) { // has_normal_time[1] must be true
-						selectors.time.push(function(minutes_from, minutes_to, timevar_string) { return function(date) {
+						selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
 
 							if (timevar_string[0]) {
 								var date_from = eval('SunCalc.getTimes(date, lat, lon).' + timevar_string[0]);
-								minutes_from  = date_from.getHours() * 60 + date_from.getMinutes();
+								minutes_from  = date_from.getHours() * 60 + date_from.getMinutes() + timevar_add[0];
 							}
 							if (timevar_string[1]) {
 								var date_to = eval('SunCalc.getTimes(date, lat, lon).' + timevar_string[1]);
-								minutes_to  = date_to.getHours() * 60 + date_to.getMinutes();
+								minutes_to  = date_to.getHours() * 60 + date_to.getMinutes() + timevar_add[1];
 								minutes_to += minutes_in_day;
 								// Needs to be added because it was added by
 								// normal times in: if (minutes_to < // minutes_from)
@@ -380,18 +380,18 @@
 								return [false, dateAtDayMinutes(date, minutes_from)];
 							else
 								return [true, dateAtDayMinutes(date, minutes_to)];
-						}}(minutes_from, minutes_to, timevar_string));
+						}}(minutes_from, minutes_to, timevar_string, timevar_add));
 
-						selectors.wraptime.push(function(minutes_from, minutes_to, timevar_string) { return function(date) {
+						selectors.wraptime.push(function(minutes_from, minutes_to, timevar_string, timevar_add) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
 
 							if (timevar_string[0]) {
 								var date_from = eval('SunCalc.getTimes(date, lat, lon).' + timevar_string[0]);
-								minutes_from  = date_from.getHours() * 60 + date_from.getMinutes();
+								minutes_from  = date_from.getHours() * 60 + date_from.getMinutes() + timevar_add[0];
 							}
 							if (timevar_string[1]) {
 								var date_to = eval('SunCalc.getTimes(date, lat, lon).' + timevar_string[1]);
-								minutes_to  = date_to.getHours() * 60 + date_to.getMinutes();
+								minutes_to  = date_to.getHours() * 60 + date_to.getMinutes() + timevar_add[1];
 								// minutes_in_day does not need to be added.
 								// For normal times in it was added in: if (minutes_to < // minutes_from)
 								// above the selector construction and
@@ -403,18 +403,18 @@
 								return [true, dateAtDayMinutes(date, minutes_to)];
 							else
 								return [false, undefined];
-						}}(minutes_from, minutes_to - minutes_in_day, timevar_string));
+						}}(minutes_from, minutes_to - minutes_in_day, timevar_string, timevar_add));
 					} else {
-						selectors.time.push(function(minutes_from, minutes_to, timevar_string) { return function(date) {
+						selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
 
 							if (timevar_string[0]) {
 								var date_from = eval('SunCalc.getTimes(date, lat, lon).' + timevar_string[0]);
-								minutes_from  = date_from.getHours() * 60 + date_from.getMinutes();
+								minutes_from  = date_from.getHours() * 60 + date_from.getMinutes() + timevar_add[0];
 							}
 							if (timevar_string[1]) {
 								var date_to = eval('SunCalc.getTimes(date, lat, lon).' + timevar_string[1]);
-								minutes_to  = date_to.getHours() * 60 + date_to.getMinutes();
+								minutes_to  = date_to.getHours() * 60 + date_to.getMinutes() + timevar_add[1];
 							}
 
 							if (ourminutes < minutes_from)
@@ -423,7 +423,7 @@
 								return [true, dateAtDayMinutes(date, minutes_to)];
 							else
 								return [false, dateAtDayMinutes(date, minutes_from + minutes_in_day)];
-						}}(minutes_from, minutes_to, timevar_string));
+						}}(minutes_from, minutes_to, timevar_string, timevar_add));
 					}
 
 					at = at_end_time + (has_normal_time[1] ? 3 : (has_time_var_calc[1] ? 7 : 1));
