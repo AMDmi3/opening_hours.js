@@ -8,12 +8,21 @@ import codecs
 from termcolor import colored
 import signal
 import subprocess
+import urllib
 
 page_width = 20
 
 file = 'export.opening_hours.json'
 if len(sys.argv) > 1:
     file = sys.argv[1]
+
+key = ''
+try:
+    key  = re.match('\Aexport\.(.*)\.json', file).group(1);
+except:
+    sys.stderr.write('Did not match the key, URL will not work')
+overpass_turbo_url = 'http://overpass-turbo.eu/?template=key-value&key=%s&value=' % key
+taginfo_url        = 'http://taginfo.openstreetmap.org/tags/%s=' % key
 
 def signal_handler(signal, frame):
     print('\nBye')
@@ -76,11 +85,11 @@ while True:
             total_passed       = ' (%d passed)' % total_passed
         print('Matched %d%s different values%s%s' % (len(matched), passed_diff_values, ('' if len(matched) == 1 else 's'),
             (', total in use: %d%s' % (total_in_use, total_passed) if len(matched) != 1 else '')))
-        print_values = raw_input('Print values (passable answers: "yes" for all values, "passed" or "failed")? ')
+        print_values = raw_input('Print values (passable answers: "yes" for all values, "passed" or "failed", additionally "show", "taginfo")? ')
         if (len(matched) < page_width or re.match(r'^(y|p|f)', print_values, re.I)):
             printed_values = 1
-            print_all    = re.match(r'^y', print_values, re.I)
-            print_passed = re.match(r'^p', print_values, re.I)
+            print_all    = re.match(r'y', print_values, re.I)
+            print_passed = re.match(r'p', print_values, re.I)
             for taginfo_hash, res in matched:
                 if printed_values % page_width == 0 and not re.match(r'^(y.*|)$', raw_input('Continue? '), re.I):
                     break
@@ -96,7 +105,13 @@ while True:
                 else:
                     passed_failed = colored('Failed', 'red')
                 if (print_all or (print_passed != None) == oh_ok):
-                    print 'Matched (count: %d, status: %s): %s%s%s' % (taginfo_hash['count'], passed_failed, res.group('pre'), colored(res.group('match'), 'blue'), res.group('post'))
+                    show_url    = ''
+                    tag_url = ''
+                    if (re.search(r'show', print_values, re.I)):
+                        show_url = ', show: %s%s' % (overpass_turbo_url, urllib.quote(taginfo_hash['value']))
+                    if (re.search(r'tag', print_values, re.I)):
+                        tag_url = ', taginfo: %s%s' % (taginfo_url, urllib.quote(taginfo_hash['value']))
+                    print 'Matched (count: %d, status: %s%s%s): %s%s%s' % (taginfo_hash['count'], passed_failed, show_url, tag_url, res.group('pre'), colored(res.group('match'), 'blue'), res.group('post'))
                     printed_values += 1
         else:
             continue
