@@ -308,10 +308,6 @@
 						var minutes_to = minutes_from + 1;
 					}
 
-					if (!starts_with_normal_time || !ends_with_normal_time) {
-						week_stable = false;
-					}
-
 					// this shortcut makes always-open range check faster
 					// and is also useful in tests, as it doesn't produce
 					// extra check points which may hide errors in other
@@ -332,6 +328,8 @@
 
 					var start_timevar, end_timevar;
 					if (typeof lat != 'undefined') { // lon will also be defined (see above)
+						if (!starts_with_normal_time || !ends_with_normal_time) // has_open_end does not count here
+							week_stable = false;
 						if (!starts_with_normal_time)
 							start_timevar = tokens[at][0];
 						if (!ends_with_normal_time)
