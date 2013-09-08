@@ -286,21 +286,31 @@
 			for (; at < tokens.length; at++) {
 				var starts_with_normal_time = matchTokens(tokens, at, 'number', 'timesep', 'number');
 				if (starts_with_normal_time || matchTokens(tokens, at, 'timevar')) { // relying on the fact that always *one* of them is true
-					if (!matchTokens(tokens, at+(starts_with_normal_time ? 3 : 1), '-'))
-						throw 'hyphen in time range expected';
+					var has_open_end = false;
+					if (!matchTokens(tokens, at+(starts_with_normal_time ? 3 : 1), '-')) {
+						if (matchTokens(tokens, at+(starts_with_normal_time ? 3 : 1), 'openend'))
+							has_open_end = true;
+						else
+							throw 'hyphen or open end (+) in time range expected';
+					}
 
-					var ends_with_normal_time = matchTokens(tokens, at+(starts_with_normal_time ? 3 : 1)+1, 'number', 'timesep', 'number');
-					if (!ends_with_normal_time && !matchTokens(tokens, at+(starts_with_normal_time ? 3 : 1)+1, 'timevar'))
-						throw 'time range does not continue as expected';
+					var minutes_from = starts_with_normal_time ? tokens[at][0] * 60 + tokens[at+2][0] : word_replacement[tokens[at][0]];
+
+					if (!has_open_end) {
+						var ends_with_normal_time = matchTokens(tokens, at+(starts_with_normal_time ? 3 : 1)+1, 'number', 'timesep', 'number');
+						if (!ends_with_normal_time && !matchTokens(tokens, at+(starts_with_normal_time ? 3 : 1)+1, 'timevar'))
+							throw 'time range does not continue as expected';
+
+						var minutes_to   = ends_with_normal_time
+							? tokens[at+(starts_with_normal_time ? 3 : 1)+1][0] * 60 + tokens[at+(starts_with_normal_time ? 3 : 1)+3][0]
+							: word_replacement[tokens[at+(starts_with_normal_time ? 3 : 1)+1][0]];
+					} else { // open end
+						var minutes_to = minutes_from + 1;
+					}
 
 					if (!starts_with_normal_time || !ends_with_normal_time) {
 						week_stable = false;
 					}
-
-					var minutes_from = starts_with_normal_time ? tokens[at][0] * 60 + tokens[at+2][0] : word_replacement[tokens[at][0]];
-					var minutes_to   = ends_with_normal_time
-						? tokens[at+(starts_with_normal_time ? 3 : 1)+1][0] * 60 + tokens[at+(starts_with_normal_time ? 3 : 1)+3][0]
-						: word_replacement[tokens[at+(starts_with_normal_time ? 3 : 1)+1][0]];
 
 					// this shortcut makes always-open range check faster
 					// and is also useful in tests, as it doesn't produce
@@ -396,10 +406,6 @@
 					}
 
 					at += (starts_with_normal_time ? 3 : 1) + 1 + (ends_with_normal_time ? 3 : 1);
-				} else if (matchTokens(tokens, at, 'number', 'timesep', 'number', 'openend')) {
-					var minutes_from = tokens[at][0] * 60 + tokens[at+2][0];
-					throw 'Open end times not yet supported';
-					at += 4;
 				} else {
 					throw 'Unexpected token in time range: "' + tokens[at][0] + '"';
 				}

@@ -34,12 +34,18 @@ test.addTest('Time intervals', [
 		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true);
 
+test.addTest('Open end', [ 'Mo 17:00+',
+		'17:00+',
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+                [ '2012.10.01 17:00', '2012.10.01 17:01' ],
+	], 1000 * 60 * 1, 0, true);
+
 test.addTest('Variable times e.g. dawn, dusk', [
 		'Mo dawn-dusk',
 		'dawn-dusk',
 	], '2012.10.01 0:00', '2012.10.02 0:00', [
                 [ '2012.10.01 06:50', '2012.10.01 19:32' ],
-	], 1000 * 60 * (60 * 12 + 10 + 32), 0, false, nominatiomTestJSON);
+	], 1000 * 60 * (60 * 12 + 10 + 32), 0, false, nominatiomTestJSON, 'not last test');
 
 test.addTest('Variable times e.g. sunrise, sunset', [
 		'Mo sunrise-sunset',
@@ -160,7 +166,7 @@ test.addTest('Time ranges spanning midnight', [
 		[ '2012.10.06 22:00', '2012.10.07 02:00' ],
 		[ '2012.10.07 22:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * 4 * 7, 0, true, nominatiomTestJSON);
-/*
+
 test.addTest('Time ranges spanning midnight with date overwriting', [
 		'22:00-02:00; Tu 12:00-14:00',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -597,7 +603,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		' ', // empty string
 		"\n", // newline
 	]);
-*/
+
 process.exit(test.run() ? 0 : 1);
 
 //======================================================================
@@ -748,7 +754,13 @@ function opening_hours_test() {
 		return success == tests_length;
 	}
 
-	this.addTest = function(name, values, from, to, expected_intervals, expected_duration, expected_unknown_duration, expected_weekstable, nominatiomJSON) {
+    this.last = false; // If set to true, no more tests are added to the testing queue.
+    // This might be useful for testing to avoid to comment tests out and something like that …
+
+	this.addTest = function(name, values, from, to, expected_intervals, expected_duration, expected_unknown_duration, expected_weekstable, nominatiomJSON, last) {
+        if (this.last == true) return;
+        if (last === 'last test') this.last = true;
+
 		for (var expected_interval = 0; expected_interval < expected_intervals.length; expected_interval++) {
 			// Set default of unknown to false. If you expect something else you
 			// will have to specify it.
@@ -762,7 +774,10 @@ function opening_hours_test() {
 				tests.push([name, values[value], from, to, expected_intervals, [ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON]);
 	}
 
-	this.addShouldFail = function(name, values) {
+	this.addShouldFail = function(name, values, last) {
+        if (this.last == true) return;
+        if (last === 'last test') this.last = true;
+
 		if (typeof values === 'string')
 			tests_should_fail.push([name, values]);
 		else
