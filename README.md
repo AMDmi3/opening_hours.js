@@ -93,7 +93,7 @@ function logState(startString, endString, oh, past) {
 
   Constructs opening_hours object, given the opening_hours tag value.
 
-  In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges](#time-ranges)) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates of the facility (where the opening hours do apply) anything else can be queried for using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim][] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1) and you are good to go. Note that this second parameter is optional.
+  In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges](#time-ranges)) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for by using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter which should be the returned JSON from [Nominatim][] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1) and you are good to go. Note that this second parameter is optional.
 
   Throws an error string if the expression is malformed or unsupported.
 
@@ -220,7 +220,9 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * **EXT:** Supports dot as time separator, so ```12.00-16.00``` is valid (this is used quite widely)
 * **EXT:** Supports space as time interval separator, i.e. ```Mo 12:00-14:00,16:00-20:00``` and ```Mo 12:00-14:00 16:00-20:00``` are the same thing
 * Complete support for dawn/sunrise/sunset/dusk keywords (```10:00-sunset```, ```dawn-dusk```). To calculate the correct values, the latitude and longitude is required which is included in the JSON returned by [Nominatim] \(see in the [Library API](#library-api) how to provide it\). The calculation is done by [suncalc][].
- If the coordinates are missing, constant times will be used (dawn: '05:30', sunrise: '06:00', sunset: '18:00', dusk: '18:30')
+ If the coordinates are missing, constant times will be used (dawn: '05:30', sunrise: '06:00', sunset: '18:00', dusk: '18:30').
+ If the end time (second time in time range) is near the sunrise for instance (```sunrise-08:00```) than it can happen that the sunrise would actually be after 08:00 which would normally be interpreded as as time spanning midnight. But with variable times, this only partly applies. The rule here is that if the end time is lesser than the constant time (or the actual time) for the variable time in the start time (in that example sunrise: '06:00') then it is interpreted as the end time spanning over midnight. A second thing to notice is that if the variable time becomes greater than the end time and the end time is greater than the constant time than this time range will be ignored (e.g ```sunrise-08:00``` becomes ```08:03-08:00``` for one day, it  is ignored for this day).
+
 * *Doesn't support open end (```10:00+```)*
 
 [suncalc]: https://github.com/mourner/suncalc

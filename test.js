@@ -6,6 +6,9 @@ var test = new opening_hours_test();
 // http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1
 var nominatiomTestJSON = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
 
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=60.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1
+var nominatiomTestJSON_sunrise_below_default = {"place_id":"71977948","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"118145917","lat":"60.5467949","lon":"9.8269589","display_name":"243, Ringerike, Buskerud, Norway","address":{"road":"243","county":"Ringerike","state":"Buskerud","country":"Norway","country_code":"no"}}
+
 test.addTest('Time intervals', [
 		'10:00-12:00',
 		'10:00-12:00;',
@@ -53,6 +56,65 @@ test.addTest('Variable times e.g. sunrise, sunset over a few days', [
                 [ '2012.10.03 07:25', '2012.10.03 18:56' ],
 	], 1000 * 60 * ((60 * 11 + 38) + (60 * 11 + 37 - 2) + (60 * 11 + 35 - 4)), 0, false, nominatiomTestJSON);
 
+test.addTest('Variable times which moves over fix end time', [
+		'sunrise-08:02',
+	], '2013.01.26 0:00', '2013.02.03 0:00', [
+                // [ '2013.01.26 08:03', '2013.01.26 08:02' ], // Ignored because it would be interpreted as time range spanning midnight
+                // [ '2013.01.27 08:02', '2013.01.27 08:02' ], // which is probably not what you want.
+                [ '2013.01.28 08:00', '2013.01.28 08:02' ],
+                [ '2013.01.29 07:59', '2013.01.29 08:02' ],
+                [ '2013.01.30 07:58', '2013.01.30 08:02' ],
+                [ '2013.01.31 07:56', '2013.01.31 08:02' ],
+                [ '2013.02.01 07:55', '2013.02.01 08:02' ],
+                [ '2013.02.02 07:54', '2013.02.02 08:02' ],
+	], 1000 * 60 * (6 * 2 + 1 + 2 + 4 + 5 + 6), 0, false, nominatiomTestJSON);
+
+test.addTest('Variable times which moves over fix end time', [
+		'sunrise-08:00',
+	], '2013.01.26 0:00', '2013.02.03 0:00', [
+                [ '2013.01.29 07:59', '2013.01.29 08:00' ],
+                [ '2013.01.30 07:58', '2013.01.30 08:00' ],
+                [ '2013.01.31 07:56', '2013.01.31 08:00' ],
+                [ '2013.02.01 07:55', '2013.02.01 08:00' ],
+                [ '2013.02.02 07:54', '2013.02.02 08:00' ],
+	], 1000 * 60 * (1 + 2 + 4 + 5 + 6), 0, false, nominatiomTestJSON);
+
+test.addTest('Variable times which moves over fix end time', [
+		'sunrise-07:58',
+	], '2013.01.26 0:00', '2013.02.03 0:00', [
+                [ '2013.01.31 07:56', '2013.01.31 07:58' ],
+                [ '2013.02.01 07:55', '2013.02.01 07:58' ],
+                [ '2013.02.02 07:54', '2013.02.02 07:58' ],
+	], 1000 * 60 * (2 + 3 + 4), 0, false, nominatiomTestJSON);
+
+test.addTest('Variable times which moves over fix end time', [
+		'sunrise-06:00',
+	], '2013.01.26 0:00', '2013.02.03 0:00', [
+            // Not open in range. Constant sunrise <= end time < from time
+	], 0, 0, false, nominatiomTestJSON);
+
+test.addTest('Variable times which moves over fix end time', [
+		'sunrise-05:59', // end time < constant time < from time
+	], '2013.01.26 0:00', '2013.01.28 0:00', [
+        [ '2013.01.26 00:00', '2013.01.26 05:59' ],
+        [ '2013.01.26 08:02', '2013.01.27 05:59' ],
+        [ '2013.01.27 08:00', '2013.01.28 00:00' ],
+	], 1000 * 60 * ((60 * 5 + 59) + (60 * 22 - 3) + (60 * 16)), 0, false, nominatiomTestJSON);
+
+test.addTest('Variable times which moves over fix end time', [
+		'sunrise-06:00', // from time < constant time <= end time
+	], '2013.04.15 0:00', '2013.04.19 0:00', [
+                [ '2013.04.18 05:57', '2013.04.18 06:00' ],
+	], 1000 * 60 * 3, 0, false, nominatiomTestJSON_sunrise_below_default);
+
+test.addTest('Variable times which moves over fix end time', [
+		'sunrise-05:59', // from time < end time <= constant time
+	], '2013.04.15 0:00', '2013.04.19 0:00', [
+                // something else
+                [ '2013.04.18 05:57', '2013.04.18 06:00' ],
+                [ '2013.04.18 05:57', '2013.04.18 06:00' ],
+	], 1000 * 60 * 3, 0, false, nominatiomTestJSON_sunrise_below_default);
+
 test.addTest('Variable times spanning midnight', [
 		'sunset-sunrise',
 		'sunset-sunrise Mo-Su',
@@ -61,6 +123,17 @@ test.addTest('Variable times spanning midnight', [
                 [ '2012.10.01 19:00', '2012.10.02 07:23' ],
                 [ '2012.10.02 18:58', '2012.10.03 00:00' ],
 	], 1000 * 60 * ((60 * 7 + 22) + (60 * (5 + 7) + 23) + (60 * 5 + 2)), 0, false, nominatiomTestJSON);
+
+test.addTest('Variable times spanning midnight', [
+		'sunset-sunrise',
+		'sunset-sunrise Mo-Su',
+		// '19:00-07:22 Mo-Su', // also works but is week stable
+		'sunset-07:22 Mo-Su',
+		'19:00-sunrise Mo-Su',
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+                [ '2012.10.01 00:00', '2012.10.01 07:22' ],
+                [ '2012.10.01 19:00', '2012.10.02 00:00' ],
+	], 1000 * 60 * ((60 * 7 + 22) + (60 * 5)), 0, false, nominatiomTestJSON);
 
 test.addTest('Time ranges spanning midnight', [
 		'22:00-02:00',
@@ -75,7 +148,7 @@ test.addTest('Time ranges spanning midnight', [
 		[ '2012.10.06 22:00', '2012.10.07 02:00' ],
 		[ '2012.10.07 22:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * 4 * 7, 0, true, nominatiomTestJSON);
-
+/*
 test.addTest('Time ranges spanning midnight with date overwriting', [
 		'22:00-02:00; Tu 12:00-14:00',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -512,7 +585,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		' ', // empty string
 		"\n", // newline
 	]);
-
+*/
 process.exit(test.run() ? 0 : 1);
 
 //======================================================================
