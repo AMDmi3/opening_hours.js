@@ -121,8 +121,9 @@ while True:
         print('Matched %d%s different values%s%s' % (len(matched), passed_diff_values, ('' if len(matched) == 1 else 's'),
             (', total in use: %d%s' % (total_in_use, total_passed) if len(matched) != 1 else '')))
         print_values = 'y'
-        if len(matched) > page_width:
-            print_values = raw_input('Print values (passable answers: "yes" for all values, "passed" or "failed", additionally "show", "taginfo")? ')
+        # if len(matched) > page_width: ## you may want to use the "taginfo" flag
+        print_values = raw_input('Print values (passable answers: "yes" for all values, "passed" or "failed", additionally "show", "taginfo")? ')
+
         if re.match(r'^(y|p|f)', print_values, re.I):
             printed_values = 1
             print_all    = re.match(r'y', print_values, re.I)

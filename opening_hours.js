@@ -21,6 +21,20 @@
 			sunset  : 60 * 18,
 			dusk    : 60 * 18 + 30,
 		};
+		var holidays = {
+			'de': {
+				'PH': {
+					001: 'Neujahrstag', // month 1, day 1
+					401: 'Tag der Arbeit', // month 5, day 1
+				},
+				'Baden-W\u00fcrttemberg': {
+					// 'PH': {
+					// 	401: 'Tag der Arbeit', // month 5, day 1
+					// },
+				}
+
+			}
+		}
 
 		var minutes_in_day = 60 * 24;
 		var msec_in_day    = 1000 * 60 * minutes_in_day;
@@ -49,13 +63,15 @@
 		// Evaluate additional information which can be given. They are
 		// required to reasonably calculate 'sunrise' and so on and to use the
 		// correct holidays.
-		var country_code, lat, lon;
+		var location_cc, location_state, lat, lon;
 		if (typeof nominatiomJSON != 'undefined') {
-			if (typeof nominatiomJSON.address != 'undefined'
-					&& typeof nominatiomJSON.address.country_code != 'undefined')
-				var country_code = nominatiomJSON.address;
+			if (typeof nominatiomJSON.address != 'undefined' &&
+					typeof nominatiomJSON.address.state != 'undefined') { // country_code will be tested later …
+				location_cc    = nominatiomJSON.address.country_code;
+				location_state = nominatiomJSON.address.state;
+			}
 
-			if (typeof nominatiomJSON.lat != 'undefined' && typeof nominatiomJSON.lon != 'undefined') {
+			if (typeof nominatiomJSON.lon != 'undefined') { // lat will be tested later …
 				var lat = nominatiomJSON.lat;
 				var lon = nominatiomJSON.lon;
 			}
@@ -81,6 +97,7 @@
 
 				// Date selectors
 				weekday: [],
+				holiday: [],
 				week: [],
 				month: [],
 				monthday: [],
@@ -96,6 +113,8 @@
 
 			parseGroup(tokens, 0, selectors);
 
+			if (selectors.holiday.length > 0)
+				selectors.date.push(selectors.holiday);
 			if (selectors.month.length > 0)
 				selectors.date.push(selectors.month);
 			if (selectors.monthday.length > 0)
@@ -161,7 +180,7 @@
 					value = value.substr(2);
 				} else if (tmp = value.match(/^(?:PH|SH)/i)) {
 					// special day name (holidays)
-					tokens.push([weekdays[tmp[0].toUpperCase()], 'holiday']);
+					tokens.push([tmp[0].toUpperCase(), 'holiday']);
 					value = value.substr(2);
 				} else if (tmp = value.match(/^\d+/)) {
 					// number
@@ -222,6 +241,9 @@
 				// console.log('Parsing at position '+ at +': '+tokens[at]);
 				if (matchTokens(tokens, at, 'weekday')) {
 					at = parseWeekdayRange(tokens, at, selectors);
+				} else if (matchTokens(tokens, at, 'holiday')) {
+					at = parseHoliday(tokens, at, selectors);
+					week_stable = false;
 				} else if (matchTokens(tokens, at, 'month', 'number') || matchTokens(tokens, at, 'year', 'month', 'number')) {
 					at = parseMonthdayRange(tokens, at);
 					week_stable = false;
@@ -592,6 +614,58 @@
 		function dateAtNextWeekday(date, day) {
 			var delta = day - date.getDay();
 			return new Date(date.getFullYear(), date.getMonth(), date.getDate() + delta + (delta < 0 ? 7 : 0));
+		}
+
+		//======================================================================
+		// Holiday parser (PH,SH)
+		//======================================================================
+		function parseHoliday(tokens, at, selectors) {
+			for (; at < tokens.length; at++) {
+				if (matchTokens(tokens, at, 'holiday')) {
+					var applying_holidays = getMatchingHoliday(tokens[at][0]);
+					// console.log(applying_holidays);
+
+					selectors.holiday.push(function() { return function(date) {
+						var outmonth_and_day_num = date.getMonth() * 100 + date.getDate();
+						for (var day in applying_holidays) {
+							if (outmonth_and_day_num < day)
+								return [ false, new Date(date.getFullYear(), Math.floor(day / 100), Math.floor(day % 100)) ];
+							else if (outmonth_and_day_num == day)
+								return [true, new Date(date.getFullYear(), Math.floor(day / 100), Math.floor(day % 100) + 1) ];
+						}
+						return [ false ];
+
+					}}());
+
+					at += 1;
+				} else {
+					throw 'Unexpected token (holiday parser): "' + tokens[at] + '"';
+				}
+
+				if (!matchTokens(tokens, at, ','))
+					break;
+			}
+
+			return at;
+		}
+
+		function getMatchingHoliday(type_of_holidays) {
+			if (typeof location_cc != 'undefined') {
+				if (holidays.hasOwnProperty(location_cc)) {
+					if (typeof location_state != 'undefined'
+							&& holidays[location_cc][location_state]
+							&& holidays[location_cc][location_state][type_of_holidays])
+						return holidays[location_cc][location_state][type_of_holidays];
+					else if (holidays[location_cc][type_of_holidays])
+						return holidays[location_cc][type_of_holidays];
+					else
+						throw 'Holidays ' + type_of_holidays + ' are not defined for country ' + location_cc + '. Please add them.';
+				} else {
+					throw 'No holidays are defined for country ' + location_cc + '. Please add them.';
+				}
+			} else { // we have now idea which holidays do apply because the country code is not provide
+				throw 'Country code missing which is needed to select the correct holidays (see README how to provide it)'
+			}
 		}
 
 		//======================================================================

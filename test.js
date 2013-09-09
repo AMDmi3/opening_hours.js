@@ -160,6 +160,13 @@ test.addTest('Variable times spanning midnight', [
                 [ '2012.10.02 18:58', '2012.10.03 00:00' ],
 	], 1000 * 60 * ((60 * 7 + 22) + (60 * (5 + 7) + 23) + (60 * 5 + 2)), 0, false, nominatiomTestJSON);
 
+test.addTest('Variable days: public holidays', [
+		'PH',
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+	    [ '2012.01.01 00:00', '2012.01.02 00:00' ],
+	    [ '2012.05.01 00:00', '2012.05.02 00:00' ],
+	], 1000 * 60 * 60 * 24 * 2, 0, false, nominatiomTestJSON, 'last test');
+
 test.addTest('Variable times spanning midnight', [
 		'sunset-sunrise',
 		'sunset-sunrise Mo-Su',
