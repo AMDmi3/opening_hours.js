@@ -85,14 +85,19 @@ while True:
             total_passed       = ' (%d passed)' % total_passed
         print('Matched %d%s different values%s%s' % (len(matched), passed_diff_values, ('' if len(matched) == 1 else 's'),
             (', total in use: %d%s' % (total_in_use, total_passed) if len(matched) != 1 else '')))
-        print_values = raw_input('Print values (passable answers: "yes" for all values, "passed" or "failed", additionally "show", "taginfo")? ')
-        if (len(matched) < page_width or re.match(r'^(y|p|f)', print_values, re.I)):
+        print_values = 'y'
+        if len(matched) > page_width:
+            print_values = raw_input('Print values (passable answers: "yes" for all values, "passed" or "failed", additionally "show", "taginfo")? ')
+        if re.match(r'^(y|p|f)', print_values, re.I):
             printed_values = 1
             print_all    = re.match(r'y', print_values, re.I)
             print_passed = re.match(r'p', print_values, re.I)
             for taginfo_hash, res in matched:
-                if printed_values % page_width == 0 and not re.match(r'^(y.*|)$', raw_input('Continue? '), re.I):
-                    break
+                if printed_values % page_width == 0:
+                    printed_values += 1 # if nothing is printed in this iteration, the question would pop up again
+                                        # printed_values does already not match the real printed lines so how cares …
+                    if not re.match(r'^(y.*|)$', raw_input('Continue? '), re.I):
+                        break
                 oh.stdin.write(taginfo_hash['value'].encode("utf-8") + '\n')
                 oh_res = oh.stdout.readline().strip()
                 oh_ok  = False if oh_res[0] == '1' else True
@@ -105,13 +110,19 @@ while True:
                 else:
                     passed_failed = colored('Failed', 'red')
                 if (print_all or (print_passed != None) == oh_ok):
-                    show_url    = ''
-                    tag_url = ''
+                    show_url = ''
+                    tag_url  = ''
                     if (re.search(r'show', print_values, re.I)):
-                        show_url = ', show: %s%s' % (overpass_turbo_url, urllib.quote(taginfo_hash['value']))
+                        show_url = 'show: %s%s' % (overpass_turbo_url, urllib.quote(taginfo_hash['value']))
                     if (re.search(r'tag', print_values, re.I)):
-                        tag_url = ', taginfo: %s%s' % (taginfo_url, urllib.quote(taginfo_hash['value']))
-                    print 'Matched (count: %d, status: %s%s%s): %s%s%s' % (taginfo_hash['count'], passed_failed, show_url, tag_url, res.group('pre'), colored(res.group('match'), 'blue'), res.group('post'))
+                        tag_url = 'taginfo: %s%s' % (taginfo_url, urllib.quote(taginfo_hash['value']))
+                    print 'Matched (count: %d, status: %s): %s%s%s' % (taginfo_hash['count'], passed_failed, res.group('pre'), colored(res.group('match'), 'blue'), res.group('post'))
+                    if (show_url and tag_url):
+                        print ', '.join([show_url, tag_url])
+                    elif show_url:
+                        print show_url
+                    elif tag_url:
+                        print tag_url
                     printed_values += 1
         else:
             continue
