@@ -9,6 +9,41 @@ from termcolor import colored
 import signal
 import subprocess
 import urllib
+import readline
+
+histfile = '/tmp/opening_hours.regex.history'
+try:
+    readline.read_history_file(histfile)
+except IOError:
+    pass
+import atexit
+atexit.register(readline.write_history_file, histfile)
+
+class Completer:
+    def __init__(self, words):
+        self.words = words
+        self.prefix = None
+    def complete(self, prefix, index):
+        if prefix != self.prefix:
+            # we have a new prefix!
+            # find all words that start with this prefix
+            self.matching_words = [
+                w for w in self.words if w.startswith(prefix)
+                ]
+            self.prefix = prefix
+        try:
+            return self.matching_words[index]
+        except IndexError:
+            return None
+
+# a set of more or less interesting words
+std_regex = "PH", "SH", ".", "\((?:dusk|sun|dawn)[^)]*(?:-|\+)[^)]*\)" , '(?:dusk|sun|dawn).*hours'
+
+completer = Completer(std_regex)
+
+readline.parse_and_bind("tab: complete")
+readline.set_completer(completer.complete)
+
 
 page_width = 20
 
