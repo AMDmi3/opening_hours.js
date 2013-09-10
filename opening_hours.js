@@ -271,7 +271,7 @@
 					week_stable = false;
 				} else if (matchTokens(tokens, at, 'month')) {
 					at = parseMonthRange(tokens, at);
-					week_stable = false;
+					// week_stable = false; // decided based on actual values
 				} else if (matchTokens(tokens, at, 'week')) {
 					at = parseWeekRange(tokens, at + 1);
 					week_stable = false;
@@ -639,7 +639,7 @@
 		}
 
 		//======================================================================
-		// Holiday parser (PH,SH)
+		// Holiday parser for public holidays (PH)
 		//======================================================================
 		function parseHoliday(tokens, at, selectors) {
 			for (; at < tokens.length; at++) {
@@ -677,11 +677,10 @@
 						}
 
 						sorted_holidays = sorted_holidays.sort(function(a,b){
-							a = a.getTime();
-							b = b.getTime();
-							return a < b ? -1 : a > b ? 1 : 0;
+							if (a.getTime() < b.getTime()) return -1;
+							if (a.getTime() > b.getTime()) return 1;
+							return 0;
 						});
-
 
 						var date_num = date.getMonth() * 100 + date.getDate();
 
@@ -939,6 +938,17 @@
 				if (matchTokens(tokens, at, 'month')) {
 					// Single month (Jan) or month range (Feb-Mar)
 					var is_range = matchTokens(tokens, at+1, '-', 'month');
+
+					if (is_range && week_stable) {
+						var month_from = tokens[at][0];
+						var month_to   = tokens[at+2][0];
+						if (month_from == (month_to + 1) % 12)
+							week_stable = true;
+						else
+							week_stable = false;
+					} else {
+						week_stable = false;
+					}
 
 					selectors.month.push(function(tokens, at, is_range) { return function(date) {
 						var ourmonth = date.getMonth();

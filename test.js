@@ -297,13 +297,14 @@ test.addTest('Full range', [
 		'Su-Sa 00:00-24:00',
 		'24/7',
 		'Mo-Fr,PH,Sa,Su',
-		'Jan-Dec',       // week stable actually, but check for that needs extra logic
-		'Feb-Jan',       // week stable actually, but check for that needs extra logic
+		'Jan-Dec',
+		'Feb-Jan',
+		'Dec-Nov',
 		'Jan 01-Dec 31', // week stable actually, but check for that needs extra logic
 		'week 1-54',     // week stable actually, but check for that needs extra logic
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
-	], 1000 * 60 * 60 * 24 * 7, 0, undefined, nominatiomTestJSON);
+	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not last test');
 
 test.addTest('24/7 as time interval alias', [
 		'Mo,We 24/7',
@@ -352,6 +353,13 @@ test.addTest('Month ranges', [
 		[ '2012.01.01 00:00', '2012.03.01 00:00' ],
 		[ '2012.11.01 00:00', '2013.01.01 00:00' ],
 	], 1000 * 60 * 60 * 24 * (31 + 29 + 30 + 31), 0, false);
+
+test.addTest('Month ranges', [
+		'Nov-Nov 00:00-24:00',
+		'Nov-Nov',
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+	    [ '2012.11.01 00:00', '2012.12.01 00:00' ],
+	], 1000 * 60 * 60 * 24 * 30, 0, false, {}, 'not last test');
 
 test.addTest('Week ranges', [
 		'week 1,3 00:00-24:00',
@@ -676,6 +684,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'week 2-54 00::00-24:00',
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1',
 		'(sunrise+01:00-sunset',
+		'(sunrise)-sunset',
 		'27:00-29:00',
 		'', // empty string
 		';', // only rule delimiter
