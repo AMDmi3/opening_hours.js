@@ -682,6 +682,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'week 2-54 00:00-24:00:',
 		'week 2-54 00:00-24:00:::',
 		'week 2-54 00::00-24:00',
+		'2013-2015/1',
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1',
 		'(sunrise+01:00-sunset',
 		'(sunrise)-sunset',

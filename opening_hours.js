@@ -53,7 +53,7 @@
 					},
 				}
 			}
-		}
+		};
 
 		var minutes_in_day = 60 * 24;
 		var msec_in_day    = 1000 * 60 * minutes_in_day;
@@ -488,7 +488,7 @@
 		// returns in minutes e.g. -90
 		function parseTimevarCalc(tokens, at) {
 			if ((matchTokens(tokens, at+2, '+') || matchTokens(tokens, at+2, '-'))
-					&& matchTokens(tokens, at+3, 'number', 'timesep', 'number')) {
+					&& matchTokens(tokens, at+3, 'number', 'timesep', 'number', ')')) {
 				var add_or_subtract = tokens[at+2][0] == '+' ? '1' : '-1';
 				return (tokens[at+3][0] * 60 + tokens[at+5][0]) * add_or_subtract;
 			} else {
@@ -870,8 +870,17 @@
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'number')) {
 					var is_range = matchTokens(tokens, at+1, '-', 'number'), has_period = false;
-					if (is_range)
+					if (is_range) {
 						has_period = matchTokens(tokens, at+3, '/', 'number');
+						// if (week_stable) {
+						// 	if (tokens[at][0] == 1 && tokens[at+2][0] >) // Maximum?
+						// 		week_stable = true;
+						// 	else
+						// 		week_stable = false;
+						// } else {
+						// 	week_stable = false;
+						// }
+					}
 
 					selectors.week.push(function(tokens, at, is_range, has_period) { return function(date) {
 						var ourweek = Math.floor((date - dateAtWeek(date, 0)) / msec_in_week);
