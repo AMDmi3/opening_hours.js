@@ -187,13 +187,22 @@ test.addTest('Variable days: public holidays', [
 	    [ '2014.12.25 00:00', '2014.12.27 00:00' ],
 	], 1000 * 60 * 60 * 24 * (20 + 2 * 2), 0, false, nominatiomTestJSON, 'not last test');
 
-// test.addTest('Variable days: public holidays (with time range)', [
-// 		'PH 12:00-13:00',
-// 	], '2012.01.01 0:00', '2013.01.01 0:00', [
-// 	    [ '2012.01.01 00:00', '2012.01.02 00:00' ],
-// 	    [ '2012.05.01 00:00', '2012.05.02 00:00' ],
-// 	], 1000 * 60 * 60 * 24 * 2, 0, false, nominatiomTestJSON, 'last test');
-//
+test.addTest('Variable days: public holidays', [
+		'24/7; PH off',
+		// 'PH off; 24/7', // should not be the same if following the rules
+	], '2013.04.01 0:00', '2013.05.11 0:00', [
+	    [ '2013.04.02 00:00', '2013.05.01 00:00' ],
+	    [ '2013.05.02 00:00', '2013.05.09 00:00' ],
+	    [ '2013.05.10 00:00', '2013.05.11 00:00' ],
+	], 1000 * 60 * 60 * 24 * (30 - 1 + 7 + 1), 0, false, nominatiomTestJSON, 'not last test');
+
+test.addTest('Variable days: public holidays (with time range)', [
+		'PH 12:00-13:00',
+	], '2012.01.01 0:00', '2012.04.01 0:00', [
+	    [ '2012.01.01 12:00', '2012.01.01 13:00' ],
+	    [ '2012.01.06 12:00', '2012.01.06 13:00' ],
+	], 1000 * 60 * 60 * 2, 0, false, nominatiomTestJSON, 'not last test');
+
 test.addTest('Variable times spanning midnight', [
 		'sunset-sunrise',
 		'sunset-sunrise Mo-Su',
@@ -671,6 +680,11 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		';', // only rule delimiter
 		' ', // empty string
 		"\n", // newline
+	]);
+
+test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
+		'PH', // country is not specified
+		'SH', // country is not specified
 	]);
 
 process.exit(test.run() ? 0 : 1);

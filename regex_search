@@ -84,7 +84,7 @@ while True:
         break
 
     try:
-        user_reg = re.compile('(?P<pre>.*?)(?P<match>'+regex+')(?P<post>.*)')
+        user_reg = re.compile('(?P<pre>.*?)(?P<match>'+regex+')(?P<post>.*)', re.IGNORECASE)
     except re.error, err:
         print('Your regular expression did not compile: %s' % err)
         continue

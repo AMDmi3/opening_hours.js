@@ -643,20 +643,14 @@
 				if (matchTokens(tokens, at, 'holiday')) {
 					var applying_holidays = getMatchingHoliday(tokens[at][0]);
 
-					selectors.holiday.push(function() { return function(date) {
-						// It is required that this selector is called with the date object having the time 0:00
-						// which should be ensured by the optimized order of the selector execution …
+					selectors.holiday.push(function(applying_holidays) { return function(date) {
 
 						var movableDays = getMovableEventsForYear(date.getFullYear());
 
 						var sorted_holidays = []; // needs to be sorted each time because of movable days
 
 						for (var holiday_name in applying_holidays) {
-							console.log('testing: ' + holiday_name);
-
 							if (typeof applying_holidays[holiday_name][0] == 'string') {
-								console.log('calulate moveble day based on: ' + applying_holidays[holiday_name][0]);
-								console.log(movableDays);
 								var selected_movableDay = movableDays[applying_holidays[holiday_name][0]];
 								if (!selected_movableDay)
 									throw 'Movable day ' + applying_holidays[holiday_name][0] + ' can not not be calculated.'
@@ -670,7 +664,6 @@
 									throw 'The movable day ' + applying_holidays[holiday_name][0] + ' plus '
 										+ applying_holidays[holiday_name][1]
 										+ ' days is not in the year of the movable day anymore. Currently not supported.';
-								console.log(next_holiday);
 							} else {
 								var next_holiday = new Date(date.getFullYear(),
 										applying_holidays[holiday_name][0] - 1,
@@ -686,12 +679,16 @@
 							return a < b ? -1 : a > b ? 1 : 0;
 						});
 
+
+						var date_num = date.getMonth() * 100 + date.getDate();
+
 						for (var i = 0; i < sorted_holidays.length; i++) {
-							if (date.getTime() < sorted_holidays[i].getTime()) {
+							var next_holiday_date_num = sorted_holidays[i].getMonth() * 100 + sorted_holidays[i].getDate();
+							if (date_num < next_holiday_date_num) {
 								console.log('1', date, '<', sorted_holidays[i])
 								return [ false, sorted_holidays[i] ];
 							}
-							else if (date.getTime() == sorted_holidays[i].getTime()) {
+							else if (date_num == next_holiday_date_num) {
 								console.log('2', date, '=', sorted_holidays[i])
 								return [true, new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1) ];
 							}
@@ -702,7 +699,7 @@
 								sorted_holidays[0].getMonth(),
 								sorted_holidays[0].getDate()) ];
 
-					}}());
+					}}(applying_holidays));
 
 					at += 1;
 				} else {
@@ -735,7 +732,6 @@
 							// holidays are only defined country wide
 							matching_holiday = {}; // holidays in the country wide scope can be limited to certain states
 							for (var holiday_name in holidays[location_cc][type_of_holidays]) {
-								console.log(typeof holidays[location_cc][type_of_holidays][holiday_name][2]);
 								if (typeof holidays[location_cc][type_of_holidays][holiday_name][2] === 'object') {
 									if (-1 != indexOf.call(holidays[location_cc][type_of_holidays][holiday_name][2], location_state))
 										matching_holiday[holiday_name] = holidays[location_cc][type_of_holidays][holiday_name];
