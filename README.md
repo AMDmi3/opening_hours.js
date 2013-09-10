@@ -244,7 +244,7 @@ A second thing to notice is that if the variable time becomes greater than the e
 * Supports public holidays (```24/7; PH off```)
 
 * The holidays have to be defined within this library.
-    + Currently only Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored.
+  * Currently only Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored.
 
 [PH-de]: http://de.wikipedia.org/wiki/Feiertage_in_Deutschland
 

@@ -592,6 +592,9 @@
 					}
 
 					at += is_range ? 3 : 1;
+				} else if (matchTokens(tokens, at, 'holiday')) {
+					at = parseHoliday(tokens, at, selectors);
+					week_stable = false;
 				} else {
 					throw 'Unexpected token in weekday range: "' + tokens[at] + '"';
 				}
@@ -700,6 +703,8 @@
 					}}(applying_holidays));
 
 					at += 1;
+				} else if (matchTokens(tokens, at, 'weekday')) {
+					at = parseWeekdayRange(tokens, at, selectors);
 				} else {
 					throw 'Unexpected token (holiday parser): "' + tokens[at] + '"';
 				}

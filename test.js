@@ -296,13 +296,14 @@ test.addTest('Full range', [
 		'Sa-Fr 00:00-24:00',
 		'Su-Sa 00:00-24:00',
 		'24/7',
+		'Mo-Fr,PH,Sa,Su',
 		'Jan-Dec',       // week stable actually, but check for that needs extra logic
 		'Feb-Jan',       // week stable actually, but check for that needs extra logic
 		'Jan 01-Dec 31', // week stable actually, but check for that needs extra logic
 		'week 1-54',     // week stable actually, but check for that needs extra logic
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
-	], 1000 * 60 * 60 * 24 * 7, 0, undefined);
+	], 1000 * 60 * 60 * 24 * 7, 0, undefined, nominatiomTestJSON);
 
 test.addTest('24/7 as time interval alias', [
 		'Mo,We 24/7',
