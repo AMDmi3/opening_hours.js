@@ -24,8 +24,9 @@
 		var holidays = {
 			'de': {
 				'PH': {
-					001: 'Neujahrstag', // month 1, day 1
-					401: 'Tag der Arbeit', // month 5, day 1
+					'Neujahrstag'    : [ 1, 1 ], // month 1, day 1
+					'Tag der Arbeit' : [ 5, 1 ], // month 5, day 1
+					'easter' : [ 'easter', 1 ], // month 5, day 1
 				},
 				'Baden-W\u00fcrttemberg': {
 					// 'PH': {
@@ -623,16 +624,30 @@
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'holiday')) {
 					var applying_holidays = getMatchingHoliday(tokens[at][0]);
-					// console.log(applying_holidays);
 
 					selectors.holiday.push(function() { return function(date) {
-						var outmonth_and_day_num = date.getMonth() * 100 + date.getDate();
-						for (var day in applying_holidays) {
-							if (outmonth_and_day_num < day)
-								return [ false, new Date(date.getFullYear(), Math.floor(day / 100), Math.floor(day % 100)) ];
-							else if (outmonth_and_day_num == day)
-								return [true, new Date(date.getFullYear(), Math.floor(day / 100), Math.floor(day % 100) + 1) ];
+						// It is required that this selector is called with the date object having the time 0:00
+						// which should be ensured by the optimized order of the selector execution …
+
+						for (var holiday_name in applying_holidays) {
+							if (typeof applying_holidays[holiday_name][0] == 'string') {
+								console.log('calulate moveble day based on: ' + applying_holidays[holiday_name][0]);
+								return [ false ];
+							} else {
+								var day = new Date(date.getFullYear(),
+										applying_holidays[holiday_name][0] - 1,
+										applying_holidays[holiday_name][1]
+									);
+							}
+
+							if (date.getTime() < day.getTime()) {
+								return [ false, day ];
+							}
+							else if (date.getTime() == day.getTime()) {
+								return [true, new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1) ];
+							}
 						}
+								console.log('false', date);
 						return [ false ];
 
 					}}());
@@ -666,6 +681,17 @@
 			} else { // we have now idea which holidays do apply because the country code is not provide
 				throw 'Country code missing which is needed to select the correct holidays (see README how to provide it)'
 			}
+		}
+
+		function objectsAreSame(x, y) {
+			var objectsAreSame = true;
+			for(var propertyName in x) {
+				if(x[propertyName] !== y[propertyName]) {
+					objectsAreSame = false;
+					break;
+				}
+			}
+			return objectsAreSame;
 		}
 
 		//======================================================================
