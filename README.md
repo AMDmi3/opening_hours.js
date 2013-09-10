@@ -241,10 +241,12 @@ A second thing to notice is that if the variable time becomes greater than the e
 
 ### Holidays ###
 
-* Supports public holidays (```24/7; PH off```)
+* Supports public holidays (```24/7; PH off```, ```PH 12:00-13:00```). To evaluate the correct holidays, the country code and the state (could be omitted but this will probably resold in less exactitude) are required which are included in the JSON returned by [Nominatim] \(see in the [Library API](#library-api) how to provide it\).
 
 * The holidays have to be defined within this library.
   * Currently only Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored.
+  * If your country or state is missing or wrong you can add it or open an [issue][issure-report].
+
 
 [PH-de]: http://de.wikipedia.org/wiki/Feiertage_in_Deutschland
 
@@ -286,10 +288,6 @@ A second thing to notice is that if the variable time becomes greater than the e
   * unknown can be omitted (this will also result in unknown)
   * **EXT:** instead of "closed" "off" will also work
   * value can also be just a double-quoted string (```"on appointment"```) which will result in unknown.
-
-### Other ###
-
-* *Doesn't support PH/SH keywords yet*
 
 ## Test ##
 
@@ -334,3 +332,4 @@ On author's Intel Core i5-2400 library allows ~20k/sec constructor calls and ~10
 
 
 [Nominatim]: http://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding_.2F_Address_lookup
+[issure-report]: https://github.com/AMDmi3/opening_hours.js/issues
