@@ -27,26 +27,31 @@
 					'Neujahrstag'               : [ 1, 1 ], // month 1, day 1, whole Germany
 					'Heilige Drei Könige'       : [ 1, 6, [ 'Baden-Württemberg', 'Bayern', 'Sachsen-Anhalt'] ], // only in the specified states
 					'Tag der Arbeit'            : [ 5, 1 ], // whole Germany
-					'Karfreitag'                : [ 'easter', -2 ], // whole Germany
+					'Karfreitag'                : [ 'easter', -2 ],
 					'Ostersonntag'              : [ 'easter',  0, [ 'Brandenburg'] ],
-					'Ostermontag'               : [ 'easter',  1 ], // whole Germany
-					'Christi Himmelfahrt'       : [ 'easter', 39 ], // whole Germany
+					'Ostermontag'               : [ 'easter',  1 ],
+					'Christi Himmelfahrt'       : [ 'easter', 39 ],
 					'Pfingstsonntag'            : [ 'easter', 49, [ 'Brandenburg'] ],
-					'Pfingstmontag'             : [ 'easter', 50 ], // whole Germany
+					'Pfingstmontag'             : [ 'easter', 50 ],
 					'Fronleichnam'              : [ 'easter', 60, [ 'Baden-Württemberg', 'Bayern', 'Hessen', 'Nordrhein-Westfalen', 'Rheinland-Pfalz', 'Saarland' ] ],
 					'Mariä Himmelfahrt'         : [  8,  3, [ 'Saarland'] ],
-					'Tag der Deutschen Einheit' : [ 10,  3 ],       // whole Germany
+					'Tag der Deutschen Einheit' : [ 10,  3 ],
 					'Reformationstag'           : [ 10, 31, [ 'Brandenburg', 'Mecklenburg-Vorpommern', 'Sachsen', 'Sachsen-Anhalt', 'Thüringen'] ],
 					'Allerheiligen'             : [ 11,  1, [ 'Baden-Württemberg', 'Bayern', 'Nordrhein-Westfalen', 'Rheinland-Pfalz', 'Saarland' ] ],
-					'1. Weihnachtstag'          : [ 12, 25 ],       // whole Germany
-					'2. Weihnachtstag'          : [ 12, 26 ],       // whole Germany
+					'1. Weihnachtstag'          : [ 12, 25 ],
+					'2. Weihnachtstag'          : [ 12, 26 ],
 				},
-				'Baden-W\u00fcrttemberg': {
-					// 'PH': {
-					// 	401: 'Tag der Arbeit', // month 5, day 1
+				// 'Baden-Württemberg': { // would only apply in Baden-Württemberg
+					// 'PH': { // this more specific rule set overwrites the country wide one (they are just ignored)
+					// // You may use this instead of the country wide with some additional holidays for some states if one state totally disagrees about how to do public holidays …
+					// 	'2. Weihnachtstag'          : [ 12, 26 ],
 					// },
+				// },
+				'SH': { // not yet implemented but I guess, this is the best way to specify it
+					'Osterferien': {
+						2013: [ 3, 25, /* to */ 4, 5 ],
+					},
 				}
-
 			}
 		}
 
@@ -642,12 +647,13 @@
 						// It is required that this selector is called with the date object having the time 0:00
 						// which should be ensured by the optimized order of the selector execution …
 
-						var movableDays = getMovableEventsByYear(date.getFullYear());
+						var movableDays = getMovableEventsForYear(date.getFullYear());
 
 						var sorted_holidays = []; // needs to be sorted each time because of movable days
 
 						for (var holiday_name in applying_holidays) {
 							console.log('testing: ' + holiday_name);
+
 							if (typeof applying_holidays[holiday_name][0] == 'string') {
 								console.log('calulate moveble day based on: ' + applying_holidays[holiday_name][0]);
 								console.log(movableDays);
@@ -711,6 +717,12 @@
 		}
 
 		function getMatchingHoliday(type_of_holidays) {
+			if (type_of_holidays == 'SH')
+				throw 'School holidays are currently not evaluted but can be specifed in the library.'
+				// and will be supported if there is a need for it
+				// For Germany http://www.schulferien.org/ is a great resource.
+				// They also provide ics which could be parsed …
+
 			if (typeof location_cc != 'undefined') {
 				if (holidays.hasOwnProperty(location_cc)) {
 					if (typeof location_state != 'undefined') {
@@ -731,6 +743,8 @@
 									matching_holiday[holiday_name] = holidays[location_cc][type_of_holidays][holiday_name];
 								}
 							}
+							if (Object.keys(matching_holiday).length == 0)
+								throw 'There are no holidays ' + type_of_holidays + ' defined for country ' + location_cc + '. Please add them.';
 							return matching_holiday;
 						} else {
 							throw 'Holidays ' + type_of_holidays + ' are not defined for country ' + location_cc + '. Please add them.';
@@ -739,12 +753,13 @@
 				} else {
 					throw 'No holidays are defined for country ' + location_cc + '. Please add them.';
 				}
-			} else { // we have now idea which holidays do apply because the country code is not provide
+			} else { // we have no idea which holidays do apply because the country code was not provided
 				throw 'Country code missing which is needed to select the correct holidays (see README how to provide it)'
 			}
 		}
 
-		function getMovableEventsByYear(Y) {
+		function getMovableEventsForYear(Y) {
+			// calculate easter
 			var C = Math.floor(Y/100);
 			var N = Y - 19*Math.floor(Y/19);
 			var K = Math.floor((C - 17)/25);
