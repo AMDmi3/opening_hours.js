@@ -1,9 +1,13 @@
 var opening_hours = require('./opening_hours.js');
 var fs = require('fs');
 
+var nominatiomTestJSON = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
+
 var test = new opening_hours_test();
 
-// Add as much as you like. Just make sure to make sure that the export is
+console.log('For holidays the ' + nominatiomTestJSON.address.country_code + ' definition is used so the result will probably a bit worser if run in reality but you can change that by providing the definition of the holidays.\n');
+
+// Add as much as you like. Just make sure that the export is
 // pressed by added it as dependence in the make file.
 // Tests will not be executed in order listed here due to non-blocking aspect
 // of JS and node.js.
@@ -14,12 +18,15 @@ test.exported_json('lit', { ignore: [ 'yes', 'no', 'on', 'automatic', 'interval'
 
 test.exported_json('opening_hours:kitchen', { ignore: [ 'opening_hours' ]});
 
+test.exported_json('opening_hours:warm_kitchen', { ignore: [ 'opening_hours' ]});
+
 //======================================================================
 // Test framework
 //======================================================================
 function opening_hours_test() {
 	this.exported_json = function (tagname /* file exported by the taginfo API */, options) {
 		var how_often_print_stats = 15000;
+
 
 		fs.readFile(__dirname + '/export.' + tagname + '.json', 'utf8', function (err, data) {
 			if (err) {
@@ -98,7 +105,7 @@ function opening_hours_test() {
 	function test_value(value) {
 		var crashed = true;
 		try {
-			oh = new opening_hours(value);
+			oh = new opening_hours(value, nominatiomTestJSON);
 
 			crashed = false;
 		} catch (err) {

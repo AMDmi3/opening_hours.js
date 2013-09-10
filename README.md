@@ -227,7 +227,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 A second thing to notice is that if the variable time becomes greater than the end time and the end time is greater than the constant time than this time range will be ignored (e.g ```sunrise-08:00``` becomes ```08:03-08:00``` for one day, it  is ignored for this day).
 
-* Support calculation with variable times (e.g. ```(sunrise+01:02)-(sunset-00:30)```).
+* Support calculation with variable times (e.g. ```(sunrise+01:02)-(sunset-00:30)```, ```sunrise-(sunset-00:30)```).
 
 * *Doesn't support open end (```10:00+```)*
 
@@ -238,6 +238,15 @@ A second thing to notice is that if the variable time becomes greater than the e
 * Supports set of weekdays and weekday ranges (```Mo-We,Fr```)
 * Supports weekdays which wrap to the next week (```Fr-Mo```)
 * Supports constrained weekdays (```Th[1,2-3]```, ```Fr[-1]```)
+
+### Holidays ###
+
+* Supports public holidays (```24/7; PH off```)
+
+* The holidays have to be defined within this library.
+    + Currently only Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored.
+
+[PH-de]: http://de.wikipedia.org/wiki/Feiertage_in_Deutschland
 
 ### Year ranges ###
 

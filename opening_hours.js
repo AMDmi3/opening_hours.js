@@ -685,11 +685,9 @@
 						for (var i = 0; i < sorted_holidays.length; i++) {
 							var next_holiday_date_num = sorted_holidays[i].getMonth() * 100 + sorted_holidays[i].getDate();
 							if (date_num < next_holiday_date_num) {
-								console.log('1', date, '<', sorted_holidays[i])
 								return [ false, sorted_holidays[i] ];
 							}
 							else if (date_num == next_holiday_date_num) {
-								console.log('2', date, '=', sorted_holidays[i])
 								return [true, new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1) ];
 							}
 						}
@@ -715,8 +713,7 @@
 
 		function getMatchingHoliday(type_of_holidays) {
 			if (type_of_holidays == 'SH')
-				throw 'School holidays are currently not evaluted but can be specifed in the library.'
-				// and will be supported if there is a need for it
+				throw 'School holidays are currently not evaluted but can already be specifed in the library and will be supported if there is a need for it';
 				// For Germany http://www.schulferien.org/ is a great resource.
 				// They also provide ics which could be parsed …
 
