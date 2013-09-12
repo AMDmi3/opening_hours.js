@@ -61,7 +61,7 @@
 						},
 						{
 							name: 'asd',
-							'default': [ 5, 25, /* to */ 6, 5 ],
+							'default': [ 5, 25, /* to */ 1, 5 ],
 						},
 					]
 				},
@@ -764,19 +764,20 @@
 
 							var holiday_from = (holiday[0] - 1) * 100 + holiday[1];
 							var holiday_to   = (holiday[2] - 1) * 100 + holiday[3];
+							var holiday_ends_next_year = holiday_to < holiday_from;
 							console.log(date_num,  '<', holiday_from, i);
 
 							if (date_num < holiday_from) { // selected holiday is before the date
 								console.log(1, date_num, '<', holiday_from);
 								return [ false, new Date(date.getFullYear(), holiday[0] - 1, holiday[1]) ];
-							} else if (holiday_from <= date_num && date_num < holiday_to) {
+							} else if (holiday_from <= date_num && (date_num < holiday_to || holiday_ends_next_year)) {
 								console.log(2, holiday_from, '<=', date_num, '<', holiday_to);
-								return [ true, new Date(date.getFullYear(), holiday[2] - 1, holiday[3]) ];
+								return [ true, new Date(date.getFullYear() + holiday_ends_next_year, holiday[2] - 1, holiday[3]) ];
 							} else if (holiday_to == date_num) { // selected holiday end is equal to month and day
 								console.log(3.1, holiday_to, '==', date_num, i, applying_holidays.length);
 								if (i + 1 == applying_holidays.length) { // last holidays are handled, continue all over again
 									var holiday = getSHForYear(applying_holidays[0], date.getFullYear() + 1);
-									return [ false, new Date(date.getFullYear() + 1, holiday[0] - 1, holiday[1]) ];
+									return [ false, new Date(date.getFullYear() + !holiday_ends_next_year, holiday[0] - 1, holiday[1]) ];
 								} else { // return the start of the next holidays
 									console.log(3.2);
 									var holiday = getSHForYear(applying_holidays[i+1], date.getFullYear());

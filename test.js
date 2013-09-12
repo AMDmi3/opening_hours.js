@@ -205,7 +205,7 @@ test.addTest('Variable days: public holidays (with time range)', [
 
 test.addTest('Variable days: school holidays (with time range)', [
 		'SH',
-	], '2012.01.01 0:00', '2013.07.01 0:00', [
+	], '2012.01.01 0:00', '2014.07.01 0:00', [
             [ '2012.03.25 00:00', '2012.04.05 00:00' ],
             [ '2012.05.25 00:00', '2012.06.05 00:00' ],
             [ '2013.03.25 00:00', '2013.04.05 00:00' ],
