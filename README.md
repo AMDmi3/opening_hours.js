@@ -223,9 +223,9 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
  If the coordinates are missing, constant times will be used (dawn: '05:30', sunrise: '06:00', sunset: '18:00', dusk: '18:30').
 
- If the end time (second time in time range) is near the sunrise for instance (```sunrise-08:00```) than it can happen that the sunrise would actually be after 08:00 which would normally be interpreted as as time spanning midnight. But with variable times, this only partly applies. The rule here is that if the end time is lesser than the constant time (or the actual time) for the variable time in the start time (in that example sunrise: '06:00') then it is interpreted as the end time spanning over midnight. So this would be a valid time range spanning midnight: ```sunrise-05:59```.
+ If the end time (second time in time range) is near the sunrise (for instance ```sunrise-08:00```) than it can happen that the sunrise would actually be after 08:00 which would normally be interpreted as as time spanning midnight. But with variable times, this only partly applies. The rule here is that if the end time is lesser than the constant time (or the actual time) for the variable time in the start time (in that example sunrise: '06:00') then it is interpreted as the end time spanning over midnight. So this would be a valid time range spanning midnight: ```sunrise-05:59```.
 
-A second thing to notice is that if the variable time becomes greater than the end time and the end time is greater than the constant time than this time range will be ignored (e.g ```sunrise-08:00``` becomes ```08:03-08:00``` for one day, it  is ignored for this day).
+  A second thing to notice is that if the variable time becomes greater than the end time and the end time is greater than the constant time than this time range will be ignored (e.g ```sunrise-08:00``` becomes ```08:03-08:00``` for one day, it  is ignored for this day).
 
 * Support calculation with variable times (e.g. ```(sunrise+01:02)-(sunset-00:30)```, ```sunrise-(sunset-00:30)```).
 
@@ -287,7 +287,7 @@ A second thing to notice is that if the variable time becomes greater than the e
 * Supports (additional) comments (```Mo unknown "on appointment"; Th-Fr 09:00-18:00 open "female only"; Su closed "really"```)
   * unknown can be omitted (this will also result in unknown)
   * **EXT:** instead of "closed" "off" will also work
-  * value can also be just a double-quoted string (```"on appointment"```) which will result in unknown.
+  * value can also be just a double-quoted string (```"on appointment"```) which will result in unknown for any given time.
 
 ## Test ##
 

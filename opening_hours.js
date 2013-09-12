@@ -27,7 +27,7 @@
 					'Neujahrstag'               : [ 1, 1 ], // month 1, day 1, whole Germany
 					'Heilige Drei Könige'       : [ 1, 6, [ 'Baden-Württemberg', 'Bayern', 'Sachsen-Anhalt'] ], // only in the specified states
 					'Tag der Arbeit'            : [ 5, 1 ], // whole Germany
-					'Karfreitag'                : [ 'easter', -2 ],
+					'Karfreitag'                : [ 'easter', -2 ], // two days before easter
 					'Ostersonntag'              : [ 'easter',  0, [ 'Brandenburg'] ],
 					'Ostermontag'               : [ 'easter',  1 ],
 					'Christi Himmelfahrt'       : [ 'easter', 39 ],
@@ -41,17 +41,30 @@
 					'1. Weihnachtstag'          : [ 12, 25 ],
 					'2. Weihnachtstag'          : [ 12, 26 ],
 				},
-				// 'Baden-Württemberg': { // would only apply in Baden-Württemberg
-					// 'PH': { // this more specific rule set overwrites the country wide one (they are just ignored)
-					// // You may use this instead of the country wide with some additional holidays for some states if one state totally disagrees about how to do public holidays …
+				'Baden-Württemberg': { // does only apply in Baden-Württemberg
+					// This more specific rule set overwrites the country wide one (they are just ignored).
+					// You may use this instead of the country wide with some
+					// additional holidays for some states, if one state
+					// totally disagrees about how to do public holidays …
+					// 'PH': {
 					// 	'2. Weihnachtstag'          : [ 12, 26 ],
 					// },
-				// },
-				'SH': { // not yet implemented but I guess, this is the best way to specify it
-					'Osterferien': {
-						2013: [ 3, 25, /* to */ 4, 5 ],
-					},
-				}
+					'SH': [
+						// For Germany http://www.schulferien.org/ is a great resource.
+						// They also provide ics which could be parsed …
+						{
+							name: 'Osterferien',
+							2014:      [ 3, 25, /* to */ 4, 5 ],
+							2012:      [ 3, 25, /* to */ 4, 5 ],
+							2013:      [ 3, 25, /* to */ 4, 5 ],
+							// 'default': [ 4, 25, /* to */ 5, 5 ],
+						},
+						{
+							name: 'asd',
+							'default': [ 5, 25, /* to */ 6, 5 ],
+						},
+					]
+				},
 			}
 		};
 
@@ -639,9 +652,21 @@
 		}
 
 		//======================================================================
-		// Holiday parser for public holidays (PH)
+		// Holiday parser for public and school holidays (PH,SH)
+		// Wrapper function
 		//======================================================================
 		function parseHoliday(tokens, at, selectors) {
+			if (tokens[at][0] == 'PH')
+				at = parsePublicHoliday(tokens, at, selectors);
+			else
+				at = parseSchoolHoliday(tokens, at, selectors);
+			return at;
+		}
+
+		//======================================================================
+		// Holiday parser for public holidays (PH)
+		//======================================================================
+		function parsePublicHoliday(tokens, at, selectors) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'holiday')) {
 					var applying_holidays = getMatchingHoliday(tokens[at][0]);
@@ -705,7 +730,7 @@
 				} else if (matchTokens(tokens, at, 'weekday')) {
 					at = parseWeekdayRange(tokens, at, selectors);
 				} else {
-					throw 'Unexpected token (holiday parser): "' + tokens[at] + '"';
+					throw 'Unexpected token (public holiday parser): "' + tokens[at] + '"';
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -715,12 +740,89 @@
 			return at;
 		}
 
-		function getMatchingHoliday(type_of_holidays) {
-			if (type_of_holidays == 'SH')
-				throw 'School holidays are currently not evaluted but can already be specifed in the library and will be supported if there is a need for it';
-				// For Germany http://www.schulferien.org/ is a great resource.
-				// They also provide ics which could be parsed …
+		//======================================================================
+		// Holiday parser for school holidays (SH)
+		//======================================================================
+		function parseSchoolHoliday(tokens, at, selectors) {
+			for (; at < tokens.length; at++) {
+				if (matchTokens(tokens, at, 'holiday')) {
+					var applying_holidays = getMatchingHoliday(tokens[at][0]);
+					// console.log(applying_holidays);
 
+					var sorted_holidays = []; // needs to be sorted each time because of movable days
+
+					selectors.holiday.push(function(applying_holidays) { return function(date) {
+						var date_num = date.getMonth() * 100 + date.getDate();
+						console.log('checking: ' + date, applying_holidays.length);
+
+						// Iterate over holiday array containing the different holiday ranges.
+						for (var i = 0; i < applying_holidays.length; i++) {
+							console.log('checking: ', applying_holidays[i].name);
+
+							var holiday = getSHForYear(applying_holidays[i], date.getFullYear());
+							console.log(holiday);
+
+							var holiday_from = (holiday[0] - 1) * 100 + holiday[1];
+							var holiday_to   = (holiday[2] - 1) * 100 + holiday[3];
+							console.log(date_num,  '<', holiday_from, i);
+
+							if (date_num < holiday_from) { // selected holiday is before the date
+								console.log(1, date_num, '<', holiday_from);
+								return [ false, new Date(date.getFullYear(), holiday[0] - 1, holiday[1]) ];
+							} else if (holiday_from <= date_num && date_num < holiday_to) {
+								console.log(2, holiday_from, '<=', date_num, '<', holiday_to);
+								return [ true, new Date(date.getFullYear(), holiday[2] - 1, holiday[3]) ];
+							} else if (holiday_to == date_num) { // selected holiday end is equal to month and day
+								console.log(3.1, holiday_to, '==', date_num, i, applying_holidays.length);
+								if (i + 1 == applying_holidays.length) { // last holidays are handled, continue all over again
+									var holiday = getSHForYear(applying_holidays[0], date.getFullYear() + 1);
+									return [ false, new Date(date.getFullYear() + 1, holiday[0] - 1, holiday[1]) ];
+								} else { // return the start of the next holidays
+									console.log(3.2);
+									var holiday = getSHForYear(applying_holidays[i+1], date.getFullYear());
+									return [ false, new Date(date.getFullYear(), holiday[0] - 1, holiday[1]) ];
+								}
+							// } else { // selected holiday is after the "current" date
+							// 		console.log(4.2);
+							// 	throw 'Error in school holiday parser';
+							}
+						}
+
+						// var first_holiday_in_year = getSHForYear(applying_holidays[holiday_name], date.getFullYear(), holiday_name);
+						// return [ false, new Date(sorted_holidays[0].getFullYear() + 1,
+						// 		sorted_holidays[0].getMonth(),
+						// 		sorted_holidays[0].getDate()) ];
+						return [ false ];
+
+					}}(applying_holidays));
+
+					at += 1;
+				} else if (matchTokens(tokens, at, 'weekday')) {
+					at = parseWeekdayRange(tokens, at, selectors);
+				} else {
+					throw 'Unexpected token (school holiday parser): "' + tokens[at] + '"';
+				}
+
+				if (!matchTokens(tokens, at, ','))
+					break;
+			}
+
+			return at;
+		}
+
+		// return the school holiday definition e.g. [ 5, 25, /* to */ 6, 5 ],
+		// for the specified year
+		function getSHForYear(SH_hash, year) {
+			var holiday = SH_hash[year];
+			if (typeof holiday == 'undefined') {
+				holiday = SH_hash['default']; // applies for any year without explicit definition
+				if (typeof holiday == 'undefined')
+					throw 'School holiday ' + SH_hash.name + ' has no definition for the year ' + year + '.';
+			}
+			return holiday;
+		}
+
+		function getMatchingHoliday(type_of_holidays) {
 			if (typeof location_cc != 'undefined') {
 				if (holidays.hasOwnProperty(location_cc)) {
 					if (typeof location_state != 'undefined') {
