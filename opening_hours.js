@@ -673,149 +673,121 @@
 
 		//======================================================================
 		// Holiday parser for public and school holidays (PH,SH)
-		// Wrapper function
 		//======================================================================
 		function parseHoliday(tokens, at, selectors) {
-			if (tokens[at][0] == 'PH')
-				at = parsePublicHoliday(tokens, at, selectors);
-			else
-				at = parseSchoolHoliday(tokens, at, selectors);
-			return at;
-		}
-
-		//======================================================================
-		// Holiday parser for public holidays (PH)
-		//======================================================================
-		function parsePublicHoliday(tokens, at, selectors) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'holiday')) {
-					var applying_holidays = getMatchingHoliday(tokens[at][0]);
+					if (tokens[at][0] == 'PH') {
+						var applying_holidays = getMatchingHoliday(tokens[at][0]);
 
-					selectors.holiday.push(function(applying_holidays) { return function(date) {
+						selectors.holiday.push(function(applying_holidays) { return function(date) {
 
-						var movableDays = getMovableEventsForYear(date.getFullYear());
+							var movableDays = getMovableEventsForYear(date.getFullYear());
+
+							var sorted_holidays = []; // needs to be sorted each time because of movable days
+
+							for (var holiday_name in applying_holidays) {
+								if (typeof applying_holidays[holiday_name][0] == 'string') {
+									var selected_movableDay = movableDays[applying_holidays[holiday_name][0]];
+									if (!selected_movableDay)
+										throw 'Movable day ' + applying_holidays[holiday_name][0] + ' can not not be calculated.'
+											+ ' Please add the formula how to calculate it.';
+									var next_holiday = new Date(selected_movableDay.getFullYear(),
+											selected_movableDay.getMonth(),
+											selected_movableDay.getDate()
+											+ applying_holidays[holiday_name][1]
+										);
+									if (date.getFullYear() != next_holiday.getFullYear())
+										throw 'The movable day ' + applying_holidays[holiday_name][0] + ' plus '
+											+ applying_holidays[holiday_name][1]
+											+ ' days is not in the year of the movable day anymore. Currently not supported.';
+								} else {
+									var next_holiday = new Date(date.getFullYear(),
+											applying_holidays[holiday_name][0] - 1,
+											applying_holidays[holiday_name][1]
+										);
+								}
+								sorted_holidays.push(next_holiday);
+							}
+
+							sorted_holidays = sorted_holidays.sort(function(a,b){
+								if (a.getTime() < b.getTime()) return -1;
+								if (a.getTime() > b.getTime()) return 1;
+								return 0;
+							});
+
+							var date_num = date.getMonth() * 100 + date.getDate();
+
+							for (var i = 0; i < sorted_holidays.length; i++) {
+								var next_holiday_date_num = sorted_holidays[i].getMonth() * 100 + sorted_holidays[i].getDate();
+								if (date_num < next_holiday_date_num) {
+									return [ false, sorted_holidays[i] ];
+								}
+								else if (date_num == next_holiday_date_num) {
+									return [true, new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1) ];
+								}
+							}
+
+							// continue next year
+							return [ false, new Date(sorted_holidays[0].getFullYear() + 1,
+									sorted_holidays[0].getMonth(),
+									sorted_holidays[0].getDate()) ];
+
+						}}(applying_holidays));
+
+						at += 1;
+					} else if (tokens[at][0] == 'SH') {
+						var applying_holidays = getMatchingHoliday(tokens[at][0]);
 
 						var sorted_holidays = []; // needs to be sorted each time because of movable days
 
-						for (var holiday_name in applying_holidays) {
-							if (typeof applying_holidays[holiday_name][0] == 'string') {
-								var selected_movableDay = movableDays[applying_holidays[holiday_name][0]];
-								if (!selected_movableDay)
-									throw 'Movable day ' + applying_holidays[holiday_name][0] + ' can not not be calculated.'
-										+ ' Please add the formula how to calculate it.';
-								var next_holiday = new Date(selected_movableDay.getFullYear(),
-										selected_movableDay.getMonth(),
-										selected_movableDay.getDate()
-										+ applying_holidays[holiday_name][1]
-									);
-								if (date.getFullYear() != next_holiday.getFullYear())
-									throw 'The movable day ' + applying_holidays[holiday_name][0] + ' plus '
-										+ applying_holidays[holiday_name][1]
-										+ ' days is not in the year of the movable day anymore. Currently not supported.';
-							} else {
-								var next_holiday = new Date(date.getFullYear(),
-										applying_holidays[holiday_name][0] - 1,
-										applying_holidays[holiday_name][1]
-									);
-							}
-							sorted_holidays.push(next_holiday);
-						}
+						selectors.holiday.push(function(applying_holidays) { return function(date) {
+							var date_num = date.getMonth() * 100 + date.getDate();
 
-						sorted_holidays = sorted_holidays.sort(function(a,b){
-							if (a.getTime() < b.getTime()) return -1;
-							if (a.getTime() > b.getTime()) return 1;
-							return 0;
-						});
+							// Iterate over holiday array containing the different holiday ranges.
+							for (var i = 0; i < applying_holidays.length; i++) {
 
-						var date_num = date.getMonth() * 100 + date.getDate();
+								var holiday = getSHForYear(applying_holidays[i], date.getFullYear());
 
-						for (var i = 0; i < sorted_holidays.length; i++) {
-							var next_holiday_date_num = sorted_holidays[i].getMonth() * 100 + sorted_holidays[i].getDate();
-							if (date_num < next_holiday_date_num) {
-								return [ false, sorted_holidays[i] ];
-							}
-							else if (date_num == next_holiday_date_num) {
-								return [true, new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1) ];
-							}
-						}
+								var holiday_from = (holiday[0] - 1) * 100 + holiday[1];
+								var holiday_to   = (holiday[2] - 1) * 100 + holiday[3];
 
-						// continue next year
-						return [ false, new Date(sorted_holidays[0].getFullYear() + 1,
-								sorted_holidays[0].getMonth(),
-								sorted_holidays[0].getDate()) ];
+								var holiday_ends_next_year = holiday_to < holiday_from;
 
-					}}(applying_holidays));
+								if (date_num < holiday_from) { // selected holiday is before the date
 
-					at += 1;
-				} else if (matchTokens(tokens, at, 'weekday')) {
-					at = parseWeekdayRange(tokens, at, selectors);
-				} else {
-					throw 'Unexpected token (public holiday parser): "' + tokens[at] + '"';
-				}
+									// check if we are in the holidays from the last year spanning into this year
+									var last_year_holiday = getSHForYear(applying_holidays[applying_holidays.length - 1], date.getFullYear() - 1, false);
+									if (typeof last_year_holiday != 'undefined') {
+										var last_year_holiday_from = (last_year_holiday[0] - 1) * 100 + last_year_holiday[1]; // e.g. 1125
+										var last_year_holiday_to   = (last_year_holiday[2] - 1) * 100 + last_year_holiday[3]; // e.g. 0005
 
-				if (!matchTokens(tokens, at, ','))
-					break;
-			}
-
-			return at;
-		}
-
-		//======================================================================
-		// Holiday parser for school holidays (SH)
-		//======================================================================
-		function parseSchoolHoliday(tokens, at, selectors) {
-			for (; at < tokens.length; at++) {
-				if (matchTokens(tokens, at, 'holiday')) {
-					var applying_holidays = getMatchingHoliday(tokens[at][0]);
-
-					var sorted_holidays = []; // needs to be sorted each time because of movable days
-
-					selectors.holiday.push(function(applying_holidays) { return function(date) {
-						var date_num = date.getMonth() * 100 + date.getDate();
-
-						// Iterate over holiday array containing the different holiday ranges.
-						for (var i = 0; i < applying_holidays.length; i++) {
-
-							var holiday = getSHForYear(applying_holidays[i], date.getFullYear());
-
-							var holiday_from = (holiday[0] - 1) * 100 + holiday[1];
-							var holiday_to   = (holiday[2] - 1) * 100 + holiday[3];
-
-							var holiday_ends_next_year = holiday_to < holiday_from;
-
-							if (date_num < holiday_from) { // selected holiday is before the date
-
-								// check if we are in the holidays from the last year spanning into this year
-								var last_year_holiday = getSHForYear(applying_holidays[applying_holidays.length - 1], date.getFullYear() - 1, false);
-								if (typeof last_year_holiday != 'undefined') {
-									var last_year_holiday_from = (last_year_holiday[0] - 1) * 100 + last_year_holiday[1]; // e.g. 1125
-									var last_year_holiday_to   = (last_year_holiday[2] - 1) * 100 + last_year_holiday[3]; // e.g. 0005
-
-									if (last_year_holiday_to < last_year_holiday_from && date_num < last_year_holiday_to)
-										return [ true, new Date(date.getFullYear(), last_year_holiday[2] - 1, last_year_holiday[3]) ];
-									else
+										if (last_year_holiday_to < last_year_holiday_from && date_num < last_year_holiday_to)
+											return [ true, new Date(date.getFullYear(), last_year_holiday[2] - 1, last_year_holiday[3]) ];
+										else
+											return [ false, new Date(date.getFullYear(), holiday[0] - 1, holiday[1]) ];
+									} else { // school holidays for last year are not defined.
 										return [ false, new Date(date.getFullYear(), holiday[0] - 1, holiday[1]) ];
-								} else { // school holidays for last year are not defined.
-									return [ false, new Date(date.getFullYear(), holiday[0] - 1, holiday[1]) ];
-								}
-							} else if (holiday_from <= date_num && (date_num < holiday_to || holiday_ends_next_year)) {
-								return [ true, new Date(date.getFullYear() + holiday_ends_next_year, holiday[2] - 1, holiday[3]) ];
-							} else if (holiday_to == date_num) { // selected holiday end is equal to month and day
-								if (i + 1 == applying_holidays.length) { // last holidays are handled, continue all over again
-									var holiday = getSHForYear(applying_holidays[0], date.getFullYear() + 1);
-									return [ false, new Date(date.getFullYear() + !holiday_ends_next_year, holiday[0] - 1, holiday[1]) ];
-								} else { // return the start of the next holidays
-									var holiday = getSHForYear(applying_holidays[i+1], date.getFullYear());
-									return [ false, new Date(date.getFullYear(), holiday[0] - 1, holiday[1]) ];
+									}
+								} else if (holiday_from <= date_num && (date_num < holiday_to || holiday_ends_next_year)) {
+									return [ true, new Date(date.getFullYear() + holiday_ends_next_year, holiday[2] - 1, holiday[3]) ];
+								} else if (holiday_to == date_num) { // selected holiday end is equal to month and day
+									if (i + 1 == applying_holidays.length) { // last holidays are handled, continue all over again
+										var holiday = getSHForYear(applying_holidays[0], date.getFullYear() + 1);
+										return [ false, new Date(date.getFullYear() + !holiday_ends_next_year, holiday[0] - 1, holiday[1]) ];
+									} else { // return the start of the next holidays
+										var holiday = getSHForYear(applying_holidays[i+1], date.getFullYear());
+										return [ false, new Date(date.getFullYear(), holiday[0] - 1, holiday[1]) ];
+									}
 								}
 							}
-						}
 
-						return [ false ];
+							return [ false ];
 
-					}}(applying_holidays));
+						}}(applying_holidays));
 
-					at += 1;
+						at += 1;
+					}
 				} else if (matchTokens(tokens, at, 'weekday')) {
 					at = parseWeekdayRange(tokens, at, selectors);
 				} else {
