@@ -75,6 +75,7 @@ json_data.close()
 oh = subprocess.Popen(['node', 'interactive_testing.js'],
                      stdout=subprocess.PIPE,
                      stdin=subprocess.PIPE)
+oh.stdout.readline().strip() # read message from interactive_testing.js
 
 print 'Loaded %s.' % file
 while True:
@@ -137,12 +138,13 @@ while True:
                 oh.stdin.write(taginfo_hash['value'].encode("utf-8") + '\n')
                 oh_res = oh.stdout.readline().strip()
                 oh_ok  = False if oh_res[0] == '1' else True
+                oh_loc_needed  = ', loc needed' if oh_res[2] == '1' else '' # location (nominatiom JSON)
                 if oh_ok:
                     passed_failed = {
                             'open'    : colored('Passed', 'green'),
                             'unknown' : colored('Passed', 'magenta'),
                             'closed'  : colored('Passed', 'blue'),
-                        }[oh_res[2:]]
+                        }[oh_res[4:]]
                 else:
                     passed_failed = colored('Failed', 'red')
                 if (print_all or (print_passed != None) == oh_ok):
@@ -152,7 +154,8 @@ while True:
                         show_url = 'show: %s%s' % (overpass_turbo_url, urllib.quote(taginfo_hash['value']))
                     if (re.search(r'tag', print_values, re.I)):
                         tag_url = 'taginfo: %s%s' % (taginfo_url, urllib.quote(taginfo_hash['value']))
-                    print 'Matched (count: %d, status: %s): %s%s%s' % (taginfo_hash['count'], passed_failed, res.group('pre'), colored(res.group('match'), 'blue'), res.group('post'))
+                    print 'Matched (count: %d, status: %s%s): %s%s%s' % (taginfo_hash['count'], passed_failed, oh_loc_needed,
+                            res.group('pre'), colored(res.group('match'), 'blue'), res.group('post'))
                     if (show_url and tag_url):
                         print ', '.join([show_url, tag_url])
                     elif show_url:

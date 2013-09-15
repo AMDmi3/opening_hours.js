@@ -242,15 +242,13 @@ Almost everything from opening_hours definition is supported, as well as some ex
 ### Holidays ###
 
 * Supports public holidays (```24/7; PH off```, ```PH 12:00-13:00```).
-  * The holidays have to be defined within this library.
-    * Currently only Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored.
+  * Currently only Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored.
 
 [PH-de]: http://de.wikipedia.org/wiki/Feiertage_in_Deutschland
 
 * Support for school holidays (```SH 10:00-14:00```).
-  * The holidays have to be defined within this library.
-    * Currently only Germany can easily be supported (based on ical files from [schulferien.org][]).
-    * To update the school holiday definition or add definitions for other countries (probably includes a little bit of adjustment of the script) the script [convert\_ical\_to\_json][convert-ical-to-json] can be used to generate JSON definition based on ical calendar files which can be added to the library.
+  * Currently only Germany can easily be supported (based on ical files from [schulferien.org][]).
+  * To update the school holiday definition or add definitions for other countries (probably includes a little bit of adjustment of the script) the script [convert\_ical\_to\_json][convert-ical-to-json] can be used to generate JSON definition based on ical calendar files which can be added to the library.
 
 [schulferien.org]: http://www.schulferien.org/iCal/
 [convert-ical-to-json]: blob/feature/convert_ical_to_json
@@ -316,7 +314,7 @@ Python script to search with regular expressions over OSM opening_hours style ta
 This script not only shows you if the found value can be processed with this library or not, it also indicates using different colors if the facility is currently open (open: green, unknown: magenta, closed: blue).
 
 ## Test it yourself ##
-You want to try some opening_hours yourself? Just run ```make interactive_testing``` or ```node interactive_testing.js``` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message). The number in the beginning of the returned line can be read as exit code (0 means the value could be processed and 1 means an critical error appeared during parsing).
+You want to try some opening_hours yourself? Just run ```make interactive_testing``` or ```node interactive_testing.js``` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message). The number in the beginning of the returned line can be read as exit code (0 means the value could be processed and 1 means an critical error appeared during parsing). The second number indicates if additional location information (nominatim JSON) where necessary to parse the value (e.g. value uses variable times or days).
 
 ## Performance ##
 
