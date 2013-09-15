@@ -241,14 +241,22 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 ### Holidays ###
 
-* Supports public holidays (```24/7; PH off```, ```PH 12:00-13:00```). To evaluate the correct holidays, the country code and the state (could be omitted but this will probably resold in less exactitude) are required which are included in the JSON returned by [Nominatim] \(see in the [Library API](#library-api) how to provide it\).
-
-* The holidays have to be defined within this library.
-  * Currently only Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored.
-  * If your country or state is missing or wrong you can add it or open an [issue][issure-report].
-
+* Supports public holidays (```24/7; PH off```, ```PH 12:00-13:00```).
+  * The holidays have to be defined within this library.
+    * Currently only Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored.
 
 [PH-de]: http://de.wikipedia.org/wiki/Feiertage_in_Deutschland
+
+* Support for school holidays (```SH 10:00-14:00```).
+  * The holidays have to be defined within this library.
+    * Currently only Germany can easily be supported (based on ical files from [schulferien.org][]).
+    * To update the school holiday definition or add definitions for other countries (probably includes a little bit of adjustment of the script) the script [convert\_ical\_to\_json][convert-ical-to-json] can be used to generate JSON definition based on ical calendar files which can be added to the library.
+
+[schulferien.org]: http://www.schulferien.org/iCal/
+[convert-ical-to-json]: blob/feature/convert_ical_to_json
+
+* To evaluate the correct holidays, the country code and the state (could be omitted but this will probably result in less exactitude) are required which are included in the JSON returned by [Nominatim] \(see in the [Library API](#library-api) how to provide it\).
+* If your country or state is missing or wrong you can add it or open an [issue][issure-report] (and point to a definiton of the holidays).
 
 ### Year ranges ###
 
