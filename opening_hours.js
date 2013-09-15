@@ -85,6 +85,53 @@
 						},
 					],
 				},
+				'Bremen': {
+					'SH': [
+						{
+							name: 'Winterferien',
+							2012: [  1, 30, /* to */  1, 31 ],
+							2013: [  1, 31, /* to */  2,  1 ],
+							2014: [  1, 30, /* to */  1, 31 ],
+							2015: [  2,  2, /* to */  2,  3 ],
+						},
+						{
+							name: 'Osterferien',
+							2012: [  3, 26, /* to */  4, 11,   4, 30, /* to */  4, 30 ],
+							2013: [  3, 16, /* to */  4,  2 ],
+							2014: [  4,  3, /* to */  4, 22,   5,  2, /* to */  5,  2 ],
+							2015: [  3, 25, /* to */  4, 10 ],
+						},
+						{
+							name: 'Pfingstferien',
+							2012: [  5, 18, /* to */  5, 18,   5, 29, /* to */  5, 29 ],
+							2013: [  5, 10, /* to */  5, 10,   5, 21, /* to */  5, 21 ],
+							2014: [  5, 30, /* to */  5, 30,   6, 10, /* to */  6, 10 ],
+							2015: [  5, 15, /* to */  5, 15,   5, 26, /* to */  5, 26 ],
+						},
+						{
+							name: 'Sommerferien',
+							2012: [  7, 23, /* to */  8, 31 ],
+							2013: [  6, 27, /* to */  8,  7 ],
+							2014: [  7, 31, /* to */  9, 10 ],
+							2015: [  7, 23, /* to */  9,  2 ],
+						},
+						{
+							name: 'Herbstferien',
+							2012: [ 10, 22, /* to */ 11,  3 ],
+							2013: [ 10,  4, /* to */ 10, 18 ],
+							2014: [ 10, 27, /* to */ 11,  8 ],
+							2015: [ 10, 19, /* to */ 10, 31 ],
+						},
+						{
+							name: 'Weihnachtsferien',
+							2012: [ 12, 24, /* to */  1,  5 ],
+							2013: [ 12, 23, /* to */  12,  24,   12, 26, /* to */  1,  4],
+							2014: [ 12, 22, /* to */  1,  5 ],
+							2015: [ 12, 23, /* to */ 12, 31 ],
+						},
+					],
+				},
+
 			}
 		};
 
@@ -749,41 +796,53 @@
 
 								var holiday = getSHForYear(applying_holidays[i], date.getFullYear());
 
-								var holiday_from = (holiday[0] - 1) * 100 + holiday[1];
-								var holiday_to   = (holiday[2] - 1) * 100 + holiday[3];
+								// for (var h = 0; h < holiday.length; h+=4) {
+									var h = 0;
+									var holiday_from = (holiday[0+h] - 1) * 100 + holiday[1+h];
+									var holiday_to   = (holiday[2+h] - 1) * 100 + holiday[3+h];
+									// console.log(h, holiday.length, applying_holidays[i].name, holiday_from);
 
-								var holiday_ends_next_year = holiday_to < holiday_from;
+									var holiday_ends_next_year = holiday_to < holiday_from;
 
-								if (date_num < holiday_from) { // selected holiday is before the date
+									if (date_num < holiday_from) { // date is before selected holiday
 
-									// check if we are in the holidays from the last year spanning into this year
-									var last_year_holiday = getSHForYear(applying_holidays[applying_holidays.length - 1], date.getFullYear() - 1, false);
-									if (typeof last_year_holiday != 'undefined') {
-										var last_year_holiday_from = (last_year_holiday[0] - 1) * 100 + last_year_holiday[1]; // e.g. 1125
-										var last_year_holiday_to   = (last_year_holiday[2] - 1) * 100 + last_year_holiday[3]; // e.g. 0005
+										// check if we are in the holidays from the last year spanning into this year
+										var last_year_holiday = getSHForYear(applying_holidays[applying_holidays.length - 1], date.getFullYear() - 1, false);
+										if (typeof last_year_holiday != 'undefined') {
+											var last_year_holiday_from = (last_year_holiday[last_year_holiday.length - 4] - 1) * 100
+												+ last_year_holiday[last_year_holiday.length - 3]; // e.g. 1125
+											var last_year_holiday_to   = (last_year_holiday[last_year_holiday.length - 2] - 1) * 100
+												+ last_year_holiday[last_year_holiday.length - 1]; // e.g. 0005
 
-										if (last_year_holiday_to < last_year_holiday_from && date_num < last_year_holiday_to)
-											return [ true, new Date(date.getFullYear(), last_year_holiday[2] - 1, last_year_holiday[3]) ];
-										else
-											return [ false, new Date(date.getFullYear(), holiday[0] - 1, holiday[1]) ];
-									} else { // school holidays for last year are not defined.
-										return [ false, new Date(date.getFullYear(), holiday[0] - 1, holiday[1]) ];
-									}
-								} else if (holiday_from <= date_num && (date_num < holiday_to || holiday_ends_next_year)) {
-									return [ true, new Date(date.getFullYear() + holiday_ends_next_year, holiday[2] - 1, holiday[3]) ];
-								} else if (holiday_to == date_num) { // selected holiday end is equal to month and day
-									if (i + 1 == applying_holidays.length) { // last holidays are handled, continue all over again
-										var holiday = getSHForYear(applying_holidays[0], date.getFullYear() + 1);
-										return [ false, new Date(date.getFullYear() + !holiday_ends_next_year, holiday[0] - 1, holiday[1]) ];
-									} else { // return the start of the next holidays
-										var holiday = getSHForYear(applying_holidays[i+1], date.getFullYear());
-										return [ false, new Date(date.getFullYear(), holiday[0] - 1, holiday[1]) ];
+											if (last_year_holiday_to < last_year_holiday_from && date_num < last_year_holiday_to)
+												return [ true, new Date(date.getFullYear(),
+														last_year_holiday[last_year_holiday.length - 2] - 1,
+														last_year_holiday[last_year_holiday.length - 1]) ];
+											else
+												return [ false, new Date(date.getFullYear(), holiday[0+h] - 1, holiday[1+h]) ];
+										} else { // school holidays for last year are not defined.
+											return [ false, new Date(date.getFullYear(), holiday[0+h] - 1, holiday[1+h]) ];
+										}
+									} else if (holiday_from == date_num && date_num == holiday_to) {
+										// console.log(date_num, '==', holiday_from, ' ', date);
+										return [ true, new Date(date.getFullYear(), holiday[2+h] - 1, holiday[3+h] + 1) ];
+									} else if (holiday_from <= date_num && (date_num < holiday_to || holiday_ends_next_year)) {
+										// console.log(date_num, '<', holiday_from, ' ', date);
+										return [ true, new Date(date.getFullYear() + holiday_ends_next_year, holiday[2+h] - 1, holiday[3+h]) ];
+									} else if (holiday_to == date_num) { // selected holiday end is equal to month and day
+										if (i + 1 == applying_holidays.length) { // last holidays are handled, continue all over again
+											var holiday = getSHForYear(applying_holidays[0], date.getFullYear() + 1);
+											return [ false, new Date(date.getFullYear() + !holiday_ends_next_year, holiday[0+h] - 1, holiday[1+h]) ];
+										} else { // return the start of the next holidays
+											var holiday = getSHForYear(applying_holidays[i+h+1], date.getFullYear());
+											return [ false, new Date(date.getFullYear(), holiday[0+h] - 1, holiday[1+h]) ];
+										}
 									}
 								}
-							}
 
-							return [ false ];
-
+								console.log(false);
+								return [ false ];
+							// }
 						}}(applying_holidays));
 
 						at += 1;

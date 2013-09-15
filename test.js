@@ -7,7 +7,10 @@ var test = new opening_hours_test();
 var nominatiomTestJSON = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
 
 // http://nominatim.openstreetmap.org/reverse?format=json&lat=60.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1
-var nominatiomTestJSON_sunrise_below_default = {"place_id":"71977948","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"118145917","lat":"60.5467949","lon":"9.8269589","display_name":"243, Ringerike, Buskerud, Norway","address":{"road":"243","county":"Ringerike","state":"Buskerud","country":"Norway","country_code":"no"}}
+var nominatiomTestJSON_sunrise_below_default = {"place_id":"71977948","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"118145917","lat":"60.5467949","lon":"9.8269589","display_name":"243, Ringerike, Buskerud, Norway","address":{"road":"243","county":"Ringerike","state":"Buskerud","country":"Norway","country_code":"no"}};
+
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=53.1208&lon=8.8780&zoom=18&addressdetails=1&accept-language=de
+var nominatiomTestJSON_bremen = {"place_id":"39182271","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"28200369","lat":"53.1249048","lon":"8.8755814","display_name":"Am Lehester Deich, Lehesterdeich, Horn-Lehe, Stadtbezirk Bremen-Ost, Bremen, 28357, Deutschland, Europ\u00e4ischen Union","address":{"road":"Am Lehester Deich","neighbourhood":"Lehesterdeich","suburb":"Horn-Lehe","city_district":"Stadtbezirk Bremen-Ost","city":"Bremen","county":"Bremen","state":"Bremen","postcode":"28357","country":"Deutschland","country_code":"de","continent":"Europ\u00e4ischen Union"}};
 
 test.addTest('Time intervals', [
 		'10:00-12:00',
@@ -206,7 +209,7 @@ test.addTest('Variable days: public holidays (with time range)', [
 test.addTest('Variable days: school holidays', [
 		'SH',
 	], '2014.01.01 0:00', '2015.02.01 0:00', [
-            [ '2014.01.01 00:00', '2014.01.04 00:00' ],
+            [ '2014.01.01 00:00', '2014.01.05 00:00' ],
             [ '2014.04.14 00:00', '2014.04.25 00:00' ],
             [ '2014.06.10 00:00', '2014.06.21 00:00' ],
             [ '2014.07.31 00:00', '2014.09.13 00:00' ],
@@ -220,6 +223,17 @@ test.addTest('Variable days: school holiday', [
             [ '2014.01.04 00:00', '2014.04.14 00:00' ],
             [ '2014.04.25 00:00', '2014.06.10 00:00' ],
 	], 1000 * 60 * 60 * 24 * (31 - 4 + 28 + 31 + 14 + 5 + 31 + 10) -(/* daylight saving time CEST */ 1000 * 60 * 60), 0, false, nominatiomTestJSON, 'not last test');
+
+test.addTest('Variable days: school holidays', [
+		'SH',
+	], '2014.01.01 0:00', '2015.02.01 0:00', [
+            [ '2014.01.01 00:00', '2014.01.04 00:00' ],
+            [ '2014.04.14 00:00', '2014.04.25 00:00' ],
+            [ '2014.06.10 00:00', '2014.06.21 00:00' ],
+            [ '2014.07.31 00:00', '2014.09.13 00:00' ],
+            [ '2014.10.27 00:00', '2014.10.30 00:00' ],
+            [ '2014.12.22 00:00', '2015.01.05 00:00' ],
+	], 1000 * 60 * 60 * 24 * (3 + 11 + 11 + 1 + 31 + 12 + 3 + 14), 0, false, nominatiomTestJSON_bremen, 'last test');
 
 test.addTest('Variable days: school holidays', [
 		'SH,PH',

@@ -93,7 +93,7 @@ function logState(startString, endString, oh, past) {
 
   Constructs opening_hours object, given the opening_hours tag value.
 
-  In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges](#time-ranges)) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for by using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim][] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1) and you are good to go. Note that this second parameter is optional.
+  In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges](#time-ranges)) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for by using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim][] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1) and you are good to go. Note that this second parameter is optional. The data returned by Nominatim should be in the local language (the language of the country for which the opening hours apply). If not *accept-language* can be used as parameter in the request URL.
 
   Throws an error string if the expression is malformed or unsupported.
 
@@ -206,7 +206,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Rule may use ```off``` keyword to indicate that the facility is closed at that time (```Mo-Fr 10:00-20:00; 12:00-14:00 off```)
 * Rule consists of multiple date (```Mo-Fr```, ```Jan-Feb```, ```week 2-10```, ```Jan 10-Feb 10```) and time (```12:00-16:00```, ```12:00-14:00,16:00-18:00```) conditions
 * If a rule's date condition overlap with previous rule, it overrides (as opposed to extends) the previous rule. E.g. ```Mo-Fr 10:00-16:00; We 12:00-18:00``` means that on Wednesday the facility is open from 12:00 till 18:00, not from 10:00 to 18:00.
-* Date ranges (calender ranges) can be seperated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][specification]
+* Date ranges (calendar ranges) can be seperated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][specification]
 
 [specification]: http://www.netzwolf.info/en/cartography/osm/time_domain/specification
 
@@ -248,7 +248,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 * Support for school holidays (```SH 10:00-14:00```).
   * Currently only Germany can easily be supported (based on ical files from [schulferien.org][]).
-  * To update the school holiday definition or add definitions for other countries (probably includes a little bit of adjustment of the script) the script [convert\_ical\_to\_json][convert-ical-to-json] can be used to generate JSON definition based on ical calendar files which can be added to the library.
+  * To update the school holiday definition or add definitions for other countries (probably includes a little bit of adjustment of the script) the script [convert\_ical\_to\_json][convert-ical-to-json] can be used to generate JSON definition based on ical calendar files, which can then be added to the library.
 
 [schulferien.org]: http://www.schulferien.org/iCal/
 <!-- [convert&#45;ical&#45;to&#45;json]: blob/feature/convert_ical_to_json -->
