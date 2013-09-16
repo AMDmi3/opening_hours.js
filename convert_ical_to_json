@@ -97,7 +97,6 @@ my %ical_urls;
 # }}}
 
 # debugging stuff {{{
-# use Data::Dumper::Simple;
 # my %ical_urls = (
 #     'Bremen' => [
 #         [
@@ -130,6 +129,7 @@ my %ical_urls;
 #         ],
 #     ],
 # );
+# use Data::Dumper::Simple;
 # say Dumper %ical_urls;
 # exit(2);
 # }}}
@@ -160,9 +160,11 @@ for my $state_name (keys %ical_urls) {
             unless ($response->is_success) {
                 last HOLIDAY_FOR_STATE;
             }
+            die "File size of $curr_ical_file is zero. You can try to delete it and start this script again."
+                unless (-s $curr_ical_file);
         }
 
-        my $cal = Data::ICal->new(filename => $curr_ical_file);
+        my $cal = Data::ICal->new(filename => $curr_ical_file) or die 'Could not read file ' . $curr_ical_file;
         my @events = $cal->events();
 
         my $pos = -1;

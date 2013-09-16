@@ -19,5 +19,8 @@ regex_search: export.$(SEARCH).json interactive_testing.js
 interactive_testing: interactive_testing.js
 	${NODE} interactive_testing.js
 
+clean:
+	rm -r export.*.json
+
 export.%.json:
 	wget -O "$(shell echo "$@" | sed 's/\\//g' )" "http://taginfo.openstreetmap.org/api/4/key/values?key=$(shell echo "$@" | sed 's/^export\.\(.*\)\.json/\1/;s/\\//g' )"

@@ -26,7 +26,7 @@ test.exported_json('opening_hours:warm_kitchen', { ignore: [ 'opening_hours' ]})
 function opening_hours_test() {
 	this.exported_json = function (tagname /* file exported by the taginfo API */, options) {
 		var how_often_print_stats = 15000;
-
+		var importance_threshold  = 30;
 
 		fs.readFile(__dirname + '/export.' + tagname + '.json', 'utf8', function (err, data) {
 			if (err) {
@@ -63,7 +63,7 @@ function opening_hours_test() {
 					if (test_value(data.data[i].value)) {
 						success_differ++;
 						success += data.data[i].count;
-					} else if (data.data[i].count > 150) {
+					} else if (data.data[i].count > importance_threshold) {
 						important_and_failed.push([data.data[i].value, data.data[i].count]);
 					}
 					parsed_values += data.data[i].count;

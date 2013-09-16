@@ -125,7 +125,7 @@
 						{
 							name: 'Weihnachtsferien',
 							2012: [ 12, 24, /* to */  1,  5 ],
-							2013: [ 12, 23, /* to */  12,  24,   12, 26, /* to */  1,  4],
+							2013: [ 12, 23, /* to */  1,  4 ],
 							2014: [ 12, 22, /* to */  1,  5 ],
 							2015: [ 12, 23, /* to */ 12, 31 ],
 						},
@@ -796,11 +796,9 @@
 
 								var holiday = getSHForYear(applying_holidays[i], date.getFullYear());
 
-								// for (var h = 0; h < holiday.length; h+=4) {
-									var h = 0;
+								for (var h = 0; h < holiday.length; h+=4) {
 									var holiday_from = (holiday[0+h] - 1) * 100 + holiday[1+h];
 									var holiday_to   = (holiday[2+h] - 1) * 100 + holiday[3+h];
-									// console.log(h, holiday.length, applying_holidays[i].name, holiday_from);
 
 									var holiday_ends_next_year = holiday_to < holiday_from;
 
@@ -824,10 +822,8 @@
 											return [ false, new Date(date.getFullYear(), holiday[0+h] - 1, holiday[1+h]) ];
 										}
 									} else if (holiday_from == date_num && date_num == holiday_to) {
-										// console.log(date_num, '==', holiday_from, ' ', date);
 										return [ true, new Date(date.getFullYear(), holiday[2+h] - 1, holiday[3+h] + 1) ];
 									} else if (holiday_from <= date_num && (date_num < holiday_to || holiday_ends_next_year)) {
-										// console.log(date_num, '<', holiday_from, ' ', date);
 										return [ true, new Date(date.getFullYear() + holiday_ends_next_year, holiday[2+h] - 1, holiday[3+h]) ];
 									} else if (holiday_to == date_num) { // selected holiday end is equal to month and day
 										if (i + 1 == applying_holidays.length) { // last holidays are handled, continue all over again
@@ -839,10 +835,8 @@
 										}
 									}
 								}
-
-								console.log(false);
-								return [ false ];
-							// }
+                            }
+                            return [ false ];
 						}}(applying_holidays));
 
 						at += 1;
@@ -1245,7 +1239,8 @@
 
 					at += 2 + has_year + (is_range ? 2 : 0) + (has_period ? 2 : 0);
 				} else {
-					throw 'Unexpected token in monthday range: "' + tokens[at] + '"';
+					// throw 'Unexpected token in monthday range: "' + tokens[at] + '"';
+					return at;
 				}
 
 				if (!matchTokens(tokens, at, ','))
