@@ -837,19 +837,19 @@
 											var holiday = getSHForYear(applying_holidays[0], date.getFullYear() + 1);
 											return [ false, new Date(date.getFullYear() + !holiday_ends_next_year, holiday[0+h] - 1, holiday[1+h]) ];
 										} else { // return the start of the next holidays
-                                            if (h + 4 < holiday.length) { // next holiday is next date range of the same holidays
-                                                h += 4;
-                                                return [ false, new Date(date.getFullYear(), holiday[0+h] - 1, holiday[1+h]) ];
-                                            } else {
-                                                var holiday = getSHForYear(applying_holidays[i+1], date.getFullYear());
-                                                return [ false, new Date(date.getFullYear(), holiday[0] - 1, holiday[1]) ];
-                                            }
+											if (h + 4 < holiday.length) { // next holiday is next date range of the same holidays
+												h += 4;
+												return [ false, new Date(date.getFullYear(), holiday[0+h] - 1, holiday[1+h]) ];
+											} else {
+												var holiday = getSHForYear(applying_holidays[i+1], date.getFullYear());
+												return [ false, new Date(date.getFullYear(), holiday[0] - 1, holiday[1]) ];
+											}
 										}
 									}
 								}
-                            }
-                            console.log(false);
-                            return [ false ];
+							}
+							console.log(false);
+							return [ false ];
 						}}(applying_holidays));
 
 						at += 1;
