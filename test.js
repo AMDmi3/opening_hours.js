@@ -236,7 +236,7 @@ test.addTest('Variable days: school holidays', [
 		[ '2014.07.31 00:00', '2014.09.11 00:00' ], // 1 + 31 + 10
 		[ '2014.10.27 00:00', '2014.11.09 00:00' ], // 5 + 8
 		[ '2014.12.22 00:00', '2015.01.06 00:00' ], // 10 + 5
-	], 1000 * 60 * 60 * 24 * (4 + 2 + 20 + 1 + 1 + 1 + (1 + 31 + 10) + (5 + 8) + (10 + 5)), 0, false, nominatiomTestJSON_bremen, 'last test');
+	], 1000 * 60 * 60 * 24 * (4 + 2 + 20 + 1 + 1 + 1 + (1 + 31 + 10) + (5 + 8) + (10 + 5)), 0, false, nominatiomTestJSON_bremen, 'not last test');
 
 test.addTest('Variable days: school holidays', [
 		'SH,PH',
@@ -918,10 +918,12 @@ function opening_hours_test() {
 				expected_intervals[expected_interval][2] = false;
 		}
 		if (typeof values === 'string')
-			tests.push([name, values, from, to, expected_intervals, [ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON]);
+			tests.push([name, values, from, to, expected_intervals,
+				[ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON]);
 		else
 			for (var value = 0; value < values.length; value++)
-				tests.push([name, values[value], from, to, expected_intervals, [ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON]);
+				tests.push([name, values[value], from, to, expected_intervals,
+					[ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON]);
 	}
 
 	this.addShouldFail = function(name, values, last) {
