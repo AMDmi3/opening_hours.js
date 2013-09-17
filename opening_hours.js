@@ -265,6 +265,9 @@
 					// reserved word
 					tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase()]);
 					value = value.substr(tmp[0].length);
+				} else if (tmp = value.match(/^days?/i)) {
+					tokens.push([tmp[0].toLowerCase(), 'calcday']);
+					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(?:sunrise|sunset|dawn|dusk)/i)) {
 					// Special time variables which actual value depends on the date and the position of the facility.
 					tokens.push([tmp[0].toLowerCase(), 'timevar']);
@@ -599,46 +602,87 @@
 					if (!matchTokens(tokens, endat, ']'))
 						throw '"]" expected';
 
+					var add_days = matchTokens(tokens, endat+1, '+') || (matchTokens(tokens, endat+1, '-') ? -1 : 0);
+					if (add_days != 0 && matchTokens(tokens, endat+2, 'number', 'calcday')) {
+						// continue with '+ 5 days' or something like that
+						if (tokens[endat+2][0] > 6)
+							throw 'There should be no reason to differ more than 6 days from a constrained weekdays.'
+							// if you know one reason, tell us
+						add_days *= tokens[endat+2][0];
+						if (add_days == 0)
+							throw 'Adding 0 does not change the date. Please omit this.';
+					} else {
+						add_days = 0;
+					}
+
 					week_stable = false;
 
 					// Create selector for each list element
 					for (var nnumber = 0; nnumber < numbers.length; nnumber++) {
+
 						// bad number
 						if (numbers[nnumber] == 0 || numbers[nnumber] < -5 || numbers[nnumber] > 5)
 							throw 'Number between -5 and 5 (except 0) expected';
 
-						selectors.weekday.push(function(weekday, number) { return function(date) {
+						selectors.weekday.push(function(weekday, number, add_days) { return function(date) {
 							var start_of_this_month = new Date(date.getFullYear(), date.getMonth(), 1);
 							var start_of_next_month = new Date(date.getFullYear(), date.getMonth() + 1, 1);
 
 							var target_day_this_month;
 
-							if (number > 0) {
-								target_day_this_month = dateAtNextWeekday(start_of_this_month, weekday);
-								target_day_this_month.setDate(target_day_this_month.getDate() + (number - 1) * 7);
-							} else {
-								target_day_this_month = dateAtNextWeekday(start_of_next_month, weekday);
-								target_day_this_month.setDate(target_day_this_month.getDate() + number * 7);
+							target_day_this_month = dateAtNextWeekday(
+								new Date(date.getFullYear(), date.getMonth() + (number > 0 ? 0 : 1), 1), weekday);
+							target_day_this_month.setDate(target_day_this_month.getDate() + (number + (number > 0 ? -1 : 0)) * 7);
+
+							var target_day_with_added_days_this_month = new Date(target_day_this_month.getFullYear(),
+								target_day_this_month.getMonth(), target_day_this_month.getDate() + add_days);
+							// console.log(target_day_with_added_days_this_month);
+
+							// Calculated target day is not inside this month
+							// therefore the specified weekday (e.g. fifth Sunday)
+							// does not exist this month. Try it next month.
+							//
+							// The target day with added days can be before this month
+							if (target_day_with_added_days_this_month.getTime() < start_of_this_month.getTime()) {
+								// but in this case, the target day without the days added needs to be in this month
+								if (target_day_this_month.getTime() >= start_of_this_month.getTime()) {
+									// so we calculate it for the month
+									// following this month and hope that the
+									// target day will actually be this month.
+									console.log('before this month. ')
+
+								} else {
+									return [false, start_of_next_month];
+								}
+							} else if (target_day_with_added_days_this_month.getTime() >= start_of_next_month.getTime()) {
+								// The target day is in the next month. If the target day without the added days is in this month
+								if (target_day_this_month.getTime() < start_of_next_month.getTime()) {
+									// then we can calculate the target day for the month before this month
+									// and hope that the target day will actually be this month.
+									console.log('after this month. ')
+									target_day_this_month = dateAtNextWeekday(
+										new Date(date.getFullYear(), date.getMonth() + (number > 0 ? 0 : 1) - 1, 1), weekday);
+									target_day_this_month.setDate(target_day_this_month.getDate() + (number + (number > 0 ? -1 : 0)) * 7);
+									console.log(target_day_this_month);
+								} else {
+									return [false, start_of_next_month];
+								}
 							}
 
-							if (target_day_this_month.getTime() < start_of_this_month.getTime()
-								|| target_day_this_month.getTime() >= start_of_next_month.getTime())
-								return [false, start_of_next_month];
-
 							// we hit the target day
-							if (date.getDate() == target_day_this_month.getDate())
+							if (date.getDate() == target_day_with_added_days_this_month.getDate())
 								return [true, dateAtDayMinutes(date, minutes_in_day)];
 
 							// we're before target day
-							if (date.getDate() < target_day_this_month.getDate())
-								return [false, target_day_this_month];
+							if (date.getDate() < target_day_with_added_days_this_month.getDate())
+								return [false, target_day_with_added_days_this_month];
 
 							// we're after target day, set check date to next month
 							return [false, start_of_next_month];
-						}}(tokens[at][0], numbers[nnumber]));
+						}}(tokens[at][0], numbers[nnumber], add_days));
 					}
 
-					at = endat + 1;
+					at = endat + 1 + (add_days != 0 ? 3 : 0);
 				} else if (matchTokens(tokens, at, 'weekday')) {
 					// Single weekday (Mo) or weekday range (Mo-Fr)
 					var is_range = matchTokens(tokens, at+1, '-', 'weekday');

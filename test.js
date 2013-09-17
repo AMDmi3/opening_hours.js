@@ -338,12 +338,13 @@ test.addTest('Full range', [
 		'Sa-Fr 00:00-24:00',
 		'Su-Sa 00:00-24:00',
 		'24/7',
-		'Mo-Fr,PH,Sa,Su',
+		'Mo-Fr,Sa,Su',
+		'PH,Mo-Fr,Sa,Su',
 		'Jan-Dec',
 		'Feb-Jan',
 		'Dec-Nov',
-		'Jan 01-Dec 31', // week stable actually, but check for that needs extra logic
-		'week 1-54',     // week stable actually, but check for that needs extra logic
+		ignored('Jan 01-Dec 31'), // week stable actually, but check for that needs extra logic
+		ignored('week 1-54'),     // week stable actually, but check for that needs extra logic
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
 	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not last test');
@@ -365,6 +366,17 @@ test.addTest('Constrained weekdays', [
 		[ '2012.10.24 10:00', '2012.10.24 12:00' ],
 		[ '2012.10.31 10:00', '2012.10.31 12:00' ],
 	], 1000 * 60 * 60 * 2 * 2, 0, false);
+
+test.addTest('Calculations based on constrained weekdays', [
+		'Sa[4],Sa[4] + 0 days 10:00-12:00',
+		'Sa[4],Sa[4] + 1 day 10:00-12:00',
+		'Sa[4] + 1 day,Sa[4] 10:00-12:00', // 1 days is wrong English but our library does not distinguish between day and days
+		'Sa[4],Sa[4] + 4 days 10:00-12:00',
+		'Sa[4]  +3 days 10:00-12:00',
+	], '2013.09.01 0:00', '2013.10.01 0:00', [
+		[ '2012.10.24 10:00', '2012.10.24 12:00' ],
+		[ '2012.10.31 10:00', '2012.10.31 12:00' ],
+	], 1000 * 60 * 60 * 2 * 2, 0, false, {}, 'last test');
 
 test.addTest('Exception rules', [
 		'Mo-Fr 10:00-16:00; We 12:00-18:00'
@@ -752,6 +764,12 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
 		'PH', // country is not specified
 		'SH', // country is not specified
+	]);
+
+test.addShouldFail('Value not ideal (probably wrong). Should throw an error.', [
+		// 'Mo[2] - 6 days', // considered as "correct"
+		'Mo[2] - 7 days',
+		'Mo[2] - 0 days', // pointless
 	]);
 
 process.exit(test.run() ? 0 : 1);
