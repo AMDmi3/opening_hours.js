@@ -625,6 +625,7 @@
 							throw 'Number between -5 and 5 (except 0) expected';
 
 						selectors.weekday.push(function(weekday, number, add_days) { return function(date) {
+							// console.log('selector called', date);
 							var start_of_this_month = new Date(date.getFullYear(), date.getMonth(), 1);
 							var start_of_next_month = new Date(date.getFullYear(), date.getMonth() + 1, 1);
 
@@ -649,7 +650,7 @@
 									// so we calculate it for the month
 									// following this month and hope that the
 									// target day will actually be this month.
-									console.log('before this month. ')
+									// console.log('before this month. ')
 
 								} else {
 									return [false, start_of_next_month];
@@ -659,23 +660,37 @@
 								if (target_day_this_month.getTime() < start_of_next_month.getTime()) {
 									// then we can calculate the target day for the month before this month
 									// and hope that the target day will actually be this month.
-									console.log('after this month. ')
-									target_day_this_month = dateAtNextWeekday(
-										new Date(date.getFullYear(), date.getMonth() + (number > 0 ? 0 : 1) - 1, 1), weekday);
-									target_day_this_month.setDate(target_day_this_month.getDate() + (number + (number > 0 ? -1 : 0)) * 7);
-									console.log(target_day_this_month);
+									// console.log('after this month. ', target_day_with_added_days_this_month);
+									// console.log(target_day_this_month);
 								} else {
 									return [false, start_of_next_month];
 								}
 							}
 
+							target_day_this_month_moved = dateAtNextWeekday(
+								new Date(date.getFullYear(), date.getMonth() + (number > 0 ? 0 : 1) -1, 1), weekday);
+							target_day_this_month_moved.setDate(target_day_this_month_moved.getDate() + (number + (number > 0 ? -1 : 0)) * 7);
+
+							var target_day_with_added_moved_days_this_month = new Date(target_day_this_month_moved.getFullYear(),
+								target_day_this_month_moved.getMonth(), target_day_this_month_moved.getDate() + add_days);
+									// console.log('moved day', target_day_with_added_moved_days_this_month);
+
 							// we hit the target day
-							if (date.getDate() == target_day_with_added_days_this_month.getDate())
+							if (date.getDate() == target_day_with_added_days_this_month.getDate()) {
+								// console.log('matched')
 								return [true, dateAtDayMinutes(date, minutes_in_day)];
+							}
+
+							if (date.getDate() == target_day_with_added_moved_days_this_month.getDate()) {
+								// console.log('back matched');
+								return [true, dateAtDayMinutes(date, minutes_in_day)];
+							}
 
 							// we're before target day
-							if (date.getDate() < target_day_with_added_days_this_month.getDate())
+							if (date.getDate() < target_day_with_added_days_this_month.getDate()) {
+								// console.log('before', target_day_with_added_days_this_month);
 								return [false, target_day_with_added_days_this_month];
+							}
 
 							// we're after target day, set check date to next month
 							return [false, start_of_next_month];
@@ -1489,6 +1504,8 @@
 
 		// return total number of milliseconds a facility is open without a given date range
 		this.getOpenDuration = function(from, to) {
+		// console.log('-----------');
+
 			var open    = 0;
 			var unknown = 0;
 
