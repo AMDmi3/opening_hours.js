@@ -625,7 +625,7 @@
 							throw 'Number between -5 and 5 (except 0) expected';
 
 						selectors.weekday.push(function(weekday, number, add_days) { return function(date) {
-							// console.log('selector called', date);
+							// console.log('\nselector called', date);
 							var start_of_this_month = new Date(date.getFullYear(), date.getMonth(), 1);
 							var start_of_next_month = new Date(date.getFullYear(), date.getMonth() + 1, 1);
 
@@ -637,12 +637,8 @@
 
 							var target_day_with_added_days_this_month = new Date(target_day_this_month.getFullYear(),
 								target_day_this_month.getMonth(), target_day_this_month.getDate() + add_days);
-							// console.log(target_day_with_added_days_this_month);
 
-							// Calculated target day is not inside this month
-							// therefore the specified weekday (e.g. fifth Sunday)
-							// does not exist this month. Try it next month.
-							//
+
 							// The target day with added days can be before this month
 							if (target_day_with_added_days_this_month.getTime() < start_of_this_month.getTime()) {
 								// but in this case, the target day without the days added needs to be in this month
@@ -650,9 +646,19 @@
 									// so we calculate it for the month
 									// following this month and hope that the
 									// target day will actually be this month.
-									// console.log('before this month. ')
+									// console.log('before this month. ', target_day_with_added_days_this_month);
+
+									throw 'Condition weekdays moving to the previus month are currently not supported.';
+									target_day_with_added_days_this_month = dateAtNextWeekday(
+										new Date(date.getFullYear(), date.getMonth() + (number > 0 ? 0 : 1) + 1, 1), weekday);
+									target_day_this_month.setDate(target_day_with_added_days_this_month.getDate()
+										+ (number + (number > 0 ? -1 : 0)) * 7 + add_days);
+									// console.log('calculate ', target_day_this_month);
 
 								} else {
+									// Calculated target day is not inside this month
+									// therefore the specified weekday (e.g. fifth Sunday)
+									// does not exist this month. Try it next month.
 									return [false, start_of_next_month];
 								}
 							} else if (target_day_with_added_days_this_month.getTime() >= start_of_next_month.getTime()) {
@@ -667,22 +673,35 @@
 								}
 							}
 
-							target_day_this_month_moved = dateAtNextWeekday(
-								new Date(date.getFullYear(), date.getMonth() + (number > 0 ? 0 : 1) -1, 1), weekday);
-							target_day_this_month_moved.setDate(target_day_this_month_moved.getDate() + (number + (number > 0 ? -1 : 0)) * 7);
+							if (add_days > 0) {
+								var target_day_with_added_moved_days_this_month = dateAtNextWeekday(
+									new Date(date.getFullYear(), date.getMonth() + (number > 0 ? 0 : 1) -1, 1), weekday);
+								target_day_with_added_moved_days_this_month.setDate(target_day_with_added_moved_days_this_month.getDate()
+									+ (number + (number > 0 ? -1 : 0)) * 7 + add_days);
+								if (date.getDate() == target_day_with_added_moved_days_this_month.getDate()) {
+									return [true, dateAtDayMinutes(date, minutes_in_day)];
+								}
+							}
 
-							var target_day_with_added_moved_days_this_month = new Date(target_day_this_month_moved.getFullYear(),
-								target_day_this_month_moved.getMonth(), target_day_this_month_moved.getDate() + add_days);
-									// console.log('moved day', target_day_with_added_moved_days_this_month);
+							if (add_days < 0) {
+								var target_day_with_added_moved_days_this_month = dateAtNextWeekday(
+									new Date(date.getFullYear(), date.getMonth() + (number > 0 ? 0 : 1) + 1, 1), weekday);
+								target_day_with_added_moved_days_this_month.setDate(target_day_with_added_moved_days_this_month.getDate()
+									+ (number + (number > 0 ? -1 : 0)) * 7 + add_days);
+
+								// console.log('could back match: ', target_day_with_added_moved_days_this_month, target_day_with_added_days_this_month);
+								// console.log(target_day_with_added_days_this_month, target_day_with_added_moved_days_this_month);
+								if (target_day_with_added_moved_days_this_month.getTime() < start_of_this_month.getTime()
+										|| target_day_with_added_moved_days_this_month.getTime() >= start_of_next_month.getTime()) {
+									console.log('outside');
+								} else {
+									target_day_with_added_days_this_month = target_day_with_added_moved_days_this_month;
+								}
+							}
 
 							// we hit the target day
 							if (date.getDate() == target_day_with_added_days_this_month.getDate()) {
 								// console.log('matched')
-								return [true, dateAtDayMinutes(date, minutes_in_day)];
-							}
-
-							if (date.getDate() == target_day_with_added_moved_days_this_month.getDate()) {
-								// console.log('back matched');
 								return [true, dateAtDayMinutes(date, minutes_in_day)];
 							}
 
@@ -692,6 +711,7 @@
 								return [false, target_day_with_added_days_this_month];
 							}
 
+							// console.log('end');
 							// we're after target day, set check date to next month
 							return [false, start_of_next_month];
 						}}(tokens[at][0], numbers[nnumber], add_days));

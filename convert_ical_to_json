@@ -151,7 +151,7 @@ sub find_ical_links {
 }
 # }}}
 
-# function: creates process ical urls {{{
+# function: process ical urls {{{
 sub process_ical_urls {
     make_path $tmp_dir_icals;
     my %only_states = map { $_ => 1 } @only_states;

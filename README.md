@@ -238,6 +238,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Supports set of weekdays and weekday ranges (```Mo-We,Fr```)
 * Supports weekdays which wrap to the next week (```Fr-Mo```)
 * Supports constrained weekdays (```Th[1,2-3]```, ```Fr[-1]```)
+* Supports calulations based on constrained weekdays (```Sa[-1],Sa[-1] +1 day``` e.g. last weekend in the month, this also works if Sunday is in the next month)
 
 ### Holidays ###
 

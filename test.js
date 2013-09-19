@@ -369,6 +369,7 @@ test.addTest('Constrained weekdays', [
 
 test.addTest('Calculations based on constrained weekdays', [
 		'Sa[-1] +3 days 10:00-12:00',
+		'Sa[-1] +3 day 10:00-12:00', // 3 day is bad English but our library does tread them as synonym
 	], '2013.08.21 0:00', '2014.02.01 0:00', [
 		[ '2013.09.01 10:00', '2013.09.01 12:00' ],
 		[ '2013.10.01 10:00', '2013.10.01 12:00' ],
@@ -377,6 +378,22 @@ test.addTest('Calculations based on constrained weekdays', [
 		[ '2013.12.31 10:00', '2013.12.31 12:00' ],
 		[ '2014.01.28 10:00', '2014.01.28 12:00' ],
 	], 1000 * 60 * 60 * 2 * 6, 0, false, {}, 'not last test');
+
+test.addTest('Calculations based on constrained weekdays: last weekend in month', [
+		'Sa[-1],Sa[-1] +1 day 10:00-12:00',
+	], '2013.08.21 0:00', '2013.10.03 0:00', [
+		[ '2013.08.31 10:00', '2013.08.31 12:00' ],
+		[ '2013.09.01 10:00', '2013.09.01 12:00' ],
+		[ '2013.09.28 10:00', '2013.09.28 12:00' ],
+		[ '2013.09.29 10:00', '2013.09.29 12:00' ],
+	], 1000 * 60 * 60 * 2 * 4, 0, false, {}, 'not last test');
+
+test.addTest('Calculations based on constrained weekdays: last weekend in month', [
+		'Sa[-1],Sa[-1] +1 day',
+	], '2013.08.21 0:00', '2013.10.03 0:00', [
+		[ '2013.08.31 00:00', '2013.09.02 00:00' ],
+		[ '2013.09.28 00:00', '2013.09.30 00:00' ],
+	], 1000 * 60 * 60 * 24 * 4, 0, false, {}, 'last test');
 
 test.addTest('Calculations based on constrained weekdays', [
 		'Sa[2] +3 days 10:00-12:00',
@@ -387,12 +404,16 @@ test.addTest('Calculations based on constrained weekdays', [
 	], 1000 * 60 * 60 * 2 * 3, 0, false, {}, 'not last test');
 
 test.addTest('Calculations based on constrained weekdays', [
-		'Sa[1] -3 days 10:00-12:00',
-	], '2013.08.21 0:00', '2013.12.01 0:00', [
-	[ '2013.09.17 10:00', '2013.09.17 12:00' ],
-	[ '2013.10.15 10:00', '2013.10.15 12:00' ],
-	[ '2013.11.12 10:00', '2013.11.12 12:00' ],
-	], 1000 * 60 * 60 * 2 * 3, 0, false, {}, 'last test');
+		'Sa[1] -5 days 10:00-12:00',
+	], '2013.08.21 0:00', '2014.02.01 0:00', [
+		[ '2013.09.02 10:00', '2013.09.02 12:00' ],
+		[ '2013.09.30 10:00', '2013.09.30 12:00' ],
+		[ '2013.10.28 10:00', '2013.10.28 12:00' ],
+		[ '2013.11.02 10:00', '2013.11.02 12:00' ],
+		[ '2013.12.02 10:00', '2013.12.02 12:00' ],
+		[ '2013.12.30 10:00', '2013.12.30 12:00' ],
+		[ '2014.01.27 10:00', '2014.01.27 12:00' ],
+	], 1000 * 60 * 60 * 2 * 3, 0, false, {}, 'not last test');
 
 test.addTest('Exception rules', [
 		'Mo-Fr 10:00-16:00; We 12:00-18:00'
