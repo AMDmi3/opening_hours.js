@@ -426,7 +426,7 @@ test.addTest('Calculations based on constrained weekdays', [
 		[ '2014.01.27 10:00', '2014.01.27 12:00' ],
 	], 1000 * 60 * 60 * 2 * 3, 0, false, {}, 'not last test');
 
-test.addTest('Exception rules', [
+test.addTest('Exception blocks', [
 		'Mo-Fr 10:00-16:00; We 12:00-18:00'
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 16:00' ],
@@ -436,7 +436,7 @@ test.addTest('Exception rules', [
 		[ '2012.10.05 10:00', '2012.10.05 16:00' ],
 	], 1000 * 60 * 60 * 6 * 5, 0, true);
 
-test.addTest('Additional rules', [
+test.addTest('Additional blocks', [
 		ignored('Mo-Fr 10:00-16:00, We 12:00-18:00'),
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 16:00' ],
@@ -446,7 +446,7 @@ test.addTest('Additional rules', [
 		[ '2012.10.05 10:00', '2012.10.05 16:00' ],
 	], 1000 * 60 * 60 * (6 * 5 + 2), 0, true);
 
-test.addTest('fallback group rules', [
+test.addTest('fallback group blocks', [
 		'Mo-Fr 10:00-16:00 || "please call" || "true" ; "false";',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 16:00' ],
@@ -814,7 +814,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'(sunrise)-sunset',
 		'27:00-29:00',
 		'', // empty string
-		';', // only rule delimiter
+		';', // only block delimiter
 		' ', // empty string
 		"\n", // newline
 	]);

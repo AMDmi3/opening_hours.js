@@ -147,6 +147,10 @@
 		// Mo-Fr 10:00-11:00; Th 10:00-12:00
 		// \_____block_____/  \____block___/
 		//
+		// The README refers to blocks as rules, which is more intuitive but less clear.
+		// Because of that only the README uses the term rule in that context.
+		// In all internal parts of this project, the term block is used.
+		//
 		// Mo-Fr Jan 10:00-11:00
 		// \__/  \_/ \_________/
 		// selectors (left to right: weekday, month, time)
@@ -184,8 +188,9 @@
 
 		var blocks = [];
 
-		for (var rule = 0; rule < tokens.length; rule++) {
-			if (tokens[rule][0].length == 0) continue; // Rule does contain nothing useful e.g. second rule of '10:00-12:00;' (empty) which needs to be handled.
+		for (var nblock = 0; nblock < tokens.length; nblock++) {
+			if (tokens[nblock][0].length == 0) continue;
+			// Block does contain nothing useful e.g. second block of '10:00-12:00;' (empty) which needs to be handled.
 
 			var selectors = {
 				// Time selectors
@@ -210,7 +215,7 @@
 				comment: undefined,
 			};
 
-			parseGroup(tokens[rule][0], 0, selectors);
+			parseGroup(tokens[nblock][0], 0, selectors);
 
 			if (selectors.holiday.length > 0)
 				selectors.date.push(selectors.holiday);
@@ -255,10 +260,10 @@
 		}
 
 		// Tokenization function: Splits string into parts.
-		// output: array of pairs [content, type]
+		// output: array of arrays of pairs [content, type]
 		function tokenize(value) {
 			var all_tokens       = new Array();
-			var curr_rule_tokens = new Array();
+			var curr_block_tokens = new Array();
 
 			var last_block_fallback_terminated = false;
 
@@ -266,50 +271,50 @@
 				var tmp;
 				if (tmp = value.match(/^(?:week|24\/7|off|open|closed|unknown)/i)) {
 					// reserved word
-					curr_rule_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase()]);
+					curr_block_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase()]);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^days?/i)) {
-					curr_rule_tokens.push([tmp[0].toLowerCase(), 'calcday']);
+					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday']);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(?:sunrise|sunset|dawn|dusk)/i)) {
 					// Special time variables which actual value depends on the date and the position of the facility.
-					curr_rule_tokens.push([tmp[0].toLowerCase(), 'timevar']);
+					curr_block_tokens.push([tmp[0].toLowerCase(), 'timevar']);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i)) {
 					// month name
-					curr_rule_tokens.push([months[tmp[0].toLowerCase()], 'month']);
+					curr_block_tokens.push([months[tmp[0].toLowerCase()], 'month']);
 					value = value.substr(3);
 				} else if (tmp = value.match(/^(?:mo|tu|we|th|fr|sa|su)/i)) {
 					// weekday name
-					curr_rule_tokens.push([weekdays[tmp[0].toLowerCase()], 'weekday']);
+					curr_block_tokens.push([weekdays[tmp[0].toLowerCase()], 'weekday']);
 					value = value.substr(2);
 				} else if (tmp = value.match(/^(?:PH|SH)/i)) {
 					// special day name (holidays)
-					curr_rule_tokens.push([tmp[0].toUpperCase(), 'holiday']);
+					curr_block_tokens.push([tmp[0].toUpperCase(), 'holiday']);
 					value = value.substr(2);
 				} else if (tmp = value.match(/^\d+/)) {
 					// number
 					if (tmp[0] > 1900) // assumed to be a year number
-						curr_rule_tokens.push([tmp[0], 'year']);
+						curr_block_tokens.push([tmp[0], 'year']);
 					else
-						curr_rule_tokens.push([+tmp[0], 'number']);
+						curr_block_tokens.push([+tmp[0], 'number']);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^"([^"]+)"/)) {
 					// comment
-					curr_rule_tokens.push([tmp[1], 'comment']);
+					curr_block_tokens.push([tmp[1], 'comment']);
 					value = value.substr(tmp[0].length);
 				} else if (value.match(/^;/)) {
 					// semicolon terminates block
 					// next tokens belong to a new block
-					all_tokens.push([ curr_rule_tokens, last_block_fallback_terminated ]);
-					curr_rule_tokens = [];
+					all_tokens.push([ curr_block_tokens, last_block_fallback_terminated ]);
+					curr_block_tokens = [];
 					last_block_fallback_terminated = false;
 					value = value.substr(1);
 				} else if (value.match(/^\|\|/)) {
 					// || terminates block
 					// next tokens belong to a fallback block
-					all_tokens.push([ curr_rule_tokens, last_block_fallback_terminated ]);
-					curr_rule_tokens = [];
+					all_tokens.push([ curr_block_tokens, last_block_fallback_terminated ]);
+					curr_block_tokens = [];
 					last_block_fallback_terminated = true;
 					value = value.substr(2);
 				} else if (value.match(/^\s/)) {
@@ -319,16 +324,16 @@
 					value = value.substr(tmp[0].length);
 				} else if (value.match(/^[:.]/)) {
 					// time separator
-					curr_rule_tokens.push([value[0].toLowerCase(), 'timesep']);
+					curr_block_tokens.push([value[0].toLowerCase(), 'timesep']);
 					value = value.substr(1);
 				} else {
 					// other single-character tokens
-					curr_rule_tokens.push([value[0].toLowerCase(), value[0].toLowerCase()]);
+					curr_block_tokens.push([value[0].toLowerCase(), value[0].toLowerCase()]);
 					value = value.substr(1);
 				}
 			}
 
-			all_tokens.push([ curr_rule_tokens, last_block_fallback_terminated ]);
+			all_tokens.push([ curr_block_tokens, last_block_fallback_terminated ]);
 
 			return all_tokens;
 		}
@@ -412,7 +417,7 @@
 							selectors.meaning = false;
 							selectors.unknown = true;
 						}
-					} else { // rule starts with comment
+					} else { // block starts with comment
 						selectors.time.push(function(date) { return [true]; });
 						selectors.meaning = false;
 						selectors.unknown = true;
@@ -1395,7 +1400,7 @@
 
 				if (matching_date_block) {
 					// The following lines implement date overwriting logic (e.g. for
-					// "Mo-Fr 10:00-20:00; We 10:00-16:00", We rule overrides Mo-Fr rule.
+					// "Mo-Fr 10:00-20:00; We 10:00-16:00", We block overrides Mo-Fr block.
 					if (blocks[nblock].date.length > 0 && (blocks[nblock].meaning || blocks[nblock].unknown) && !blocks[nblock].wrapped)
 						date_matching_blocks = [];
 					date_matching_blocks.push(nblock);
