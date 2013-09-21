@@ -446,6 +446,16 @@ test.addTest('Additional rules', [
 		[ '2012.10.05 10:00', '2012.10.05 16:00' ],
 	], 1000 * 60 * 60 * (6 * 5 + 2), 0, true);
 
+test.addTest('fallback group rules', [
+		'Mo-Fr 10:00-16:00 || "please call" || "true" ; "false";',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 10:00', '2012.10.01 16:00' ],
+		[ '2012.10.02 10:00', '2012.10.02 16:00' ],
+		[ '2012.10.03 10:00', '2012.10.03 18:00' ],
+		[ '2012.10.04 10:00', '2012.10.04 16:00' ],
+		[ '2012.10.05 10:00', '2012.10.05 16:00' ],
+	], 1000 * 60 * 60 * (6 * 5 + 2), 0, true, {}, 'not last test');
+
 test.addTest('Month ranges', [
 		'Nov-Feb 00:00-24:00',
 		'Nov-Feb: 00:00-24:00',
@@ -701,11 +711,11 @@ test.addTest('Additional comments', [
 	], 1000 * 60 * 60 * 6 * 4, 1000 * 60 * 60 * 2, true);
 
 test.addTest('Additional comments for unknown', [
-		'Sa 10:00-12:00 "Maybe open. Call us."',
-		'Sa 10:00-12:00 unknown "Maybe open. Call us."',
+		'Sa 10:00-12:00 "Maybe open. Call us. (testing special tokens in comment: ; ;; \' || | test end)"',
+		'Sa 10:00-12:00 unknown "Maybe open. Call us. (testing special tokens in comment: ; ;; \' || | test end)"',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.06 10:00', '2012.10.06 12:00', true, "Maybe open. Call us." ],
-	], 0, 1000 * 60 * 60 * 2, true);
+		[ '2012.10.06 10:00', '2012.10.06 12:00', true, "Maybe open. Call us. (testing special tokens in comment: ; ;; \' || | test end)" ],
+	], 0, 1000 * 60 * 60 * 2, true, {}, 'not last test');
 
 test.addTest('Date overwriting with additional comments for unknown ', [
 		'Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 "Maybe open. Call us."',

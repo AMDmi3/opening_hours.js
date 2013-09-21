@@ -152,11 +152,11 @@
 		// selectors (left to right: weekday, month, time)
 		//
 		// Logic:
-		// - Split blocks; foreach block:
 		// - Tokenize
-		// - Run toplevel (block) parser
-		//   - Which calls subparser for specific selector types
-		//     - Which produce selectors
+		// Foreach block:
+		//   - Run toplevel (block) parser
+		//     - Which calls subparser for specific selector types
+		//       - Which produce selector functions
 
 
 		// Evaluate additional information which can be given. They are
@@ -178,14 +178,14 @@
 
 		if (value.match(/^(\s*;?\s*)+$/)) throw 'Value contains nothing meaningful which can be parsed';
 
-		var rules = value.split(/\s*;\s*/);
+		var tokens = tokenize(value);
+		// console.log(JSON.stringify(tokens, null, '\t'));
 		var week_stable = true;
 
 		var blocks = [];
 
-		for (var rule = 0; rule < rules.length; rule++) {
-			var tokens = tokenize(rules[rule]);
-			if (tokens.length == 0) continue; // Rule does contain nothing useful e.g. second rule of '10:00-12:00;' (empty) which needs to be handled.
+		for (var rule = 0; rule < tokens.length; rule++) {
+			if (tokens[rule][0].length == 0) continue; // Rule does contain nothing useful e.g. second rule of '10:00-12:00;' (empty) which needs to be handled.
 
 			var selectors = {
 				// Time selectors
@@ -210,7 +210,7 @@
 				comment: undefined,
 			};
 
-			parseGroup(tokens, 0, selectors);
+			parseGroup(tokens[rule][0], 0, selectors);
 
 			if (selectors.holiday.length > 0)
 				selectors.date.push(selectors.holiday);
@@ -257,59 +257,80 @@
 		// Tokenization function: Splits string into parts.
 		// output: array of pairs [content, type]
 		function tokenize(value) {
-			var tokens = new Array();
+			var all_tokens       = new Array();
+			var curr_rule_tokens = new Array();
+
+			var last_block_fallback_terminated = false;
 
 			while (value != '') {
 				var tmp;
 				if (tmp = value.match(/^(?:week|24\/7|off|open|closed|unknown)/i)) {
 					// reserved word
-					tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase()]);
+					curr_rule_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase()]);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^days?/i)) {
-					tokens.push([tmp[0].toLowerCase(), 'calcday']);
+					curr_rule_tokens.push([tmp[0].toLowerCase(), 'calcday']);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(?:sunrise|sunset|dawn|dusk)/i)) {
 					// Special time variables which actual value depends on the date and the position of the facility.
-					tokens.push([tmp[0].toLowerCase(), 'timevar']);
+					curr_rule_tokens.push([tmp[0].toLowerCase(), 'timevar']);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i)) {
 					// month name
-					tokens.push([months[tmp[0].toLowerCase()], 'month']);
+					curr_rule_tokens.push([months[tmp[0].toLowerCase()], 'month']);
 					value = value.substr(3);
 				} else if (tmp = value.match(/^(?:mo|tu|we|th|fr|sa|su)/i)) {
 					// weekday name
-					tokens.push([weekdays[tmp[0].toLowerCase()], 'weekday']);
+					curr_rule_tokens.push([weekdays[tmp[0].toLowerCase()], 'weekday']);
 					value = value.substr(2);
 				} else if (tmp = value.match(/^(?:PH|SH)/i)) {
 					// special day name (holidays)
-					tokens.push([tmp[0].toUpperCase(), 'holiday']);
+					curr_rule_tokens.push([tmp[0].toUpperCase(), 'holiday']);
 					value = value.substr(2);
 				} else if (tmp = value.match(/^\d+/)) {
 					// number
 					if (tmp[0] > 1900) // assumed to be a year number
-						tokens.push([tmp[0], 'year']);
+						curr_rule_tokens.push([tmp[0], 'year']);
 					else
-						tokens.push([+tmp[0], 'number']);
+						curr_rule_tokens.push([+tmp[0], 'number']);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^"([^"]+)"/)) {
 					// comment
-					tokens.push([tmp[1], 'comment']);
+					curr_rule_tokens.push([tmp[1], 'comment']);
 					value = value.substr(tmp[0].length);
-				} else if (value.match(/^\s/)) {
-					// whitespace is ignored
+				} else if (value.match(/^;/)) {
+					// semicolon terminates block
+					// next tokens belong to a new block
+					all_tokens.push([ curr_rule_tokens, last_block_fallback_terminated ]);
+					curr_rule_tokens = [];
+					last_block_fallback_terminated = false;
 					value = value.substr(1);
+				} else if (value.match(/^\|\|/)) {
+					// || terminates block
+					// next tokens belong to a fallback block
+					all_tokens.push([ curr_rule_tokens, last_block_fallback_terminated ]);
+					curr_rule_tokens = [];
+					last_block_fallback_terminated = true;
+					value = value.substr(2);
+				} else if (value.match(/^\s/)) {
+					value = value.substr(1);
+				} else if (tmp = value.match(/^\s+/)) {
+					// whitespace is ignored
+					value = value.substr(tmp[0].length);
 				} else if (value.match(/^[:.]/)) {
 					// time separator
-					tokens.push([value[0].toLowerCase(), 'timesep']);
+					curr_rule_tokens.push([value[0].toLowerCase(), 'timesep']);
 					value = value.substr(1);
 				} else {
 					// other single-character tokens
-					tokens.push([value[0].toLowerCase(), value[0].toLowerCase()]);
+					curr_rule_tokens.push([value[0].toLowerCase(), value[0].toLowerCase()]);
 					value = value.substr(1);
 				}
 			}
 
-			return tokens;
+			all_tokens.push([ curr_rule_tokens, last_block_fallback_terminated ]);
+
+			return all_tokens;
 		}
 
 		// Function to check token array for specific pattern
