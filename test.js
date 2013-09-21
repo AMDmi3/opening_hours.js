@@ -349,6 +349,17 @@ test.addTest('Full range', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
 	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not last test');
 
+// Not sure if this was intended, but this is how the code handles it.
+// And it is not bad actually.
+test.addTest('Interpetation of points im time', [
+		'12:00',
+		'Mo-Fr 12:00',
+	], '2012.10.01 0:00', '2012.10.04 0:00', [
+		[ '2012.10.01 12:00', '2012.10.01 12:01' ],
+		[ '2012.10.02 12:00', '2012.10.02 12:01' ],
+		[ '2012.10.03 12:00', '2012.10.03 12:01' ],
+	], 1000 * 60 * 3, 0, true, {}, 'not last test');
+
 test.addTest('24/7 as time interval alias', [
 		'Mo,We 24/7',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -393,7 +404,7 @@ test.addTest('Calculations based on constrained weekdays: last weekend in month'
 	], '2013.08.21 0:00', '2013.10.03 0:00', [
 		[ '2013.08.31 00:00', '2013.09.02 00:00' ],
 		[ '2013.09.28 00:00', '2013.09.30 00:00' ],
-	], 1000 * 60 * 60 * 24 * 4, 0, false, {}, 'last test');
+	], 1000 * 60 * 60 * 24 * 4, 0, false, {}, 'not last test');
 
 test.addTest('Calculations based on constrained weekdays', [
 		'Sa[2] +3 days 10:00-12:00',

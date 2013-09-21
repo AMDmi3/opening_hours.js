@@ -20,6 +20,8 @@ test.exported_json('opening_hours:kitchen', { ignore: [ 'opening_hours' ]});
 
 test.exported_json('opening_hours:warm_kitchen', { ignore: [ 'opening_hours' ]});
 
+// test.exported_json('collection_times');
+
 //======================================================================
 // Test framework
 //======================================================================
@@ -27,6 +29,7 @@ function opening_hours_test() {
 	this.exported_json = function (tagname /* file exported by the taginfo API */, options) {
 		var how_often_print_stats = 15000;
 		var importance_threshold  = 30;
+		var global_ignore = [ 'fixme' ];
 
 		fs.readFile(__dirname + '/export.' + tagname + '.json', 'utf8', function (err, data) {
 			if (err) {
@@ -34,9 +37,9 @@ function opening_hours_test() {
 				return;
 			}
 
-			var ignored_values = [];
+			var ignored_values = global_ignore;
 			if (typeof options !== 'undefined' && typeof options.ignore !== 'undefined')
-				ignored_values = options.ignore;
+				ignored_values.push(options.ignore);
 
 			console.log('[1;34mParsing ' + tagname + '[0m' + (ignored_values.length != 0 ? ' (ignoring ' + ignored_values + ')': '') + ' …');
 
@@ -63,6 +66,7 @@ function opening_hours_test() {
 					if (test_value(data.data[i].value)) {
 						success_differ++;
 						success += data.data[i].count;
+						// console.log('passed', data.data[i].value);
 					} else if (data.data[i].count > importance_threshold) {
 						important_and_failed.push([data.data[i].value, data.data[i].count]);
 					}

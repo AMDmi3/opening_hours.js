@@ -343,6 +343,9 @@
 				// console.log('Parsing at position '+ at +': '+tokens[at]);
 				if (matchTokens(tokens, at, 'weekday')) {
 					at = parseWeekdayRange(tokens, at, selectors);
+				} else if (matchTokens(tokens, at, '24/7')) {
+					selectors.time.push(function(date) { return [true]; });
+					at++;
 				} else if (matchTokens(tokens, at, 'holiday')) {
 					at = parseHoliday(tokens, at, selectors);
 					week_stable = false;
@@ -393,9 +396,6 @@
 						selectors.meaning = false;
 						selectors.unknown = true;
 					}
-					at++;
-				} else if (matchTokens(tokens, at, '24/7')) {
-					selectors.time.push(function(date) { return [true]; });
 					at++;
 				} else {
 					throw 'Unexpected token: "' + tokens[at] + '"';
