@@ -1072,6 +1072,8 @@
 					if (matchTokens(tokens, at+1, '-', 'year', '/', 'number')) {
 						var is_range   = true;
 						var has_period = true;
+						if (tokens[at+4][0] == 1)
+							throw 'Please don’t use year ranges with period equals one (see README)';
 					} else {
 						var is_range   = matchTokens(tokens, at+1, '-', 'year');
 						var has_period = matchTokens(tokens, at+1, '/', 'number');
@@ -1100,8 +1102,6 @@
 									var period = tokens[at+2][0];
 								}
 								if (period > 0) {
-									if (period == 1 && is_range)
-										throw 'Please don’t use year ranges with period equals one (see README)';
 									if ((ouryear - year_from) % period == 0) {
 										return [true, new Date(ouryear + 1, 0, 1)];
 									} else {

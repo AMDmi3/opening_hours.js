@@ -492,19 +492,13 @@ test.addTest('Month ranges', [
 		[ '2012.11.01 00:00', '2012.12.01 00:00' ],
 	], 1000 * 60 * 60 * 24 * 30, 0, false, {}, 'not last test');
 
-test.addTest('Month weekday', [
-		'Nov Th[4]',
-	], '2012.01.01 0:00', '2013.01.01 0:00', [
-		[ '2012.01.01 00:00', '2012.03.01 00:00' ],
-		[ '2012.11.01 00:00', '2013.01.01 00:00' ],
-	], 1000 * 60 * 60 * 24 * (31 + 29 + 30 + 31), 0, false, {}, 'not last test');
-
 test.addTest('Month ranges', [
-		'Jan 1,Nov Th[4],Dec 24-25',
+		'Jan 1,Dec 24-25; Nov Th[4]',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
-		[ '2012.01.01 00:00', '2012.03.01 00:00' ],
-		[ '2012.11.01 00:00', '2013.01.01 00:00' ],
-	], 1000 * 60 * 60 * 24 * (31 + 29 + 30 + 31), 0, false, {}, 'not last test');
+		[ '2012.01.01 00:00', '2012.01.02 00:00' ],
+		[ '2012.11.22 00:00', '2012.11.23 00:00' ],
+		[ '2012.12.24 00:00', '2012.12.26 00:00' ],
+	], 1000 * 60 * 60 * 24 * 4, 0, false, {}, 'not last test');
 
 test.addTest('Week ranges', [
 		'week 1,3 00:00-24:00',
@@ -837,7 +831,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		';', // only block delimiter
 		' ', // empty string
 		"\n", // newline
-	]);
+	], 'not only test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
 		'PH', // country is not specified
