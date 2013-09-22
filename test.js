@@ -19,6 +19,7 @@ test.addTest('Time intervals', [
 		'10:00-11:00;11:00-12:00',
 		'10:00-14:00;12:00-14:00 off',
 		'10:00-12:00;10:30-11:30',
+		// 'week 01-13: 07:00-20:00; week 14-40: 06:30-21:00; week 41-52: 07:00-20:00'
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 12:00' ],
 		[ '2012.10.02 10:00', '2012.10.02 12:00' ],
@@ -27,7 +28,7 @@ test.addTest('Time intervals', [
 		[ '2012.10.05 10:00', '2012.10.05 12:00' ],
 		[ '2012.10.06 10:00', '2012.10.06 12:00' ],
 		[ '2012.10.07 10:00', '2012.10.07 12:00' ],
-	], 1000 * 60 * 60 * 2 * 7, 0, true);
+	], 1000 * 60 * 60 * 2 * 7, 0, true, {}, 'not last test');
 
 test.addTest('Time intervals', [
 		'24/7; Mo 15:00-16:00 off',
@@ -37,7 +38,8 @@ test.addTest('Time intervals', [
 		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true);
 
-test.addTest('Open end', [ 'Mo 17:00+',
+test.addTest('Open end', [
+		'Mo 17:00+',
 		'17:00+',
 	], '2012.10.01 0:00', '2012.10.02 0:00', [
 		[ '2012.10.01 17:00', '2012.10.01 17:01' ],
@@ -71,7 +73,7 @@ test.addTest('Variable times calculation without coordinates', [
 		[ '2012.10.02 07:02', '2012.10.02 17:30' ],
 	], 1000 * 60 * (60 * 10 + 28) * 2, 0, true, {}, 'not last test');
 
-test.addTest('Variable times e.g. sunrise, sunset without coordinates (→ constant times)', [
+test.addTest('Variable times e.g. dawn, dusk without coordinates (→ constant times)', [
 		'dawn-dusk',
 		'(dawn+0:00)-dusk', // testing variable time calculation, should not change time
 		'dawn-(dusk-0:00)',
@@ -446,15 +448,29 @@ test.addTest('Additional blocks', [
 		[ '2012.10.05 10:00', '2012.10.05 16:00' ],
 	], 1000 * 60 * 60 * (6 * 5 + 2), 0, true);
 
-test.addTest('fallback group blocks', [
-		'Mo-Fr 10:00-16:00 || "please call" || "true" ; "false";',
+test.addTest('Fallback group blocks', [
+		'We-Fr 10:00-24:00 open "first" || "please call"',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 10:00', '2012.10.01 16:00' ],
-		[ '2012.10.02 10:00', '2012.10.02 16:00' ],
-		[ '2012.10.03 10:00', '2012.10.03 18:00' ],
-		[ '2012.10.04 10:00', '2012.10.04 16:00' ],
-		[ '2012.10.05 10:00', '2012.10.05 16:00' ],
-	], 1000 * 60 * 60 * (6 * 5 + 2), 0, true, {}, 'not last test');
+		[ '2012.10.01 00:00', '2012.10.03 10:00', true,  'please call' ],
+		[ '2012.10.03 10:00', '2012.10.04 00:00', false, 'first' ],
+		[ '2012.10.04 00:00', '2012.10.04 10:00', true,  'please call' ],
+		[ '2012.10.04 10:00', '2012.10.05 00:00', false, 'first' ],
+		[ '2012.10.05 00:00', '2012.10.05 10:00', true,  'please call' ],
+		[ '2012.10.05 10:00', '2012.10.06 00:00', false, 'first' ],
+		[ '2012.10.06 00:00', '2012.10.08 00:00', true,  'please call' ],
+	], 1000 * 60 * 60 * 14 * 3, 1000 * 60 * 60 * (10 * 3 + 24 * (2 + 2)), true, {}, 'not last test');
+
+test.addTest('Fallback group blocks', [
+		'We-Fr 10:00-24:00 open "first" || We "please call" || closed "we are not open!!!"',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 00:00', '2012.10.03 10:00', true,  'please call' ],
+		[ '2012.10.03 10:00', '2012.10.04 00:00', false, 'first' ],
+		[ '2012.10.04 00:00', '2012.10.04 10:00', true,  'please call' ],
+		[ '2012.10.04 10:00', '2012.10.05 00:00', false, 'first' ],
+		[ '2012.10.05 00:00', '2012.10.05 10:00', true,  'please call' ],
+		[ '2012.10.05 10:00', '2012.10.06 00:00', false, 'first' ],
+		[ '2012.10.06 00:00', '2012.10.08 00:00', true,  'please call' ],
+	], 1000 * 60 * 60 * 14 * 3, 1000 * 60 * 60 * (10 * 3 + 24 * (2 + 2)), true, {}, 'not last test');
 
 test.addTest('Month ranges', [
 		'Nov-Feb 00:00-24:00',
@@ -754,7 +770,7 @@ test.addTest('Additional comments for closed with time ranges spanning midnight'
 		[ '2012.10.05 22:00', '2012.10.06 02:00' ],
 		[ '2012.10.06 22:00', '2012.10.07 02:00' ],
 		[ '2012.10.07 22:00', '2012.10.08 00:00' ],
-	], 1000 * 60 * 60 * 4 * 7, 0, true);
+	], 1000 * 60 * 60 * 4 * 7, 0, true, {}, 'not last test');
 
 test.addTest('Complex example used in README', [
 		'00:00-24:00; Tu-Su 8:30-9:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off',
@@ -836,6 +852,7 @@ process.exit(test.run() ? 0 : 1);
 // Test framework
 //======================================================================
 function opening_hours_test() {
+	var show_passing_tests = true;
 	var tests = [];
 	var tests_should_fail = [];
 
@@ -853,11 +870,13 @@ function opening_hours_test() {
 		if (crashed) {
 			str += '[1;32mPASSED[0m';
 			passed = true;
+			if (show_passing_tests)
+				console.log(str);
 		} else {
 			str += '[1;31mFAILED[0m';
+			console.log(str);
 		}
 
-		console.log(str);
 		return crashed;
 	}
 
@@ -905,6 +924,7 @@ function opening_hours_test() {
 
 		var passed = false;
 		var str = '"' + name + '" for "' + value + '": ';
+		var failed = false;
 		if (intervals_ok && duration_ok && weekstable_ok) {
 			str += '[1;32mPASSED[0m';
 			if (ignored)
@@ -923,9 +943,12 @@ function opening_hours_test() {
 				str += ', bad intervals: \n' + intervalsToString(intervals) + '\nexpected:\n' + intervalsToString(expected_intervals);
 			if (!weekstable_ok)
 				str += ', bad weekstable flag: ' + weekstable + ', expected ' + expected_weekstable;
+			// console.log(intervals);
+			failed = true;
 		}
 
-		console.log(str);
+		if ((intervals_ok && duration_ok && weekstable_ok && show_passing_tests) || crashed || failed)
+			console.log(str);
 		return passed;
 	}
 
@@ -939,12 +962,12 @@ function opening_hours_test() {
 			var item = intervals[interval];
 			var from = formatDate(item[0]);
 			var to   = formatDate(item[1]);
-			var comment = typeof item[3] !== 'undefined' ? '"' + item[3] + '"' : item[3];
+			var comment = typeof item[3] !== 'undefined' ? '\'' + item[3] + '\'' : item[3];
 
 			if (interval != 0)
 				res += '\n';
 
-			res += '[ \'' + from + '\', \'' + to + '\', ' + item[2] + ', ' + comment + ' ],';
+			res += '[ \'' + from + '\', \'' + to + '\', ' + item[2]  + ', ' + (item[2] ? ' ' : '')+ comment + ' ],';
 		}
 
 		return res;
@@ -985,7 +1008,8 @@ function opening_hours_test() {
 
 	this.addTest = function(name, values, from, to, expected_intervals, expected_duration, expected_unknown_duration, expected_weekstable, nominatiomJSON, last) {
 	if (this.last == true) return;
-	if (last === 'last test') this.last = true;
+	if (last === 'only test') tests = [];
+	if (last === 'only test' || last === 'last test') this.last = true;
 
 		for (var expected_interval = 0; expected_interval < expected_intervals.length; expected_interval++) {
 			// Set default of unknown to false. If you expect something else you
@@ -1004,7 +1028,8 @@ function opening_hours_test() {
 
 	this.addShouldFail = function(name, values, last) {
 	if (this.last == true) return;
-	if (last === 'last test') this.last = true;
+	if (last === 'only test') tests = [];
+	if (last === 'only test' || last === 'last test') this.last = true;
 
 		if (typeof values === 'string')
 			tests_should_fail.push([name, values]);

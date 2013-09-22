@@ -20,6 +20,8 @@ test.exported_json('opening_hours:kitchen', { ignore: [ 'opening_hours' ]});
 
 test.exported_json('opening_hours:warm_kitchen', { ignore: [ 'opening_hours' ]});
 
+// test.exported_json('service_times', { ignore: [ 'automatic' ]});
+
 // test.exported_json('collection_times');
 
 //======================================================================
@@ -39,7 +41,7 @@ function opening_hours_test() {
 
 			var ignored_values = global_ignore;
 			if (typeof options !== 'undefined' && typeof options.ignore !== 'undefined')
-				ignored_values.push(options.ignore);
+				ignored_values.push.apply(ignored_values, options.ignore);
 
 			console.log('[1;34mParsing ' + tagname + '[0m' + (ignored_values.length != 0 ? ' (ignoring ' + ignored_values + ')': '') + ' …');
 

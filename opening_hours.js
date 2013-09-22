@@ -210,6 +210,7 @@
 				// Array with non-empty date selector types, with most optimal ordering
 				date: [],
 
+				fallback: tokens[nblock][1],
 				meaning: true,
 				unknown: false,
 				comment: undefined,
@@ -1103,8 +1104,7 @@
 										throw 'Please don’t use year ranges with period equals one (see README)';
 									if ((ouryear - year_from) % period == 0) {
 										return [true, new Date(ouryear + 1, 0, 1)];
-									}
-									else {
+									} else {
 										return [false, new Date(ouryear + period - 1, 0, 1)];
 									}
 								}
@@ -1367,7 +1367,7 @@
 			var resultstate = false;
 			var changedate;
 			var unknown = false;
-			var comment = '';
+			var comment = undefined;
 
 			var date_matching_blocks = [];
 
@@ -1407,29 +1407,47 @@
 				}
 			}
 
+			block:
 			for (var nblock = 0; nblock < date_matching_blocks.length; nblock++) {
 				var block = date_matching_blocks[nblock];
+				// console.log('Processing block:\t', blocks[block].comment, '   with date', date);
 
 				// there is no time specified, state applies to the whole day
-				if (blocks[block].time.length == 0) {
-					resultstate = blocks[block].meaning;
-					comment     = blocks[block].comment;
-					unknown     = blocks[block].unknown;
-				}
+				// if ((blocks[block].fallback && !(blocks[block].meaning || blocks[block].unknown)) || !blocks[block].fallback) {
+					if (blocks[block].time.length == 0) {
+						// console.log('there is no time');
+						resultstate = blocks[block].meaning;
+						unknown     = blocks[block].unknown;
+						comment     = blocks[block].comment;
+					}
+				// }
 
 				for (var timesel = 0; timesel < blocks[block].time.length; timesel++) {
 					var res = blocks[block].time[timesel](date);
 
-					if (res[0]) {
-						resultstate = blocks[block].meaning;
-						comment     = blocks[block].comment;
-						unknown     = blocks[block].unknown;
+					// console.log('res:', res);
+					if (!blocks[block].fallback) {
+						if (res[0]) {
+							resultstate = blocks[block].meaning;
+							unknown     = blocks[block].unknown;
+							comment     = blocks[block].comment;
+						}
+					} else if ((blocks[block].fallback && !(resultstate || unknown))) {
+						if (res[0]) {
+							resultstate = blocks[block].meaning;
+							unknown     = blocks[block].unknown;
+							comment     = blocks[block].comment;
+							break block; // fallback block matched, no need for checking the rest
+						}
 					}
-					if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate))
+					if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate)) {
+						// console.log('overwrite with:', res[1])
 						changedate = res[1];
+					}
 				}
 			}
 
+			// console.log('changedate', changedate, comment);
 			return [ resultstate, changedate, unknown, comment ];
 		}
 
@@ -1446,7 +1464,7 @@
 				if (typeof date === 'undefined')
 					date = new Date();
 
-				var prevstate = [ undefined, date, undefined, '' ];
+				var prevstate = [ undefined, date, undefined, undefined ];
 				var state = oh.getStatePair(date);
 
 				this.getState = function() {
@@ -1474,9 +1492,13 @@
 						if (typeof state[1] === 'undefined')
 							return false;
 
-						// console.log('previours check time: ' + prevstate[1] + ', current check time: ' + state[1]);
-						// we're going backwards or staying at place
-						// this always indicates coding error in a selector code
+						// console.log('previours check time:', prevstate[1]
+						// 	+ ', current check time:', (state[1].getHours() < 10 ? '0' : '') + state[1].getHours() +
+						// 	':'+(state[1].getMinutes() < 10 ? '0' : '')+ state[1].getMinutes(),
+						// 	(state[0] ? 'open' : (state[2] ? 'unknown' : 'closed')) + ', comment:', state[3]);
+
+						// We're going backwards or staying at place.
+						// This always indicates coding error in a selector code.
 						if (state[1].getTime() <= prevstate[1].getTime())
 							throw 'Fatal: infinite loop in nextChange';
 
@@ -1487,9 +1509,7 @@
 						// do advance
 						prevstate = state;
 						state = oh.getStatePair(prevstate[1]);
-// console.log('  state continue (prev ' + prevstate[0] + ', curr ' + state[0] +' = '+ (state[0] === prevstate[0]) +'); unknown continue (prev ' + prevstate[2] + ', curr ' + state[2] +' = '+ (state[2] === prevstate[2]) +') at '+ state[1].toLocaleString() );
-					} while (state[0] === prevstate[0] && state[2] === prevstate[2]);
-					// Comment could also change …
+					} while (state[0] === prevstate[0] && state[2] === prevstate[2] && state[3] === prevstate[3]);
 					return true;
 				}
 			}(this);
@@ -1536,10 +1556,18 @@
 				res.push([from, undefined, it.getUnknown(), it.getComment()]);
 
 			while (it.advance(to)) {
-				if (it.getState() || it.getUnknown())
+				if (it.getState() || it.getUnknown()) {
+					if (res.length != 0 && typeof res[res.length - 1][1] == 'undefined') {
+						// last state was also open or unknown
+						res[res.length - 1][1] = it.getDate();
+					}
 					res.push([it.getDate(), undefined, it.getUnknown(), it.getComment()]);
-				else
-					res[res.length - 1][1] = it.getDate();
+				} else {
+					if (res.length != 0 && typeof res[res.length - 1][1] == 'undefined') {
+						// only use the first time as closing/change time and ignore closing times which might follow
+						res[res.length - 1][1] = it.getDate();
+					}
+				}
 			}
 
 			if (res.length > 0 && typeof res[res.length - 1][1] === 'undefined')
@@ -1548,7 +1576,7 @@
 			return res;
 		}
 
-		// return total number of milliseconds a facility is open without a given date range
+		// return total number of milliseconds a facility is open within a given date range
 		this.getOpenDuration = function(from, to) {
 		// console.log('-----------');
 
@@ -1556,19 +1584,34 @@
 			var unknown = 0;
 
 			var it = this.getIterator(from);
-			var prevdate = (it.getState() || it.getUnknown()) ? from : undefined;
-			var prevunknown = undefined;
+			var prevdate    = (it.getState() || it.getUnknown()) ? from : undefined;
+			var prevstate   = it.getState();
+			var prevunknown = it.getUnknown();
 
 			while (it.advance(to)) {
 				if (it.getState() || it.getUnknown()) {
+
+					if (typeof prevdate !== 'undefined') {
+						// last state was also open or unknown
+						if (prevunknown) //
+							unknown += it.getDate().getTime() - prevdate.getTime();
+						else if (prevstate)
+							open    += it.getDate().getTime() - prevdate.getTime();
+					}
+
 					prevdate    = it.getDate();
+					prevstate   = it.getState();
 					prevunknown = it.getUnknown();
+					// console.log('if', prevdate, open / (1000 * 60 * 60), unknown / (1000 * 60 * 60));
 				} else {
-					if (prevunknown)
-						unknown += it.getDate().getTime() - prevdate.getTime();
-					else
-						open    += it.getDate().getTime() - prevdate.getTime();
-					prevdate = undefined;
+					// console.log('else', prevdate);
+					if (typeof prevdate !== 'undefined') {
+						if (prevunknown)
+							unknown += it.getDate().getTime() - prevdate.getTime();
+						else
+							open    += it.getDate().getTime() - prevdate.getTime();
+						prevdate = undefined;
+					}
 				}
 			}
 
