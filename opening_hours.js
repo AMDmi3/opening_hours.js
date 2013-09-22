@@ -1410,34 +1410,41 @@
 			block:
 			for (var nblock = 0; nblock < date_matching_blocks.length; nblock++) {
 				var block = date_matching_blocks[nblock];
-				// console.log('Processing block:\t', blocks[block].comment, '   with date', date);
+				// console.log('Processing block:\t' + blocks[block].comment + '    with date', date);
 
 				// there is no time specified, state applies to the whole day
-				// if ((blocks[block].fallback && !(blocks[block].meaning || blocks[block].unknown)) || !blocks[block].fallback) {
-					if (blocks[block].time.length == 0) {
-						// console.log('there is no time');
+				if (blocks[block].time.length == 0) {
+					// console.log('there is no time', date);
+					if (!blocks[block].fallback) {
+						// console.log('if');
 						resultstate = blocks[block].meaning;
 						unknown     = blocks[block].unknown;
 						comment     = blocks[block].comment;
+					} else if ((blocks[block].fallback && !(resultstate || unknown))) {
+						// console.log('else');
+						resultstate = blocks[block].meaning;
+						unknown     = blocks[block].unknown;
+						comment     = blocks[block].comment;
+						break block; // fallback block matched, no need for checking the rest
 					}
-				// }
+				}
 
 				for (var timesel = 0; timesel < blocks[block].time.length; timesel++) {
 					var res = blocks[block].time[timesel](date);
 
 					// console.log('res:', res);
-					if (!blocks[block].fallback) {
-						if (res[0]) {
-							resultstate = blocks[block].meaning;
-							unknown     = blocks[block].unknown;
-							comment     = blocks[block].comment;
-						}
-					} else if ((blocks[block].fallback && !(resultstate || unknown))) {
-						if (res[0]) {
-							resultstate = blocks[block].meaning;
-							unknown     = blocks[block].unknown;
-							comment     = blocks[block].comment;
-							break block; // fallback block matched, no need for checking the rest
+					if (res[0]) {
+						if (!blocks[block].fallback) {
+								// console.log('if');
+								resultstate = blocks[block].meaning;
+								unknown     = blocks[block].unknown;
+								comment     = blocks[block].comment;
+						} else if ((blocks[block].fallback && !(resultstate || unknown))) {
+								// console.log('else');
+								resultstate = blocks[block].meaning;
+								unknown     = blocks[block].unknown;
+								comment     = blocks[block].comment;
+								break block; // fallback block matched, no need for checking the rest
 						}
 					}
 					if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate)) {

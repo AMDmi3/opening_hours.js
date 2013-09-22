@@ -448,28 +448,31 @@ test.addTest('Additional blocks', [
 		[ '2012.10.05 10:00', '2012.10.05 16:00' ],
 	], 1000 * 60 * 60 * (6 * 5 + 2), 0, true);
 
-test.addTest('Fallback group blocks', [
-		'We-Fr 10:00-24:00 open "first" || "please call"',
+test.addTest('Fallback group blocks (unknown)', [
+		'We-Fr 10:00-24:00 open "it is open" || "please call"',
+		'We-Fr 10:00-24:00 open "it is open" || "please call" || closed "should never appear"',
+		'We-Fr 10:00-24:00 open "it is open" || "please call" || unknown "should never appear"',
+		'We-Fr 10:00-24:00 open "it is open" || "please call" || open "should never appear"',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.03 10:00', true,  'please call' ],
-		[ '2012.10.03 10:00', '2012.10.04 00:00', false, 'first' ],
+		[ '2012.10.03 10:00', '2012.10.04 00:00', false, 'it is open' ],
 		[ '2012.10.04 00:00', '2012.10.04 10:00', true,  'please call' ],
-		[ '2012.10.04 10:00', '2012.10.05 00:00', false, 'first' ],
+		[ '2012.10.04 10:00', '2012.10.05 00:00', false, 'it is open' ],
 		[ '2012.10.05 00:00', '2012.10.05 10:00', true,  'please call' ],
-		[ '2012.10.05 10:00', '2012.10.06 00:00', false, 'first' ],
+		[ '2012.10.05 10:00', '2012.10.06 00:00', false, 'it is open' ],
 		[ '2012.10.06 00:00', '2012.10.08 00:00', true,  'please call' ],
 	], 1000 * 60 * 60 * 14 * 3, 1000 * 60 * 60 * (10 * 3 + 24 * (2 + 2)), true, {}, 'not last test');
 
 test.addTest('Fallback group blocks', [
-		'We-Fr 10:00-24:00 open "first" || We "please call" || closed "we are not open!!!"',
+		ignored('We-Fr 10:00-24:00 open "first" || We "please call" || open "we are open!!!"'),
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 00:00', '2012.10.03 10:00', true,  'please call' ],
-		[ '2012.10.03 10:00', '2012.10.04 00:00', false, 'first' ],
-		[ '2012.10.04 00:00', '2012.10.04 10:00', true,  'please call' ],
+		[ '2012.10.01 00:00', '2012.10.03 00:00', false, 'we are open!!!' ],
+		[ '2012.10.03 00:00', '2012.10.04 10:00', true,  'please call' ],
+		[ '2012.10.04 00:00', '2012.10.04 10:00', false, 'we are open!!!' ],
 		[ '2012.10.04 10:00', '2012.10.05 00:00', false, 'first' ],
-		[ '2012.10.05 00:00', '2012.10.05 10:00', true,  'please call' ],
+		[ '2012.10.05 00:00', '2012.10.05 10:00', false, 'we are open!!!' ],
 		[ '2012.10.05 10:00', '2012.10.06 00:00', false, 'first' ],
-		[ '2012.10.06 00:00', '2012.10.08 00:00', true,  'please call' ],
+		[ '2012.10.06 00:00', '2012.10.08 00:00', false, 'we are open!!!' ],
 	], 1000 * 60 * 60 * 14 * 3, 1000 * 60 * 60 * (10 * 3 + 24 * (2 + 2)), true, {}, 'not last test');
 
 test.addTest('Month ranges', [
@@ -505,6 +508,7 @@ test.addTest('Month ranges', [
 
 test.addTest('Week ranges', [
 		'week 1,3 00:00-24:00',
+		'week 1,3 00:00-24:00 || closed "should not change the test result"', // because comments for closed are not compared
 		'week 1,3: 00:00-24:00',
 		'week 1-3/2 00:00-24:00',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
