@@ -141,10 +141,10 @@ while True:
                 oh_loc_needed  = ', loc needed' if oh_res[2] == '1' else '' # location (nominatiom JSON)
                 if oh_ok:
                     passed_failed = {
-                            'open'    : colored('Passed', 'green'),
+                            'open   '    : colored('Passed', 'green'),
                             'unknown' : colored('Passed', 'magenta'),
-                            'closed'  : colored('Passed', 'blue'),
-                        }[oh_res[4:]]
+                            'closed '  : colored('Passed', 'blue'),
+                        }[oh_res[4:11]]
                 else:
                     passed_failed = colored('Failed', 'red')
                 if (print_all or (print_passed != None) == oh_ok):

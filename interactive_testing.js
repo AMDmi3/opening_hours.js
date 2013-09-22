@@ -34,7 +34,7 @@ rl.on('line', function (cmd) {
         if (typeof comment === 'undefined')
             comment = '>>no comment<<';
 
-        var state = oh.getState() ? 'open' : (oh.getUnknown() ? 'unknown' : 'closed');
+        var state = oh.getState() ? 'open   ' : (oh.getUnknown() ? 'unknown' : 'closed ');
         console.log('0 ' + (needed_nominatiom_json ? 1 : 0), state, '"' + comment + '"');
     }
 }).on('close', function() {

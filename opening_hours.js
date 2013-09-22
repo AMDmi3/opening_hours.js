@@ -289,6 +289,11 @@
 					// weekday name
 					curr_block_tokens.push([weekdays[tmp[0].toLowerCase()], 'weekday']);
 					value = value.substr(2);
+				// Used around 260 times but the problem is, that work day might be different in other countries.
+				// So I will not uncomment this feature.
+				// } else if (value.match(/^(?:wd)/i)) {
+				// 	// work day
+				// 	value = 'mo-fr' + value.substr(2);
 				} else if (tmp = value.match(/^(?:PH|SH)/i)) {
 					// special day name (holidays)
 					curr_block_tokens.push([tmp[0].toUpperCase(), 'holiday']);
