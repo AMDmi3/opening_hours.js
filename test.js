@@ -43,7 +43,7 @@ test.addTest('Open end', [
 		'17:00+',
 	], '2012.10.01 0:00', '2012.10.02 0:00', [
 		[ '2012.10.01 17:00', '2012.10.01 17:01' ],
-	], 1000 * 60 * 1, 0, true);
+	], 1000 * 60 * 1, 0, true, {}, 'not last test');
 
 test.addTest('Variable times e.g. dawn, dusk', [
 		'Mo dawn-dusk',
@@ -814,7 +814,15 @@ test.addTest('Complex example used in README and benchmark', [
 		[ '2012.10.30 12:00', '2012.10.30 18:00' ],
 	], 1000 * 60 * 60 * (6 * 16 + 5 * 4), 0, false);
 
+test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', [
+		// 'Mo[2] - 6 days', // considered as "correct"
+		'Mo[2] - 0 days', // pointless
+		'2013-2015/1',
+		'2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1',
+	], 'not only test');
+
 test.addShouldFail('Incorrect syntax which should throw an error', [
+		'Mo[2] - 7 days',
 		'sdasdlasdj a3reaw', // Test for the test framwork. This test should pass :)
 		':week 2-54 00:00-24:00',
 		':::week 2-54 00:00-24:00',
@@ -822,8 +830,6 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'week 2-54 00:00-24:00:',
 		'week 2-54 00:00-24:00:::',
 		'week 2-54 00::00-24:00',
-		'2013-2015/1',
-		'2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1',
 		'(sunrise+01:00-sunset',
 		'(sunrise)-sunset',
 		'27:00-29:00',
@@ -838,12 +844,6 @@ test.addShouldFail('Missing information (e.g. country or holidays not defined in
 		'SH', // country is not specified
 	]);
 
-test.addShouldFail('Value not ideal (probably wrong). Should throw an error.', [
-		// 'Mo[2] - 6 days', // considered as "correct"
-		'Mo[2] - 7 days',
-		'Mo[2] - 0 days', // pointless
-	]);
-
 process.exit(test.run() ? 0 : 1);
 
 //======================================================================
@@ -851,8 +851,10 @@ process.exit(test.run() ? 0 : 1);
 //======================================================================
 function opening_hours_test() {
 	var show_passing_tests = true;
+	var show_error_warnings = true;
 	var tests = [];
 	var tests_should_fail = [];
+	var tests_should_warn = [];
 
 	function runSingleTestShouldFail(name, value) {
 		try {
@@ -876,6 +878,36 @@ function opening_hours_test() {
 		}
 
 		return crashed;
+	}
+
+	function runSingleTestShouldThrowWarning(name, value) {
+		var warnings = '', oh;
+		try {
+			oh = new opening_hours(value);
+
+			warnings = oh.getWarnings();
+			crashed = false;
+		} catch (err) {
+			crashed = err;
+		}
+
+		var passed = false;
+		var str = '"' + name + '" for "' + value.replace('\n', '*newline*') + '": ';
+		if (!crashed && typeof warnings == 'string' && warnings != '') {
+			str += '[1;32mPASSED[0m';
+			passed = true;
+			if (show_passing_tests)
+				console.log(str);
+			if (show_error_warnings)
+				console.log(warnings);
+			return true;
+		} else {
+			str += '[1;31mFAILED[0m';
+			console.log(str);
+			if (show_error_warnings)
+				console.log(crashed);
+		}
+		return false;
 	}
 
 	function runSingleTest(name, value, from, to, expected_intervals, expected_durations, expected_weekstable, nominatiomJSON) {
@@ -985,10 +1017,14 @@ function opening_hours_test() {
 	}
 
 	this.run = function() {
-		var tests_length = tests.length + tests_should_fail.length;
+		var tests_length = tests.length + tests_should_fail.length + tests_should_warn.length;
 		var success = 0;
 		for (var test = 0; test < tests.length; test++) {
 			if (runSingleTest(tests[test][0], tests[test][1], tests[test][2], tests[test][3], tests[test][4], tests[test][5], tests[test][6], tests[test][7]))
+				success++;
+		}
+		for (var test = 0; test < tests_should_warn.length; test++) {
+			if (runSingleTestShouldThrowWarning(tests_should_warn[test][0], tests_should_warn[test][1]))
 				success++;
 		}
 		for (var test = 0; test < tests_should_fail.length; test++) {
@@ -1034,6 +1070,17 @@ function opening_hours_test() {
 		else
 			for (var value = 0; value < values.length; value++)
 				tests_should_fail.push([name, values[value]]);
+	}
+	this.addShouldWarn = function(name, values, last) {
+	if (this.last == true) return;
+	if (last === 'only test') tests = [];
+	if (last === 'only test' || last === 'last test') this.last = true;
+
+		if (typeof values == 'string')
+			tests_should_warn.push([name, values]);
+		else
+			for (var value = 0; value < values.length; value++)
+				tests_should_warn.push([name, values[value]]);
 	}
 }
 

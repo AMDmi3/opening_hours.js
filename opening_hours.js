@@ -182,6 +182,7 @@
 
 		if (value.match(/^(\s*;?\s*)+$/)) throw 'Value contains nothing meaningful which can be parsed';
 
+		var parsing_warnings = [];
 		var tokens = tokenize(value);
 		// console.log(JSON.stringify(tokens, null, '\t'));
 		var week_stable = true;
@@ -272,23 +273,23 @@
 				var tmp;
 				if (tmp = value.match(/^(?:week|24\/7|off|open|closed|unknown)/i)) {
 					// reserved word
-					curr_block_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase()]);
 					value = value.substr(tmp[0].length);
+					curr_block_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase(), value.length ]);
 				} else if (tmp = value.match(/^days?/i)) {
-					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday']);
 					value = value.substr(tmp[0].length);
+					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 				} else if (tmp = value.match(/^(?:sunrise|sunset|dawn|dusk)/i)) {
 					// Special time variables which actual value depends on the date and the position of the facility.
-					curr_block_tokens.push([tmp[0].toLowerCase(), 'timevar']);
 					value = value.substr(tmp[0].length);
+					curr_block_tokens.push([tmp[0].toLowerCase(), 'timevar', value.length ]);
 				} else if (tmp = value.match(/^(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i)) {
 					// month name
-					curr_block_tokens.push([months[tmp[0].toLowerCase()], 'month']);
 					value = value.substr(3);
+					curr_block_tokens.push([months[tmp[0].toLowerCase()], 'month', value.length ]);
 				} else if (tmp = value.match(/^(?:mo|tu|we|th|fr|sa|su)/i)) {
 					// weekday name
-					curr_block_tokens.push([weekdays[tmp[0].toLowerCase()], 'weekday']);
 					value = value.substr(2);
+					curr_block_tokens.push([weekdays[tmp[0].toLowerCase()], 'weekday', value.length ]);
 				// Used around 260 times but the problem is, that work day might be different in other countries.
 				// So I will not uncomment this feature.
 				// } else if (value.match(/^(?:wd)/i)) {
@@ -296,33 +297,33 @@
 				// 	value = 'mo-fr' + value.substr(2);
 				} else if (tmp = value.match(/^(?:PH|SH)/i)) {
 					// special day name (holidays)
-					curr_block_tokens.push([tmp[0].toUpperCase(), 'holiday']);
 					value = value.substr(2);
+					curr_block_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
 				} else if (tmp = value.match(/^\d+/)) {
 					// number
-					if (tmp[0] > 1900) // assumed to be a year number
-						curr_block_tokens.push([tmp[0], 'year']);
-					else
-						curr_block_tokens.push([+tmp[0], 'number']);
 					value = value.substr(tmp[0].length);
+					if (tmp[0] > 1900) // assumed to be a year number
+						curr_block_tokens.push([tmp[0], 'year', value.length ]);
+					else
+						curr_block_tokens.push([+tmp[0], 'number', value.length ]);
 				} else if (tmp = value.match(/^"([^"]+)"/)) {
 					// comment
-					curr_block_tokens.push([tmp[1], 'comment']);
 					value = value.substr(tmp[0].length);
+					curr_block_tokens.push([tmp[1], 'comment', value.length ]);
 				} else if (value.match(/^;/)) {
 					// semicolon terminates block
 					// next tokens belong to a new block
-					all_tokens.push([ curr_block_tokens, last_block_fallback_terminated ]);
+					value = value.substr(1);
+					all_tokens.push([ curr_block_tokens, last_block_fallback_terminated, value.length ]);
 					curr_block_tokens = [];
 					last_block_fallback_terminated = false;
-					value = value.substr(1);
 				} else if (value.match(/^\|\|/)) {
 					// || terminates block
 					// next tokens belong to a fallback block
-					all_tokens.push([ curr_block_tokens, last_block_fallback_terminated ]);
+					value = value.substr(2);
+					all_tokens.push([ curr_block_tokens, last_block_fallback_terminated, value.length ]);
 					curr_block_tokens = [];
 					last_block_fallback_terminated = true;
-					value = value.substr(2);
 				} else if (value.match(/^\s/)) {
 					value = value.substr(1);
 				} else if (tmp = value.match(/^\s+/)) {
@@ -330,11 +331,11 @@
 					value = value.substr(tmp[0].length);
 				} else if (value.match(/^[:.]/)) {
 					// time separator
-					curr_block_tokens.push([value[0].toLowerCase(), 'timesep']);
+					curr_block_tokens.push([value[0].toLowerCase(), 'timesep', value.length - 1 ]);
 					value = value.substr(1);
 				} else {
 					// other single-character tokens
-					curr_block_tokens.push([value[0].toLowerCase(), value[0].toLowerCase()]);
+					curr_block_tokens.push([value[0].toLowerCase(), value[0].toLowerCase(), value.length - 1 ]);
 					value = value.substr(1);
 				}
 			}
@@ -634,6 +635,7 @@
 					if (!matchTokens(tokens, endat, ']'))
 						throw '"]" expected';
 
+					var has_add_days = false;
 					var add_days = matchTokens(tokens, endat+1, '+') || (matchTokens(tokens, endat+1, '-') ? -1 : 0);
 					if (add_days != 0 && matchTokens(tokens, endat+2, 'number', 'calcday')) {
 						// continue with '+ 5 days' or something like that
@@ -642,7 +644,8 @@
 							// if you know one reason, tell us
 						add_days *= tokens[endat+2][0];
 						if (add_days == 0)
-							throw 'Adding 0 does not change the date. Please omit this.';
+							parsing_warnings.push([ nblock, endat+2, 'Adding 0 does not change the date. Please omit this.' ]);
+						has_add_days = true;
 					} else {
 						add_days = 0;
 					}
@@ -749,7 +752,7 @@
 						}}(tokens[at][0], numbers[nnumber], add_days));
 					}
 
-					at = endat + 1 + (add_days != 0 ? 3 : 0);
+					at = endat + 1 + (has_add_days ? 3 : 0);
 				} else if (matchTokens(tokens, at, 'weekday')) {
 					// Single weekday (Mo) or weekday range (Mo-Fr)
 					var is_range = matchTokens(tokens, at+1, '-', 'weekday');
@@ -1078,7 +1081,7 @@
 						var is_range   = true;
 						var has_period = true;
 						if (tokens[at+4][0] == 1)
-							throw 'Please don’t use year ranges with period equals one (see README)';
+							parsing_warnings.push([nblock, at+1+3, 'Please don’t use year ranges with period equals one (see README)']);
 					} else {
 						var is_range   = matchTokens(tokens, at+1, '-', 'year');
 						var has_period = matchTokens(tokens, at+1, '/', 'number');
@@ -1525,6 +1528,17 @@
 					return true;
 				}
 			}(this);
+		}
+
+		// get parse warnings
+		this.getWarnings = function() {
+			var warning_string = '';
+			for (var i = 0; i < parsing_warnings.length; i++) {
+				var pos = tokens[parsing_warnings[i][0]][0][parsing_warnings[i][1]][2];
+				pos = value.length - pos;
+				warning_string += value.substring(0, pos) + ' <--- (' + parsing_warnings[i][2] + ')\n';
+			}
+			return warning_string.substring(0, warning_string.length - 1);
 		}
 
 		// check whether facility is `open' on the given date (or now)
