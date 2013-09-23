@@ -431,7 +431,7 @@
 					}
 					at++;
 				} else {
-					throw 'Unexpected token: "' + tokens[at] + '"';
+					throw formatWarnErrorMessage(nblock, at, 'Unexpected token: ' + tokens[at][1]);
 				}
 			}
 
@@ -451,10 +451,15 @@
 
 					var has_open_end = false;
 					if (!matchTokens(tokens, at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 7 : 1)), '-')) {
-						if (matchTokens(tokens, at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 7 : 1))), '+')
+						if (matchTokens(tokens, at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 7 : 1)), '+')) {
 							has_open_end = true;
-						else
-							throw 'hyphen or open end (+) in time range expected';
+						} else {
+							throw formatWarnErrorMessage(nblock, at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 2 : 1)),
+								'hyphen (-) or open end (+) in time range '
+								+ (has_time_var_calc[0] ? 'calculation ' : '')
+								+ 'expected');
+						}
+
 					}
 
 					if (has_normal_time[0])
@@ -475,7 +480,7 @@
 						has_normal_time[1] = matchTokens(tokens, at_end_time, 'number', 'timesep', 'number');
 						has_time_var_calc[1]      = matchTokens(tokens, at_end_time, '(', 'timevar');
 						if (!has_normal_time[1] && !matchTokens(tokens, at_end_time, 'timevar') && !has_time_var_calc[1])
-							throw 'time range does not continue as expected';
+							throw formatWarnErrorMessage(nblock, at_end_time, 'time range does not continue as expected');
 
 						if (has_normal_time[1])
 							var minutes_to = tokens[at_end_time][0] * 60 + tokens[at_end_time+2][0]
@@ -500,11 +505,13 @@
 					// XXX: this is incorrect, as it assumes the same day
 					//      should cooperate with date selectors to select the next day
 					if (minutes_from >= minutes_in_day)
-						throw 'Time range start outside a day';
+						throw formatWarnErrorMessage(nblock, at_end_time + (has_normal_time[1] ? 3 : (has_time_var_calc[1] ? 7 : 1)) - 1,
+							'Time range start outside a day');
 					if (minutes_to < minutes_from)
 						minutes_to += minutes_in_day;
 					if (minutes_to > minutes_in_day * 2)
-						throw 'Time spanning more than two midnights not supported';
+						throw formatWarnErrorMessage(nblock, at_end_time + (has_normal_time[1] ? 3 : (has_time_var_calc[1] ? 7 : 1)) - 1,
+							'Time spanning more than two midnights not supported');
 
 					var timevar_string = [];
 					if (typeof lat != 'undefined') { // lon will also be defined (see above)
@@ -585,7 +592,7 @@
 
 					at = at_end_time + (has_normal_time[1] ? 3 : (has_time_var_calc[1] ? 7 : 1));
 				} else {
-					throw 'Unexpected token in time range: "' + tokens[at][0] + '"';
+					throw formatWarnErrorMessage(nblock, at, 'Unexpected token in time range: ' + tokens[at][1]);
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -608,7 +615,8 @@
 				var add_or_subtract = tokens[at+2][0] == '+' ? '1' : '-1';
 				return (tokens[at+3][0] * 60 + tokens[at+5][0]) * add_or_subtract;
 			} else {
-				throw 'Calculcation with variable time is not in the right syntax.';
+				throw formatWarnErrorMessage(nblock, at+3+3,
+					'Calculcation with variable time is not in the right syntax.');
 			}
 		}
 
@@ -622,25 +630,40 @@
 					var numbers = [];
 
 					// Get list of constraints
-					var endat = parseNumRange(tokens, at+2, function(from, to) {
-						if (from == to)
+					var endat = parseNumRange(tokens, at+2, function(from, to, at) {
+
+						// bad number
+						if (from == 0 || from < -5 || from > 5)
+							throw formatWarnErrorMessage(nblock, at,
+								'Number between -5 and 5 (except 0) expected');
+
+						if (from == to) {
 							numbers.push(from);
-						else if (from < to)
-							for (var i = from; i <= to; i++)
+						} else if (from < to) {
+							for (var i = from; i <= to; i++) {
+								// bad number
+								if (i == 0 || i < -5 || i > 5)
+									throw formatWarnErrorMessage(nblock, at+2,
+										'Number between -5 and 5 (except 0) expected');
+
 								numbers.push(i);
-						else
-							throw 'Bad range ' + from + '-' + to;
+							}
+						} else {
+							throw formatWarnErrorMessage(nblock, at+2,
+								'Bad range: ' + from + '-' + to);
+						}
 					});
 
 					if (!matchTokens(tokens, endat, ']'))
-						throw '"]" expected';
+						throw formatWarnErrorMessage(nblock, endat, '"]" expected');
 
 					var has_add_days = false;
 					var add_days = matchTokens(tokens, endat+1, '+') || (matchTokens(tokens, endat+1, '-') ? -1 : 0);
 					if (add_days != 0 && matchTokens(tokens, endat+2, 'number', 'calcday')) {
 						// continue with '+ 5 days' or something like that
 						if (tokens[endat+2][0] > 6)
-							throw 'There should be no reason to differ more than 6 days from a constrained weekdays.'
+							throw formatWarnErrorMessage(nblock, endat+3,
+								'There should be no reason to differ more than 6 days from a constrained weekdays.');
 							// if you know one reason, tell us
 						add_days *= tokens[endat+2][0];
 						if (add_days == 0)
@@ -654,10 +677,6 @@
 
 					// Create selector for each list element
 					for (var nnumber = 0; nnumber < numbers.length; nnumber++) {
-
-						// bad number
-						if (numbers[nnumber] == 0 || numbers[nnumber] < -5 || numbers[nnumber] > 5)
-							throw 'Number between -5 and 5 (except 0) expected';
 
 						selectors.weekday.push(function(weekday, number, add_days) { return function(date) {
 							// console.log('\nselector called', date);
@@ -683,7 +702,7 @@
 									// target day will actually be this month.
 									// console.log('before this month. ', target_day_with_added_days_this_month);
 
-									throw 'Condition weekdays moving to the previus month are currently not supported.';
+									throw 'Condition weekdays moving to the previous month are currently not supported.';
 									target_day_with_added_days_this_month = dateAtNextWeekday(
 										new Date(date.getFullYear(), date.getMonth() + (number > 0 ? 0 : 1) + 1, 1), weekday);
 									target_day_this_month.setDate(target_day_with_added_days_this_month.getDate()
@@ -790,7 +809,7 @@
 					at = parseHoliday(tokens, at, selectors);
 					week_stable = false;
 				} else {
-					throw 'Unexpected token in weekday range: "' + tokens[at] + '"';
+					throw formatWarnErrorMessage(nblock, at, 'Unexpected token in weekday range: ' + tokens[at][1]);
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -805,18 +824,19 @@
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'number', '-', 'number')) {
 					// Number range
-					func(tokens[at][0], tokens[at+2][0]);
+					func(tokens[at][0], tokens[at+2][0], at);
 					at += 3;
 				} else if (matchTokens(tokens, at, '-', 'number')) {
 					// Negative number
-					func(-tokens[at+1][0], -tokens[at+1][0]);
+					func(-tokens[at+1][0], -tokens[at+1][0], at);
 					at += 2
 				} else if (matchTokens(tokens, at, 'number')) {
 					// Single number
-					func(tokens[at][0], tokens[at][0]);
+					func(tokens[at][0], tokens[at][0], at);
 					at++;
 				} else {
-					throw 'Unexpected token in number range: "' + tokens[at][0] + '"';
+					throw formatWarnErrorMessage(nblock, at + matchTokens(tokens, at, '-'),
+						'Unexpected token in number range: ' + tokens[at][1]);
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -963,7 +983,7 @@
 				} else if (matchTokens(tokens, at, 'weekday')) {
 					at = parseWeekdayRange(tokens, at, selectors);
 				} else {
-					throw 'Unexpected token (school holiday parser): "' + tokens[at] + '"';
+					throw formatWarnErrorMessage(nblock, at, 'Unexpected token (school holiday parser): ' + tokens[at][1]);
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -1130,7 +1150,7 @@
 
 					at += 1 + (is_range ? 2 : 0) + (has_period ? 2 : 0);
 				} else {
-					throw 'Unexpected token in year range: "' + tokens[at] + '"';
+					throw formatWarnErrorMessage(nblock, at, 'Unexpected token in year range: ' + tokens[at][1]);
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -1193,7 +1213,7 @@
 
 					at += 1 + (is_range ? 2 : 0) + (has_period ? 2 : 0);
 				} else {
-					throw 'Unexpected token in week range: "' + tokens[at] + '"';
+					throw formatWarnErrorMessage(nblock, at, 'Unexpected token in week range: ' + tokens[at][1]);
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -1264,7 +1284,7 @@
 
 					at += is_range ? 3 : 1;
 				} else {
-					throw 'Unexpected token in month range: "' + tokens[at] + '"';
+					throw formatWarnErrorMessage(nblock, at, 'Unexpected token in month range: ' + tokens[at][1]);
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -1466,6 +1486,11 @@
 			return [ resultstate, changedate, unknown, comment ];
 		}
 
+		function formatWarnErrorMessage(nblock, at, message) {
+			var pos = value.length - (typeof tokens[nblock][0][at] == 'undefined' ? 0 : tokens[nblock][0][at][2]);
+			return value.substring(0, pos) + ' <--- (' + message + ')';
+		}
+
 		//======================================================================
 		// Public interface
 		// All functions below are considered public.
@@ -1534,9 +1559,7 @@
 		this.getWarnings = function() {
 			var warning_string = '';
 			for (var i = 0; i < parsing_warnings.length; i++) {
-				var pos = tokens[parsing_warnings[i][0]][0][parsing_warnings[i][1]][2];
-				pos = value.length - pos;
-				warning_string += value.substring(0, pos) + ' <--- (' + parsing_warnings[i][2] + ')\n';
+				warning_string += formatWarnErrorMessage(parsing_warnings[i][0], parsing_warnings[i][1], parsing_warnings[i][2])
 			}
 			return warning_string.substring(0, warning_string.length - 1);
 		}

@@ -837,7 +837,20 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		';', // only block delimiter
 		' ', // empty string
 		"\n", // newline
-	], 'not only test');
+		'14:00/',
+		'14:00-/',
+		'26:00-27:00',
+		'23:00-55:00',
+		'14:00-16:00,.',
+		'Sa[1.',
+		'Sa[1,0,3]',
+		'Sa[1,3-6]',
+		'Sa, Jan',
+		'Sa[1,3-.]',
+		'Sa[1,3,.]',
+		'SH, Jan',
+		'2012, Jan',
+	], nominatiomTestJSON, 'not only test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
 		'PH', // country is not specified
@@ -851,14 +864,15 @@ process.exit(test.run() ? 0 : 1);
 //======================================================================
 function opening_hours_test() {
 	var show_passing_tests = true;
-	var show_error_warnings = true;
+	var show_error_warnings = false; // enable this, if you want to see how the library reports errors and warnings
 	var tests = [];
 	var tests_should_fail = [];
 	var tests_should_warn = [];
 
-	function runSingleTestShouldFail(name, value) {
+	function runSingleTestShouldFail(name, value, nominatiomJSON) {
 		try {
-			oh = new opening_hours(value);
+			// since they should fail anyway we can give them the nominatiomTestJSON
+			oh = new opening_hours(value, nominatiomJSON);
 
 			crashed = false;
 		} catch (err) {
@@ -870,8 +884,11 @@ function opening_hours_test() {
 		if (crashed) {
 			str += '[1;32mPASSED[0m';
 			passed = true;
-			if (show_passing_tests)
+			if (show_passing_tests) {
 				console.log(str);
+				if (show_error_warnings)
+					console.log(crashed);
+			}
 		} else {
 			str += '[1;31mFAILED[0m';
 			console.log(str);
@@ -880,16 +897,16 @@ function opening_hours_test() {
 		return crashed;
 	}
 
-	function runSingleTestShouldThrowWarning(name, value) {
+	function runSingleTestShouldThrowWarning(name, value, nominatiomJSON) {
 		var warnings = '', oh;
-		try {
-			oh = new opening_hours(value);
+		// try {
+			oh = new opening_hours(value, nominatiomJSON);
 
 			warnings = oh.getWarnings();
 			crashed = false;
-		} catch (err) {
-			crashed = err;
-		}
+		// } catch (err) {
+		// 	crashed = err;
+		// }
 
 		var passed = false;
 		var str = '"' + name + '" for "' + value.replace('\n', '*newline*') + '": ';
@@ -1024,11 +1041,11 @@ function opening_hours_test() {
 				success++;
 		}
 		for (var test = 0; test < tests_should_warn.length; test++) {
-			if (runSingleTestShouldThrowWarning(tests_should_warn[test][0], tests_should_warn[test][1]))
+			if (runSingleTestShouldThrowWarning(tests_should_warn[test][0], tests_should_warn[test][1], tests_should_warn[test][2]))
 				success++;
 		}
 		for (var test = 0; test < tests_should_fail.length; test++) {
-			if (runSingleTestShouldFail(tests_should_fail[test][0], tests_should_fail[test][1]))
+			if (runSingleTestShouldFail(tests_should_fail[test][0], tests_should_fail[test][1], tests_should_fail[test][2]))
 				success++;
 		}
 
@@ -1060,27 +1077,27 @@ function opening_hours_test() {
 					[ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON]);
 	}
 
-	this.addShouldFail = function(name, values, last) {
+	this.addShouldFail = function(name, values, nominatiomJSON, last) {
 	if (this.last == true) return;
 	if (last === 'only test') tests = [];
 	if (last === 'only test' || last === 'last test') this.last = true;
 
 		if (typeof values === 'string')
-			tests_should_fail.push([name, values]);
+			tests_should_fail.push([name, values, nominatiomJSON]);
 		else
 			for (var value = 0; value < values.length; value++)
-				tests_should_fail.push([name, values[value]]);
+				tests_should_fail.push([name, values[value], nominatiomJSON]);
 	}
-	this.addShouldWarn = function(name, values, last) {
+	this.addShouldWarn = function(name, values, nominatiomJSON, last) {
 	if (this.last == true) return;
 	if (last === 'only test') tests = [];
 	if (last === 'only test' || last === 'last test') this.last = true;
 
 		if (typeof values == 'string')
-			tests_should_warn.push([name, values]);
+			tests_should_warn.push([name, values, nominatiomJSON]);
 		else
 			for (var value = 0; value < values.length; value++)
-				tests_should_warn.push([name, values[value]]);
+				tests_should_warn.push([name, values[value], nominatiomJSON]);
 	}
 }
 

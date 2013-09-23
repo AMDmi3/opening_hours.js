@@ -93,9 +93,15 @@ function logState(startString, endString, oh, past) {
 
   Constructs opening_hours object, given the opening_hours tag value.
 
+  Throws an error string if the expression is malformed or unsupported.
+
   In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges](#time-ranges)) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for by using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim][] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1) and you are good to go. Note that this second parameter is optional. The data returned by Nominatim should be in the local language (the language of the country for which the opening hours apply). If not *accept-language* can be used as parameter in the request URL.
 
-  Throws an error string if the expression is malformed or unsupported.
+* ```javascript
+  var warnings = oh.getWarnings();
+  ```
+
+  Get warnings which appeared during parsing as human readable string. Every violation has its own line. Warnings do not effect the correct evaluation, but they could be avoided.
 
 * ```javascript
   var every_week_is_same = oh.isWeekSame();
@@ -264,7 +270,9 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 * **EXT:** Supports year ranges (```2013,2015,2050-2053,2055/2,2020-2029/3 10:00-20:00```)
 * **EXT:** Supports periodic year (either limited by range or unlimited starting with given year) (```2020-2029/3,2055/2 10:00-20:00```) <br/>
- There is one exception. It is not allowed to use a year range with a period of one (```2055-2066/1 10:00-20:00```) because this means the same as just the year range without the period (```2055-2066 10:00-20:00```) and should be expressed like this …
+ There is one exception. It is not necessary to use a year range with a period of one (```2055-2066/1 10:00-20:00```) because this means the same as just the year range without the period (```2055-2066 10:00-20:00```) and should be expressed like this …
+
+ The *oh.getWarnings()* function will give you a warning if you use this anyway.
 * **EXT:** Supports way to say that a facility is open (or closed) from a specified year without limit in the future (```2055/1 10:00-20:00```)
 
 ### Month ranges ###
