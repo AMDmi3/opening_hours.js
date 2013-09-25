@@ -101,7 +101,7 @@ function logState(startString, endString, oh, past) {
   var warnings = oh.getWarnings();
   ```
 
-  Get warnings which appeared during parsing as human readable string. Every violation has its own line. Warnings do not effect the correct evaluation, but they could be avoided.
+  Get warnings which appeared during parsing as human readable string. Every violation is described in its own line. Warnings do not effect the correct evaluation, but they should be avoided.
 
 * ```javascript
   var every_week_is_same = oh.isWeekSame();

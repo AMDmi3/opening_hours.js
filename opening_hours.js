@@ -140,6 +140,7 @@
 					h: '',
 				}, 'Please use notation "<ok>" for "<ko>".': {
 					to: '-',
+					and: ',',
 				}, 'Bitte verzichte auf "<ko>".': {
 					uhr: '',
 				}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>".': {
