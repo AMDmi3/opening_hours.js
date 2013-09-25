@@ -13,14 +13,6 @@
 		//======================================================================
 		// Constants
 		//======================================================================
-		var months   = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
-		var weekdays = { su: 0, mo: 1, tu: 2, we: 3, th: 4, fr: 5, sa: 6 };
-		var word_replacement = { // if the correct values can not be calculated
-			dawn    : 60 * 5 + 30,
-			sunrise : 60 * 6,
-			sunset  : 60 * 18,
-			dusk    : 60 * 18 + 30,
-		};
 		var holidays = {
 			'de': {
 				'PH': { // http://de.wikipedia.org/wiki/Feiertage_in_Deutschland
@@ -133,6 +125,202 @@
 				},
 
 			}
+		};
+
+		//----------------------------------------------------------------------------
+		//  error correction
+		//  Taken form http://www.netzwolf.info/j/osm/time_domain.js
+		//  Credits go to Netzwolf
+		//
+		//  Key to word_error_correction is the token name except wrong_words
+		//----------------------------------------------------------------------------
+		var word_error_correction = {
+			wrong_words: {
+				'Please ommit "<ko>".': {
+					h: '',
+				}, 'Please use notation "<ok>" for "<ko>".': {
+					to: '-',
+				}, 'Bitte verzichte auf "<ko>".': {
+					uhr: '',
+				}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>".': {
+					und: ','
+				}, 'Bitte benutze die englische Abkürzung "<ok>" für "<ko>".': {
+					feiertag:   'PH',
+					feiertage:  'PH',
+					feiertagen: 'PH'
+				}, 'S\'il vous plaît utiliser "<ok>" pour "<ko>".': {
+					'fermé': 'off',
+					'et':    ',',
+					'à':     '-',
+				}, 'Neem de engelse afkorting "<ok>" voor "<ko>" alstublieft.': {
+					feestdag:   'PH',
+					feestdagen: 'PH',
+				}
+			},
+
+			// not yet implemented
+			wrong_seasons: {
+				'Bitte benutze die englische Schreibweise "<ok>" für "<ko>".': {
+					sommer: 2,
+				}
+			},
+
+			month: {
+				'default': {
+					jan:  0,
+					feb:  1,
+					mar:  2,
+					apr:  3,
+					may:  4,
+					jun:  5,
+					jul:  6,
+					aug:  7,
+					sep:  8,
+					oct:  9,
+					nov: 10,
+					dec: 11,
+				}, 'Please use the englisch abbreviation "<ok>" for "<ko>".': {
+					january:    0,
+					february:   1,
+					march:      2,
+					april:      3,
+					// may:     4,
+					june:       5,
+					july:       6,
+					august:     7,
+					september:  8,
+					october:    9,
+					november:  10,
+					december:  11,
+				}, 'Bitte benutze die englische Abkürzung "<ok>" für "<ko>".': {
+					januar:    0,
+					februar:   1,
+					märz:      2,
+					maerz:     2,
+					mai:       4,
+					juni:      5,
+					juli:      6,
+					okt:       9,
+					oktober:   9,
+					dez:      11,
+					dezember: 11,
+				}, 'S\'il vous plaît utiliser l\'abréviation "<ok>" pour "<ko>".': {
+					janvier:    0,
+					février:    1,
+					fév:        1,
+					mars:       2,
+					avril:      3,
+					avr:        3,
+					mai:        4,
+					juin:       5,
+					juillet:    6,
+					août:       7,
+					aoû:        7,
+					septembre:  8,
+					octobre:    9,
+					novembre:  10,
+					décembre:  11,
+				}, 'Neem de engelse afkorting "<ok>" voor "<ko>" alstublieft.': {
+					januari:  0,
+					februari: 1,
+					maart:    2,
+					mei:      4,
+					augustus: 7,
+				}
+			},
+
+			weekday: {
+				'default': {
+					su: 0,
+					mo: 1,
+					tu: 2,
+					we: 3,
+					th: 4,
+					fr: 5,
+					sa: 6,
+				}, 'Please use the abbreviation "<ok>" for "<ko>".': {
+					sun:       0,
+					sunday:    0,
+					mon:       1,
+					monday:    1,
+					tue:       2,
+					tuesday:   2,
+					wed:       3,
+					wednesday: 3,
+					thu:       4,
+					thursday:  4,
+					fri:       5,
+					friday:    5,
+					sat:       6,
+					saturday:  6,
+				}, 'Bitte benutze die englische Abkürzung "<ok>" für "<ko>".': {
+					so:         0,
+					son:        0,
+					sonntag:    0,
+					montag:     1,
+					di:         2,
+					die:        2,
+					dienstag:   2,
+					mi:         3,
+					mit:        3,
+					mittwoch:   3,
+					'do':       4,
+					don:        4,
+					donnerstag: 4,
+					fre:        5,
+					freitag:    5,
+					sam:        6,
+					samstag:    6,
+				}, 'S\'il vous plaît utiliser l\'abréviation "<ok>" pour "<ko>".': {
+					dim:      0,
+					dimanche: 0,
+					lu:       1,
+					lun:      1,
+					lundi:    1,
+					mardi:    2,
+					mer:      3,
+					mercredi: 3,
+					je:       4,
+					jeu:      4,
+					jeudi:    4,
+					ve:       5,
+					ven:      5,
+					vendredi: 5,
+					samedi:   6,
+				}, 'Neem de engelse afkorting "<ok>" voor "<ko>" alstublieft.': {
+					zo:        0,
+					zon:       0,
+					zontag:    0,
+					maandag:   1,
+					din:       2,
+					dinsdag:   2,
+					wo:        3,
+					woe:       3,
+					woensdag:  3,
+					donderdag: 4,
+					vr:        5,
+					vri:       5,
+					vrijdag:   5,
+					za:        6,
+					zat:       6,
+					zaterdag:  6,
+				}
+			},
+
+			timevar: { // Special time variables which actual value depends on the date and the position of the facility.
+				'default': {
+					sunrise: 'sunrise',
+					sunset:  'sunset',
+					dawn:    'dawn',
+					dusk:    'dusk',
+				},
+			},
+		};
+		var word_value_replacement = { // if the correct values can not be calculated
+			dawn    : 60 * 5 + 30,
+			sunrise : 60 * 6,
+			sunset  : 60 * 18,
+			dusk    : 60 * 18 + 30,
 		};
 
 		var minutes_in_day = 60 * 24;
@@ -275,30 +463,32 @@
 					// reserved word
 					value = value.substr(tmp[0].length);
 					curr_block_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase(), value.length ]);
-				} else if (tmp = value.match(/^days?/i)) {
-					value = value.substr(tmp[0].length);
-					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
-				} else if (tmp = value.match(/^(?:sunrise|sunset|dawn|dusk)/i)) {
-					// Special time variables which actual value depends on the date and the position of the facility.
-					value = value.substr(tmp[0].length);
-					curr_block_tokens.push([tmp[0].toLowerCase(), 'timevar', value.length ]);
-				} else if (tmp = value.match(/^(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i)) {
-					// month name
-					value = value.substr(3);
-					curr_block_tokens.push([months[tmp[0].toLowerCase()], 'month', value.length ]);
-				} else if (tmp = value.match(/^(?:mo|tu|we|th|fr|sa|su)/i)) {
-					// weekday name
-					value = value.substr(2);
-					curr_block_tokens.push([weekdays[tmp[0].toLowerCase()], 'weekday', value.length ]);
-				// Used around 260 times but the problem is, that work day might be different in other countries.
-				// So I will not uncomment this feature.
-				// } else if (value.match(/^(?:wd)/i)) {
-				// 	// work day
-				// 	value = 'mo-fr' + value.substr(2);
 				} else if (tmp = value.match(/^(?:PH|SH)/i)) {
 					// special day name (holidays)
 					value = value.substr(2);
 					curr_block_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
+				} else if (tmp = value.match(/^days?/i)) {
+					value = value.substr(tmp[0].length);
+					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
+				} else if (tmp = value.match(/^[a-zA-Z]+\b/i)) {
+					// Handle all remaining words with error tolerance
+					var correct_val = returnCorrectWordOrToken(tmp[0].toLowerCase(), value.length);
+					if (typeof correct_val == 'object') {
+						value = value.substr(tmp[0].length);
+						curr_block_tokens.push([ correct_val[0], correct_val[1], value.length ]);
+					} else if (typeof correct_val == 'string') {
+						// if (value.match(/^(?:wd)/i)) {
+						// 	// Used around 260 times but the problem is, that work day might be different in other countries.
+						// 	// So I will not uncomment this feature.
+						// 	// work day
+						// 	value = 'mo-fr' + value.substr(2);
+
+						value = correct_val + value.substr(tmp[0].length);
+					} else {
+						// other single-character tokens
+						curr_block_tokens.push([value[0].toLowerCase(), value[0].toLowerCase(), value.length - 1 ]);
+						value = value.substr(1);
+					}
 				} else if (tmp = value.match(/^\d+/)) {
 					// number
 					value = value.substr(tmp[0].length);
@@ -343,6 +533,35 @@
 			all_tokens.push([ curr_block_tokens, last_block_fallback_terminated ]);
 
 			return all_tokens;
+		}
+
+		// error correction/tolerance
+		function returnCorrectWordOrToken(word, value_length) {
+			for (var token_name in word_error_correction) {
+				for (var comment in word_error_correction[token_name]) {
+					for (var old_val in word_error_correction[token_name][comment]) {
+						if (old_val == word) {
+							var val = word_error_correction[token_name][comment][old_val];
+							if (token_name == 'wrong_words') {
+								parsing_warnings.push([ -1, value_length - old_val.length,
+									comment.replace(/<ko>/, old_val).replace(/<ok>/, val) ]);
+								return val;
+							} else if (comment != 'default'){
+								var correct_abbr;
+								for (correct_abbr in word_error_correction[token_name]['default']) {
+									if (word_error_correction[token_name]['default'][correct_abbr] == val)
+										break;
+								}
+								correct_abbr = correct_abbr.charAt(0).toUpperCase() + correct_abbr.slice(1);
+								parsing_warnings.push([ -1, value_length - old_val.length,
+									comment.replace(/<ko>/, old_val).replace(/<ok>/, correct_abbr) ]);
+							}
+							return [ val, token_name ];
+						}
+					}
+				}
+			}
+
 		}
 
 		// Function to check token array for specific pattern
@@ -465,7 +684,7 @@
 					if (has_normal_time[0])
 						var minutes_from = tokens[at+has_time_var_calc[0]][0] * 60 + tokens[at+has_time_var_calc[0]+2][0];
 					else
-						var minutes_from = word_replacement[tokens[at+has_time_var_calc[0]][0]];
+						var minutes_from = word_value_replacement[tokens[at+has_time_var_calc[0]][0]];
 
 					var timevar_add = [ 0, 0 ];
 					if (has_time_var_calc[0]) {
@@ -485,7 +704,7 @@
 						if (has_normal_time[1])
 							var minutes_to = tokens[at_end_time][0] * 60 + tokens[at_end_time+2][0]
 						else
-							var minutes_to = word_replacement[tokens[at_end_time+has_time_var_calc[1]][0]];
+							var minutes_to = word_value_replacement[tokens[at_end_time+has_time_var_calc[1]][0]];
 
 						if (has_time_var_calc[1]) {
 							timevar_add[1] = parseTimevarCalc(tokens, at_end_time);
@@ -521,7 +740,7 @@
 							timevar_string[0] = tokens[at+has_time_var_calc[0]][0];
 						if (!has_normal_time[1])
 							timevar_string[1]   = tokens[at_end_time+has_time_var_calc[1]][0]
-					} // else: we can not calculate exact times so we use the already applied constants (word_replacement).
+					} // else: we can not calculate exact times so we use the already applied constants (word_value_replacement).
 
 					if (minutes_to > minutes_in_day) { // has_normal_time[1] must be true
 						selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add) { return function(date) {
@@ -1487,7 +1706,12 @@
 		}
 
 		function formatWarnErrorMessage(nblock, at, message) {
-			var pos = value.length - (typeof tokens[nblock][0][at] == 'undefined' ? 0 : tokens[nblock][0][at][2]);
+			if (nblock == -1) { // usage of block index not because we do have access to value.length
+				var pos = value.length - at;
+			} else { // issue accrued at a later time
+				var pos = value.length - (typeof tokens[nblock][0][at] == 'undefined' ? 0 : tokens[nblock][0][at][2]);
+			}
+			// console.log(pos);
 			return value.substring(0, pos) + ' <--- (' + message + ')';
 		}
 
@@ -1556,12 +1780,13 @@
 		}
 
 		// get parse warnings
+		// returns an empty string if there are no warnings
 		this.getWarnings = function() {
-			var warning_string = '';
+			var warnings = [];
 			for (var i = 0; i < parsing_warnings.length; i++) {
-				warning_string += formatWarnErrorMessage(parsing_warnings[i][0], parsing_warnings[i][1], parsing_warnings[i][2])
+				warnings.push( formatWarnErrorMessage(parsing_warnings[i][0], parsing_warnings[i][1], parsing_warnings[i][2]) );
 			}
-			return warning_string.substring(0, warning_string.length - 1);
+			return warnings.join('\n');
 		}
 
 		// check whether facility is `open' on the given date (or now)

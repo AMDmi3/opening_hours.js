@@ -475,6 +475,12 @@ test.addTest('Fallback group blocks', [
 		[ '2012.10.06 00:00', '2012.10.08 00:00', false, 'we are open!!!' ],
 	], 1000 * 60 * 60 * 14 * 3, 1000 * 60 * 60 * (10 * 3 + 24 * (2 + 2)), true, {}, 'not last test');
 
+// example from Netzwolf: http://www.netzwolf.info/kartografie/osm/time_domain/erklaerung
+test.addTest('Fallback group blocks', [
+		ignored('Mo-Fr 08:00-12:00, 14:00-18:00, Sa 09:00-13:00, PH off || Tu 06:00-06:00 open "Notdienst"'),
+	], '2013.10.01 0:00', '2013.10.08 0:00', [
+	], 1000 * 60 * 60 * 14 * 3, 1000 * 60 * 60 * (10 * 3 + 24 * (2 + 2)), true, {}, 'not last test');
+
 test.addTest('Month ranges', [
 		'Nov-Feb 00:00-24:00',
 		'Nov-Feb: 00:00-24:00',
@@ -654,6 +660,20 @@ test.addTest('Input tolerance: case and whitespace', [
 		[ '2012.10.04 12:00', '2012.10.04 14:00' ],
 		[ '2012.10.04 16:00', '2012.10.04 20:00' ],
 	], 1000 * 60 * 60 * 6 * 4, 0, true);
+
+test.addTest('Input tolerance: weekdays, months in different languages', [
+		'mon, Dienstag, Mi, donnerstag 12:00-20:00; 14:00-16:00 off',
+		'mon, Tuesday, wed, Thursday 12:00-20:00; 14:00-16:00 off',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 12:00', '2012.10.01 14:00' ],
+		[ '2012.10.01 16:00', '2012.10.01 20:00' ],
+		[ '2012.10.02 12:00', '2012.10.02 14:00' ],
+		[ '2012.10.02 16:00', '2012.10.02 20:00' ],
+		[ '2012.10.03 12:00', '2012.10.03 14:00' ],
+		[ '2012.10.03 16:00', '2012.10.03 20:00' ],
+		[ '2012.10.04 12:00', '2012.10.04 14:00' ],
+		[ '2012.10.04 16:00', '2012.10.04 20:00' ],
+	], 1000 * 60 * 60 * 6 * 4, 0, true, {}, 'last test');
 
 test.addTest('Input tolerance: dot as time separator', [
 		'10.00-12.00',
@@ -863,8 +883,8 @@ process.exit(test.run() ? 0 : 1);
 // Test framework
 //======================================================================
 function opening_hours_test() {
-	var show_passing_tests = true;
-	var show_error_warnings = false; // enable this, if you want to see how the library reports errors and warnings
+	var show_passing_tests  = true;
+	var show_error_warnings = true; // enable this, if you want to see how the library reports errors and warnings
 	var tests = [];
 	var tests_should_fail = [];
 	var tests_should_warn = [];
@@ -884,6 +904,7 @@ function opening_hours_test() {
 		if (crashed) {
 			str += '[1;32mPASSED[0m';
 			passed = true;
+
 			if (show_passing_tests) {
 				console.log(str);
 				if (show_error_warnings)
@@ -936,8 +957,11 @@ function opening_hours_test() {
 
 		var oh, intervals, durations, weekstable, intervals_ok, duration_ok, weekstable_ok, crashed = true;
 
+		var warnings = '';
 		try {
 			oh = new opening_hours(value, nominatiomJSON);
+
+			warnings = oh.getWarnings();
 
 			intervals  = oh.getOpenIntervals(new Date(from), new Date(to));
 			durations  = oh.getOpenDuration(new Date(from), new Date(to));
@@ -993,6 +1017,9 @@ function opening_hours_test() {
 			// console.log(intervals);
 			failed = true;
 		}
+
+		if (show_error_warnings && warnings != '')
+			str += '\n' + warnings;
 
 		if ((intervals_ok && duration_ok && weekstable_ok && show_passing_tests) || crashed || failed)
 			console.log(str);
