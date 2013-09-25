@@ -136,6 +136,13 @@
 		//----------------------------------------------------------------------------
 		var word_error_correction = {
 			wrong_words: {
+				'Assuming "<ok>" for "<ko>"': {
+					summer: 'May-Oct',
+					winter: 'Nov-Apr',
+				},
+				'Bitte benutze die englische Schreibweise "<ok>" für "<ko>".': {
+					sommer: 'summer',
+				},
 				'Please ommit "<ko>".': {
 					h: '',
 				}, 'Please use notation "<ok>" for "<ko>".': {
@@ -156,13 +163,6 @@
 				}, 'Neem de engelse afkorting "<ok>" voor "<ko>" alstublieft.': {
 					feestdag:   'PH',
 					feestdagen: 'PH',
-				}
-			},
-
-			// not yet implemented
-			wrong_seasons: {
-				'Bitte benutze die englische Schreibweise "<ok>" für "<ko>".': {
-					sommer: 2,
 				}
 			},
 
