@@ -38,6 +38,13 @@ test.addTest('Time intervals', [
 		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true);
 
+test.addTest('Time intervals (not specified/documented use of colon, please avoid this)', [
+		'24/7; Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 00:00', '2012.10.01 15:00' ],
+		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
+	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true);
+
 test.addTest('Open end', [
 		'Mo 17:00+',
 		'17:00+',
@@ -208,6 +215,14 @@ test.addTest('Variable days: public holidays (with time range)', [
 		[ '2012.01.06 12:00', '2012.01.06 13:00' ],
 	], 1000 * 60 * 60 * 2, 0, false, nominatiomTestJSON, 'not last test');
 
+test.addTest('PH: Only if PH is Wednesday', [
+		'PH We,Fr',
+	], '2012.01.01 0:00', '2012.10.08 0:00', [
+		[ '2012.01.06 00:00', '2012.01.07 00:00' ], // Fr
+		[ '2012.04.06 00:00', '2012.04.07 00:00' ], // Fr
+		[ '2012.10.03 00:00', '2012.10.04 00:00' ], // We
+	], 1000 * 60 * 60 * 24 * 3, 0, false, nominatiomTestJSON, 'not only test');
+
 test.addTest('Variable days: school holidays', [
 		'SH',
 	], '2014.01.01 0:00', '2015.02.01 0:00', [
@@ -239,6 +254,14 @@ test.addTest('Variable days: school holidays', [
 		[ '2014.10.27 00:00', '2014.11.09 00:00' ], // 5 + 8
 		[ '2014.12.22 00:00', '2015.01.06 00:00' ], // 10 + 5
 	], 1000 * 60 * 60 * 24 * (4 + 2 + 20 + 1 + 1 + 1 + (1 + 31 + 10) + (5 + 8) + (10 + 5)), 0, false, nominatiomTestJSON_bremen, 'not last test');
+
+test.addTest('SH: Only if SH is Wednesday', [
+		'SH We',
+	], '2014.01.01 0:00', '2014.05.10 0:00', [
+		[ '2014.01.01 00:00', '2014.01.02 00:00' ],
+		[ '2014.04.16 00:00', '2014.04.17 00:00' ],
+		[ '2014.04.23 00:00', '2014.04.24 00:00' ],
+	], 1000 * 60 * 60 * 24 * 3, 0, false, nominatiomTestJSON, 'only test');
 
 test.addTest('Variable days: school holidays', [
 		'SH,PH',
@@ -341,15 +364,16 @@ test.addTest('Full range', [
 		'Su-Sa 00:00-24:00',
 		'24/7',
 		'Mo-Fr,Sa,Su',
-		'PH,Mo-Fr,Sa,Su',
+		ignored('PH,Mo-Fr,Sa,Su', 'check for week stable not implemented'),
+		// week stable actually, but check for that needs extra logic
 		'Jan-Dec',
 		'Feb-Jan',
 		'Dec-Nov',
-		ignored('Jan 01-Dec 31'), // week stable actually, but check for that needs extra logic
-		ignored('week 1-54'),     // week stable actually, but check for that needs extra logic
+		ignored('Jan 01-Dec 31', 'check for week stable not implemented'),
+		ignored('week 1-54', 'check for week stable not implemented'),
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
-	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not last test');
+	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
 
 // Not sure if this was intended, but this is how the code handles it.
 // And it is not bad actually.
@@ -673,7 +697,7 @@ test.addTest('Input tolerance: weekdays, months in different languages', [
 		[ '2012.10.03 16:00', '2012.10.03 20:00' ],
 		[ '2012.10.04 12:00', '2012.10.04 14:00' ],
 		[ '2012.10.04 16:00', '2012.10.04 20:00' ],
-	], 1000 * 60 * 60 * 6 * 4, 0, true, {}, 'last test');
+	], 1000 * 60 * 60 * 6 * 4, 0, true, {}, 'not last test');
 
 test.addTest('Input tolerance: dot as time separator', [
 		'10.00-12.00',
@@ -811,6 +835,7 @@ test.addTest('Complex example used in README', [
 
 test.addTest('Complex example used in README and benchmark', [
 		'Mo,Tu,Th,Fr 12:00-18:00;Sa 12:00-17:00; Th[3] off; Th[-1] off',
+		'Mo,Tu,Th,Fr 12:00-18:00;Sa 12:00-17:00; Th[3],Th[-1] off',
 	], '2012.10.01 0:00', '2012.10.31 0:00', [
 		[ '2012.10.01 12:00', '2012.10.01 18:00' ],
 		[ '2012.10.02 12:00', '2012.10.02 18:00' ],
@@ -832,7 +857,7 @@ test.addTest('Complex example used in README and benchmark', [
 		[ '2012.10.27 12:00', '2012.10.27 17:00' ],
 		[ '2012.10.29 12:00', '2012.10.29 18:00' ],
 		[ '2012.10.30 12:00', '2012.10.30 18:00' ],
-	], 1000 * 60 * 60 * (6 * 16 + 5 * 4), 0, false);
+	], 1000 * 60 * 60 * (6 * 16 + 5 * 4), 0, false, {}, 'not last test');
 
 test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', [
 		// 'Mo[2] - 6 days', // considered as "correct"
@@ -884,7 +909,7 @@ process.exit(test.run() ? 0 : 1);
 //======================================================================
 function opening_hours_test() {
 	var show_passing_tests  = true;
-	var show_error_warnings = true; // enable this, if you want to see how the library reports errors and warnings
+	var show_error_warnings = false; // enable this, if you want to see how the library reports errors and warnings
 	var tests = [];
 	var tests_should_fail = [];
 	var tests_should_warn = [];
@@ -996,10 +1021,15 @@ function opening_hours_test() {
 		var passed = false;
 		var str = '"' + name + '" for "' + value + '": ';
 		var failed = false;
-		if (intervals_ok && duration_ok && weekstable_ok) {
+		if (intervals_ok && duration_ok && (weekstable_ok || ignored == 'check for week stable not implemented')) {
 			str += '[1;32mPASSED[0m';
-			if (ignored)
-				str += ', [1;33malso ignored, please unignore since the test passes![0m';
+			if (ignored) {
+				if (ignored == 'check for week stable not implemented') {
+					str += ', [1;33mexcept weekstable which is ignored for now[0m';
+				} else {
+					str += ', [1;33malso ignored, please unignore since the test passes![0m';
+				}
+			}
 			passed = true;
 		} else if (ignored) {
 			str += '[1;33mIGNORED[0m, reason: ' + ignored;
@@ -1021,7 +1051,7 @@ function opening_hours_test() {
 		if (show_error_warnings && warnings != '')
 			str += '\n' + warnings;
 
-		if ((intervals_ok && duration_ok && weekstable_ok && show_passing_tests) || crashed || failed)
+		if ((intervals_ok && duration_ok && weekstable_ok && show_passing_tests) || crashed || failed || ignored)
 			console.log(str);
 		return passed;
 	}

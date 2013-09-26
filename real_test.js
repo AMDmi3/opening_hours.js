@@ -80,7 +80,7 @@ function opening_hours_test() {
 							+ ' only different values: '+ success_differ +'/'+ total_differ
 							+' ([1;32m'+ Math.round(success_differ / i * 100) + ' %[0m)'
 							+ ' tests passed.\t'
-							+ (total_differ - i) + ' left …    '+ i + ' values, ' + delta + ' ms (' + (i/delta*1000).toFixed(2) + ' n/sec).');
+							+ (total_differ - i) + ' left …\t'+ i + ' values, ' + delta + ' ms (' + (i/delta*1000).toFixed(2) + ' n/sec).');
 					}
 				}
 			}

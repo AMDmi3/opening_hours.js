@@ -101,7 +101,7 @@ function logState(startString, endString, oh, past) {
   var warnings = oh.getWarnings();
   ```
 
-  Get warnings which appeared during parsing as human readable string. Every violation is described in its own line. Warnings do not effect the correct evaluation, but they should be avoided.
+  Get warnings which appeared during parsing as human readable string. Every violation is described on its own line. Warnings do not effect the correct evaluation, but they should be avoided.
 
 * ```javascript
   var every_week_is_same = oh.isWeekSame();
@@ -263,6 +263,9 @@ Almost everything from opening_hours definition is supported, as well as some ex
 <!-- [convert&#45;ical&#45;to&#45;json]: blob/feature/convert_ical_to_json -->
 [convert-ical-to-json]: https://github.com/ypid/opening_hours.js/blob/feature/convert_ical_to_json
 
+* There can be to cases which need to be seperated (this applies for PH and SH):
+  1. ```Mo-Fr,PH```: The facility is open Mo-Fr and PH. If PH is a Sunday for example the facility is also open. This is the default case.
+  2. **EXT:** ```PH Mo-Fr```: The facility is only open if a PH falls on Mo-Fr. For example if a PH is on the weekday Wednesday then the facility will be open, if PH is Saturday it will be closed.
 * To evaluate the correct holidays, the country code and the state (could be omitted but this will probably result in less exactitude) are required which are included in the JSON returned by [Nominatim] \(see in the [Library API](#library-api) how to provide it\).
 * If your country or state is missing or wrong you can add it or open an [issue][issure-report] (and point to a definiton of the holidays).
 
