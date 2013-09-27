@@ -747,7 +747,7 @@
 					if (minutes_from >= minutes_in_day)
 						throw formatWarnErrorMessage(nblock, at_end_time + (has_normal_time[1] ? 3 : (has_time_var_calc[1] ? 7 : 1)) - 1,
 							'Time range start outside a day');
-					if (minutes_to < minutes_from)
+					if (minutes_to < minutes_from || ((has_normal_time[0] && has_normal_time[1]) && minutes_from == minutes_to))
 						minutes_to += minutes_in_day;
 					if (minutes_to > minutes_in_day * 2)
 						throw formatWarnErrorMessage(nblock, at_end_time + (has_normal_time[1] ? 3 : (has_time_var_calc[1] ? 7 : 1)) - 1,
@@ -1696,7 +1696,7 @@
 					// This is the only way to be consistent. I thought about ("22:00-02:00; Tu 12:00-14:00") letting Th override 22:00-02:00 partly:
 					// Like: Th 00:00-02:00,12:00-14:00 but this would result in including 22:00-00:00 for Th which is probably not what you want.
 					if (blocks[nblock].date.length > 0 && (blocks[nblock].meaning || blocks[nblock].unknown)
-							&& !blocks[nblock].wrapped && !blocks[nblock].additional) {
+							&& !blocks[nblock].wrapped && !blocks[nblock].additional && !blocks[nblock].fallback) {
 						// var old_date_matching_blocks = date_matching_blocks;
 						date_matching_blocks = [];
 						// for (var nblock = 0; nblock < old_date_matching_blocks.length; nblock++) {
