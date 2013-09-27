@@ -261,7 +261,7 @@ test.addTest('SH: Only if SH is Wednesday', [
 		[ '2014.01.01 00:00', '2014.01.02 00:00' ],
 		[ '2014.04.16 00:00', '2014.04.17 00:00' ],
 		[ '2014.04.23 00:00', '2014.04.24 00:00' ],
-	], 1000 * 60 * 60 * 24 * 3, 0, false, nominatiomTestJSON, 'only test');
+	], 1000 * 60 * 60 * 24 * 3, 0, false, nominatiomTestJSON, 'not only test');
 
 test.addTest('Variable days: school holidays', [
 		'SH,PH',
@@ -625,7 +625,7 @@ test.addTest('Date range which only applies for specific year', [
 		[ '2062.01.01 00:00', '2062.01.02 00:00' ],
 		[ '2063.01.01 00:00', '2063.01.02 00:00' ],
 		[ '2064.01.01 00:00', '2064.01.02 00:00' ],
-	], 1000 * 60 * 60 * 24 * 18, 0, false);
+	], 1000 * 60 * 60 * 24 * 18, 0, false, {}, 'not last test');
 
 test.addTest('Periodical monthdays', [
 		'Jan 01-31/8 00:00-24:00',

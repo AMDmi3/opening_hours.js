@@ -418,14 +418,14 @@
 
 			parseGroup(tokens[nblock][0], 0, selectors);
 
+			if (selectors.year.length > 0)
+				selectors.date.push(selectors.year);
 			if (selectors.holiday.length > 0)
 				selectors.date.push(selectors.holiday);
 			if (selectors.month.length > 0)
 				selectors.date.push(selectors.month);
 			if (selectors.monthday.length > 0)
 				selectors.date.push(selectors.monthday);
-			if (selectors.year.length > 0) // FIXME: Can not be put in optimal order (at the top).
-				selectors.date.push(selectors.year);
 			if (selectors.week.length > 0)
 				selectors.date.push(selectors.week);
 			if (selectors.weekday.length > 0)
@@ -1382,6 +1382,10 @@
 							return [true];
 						}
 
+						if (ouryear < year_from ){
+							return [false, new Date(year_from, 0, 1)];
+						}
+
 						return [false];
 
 					}}(tokens, at, is_range, has_period));
@@ -1639,10 +1643,12 @@
 
 			for (var nblock = 0; nblock < blocks.length; nblock++) {
 				var matching_date_block = true;
+				// console.log(nblock, 'length',  blocks[nblock].date.length);
 
 				// Try each date selector type
 				for (var ndateselector = 0; ndateselector < blocks[nblock].date.length; ndateselector++) {
 					var dateselectors = blocks[nblock].date[ndateselector];
+					// console.log(nblock, ndateselector);
 
 					var has_matching_selector = false;
 					for (var datesel = 0; datesel < dateselectors.length; datesel++) {
