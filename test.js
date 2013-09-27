@@ -307,10 +307,10 @@ test.addTest('Time ranges spanning midnight with date overwriting', [
 	[ '2012.10.05 22:00', '2012.10.06 02:00' ],
 	[ '2012.10.06 22:00', '2012.10.07 02:00' ],
 	[ '2012.10.07 22:00', '2012.10.08 00:00' ],
-	], 1000 * 60 * 60 * (6 * 4 + 2), 0, true);
+	], 1000 * 60 * 60 * (6 * 4 + 2), 0, true, {}, 'not last test');
 
 test.addTest('Time ranges spanning midnight with date overwriting (complex real world)', [
-		'Su-Tu 11:00-01:00; We-Th 11:00-03:00; Fr 11:00-06:00; Sa 11:00-07:00',
+		'Su-Tu 11:00-01:00, We-Th 11:00-03:00, Fr 11:00-06:00, Sa 11:00-07:00',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 01:00', ], // Mo: Su-Tu 11:00-01:00
 		[ '2012.10.01 11:00', '2012.10.02 01:00', ], // Mo: Su-Tu 11:00-01:00
@@ -463,14 +463,25 @@ test.addTest('Exception blocks', [
 	], 1000 * 60 * 60 * 6 * 5, 0, true);
 
 test.addTest('Additional blocks', [
-		ignored('Mo-Fr 10:00-16:00, We 12:00-18:00'),
+		'Mo-Fr 10:00-16:00, We 12:00-18:00',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 16:00' ],
 		[ '2012.10.02 10:00', '2012.10.02 16:00' ],
 		[ '2012.10.03 10:00', '2012.10.03 18:00' ],
 		[ '2012.10.04 10:00', '2012.10.04 16:00' ],
 		[ '2012.10.05 10:00', '2012.10.05 16:00' ],
-	], 1000 * 60 * 60 * (6 * 5 + 2), 0, true);
+	], 1000 * 60 * 60 * (6 * 5 + 2), 0, true, {}, 'not last test');
+
+test.addTest('Additional blocks', [
+		'Mo-Fr 08:00-12:00, We 14:00-18:00',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 08:00', '2012.10.01 12:00' ],
+		[ '2012.10.02 08:00', '2012.10.02 12:00' ],
+		[ '2012.10.03 08:00', '2012.10.03 12:00' ],
+		[ '2012.10.03 14:00', '2012.10.03 18:00' ],
+		[ '2012.10.04 08:00', '2012.10.04 12:00' ],
+		[ '2012.10.05 08:00', '2012.10.05 12:00' ],
+	], 1000 * 60 * 60 * (5 * 4 + 4), 0, true, {}, 'not last test');
 
 test.addTest('Fallback group blocks (unknown)', [
 		'We-Fr 10:00-24:00 open "it is open" || "please call"',
@@ -877,11 +888,15 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'week 2-54 00::00-24:00',
 		'(sunrise+01:00-sunset',
 		'(sunrise)-sunset',
+		'(',
+		'sunrise-(',
+		'sunrise-sunset,(',
 		'27:00-29:00',
 		'', // empty string
 		';', // only block delimiter
 		' ', // empty string
 		"\n", // newline
+		'14:/',
 		'14:00/',
 		'14:00-/',
 		'26:00-27:00',
@@ -897,10 +912,10 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'2012, Jan',
 	], nominatiomTestJSON, 'not only test');
 
-test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
-		'PH', // country is not specified
-		'SH', // country is not specified
-	]);
+// test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
+// 		'PH', // country is not specified
+// 		'SH', // country is not specified
+// 	]);
 
 process.exit(test.run() ? 0 : 1);
 
@@ -933,7 +948,7 @@ function opening_hours_test() {
 			if (show_passing_tests) {
 				console.log(str);
 				if (show_error_warnings)
-					console.log(crashed);
+					console.log(crashed + '\n');
 			}
 		} else {
 			str += '[1;31mFAILED[0m';

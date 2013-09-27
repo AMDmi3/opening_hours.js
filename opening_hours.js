@@ -389,75 +389,83 @@
 		var blocks = [];
 
 		for (var nblock = 0; nblock < tokens.length; nblock++) {
-			if (tokens[nblock][0].length == 0) continue;
-			// Block does contain nothing useful e.g. second block of '10:00-12:00;' (empty) which needs to be handled.
+			var continue_at = 0;
+			do {
+				if (tokens[nblock][0].length == 0) continue;
+				// Block does contain nothing useful e.g. second block of '10:00-12:00;' (empty) which needs to be handled.
 
-			var selectors = {
-				// Time selectors
-				time: [],
+				var selectors = {
+					// Time selectors
+					time: [],
 
-				// Temporary array of selectors from time wrapped to the next day
-				wraptime: [],
+					// Temporary array of selectors from time wrapped to the next day
+					wraptime: [],
 
-				// Date selectors
-				weekday: [],
-				holiday: [],
-				week: [],
-				month: [],
-				monthday: [],
-				year: [],
+					// Date selectors
+					weekday: [],
+					holiday: [],
+					week: [],
+					month: [],
+					monthday: [],
+					year: [],
 
-				// Array with non-empty date selector types, with most optimal ordering
-				date: [],
-
-				fallback: tokens[nblock][1],
-				meaning: true,
-				unknown: false,
-				comment: undefined,
-			};
-
-			parseGroup(tokens[nblock][0], 0, selectors);
-
-			if (selectors.year.length > 0)
-				selectors.date.push(selectors.year);
-			if (selectors.holiday.length > 0)
-				selectors.date.push(selectors.holiday);
-			if (selectors.month.length > 0)
-				selectors.date.push(selectors.month);
-			if (selectors.monthday.length > 0)
-				selectors.date.push(selectors.monthday);
-			if (selectors.week.length > 0)
-				selectors.date.push(selectors.week);
-			if (selectors.weekday.length > 0)
-				selectors.date.push(selectors.weekday);
-
-			blocks.push(selectors);
-
-			// this handles selectors with time ranges wrapping over midnight (e.g. 10:00-02:00)
-			// it generates wrappers for all selectors and creates a new block
-			if (selectors.wraptime.length > 0) {
-				var wrapselectors = {
-					time: selectors.wraptime,
+					// Array with non-empty date selector types, with most optimal ordering
 					date: [],
 
-					meaning: selectors.meaning,
-					unknown: selectors.unknown,
-					comment: selectors.comment,
-
-					wrapped: true,
+					fallback: tokens[nblock][1],
+					additional: continue_at ? true : false,
+					meaning: true,
+					unknown: false,
+					comment: undefined,
 				};
 
-				for (var dselg = 0; dselg < selectors.date.length; dselg++) {
-					wrapselectors.date.push([]);
-					for (var dsel = 0; dsel < selectors.date[dselg].length; dsel++) {
-						wrapselectors.date[wrapselectors.date.length-1].push(
-								generateDateShifter(selectors.date[dselg][dsel], -msec_in_day)
-							);
-					}
-				}
+				continue_at = parseGroup(tokens[nblock][0], continue_at, selectors);
+				if (typeof continue_at == 'object')
+					continue_at = continue_at[0];
+				else
+					continue_at = 0;
 
-				blocks.push(wrapselectors);
-			}
+				if (selectors.year.length > 0)
+					selectors.date.push(selectors.year);
+				if (selectors.holiday.length > 0)
+					selectors.date.push(selectors.holiday);
+				if (selectors.month.length > 0)
+					selectors.date.push(selectors.month);
+				if (selectors.monthday.length > 0)
+					selectors.date.push(selectors.monthday);
+				if (selectors.week.length > 0)
+					selectors.date.push(selectors.week);
+				if (selectors.weekday.length > 0)
+					selectors.date.push(selectors.weekday);
+
+				blocks.push(selectors);
+
+				// this handles selectors with time ranges wrapping over midnight (e.g. 10:00-02:00)
+				// it generates wrappers for all selectors and creates a new block
+				if (selectors.wraptime.length > 0) {
+					var wrapselectors = {
+						time: selectors.wraptime,
+						date: [],
+
+						meaning: selectors.meaning,
+						unknown: selectors.unknown,
+						comment: selectors.comment,
+
+						wrapped: true,
+					};
+
+					for (var dselg = 0; dselg < selectors.date.length; dselg++) {
+						wrapselectors.date.push([]);
+						for (var dsel = 0; dsel < selectors.date[dselg].length; dsel++) {
+							wrapselectors.date[wrapselectors.date.length-1].push(
+									generateDateShifter(selectors.date[dselg][dsel], -msec_in_day)
+								);
+						}
+					}
+
+					blocks.push(wrapselectors);
+				}
+			} while (continue_at)
 		}
 
 		// Tokenization function: Splits string into parts.
@@ -631,6 +639,11 @@
 						|| matchTokens(tokens, at, 'timevar')
 						|| matchTokens(tokens, at, '(', 'timevar')) {
 					at = parseTimeRange(tokens, at, selectors);
+
+					if (typeof at == 'object') {
+						// additional block
+						break;
+					}
 				} else if (matchTokens(tokens, at, 'off') || matchTokens(tokens, at, 'closed')) {
 					selectors.meaning = false;
 					at++;
@@ -663,7 +676,7 @@
 				}
 			}
 
-			return tokens;
+			return at;
 		}
 
 		//======================================================================
@@ -687,7 +700,6 @@
 								+ (has_time_var_calc[0] ? 'calculation ' : '')
 								+ 'expected');
 						}
-
 					}
 
 					if (has_normal_time[0])
@@ -819,8 +831,15 @@
 					}
 
 					at = at_end_time + (has_normal_time[1] ? 3 : (has_time_var_calc[1] ? 7 : 1));
-				} else {
-					throw formatWarnErrorMessage(nblock, at, 'Unexpected token in time range: ' + tokens[at][1]);
+				} else { // additional block
+					// has_normal_time[0] = matchTokens(tokens, at, 'number', 'timesep', 'number');
+					// has_time_var_calc[0] = matchTokens(tokens, at, '(', 'timevar');
+					// if (has_normal_time[0] || matchTokens(tokens, at, 'timevar') || has_time_var_calc[0]) {
+					if (matchTokens(tokens, at, '('))
+						throw formatWarnErrorMessage(nblock, at+1, 'Missing variable time (e.g. sunrise) after: "' + tokens[at][1] + '"');
+					if (matchTokens(tokens, at, 'number', 'timesep'))
+						throw formatWarnErrorMessage(nblock, at+2, 'Missing minutes in time range after: "' + tokens[at+1][1] + '"');
+					return [ at ];
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -1357,7 +1376,9 @@
 							year_from = tmp;
 						}
 
-						if (has_period) {
+						if (ouryear < year_from ){
+							return [false, new Date(year_from, 0, 1)];
+						} else if (has_period) {
 							if (year_from <= ouryear) {
 								if (is_range) {
 									var period = tokens[at+4][0];
@@ -1380,10 +1401,6 @@
 								return [true, new Date(year_to + 1, 0, 1)];
 						} else if (ouryear == year_from) {
 							return [true];
-						}
-
-						if (ouryear < year_from ){
-							return [false, new Date(year_from, 0, 1)];
 						}
 
 						return [false];
@@ -1675,9 +1692,17 @@
 				if (matching_date_block) {
 					// The following lines implement date overwriting logic (e.g. for
 					// "Mo-Fr 10:00-20:00; We 10:00-16:00", We block overrides Mo-Fr block.
-					// FIXME: is blocks[nblock].date.length > 0 necessary?
-					if (blocks[nblock].date.length > 0 && (blocks[nblock].meaning || blocks[nblock].unknown) && !blocks[nblock].wrapped) {
+					//
+					// This is the only way to be consistent. I thought about ("22:00-02:00; Tu 12:00-14:00") letting Th override 22:00-02:00 partly:
+					// Like: Th 00:00-02:00,12:00-14:00 but this would result in including 22:00-00:00 for Th which is probably not what you want.
+					if (blocks[nblock].date.length > 0 && (blocks[nblock].meaning || blocks[nblock].unknown)
+							&& !blocks[nblock].wrapped && !blocks[nblock].additional) {
+						// var old_date_matching_blocks = date_matching_blocks;
 						date_matching_blocks = [];
+						// for (var nblock = 0; nblock < old_date_matching_blocks.length; nblock++) {
+						// 	if (!blocks[old_date_matching_blocks[nblock]].wrapped)
+						// 		date_matching_blocks.push(nblock);
+						// }
 					}
 					date_matching_blocks.push(nblock);
 				}
