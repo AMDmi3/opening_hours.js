@@ -14,6 +14,7 @@ var nominatiomTestJSON_bremen = {"place_id":"39182271","licence":"Data \u00a9 Op
 
 test.addTest('Time intervals', [
 		'10:00-12:00',
+		'10:00-12:00,',
 		'10:00-12:00;',
 		'10:00-11:00,11:00-12:00',
 		'10:00-11:00;11:00-12:00',
@@ -46,11 +47,33 @@ test.addTest('Time intervals (not specified/documented use of colon, please avoi
 	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true);
 
 test.addTest('Open end', [
-		'Mo 17:00+',
-		'17:00+',
+		'07:00+ open "visit there website to know if they did already close"', // specified comments should not be overridden
+		'07:00+ unknown "visit there website to know if they did already close"', // will always interpreted as unknown
 	], '2012.10.01 0:00', '2012.10.02 0:00', [
-		[ '2012.10.01 17:00', '2012.10.01 17:01' ],
-	], 1000 * 60 * 1, 0, true, {}, 'not last test');
+		[ '2012.10.01 07:00', '2012.10.01 17:00', true,  'visit there website to know if they did already close' ],
+	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, {}, 'not last test');
+
+test.addTest('Open end', [
+		'17:00+',
+		'17:00+; 15:00-16:00 off',
+		'15:00-16:00 off; 17:00+',
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+		[ '2012.10.01 00:00', '2012.10.01 03:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2012.10.01 17:00', '2012.10.02 00:00', true, 'Specified as open end. Closing time was guessed.' ],
+	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, {}, 'not last test');
+
+test.addTest('Open end', [
+		'17:00+ closed',
+		'17:00-19:00 closed',
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+	], 0, 0, true, {}, 'not last test');
+
+test.addTest('Open end', [
+		'07:00+,12:00-16:00; 16:00-17:00 closed "needed because of open end"',
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+		[ '2012.10.01 07:00', '2012.10.01 12:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2012.10.01 12:00', '2012.10.01 16:00' ],
+	], 1000 * 60 * 60 * 4, 1000 * 60 * 60 * 5, true, {}, 'not last test');
 
 test.addTest('Variable times e.g. dawn, dusk', [
 		'Mo dawn-dusk',
@@ -474,6 +497,7 @@ test.addTest('Additional blocks', [
 
 test.addTest('Additional blocks', [
 		'Mo-Fr 08:00-12:00, We 14:00-18:00',
+		'Mo-Fr 08:00-12:00, We 14:00-18:00, Su off',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 08:00', '2012.10.01 12:00' ],
 		[ '2012.10.02 08:00', '2012.10.02 12:00' ],
@@ -902,6 +926,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'26:00-27:00',
 		'23:00-55:00',
 		'14:00-16:00,.',
+		// '14:00-16:00,', // is ok
 		'Sa[1.',
 		'Sa[1,0,3]',
 		'Sa[1,3-6]',

@@ -374,8 +374,8 @@
 			}
 
 			if (typeof nominatiomJSON.lon != 'undefined') { // lat will be tested later …
-				var lat = nominatiomJSON.lat;
-				var lon = nominatiomJSON.lon;
+				lat = nominatiomJSON.lat;
+				lon = nominatiomJSON.lon;
 			}
 		}
 
@@ -715,7 +715,7 @@
 
 					var at_end_time = at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 7 : 1))+1; // after '-'
 					if (has_open_end) {
-						var minutes_to = minutes_from + 1;
+						var minutes_to = minutes_from + 60 * 10;
 					} else {
 						has_normal_time[1] = matchTokens(tokens, at_end_time, 'number', 'timesep', 'number');
 						has_time_var_calc[1]      = matchTokens(tokens, at_end_time, '(', 'timevar');
@@ -764,7 +764,7 @@
 					} // else: we can not calculate exact times so we use the already applied constants (word_value_replacement).
 
 					if (minutes_to > minutes_in_day) { // has_normal_time[1] must be true
-						selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add) { return function(date) {
+						selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
 
 							if (timevar_string[0]) {
@@ -783,10 +783,10 @@
 							if (ourminutes < minutes_from)
 								return [false, dateAtDayMinutes(date, minutes_from)];
 							else
-								return [true, dateAtDayMinutes(date, minutes_to)];
-						}}(minutes_from, minutes_to, timevar_string, timevar_add));
+								return [true, dateAtDayMinutes(date, minutes_to), has_open_end];
+						}}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end));
 
-						selectors.wraptime.push(function(minutes_from, minutes_to, timevar_string, timevar_add) { return function(date) {
+						selectors.wraptime.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
 
 							if (timevar_string[0]) {
@@ -804,12 +804,12 @@
 							}
 
 							if (ourminutes < minutes_to)
-								return [true, dateAtDayMinutes(date, minutes_to)];
+								return [true, dateAtDayMinutes(date, minutes_to), has_open_end];
 							else
 								return [false, undefined];
-						}}(minutes_from, minutes_to - minutes_in_day, timevar_string, timevar_add));
+						}}(minutes_from, minutes_to - minutes_in_day, timevar_string, timevar_add, has_open_end));
 					} else {
-						selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add) { return function(date) {
+						selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
 
 							if (timevar_string[0]) {
@@ -824,13 +824,13 @@
 							if (ourminutes < minutes_from)
 								return [false, dateAtDayMinutes(date, minutes_from)];
 							else if (ourminutes < minutes_to)
-								return [true, dateAtDayMinutes(date, minutes_to)];
+								return [true, dateAtDayMinutes(date, minutes_to), has_open_end];
 							else
 								return [false, dateAtDayMinutes(date, minutes_from + minutes_in_day)];
-						}}(minutes_from, minutes_to, timevar_string, timevar_add));
+						}}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end));
 					}
 
-					at = at_end_time + (has_normal_time[1] ? 3 : (has_time_var_calc[1] ? 7 : 1));
+					at = at_end_time + (has_normal_time[1] ? 3 : (has_time_var_calc[1] ? 7 : !has_open_end));
 				} else { // additional block
 					// has_normal_time[0] = matchTokens(tokens, at, 'number', 'timesep', 'number');
 					// has_time_var_calc[0] = matchTokens(tokens, at, '(', 'timevar');
@@ -1737,16 +1737,18 @@
 					// console.log('res:', res);
 					if (res[0]) {
 						if (!blocks[block].fallback) {
-								// console.log('if');
-								resultstate = blocks[block].meaning;
-								unknown     = blocks[block].unknown;
-								comment     = blocks[block].comment;
+							var resultArray =
+								evaluateOpenEnd(blocks[block].meaning, blocks[block].unknown, blocks[block].comment, res[2]);
+							resultstate = resultArray[0];
+							unknown     = resultArray[1];
+							comment     = resultArray[2];
 						} else if ((blocks[block].fallback && !(resultstate || unknown))) {
-								// console.log('else');
-								resultstate = blocks[block].meaning;
-								unknown     = blocks[block].unknown;
-								comment     = blocks[block].comment;
-								break block; // fallback block matched, no need for checking the rest
+							var resultArray =
+								evaluateOpenEnd(blocks[block].meaning, blocks[block].unknown, blocks[block].comment, res[2]);
+							resultstate = resultArray[0];
+							unknown     = resultArray[1];
+							comment     = resultArray[2];
+							break block; // fallback block matched, no need for checking the rest
 						}
 					}
 					if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate)) {
@@ -1758,6 +1760,16 @@
 
 			// console.log('changedate', changedate, resultstate, comment);
 			return [ resultstate, changedate, unknown, comment ];
+		}
+
+		function evaluateOpenEnd(resultstate, unknown, comment, has_open_range) {
+			if (has_open_range && (resultstate || unknown)) {
+				if (typeof comment == 'undefined')
+					comment = 'Specified as open end. Closing time was guessed.';
+				resultstate = false;
+				unknown     = true;
+			}
+			return [resultstate, unknown, comment];
 		}
 
 		function formatWarnErrorMessage(nblock, at, message) {

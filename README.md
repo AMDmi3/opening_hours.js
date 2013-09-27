@@ -242,7 +242,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 * Support calculation with variable times (e.g. ```sunrise-(sunset-00:30)```: meaning that the time range ends 30 minutes before sunset; ```(sunrise+01:02)-(sunset-00:30)```).
 
-* *Doesn't support open end (```10:00+```)*
+* Supports open end (```10:00+```). It is interpreted as a eight hours time range with the state unknown and the comment "Specified as open end. Closing time was guessed." if there is no comment specified. You might need to limit open end times in cases like: ```07:00+,12:00-16:00; 16:00-17:00 closed "needed because of open end"```.
 
 [suncalc]: https://github.com/mourner/suncalc
 
