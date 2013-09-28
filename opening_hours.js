@@ -16,9 +16,9 @@
 		var holidays = {
 			'de': {
 				'PH': { // http://de.wikipedia.org/wiki/Feiertage_in_Deutschland
-					'Neujahrstag'               : [ 1, 1 ], // month 1, day 1, whole Germany
-					'Heilige Drei Könige'       : [ 1, 6, [ 'Baden-Württemberg', 'Bayern', 'Sachsen-Anhalt'] ], // only in the specified states
-					'Tag der Arbeit'            : [ 5, 1 ], // whole Germany
+					'Neujahrstag'               : [  1,  1 ], // month 1, day 1, whole Germany
+					'Heilige Drei Könige'       : [  1,  6, [ 'Baden-Württemberg', 'Bayern', 'Sachsen-Anhalt'] ], // only in the specified states
+					'Tag der Arbeit'            : [  5,  1 ], // whole Germany
 					'Karfreitag'                : [ 'easter', -2 ], // two days before easter
 					'Ostersonntag'              : [ 'easter',  0, [ 'Brandenburg'] ],
 					'Ostermontag'               : [ 'easter',  1 ],
@@ -26,7 +26,7 @@
 					'Pfingstsonntag'            : [ 'easter', 49, [ 'Brandenburg'] ],
 					'Pfingstmontag'             : [ 'easter', 50 ],
 					'Fronleichnam'              : [ 'easter', 60, [ 'Baden-Württemberg', 'Bayern', 'Hessen', 'Nordrhein-Westfalen', 'Rheinland-Pfalz', 'Saarland' ] ],
-					'Mariä Himmelfahrt'         : [  8,  3, [ 'Saarland'] ],
+					'Mariä Himmelfahrt'         : [  8, 15, [ 'Saarland'] ],
 					'Tag der Deutschen Einheit' : [ 10,  3 ],
 					'Reformationstag'           : [ 10, 31, [ 'Brandenburg', 'Mecklenburg-Vorpommern', 'Sachsen', 'Sachsen-Anhalt', 'Thüringen'] ],
 					'Allerheiligen'             : [ 11,  1, [ 'Baden-Württemberg', 'Bayern', 'Nordrhein-Westfalen', 'Rheinland-Pfalz', 'Saarland' ] ],
@@ -123,8 +123,33 @@
 						},
 					],
 				},
-
-			}
+			},
+			'at': {
+				'PH': { // http://de.wikipedia.org/wiki/Feiertage_in_%C3%96sterreich
+					'Neujahrstag'               : [  1,  1 ],
+					'Heilige Drei Könige'       : [  1,  6 ],
+					// 'Josef'                     : [  3, 19, [ 'Kärnten', 'Steiermark', 'Tirol', 'Vorarlberg' ] ],
+					// 'Karfreitag'                : [ 'easter', -2 ],
+					'Ostermontag'               : [ 'easter',  1 ],
+					'Staatsfeiertag'            : [  5,  1 ],
+					// 'Florian'                   : [  5,  4, [ 'Oberösterreich' ] ],
+					'Christi Himmelfahrt'       : [ 'easter', 39 ],
+					'Pfingstmontag'             : [ 'easter', 50 ],
+					'Fronleichnam'              : [ 'easter', 60 ],
+					'Mariä Himmelfahrt'         : [  8, 15 ],
+					// 'Rupert'                    : [  9, 24, [ 'Salzburg' ] ],
+					// 'Tag der Volksabstimmung'   : [ 10, 10, [ 'Kärnten' ] ],
+					'Nationalfeiertag'          : [ 10, 26 ],
+					'Allerheiligen'             : [ 11,  1 ],
+					// 'Martin'                    : [ 11, 11, [ 'Burgenland' ] ],
+					// 'Leopold'                   : [ 11, 15, [ 'Niederösterreich', 'Wien' ] ],
+					'Mariä Empfängnis'          : [ 12,  8 ],
+					// 'Heiliger Abend'            : [ 12, 24 ],
+					'Christtag'                 : [ 12, 25 ],
+					'Stefanitag'                : [ 12, 26 ],
+					// 'Silvester'                 : [ 12, 31 ],
+				},
+			},
 		};
 
 		//----------------------------------------------------------------------------
@@ -907,7 +932,7 @@
 					var has_add_days = false;
 					var add_days = matchTokens(tokens, endat+1, '+') || (matchTokens(tokens, endat+1, '-') ? -1 : 0);
 					if (add_days != 0 && matchTokens(tokens, endat+2, 'number', 'calcday')) {
-						// continue with '+ 5 days' or something like that
+						// continues with '+ 5 days' or something like that
 						if (tokens[endat+2][0] > 6)
 							throw formatWarnErrorMessage(nblock, endat+3,
 								'There should be no reason to differ more than 6 days from a constrained weekdays.');
@@ -926,7 +951,6 @@
 					for (var nnumber = 0; nnumber < numbers.length; nnumber++) {
 
 						selectors.weekday.push(function(weekday, number, add_days) { return function(date) {
-							// console.log('\nselector called', date);
 							var start_of_this_month = new Date(date.getFullYear(), date.getMonth(), 1);
 							var start_of_next_month = new Date(date.getFullYear(), date.getMonth() + 1, 1);
 
@@ -947,15 +971,12 @@
 									// so we calculate it for the month
 									// following this month and hope that the
 									// target day will actually be this month.
-									// console.log('before this month. ', target_day_with_added_days_this_month);
 
-									throw 'Condition weekdays moving to the previous month are currently not supported.';
+									// throw 'Condition weekdays moving to the previous month are currently not supported.';
 									target_day_with_added_days_this_month = dateAtNextWeekday(
 										new Date(date.getFullYear(), date.getMonth() + (number > 0 ? 0 : 1) + 1, 1), weekday);
 									target_day_this_month.setDate(target_day_with_added_days_this_month.getDate()
 										+ (number + (number > 0 ? -1 : 0)) * 7 + add_days);
-									// console.log('calculate ', target_day_this_month);
-
 								} else {
 									// Calculated target day is not inside this month
 									// therefore the specified weekday (e.g. fifth Sunday)
@@ -979,40 +1000,40 @@
 									new Date(date.getFullYear(), date.getMonth() + (number > 0 ? 0 : 1) -1, 1), weekday);
 								target_day_with_added_moved_days_this_month.setDate(target_day_with_added_moved_days_this_month.getDate()
 									+ (number + (number > 0 ? -1 : 0)) * 7 + add_days);
+
 								if (date.getDate() == target_day_with_added_moved_days_this_month.getDate()) {
 									return [true, dateAtDayMinutes(date, minutes_in_day)];
 								}
-							}
-
-							if (add_days < 0) {
+							} else if (add_days < 0) {
 								var target_day_with_added_moved_days_this_month = dateAtNextWeekday(
 									new Date(date.getFullYear(), date.getMonth() + (number > 0 ? 0 : 1) + 1, 1), weekday);
 								target_day_with_added_moved_days_this_month.setDate(target_day_with_added_moved_days_this_month.getDate()
 									+ (number + (number > 0 ? -1 : 0)) * 7 + add_days);
 
-								// console.log('could back match: ', target_day_with_added_moved_days_this_month, target_day_with_added_days_this_month);
-								// console.log(target_day_with_added_days_this_month, target_day_with_added_moved_days_this_month);
-								if (target_day_with_added_moved_days_this_month.getTime() < start_of_this_month.getTime()
-										|| target_day_with_added_moved_days_this_month.getTime() >= start_of_next_month.getTime()) {
-									console.log('outside');
+								// if (target_day_with_added_moved_days_this_month.getTime() < start_of_this_month.getTime()) {
+								// 	throw 'Can not happen TM';
+								// } else
+								if (target_day_with_added_moved_days_this_month.getTime() >= start_of_next_month.getTime()) {
+									return [false, target_day_with_added_moved_days_this_month];
 								} else {
+									if (target_day_with_added_days_this_month.getTime() < start_of_next_month.getTime()
+										&& target_day_with_added_days_this_month.getDate() == date.getDate())
+										return [true, dateAtDayMinutes(date, minutes_in_day)];
+
 									target_day_with_added_days_this_month = target_day_with_added_moved_days_this_month;
 								}
 							}
 
 							// we hit the target day
 							if (date.getDate() == target_day_with_added_days_this_month.getDate()) {
-								// console.log('matched')
 								return [true, dateAtDayMinutes(date, minutes_in_day)];
 							}
 
 							// we're before target day
 							if (date.getDate() < target_day_with_added_days_this_month.getDate()) {
-								// console.log('before', target_day_with_added_days_this_month);
 								return [false, target_day_with_added_days_this_month];
 							}
 
-							// console.log('end');
 							// we're after target day, set check date to next month
 							return [false, start_of_next_month];
 						}}(tokens[at][0], numbers[nnumber], add_days));
