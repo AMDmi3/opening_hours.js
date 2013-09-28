@@ -503,10 +503,14 @@
 
 			while (value != '') {
 				var tmp;
-				if (tmp = value.match(/^(?:week|24\/7|off|open|closed|unknown)/i)) {
+				if (tmp = value.match(/^(?:week|24\/7|open|unknown)/i)) {
 					// reserved word
 					value = value.substr(tmp[0].length);
 					curr_block_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase(), value.length ]);
+				} else if (tmp = value.match(/^(?:off|closed)/i)) {
+					// reserved word
+					value = value.substr(tmp[0].length);
+					curr_block_tokens.push(['closed', 'closed', value.length ]);
 				} else if (tmp = value.match(/^(?:PH|SH)/i)) {
 					// special day name (holidays)
 					value = value.substr(2);
@@ -669,7 +673,7 @@
 						// additional block
 						break;
 					}
-				} else if (matchTokens(tokens, at, 'off') || matchTokens(tokens, at, 'closed')) {
+				} else if (matchTokens(tokens, at, 'closed')) {
 					selectors.meaning = false;
 					at++;
 				} else if (matchTokens(tokens, at, 'open')) {
@@ -683,8 +687,7 @@
 					selectors.comment = tokens[at][0];
 					if (at > 0) {
 						if (!matchTokens(tokens, at - 1, 'open')
-							&& !matchTokens(tokens, at - 1, 'closed')
-							&& !matchTokens(tokens, at - 1, 'off')) {
+							&& !matchTokens(tokens, at - 1, 'closed')) {
 							// Then it is unknown. Either with unknown explicitly
 							// specified or just a comment behind.
 							selectors.meaning = false;
@@ -857,9 +860,6 @@
 
 					at = at_end_time + (has_normal_time[1] ? 3 : (has_time_var_calc[1] ? 7 : !has_open_end));
 				} else { // additional block
-					// has_normal_time[0] = matchTokens(tokens, at, 'number', 'timesep', 'number');
-					// has_time_var_calc[0] = matchTokens(tokens, at, '(', 'timevar');
-					// if (has_normal_time[0] || matchTokens(tokens, at, 'timevar') || has_time_var_calc[0]) {
 					if (matchTokens(tokens, at, '('))
 						throw formatWarnErrorMessage(nblock, at+1, 'Missing variable time (e.g. sunrise) after: "' + tokens[at][1] + '"');
 					if (matchTokens(tokens, at, 'number', 'timesep'))
@@ -972,7 +972,6 @@
 									// following this month and hope that the
 									// target day will actually be this month.
 
-									// throw 'Condition weekdays moving to the previous month are currently not supported.';
 									target_day_with_added_days_this_month = dateAtNextWeekday(
 										new Date(date.getFullYear(), date.getMonth() + (number > 0 ? 0 : 1) + 1, 1), weekday);
 									target_day_this_month.setDate(target_day_with_added_days_this_month.getDate()
@@ -984,15 +983,9 @@
 									return [false, start_of_next_month];
 								}
 							} else if (target_day_with_added_days_this_month.getTime() >= start_of_next_month.getTime()) {
-								// The target day is in the next month. If the target day without the added days is in this month
-								if (target_day_this_month.getTime() < start_of_next_month.getTime()) {
-									// then we can calculate the target day for the month before this month
-									// and hope that the target day will actually be this month.
-									// console.log('after this month. ', target_day_with_added_days_this_month);
-									// console.log(target_day_this_month);
-								} else {
+								// The target day is in the next month. If the target day without the added days is not in this month
+								if (target_day_this_month.getTime() >= start_of_next_month.getTime())
 									return [false, start_of_next_month];
-								}
 							}
 
 							if (add_days > 0) {
@@ -1010,9 +1003,6 @@
 								target_day_with_added_moved_days_this_month.setDate(target_day_with_added_moved_days_this_month.getDate()
 									+ (number + (number > 0 ? -1 : 0)) * 7 + add_days);
 
-								// if (target_day_with_added_moved_days_this_month.getTime() < start_of_this_month.getTime()) {
-								// 	throw 'Can not happen TM';
-								// } else
 								if (target_day_with_added_moved_days_this_month.getTime() >= start_of_next_month.getTime()) {
 									return [false, target_day_with_added_moved_days_this_month];
 								} else {

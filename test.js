@@ -181,10 +181,10 @@ test.addTest('Variable times which moves over fix end time', [
 	], 1000 * 60 * 3, 0, false, nominatiomTestJSON_sunrise_below_default);
 
 test.addTest('Variable times which moves over fix end time', [
-		'sunrise-05:59', // from time < end time <= constant time
-	], '2013.04.15 0:00', '2013.04.19 0:00', [
+		ignored('sunrise-05:59'), // from time < end time <= constant time
+	], '2013.04.13 0:00', '2013.04.19 0:00', [
 		[ 'something else', '' ],
-	], 1000 * 60 * 3, 0, false, nominatiomTestJSON_sunrise_below_default);
+	], 1000 * 60 * 3, 0, false, nominatiomTestJSON_sunrise_below_default, 'not last test');
 
 test.addTest('Variable times spanning midnight', [
 		'sunset-sunrise',
@@ -344,12 +344,9 @@ test.addTest('Time ranges spanning midnight with date overwriting (complex real 
 		[ '2012.10.01 00:00', '2012.10.01 01:00', ], // Mo: Su-Tu 11:00-01:00
 		[ '2012.10.01 11:00', '2012.10.02 01:00', ], // Mo: Su-Tu 11:00-01:00
 		[ '2012.10.02 11:00', '2012.10.03 01:00', ], // Tu: Su-Tu 11:00-01:00
-		// [ '2012.10.02 11:00', '2012.10.03 00:00', ], // Currently interpreted
 		[ '2012.10.03 11:00', '2012.10.04 03:00', ], // We: We-Th 11:00-03:00
 		[ '2012.10.04 11:00', '2012.10.05 03:00', ], // Th: We-Th 11:00-03:00
-		// [ '2012.10.04 11:00', '2012.10.05 00:00', ], // Currently interpreted
 		[ '2012.10.05 11:00', '2012.10.06 06:00', ], // Fr: Fr 11:00-06:00
-		// [ '2012.10.05 11:00', '2012.10.06 00:00', ], // Currently interpreted
 		[ '2012.10.06 11:00', '2012.10.07 07:00', ], // Sa: Sa 11:00-07:00
 		[ '2012.10.07 11:00', '2012.10.08 00:00', ], // Su: Su-Tu 11:00-01:00
 	], 1000 * 60 * 60 * (1 + 14 * 2 + 16 * 2 + 19 + 20 + 13), 0, true);
@@ -407,8 +404,8 @@ test.addTest('Full range', [
 // Not sure if this was intended, but this is how the code handles it.
 // And it is not bad actually.
 test.addTest('Interpetation of points im time', [
-		'12:00',
-		'Mo-Fr 12:00',
+		ignored('12:00'),
+		ignored('Mo-Fr 12:00'),
 	], '2012.10.01 0:00', '2012.10.04 0:00', [
 		[ '2012.10.01 12:00', '2012.10.01 12:01' ],
 		[ '2012.10.02 12:00', '2012.10.02 12:01' ],
@@ -477,7 +474,6 @@ test.addTest('Calculations based on constrained weekdays', [
 		[ '2013.10.28 00:00', '2013.10.29 00:00' ],
 		[ '2013.12.02 00:00', '2013.12.03 00:00' ],
 		[ '2013.12.30 00:00', '2013.12.31 00:00' ],
-		// [ '2014.01.01 00:00', '2014.01.02 00:00' ],
 		[ '2014.01.27 00:00', '2014.01.28 00:00' ],
 	], 1000 * 60 * 60 * 24 * 6, 0, false, {}, 'not last test');
 
