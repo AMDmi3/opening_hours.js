@@ -951,6 +951,11 @@ test.addTest('Calculations based on variable events', [
 		[ '2012.04.08 00:00', '2012.04.21 00:00', false, 'Around easter' ],
 	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'not only test');
 
+test.addTest('Calculations based on variable events', [
+		ignored('easter - Apr 02: open "Around easter"'),
+	], '2012.01.01 0:00', '2012.10.08 0:00', [
+	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'only test');
+
 test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', [
 		// 'Mo[2] - 6 days', // considered as "correct"
 		'Mo[2] - 0 days', // pointless

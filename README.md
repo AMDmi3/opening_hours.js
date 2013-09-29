@@ -294,6 +294,8 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Supports monthday ranges within single month (```Jan 01-26 10:00-20:00```), with periods as well ```Jan 01-29/7 10:00-20:00```)
 * Supports monthday ranges with years (```2013 Dec 31-2014 Jan 02 10:00-20:00```, ```2012 Jan 23-31 10:00-24:00```)
 * Supports movable events like easter (```easter - Apr 20: open "Around easter"```)
+
+ Note that if easter would be after the 20th of April for one year, this will be interpreted as spanning into the next year currently.
 * Supports calculations based on movable events (```2012 easter - 2 days - 2012 easter + 2 days: open "Around easter"```)
 * **EXT:** Supports multiple monthday ranges separated by a comma (```Jan 23-31/3,Feb 1-12,Mar 1```)
 
