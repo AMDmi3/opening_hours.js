@@ -50,8 +50,8 @@ test.addTest('Open end', [
 		'07:00+ open "visit there website to know if they did already close"', // specified comments should not be overridden
 		'07:00+ unknown "visit there website to know if they did already close"', // will always interpreted as unknown
 	], '2012.10.01 0:00', '2012.10.02 0:00', [
-		[ '2012.10.01 07:00', '2012.10.01 17:00', true,  'visit there website to know if they did already close' ],
-	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, {}, 'not last test');
+		[ '2012.10.01 07:00', '2012.10.02 00:00', true,  'visit there website to know if they did already close' ],
+	], 0, 1000 * 60 * 60 * (24 - 7), true, {}, 'not last test');
 
 test.addTest('Open end', [
 		'17:00+',
@@ -69,7 +69,7 @@ test.addTest('Open end', [
 	], 0, 0, true, {}, 'not last test');
 
 test.addTest('Open end', [
-		'07:00+,12:00-16:00; 16:00-17:00 closed "needed because of open end"',
+		'07:00+,12:00-16:00; 16:00-24:00 closed "needed because of open end"',
 	], '2012.10.01 0:00', '2012.10.02 0:00', [
 		[ '2012.10.01 07:00', '2012.10.01 12:00', true,  'Specified as open end. Closing time was guessed.' ],
 		[ '2012.10.01 12:00', '2012.10.01 16:00' ],

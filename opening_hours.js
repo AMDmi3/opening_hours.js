@@ -757,7 +757,12 @@
 
 					var at_end_time = at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 7 : 1))+1; // after '-'
 					if (has_open_end) {
-						var minutes_to = minutes_from + 60 * 10;
+						if (minutes_from >= 22 * 60)
+							var minutes_to = minutes_from + 60 * 8;
+						else if (minutes_from >= 17 * 60)
+							var minutes_to = minutes_from + 60 * 10;
+						else
+							var minutes_to = minutes_in_day;
 					} else {
 						has_normal_time[1] = matchTokens(tokens, at_end_time, 'number', 'timesep', 'number');
 						has_time_var_calc[1]      = matchTokens(tokens, at_end_time, '(', 'timevar');
