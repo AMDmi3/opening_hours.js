@@ -32,6 +32,7 @@
 					'Allerheiligen'             : [ 11,  1, [ 'Baden-Württemberg', 'Bayern', 'Nordrhein-Westfalen', 'Rheinland-Pfalz', 'Saarland' ] ],
 					'1. Weihnachtstag'          : [ 12, 25 ],
 					'2. Weihnachtstag'          : [ 12, 26 ],
+					// 'Silvester'                 : [ 12, 31 ], // for testing
 				},
 				'Baden-Württemberg': { // does only apply in Baden-Württemberg
 					// This more specific rule set overwrites the country wide one (they are just ignored).
@@ -1137,6 +1138,7 @@
 				if (matchTokens(tokens, at, 'holiday')) {
 					if (tokens[at][0] == 'PH') {
 						var applying_holidays = getMatchingHoliday(tokens[at][0]);
+						var add_days = getMoveDays(tokens, at+1, 366, 'public holiday');
 
 						var selector = function(applying_holidays) { return function(date) {
 
@@ -1165,6 +1167,10 @@
 											applying_holidays[holiday_name][1]
 										);
 								}
+								if (add_days[1]) {
+									next_holiday.setDate(next_holiday.getDate() + add_days[0]);
+								}
+
 								sorted_holidays.push(next_holiday);
 							}
 
@@ -1198,7 +1204,7 @@
 						else
 							selectors.holiday.push(selector);
 
-						at += 1;
+						at += 1 + add_days[1] * 3;
 					} else if (tokens[at][0] == 'SH') {
 						var applying_holidays = getMatchingHoliday(tokens[at][0]);
 

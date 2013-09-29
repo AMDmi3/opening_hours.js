@@ -223,6 +223,16 @@ test.addTest('Variable days: public holidays', [
 	], 1000 * 60 * 60 * 24 * (20 + 2 * 2), 0, false, nominatiomTestJSON, 'not last test');
 
 test.addTest('Variable days: public holidays', [
+		'PH + 1 day',
+	], '2013.10.01 0:00', '2014.01.15 0:00', [
+		[ '2013.10.04 00:00', '2013.10.05 00:00' ],
+		[ '2013.11.02 00:00', '2013.11.03 00:00' ],
+		[ '2013.12.26 00:00', '2013.12.28 00:00' ],
+		[ '2014.01.02 00:00', '2014.01.03 00:00' ],
+		[ '2014.01.07 00:00', '2014.01.08 00:00' ],
+	], 1000 * 60 * 60 * 24 * (4 + 2), 0, false, nominatiomTestJSON, 'not last test');
+
+test.addTest('Variable days: public holidays', [
 		'24/7; PH off',
 		// 'PH off; 24/7', // should not be the same if following the rules
 	], '2013.04.01 0:00', '2013.05.11 0:00', [
