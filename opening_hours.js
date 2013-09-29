@@ -168,7 +168,9 @@
 					sommer: 'summer',
 				}, 'Assuming "<ok>" for "<ko>". Please avoid using "workday": http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays': {
 					// 	// Used around 260 times but the problem is, that work day might be different in other countries.
-					wd: 'Mo-Fr',
+					wd:       'Mo-Fr',
+					weekday:  'Mo-Fr',
+					weekdays: 'Mo-Fr',
 				}, 'Please ommit "<ko>".': {
 					h: '',
 					from: '',
@@ -511,7 +513,7 @@
 
 			while (value != '') {
 				var tmp;
-				if (tmp = value.match(/^(?:week|24\/7|open|unknown)/i)) {
+				if (tmp = value.match(/^(?:week\b|24\/7|open|unknown)/i)) {
 					// reserved word
 					value = value.substr(tmp[0].length);
 					curr_block_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase(), value.length ]);
@@ -643,7 +645,7 @@
 		function parseGroup(tokens, at, selectors) {
 			// console.log(tokens); // useful for debugging of tokenize
 			while (at < tokens.length) {
-				// console.log('Parsing at position '+ at +': '+tokens[at]);
+				// console.log('Parsing at position', at +':', tokens[at]);
 				if (matchTokens(tokens, at, 'weekday')) {
 					at = parseWeekdayRange(tokens, at, selectors);
 				} else if (matchTokens(tokens, at, '24/7')) {
@@ -794,11 +796,11 @@
 
 					var timevar_string = [];
 					if (typeof lat != 'undefined') { // lon will also be defined (see above)
-						if (!has_normal_time[0] || !has_normal_time[1]) // has_open_end does not count here
+						if ((!has_normal_time[0] || !has_normal_time[1]) && !has_open_end)
 							week_stable = false;
 						if (!has_normal_time[0])
 							timevar_string[0] = tokens[at+has_time_var_calc[0]][0];
-						if (!has_normal_time[1])
+						if (!has_normal_time[1] && !has_open_end)
 							timevar_string[1]   = tokens[at_end_time+has_time_var_calc[1]][0]
 					} // else: we can not calculate exact times so we use the already applied constants (word_value_replacement).
 

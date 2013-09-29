@@ -123,12 +123,15 @@ while True:
             (', total in use: %d%s' % (total_in_use, total_passed) if len(matched) != 1 else '')))
         print_values = 'y'
         # if len(matched) > page_width: ## you may want to use the "taginfo" flag
-        print_values = raw_input('Print values (passable answers: "yes" for all values, "passed" or "failed", additionally "show", "taginfo")? ')
+        print_values = raw_input('Print values (passable answers: "yes" for all values, "passed" or "failed", additionally "show", "taginfo", "err")? ')
 
         if re.match(r'^(y|p|f)', print_values, re.I):
             printed_values = 1
             print_all    = re.match(r'y', print_values, re.I)
             print_passed = re.match(r'p', print_values, re.I)
+            show_error_m = re.search(r'err', print_values, re.I)
+            if show_error_m:
+                page_width /= 2
             for taginfo_hash, res in matched:
                 if printed_values % page_width == 0:
                     printed_values += 1 # if nothing is printed in this iteration, the question would pop up again
@@ -157,6 +160,8 @@ while True:
                         tag_url = 'taginfo: %s%s' % (taginfo_url, urllib.quote(taginfo_hash['value']))
                     print 'Matched (count: %d, status: %s%s%s): %s%s%s' % (taginfo_hash['count'], passed_failed, oh_loc_needed, oh_warnings,
                             res.group('pre'), colored(res.group('match'), 'blue'), res.group('post'))
+                    if show_error_m and not oh_ok:
+                        print '%s\n' % oh_res[6:]
                     if (show_url and tag_url):
                         print ', '.join([show_url, tag_url])
                     elif show_url:

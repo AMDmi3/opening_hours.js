@@ -60,7 +60,7 @@ test.addTest('Open end', [
 	], '2012.10.01 0:00', '2012.10.02 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 03:00', true, 'Specified as open end. Closing time was guessed.' ],
 		[ '2012.10.01 17:00', '2012.10.02 00:00', true, 'Specified as open end. Closing time was guessed.' ],
-	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, {}, 'not last test');
+	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
 
 test.addTest('Open end', [
 		'17:00+ closed',
@@ -954,7 +954,7 @@ test.addTest('Calculations based on variable events', [
 test.addTest('Calculations based on variable events', [
 		ignored('easter - Apr 02: open "Around easter"'),
 	], '2012.01.01 0:00', '2012.10.08 0:00', [
-	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'only test');
+	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'not only test');
 
 test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', [
 		// 'Mo[2] - 6 days', // considered as "correct"
