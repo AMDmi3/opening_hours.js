@@ -627,7 +627,7 @@ test.addTest('Monthday ranges spanning year boundary', [
 		[ '2012.01.01 0:00', '2012.01.02 00:00' ],
 		[ '2012.12.31 0:00', '2013.01.02 00:00' ],
 		[ '2013.12.31 0:00', '2014.01.01 00:00' ],
-	], 1000 * 60 * 60 * 24 * 4, 0, false);
+	], 1000 * 60 * 60 * 24 * 4, 0, false, {}, 'not last test');
 
 test.addTest('Full date (with year)', [
 		'2013 Dec 31,2014 Jan 5',
@@ -651,7 +651,7 @@ test.addTest('Monthday (with year) ranges spanning year boundary', [
 		'24/7; 2010 Jan 01-2013 Dec 30 off; 2014 Jan 03-2016 Jan 01 off',
 	], '2011.01.01 0:00', '2015.01.01 0:00', [
 		[ '2013.12.31 0:00', '2014.01.03 00:00' ],
-	], 1000 * 60 * 60 * 24 * 3, 0, false);
+	], 1000 * 60 * 60 * 24 * 3, 0, false, {}, 'not last test');
 
 test.addTest('Date range which only applies for specific year', [
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060/1 Jan 1',
@@ -676,6 +676,22 @@ test.addTest('Date range which only applies for specific year', [
 		[ '2063.01.01 00:00', '2063.01.02 00:00' ],
 		[ '2064.01.01 00:00', '2064.01.02 00:00' ],
 	], 1000 * 60 * 60 * 24 * 18, 0, false, {}, 'not last test');
+
+test.addTest('Variable events', [
+		'easter',
+	], '2012.01.01 0:00', '2014.10.08 0:00', [
+		[ '2012.04.08 00:00', '2012.04.09 00:00' ],
+		[ '2013.03.31 00:00', '2013.04.01 00:00' ], // daylight saving time
+		[ '2014.04.20 00:00', '2014.04.21 00:00' ],
+	], 1000 * 60 * 60 * (24 * 3 - 1), 0, false, nominatiomTestJSON, 'not last test');
+
+test.addTest('Calculations based on variable events', [
+		'easter + 1 day open "Easter Monday"',
+	], '2012.01.01 0:00', '2014.10.08 0:00', [
+		[ '2012.04.09 00:00', '2012.04.10 00:00', false, 'Easter Monday' ],
+		[ '2013.04.01 00:00', '2013.04.02 00:00', false, 'Easter Monday' ],
+		[ '2014.04.21 00:00', '2014.04.22 00:00', false, 'Easter Monday' ],
+	], 1000 * 60 * 60 * 24 * 3, 0, false, nominatiomTestJSON, 'not last test');
 
 test.addTest('Periodical monthdays', [
 		'Jan 01-31/8 00:00-24:00',
@@ -864,6 +880,13 @@ test.addTest('Additional comments for closed with time ranges spanning midnight'
 		[ '2012.10.07 22:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * 4 * 7, 0, true, {}, 'not last test');
 
+// proposed by Netzwolf: http://www.netzwolf.info/en/cartography/osm/time_domain/specification#rule9
+// Currently not handled correctly. Could be interpreted as fallback block.
+test.addTest('Additional comments for unknown', [
+		ignored('Mo open "comment"; "I don’t know how to express easter": off'),
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+	], 0, 1000 * 60 * 60 * 2, true, {}, 'not last test');
+
 test.addTest('Complex example used in README', [
 		'00:00-24:00; Tu-Su 8:30-9:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -909,6 +932,25 @@ test.addTest('Complex example used in README and benchmark', [
 		[ '2012.10.30 12:00', '2012.10.30 18:00' ],
 	], 1000 * 60 * 60 * (6 * 16 + 5 * 4), 0, false, {}, 'not last test');
 
+test.addTest('Calculations based on variable events', [
+		'2012 easter - 2 days - 2012 easter + 2 days: open "Around easter"',
+		'easter - 2 days - easter + 2 days: open "Around easter"',
+	], '2012.01.01 0:00', '2012.10.08 0:00', [
+		[ '2012.04.06 00:00', '2012.04.10 00:00', false, 'Around easter' ],
+	], 1000 * 60 * 60 * 24 * 4, 0, false, nominatiomTestJSON, 'not only test');
+
+test.addTest('Calculations based on variable events', [
+		'Apr 05 - easter - 1 day: open "Before easter"',
+	], '2012.01.01 0:00', '2012.10.08 0:00', [
+		[ '2012.04.05 00:00', '2012.04.07 00:00', false, 'Before easter' ],
+	], 1000 * 60 * 60 * 24 * 2, 0, false, nominatiomTestJSON, 'not only test');
+
+test.addTest('Calculations based on variable events', [
+		'easter - Apr 20: open "Around easter"',
+	], '2012.01.01 0:00', '2012.10.08 0:00', [
+		[ '2012.04.08 00:00', '2012.04.21 00:00', false, 'Around easter' ],
+	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'not only test');
+
 test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', [
 		// 'Mo[2] - 6 days', // considered as "correct"
 		'Mo[2] - 0 days', // pointless
@@ -950,12 +992,16 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Sa[1,3,.]',
 		'SH, Jan',
 		'2012, Jan',
+		'easter + 370 days',
+		'easter - 2 days - 2012 easter + 2 days: open "Easter Monday"',
+		'2012 easter - 2 days - easter + 2 days: open "Easter Monday"',
+		// 'easter + 333 days', // Does throw an error, but at runtime when the problem occurs.
 	], nominatiomTestJSON, 'not only test');
 
-// test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
-// 		'PH', // country is not specified
-// 		'SH', // country is not specified
-// 	]);
+test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
+		'PH', // country is not specified
+		'SH', // country is not specified
+	]);
 
 process.exit(test.run() ? 0 : 1);
 
@@ -1000,14 +1046,14 @@ function opening_hours_test() {
 
 	function runSingleTestShouldThrowWarning(name, value, nominatiomJSON) {
 		var warnings = '', oh;
-		// try {
+		try {
 			oh = new opening_hours(value, nominatiomJSON);
 
 			warnings = oh.getWarnings();
 			crashed = false;
-		// } catch (err) {
-		// 	crashed = err;
-		// }
+		} catch (err) {
+			crashed = err;
+		}
 
 		var passed = false;
 		var str = '"' + name + '" for "' + value.replace('\n', '*newline*') + '": ';

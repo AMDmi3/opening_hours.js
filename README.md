@@ -217,11 +217,11 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 * Date ranges (calendar ranges) can be seperated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][specification]
 * Supports [Fallback rules][] (```We-Fr 10:00-24:00 open "it is open" || "please call"```)
-* Supports additional rules or [Cooperative values][] (```Mo-Fr 08:00-12:00, We 14:00-18:00```)
+* Supports additional rules or [cooperative values][] (```Mo-Fr 08:00-12:00, We 14:00-18:00```)
 
 [specification]: http://www.netzwolf.info/en/cartography/osm/time_domain/specification
 [Fallback rules]: http://www.netzwolf.info/en/cartography/osm/time_domain/specification#rule1
-[Cooperative values]: http://www.netzwolf.info/en/cartography/osm/time_domain/#specification
+[cooperative values]: http://www.netzwolf.info/en/cartography/osm/time_domain/#specification
 
 ### Time ranges ###
 
@@ -293,6 +293,8 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Supports monthday ranges across multiple months (```Jan 01-Feb 03 10:00-20:00```)
 * Supports monthday ranges within single month (```Jan 01-26 10:00-20:00```), with periods as well ```Jan 01-29/7 10:00-20:00```)
 * Supports monthday ranges with years (```2013 Dec 31-2014 Jan 02 10:00-20:00```, ```2012 Jan 23-31 10:00-24:00```)
+* Supports movable events like easter (```easter - Apr 20: open "Around easter"```)
+* Supports calculations based on movable events (```2012 easter - 2 days - 2012 easter + 2 days: open "Around easter"```)
 * **EXT:** Supports multiple monthday ranges separated by a comma (```Jan 23-31/3,Feb 1-12,Mar 1```)
 
 ### Week ranges ###
