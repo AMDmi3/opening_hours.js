@@ -1157,36 +1157,28 @@
 							var holidays = getApplyingHolidaysForYear(applying_holidays, date.getFullYear(), add_days);
 							// Needs to be calculated each time because of movable days.
 
-							if (add_days[0] > 0) {
-								// Calculate the last holiday from last year to tested against it.
-								var holidays_last_year = getApplyingHolidaysForYear(applying_holidays, date.getFullYear() - 1, add_days);
-								var last_holiday_last_year = holidays_last_year[holidays_last_year.length - 1];
-								var last_holiday_last_year_num = getValueForDate(last_holiday_last_year, true);
-								// console.log('last year', last_holiday_last_year);
-							}
-
 							var date_num = getValueForDate(date, true);
 
 							for (var i = 0; i < holidays.length; i++) {
 								var next_holiday_date_num = getValueForDate(holidays[i], true);
 
-								if (add_days > 0 && last_holiday_last_year.getFullYear() == date.getFullYear) {
-										// console.log(true);
-										if (date_num < last_holiday_last_year_num )
-											return [ false, last_holiday_last_year ];
-								} else
 								if (date_num < next_holiday_date_num) {
 									if (add_days[0] > 0) {
+										console.log("value");
 
-										// console.log(last_holiday_last_year, last_holiday_last_year_num);
-										if (date_num == last_holiday_last_year_num) {
-
-											// console.log("testing");
+										// Calculate the last holiday from last year to tested against it.
+										var holidays_last_year = getApplyingHolidaysForYear(applying_holidays, date.getFullYear() - 1, add_days);
+										var last_holiday_last_year = holidays_last_year[holidays_last_year.length - 1];
+										var last_holiday_last_year_num = getValueForDate(last_holiday_last_year, true);
+										console.log(last_holiday_last_year, last_holiday_last_year_num);
+										if (date_num < last_holiday_last_year_num ) {
+											return [ false, last_holiday_last_year ];
+										} else if (date_num == last_holiday_last_year_num) {
 											return [true, dateAtDayMinutes(last_holiday_last_year, minutes_in_day) ];
-
 										}
 									}
 
+										console.log("value");
 									return [ false, holidays[i] ];
 								} else if (date_num == next_holiday_date_num) {
 									return [true, new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1) ];
@@ -1198,7 +1190,7 @@
 							// moved last holiday comes first, or the first
 							// holiday next year.
 							if (holidays[holidays.length - 1].getFullYear() == date.getFullYear() + 1) {
-								// console.log('return last holidays');
+								console.log('return last holidays');
 								return [ false, holidays[holidays.length - 1] ];
 							} else {
 								// continue next year
@@ -2002,12 +1994,12 @@
 						if (typeof state[1] === 'undefined')
 							return false;
 
-						// console.log('\n' + 'previours check time:', prevstate[1]
-						// 	+ ', current check time:',
-						// 	// (state[1].getHours() < 10 ? '0' : '') + state[1].getHours() +
-						// 	// ':'+(state[1].getMinutes() < 10 ? '0' : '')+ state[1].getMinutes(), state[1].getDate(),
-						// 	state[1],
-						// 	(state[0] ? 'open' : (state[2] ? 'unknown' : 'closed')) + ', comment:', state[3]);
+						console.log('\n' + 'previours check time:', prevstate[1]
+							+ ', current check time:',
+							// (state[1].getHours() < 10 ? '0' : '') + state[1].getHours() +
+							// ':'+(state[1].getMinutes() < 10 ? '0' : '')+ state[1].getMinutes(), state[1].getDate(),
+							state[1],
+							(state[0] ? 'open' : (state[2] ? 'unknown' : 'closed')) + ', comment:', state[3]);
 
 						// We're going backwards or staying at place.
 						// This always indicates coding error in a selector code.

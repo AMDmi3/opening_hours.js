@@ -253,6 +253,15 @@ test.addTest('Variable days: public holidays', [
 		[ '2014.12.26 00:00', '2014.12.28 00:00' ],
 		[ '2015.01.01 00:00', '2015.01.03 00:00' ],
 		[ '2015.01.07 00:00', '2015.01.08 00:00' ],
+	], 1000 * 60 * 60 * 24 * (4 + 2), 0, false, nominatiomTestJSON, 'not last test');
+
+test.addTest('Variable days: public holidays', [
+		'PH -1 day',
+	], '2014.11.01 0:00', '2015.01.15 0:00', [
+		[ '2014.11.02 00:00', '2014.11.03 00:00' ],
+		[ '2014.12.26 00:00', '2014.12.28 00:00' ],
+		[ '2015.01.01 00:00', '2015.01.03 00:00' ],
+		[ '2015.01.07 00:00', '2015.01.08 00:00' ],
 	], 1000 * 60 * 60 * 24 * (4 + 2), 0, false, nominatiomTestJSON, 'last test');
 
 test.addTest('Variable days: school holidays', [
