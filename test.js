@@ -223,16 +223,6 @@ test.addTest('Variable days: public holidays', [
 	], 1000 * 60 * 60 * 24 * (20 + 2 * 2), 0, false, nominatiomTestJSON, 'not last test');
 
 test.addTest('Variable days: public holidays', [
-		'PH + 1 day',
-	], '2013.10.01 0:00', '2014.01.15 0:00', [
-		[ '2013.10.04 00:00', '2013.10.05 00:00' ],
-		[ '2013.11.02 00:00', '2013.11.03 00:00' ],
-		[ '2013.12.26 00:00', '2013.12.28 00:00' ],
-		[ '2014.01.02 00:00', '2014.01.03 00:00' ],
-		[ '2014.01.07 00:00', '2014.01.08 00:00' ],
-	], 1000 * 60 * 60 * 24 * (4 + 2), 0, false, nominatiomTestJSON, 'not last test');
-
-test.addTest('Variable days: public holidays', [
 		'24/7; PH off',
 		// 'PH off; 24/7', // should not be the same if following the rules
 	], '2013.04.01 0:00', '2013.05.11 0:00', [
@@ -255,6 +245,15 @@ test.addTest('PH: Only if PH is Wednesday', [
 		[ '2012.04.06 00:00', '2012.04.07 00:00' ], // Fr
 		[ '2012.10.03 00:00', '2012.10.04 00:00' ], // We
 	], 1000 * 60 * 60 * 24 * 3, 0, false, nominatiomTestJSON, 'not only test');
+
+test.addTest('Variable days: public holidays', [
+		'PH + 1 day',
+	], '2014.11.01 0:00', '2015.01.15 0:00', [
+		[ '2014.11.02 00:00', '2014.11.03 00:00' ],
+		[ '2014.12.26 00:00', '2014.12.28 00:00' ],
+		[ '2015.01.01 00:00', '2015.01.03 00:00' ],
+		[ '2015.01.07 00:00', '2015.01.08 00:00' ],
+	], 1000 * 60 * 60 * 24 * (4 + 2), 0, false, nominatiomTestJSON, 'last test');
 
 test.addTest('Variable days: school holidays', [
 		'SH',
@@ -897,6 +896,13 @@ test.addTest('Additional comments for unknown', [
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 	], 0, 1000 * 60 * 60 * 2, true, {}, 'not last test');
 
+test.addTest('Additional comments combined with additional blocks', [
+		'Mo 12:00-14:00 open "female only", Mo 14:00-16:00 open "male only"',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 12:00', '2012.10.01 14:00', false, 'female only' ],
+		[ '2012.10.01 14:00', '2012.10.01 16:00', false, 'male only' ],
+	], 1000 * 60 * 60 * 4, 0, true, {}, 'not last test');
+
 test.addTest('Complex example used in README', [
 		'00:00-24:00; Tu-Su 8:30-9:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -1006,6 +1012,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Sa[1,3-.]',
 		'Sa[1,3,.]',
 		'SH, Jan',
+		'PH + 2 day', // Normally moving PH one day is everything needed. Handling more than one move day would be harder to implement.
 		'2012, Jan',
 		'easter + 370 days',
 		'easter - 2 days - 2012 easter + 2 days: open "Easter Monday"',

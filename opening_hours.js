@@ -32,7 +32,7 @@
 					'Allerheiligen'             : [ 11,  1, [ 'Baden-Württemberg', 'Bayern', 'Nordrhein-Westfalen', 'Rheinland-Pfalz', 'Saarland' ] ],
 					'1. Weihnachtstag'          : [ 12, 25 ],
 					'2. Weihnachtstag'          : [ 12, 26 ],
-					// 'Silvester'                 : [ 12, 31 ], // for testing
+					'Silvester'                 : [ 12, 31 ], // for testing
 				},
 				'Baden-Württemberg': { // does only apply in Baden-Württemberg
 					// This more specific rule set overwrites the country wide one (they are just ignored).
@@ -713,6 +713,11 @@
 						selectors.unknown = true;
 					}
 					at++;
+					if (matchTokens(tokens, at, ',')) {
+						// additional block
+						at = [ at + 1 ];
+						break;
+					}
 				} else {
 					throw formatWarnErrorMessage(nblock, at, 'Unexpected token: ' + tokens[at][1]);
 				}
@@ -1115,8 +1120,7 @@
 				// continues with '+ 5 days' or something like that
 				if (tokens[at+1][0] > max_differ)
 					throw formatWarnErrorMessage(nblock, at+2,
-						'There should be no reason to differ more than ' + max_differ + ' days from a ' + name + '.');
-					// if you know one reason, tell us
+						'There should be no reason to differ more than ' + max_differ + ' days from a ' + name + '. If so tell us …');
 				add_days[0] *= tokens[at+1][0];
 				if (add_days[0] == 0)
 					parsing_warnings.push([ nblock, at+1, 'Adding 0 does not change the date. Please omit this.' ]);
@@ -1143,29 +1147,65 @@
 				if (matchTokens(tokens, at, 'holiday')) {
 					if (tokens[at][0] == 'PH') {
 						var applying_holidays = getMatchingHoliday(tokens[at][0]);
-						var add_days = getMoveDays(tokens, at+1, 366, 'public holiday');
+
+						// Only allow moving one day in the past or in the future.
+						// This makes implementation easier because only one holiday is assumed to be moved to the next year.
+						var add_days = getMoveDays(tokens, at+1, 1, 'public holiday');
 
 						var selector = function(applying_holidays) { return function(date) {
 
-							var sorted_holidays = getApplyingHolidaysForYear(applying_holidays, date, add_days);
-							// needs to be calculated each time because of movable days
+							var holidays = getApplyingHolidaysForYear(applying_holidays, date.getFullYear(), add_days);
+							// Needs to be calculated each time because of movable days.
 
-							var date_num = date.getMonth() * 100 + date.getDate();
+							if (add_days[0] > 0) {
+								// Calculate the last holiday from last year to tested against it.
+								var holidays_last_year = getApplyingHolidaysForYear(applying_holidays, date.getFullYear() - 1, add_days);
+								var last_holiday_last_year = holidays_last_year[holidays_last_year.length - 1];
+								var last_holiday_last_year_num = getValueForDate(last_holiday_last_year, true);
+								// console.log('last year', last_holiday_last_year);
+							}
 
-							for (var i = 0; i < sorted_holidays.length; i++) {
-								var next_holiday_date_num = sorted_holidays[i].getMonth() * 100 + sorted_holidays[i].getDate();
+							var date_num = getValueForDate(date, true);
+
+							for (var i = 0; i < holidays.length; i++) {
+								var next_holiday_date_num = getValueForDate(holidays[i], true);
+
+								if (add_days > 0 && last_holiday_last_year.getFullYear() == date.getFullYear) {
+										// console.log(true);
+										if (date_num < last_holiday_last_year_num )
+											return [ false, last_holiday_last_year ];
+								} else
 								if (date_num < next_holiday_date_num) {
-									return [ false, sorted_holidays[i] ];
-								}
-								else if (date_num == next_holiday_date_num) {
+									if (add_days[0] > 0) {
+
+										// console.log(last_holiday_last_year, last_holiday_last_year_num);
+										if (date_num == last_holiday_last_year_num) {
+
+											// console.log("testing");
+											return [true, dateAtDayMinutes(last_holiday_last_year, minutes_in_day) ];
+
+										}
+									}
+
+									return [ false, holidays[i] ];
+								} else if (date_num == next_holiday_date_num) {
 									return [true, new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1) ];
 								}
 							}
 
-							// continue next year
-							return [ false, new Date(sorted_holidays[0].getFullYear() + 1,
-									sorted_holidays[0].getMonth(),
-									sorted_holidays[0].getDate()) ];
+							// Assuming that public holidays are equal for each
+							// year. Else it would be necessary to check if the
+							// moved last holiday comes first, or the first
+							// holiday next year.
+							if (holidays[holidays.length - 1].getFullYear() == date.getFullYear() + 1) {
+								// console.log('return last holidays');
+								return [ false, holidays[holidays.length - 1] ];
+							} else {
+								// continue next year
+								return [ false, new Date(holidays[0].getFullYear() + 1,
+										holidays[0].getMonth(),
+										holidays[0].getDate()) ];
+							}
 
 						}}(applying_holidays);
 
@@ -1178,10 +1218,10 @@
 					} else if (tokens[at][0] == 'SH') {
 						var applying_holidays = getMatchingHoliday(tokens[at][0]);
 
-						var sorted_holidays = []; // needs to be sorted each time because of movable days
+						var holidays = []; // needs to be sorted each time because of movable days
 
 						var selector = function(applying_holidays) { return function(date) {
-							var date_num = date.getMonth() * 100 + date.getDate();
+							var date_num = getValueForDate(date);
 
 							// Iterate over holiday array containing the different holiday ranges.
 							for (var i = 0; i < applying_holidays.length; i++) {
@@ -1192,7 +1232,7 @@
 									var holiday_to_plus = new Date(date.getFullYear(), holiday[2+h] - 1, holiday[3+h] + 1);
 									var holiday_from = (holiday[0+h] - 1) * 100 + holiday[1+h];
 									var holiday_to   = (holiday[2+h] - 1) * 100 + holiday[3+h];
-									holiday_to_plus  = holiday_to_plus.getMonth() * 100 + holiday_to_plus.getDate();
+									holiday_to_plus  = getValueForDate(holiday_to_plus);
 
 									var holiday_ends_next_year = holiday_to < holiday_from;
 
@@ -1253,6 +1293,16 @@
 			}
 
 			return at;
+		}
+
+		// Returns a number for a date which can then be used to compare just the dates (without the time).
+		// This is necessary because a selector could be called for the middle of the day and we need to tell if it matches that day.
+		// Example: Returns 20150015 for Jan 01 2015
+		function getValueForDate(date, include_year) {
+			// Implicit because undefined evaluates to false
+			// include_year = typeof include_year != 'undefined' ? include_year : false;
+
+			return (include_year ? date.getFullYear() * 10000 : 0) + date.getMonth() * 100 + date.getDate();
 		}
 
 		// return the school holiday definition e.g. [ 5, 25, /* to */ 6, 5 ],
@@ -1352,8 +1402,8 @@
 			return indexOf.call(this, needle);
 		}
 
-		function getApplyingHolidaysForYear(applying_holidays, date, add_days) {
-			var movableDays = getMovableEventsForYear(date.getFullYear());
+		function getApplyingHolidaysForYear(applying_holidays, year, add_days) {
+			var movableDays = getMovableEventsForYear(year);
 
 			var sorted_holidays = [];
 
@@ -1368,12 +1418,12 @@
 							selected_movableDay.getDate()
 							+ applying_holidays[holiday_name][1]
 						);
-					if (date.getFullYear() != next_holiday.getFullYear())
+					if (year != next_holiday.getFullYear())
 						throw 'The movable day ' + applying_holidays[holiday_name][0] + ' plus '
 							+ applying_holidays[holiday_name][1]
 							+ ' days is not in the year of the movable day anymore. Currently not supported.';
 				} else {
-					var next_holiday = new Date(date.getFullYear(),
+					var next_holiday = new Date(year,
 							applying_holidays[holiday_name][0] - 1,
 							applying_holidays[holiday_name][1]
 						);
@@ -1953,8 +2003,10 @@
 							return false;
 
 						// console.log('\n' + 'previours check time:', prevstate[1]
-						// 	+ ', current check time:', (state[1].getHours() < 10 ? '0' : '') + state[1].getHours() +
-						// 	':'+(state[1].getMinutes() < 10 ? '0' : '')+ state[1].getMinutes(), state[1].getDate(),
+						// 	+ ', current check time:',
+						// 	// (state[1].getHours() < 10 ? '0' : '') + state[1].getHours() +
+						// 	// ':'+(state[1].getMinutes() < 10 ? '0' : '')+ state[1].getMinutes(), state[1].getDate(),
+						// 	state[1],
 						// 	(state[0] ? 'open' : (state[2] ? 'unknown' : 'closed')) + ', comment:', state[3]);
 
 						// We're going backwards or staying at place.
