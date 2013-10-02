@@ -338,7 +338,7 @@ Simple node.js based test framework is bundled. You can run it with ```node test
 ### Large scale ###
 To see how this library performance in the real OpenStreetMap world you can run ```make real_test``` or ```node real_test.js``` (data needs to be exported first) to try to process every value which uses the opening_hours syntax from [taginfo][] with this library.
 
-Currently (September 2013) this library can parse 86 % of all opening_hours values in OSM.
+Currently (October 2013) this library can parse 95 % of all opening_hours values in OSM.
 
 [taginfo]: http://taginfo.openstreetmap.org/
 
