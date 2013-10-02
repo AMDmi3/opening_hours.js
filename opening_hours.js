@@ -179,8 +179,9 @@
 					to: '-',
 					till: '-',
 					and: ',',
+					always: '24/7',
 				}, 'Please use time format in 24 hours notation ("<ko>").': {
-					pm: '"add 12 hours to the hours you specified."',
+					pm: '',
 					am: '',
 				}, 'Bitte verzichte auf "<ko>".': {
 					uhr: '',
@@ -276,20 +277,27 @@
 					fr: 5,
 					sa: 6,
 				}, 'Please use the abbreviation "<ok>" for "<ko>".': {
-					sun:       0,
-					sunday:    0,
-					mon:       1,
-					monday:    1,
-					tue:       2,
-					tuesday:   2,
-					wed:       3,
-					wednesday: 3,
-					thu:       4,
-					thursday:  4,
-					fri:       5,
-					friday:    5,
-					sat:       6,
-					saturday:  6,
+					sun:        0,
+					sunday:     0,
+					sundays:    0,
+					mon:        1,
+					monday:     1,
+					mondays:    1,
+					tue:        2,
+					tuesday:    2,
+					tuesdays:   2,
+					wed:        3,
+					wednesday:  3,
+					wednesdays: 3,
+					thu:        4,
+					thursday:   4,
+					thursdays:  4,
+					fri:        5,
+					friday:     5,
+					fridays:    5,
+					sat:        6,
+					saturday:   6,
+					saturdays:  6,
 				}, 'Bitte benutze die englische Abkürzung "<ok>" für "<ko>".': {
 					so:         0,
 					son:        0,
@@ -618,6 +626,14 @@
 			}
 		}
 
+		function getWarnings() {
+			var warnings = [];
+			for (var i = 0; i < parsing_warnings.length; i++) {
+				warnings.push( formatWarnErrorMessage(parsing_warnings[i][0], parsing_warnings[i][1], parsing_warnings[i][2]) );
+			}
+			return warnings;
+		}
+
 		// Function to check token array for specific pattern
 		function matchTokens(tokens, at /*, matches... */) {
 			if (at + arguments.length - 2 > tokens.length)
@@ -719,7 +735,8 @@
 						break;
 					}
 				} else {
-					throw formatWarnErrorMessage(nblock, at, 'Unexpected token: ' + tokens[at][1]);
+					var warnings = getWarnings();
+					throw formatWarnErrorMessage(nblock, at, 'Unexpected token: "' + tokens[at][1] + '" This means that the syntax is not valid at that point.') + (warnings ? ' ' + warnings.join('; ') : '');
 				}
 			}
 
@@ -1948,7 +1965,6 @@
 			} else { // issue accrued at a later time
 				var pos = value.length - (typeof tokens[nblock][0][at] == 'undefined' ? 0 : tokens[nblock][0][at][2]);
 			}
-			// console.log(pos);
 			return value.substring(0, pos) + ' <--- (' + message + ')';
 		}
 
@@ -2021,11 +2037,7 @@
 		// get parse warnings
 		// returns an empty string if there are no warnings
 		this.getWarnings = function() {
-			var warnings = [];
-			for (var i = 0; i < parsing_warnings.length; i++) {
-				warnings.push( formatWarnErrorMessage(parsing_warnings[i][0], parsing_warnings[i][1], parsing_warnings[i][2]) );
-			}
-			return warnings.join('\n');
+			return getWarnings().join('\n');;
 		}
 
 		// check whether facility is `open' on the given date (or now)

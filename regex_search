@@ -151,6 +151,8 @@ while True:
                         }[oh_res[6:13]]
                 else:
                     passed_failed = colored('Failed', 'red')
+                    oh_loc_needed = ''
+                    oh_warnings   = ''
                 if (print_all or (print_passed != None) == oh_ok):
                     show_url = ''
                     tag_url  = ''
@@ -161,7 +163,7 @@ while True:
                     print 'Matched (count: %d, status: %s%s%s): %s%s%s' % (taginfo_hash['count'], passed_failed, oh_loc_needed, oh_warnings,
                             res.group('pre'), colored(res.group('match'), 'blue'), res.group('post'))
                     if show_error_m and not oh_ok:
-                        print '%s\n' % oh_res[6:]
+                        print '%s\n' % oh_res[2:]
                     if (show_url and tag_url):
                         print ', '.join([show_url, tag_url])
                     elif show_url:
