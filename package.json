@@ -8,6 +8,9 @@
 		"type": "git",
 		"url": "git://github.com/AMDmi3/opening_hours.js.git"
 	},
+	"dependencies": {
+		"suncalc" : "1.2.1"
+	},
 	"keywords": [
 		"openstreetmap",
 		"opening_hours"
