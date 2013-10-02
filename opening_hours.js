@@ -32,7 +32,7 @@
 					'Allerheiligen'             : [ 11,  1, [ 'Baden-Württemberg', 'Bayern', 'Nordrhein-Westfalen', 'Rheinland-Pfalz', 'Saarland' ] ],
 					'1. Weihnachtstag'          : [ 12, 25 ],
 					'2. Weihnachtstag'          : [ 12, 26 ],
-					'Silvester'                 : [ 12, 31 ], // for testing
+					// 'Silvester'                 : [ 12, 31 ], // for testing
 				},
 				'Baden-Württemberg': { // does only apply in Baden-Württemberg
 					// This more specific rule set overwrites the country wide one (they are just ignored).
@@ -1152,7 +1152,7 @@
 						// This makes implementation easier because only one holiday is assumed to be moved to the next year.
 						var add_days = getMoveDays(tokens, at+1, 1, 'public holiday');
 
-						var selector = function(applying_holidays) { return function(date) {
+						var selector = function(applying_holidays, add_days) { return function(date) {
 
 							var holidays = getApplyingHolidaysForYear(applying_holidays, date.getFullYear(), add_days);
 							// Needs to be calculated each time because of movable days.
@@ -1164,13 +1164,12 @@
 
 								if (date_num < next_holiday_date_num) {
 									if (add_days[0] > 0) {
-										console.log("value");
 
-										// Calculate the last holiday from last year to tested against it.
+										// Calculate the last holiday from previous year to tested against it.
 										var holidays_last_year = getApplyingHolidaysForYear(applying_holidays, date.getFullYear() - 1, add_days);
 										var last_holiday_last_year = holidays_last_year[holidays_last_year.length - 1];
 										var last_holiday_last_year_num = getValueForDate(last_holiday_last_year, true);
-										console.log(last_holiday_last_year, last_holiday_last_year_num);
+
 										if (date_num < last_holiday_last_year_num ) {
 											return [ false, last_holiday_last_year ];
 										} else if (date_num == last_holiday_last_year_num) {
@@ -1178,28 +1177,28 @@
 										}
 									}
 
-										console.log("value");
 									return [ false, holidays[i] ];
 								} else if (date_num == next_holiday_date_num) {
 									return [true, new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1) ];
 								}
 							}
 
-							// Assuming that public holidays are equal for each
-							// year. Else it would be necessary to check if the
-							// moved last holiday comes first, or the first
-							// holiday next year.
-							if (holidays[holidays.length - 1].getFullYear() == date.getFullYear() + 1) {
-								console.log('return last holidays');
-								return [ false, holidays[holidays.length - 1] ];
-							} else {
-								// continue next year
-								return [ false, new Date(holidays[0].getFullYear() + 1,
-										holidays[0].getMonth(),
-										holidays[0].getDate()) ];
+							if (add_days[0] < 0) {
+								// Calculate the first holiday from next year to tested against it.
+								var holidays_next_year = getApplyingHolidaysForYear(applying_holidays, date.getFullYear() + 1, add_days);
+								var first_holidays_next_year = holidays_next_year[0];
+								var first_holidays_next_year_num = getValueForDate(first_holidays_next_year, true);
+								if (date_num == first_holidays_next_year_num) {
+									return [true, dateAtDayMinutes(first_holidays_next_year, minutes_in_day) ];
+								}
 							}
 
-						}}(applying_holidays);
+							// continue next year
+							return [ false, new Date(holidays[0].getFullYear() + 1,
+									holidays[0].getMonth(),
+									holidays[0].getDate()) ];
+
+						}}(applying_holidays, add_days);
 
 						if (push_to_weekday)
 							selectors.weekday.push(selector);
@@ -1994,12 +1993,12 @@
 						if (typeof state[1] === 'undefined')
 							return false;
 
-						console.log('\n' + 'previours check time:', prevstate[1]
-							+ ', current check time:',
-							// (state[1].getHours() < 10 ? '0' : '') + state[1].getHours() +
-							// ':'+(state[1].getMinutes() < 10 ? '0' : '')+ state[1].getMinutes(), state[1].getDate(),
-							state[1],
-							(state[0] ? 'open' : (state[2] ? 'unknown' : 'closed')) + ', comment:', state[3]);
+						// console.log('\n' + 'previous check time:', prevstate[1]
+						// 	+ ', current check time:',
+						// 	// (state[1].getHours() < 10 ? '0' : '') + state[1].getHours() +
+						// 	// ':'+(state[1].getMinutes() < 10 ? '0' : '')+ state[1].getMinutes(), state[1].getDate(),
+						// 	state[1],
+						// 	(state[0] ? 'open' : (state[2] ? 'unknown' : 'closed')) + ', comment:', state[3]);
 
 						// We're going backwards or staying at place.
 						// This always indicates coding error in a selector code.
