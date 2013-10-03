@@ -108,15 +108,27 @@
 							"will open": "but will open __timestring__.",
 							"week stable": "Schedule is valid in any given week.",
 							"not week stable": "Attention! This schedule might change for other weeks.",
+							"value for": "value for",
+							"no comment": "no comment",
+							"MatchingRule": "Substring used by applied rule",
+							"warn error": "Error and warning messages",
 						},
 						"words": {
 							"to": "to",
+							"and": "and",
 							"open": "open",
+							"unknown": "unknown",
+							"closed": "closed",
 							"today": "today",
 							"tomorrow": "tomorrow",
 							// "on weekday": "on", // not needed in this context
 							"on weekday": " ",
 							"in duration": "in",
+							"region": "region",
+							"status": "status",
+							"examples": "Examples",
+							"none": "none",
+							"date": "date",
 							"time": { // __count__ Can not cover need for Russian language (one, several, many).
 								"minute": "minute",
 								"minute plural": "minutes",
@@ -128,6 +140,8 @@
 								"day plural": "days",
 								"day many": "days",
 								"hours minutes sep": "and ",
+								"now": "now",
+								"time": "time",
 							},
 						},
 					},
@@ -196,14 +210,26 @@
 							"will open": "aber wird __timestring__ öffnen.",
 							"week stable": "Dieser Wochenplan gilt für jede Woche.",
 							"not week stable": "Achtung! Dieser Wochenplan kann sich in anderen Wochen ändern.",
+							"value for": "Wert für",
+							"no comment": "kein Kommentar",
+							"MatchingRule": "Zur Anwendung gekommene Regel",
+							"warn error": "Fehler und Warnungen",
 						},
 						"words": {
 							"to": "-",
+							"and": "und",
 							"open": "geöffnet",
+							"unknown": "unbekannt",
+							"closed": "geschlossen",
 							"today": "heute",
 							"tomorrow": "morgen",
 							// "on weekday": "on", // not needed in this context
 							"on weekday": " ",
+							"region": "Region",
+							"status": "Status",
+							"examples": "Beispiele",
+							"none": "keine",
+							"date": "Datum",
 							"time": { // __count__ Can not cover need for Russian language (one, several, many).
 								"minute": "Minute",
 								"minute plural": "Minuten",
@@ -215,6 +241,8 @@
 								"day plural": "Tage",
 								"day many": "Tage",
 								"hours minutes sep": "und ",
+								"now": "Jetzt",
+								"time": "Zeit",
 							},
 						},
 					},
@@ -294,14 +322,26 @@
 							"will open": "Откроется __timestring__.",
 							"week stable": "Расписание верно для любой недели.",
 							"not week stable": "ВНИМАНИЕ! Расписание меняется в другие недели.",
+							"value for": "значение для",
+							"no comment": "Нет комментариев",
+							"MatchingRule": "использовать правила",
+							"warn error": "об ошибках и предупреждения",
 						},
 						"words": {
 							"to": "до",
+							"and": "и",
 							"open": "c",
+							"unknown": "неизвестный",
+							"closed": "закрыто",
 							"today": "сегодня",
 							"tomorrow": "завтра",
 							"on weekday": "в ", // optionally in other languages
 							"in duration": "через",
+							"region": "регион",
+							"status": "статус",
+							"examples": "примеры",
+							"date": "дата",
+							"none": "никто",
 							"time": {
 								"minute": "минуту",
 								"minute plural": "минуты",
@@ -312,6 +352,8 @@
 								"day": "день",
 								"day plural": "дня",
 								"day many": "дней",
+								"now": "сейчас",
+								"time": "время",
 							},
 						},
 					},
@@ -516,17 +558,15 @@
 			<!-- Choose language {{{ -->
 			document.write(i18n.t('lang.choose')
 					+ (i18n.lng() !== 'en' ? ' ('+ i18n.t('lang.choose', { lng: 'en' }) +')' : '' )
-					+ ':');
-			document.write('<ul class="lang">');
+					+ ': ');
 				for (var lang in resources) {
 					if (resources.hasOwnProperty(lang)) {
-						document.write('<li><a id="' + lang + '" href="?setLng='
-							+ lang +'">' + i18n.t('lang.' + lang)
+					  document.write('<button type="button" onclick="location.href=\'?setLng='
+							+ lang +'\'">' + i18n.t('lang.' + lang)
 							+ (i18n.lng() !== 'en' ? ' ('+ i18n.t('lang.' +lang, { lng: 'en' }) +')' : '' )
-							+ '</a></li>');
+							+ '</button>');
 					}
 				}
-			document.write('</ul>');
 			<!-- }}} -->
 		</script>
 
@@ -561,8 +601,7 @@
 				document.forms.check.elements['dd'].value = u2(date.getDate());
 				document.forms.check.elements['HH'].value = u2(date.getHours());
 				document.forms.check.elements['MM'].value = u2(date.getMinutes());
-				document.forms.check.elements['wday'].value =
-					['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][date.getDay()];
+				document.forms.check.elements['wday'].value = i18n.t('weekdays.full.' + weekdays[date.getDay()]);
 				// document.forms.check.elements['week'].value = 'W'+u2();
 
 				var crashed = false;
@@ -575,10 +614,13 @@
 				}
 
 				if (!crashed) {
-					document.forms.check.elements['comment'].value = typeof it.getComment() != 'undefined' ? it.getComment() : '>>no comment<<';
+					document.forms.check.elements['comment'].value = typeof it.getComment() != 'undefined'
+						? it.getComment() : '>>' + i18n.t('texts.no comment') + '<<';
 					// document.forms.check.elements['rr'].value = result.region || '';
-					document.forms.check.elements['status'].value = (it.getState() ? 'open' : (it.getUnknown() ? 'unknown' : 'closed'));
-					document.forms.check.elements['MatchingRule'].value = it.getMatchingRule();
+					document.forms.check.elements['status'].value = (it.getState() ? i18n.t('words.open')
+						: (it.getUnknown() ? i18n.t('words.unknown') : i18n.t('words.closed')));
+					document.forms.check.elements['MatchingRule'].value = typeof it.getMatchingRule() == 'undefined'
+						? i18n.t('words.none') : it.getMatchingRule();
 					document.forms.check.elements['WarnErrors'].value = oh.getWarnings();
 
 					var user_evaluation = document.getElementById('user_evaluation');
@@ -612,44 +654,53 @@
 			<form id="check" action="#">
 				<!-- User input {{{ -->
 				<p>
-					<button type="button" onclick="Evaluate(-86400)">-1 Day</button>
-					<button type="button" onclick="Evaluate(+86400)">+1 Day</button>
-					<button type="button" onclick="Evaluate(-3600)">-1 Hour</button>
-					<button type="button" onclick="Evaluate(+3600)">+1 Hour</button>
-					<button type="button" onclick="Evaluate(-60)">-1 Minute</button>
-					<button type="button" onclick="Evaluate(+60)">+1 Minute</button>
-					<button type="button" onclick="Evaluate(0,true)">Now</button>
+					<script type="text/javascript">
+					var buttons = [
+						[ 3600 * 24, 1, 'words.time.day'    ],
+						[ 3600     , 1, 'words.time.hour'   ],
+						[ 60       , 1, 'words.time.minute' ],
+						[ 0        , 0, 'words.time.now'    ],
+					];
+					for (var i = 0; i < buttons.length; i++) {
+						if (buttons[i][1] != 0) {
+							for (var x = -1; x <= 1; x += 2) {
+								var step = x * buttons[i][1]
+								document.write('<button type="button" onclick="Evaluate(' + buttons[i][0] * step
+									+ ')">' + step + ' ' + i18n.t(buttons[i][2]) + '</button> ');
+							}
+						} else {
+							document.write('<button type="button" onclick="Evaluate(0, true'
+								+ ')">' + i18n.t(buttons[i][2]) + '</button> ');
+						}
+					}
+					</script>
 				</p>
 
 				<p>
-					Date and Time:<br />
-					<input id="dd" size="3" name="dd" value="02" onblur="Evaluate()"/>.
-					<select id="mm" name="mm" onchange="Evaluate()">
-						<option value="01">January</option>
-						<option value="02">February</option>
-						<option value="03">March</option>
-						<option value="04">April</option>
-						<option value="05">May</option>
-						<option value="06">June</option>
-						<option value="07">July</option>
-						<option value="08">August</option>
-						<option value="09">September</option>
-						<option value="10" selected="selected">October</option>
-						<option value="11">November</option>
-						<option value="12">December</option>
-					</select>
+					<script type="text/javascript">
+						document.write(i18n.t('words.date') + ' ' + i18n.t('words.and') + ' ' + i18n.t('words.time.time') + ':<br />');
+						document.write('<input id="dd" size="3" name="dd" value="02" onblur="Evaluate()"/>.');
+						document.write('<select id="mm" name="mm" onchange="Evaluate()">');
+						for (var i = 0; i < months.length; i++) {
+							document.write('<option value="' + i + 1 + '">' + i18n.t('months.full.' + months[i]) + '</option>');
+						}
+						document.write('</select>');
+					</script>
+
 					<input id="yyyy" size="5" name="yyyy" value="2013" onblur="Evaluate()" />
 					&#160;
 					<input size="3" name="HH" value="22" onblur="Evaluate()" />:<input size="3" name="MM" value="21" onblur="Evaluate()" />
 					&#160;
 					<input size="10" name="wday" readonly="readonly" />
 					<input size="7" name="week" readonly="readonly" />
-					Region:
+					<script type="text/javascript">document.write(i18n.t('words.region') + ':');</script>
 					<input size="6" name="region" value="" onblur="Evaluate()" />
 				</p>
 
 				<p>
-					Value for <q>opening_hours</q>:<br />
+					<script type="text/javascript">
+						document.write(i18n.t('texts.value for') + ' <q>opening_hours</q>:<br />');
+					</script>
 					<input id="expression" style="width:100%" name="expression" value="24/7" onblur="Evaluate()" />
 				</p>
 				<!-- }}} -->
@@ -659,19 +710,19 @@
 
 				<!-- Display results {{{ -->
 				<p>
-					Status:<br />
-					<input size="6" name="status" readonly="readonly" />
+					<script type="text/javascript">document.write(i18n.t('words.status') + ':<br />');</script>
+					<input size="10" name="status" readonly="readonly" />
 					<input size="60" name="comment" readonly="readonly" />
 					<input size="6" name="rr" readonly="readonly" />
 				</p>
 
 				<p>
-					Substring used by applied rule:<br />
+					<script type="text/javascript">document.write(i18n.t('texts.MatchingRule') + ':<br />');</script>
 					<input style="width: 100%" name="MatchingRule" readonly="readonly" />
 				</p>
 
 				<p>
-					Error and warning messages:<br />
+					<script type="text/javascript">document.write(i18n.t('texts.warn error') + ':<br />');</script>
 					<textarea rows="5" style="width: 100%" name="WarnErrors" readonly="readonly"></textarea><br />
 				</p>
 				<!-- }}} -->
@@ -681,8 +732,9 @@
 			<a href="#" onclick="permalink();return false">permalink</a>
 			</p>
 
-			<hr />
-			<a href="javascript:toggle('user_examples')"><h2 id="examples">Examples:</h2></a><!-- {{{ -->
+			<hr /><!-- Examples {{{ -->
+			<script type="text/javascript">document.write('<a href="javascript:toggle(\'user_examples\')"><h2 id="examples">'
+				+ i18n.t('words.examples') + ':</h2></a>');</script>
 			<!-- JS for toggeling exampes on and off {{{ -->
 			<script type="text/javascript">
 				function toggle(control){
@@ -697,7 +749,6 @@
 			</script>
 			<!-- }}} -->
 			<div id="user_examples"><!-- {{{ -->
-				(Click top copy to the form and evaluate)
 				<ol>
 					<li><a href="#check" onclick="EX(this)">Mo-Fr 10:00-20:00</a></li>
 					<li><a href="#check" onclick="EX(this)">Mo,Tu,Th,Fr 12:00-18:00;Sa 12:00-17:00; Th[3] off; Th[-1] off</a></li>
@@ -733,10 +784,8 @@
 					<li><a href="#check" onclick="EX(this)">week 4-16 We, week 38-42 Sa 0:00-24:00</a></li>
 				</ol>
 
-				Days without times are not valid anymore.<br/>
-				They were evaluated as 0:00 bis 24:00, but this was intended almost never.
 				<ol>
-					<li value="30"><a href="#check" onclick="EX(this)">We</a></li>
+					<li value="33"><a href="#check" onclick="EX(this)">We</a></li>
 					<li><a href="#check" onclick="EX(this)">We[1]</a></li>
 					<li><a href="#check" onclick="EX(this)">We[2]</a></li>
 					<li><a href="#check" onclick="EX(this)">We[1-3]</a></li>
