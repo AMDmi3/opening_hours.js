@@ -144,7 +144,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   Checks whether the facility is open at the given *date*. You may omit *date* to use current date.
 
 * ```javascript
-  var unknown = oh.getUnknown();
+  var unknown = oh.getUnknown(date);
   ```
 
   Checks whether the opening state is conditional or unknown at the given *date*. You may omit *date* to use current date.
@@ -152,7 +152,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   If unknown is true then is_open will be false since it is not sure if it is open.
 
 * ```javascript
- 	var comment = oh.getComment();
+ 	var comment = oh.getComment(date);
   ```
 
   Returns the comment (if one is specified) for the facility at the given *date*. You may omit *date* to use current date.
@@ -167,6 +167,14 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   Returns date of next state change. You may omit *date* to use current date.
 
   Returns undefined if the next change cannot be found. This may happen if the state won't ever change (e.g. ```24/7```) or if search goes beyond *limit* (which is *date* + ~5 years if omitted).
+
+* ```javascript
+ 	var matching_rule = oh.getMatchingRule(date);
+  ```
+
+  Returns the matching rule. You may omit *date* to use current date.
+  A opening_hours string can consist of multiple rules (or internally called blocks) from which one of them is used for a given point in time. If no rule applies the state will be closed and this function returns undefined.
+
 
 ### Iterator API
 
@@ -201,6 +209,11 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   Returns the comment (if one is specified) for the facility at the current iterator position in time.
 
   If no comment is specified this function will return undefined.
+
+* ```javascript
+ 	var matching_rule = iterator.getMatchingRule();
+  ```
+  Returns the matching rule.
 
 * ```javascript
   var had_advanced = iterator.advance(limit);

@@ -524,25 +524,25 @@
 				var tmp;
 				if (tmp = value.match(/^(?:week\b|24\/7|open|unknown)/i)) {
 					// reserved word
-					value = value.substr(tmp[0].length);
 					curr_block_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase(), value.length ]);
+					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(?:off|closed)/i)) {
 					// reserved word
-					value = value.substr(tmp[0].length);
 					curr_block_tokens.push(['closed', 'closed', value.length ]);
+					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(?:PH|SH)/i)) {
 					// special day name (holidays)
-					value = value.substr(2);
 					curr_block_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
+					value = value.substr(2);
 				} else if (tmp = value.match(/^days?/i)) {
-					value = value.substr(tmp[0].length);
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
+					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^[a-zA-Z]+\b/i)) {
 					// Handle all remaining words with error tolerance
 					var correct_val = returnCorrectWordOrToken(tmp[0].toLowerCase(), value.length);
 					if (typeof correct_val == 'object') {
-						value = value.substr(tmp[0].length);
 						curr_block_tokens.push([ correct_val[0], correct_val[1], value.length ]);
+						value = value.substr(tmp[0].length);
 					} else if (typeof correct_val == 'string') {
 						value = correct_val + value.substr(tmp[0].length);
 					} else {
@@ -552,27 +552,29 @@
 					}
 				} else if (tmp = value.match(/^\d+/)) {
 					// number
-					value = value.substr(tmp[0].length);
 					if (tmp[0] > 1900) // assumed to be a year number
 						curr_block_tokens.push([tmp[0], 'year', value.length ]);
 					else
 						curr_block_tokens.push([+tmp[0], 'number', value.length ]);
+					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^"([^"]*)"/)) {
 					// comment
-					value = value.substr(tmp[0].length);
 					curr_block_tokens.push([tmp[1], 'comment', value.length ]);
+					value = value.substr(tmp[0].length);
 				} else if (value.match(/^;/)) {
 					// semicolon terminates block
 					// next tokens belong to a new block
-					value = value.substr(1);
 					all_tokens.push([ curr_block_tokens, last_block_fallback_terminated, value.length ]);
+					value = value.substr(1);
+
 					curr_block_tokens = [];
 					last_block_fallback_terminated = false;
 				} else if (value.match(/^\|\|/)) {
 					// || terminates block
 					// next tokens belong to a fallback block
-					value = value.substr(2);
 					all_tokens.push([ curr_block_tokens, last_block_fallback_terminated, value.length ]);
+					value = value.substr(2);
+
 					curr_block_tokens = [];
 					last_block_fallback_terminated = true;
 				} else if (value.match(/^\s/)) {
@@ -582,11 +584,11 @@
 					value = value.substr(tmp[0].length);
 				} else if (value.match(/^[:.]/)) {
 					// time separator
-					curr_block_tokens.push([value[0].toLowerCase(), 'timesep', value.length - 1 ]);
+					curr_block_tokens.push([value[0].toLowerCase(), 'timesep', value.length ]);
 					value = value.substr(1);
 				} else {
 					// other single-character tokens
-					curr_block_tokens.push([value[0].toLowerCase(), value[0].toLowerCase(), value.length - 1 ]);
+					curr_block_tokens.push([value[0].toLowerCase(), value[0].toLowerCase(), value.length ]);
 					value = value.substr(1);
 				}
 			}
@@ -754,6 +756,17 @@
 				if (has_normal_time[0] || matchTokens(tokens, at, 'timevar') || has_time_var_calc[0]) {
 					// relying on the fact that always *one* of them is true
 
+					if (has_normal_time[0])
+						var minutes_from = tokens[at+has_time_var_calc[0]][0] * 60 + tokens[at+has_time_var_calc[0]+2][0];
+					else
+						var minutes_from = word_value_replacement[tokens[at+has_time_var_calc[0]][0]];
+
+					var timevar_add = [ 0, 0 ];
+					if (has_time_var_calc[0]) {
+						timevar_add[0] = parseTimevarCalc(tokens, at);
+						minutes_from += timevar_add[0];
+					}
+
 					var has_open_end = false;
 					if (!matchTokens(tokens, at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 7 : 1)), '-')) {
 						if (matchTokens(tokens, at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 7 : 1)), '+')) {
@@ -764,17 +777,6 @@
 								+ (has_time_var_calc[0] ? 'calculation ' : '')
 								+ 'expected');
 						}
-					}
-
-					if (has_normal_time[0])
-						var minutes_from = tokens[at+has_time_var_calc[0]][0] * 60 + tokens[at+has_time_var_calc[0]+2][0];
-					else
-						var minutes_from = word_value_replacement[tokens[at+has_time_var_calc[0]][0]];
-
-					var timevar_add = [ 0, 0 ];
-					if (has_time_var_calc[0]) {
-						timevar_add[0] = parseTimevarCalc(tokens, at);
-						minutes_from += timevar_add[0];
 					}
 
 					var at_end_time = at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 7 : 1))+1; // after '-'
@@ -905,6 +907,8 @@
 						throw formatWarnErrorMessage(nblock, at+1, 'Missing variable time (e.g. sunrise) after: "' + tokens[at][1] + '"');
 					if (matchTokens(tokens, at, 'number', 'timesep'))
 						throw formatWarnErrorMessage(nblock, at+2, 'Missing minutes in time range after: "' + tokens[at+1][1] + '"');
+					if (matchTokens(tokens, at, 'number'))
+						throw formatWarnErrorMessage(nblock, at+2, 'Missing time seperator in time range after: "' + tokens[at][1] + '"');
 					return [ at ];
 				}
 
@@ -923,14 +927,24 @@
 		// extract the added or subtracted time of "(sunrise-01:30)"
 		// returns in minutes e.g. -90
 		function parseTimevarCalc(tokens, at) {
-			if ((matchTokens(tokens, at+2, '+') || matchTokens(tokens, at+2, '-'))
-					&& matchTokens(tokens, at+3, 'number', 'timesep', 'number', ')')) {
-				var add_or_subtract = tokens[at+2][0] == '+' ? '1' : '-1';
-				return (tokens[at+3][0] * 60 + tokens[at+5][0]) * add_or_subtract;
+			if (matchTokens(tokens, at+2, '+') || matchTokens(tokens, at+2, '-')) {
+				if (matchTokens(tokens, at+3, 'number', 'timesep', 'number')) {
+					if (matchTokens(tokens, at+6, ')')) {
+						var add_or_subtract = tokens[at+2][0] == '+' ? '1' : '-1';
+						return (tokens[at+3][0] * 60 + tokens[at+5][0]) * add_or_subtract;
+					} else {
+						error = [ at+6, '. Missing ")".'];
+					}
+				} else {
+					error = [ at+5, ' (time).'];
+				}
 			} else {
-				throw formatWarnErrorMessage(nblock, at+3+3,
-					'Calculcation with variable time is not in the right syntax.');
+				error = [ at+2, '. "+" or "-" expected.'];
 			}
+
+			if (error)
+				throw formatWarnErrorMessage(nblock, error[0],
+					'Calculcation with variable time is not in the right syntax' + error[1]);
 		}
 
 		//======================================================================
@@ -957,7 +971,7 @@
 								// bad number
 								if (i == 0 || i < -5 || i > 5)
 									throw formatWarnErrorMessage(nblock, at+2,
-										'Number between -5 and 5 (except 0) expected');
+										'Number between -5 and 5 (except 0) expected.');
 
 								numbers.push(i);
 							}
@@ -968,7 +982,7 @@
 					});
 
 					if (!matchTokens(tokens, endat, ']'))
-						throw formatWarnErrorMessage(nblock, endat, '"]" expected');
+						throw formatWarnErrorMessage(nblock, endat, '"]" or more numbers expected.');
 
 					var add_days = getMoveDays(tokens, endat+1, 6, 'constrained weekdays');
 					week_stable = false;
@@ -1842,6 +1856,7 @@
 			var changedate;
 			var unknown = false;
 			var comment = undefined;
+			var match_block;
 
 			var date_matching_blocks = [];
 
@@ -1916,6 +1931,7 @@
 						comment     = blocks[block].comment;
 						break block; // fallback block matched, no need for checking the rest
 					}
+					match_block = nblock;
 				}
 
 				for (var timesel = 0; timesel < blocks[block].time.length; timesel++) {
@@ -1937,6 +1953,7 @@
 							comment     = resultArray[2];
 							break block; // fallback block matched, no need for checking the rest
 						}
+						match_block = nblock;
 					}
 					if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate)) {
 						// console.log('overwrite with:', res[1])
@@ -1946,7 +1963,7 @@
 			}
 
 			// console.log('changedate', changedate, resultstate, comment);
-			return [ resultstate, changedate, unknown, comment ];
+			return [ resultstate, changedate, unknown, comment, match_block ];
 		}
 
 		function evaluateOpenEnd(resultstate, unknown, comment, has_open_range) {
@@ -1960,10 +1977,19 @@
 		}
 
 		function formatWarnErrorMessage(nblock, at, message) {
-			if (nblock == -1) { // usage of block index not because we do have access to value.length
-				var pos = value.length - at;
+			var pos = 0;
+			if (nblock == -1) { // usage of block index not required because we do have access to value.length
+				pos = value.length - at;
 			} else { // issue accrued at a later time
-				var pos = value.length - (typeof tokens[nblock][0][at] == 'undefined' ? 0 : tokens[nblock][0][at][2]);
+				if (typeof tokens[nblock][0][at] == 'undefined') {
+					pos = value.length;
+				} else {
+					pos = value.length;
+					if (typeof tokens[nblock][0][at+1] != 'undefined')
+						pos -= tokens[nblock][0][at+1][2];
+					else if (typeof tokens[nblock][2] != 'undefined')
+						pos -= tokens[nblock][2];
+				}
 			}
 			return value.substring(0, pos) + ' <--- (' + message + ')';
 		}
@@ -1981,7 +2007,7 @@
 				if (typeof date === 'undefined')
 					date = new Date();
 
-				var prevstate = [ undefined, date, undefined, undefined ];
+				var prevstate = [ undefined, date, undefined, undefined, undefined ];
 				var state = oh.getStatePair(date);
 
 				this.getState = function() {
@@ -1994,6 +2020,16 @@
 
 				this.getComment = function() {
 					return state[3];
+				}
+
+				this.getMatchingRule = function() {
+					if (typeof state[4] == 'undefined')
+						return undefined;
+
+					var block = tokens[state[4]][0];
+					var start_pos = value.length - block[0][2];
+					var end_pos   = value.length - (typeof tokens[state[4]][2] == 'undefined' ? 0 : tokens[state[4]][2]);
+					return value.substring(start_pos, end_pos);
 				}
 
 				this.getDate = function() {
@@ -2061,6 +2097,11 @@
 		this.getComment = function(date) {
 			var it = this.getIterator(date);
 			return it.getComment();
+		}
+
+		this.getMatchingRule = function(date) {
+			var it = this.getIterator(date);
+			return it.getMatchingRule();
 		}
 
 		// returns time of next status change

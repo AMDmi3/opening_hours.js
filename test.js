@@ -1000,6 +1000,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'week 2-54 00:00-24:00:::',
 		'week 2-54 00::00-24:00',
 		'(sunrise+01:00-sunset',
+		'(sunrise+01::)-sunset',
 		'(sunrise)-sunset',
 		'(',
 		'sunrise-(',
@@ -1036,6 +1037,14 @@ test.addShouldFail('Missing information (e.g. country or holidays not defined in
 		'SH', // country is not specified
 	]);
 
+test.addCompMatchingRule('Compare result from getMatchingRule()', [
+		'10:00-16:00',
+		'10:00-16:00;',
+		'08:00-10:00;10:00-16:00;',
+		'"testing"; 10:00-16:00; 08:00-10:00;',
+	], '2012.01.01 13:00',
+	'10:00-16:00', {}, 'not only test');
+
 process.exit(test.run() ? 0 : 1);
 
 //======================================================================
@@ -1047,6 +1056,7 @@ function opening_hours_test() {
 	var tests = [];
 	var tests_should_fail = [];
 	var tests_should_warn = [];
+	var tests_comp_matching_rule = [];
 
 	function runSingleTestShouldFail(name, value, nominatiomJSON) {
 		try {
@@ -1102,7 +1112,7 @@ function opening_hours_test() {
 			str += '[1;31mFAILED[0m';
 			console.log(str);
 			if (show_error_warnings)
-				console.log(crashed);
+				console.log(crashed + '\n');
 		}
 		return false;
 	}
@@ -1190,6 +1200,39 @@ function opening_hours_test() {
 		return passed;
 	}
 
+	function runSingleTestCompMatchingRule(name, value, date, matching_rule, nominatiomJSON) {
+		try {
+			// since they should fail anyway we can give them the nominatiomTestJSON
+			oh = new opening_hours(value, nominatiomJSON);
+			it = oh.getIterator(new Date(date));
+
+			crashed = false;
+		} catch (err) {
+			crashed = err;
+		}
+
+		var matching_rule_ok = it.getMatchingRule() == matching_rule;
+
+		var passed = false;
+		var str = '"' + name + '" for "' + value.replace('\n', '*newline*') + '": ';
+		if (!crashed && matching_rule_ok) {
+			str += '[1;32mPASSED[0m';
+			passed = true;
+
+			if (show_passing_tests)
+				console.log(str);
+		} else if (crashed) {
+			str += '[1;35mCRASHED[0m, reason: ' + crashed;
+			console.log(str);
+		} else {
+			str += '[1;31mFAILED[0m';
+			str += ', bad matching rule: ' + oh.getMatchingRule() + ', expected ' + matching_rule;
+			console.log(str);
+		}
+
+		return passed;
+	}
+
 	function intervalsToString(intervals) {
 		var res = '';
 
@@ -1225,7 +1268,7 @@ function opening_hours_test() {
 	}
 
 	this.run = function() {
-		var tests_length = tests.length + tests_should_fail.length + tests_should_warn.length;
+		var tests_length = tests.length + tests_should_fail.length + tests_should_warn.length + tests_comp_matching_rule.length;
 		var success = 0;
 		for (var test = 0; test < tests.length; test++) {
 			if (runSingleTest(tests[test][0], tests[test][1], tests[test][2], tests[test][3], tests[test][4], tests[test][5], tests[test][6], tests[test][7]))
@@ -1237,6 +1280,11 @@ function opening_hours_test() {
 		}
 		for (var test = 0; test < tests_should_fail.length; test++) {
 			if (runSingleTestShouldFail(tests_should_fail[test][0], tests_should_fail[test][1], tests_should_fail[test][2]))
+				success++;
+		}
+		for (var test = 0; test < tests_comp_matching_rule.length; test++) {
+			if (runSingleTestCompMatchingRule(tests_comp_matching_rule[test][0], tests_comp_matching_rule[test][1],
+					tests_comp_matching_rule[test][2], tests_comp_matching_rule[test][3]))
 				success++;
 		}
 
@@ -1289,6 +1337,17 @@ function opening_hours_test() {
 		else
 			for (var value = 0; value < values.length; value++)
 				tests_should_warn.push([name, values[value], nominatiomJSON]);
+	}
+	this.addCompMatchingRule = function(name, values, date, matching_rule, nominatiomJSON, last) {
+	if (this.last == true) return;
+	if (last === 'only test') tests = [];
+	if (last === 'only test' || last === 'last test') this.last = true;
+
+		if (typeof values == 'string')
+			tests_comp_matching_rule.push([name, values, matching_rule, nominatiomJSON]);
+		else
+			for (var value = 0; value < values.length; value++)
+				tests_comp_matching_rule.push([name, values[value], date, matching_rule, nominatiomJSON]);
 	}
 }
 
