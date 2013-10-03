@@ -191,6 +191,12 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   Returns current iterator position.
 
 * ```javascript
+  iterator.setDate(date);
+  ```
+
+  Set interator to date.
+
+* ```javascript
   var is_open = iterator.getState();
   ```
 

@@ -1309,7 +1309,8 @@
 				} else if (matchTokens(tokens, at, 'weekday')) {
 					at = parseWeekdayRange(tokens, at, selectors);
 				} else {
-					throw formatWarnErrorMessage(nblock, at, 'Unexpected token (school holiday parser): ' + tokens[at][1]);
+					// throw formatWarnErrorMessage(nblock, at, 'Unexpected token (school holiday parser): ' + tokens[at][1]);
+					return [ at ];
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -2012,6 +2013,19 @@
 				var prevstate = [ undefined, date, undefined, undefined, undefined ];
 				var state = oh.getStatePair(date);
 
+				this.setDate = function(date) {
+					if (typeof date != 'object')
+						throw 'Date as parameter needed.';
+
+					prevstate = [ undefined, date, undefined, undefined, undefined ];
+					state     = oh.getStatePair(date);
+				}
+
+				this.getDate = function() {
+					return prevstate[1];
+				}
+
+
 				this.getState = function() {
 					return state[0];
 				}
@@ -2034,13 +2048,10 @@
 					return value.substring(start_pos, end_pos);
 				}
 
-				this.getDate = function() {
-					return prevstate[1];
-				}
-
 				this.advance = function(datelimit) {
-					if (typeof datelimit === 'undefined')
+					if (typeof datelimit === 'undefined' || datelimit.getTime() <= prevstate[1].getTime()) {
 						datelimit = new Date(prevstate[1].getTime() + msec_in_day * 366 * 5);
+					}
 
 					do {
 						// open range, we won't be able to advance

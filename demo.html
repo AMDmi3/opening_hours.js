@@ -8,10 +8,10 @@
 		<style>
 			body { font-family: sans-serif }
 			table {}
-			tr.separator td { height: 2px; background: none }
-			tr.endweek td { border-bottom: 1px solid #BBBBCC; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px }
-			tr.today td { border-top: 1px solid #BBBBCC; border-top-left-radius: 5px; border-top-right-radius: 5px }
-			tr.today td.day { font-weight: bold }
+			// tr.separator td { height: 2px; background: none }
+			// tr.endweek td { border-bottom: 1px solid #BBBBCC; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px }
+			// tr.today td { border-top: 1px solid #BBBBCC; border-top-left-radius: 5px; border-top-right-radius: 5px }
+			tr.today td.day { text-decoration: underline }
 			td { background: #E0E0E0; padding: 0px 10px }
 			td.day { text-align: center }
 			td.workday { background: #CCFF99 }
@@ -398,22 +398,24 @@
 						date.getDate() + ', ' + i18n.t('weekdays.short.' + weekdays[date.getDay()]);
 			}
 
-			function drawTable(oh, date_today) {
+			function drawTable(it, date_today, has_next_change) {
 				var date_today = new Date(date_today);
 				date_today.setHours(0, 0, 0, 0);
 
 				var date = new Date(date_today);
-				date.setDate(date.getDate() - date.getDay() + 7);
+				// date.setDate(date.getDate() - date.getDay() + 7);
+				date.setDate(date.getDate() - date.getDay() - 1); // start at begin of the week
 
 				var table = [];
 
 				for (var row = 0; row < 7; row++) {
 					date.setDate(date.getDate()+1);
-					if (date.getDay() == date_today.getDay()) {
-						date.setDate(date.getDate()-7);
-					}
+					// if (date.getDay() == date_today.getDay()) {
+					// 	date.setDate(date.getDate()-7);
+					// }
 
-					var state = oh.getState(date);
+					it.setDate(date);
+					var state = it.getState();
 					var prevdate = date;
 					var curdate  = date;
 
@@ -423,8 +425,8 @@
 						text: []
 					};
 
-					while (curdate.getTime() - date.getTime() < 24*60*60*1000) {
-						curdate = oh.getNextChange(curdate);
+					while (it.advance() && curdate.getTime() - date.getTime() < 24*60*60*1000) {
+						curdate = it.getDate();
 
 						var fr = prevdate.getTime() - date.getTime();
 						var to = curdate.getTime() - date.getTime();
@@ -450,6 +452,11 @@
 						prevdate = curdate;
 						state = !state;
 					}
+
+					if (!has_next_change && table[row].text.length == 0) { // 24/7
+						table[row].times += '<div class="timebar ' + (state ? 'open' : 'closed') + '" style="width:100%"></div>';
+						table[row].text.push(i18n.t('words.open') + ' 00:00 ' + i18n.t('words.to') + '23:59');
+					}
 				}
 
 				var output = '';
@@ -457,10 +464,10 @@
 				for (var row in table) {
 					var today = table[row].date.getDay() == date_today.getDay();
 					var endweek = ((table[row].date.getDay() + 1) % 7) == date_today.getDay();
-					var cl = today ? ' class="today"' : endweek ? ' class="endweek"' : '';
+					var cl = today ? ' class="today"' : (endweek ? ' class="endweek"' : '');
 
-					if (today && date_today.getDay() != 1)
-						output += '<tr class="separator"><td colspan="3"></td></tr>';
+					// if (today && date_today.getDay() != 1)
+					// 	output += '<tr class="separator"><td colspan="3"></td></tr>';
 					output += '<tr' + cl + '><td class="day ' + (table[row].date.getDay() % 6 == 0 ? 'weekend' : 'workday') + '">';
 					output += printDate(table[row].date);
 					output += '</td><td class="times">';
@@ -473,25 +480,25 @@
 				return output;
 			}
 
-			function drawTableAndComments(value, now) {
-				var oh = new opening_hours(value);
-				var isopen = oh.getState(now);
-				var nextchange = oh.getNextChange(now);
+			function drawTableAndComments(oh, it) {
+				var isopen = it.getState();
+				var prevdate = it.getDate();
+				var has_next_change = it.advance();
 
 				var output = '';
-				if (isopen && typeof nextchange === 'undefined') {
+				if (isopen && !has_next_change) {
 					output += '<p class="open">' + i18n.t('texts.always open') +'</p>';
-				} else if (!isopen && typeof nextchange === 'undefined') {
+				} else if (!isopen && !has_next_change) {
 					output += '<p class="closed">' + i18n.t('texts.always closed') +'</p>';
 				} else if (isopen) {
 					output += '<p class="open">' + i18n.t('texts.open now') +'</p>';
-					output += '<p class="closed">' + i18n.t('texts.will close', { timestring: formatdate(now, nextchange, false) }) + '</p>';
+					output += '<p class="closed">' + i18n.t('texts.will close', { timestring: formatdate(prevdate, it.getDate(), false) }) + '</p>';
 				} else {
 					output += '<p class="closed">' + i18n.t('texts.closed now') +'</p>';
-					output += '<p class="open">' + i18n.t('texts.will open', { timestring: formatdate(now, nextchange, true) }) + '</p>';
+					output += '<p class="open">' + i18n.t('texts.will open', { timestring: formatdate(prevdate, it.getDate(), true) }) + '</p>';
 				}
 
-				output += drawTable(oh, now);
+				output += drawTable(it, prevdate, has_next_change);
 
 				if (oh.isWeekStable())
 					output += '<p><b>'+ i18n.t('texts.week stable') +'</b></p>';
@@ -575,7 +582,7 @@
 					document.forms.check.elements['WarnErrors'].value = oh.getWarnings();
 
 					var user_evaluation = document.getElementById('user_evaluation');
-					user_evaluation.innerHTML = drawTableAndComments(document.forms.check.elements['expression'].value, date);
+					user_evaluation.innerHTML = drawTableAndComments(oh, it);
 				}
 			}
 
@@ -645,8 +652,11 @@
 					Value for <q>opening_hours</q>:<br />
 					<input id="expression" style="width:100%" name="expression" value="24/7" onblur="Evaluate()" />
 				</p>
-
 				<!-- }}} -->
+
+				<div id="user_evaluation"><!-- {{{ -->
+				</div><!-- }}} -->
+
 				<!-- Display results {{{ -->
 				<p>
 					Status:<br />
@@ -666,9 +676,6 @@
 				</p>
 				<!-- }}} -->
 			</form>
-
-			<div id="user_evaluation"><!-- {{{ -->
-			</div>
 
 			<p style="text-align: right">
 			<a href="#" onclick="permalink();return false">permalink</a>

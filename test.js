@@ -1020,10 +1020,8 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Sa[1.',
 		'Sa[1,0,3]',
 		'Sa[1,3-6]',
-		'Sa, Jan',
 		'Sa[1,3-.]',
 		'Sa[1,3,.]',
-		'SH, Jan',
 		'PH + 2 day', // Normally moving PH one day is everything needed. Handling more than one move day would be harder to implement.
 		'2012, Jan',
 		'easter + 370 days',
