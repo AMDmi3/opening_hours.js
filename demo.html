@@ -689,9 +689,13 @@
 				}
 			</script>
 			<!-- }}} -->
-			<div id="user_examples" style="display: none"><!-- {{{ -->
+			<div id="user_examples"><!-- {{{ -->
 				(Click top copy to the form and evaluate)
 				<ol>
+					<li><a href="#check" onclick="EX(this)">Mo-Fr 10:00-20:00</a></li>
+					<li><a href="#check" onclick="EX(this)">Mo,Tu,Th,Fr 12:00-18:00;Sa 12:00-17:00; Th[3] off; Th[-1] off</a></li>
+					<li><a href="#check" onclick="EX(this)">00:00-24:00; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off</a></li>
+					<li><a href="#check" onclick="EX(this)">Fr-Sa 18:00-06:00</a></li>
 					<li><a href="#check" onclick="EX(this)">24/7</a></li>
 					<li><a href="#check" onclick="EX(this)">"only after registration"</a></li>
 					<li><a href="#check" onclick="EX(this)">22:00-23:00</a></li>
@@ -741,21 +745,5 @@
 			</div><!-- }}} -->
 
 		</div> <!-- }}} -->
-
-	<script type="text/javascript">
-		var examples = [
-			'Mo-Fr 10:00-20:00',
-			'Mo,Tu,Th,Fr 12:00-18:00;Sa 12:00-17:00; Th[3] off; Th[-1] off',
-			'00:00-24:00; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off',
-			'Fr-Sa 18:00-06:00',
-		];
-
-		var now = new Date();
-
-		for (var e in examples) {
-			document.write('<h1>' + examples[e] + '</h1>');
-			document.write(drawTableAndComments(examples[e], now));
-		}
-	</script>
-</body> <!-- }}} -->
+</body><!-- }}} -->
 </html>
