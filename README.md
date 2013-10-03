@@ -173,7 +173,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   ```
 
   Returns the matching rule. You may omit *date* to use current date.
-  A opening_hours string can consist of multiple rules (or internally called blocks) from which one of them is used for a given point in time. If no rule applies the state will be closed and this function returns undefined.
+  A opening_hours string can consist of multiple rules (or internally called blocks) from which one of them is used for a given point in time. If no rule applies, the state will be closed and this function returns undefined.
 
 
 ### Iterator API
@@ -213,6 +213,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
 * ```javascript
  	var matching_rule = iterator.getMatchingRule();
   ```
+
   Returns the matching rule.
 
 * ```javascript

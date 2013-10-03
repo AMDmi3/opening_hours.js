@@ -700,11 +700,6 @@
 						|| matchTokens(tokens, at, 'timevar')
 						|| matchTokens(tokens, at, '(', 'timevar')) {
 					at = parseTimeRange(tokens, at, selectors);
-
-					if (typeof at == 'object') {
-						// additional block
-						break;
-					}
 				} else if (matchTokens(tokens, at, 'closed')) {
 					selectors.meaning = false;
 					at++;
@@ -739,6 +734,11 @@
 				} else {
 					var warnings = getWarnings();
 					throw formatWarnErrorMessage(nblock, at, 'Unexpected token: "' + tokens[at][1] + '" This means that the syntax is not valid at that point.') + (warnings ? ' ' + warnings.join('; ') : '');
+				}
+
+				if (typeof at == 'object') {
+					// additional block
+					break;
 				}
 			}
 
@@ -1107,7 +1107,8 @@
 					at = parseHoliday(tokens, at, selectors, true);
 					week_stable = false;
 				} else {
-					throw formatWarnErrorMessage(nblock, at, 'Unexpected token in weekday range: ' + tokens[at][1]);
+					// throw formatWarnErrorMessage(nblock, at, 'Unexpected token in weekday range: ' + tokens[at][1]);
+					return [ at ];
 				}
 
 				if (!matchTokens(tokens, at, ','))
