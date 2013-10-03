@@ -733,7 +733,8 @@
 					}
 				} else {
 					var warnings = getWarnings();
-					throw formatWarnErrorMessage(nblock, at, 'Unexpected token: "' + tokens[at][1] + '" This means that the syntax is not valid at that point.') + (warnings ? ' ' + warnings.join('; ') : '');
+					throw formatWarnErrorMessage(nblock, at, 'Unexpected token: "' + tokens[at][1]
+						+ '" This means that the syntax is not valid at that point.') + (warnings ? ' ' + warnings.join('; ') : '');
 				}
 
 				if (typeof at == 'object') {

@@ -343,47 +343,10 @@
 					}
 				}
 			document.write('</ul>');
-		</script>
 
-		<script>
 			// In English. Localization is done somewhere else (above).
 			var months   = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
 			var weekdays = ['su','mo','tu','we','th','fr','sa'];
-
-			var examples = [
-				'Mo-Fr 10:00-20:00',
-				'Mo,Tu,Th,Fr 12:00-18:00;Sa 12:00-17:00; Th[3] off; Th[-1] off',
-				'00:00-24:00; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off',
-				'Fr-Sa 18:00-06:00',
-			];
-
-			var now = new Date();
-
-			for (var e in examples) {
-				document.write('<h1>' + examples[e] + '</h1>');
-				var oh = new opening_hours(examples[e]);
-				var isopen = oh.getState(now);
-				var nextchange = oh.getNextChange(now);
-
-				if (isopen && typeof nextchange === 'undefined') {
-					document.write('<p class="open">' + i18n.t('texts.always open') +'</p>');
-				} else if (!isopen && typeof nextchange === 'undefined') {
-					document.write('<p class="closed">' + i18n.t('texts.always closed') +'</p>');
-				} else if (isopen) {
-					document.write('<p class="open">' + i18n.t('texts.open now') +'</p>');
-					document.write('<p class="closed">' + i18n.t('texts.will close', { timestring: formatdate(now, nextchange, false) }) + '</p>');
-				} else {
-					document.write('<p class="closed">' + i18n.t('texts.closed now') +'</p>');
-					document.write('<p class="open">' + i18n.t('texts.will open', { timestring: formatdate(now, nextchange, true) }) + '</p>');
-				}
-
-				drawTable(oh, now);
-
-				if (oh.isWeekStable())
-					document.write('<p><b>'+ i18n.t('texts.week stable') +'</b></p>');
-				else
-					document.write('<p><b>'+ i18n.t('texts.not week stable') +'</b></p>');
-			}
 
 			function formatdate(now, nextchange, from) {
 				var now_daystart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -514,6 +477,52 @@
 					document.write('</td></tr>');
 				}
 				document.write('</table>');
+			}
+
+			function drawTableAndComments(value, now) {
+				var oh = new opening_hours(value);
+				var isopen = oh.getState(now);
+				var nextchange = oh.getNextChange(now);
+
+				if (isopen && typeof nextchange === 'undefined') {
+					document.write('<p class="open">' + i18n.t('texts.always open') +'</p>');
+				} else if (!isopen && typeof nextchange === 'undefined') {
+					document.write('<p class="closed">' + i18n.t('texts.always closed') +'</p>');
+				} else if (isopen) {
+					document.write('<p class="open">' + i18n.t('texts.open now') +'</p>');
+					document.write('<p class="closed">' + i18n.t('texts.will close', { timestring: formatdate(now, nextchange, false) }) + '</p>');
+				} else {
+					document.write('<p class="closed">' + i18n.t('texts.closed now') +'</p>');
+					document.write('<p class="open">' + i18n.t('texts.will open', { timestring: formatdate(now, nextchange, true) }) + '</p>');
+				}
+
+				drawTable(oh, now);
+
+				if (oh.isWeekStable())
+					document.write('<p><b>'+ i18n.t('texts.week stable') +'</b></p>');
+				else
+					document.write('<p><b>'+ i18n.t('texts.not week stable') +'</b></p>');
+
+			}
+		</script>
+
+		<div id="user">
+
+		</div>
+		<script type="text/javascript">
+
+			var examples = [
+				'Mo-Fr 10:00-20:00',
+				'Mo,Tu,Th,Fr 12:00-18:00;Sa 12:00-17:00; Th[3] off; Th[-1] off',
+				'00:00-24:00; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off',
+				'Fr-Sa 18:00-06:00',
+			];
+
+			var now = new Date();
+
+			for (var e in examples) {
+				document.write('<h1>' + examples[e] + '</h1>');
+				drawTableAndComments(examples[e], now);
 			}
 		</script>
 	</body>
