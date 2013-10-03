@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 	"http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<head>
+	<head> <!-- {{{ -->
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>opening_hours demo</title>
-		<script type="text/javascript" src="opening_hours.js"></script>
+		<!-- Some CSS {{{ -->
 		<style>
 			body { font-family: sans-serif }
 			table {}
@@ -24,7 +24,10 @@
 			p.open { color: #44AA00 }
 			p.closed { color: #AA4400 }
 		</style>
+		<!-- }}} -->
+		<!-- Javascript and localization {{{ -->
 		<!-- <script type="text/javascript" src="js/jquery&#45;1.10.2.min.js"></script> -->
+		<script type="text/javascript" src="opening_hours.js"></script>
 		<script type="text/javascript" src="js/i18next-1.6.3.min.js"></script>
 		<script type="text/javascript">
 			var resources = { // English is fallback language.
@@ -326,10 +329,11 @@
 					useCookie: true,
 					debug: true
 				}, translatePage);
-		</script>
-	</head>
-	<body>
+		</script> <!-- }}} -->
+	</head> <!-- }}} -->
+    <body> <!-- {{{ -->
 		<script type="text/javascript">
+			<!-- Choose language {{{ -->
 			document.write(i18n.t('lang.choose')
 					+ (i18n.lng() !== 'en' ? ' ('+ i18n.t('lang.choose', { lng: 'en' }) +')' : '' )
 					+ ':');
@@ -343,7 +347,9 @@
 					}
 				}
 			document.write('</ul>');
+			<!-- }}} -->
 
+			<!-- JS functions for gernerating the table {{{ -->
 			// In English. Localization is done somewhere else (above).
 			var months   = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
 			var weekdays = ['su','mo','tu','we','th','fr','sa'];
@@ -362,13 +368,15 @@
 				delta = Math.floor(delta / 60); // delta is now hours
 
 				if (delta < 48 && timediff == '')
-					timediff = i18n.t("words.in duration") +' '+ delta + ' ' + plural(delta, 'words.time.hour') +' '+ i18n.t('words.time.hours minutes sep') + pad(deltaminutes) + ' ' + plural(deltaminutes, 'words.time.minute');
+					timediff = i18n.t("words.in duration") +' '+ delta + ' ' + plural(delta, 'words.time.hour')
+						+' '+ i18n.t('words.time.hours minutes sep') + pad(deltaminutes) + ' ' + plural(deltaminutes, 'words.time.minute');
 
 				var deltahours = delta % 24;
 				delta = Math.floor(delta / 24); // delta is now days
 
 				if (delta < 14 && timediff == '')
-					timediff = i18n.t("words.in duration") +' '+ delta + ' ' + plural(delta, 'words.time.day') + ' ' + deltahours + ' ' + plural(deltahours, 'words.time.hour')
+					timediff = i18n.t("words.in duration") +' '+ delta + ' ' + plural(delta, 'words.time.day')
+						+ ' ' + deltahours + ' ' + plural(deltahours, 'words.time.hour')
 				else if (timediff == '')
 					timediff = i18n.t("words.in duration") +' '+ delta + ' ' + plural(delta, 'words.time.day');
 
@@ -378,7 +386,8 @@
 				else if (from ? (nextdays < 2) : (nextdays <= 2))
 					atday = i18n.t('words.tomorrow');
 				else if (from ? (nextdays < 7) : (nextdays <= 7))
-					atday = i18n.t('words.on weekday') + i18n.t('weekdays.word next.' + weekdays[nextchange.getDay()]) +' '+ i18n.t('weekdays.full.' + weekdays[nextchange.getDay()]);
+					atday = i18n.t('words.on weekday') + i18n.t('weekdays.word next.' + weekdays[nextchange.getDay()])
+						+' '+ i18n.t('weekdays.full.' + weekdays[nextchange.getDay()]);
 
 				var atdate = nextchange.getDate() + ' ' + i18n.t('months.full.' + months[nextchange.getMonth()]);
 
@@ -446,7 +455,8 @@
 
 						table[row].times += '<div class="timebar ' + (state ? 'open' : 'closed') + '" style="width:' + (to-fr) + '%"></div>';
 						if (state) {
-							var text = i18n.t('words.open') + ' ' + prevdate.getHours() + ':' + pad(prevdate.getMinutes()) + ' ' + i18n.t('words.to') + ' ';
+							var text = i18n.t('words.open') + ' ' + prevdate.getHours() + ':' + pad(prevdate.getMinutes())
+								+ ' ' + i18n.t('words.to') + ' ';
 							if (prevdate.getDay() != curdate.getDay())
 								text += '24:00';
 							else
@@ -504,11 +514,13 @@
 					document.write('<p><b>'+ i18n.t('texts.not week stable') +'</b></p>');
 
 			}
+			<!-- }}} -->
 		</script>
 
-		<div id="user">
+		<div id="user"> <!-- {{{ -->
 
-		</div>
+		</div> <!-- }}} -->
+
 		<script type="text/javascript">
 
 			var examples = [
@@ -524,6 +536,6 @@
 				document.write('<h1>' + examples[e] + '</h1>');
 				drawTableAndComments(examples[e], now);
 			}
-		</script>
-	</body>
+	</script>
+</body> <!-- }}} -->
 </html>
