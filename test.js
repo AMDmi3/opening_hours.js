@@ -371,6 +371,12 @@ test.addTest('Time ranges spanning midnight with date overwriting (complex real 
 		[ '2012.10.07 11:00', '2012.10.08 00:00', ], // Su: Su-Tu 11:00-01:00
 	], 1000 * 60 * 60 * (1 + 14 * 2 + 16 * 2 + 19 + 20 + 13), 0, true);
 
+test.addTest('Constrained weekday (complex real world example)', [
+		// 'Apr - Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 days, Aug Su[-1] : 10:00-18:00',
+		'Aug Su[-1] -1 days',
+	], '2013.08.01 0:00', '2014.10.08 0:00', [
+	], 1000 * 60 * 60 * 2 * 4, 0, true, {}, 'not last test');
+
 test.addTest('Weekdays', [
 		'Mo,Th,Sa,Su 10:00-12:00',
 		'Mo,Th,Sa-Su 10:00-12:00',
@@ -496,6 +502,21 @@ test.addTest('Calculations based on constrained weekdays', [
 		[ '2013.12.30 00:00', '2013.12.31 00:00' ],
 		[ '2014.01.27 00:00', '2014.01.28 00:00' ],
 	], 1000 * 60 * 60 * 24 * 6, 0, false, {}, 'not last test');
+
+test.addTest('Calculations based on constrained weekdays', [
+		'Su[-1] -1 days',
+	], '2013.08.21 0:00', '2014.02.01 0:00', [
+	], 1000 * 60 * 60 * 24 * 6, 0, false, {}, 'last test');
+
+test.addTest('Constrained weekday', [
+		'Aug Su[-1] + 1 day',
+	], '2013.08.28 0:00', '2013.10.08 0:00', [
+	], 0, 0, false, {}, 'not last test');
+
+test.addTest('Constrained weekday', [
+		'Aug Su[-1] + 1 day',
+	], '2013.08.29 0:00', '2013.10.08 0:00', [ // Error in selector code for this date. Only when starting at this date.
+	], 0, 0, false, {}, 'not last test');
 
 test.addTest('Exception blocks', [
 		'Mo-Fr 10:00-16:00; We 12:00-18:00'

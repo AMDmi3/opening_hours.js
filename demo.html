@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 	"http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<head> <!-- {{{ -->
+	<head><!-- {{{ -->
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>opening_hours demo</title>
 		<!-- Some CSS {{{ -->
@@ -27,6 +27,7 @@
 		<!-- }}} -->
 		<!-- Javascript {{{ -->
 		<!-- <script type="text/javascript" src="js/jquery&#45;1.10.2.min.js"></script> -->
+		<script type="text/javascript" src="node_modules/suncalc/suncalc.js"></script>
 		<script type="text/javascript" src="opening_hours.js"></script>
 		<script type="text/javascript" src="js/i18next-1.6.3.min.js"></script>
 		<script type="text/javascript">
@@ -125,6 +126,11 @@
 							"on weekday": " ",
 							"in duration": "in",
 							"region": "region",
+							"position": "position",
+							"lat": "latitude",
+							"lon": "longitude",
+							"country": "country",
+							"state": "state",
 							"status": "status",
 							"examples": "Examples",
 							"none": "none",
@@ -226,6 +232,11 @@
 							// "on weekday": "on", // not needed in this context
 							"on weekday": " ",
 							"region": "Region",
+							"position": "Position",
+							"lat": "Breitengrad",
+							"lon": "Längengrad",
+							"country": "Land",
+							"state": "Bundesstaat",
 							"status": "Status",
 							"examples": "Beispiele",
 							"none": "keine",
@@ -338,6 +349,11 @@
 							"on weekday": "в ", // optionally in other languages
 							"in duration": "через",
 							"region": "регион",
+							"position": "положение",
+							"lat": "широта",
+							"lon": "долгота",
+							"country": "страна",
+							"state": "штат",
 							"status": "статус",
 							"examples": "примеры",
 							"date": "дата",
@@ -467,7 +483,7 @@
 						text: []
 					};
 
-					while (it.advance() && curdate.getTime() - date.getTime() < 24*60*60*1000) {
+					while (has_next_change && it.advance() && curdate.getTime() - date.getTime() < 24*60*60*1000) {
 						curdate = it.getDate();
 
 						var fr = prevdate.getTime() - date.getTime();
@@ -492,7 +508,7 @@
 						}
 
 						prevdate = curdate;
-						state = !state;
+						state = it.getState();
 					}
 
 					if (!has_next_change && table[row].text.length == 0) { // 24/7
@@ -575,6 +591,10 @@
 			<script type="text/javascript">
 			/*<![CDATA[*/
 
+			var lat, lon, nominatim;
+			nominatim = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
+
+
 			function Evaluate (offset, reset) {
 				if (typeof offset == 'undefined') offset = 0;
 
@@ -584,6 +604,26 @@
 				document.forms.check.elements['MatchingRule'].value = '';
 				document.forms.check.elements['WarnErrors'].value = '';
 
+				if (document.forms.check.elements['lat'].value !== lat || document.forms.check.elements['lon'].value !== lon) {
+					lat = document.forms.check.elements['lat'].value;
+					lon = document.forms.check.elements['lon'].value;
+					var url = 'http://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat + '&lon=' + lon
+						+ '&zoom=18&addressdetails=1&email=ypid23@aol.de';
+
+					var xhr = new XMLHttpRequest();
+					xhr.open( "GET", url, true );      // true makes this call asynchronous
+					xhr.onreadystatechange = function () {    // need eventhandler since our call is async
+						if ( xhr.readyState == 4 && xhr.status == 200 ) {  // check for success
+							nominatim = JSON.parse( xhr.responseText );
+							// console.log(JSON.stringify(nominatim, null, '\t'));
+
+							document.forms.check.elements['cc'].value = nominatim.address.country_code;
+							document.forms.check.elements['state'].value = nominatim.address.state;
+							Evaluate();
+						}
+					};
+					// xhr.send(null);
+				}
 
 				date = reset ? new Date() : new Date(
 						document.forms.check.elements['yyyy'].value,
@@ -604,13 +644,16 @@
 				document.forms.check.elements['wday'].value = i18n.t('weekdays.full.' + weekdays[date.getDay()]);
 				// document.forms.check.elements['week'].value = 'W'+u2();
 
+				var user_evaluation = document.getElementById('user_evaluation');
+
 				var crashed = false;
 				try {
-					var oh = new opening_hours(document.forms.check.elements['expression'].value);
+					var oh = new opening_hours(document.forms.check.elements['expression'].value, nominatim);
 					var it = oh.getIterator(date);
 				} catch (err) {
 					crashed = err;
 					document.forms.check.elements['WarnErrors'].value = crashed;
+					user_evaluation.innerHTML = '';
 				}
 
 				if (!crashed) {
@@ -623,7 +666,6 @@
 						? i18n.t('words.none') : it.getMatchingRule();
 					document.forms.check.elements['WarnErrors'].value = oh.getWarnings();
 
-					var user_evaluation = document.getElementById('user_evaluation');
 					user_evaluation.innerHTML = drawTableAndComments(oh, it);
 				}
 			}
@@ -647,7 +689,16 @@
 				location = location.protocol+'//'+location.host+location.pathname+search;
 			}
 
-			window.onload = function () {Evaluate();};
+			function onPositionUpdate(position) {
+				var lat = position.coords.latitude;
+				var lng = position.coords.longitude;
+				console.log("Current position: " + lat + " " + lng);
+			}
+			window.onload = function () {Evaluate();
+			// if(navigator.geolocation)
+			// 	navigator.geolocation.getCurrentPosition(onPositionUpdate);
+			};
+
 			/*]]>*/</script>
 			<!-- }}} -->
 
@@ -666,7 +717,7 @@
 							for (var x = -1; x <= 1; x += 2) {
 								var step = x * buttons[i][1]
 								document.write('<button type="button" onclick="Evaluate(' + buttons[i][0] * step
-									+ ')">' + step + ' ' + i18n.t(buttons[i][2]) + '</button> ');
+									+ ')">' + (step > 0 ? '+' : '') + step + ' ' + i18n.t(buttons[i][2]) + '</button> ');
 							}
 						} else {
 							document.write('<button type="button" onclick="Evaluate(0, true'
@@ -693,15 +744,32 @@
 					&#160;
 					<input size="10" name="wday" readonly="readonly" />
 					<input size="7" name="week" readonly="readonly" />
-					<script type="text/javascript">document.write(i18n.t('words.region') + ':');</script>
-					<input size="6" name="region" value="" onblur="Evaluate()" />
+					<script type="text/javascript">
+						document.write(i18n.t('words.position') + ': ');
+						document.write(i18n.t('words.lat') + ': <input size="7" id="lat" value="52.5244" onblur="Evaluate()" /> ');
+						document.write(i18n.t('words.lon') + ': <input size="7" id="lon" value="13.3062" onblur="Evaluate()" /> ');
+						document.write(i18n.t('words.country') + ': <input size="3" id="cc" readonly="readonly" /> ');
+						document.write(i18n.t('words.state') + ': <input size="20" id="state" readonly="readonly" />');
+					</script>
 				</p>
 
 				<p>
 					<script type="text/javascript">
 						document.write(i18n.t('texts.value for') + ' <q>opening_hours</q>:<br />');
+						function submitenter(myfield,e) {
+							var keycode;
+							if (window.event) keycode = window.event.keyCode;
+							else if (e) keycode = e.which;
+							else return true;
+
+							if (keycode == 13) {
+								Evaluate();
+								return false;
+							} else
+								return true;
+						}
 					</script>
-					<input id="expression" style="width:100%" name="expression" value="24/7" onblur="Evaluate()" />
+					<input id="expression" onKeyPress="return submitenter(this,event)" style="width:100%" name="expression" value="Mo-Fr 10:00-20:00" onblur="Evaluate()" />
 				</p>
 				<!-- }}} -->
 
@@ -751,7 +819,7 @@
 			<div id="user_examples"><!-- {{{ -->
 				<ol>
 					<li><a href="#check" onclick="EX(this)">Mo-Fr 10:00-20:00</a></li>
-					<li><a href="#check" onclick="EX(this)">Mo,Tu,Th,Fr 12:00-18:00;Sa 12:00-17:00; Th[3] off; Th[-1] off</a></li>
+					<li><a href="#check" onclick="EX(this)">Mo,Tu,Th,Fr 12:00-18:00; Sa 12:00-17:00; Th[3] off; Th[-1] off</a></li>
 					<li><a href="#check" onclick="EX(this)">00:00-24:00; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off</a></li>
 					<li><a href="#check" onclick="EX(this)">Fr-Sa 18:00-06:00</a></li>
 					<li><a href="#check" onclick="EX(this)">24/7</a></li>
@@ -771,11 +839,12 @@
 					<li><a href="#check" onclick="EX(this)">Jan 23 - Jul 03: 22:00-23:00 "Please make an reservation by phone."</a></li>
 					<li><a href="#check" onclick="EX(this)">Mar Su[-1] - Dec 25-Su-28 days: 22:00-23:00</a></li>
 					<li><a href="#check" onclick="EX(this)">Dec 25-Su-28 days - Mar Su[-1]: 22:00-23:00</a></li>
+					<li><a href="#check" onclick="EX(this)">Sa[-1],Sa[-1] +1 day 10:00-12:00 open "last weekend in the month"</a></li>
 					<li><a href="#check" onclick="EX(this)">Sa-Su 00:00-24:00</a></li>
 					<li><a href="#check" onclick="EX(this)">Mo-Fr 00:00-24:00</a></li>
 					<li><a href="#check" onclick="EX(this)">sunrise-sunset closed "Beware of sunburn!"</a></li>
 					<li><a href="#check" onclick="EX(this)">sunset-sunrise open "Beware of vampires!"</a></li>
-					<li><a href="#check" onclick="EX(this)">sunset+1:00 hours - 24:00 || closed "No drink before sunset!"</a></li>
+					<li><a href="#check" onclick="EX(this)">(sunset+1:00)-24:00 || closed "No drink before sunset!"</a></li>
 					<li><a href="#check" onclick="EX(this)">22:00+</a></li>
 					<li><a href="#check" onclick="EX(this)">-23:00</a></li>
 					<li><a href="#check" onclick="EX(this)">Tu 23:59-22:59</a></li>

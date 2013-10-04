@@ -20,6 +20,8 @@ around-the-clock shop with some breaks.
 
 Please have a look at the [demo page][] which can give you an impression how this library can be used and what is possibly with it.
 
+You need to download all dependencies when using from this repository. This can be done with ```npm install```.
+
 [demo page]: http://amdmi3.ru/files/opening_hours.js/demo.html
 
 ## Synopsis
@@ -194,7 +196,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   iterator.setDate(date);
   ```
 
-  Set interator to date.
+  Set interator position to date.
 
 * ```javascript
   var is_open = iterator.getState();

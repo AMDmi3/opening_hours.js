@@ -5,7 +5,7 @@
 		module.exports = factory(SunCalc);
 	} else {
 		// For browsers
-		root.opening_hours = factory();
+		root.opening_hours = factory(root.SunCalc);
 	}
 }(this, function (SunCalc) {
 	var SunCalc;
@@ -413,8 +413,8 @@
 		if (typeof nominatiomJSON != 'undefined') {
 			if (typeof nominatiomJSON.address != 'undefined' &&
 					typeof nominatiomJSON.address.state != 'undefined') { // country_code will be tested later …
-				location_cc    = nominatiomJSON.address.country_code;
-				location_state = nominatiomJSON.address.state;
+						location_cc    = nominatiomJSON.address.country_code;
+						location_state = nominatiomJSON.address.state;
 			}
 
 			if (typeof nominatiomJSON.lon != 'undefined') { // lat will be tested later …
@@ -992,6 +992,7 @@
 					for (var nnumber = 0; nnumber < numbers.length; nnumber++) {
 
 						selectors.weekday.push(function(weekday, number, add_days) { return function(date) {
+							var date_num = getValueForDate(date, false); // Year not needed to distinguish.
 							var start_of_this_month = new Date(date.getFullYear(), date.getMonth(), 1);
 							var start_of_next_month = new Date(date.getFullYear(), date.getMonth() + 1, 1);
 
@@ -1035,9 +1036,8 @@
 								target_day_with_added_moved_days_this_month.setDate(target_day_with_added_moved_days_this_month.getDate()
 									+ (number + (number > 0 ? -1 : 0)) * 7 + add_days);
 
-								if (date.getDate() == target_day_with_added_moved_days_this_month.getDate()) {
+								if (date_num == getValueForDate(target_day_with_added_moved_days_this_month, false))
 									return [true, dateAtDayMinutes(date, minutes_in_day)];
-								}
 							} else if (add_days < 0) {
 								var target_day_with_added_moved_days_this_month = dateAtNextWeekday(
 									new Date(date.getFullYear(), date.getMonth() + (number > 0 ? 0 : 1) + 1, 1), weekday);
@@ -1045,10 +1045,11 @@
 									+ (number + (number > 0 ? -1 : 0)) * 7 + add_days);
 
 								if (target_day_with_added_moved_days_this_month.getTime() >= start_of_next_month.getTime()) {
+									// console.log("value");
 									return [false, target_day_with_added_moved_days_this_month];
 								} else {
 									if (target_day_with_added_days_this_month.getTime() < start_of_next_month.getTime()
-										&& target_day_with_added_days_this_month.getDate() == date.getDate())
+										&& getValueForDate(target_day_with_added_days_this_month, false) == date_num)
 										return [true, dateAtDayMinutes(date, minutes_in_day)];
 
 									target_day_with_added_days_this_month = target_day_with_added_moved_days_this_month;
@@ -1156,7 +1157,7 @@
 						'There should be no reason to differ more than ' + max_differ + ' days from a ' + name + '. If so tell us …');
 				add_days[0] *= tokens[at+1][0];
 				if (add_days[0] == 0)
-					parsing_warnings.push([ nblock, at+1, 'Adding 0 does not change the date. Please omit this.' ]);
+					parsing_warnings.push([ nblock, at+2, 'Adding 0 does not change the date. Please omit this.' ]);
 				add_days[1] = true;
 			} else {
 				add_days[0] = 0;
@@ -2049,9 +2050,10 @@
 				}
 
 				this.advance = function(datelimit) {
-					if (typeof datelimit === 'undefined' || datelimit.getTime() <= prevstate[1].getTime()) {
+					if (typeof datelimit === 'undefined')
 						datelimit = new Date(prevstate[1].getTime() + msec_in_day * 366 * 5);
-					}
+					else if (datelimit.getTime() <= prevstate[1].getTime())
+						return false; // The limit for advance needs to be after the current time.
 
 					do {
 						// open range, we won't be able to advance
