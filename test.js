@@ -606,6 +606,22 @@ test.addTest('Fallback group blocks', [
 		[ '2013.10.07 14:00', '2013.10.07 18:00' ],
 	], 1000 * 60 * 60 * ((4 * 8 + 4) + (2 + 2 + (6 + 6))), 0, false, nominatiomTestJSON, 'not last test');
 
+// example from Netzwolf: http://www.netzwolf.info/en/cartography/osm/time_domain/form_hours
+test.addTest('Fallback group blocks', [
+		'Mo-Fr 08:00-11:00 || Th-Sa 12:00-13:00 open "Emergency only"',
+		'Mo-Fr 08:00-11:00, Th-Sa 12:00-13:00 open "Emergency only"',
+		// additional block does the same in this case because the second block does not overlap the first block.
+	], '2013.10.01 0:00', '2013.10.08 0:00', [
+		[ '2013.10.01 08:00', '2013.10.01 11:00' ],
+		[ '2013.10.02 08:00', '2013.10.02 11:00' ],
+		[ '2013.10.03 08:00', '2013.10.03 11:00' ],
+		[ '2013.10.03 12:00', '2013.10.03 13:00', false, 'Emergency only' ],
+		[ '2013.10.04 08:00', '2013.10.04 11:00' ],
+		[ '2013.10.04 12:00', '2013.10.04 13:00', false, 'Emergency only' ],
+		[ '2013.10.05 12:00', '2013.10.05 13:00', false, 'Emergency only' ],
+		[ '2013.10.07 08:00', '2013.10.07 11:00' ],
+	], 1000 * 60 * 60 * (3 * 5 + 3 * 1), 0, true, nominatiomTestJSON, 'not last test');
+
 test.addTest('Month ranges', [
 		'Nov-Feb 00:00-24:00',
 		'Nov-Feb: 00:00-24:00',

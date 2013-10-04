@@ -1939,17 +1939,13 @@
 				// there is no time specified, state applies to the whole day
 				if (blocks[block].time.length == 0) {
 					// console.log('there is no time', date);
-					if (!blocks[block].fallback) {
-						// console.log('no fallback');
+					if (!blocks[block].fallback || (blocks[block].fallback && !(resultstate || unknown))) {
 						resultstate = blocks[block].meaning;
 						unknown     = blocks[block].unknown;
 						comment     = blocks[block].comment;
-					} else if ((blocks[block].fallback && !(resultstate || unknown))) {
-						// console.log('use fallback');
-						resultstate = blocks[block].meaning;
-						unknown     = blocks[block].unknown;
-						comment     = blocks[block].comment;
-						break block; // fallback block matched, no need for checking the rest
+
+						if (blocks[block].fallback)
+							break block; // fallback block matched, no need for checking the rest
 					}
 					match_block = nblock;
 				}
@@ -1959,41 +1955,35 @@
 
 					// console.log('res:', res);
 					if (res[0]) {
-						if (!blocks[block].fallback) {
-							var resultArray =
-								evaluateOpenEnd(blocks[block].meaning, blocks[block].unknown, blocks[block].comment, res[2]);
-							resultstate = resultArray[0];
-							unknown     = resultArray[1];
-							comment     = resultArray[2];
-						} else if ((blocks[block].fallback && !(resultstate || unknown))) {
-							var resultArray =
-								evaluateOpenEnd(blocks[block].meaning, blocks[block].unknown, blocks[block].comment, res[2]);
-							resultstate = resultArray[0];
-							unknown     = resultArray[1];
-							comment     = resultArray[2];
-							break block; // fallback block matched, no need for checking the rest
+						if (!blocks[block].fallback || (blocks[block].fallback && !(resultstate || unknown))) {
+							resultstate = blocks[block].meaning;
+							unknown     = blocks[block].unknown;
+							comment     = blocks[block].comment;
+
+							// open end
+							if (res[2] && (resultstate || unknown)) {
+								if (typeof comment == 'undefined')
+									comment = 'Specified as open end. Closing time was guessed.';
+								resultstate = false;
+								unknown     = true;
+							}
+
+							if (blocks[block].fallback) {
+								if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate))
+									changedate = res[1];
+
+								break block; // fallback block matched, no need for checking the rest
+							}
 						}
 						match_block = nblock;
 					}
-					if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate)) {
-						// console.log('overwrite with:', res[1])
+					if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate))
 						changedate = res[1];
-					}
 				}
 			}
 
 			// console.log('changedate', changedate, resultstate, comment);
 			return [ resultstate, changedate, unknown, comment, match_block ];
-		}
-
-		function evaluateOpenEnd(resultstate, unknown, comment, has_open_range) {
-			if (has_open_range && (resultstate || unknown)) {
-				if (typeof comment == 'undefined')
-					comment = 'Specified as open end. Closing time was guessed.';
-				resultstate = false;
-				unknown     = true;
-			}
-			return [resultstate, unknown, comment];
 		}
 
 		function formatWarnErrorMessage(nblock, at, message) {
