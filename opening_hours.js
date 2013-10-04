@@ -698,6 +698,8 @@
 					// Ignore colon if they appear somewhere else than as time separator.
 					// This provides compatibility with the syntax proposed by Netzwolf:
 					// http://www.netzwolf.info/en/cartography/osm/time_domain/specification
+					if (matchTokens(tokens, at-1, 'weekday') || matchTokens(tokens, at-1, 'holiday'))
+						parsing_warnings.push([nblock, at, 'Please don’t use ":" after ' + tokens[at-1][1] + '.']);
 					at++;
 				} else if (matchTokens(tokens, at, 'number', 'timesep')
 						|| matchTokens(tokens, at, 'timevar')

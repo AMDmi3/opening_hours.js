@@ -37,7 +37,7 @@ class Completer:
             return None
 
 # a set of more or less interesting words
-std_regex = "PH", "SH", ".", "\((?:dusk|sun|dawn)[^)]*(?:-|\+)[^)]*\)" , '(?:dusk|sun|dawn).*hours' '(?:dusk|sun|dawn|\d{1,2}[.:]\d{2})\+'
+std_regex = "PH", "SH", ".", "\((?:dusk|sun|dawn)[^)]*(?:-|\+)[^)]*\)" , '(?:dusk|sun|dawn).*hours', '(?:dusk|sun|dawn|\d{1,2}[.:]\d{2})\+', '\d\s*-\s*(mo|tu|we|th|fr|sa|su)\b'
 
 completer = Completer(std_regex)
 

@@ -117,11 +117,17 @@
 							"value for": "value for",
 							"MatchingRule": "Substring used by applied rule",
 							"warn error": "Error and warning messages",
+							"other implementation": "For more information you can check out the <a href=\"__url__\">original JS implementation</a> written by __by__",
+							"the OSM wiki": "the OSM wiki",
+							"this website": "This website and the JavaScript library used for the evalutation of opening hours is developed on <a href=\"__url__\">__hoster__</a>.",
 						},
 						"words": {
 							"to": "to",
 							"and": "and",
 							"no": "no",
+							"his": "his",
+							"docu": "documentation",
+							"of course": "natürlich",
 							"open": "open",
 							"unknown": "unknown",
 							"closed": "closed",
@@ -228,11 +234,16 @@
 							"value for": "Wert für",
 							"MatchingRule": "Zur Anwendung gekommene Regel",
 							"warn error": "Fehler und Warnungen",
+							"other implementation": "Für weitere Informationen kannst dir eine zweite <a href=\"__url__\">JS Implementierung</a> von __by__ anschauen",
+							"the OSM wiki": "das OSM wiki",
+							"this website": "Die Entwicklung dieser Webseite und der JavaScript Bibliothek zur Auswertung der Öffnungszeiten findet auf <a href=\"__url__\">__hoster__</a> statt.",
 						},
 						"words": {
 							"to": "-",
 							"and": "und",
 							"no": "kein",
+							"his": "seine",
+							"docu": "Dokumentation",
 							"open": "geöffnet",
 							"unknown": "unbekannt",
 							"closed": "geschlossen",
@@ -564,20 +575,22 @@
 			}
 
 			function drawTableAndComments(oh, it) {
-				var prevdate        = it.getDate();
-				var is_open         = it.getState();
-				var unknown         = it.getUnknown();
-				var state_string    = it.getStateString(false);
-				var has_next_change = it.advance();
+				var prevdate          = it.getDate();
+				var is_open           = it.getState();
+				var unknown           = it.getUnknown();
+				var state_string      = it.getStateString(false);
+				var state_string_past = it.getStateString(true);
+				var comment           = it.getComment();
+				var has_next_change   = it.advance();
 
 				var output = '';
 
-				output += '<p class="' + state_string + '">'
-					+ i18n.t('texts.' + state_string + ' ' + (has_next_change ? 'now' : 'always'));
+				output += '<p class="' + state_string_past + '">'
+					+ i18n.t('texts.' + state_string_past+ ' ' + (has_next_change ? 'now' : 'always'));
 				if (unknown) {
-					output += (it.getComment() ? i18n.t('texts.depends on', { comment: '"' + it.getComment() + '"' }) : '');
+					output += (comment ? i18n.t('texts.depends on', { comment: '"' + comment + '"' }) : '');
 				} else {
-					output += (oh.getComment() ? ', ' + i18n.t('words.comment') + ': "' + oh.getComment() + '"' : '');
+					output += (comment ? ', ' + i18n.t('words.comment') + ': "' + comment + '"' : '');
 				}
 				output += '</p>';
 
@@ -600,7 +613,7 @@
 		</script>
 		<!-- }}} -->
 	</head> <!-- }}} -->
-    <body> <!-- {{{ -->
+    <body><!-- {{{ -->
 		<script type="text/javascript">
 			<!-- Choose language {{{ -->
 			document.write(i18n.t('lang.choose')
@@ -617,7 +630,7 @@
 			<!-- }}} -->
 		</script>
 
-		<div id="user"> <!-- {{{ -->
+		<div id="user"><!-- {{{ -->
 			<!-- JS for user testing stuff {{{ -->
 			<script type="text/javascript">
 			/*<![CDATA[*/
@@ -653,7 +666,7 @@
 							Evaluate();
 						}
 					};
-					// xhr.send(null);
+					xhr.send(null);
 				}
 
 				date = reset ? new Date() : new Date(
@@ -868,8 +881,9 @@
 					<li><a href="#check" onclick="EX(this)">Jul 23 - Jan 03: 22:00-23:00 "Please make an reservation by phone."</a></li>
 					<li><a href="#check" onclick="EX(this)">Jul 23 - Jan 03: 08:00-11:00 "Please make an reservation by phone."</a></li>
 					<li><a href="#check" onclick="EX(this)">Jan 23 - Jul 03: 22:00-23:00 "Please make an reservation by phone."</a></li>
-					<li><a href="#check" onclick="EX(this)">Mar Su[-1] - Dec 25-Su-28 days: 22:00-23:00</a></li>
-					<li><a href="#check" onclick="EX(this)">Dec 25-Su-28 days - Mar Su[-1]: 22:00-23:00</a></li>
+					<!-- <li><a href="#check" onclick="EX(this)">Mar Su[&#45;1] &#45; Dec 25&#45;Su&#45;28 days: 22:00&#45;23:00</a></li> -->
+					<!-- <li><a href="#check" onclick="EX(this)">Dec 25&#45;Su&#45;28 days &#45; Mar Su[&#45;1]: 22:00&#45;23:00</a></li> -->
+					<!-- Currently used around 6 times: /\d\s*&#45;\s*(mo|tu|we|th|fr|sa|su)\b/ -->
 					<li><a href="#check" onclick="EX(this)">Sa[-1],Sa[-1] +1 day 10:00-12:00 open "last weekend in the month"</a></li>
 					<li><a href="#check" onclick="EX(this)">Sa-Su 00:00-24:00</a></li>
 					<li><a href="#check" onclick="EX(this)">Mo-Fr 00:00-24:00</a></li>
@@ -882,10 +896,18 @@
 					<li><a href="#check" onclick="EX(this)">We-Mo 23:59-22:59</a></li>
 					<li><a href="#check" onclick="EX(this)">week 2-52/2 We, week 1-53/2 Sa 0:00-24:00</a></li>
 					<li><a href="#check" onclick="EX(this)">week 4-16 We, week 38-42 Sa 0:00-24:00</a></li>
+					<li><a href="#check" onclick="EX(this)">2012 easter - 2 days - 2012 easter + 2 days: open "Around easter"</a></li>
+					<li>
+						<a href="#check" onclick="EX(this)">2013,2015,2050-2053,2055/2,2020-2029/3,2060/1 Jan 1</a>,
+						<a href="https://github.com/AMDmi3/opening_hours.js/tree/master#year-ranges" target="_blank">Documentation</a>
+					</li>
+					<li><a href="#check" onclick="EX(this)">Jan 23-Feb 11,Feb 12 00:00-24:00</a></li>
+					<li><a href="#check" onclick="EX(this)">Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug Su[-1]: 10:00-18:00</a></li>
+					<li><a href="#check" onclick="EX(this)">Su-Tu 11:00-01:00, We-Th 11:00-03:00, Fr 11:00-06:00, Sa 11:00-07:00</a></li>
 				</ol>
 
 				<ol>
-					<li value="33"><a href="#check" onclick="EX(this)">We</a></li>
+					<li value="37"><a href="#check" onclick="EX(this)">We</a></li>
 					<li><a href="#check" onclick="EX(this)">We[1]</a></li>
 					<li><a href="#check" onclick="EX(this)">We[2]</a></li>
 					<li><a href="#check" onclick="EX(this)">We[1-3]</a></li>
@@ -900,6 +922,17 @@
 				</ol> <!-- }}} -->
 			</div><!-- }}} -->
 
-		</div> <!-- }}} -->
-</body><!-- }}} -->
+		<script type="text/javascript">
+		  document.write(i18n.t('texts.other implementation', { by: 'Netzwolf', url: 'http://www.netzwolf.info/en/cartography/osm/time_domain/form_hours' }));
+			document.write(', '
+				+ ' <a href="http://www.netzwolf.info/en/cartography/osm/time_domain/">'
+				+ i18n.t('words.his') + ' ' + i18n.t('words.docu') + '</a>');
+			document.write(' ' + i18n.t('words.and') + ' ' + i18n.t('words.of course') + ' '
+				+ '<a href="http://wiki.openstreetmap.org/wiki/Key:opening_hours">'
+				+ i18n.t('texts.the OSM wiki') + '</a>.<br />');
+
+			document.write(i18n.t('texts.this website', { url: 'https://github.com/AMDmi3/opening_hours.js', hoster: 'GitHub' }));
+	  </script>
+		</div><!-- }}} -->
+	</body><!-- }}} -->
 </html>

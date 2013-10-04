@@ -39,13 +39,6 @@ test.addTest('Time intervals', [
 		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true);
 
-test.addTest('Time intervals (not specified/documented use of colon, please avoid this)', [
-		'24/7; Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 00:00', '2012.10.01 15:00' ],
-		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
-	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true);
-
 test.addTest('Open end', [
 		'07:00+ open "visit there website to know if they did already close"', // specified comments should not be overridden
 		'07:00+ unknown "visit there website to know if they did already close"', // will always interpreted as unknown
@@ -373,6 +366,7 @@ test.addTest('Time ranges spanning midnight with date overwriting (complex real 
 
 test.addTest('Constrained weekday (complex real world example)', [
 		'Apr - Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 days 10:00-18:00, Aug Su[-1] : 10:00-18:00',
+		'Apr - Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 days 10:00-18:00; Aug Su[-1] : 10:00-18:00', // better use this instead
 	], '2013.08.01 0:00', '2013.10.08 0:00', [
 		[ '2013.08.11 14:00', '2013.08.11 18:00' ],
 		[ '2013.08.24 10:00', '2013.08.24 18:00' ],
@@ -1030,11 +1024,26 @@ test.addTest('Calculations based on variable events', [
 	], '2012.01.01 0:00', '2012.10.08 0:00', [
 	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'not only test');
 
+// The hard stuff. Proposed by Netzwolf: http://www.netzwolf.info/en/cartography/osm/time_domain/form_hours#check
+// Currently used around 6 times: /\d\s*-\s*(mo|tu|we|th|fr|sa|su)\b/
+test.addTest('Calculations based on month range', [
+		ignored('Mar Su[-1] - Dec 25-Su-28 days: 12:00-13:00'),
+	], '2012.01.01 0:00', '2012.10.08 0:00', [
+	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'not only test');
+
+test.addTest('Time intervals (not specified/documented use of colon, please avoid this)', [
+		'24/7; Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 00:00', '2012.10.01 15:00' ],
+		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
+	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true);
+
 test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', [
 		// 'Mo[2] - 6 days', // considered as "correct"
 		'Mo[2] - 0 days', // pointless
 		'2013-2015/1',
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1',
+		'24/7; Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
 	], 'not only test');
 
 test.addShouldFail('Incorrect syntax which should throw an error', [
