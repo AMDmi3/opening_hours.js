@@ -433,10 +433,13 @@
 		var blocks = [];
 
 		for (var nblock = 0; nblock < tokens.length; nblock++) {
+			if (tokens[nblock][0].length == 0) continue;
+			// Block does contain nothing useful e.g. second block of '10:00-12:00;' (empty) which needs to be handled.
+
 			var continue_at = 0;
 			do {
-				if (tokens[nblock][0].length == 0) continue;
-				// Block does contain nothing useful e.g. second block of '10:00-12:00;' (empty) which needs to be handled.
+				if (continue_at == tokens[nblock][0].length) break;
+				// Block does contain nothing useful e.g. second block of '10:00-12:00,' (empty) which needs to be handled.
 
 				var selectors = {
 					// Time selectors
