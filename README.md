@@ -241,11 +241,13 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Rule consists of multiple date (```Mo-Fr```, ```Jan-Feb```, ```week 2-10```, ```Jan 10-Feb 10```) and time (```12:00-16:00```, ```12:00-14:00,16:00-18:00```) conditions
 * If a rule's date condition overlap with previous rule, it overrides (as opposed to extends) the previous rule. E.g. ```Mo-Fr 10:00-16:00; We 12:00-18:00``` means that on Wednesday the facility is open from 12:00 till 18:00, not from 10:00 to 18:00.
 
- This also applies for time ranges spanning midnight.	This is the only way to be consistent. Example: ```22:00-02:00; Tu 12:00-14:00``` Consider for one moment to let Th override ```22:00-02:00``` partly like this ```Th 00:00-02:00,12:00-14:00``` this would result in including ```22:00-00:00``` for Th which is probably not what you want. This is not really deterministic. To express this use additional rules.
+  This also applies for time ranges spanning midnight.	This is the only way to be consistent. Example: ```22:00-02:00; Tu 12:00-14:00``` Consider for one moment to let Th override ```22:00-02:00``` partly like this ```Th 00:00-02:00,12:00-14:00``` this would result in including ```22:00-00:00``` for Th which is probably not what you want. This is not really deterministic. To express this use additional rules.
 
 * Date ranges (calendar ranges) can be seperated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][specification]
-* Supports [Fallback rules][] (```We-Fr 10:00-24:00 open "it is open" || "please call"```)
-* Supports additional rules or [cooperative values][] (```Mo-Fr 08:00-12:00, We 14:00-18:00```)
+* Supports [Fallback rules][] (```We-Fr 10:00-24:00 open "it is open" || "please call"```).
+* Supports additional rules or [cooperative values][] (```Mo-Fr 08:00-12:00, We 14:00-18:00```). A additional rule is treaded exactly the same as a normal rule, except that a additional rule does not overwrite the day for which it applies. Note that a additional rule does not use any data from previous or from following rules.
+
+  A rule does only count as additional rule if the previous rule ends with a time range (```12:00-14:00, We 16:00-18:00```), a comment (```12:00-14:00 "call us", We 16:00-18:00```) or the keywords 'open', 'unknown' or 'closed' (```12:00-14:00 unknown, We 16:00-18:00```)
 
 [specification]: http://www.netzwolf.info/en/cartography/osm/time_domain/specification
 [Fallback rules]: http://www.netzwolf.info/en/cartography/osm/time_domain/specification#rule1

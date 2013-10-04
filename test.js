@@ -372,10 +372,13 @@ test.addTest('Time ranges spanning midnight with date overwriting (complex real 
 	], 1000 * 60 * 60 * (1 + 14 * 2 + 16 * 2 + 19 + 20 + 13), 0, true);
 
 test.addTest('Constrained weekday (complex real world example)', [
-		// 'Apr - Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 days, Aug Su[-1] : 10:00-18:00',
-		'Aug Su[-1] -1 days',
-	], '2013.08.01 0:00', '2014.10.08 0:00', [
-	], 1000 * 60 * 60 * 2 * 4, 0, true, {}, 'not last test');
+		'Apr - Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 days 10:00-18:00, Aug Su[-1] : 10:00-18:00',
+	], '2013.08.01 0:00', '2013.10.08 0:00', [
+		[ '2013.08.11 14:00', '2013.08.11 18:00' ],
+		[ '2013.08.24 10:00', '2013.08.24 18:00' ],
+		[ '2013.08.25 10:00', '2013.08.25 18:00' ],
+		[ '2013.09.08 14:00', '2013.09.08 18:00' ],
+	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
 
 test.addTest('Weekdays', [
 		'Mo,Th,Sa,Su 10:00-12:00',
@@ -506,7 +509,13 @@ test.addTest('Calculations based on constrained weekdays', [
 test.addTest('Calculations based on constrained weekdays', [
 		'Su[-1] -1 days',
 	], '2013.08.21 0:00', '2014.02.01 0:00', [
-	], 1000 * 60 * 60 * 24 * 6, 0, false, {}, 'last test');
+		[ '2013.08.24 00:00', '2013.08.25 00:00' ],
+		[ '2013.09.28 00:00', '2013.09.29 00:00' ],
+		[ '2013.10.26 00:00', '2013.10.27 00:00' ],
+		[ '2013.11.23 00:00', '2013.11.24 00:00' ],
+		[ '2013.12.28 00:00', '2013.12.29 00:00' ],
+		[ '2014.01.25 00:00', '2014.01.26 00:00' ],
+	], 1000 * 60 * 60 * 24 * 6, 0, false, {}, 'not last test');
 
 test.addTest('Constrained weekday', [
 		'Aug Su[-1] + 1 day',

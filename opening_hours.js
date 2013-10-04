@@ -703,13 +703,28 @@
 				} else if (matchTokens(tokens, at, 'closed')) {
 					selectors.meaning = false;
 					at++;
+					if (matchTokens(tokens, at, ',')) {
+						// additional block
+						at = [ at + 1 ];
+						break;
+					}
 				} else if (matchTokens(tokens, at, 'open')) {
 					selectors.meaning = true;
 					at++;
+					if (matchTokens(tokens, at, ',')) {
+						// additional block
+						at = [ at + 1 ];
+						break;
+					}
 				} else if (matchTokens(tokens, at, 'unknown')) {
 					selectors.meaning = false;
 					selectors.unknown = true;
 					at++;
+					if (matchTokens(tokens, at, ',')) {
+						// additional block
+						at = [ at + 1 ];
+						break;
+					}
 				} else if (matchTokens(tokens, at, 'comment')) {
 					selectors.comment = tokens[at][0];
 					if (at > 0) {
@@ -1045,8 +1060,8 @@
 									+ (number + (number > 0 ? -1 : 0)) * 7 + add_days);
 
 								if (target_day_with_added_moved_days_this_month.getTime() >= start_of_next_month.getTime()) {
-									// console.log("value");
-									return [false, target_day_with_added_moved_days_this_month];
+									if (target_day_with_added_days_this_month.getTime() >= start_of_next_month.getTime())
+										return [false, target_day_with_added_moved_days_this_month];
 								} else {
 									if (target_day_with_added_days_this_month.getTime() < start_of_next_month.getTime()
 										&& getValueForDate(target_day_with_added_days_this_month, false) == date_num)
@@ -1106,11 +1121,10 @@
 
 					at += is_range ? 3 : 1;
 				} else if (matchTokens(tokens, at, 'holiday')) {
-					at = parseHoliday(tokens, at, selectors, true);
 					week_stable = false;
+					return parseHoliday(tokens, at, selectors, true);
 				} else {
-					// throw formatWarnErrorMessage(nblock, at, 'Unexpected token in weekday range: ' + tokens[at][1]);
-					return [ at ];
+					throw formatWarnErrorMessage(nblock, at, 'Unexpected token in weekday range: ' + tokens[at][1]);
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -1308,10 +1322,9 @@
 						at += 1;
 					}
 				} else if (matchTokens(tokens, at, 'weekday')) {
-					at = parseWeekdayRange(tokens, at, selectors);
+					return parseWeekdayRange(tokens, at, selectors);
 				} else {
-					// throw formatWarnErrorMessage(nblock, at, 'Unexpected token (school holiday parser): ' + tokens[at][1]);
-					return [ at ];
+					throw formatWarnErrorMessage(nblock, at, 'Unexpected token (school holiday parser): ' + tokens[at][1]);
 				}
 
 				if (!matchTokens(tokens, at, ','))
