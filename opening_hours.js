@@ -1395,7 +1395,8 @@
 									+ ' Please add them.';
 							return matching_holiday;
 						} else {
-							throw 'Holidays ' + type_of_holidays + ' are not defined for country ' + location_cc + '.'
+							throw 'Holidays ' + type_of_holidays + ' are not defined for country ' + location_cc
+								+ ' and state ' + location_state + '.'
 								+ ' Please add them.';
 						}
 					}
@@ -2032,13 +2033,16 @@
 					return prevstate[1];
 				}
 
-
 				this.getState = function() {
 					return state[0];
 				}
 
 				this.getUnknown = function() {
 					return state[2];
+				}
+
+				this.getStateString = function(past) {
+					return (state[0] ? 'open' : (state[2] ? 'unknown' : (past ? 'closed' : 'close')));
 				}
 
 				this.getComment = function() {
@@ -2110,6 +2114,12 @@
 		this.getUnknown = function(date) {
 			var it = this.getIterator(date);
 			return it.getUnknown();
+		}
+
+		// Return state string. Either 'open', 'unknown' or 'closed'.
+		this.getStateString = function(date, past) {
+			var it = this.getIterator(date);
+			return it.getStateString(past);
 		}
 
 		// Returns the comment.

@@ -20,8 +20,10 @@
 
 			div.timebar { height: 20px; display: inline-block }
 			div.open { background: #FFFFFF; margin: 0px -1px; border: 1px solid #AAAAAA; border-radius: 5px }
+			div.unknown { background: #94d7b3; margin: 0px -1px; border: 1px solid #AAAAAA; border-radius: 5px }
 			div.closed {}
 			p.open { color: #44AA00 }
+			p.unknown { color: #94d7b3 }
 			p.closed { color: #AA4400 }
 		</style>
 		<!-- }}} -->
@@ -101,25 +103,29 @@
 							}
 						},
 						"texts": {
-							"always open": "Facility is always open.",
-							"always closed": "Facility is always closed.",
+							"open always": "Facility is always open.",
+							"closed always": "Facility is always closed.",
 							"open now": "Facility is now open",
+							"unknown now": "Facility might by open now",
 							"closed now": "Facility is now closed",
 							"will close": "but will close __timestring__.",
+							"will unknown": "but will maybe open __timestring__.",
 							"will open": "but will open __timestring__.",
+							"depends on": "but that depends on",
 							"week stable": "Schedule is valid in any given week.",
 							"not week stable": "Attention! This schedule might change for other weeks.",
 							"value for": "value for",
-							"no comment": "no comment",
 							"MatchingRule": "Substring used by applied rule",
 							"warn error": "Error and warning messages",
 						},
 						"words": {
 							"to": "to",
 							"and": "and",
+							"no": "no",
 							"open": "open",
 							"unknown": "unknown",
 							"closed": "closed",
+							"comment": "comment",
 							"today": "today",
 							"tomorrow": "tomorrow",
 							// "on weekday": "on", // not needed in this context
@@ -208,25 +214,29 @@
 							}
 						},
 						"texts": {
-							"always open": "Die Einrichtung hat immer geöffnet.",
-							"always closed": "Die Einrichtung hat nie geöffnet.",
+							"open always": "Die Einrichtung hat immer geöffnet.",
+							"closed always": "Die Einrichtung hat nie geöffnet.",
 							"open now": "Die Einrichtung hat jetzt geöffnet",
+							"unknown now": "Die Einrichtung ist möglicherweise jetzt geöffnet",
 							"closed now": "Die Einrichtung ist jetzt geschlossen",
 							"will close": "aber wird __timestring__ schließen.",
+							"will unknown": "aber wird eventuell __timestring__ öffnen.",
 							"will open": "aber wird __timestring__ öffnen.",
+							"depends on": ", abhängig von __comment__.",
 							"week stable": "Dieser Wochenplan gilt für jede Woche.",
 							"not week stable": "Achtung! Dieser Wochenplan kann sich in anderen Wochen ändern.",
 							"value for": "Wert für",
-							"no comment": "kein Kommentar",
 							"MatchingRule": "Zur Anwendung gekommene Regel",
 							"warn error": "Fehler und Warnungen",
 						},
 						"words": {
 							"to": "-",
 							"and": "und",
+							"no": "kein",
 							"open": "geöffnet",
 							"unknown": "unbekannt",
 							"closed": "geschlossen",
+							"comment": "Kommentar",
 							"today": "heute",
 							"tomorrow": "morgen",
 							// "on weekday": "on", // not needed in this context
@@ -325,8 +335,8 @@
 							},
 						},
 						"texts": {
-							"always open": "Заведение всегда открыто.",
-							"always closed": "Заведение всегда закрыто.",
+							"open always": "Заведение всегда открыто.",
+							"closed always": "Заведение всегда закрыто.",
 							"open now": "Сейчас заведение открыто",
 							"closed now": "Сейчас заведение закрыто",
 							"will close": "Закроется __timestring__.",
@@ -334,16 +344,17 @@
 							"week stable": "Расписание верно для любой недели.",
 							"not week stable": "ВНИМАНИЕ! Расписание меняется в другие недели.",
 							"value for": "значение для",
-							"no comment": "Нет комментариев",
 							"MatchingRule": "использовать правила",
 							"warn error": "об ошибках и предупреждения",
 						},
 						"words": {
 							"to": "до",
 							"and": "и",
+							"no": "Нет",
 							"open": "c",
 							"unknown": "неизвестный",
 							"closed": "закрыто",
+							"comment": "комментариев",
 							"today": "сегодня",
 							"tomorrow": "завтра",
 							"on weekday": "в ", // optionally in other languages
@@ -473,7 +484,9 @@
 					// }
 
 					it.setDate(date);
-					var state = it.getState();
+					var is_open      = it.getState();
+					var unknown      = it.getUnknown();
+					var state_string = it.getStateString(false);
 					var prevdate = date;
 					var curdate  = date;
 
@@ -495,9 +508,10 @@
 						fr *= 100/1000/60/60/24;
 						to *= 100/1000/60/60/24;
 
-						table[row].times += '<div class="timebar ' + (state ? 'open' : 'closed') + '" style="width:' + (to-fr) + '%"></div>';
-						if (state) {
-							var text = i18n.t('words.open') + ' ' + prevdate.getHours() + ':' + pad(prevdate.getMinutes())
+						table[row].times += '<div class="timebar ' + (is_open ? 'open' : (unknown ? 'unknown' : 'closed'))
+							+ '" style="width:' + (to-fr) + '%"></div>';
+						if (is_open || unknown) {
+							var text = i18n.t('words.' + state_string) + ' ' + prevdate.getHours() + ':' + pad(prevdate.getMinutes())
 								+ ' ' + i18n.t('words.to') + ' ';
 							if (prevdate.getDay() != curdate.getDay())
 								text += '24:00';
@@ -508,11 +522,14 @@
 						}
 
 						prevdate = curdate;
-						state = it.getState();
+						is_open      = it.getState();
+						unknown      = it.getUnknown();
+						state_string = it.getStateString(false);
 					}
 
 					if (!has_next_change && table[row].text.length == 0) { // 24/7
-						table[row].times += '<div class="timebar ' + (state ? 'open' : 'closed') + '" style="width:100%"></div>';
+						table[row].times += '<div class="timebar ' + (is_open ? 'open' : (unknown ? 'unknown' : 'closed'))
+							+ '" style="width:100%"></div>';
 						table[row].text.push(i18n.t('words.open') + ' 00:00 ' + i18n.t('words.to') + '23:59');
 					}
 				}
@@ -538,22 +555,36 @@
 				return output;
 			}
 
+			function getReadableState(startString, endString, oh, past) {
+				if (past === true) past = 'd';
+				else past = '';
+
+				var output = '';
+				return startString + output + endString + '.';
+			}
+
 			function drawTableAndComments(oh, it) {
-				var isopen = it.getState();
-				var prevdate = it.getDate();
+				var prevdate        = it.getDate();
+				var is_open         = it.getState();
+				var unknown         = it.getUnknown();
+				var state_string    = it.getStateString(false);
 				var has_next_change = it.advance();
 
 				var output = '';
-				if (isopen && !has_next_change) {
-					output += '<p class="open">' + i18n.t('texts.always open') +'</p>';
-				} else if (!isopen && !has_next_change) {
-					output += '<p class="closed">' + i18n.t('texts.always closed') +'</p>';
-				} else if (isopen) {
-					output += '<p class="open">' + i18n.t('texts.open now') +'</p>';
-					output += '<p class="closed">' + i18n.t('texts.will close', { timestring: formatdate(prevdate, it.getDate(), false) }) + '</p>';
+
+				output += '<p class="' + state_string + '">'
+					+ i18n.t('texts.' + state_string + ' ' + (has_next_change ? 'now' : 'always'));
+				if (unknown) {
+					output += (it.getComment() ? i18n.t('texts.depends on', { comment: '"' + it.getComment() + '"' }) : '');
 				} else {
-					output += '<p class="closed">' + i18n.t('texts.closed now') +'</p>';
-					output += '<p class="open">' + i18n.t('texts.will open', { timestring: formatdate(prevdate, it.getDate(), true) }) + '</p>';
+					output += (oh.getComment() ? ', ' + i18n.t('words.comment') + ': "' + oh.getComment() + '"' : '');
+				}
+				output += '</p>';
+
+				if (has_next_change) {
+					output += '<p class="' + it.getStateString(true) + '">' +
+						i18n.t('texts.will ' + it.getStateString(false), { timestring: formatdate(prevdate, it.getDate(), true) });
+					output += '</p>';
 				}
 
 				output += drawTable(it, prevdate, has_next_change);
@@ -592,8 +623,6 @@
 			/*<![CDATA[*/
 
 			var lat, lon, nominatim;
-			nominatim = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
-
 
 			function Evaluate (offset, reset) {
 				if (typeof offset == 'undefined') offset = 0;
@@ -607,7 +636,9 @@
 				if (document.forms.check.elements['lat'].value !== lat || document.forms.check.elements['lon'].value !== lon) {
 					lat = document.forms.check.elements['lat'].value;
 					lon = document.forms.check.elements['lon'].value;
-					var url = 'http://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat + '&lon=' + lon
+					// var url = 'http://nominatim.openstreetmap.org/reverse';
+					var url = 'http://open.mapquestapi.com/nominatim/v1/reverse.php';
+					url += '?format=json&lat=' + lat + '&lon=' + lon
 						+ '&zoom=18&addressdetails=1&email=ypid23@aol.de';
 
 					var xhr = new XMLHttpRequest();
@@ -617,7 +648,7 @@
 							nominatim = JSON.parse( xhr.responseText );
 							// console.log(JSON.stringify(nominatim, null, '\t'));
 
-							document.forms.check.elements['cc'].value = nominatim.address.country_code;
+							document.forms.check.elements['cc'].value    = nominatim.address.country_code;
 							document.forms.check.elements['state'].value = nominatim.address.state;
 							Evaluate();
 						}
@@ -658,7 +689,7 @@
 
 				if (!crashed) {
 					document.forms.check.elements['comment'].value = typeof it.getComment() != 'undefined'
-						? it.getComment() : '>>' + i18n.t('texts.no comment') + '<<';
+						? it.getComment() : '>>' + i18n.t('words.no') + ' ' + i18n.t('words.comment') + '<<';
 					// document.forms.check.elements['rr'].value = result.region || '';
 					document.forms.check.elements['status'].value = (it.getState() ? i18n.t('words.open')
 						: (it.getUnknown() ? i18n.t('words.unknown') : i18n.t('words.closed')));

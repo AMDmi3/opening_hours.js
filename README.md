@@ -18,7 +18,7 @@ around-the-clock shop with some breaks.
 
 ## demo.html
 
-Please have a look at the [demo page][] which can give you an impression how this library can be used and what is possibly with it.
+Please have a look at the [demo page][] which can give you an impression how this library can be used and what it is capable of.
 
 You need to download all dependencies when using from this repository. This can be done with ```npm install```.
 
@@ -48,7 +48,7 @@ var to   = new Date("01 Feb 2012");
 }
 
 // helper function
-function logState(startString, endString, oh, past) {
+function getReadableState(startString, endString, oh, past) {
 	if (past === true) past = 'd';
 	else past = '';
 
@@ -60,7 +60,7 @@ function logState(startString, endString, oh, past) {
 		output += ' ' + (oh.getState() ? 'open' : 'close' + past)
 			+ (oh.getComment() ? ', comment "' + oh.getComment() + '"' : '');
 	}
-	console.log(startString + output + endString + '.');
+	return startString + output + endString + '.';
 }
 
 // simple API
@@ -70,7 +70,7 @@ function logState(startString, endString, oh, past) {
 	var comment    = oh.getComment();
 	var nextchange = oh.getNextChange();
 
-	logState('We\'re', '', oh, true);
+	console.log(getReadableState('We\'re', '', oh, true));
 
 	if (typeof nextchange === 'undefined')
 		console.log('And we will never ' + (state ? 'close' : 'open'));
@@ -84,12 +84,12 @@ function logState(startString, endString, oh, past) {
 {
 	var iterator = oh.getIterator(from);
 
-	logState('Initially, we\'re', '', iterator, true);
+	console.log(getReadableState('Initially, we\'re', '', iterator, true));
 
 	while (iterator.advance(to))
-		logState('Then we', ' at ' + iterator.getDate(), iterator);
+		console.log(getReadableState('Then we', ' at ' + iterator.getDate(), iterator));
 
-	logState('And till the end we\'re', '', iterator, true);
+	console.log(getReadableState('And till the end we\'re', '', iterator, true));
 }
 ```
 
@@ -154,6 +154,14 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   If unknown is true then is_open will be false since it is not sure if it is open.
 
 * ```javascript
+  var state_string = oh.getStateString(date, past);
+  ```
+
+	Return state string at given *date*. Either 'open', 'unknown' or 'closed?'. You may omit *date* to use current date.
+
+	If the boolean parameter `past` is true you will get 'closed' else you will get 'close'.
+
+* ```javascript
  	var comment = oh.getComment(date);
   ```
 
@@ -211,6 +219,12 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   Checks whether the opening state is conditional or unknown at the current iterator position in time.
 
 * ```javascript
+  var state_string = iterator.getStateString();
+  ```
+
+	Return state string. Either 'open', 'unknown' or 'closed'.
+
+* ```javascript
  	var comment = iterator.getComment();
   ```
 
@@ -234,7 +248,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
 
 ## Features
 
-Almost everything from opening_hours definition is supported, as well as some extensions (indicated as **EXT:** below). For instance, the library is able to process 99.4% of all opening_hours tags from Russia OSM data.
+Almost everything from opening_hours definition is supported, as well as some extensions (indicated as **EXT:** below).
 
 * Opening hours consist of multiple rules separated by semicolon (```Mo 10:00-20:00; Tu 12:00-18:00```)
 * Rule may use ```off``` keyword to indicate that the facility is closed at that time (```Mo-Fr 10:00-20:00; 12:00-14:00 off```)
@@ -243,14 +257,16 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
   This also applies for time ranges spanning midnight.	This is the only way to be consistent. Example: ```22:00-02:00; Tu 12:00-14:00``` Consider for one moment to let Th override ```22:00-02:00``` partly like this ```Th 00:00-02:00,12:00-14:00``` this would result in including ```22:00-00:00``` for Th which is probably not what you want. This is not really deterministic. To express this use additional rules.
 
-* Date ranges (calendar ranges) can be seperated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][specification]
-* Supports [Fallback rules][] (```We-Fr 10:00-24:00 open "it is open" || "please call"```).
+* Date ranges (calendar ranges) can be seperated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][specification].
+* Supports [fallback rules][] (```We-Fr 10:00-24:00 open "it is open" || "please call"```).
+
+  Note that only the rule which starts with ```||``` is a fallback rule. Other rules which might follow are considered as normal rules.
 * Supports additional rules or [cooperative values][] (```Mo-Fr 08:00-12:00, We 14:00-18:00```). A additional rule is treaded exactly the same as a normal rule, except that a additional rule does not overwrite the day for which it applies. Note that a additional rule does not use any data from previous or from following rules.
 
   A rule does only count as additional rule if the previous rule ends with a time range (```12:00-14:00, We 16:00-18:00```), a comment (```12:00-14:00 "call us", We 16:00-18:00```) or the keywords 'open', 'unknown' or 'closed' (```12:00-14:00 unknown, We 16:00-18:00```)
 
 [specification]: http://www.netzwolf.info/en/cartography/osm/time_domain/specification
-[Fallback rules]: http://www.netzwolf.info/en/cartography/osm/time_domain/specification#rule1
+[fallback rules]: http://www.netzwolf.info/en/cartography/osm/time_domain/specification#rule1
 [cooperative values]: http://www.netzwolf.info/en/cartography/osm/time_domain/#specification
 
 ### Time ranges ###
@@ -362,7 +378,7 @@ Simple node.js based test framework is bundled. You can run it with ```node test
 ### Large scale ###
 To see how this library performance in the real OpenStreetMap world you can run ```make real_test``` or ```node real_test.js``` (data needs to be exported first) to try to process every value which uses the opening_hours syntax from [taginfo][] with this library.
 
-Currently (October 2013) this library can parse 95 % of all opening_hours values in OSM.
+Currently (October 2013) this library can parse 95 % of all opening_hours values in OSM. (If identical values appear multiple times then each value counts separately)
 
 [taginfo]: http://taginfo.openstreetmap.org/
 
