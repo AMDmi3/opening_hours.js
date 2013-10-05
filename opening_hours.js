@@ -1213,26 +1213,28 @@
 							var date_num = getValueForDate(date, true);
 
 							for (var i = 0; i < holidays.length; i++) {
-								var next_holiday_date_num = getValueForDate(holidays[i], true);
+								var next_holiday_date_num = getValueForDate(holidays[i][0], true);
 
 								if (date_num < next_holiday_date_num) {
-									if (add_days[0] > 0) {
 
+									if (add_days[0] > 0) {
 										// Calculate the last holiday from previous year to tested against it.
 										var holidays_last_year = getApplyingHolidaysForYear(applying_holidays, date.getFullYear() - 1, add_days);
 										var last_holiday_last_year = holidays_last_year[holidays_last_year.length - 1];
-										var last_holiday_last_year_num = getValueForDate(last_holiday_last_year, true);
+										var last_holiday_last_year_num = getValueForDate(last_holiday_last_year[0], true);
 
 										if (date_num < last_holiday_last_year_num ) {
-											return [ false, last_holiday_last_year ];
+											return [ false, last_holiday_last_year[0] ];
 										} else if (date_num == last_holiday_last_year_num) {
-											return [true, dateAtDayMinutes(last_holiday_last_year, minutes_in_day) ];
+											return [true, dateAtDayMinutes(last_holiday_last_year[0], minutes_in_day),
+												'Day after ' +last_holiday_last_year[1] ];
 										}
 									}
 
-									return [ false, holidays[i] ];
+									return [ false, holidays[i][0] ];
 								} else if (date_num == next_holiday_date_num) {
-									return [true, new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1) ];
+									return [true, new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1),
+										(add_days[0] > 0 ? 'Day after ' : (add_days[0] < 0 ? 'Day before ' : '')) + holidays[i][1] ];
 								}
 							}
 
@@ -1240,16 +1242,17 @@
 								// Calculate the first holiday from next year to tested against it.
 								var holidays_next_year = getApplyingHolidaysForYear(applying_holidays, date.getFullYear() + 1, add_days);
 								var first_holidays_next_year = holidays_next_year[0];
-								var first_holidays_next_year_num = getValueForDate(first_holidays_next_year, true);
+								var first_holidays_next_year_num = getValueForDate(first_holidays_next_year[0], true);
 								if (date_num == first_holidays_next_year_num) {
-									return [true, dateAtDayMinutes(first_holidays_next_year, minutes_in_day) ];
+									return [true, dateAtDayMinutes(first_holidays_next_year[0], minutes_in_day),
+										'Day before ' + first_holidays_next_year[1] ];
 								}
 							}
 
 							// continue next year
-							return [ false, new Date(holidays[0].getFullYear() + 1,
-									holidays[0].getMonth(),
-									holidays[0].getDate()) ];
+							return [ false, new Date(holidays[0][0].getFullYear() + 1,
+									holidays[0][0].getMonth(),
+									holidays[0][0].getDate()) ];
 
 						}}(applying_holidays, add_days);
 
@@ -1293,14 +1296,16 @@
 											if (last_year_holiday_to < last_year_holiday_from && date_num < last_year_holiday_to)
 												return [ true, new Date(date.getFullYear(),
 													last_year_holiday[last_year_holiday.length - 2] - 1,
-													last_year_holiday[last_year_holiday.length - 1] + 1) ];
+													last_year_holiday[last_year_holiday.length - 1] + 1),
+													applying_holidays[applying_holidays.length - 1].name ];
 											else
 												return [ false, new Date(date.getFullYear(), holiday[0+h] - 1, holiday[1+h]) ];
 										} else { // school holidays for last year are not defined.
 											return [ false, new Date(date.getFullYear(), holiday[0+h] - 1, holiday[1+h]) ];
 										}
 									} else if (holiday_from <= date_num && (date_num < holiday_to_plus || holiday_ends_next_year)) {
-										return [ true, new Date(date.getFullYear() + holiday_ends_next_year, holiday[2+h] - 1, holiday[3+h] + 1) ];
+										return [ true, new Date(date.getFullYear() + holiday_ends_next_year, holiday[2+h] - 1, holiday[3+h] + 1),
+											applying_holidays[i].name ];
 									} else if (holiday_to_plus == date_num) { // selected holiday end is equal to month and day
 										if (h + 4 < holiday.length) { // next holiday is next date range of the same holidays
 											h += 4;
@@ -1477,12 +1482,12 @@
 					next_holiday.setDate(next_holiday.getDate() + add_days[0]);
 				}
 
-				sorted_holidays.push(next_holiday);
+				sorted_holidays.push([ next_holiday, holiday_name ]);
 			}
 
 			sorted_holidays = sorted_holidays.sort(function(a,b){
-				if (a.getTime() < b.getTime()) return -1;
-				if (a.getTime() > b.getTime()) return 1;
+				if (a[0].getTime() < b[0].getTime()) return -1;
+				if (a[0].getTime() > b[0].getTime()) return 1;
 				return 0;
 			});
 
@@ -1897,6 +1902,11 @@
 						var res = dateselectors[datesel](date);
 						if (res[0]) {
 							has_matching_selector = true;
+
+							if (typeof res[2] == 'string') { // holiday name
+								comment = [ res[2] ];
+							}
+
 						}
 						if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1].getTime() < changedate.getTime()))
 							changedate = res[1];
@@ -1945,7 +1955,11 @@
 					if (!blocks[block].fallback || (blocks[block].fallback && !(resultstate || unknown))) {
 						resultstate = blocks[block].meaning;
 						unknown     = blocks[block].unknown;
-						comment     = blocks[block].comment;
+
+						if (typeof blocks[block].comment != 'undefined')
+							comment     = blocks[block].comment;
+						else if (typeof comment == 'object') // holiday name
+							comment = comment[0];
 
 						if (blocks[block].fallback)
 							break block; // fallback block matched, no need for checking the rest
@@ -1961,10 +1975,16 @@
 						if (!blocks[block].fallback || (blocks[block].fallback && !(resultstate || unknown))) {
 							resultstate = blocks[block].meaning;
 							unknown     = blocks[block].unknown;
-							comment     = blocks[block].comment;
+
+							if (typeof blocks[block].comment != 'undefined') // only use comment if one is specified
+								comment     = blocks[block].comment;
+							else if (typeof comment == 'object') // holiday name
+								comment = comment[0];
+							else if (comment === 'Specified as open end. Closing time was guessed.')
+								comment = blocks[block].comment;
 
 							// open end
-							if (res[2] && (resultstate || unknown)) {
+							if (typeof res[2] == 'boolean' && res[2] && (resultstate || unknown)) {
 								if (typeof comment == 'undefined')
 									comment = 'Specified as open end. Closing time was guessed.';
 								resultstate = false;

@@ -320,6 +320,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * There can be to cases which need to be seperated (this applies for PH and SH):
   1. ```Mo-Fr,PH```: The facility is open Mo-Fr and PH. If PH is a Sunday for example the facility is also open. This is the default case.
   2. **EXT:** ```PH Mo-Fr```: The facility is only open if a PH falls on Mo-Fr. For example if a PH is on the weekday Wednesday then the facility will be open, if PH is Saturday it will be closed.
+* If there is no comment specified by the rule, the name of the holiday is returned as comment.
 * To evaluate the correct holidays, the country code and the state (could be omitted but this will probably result in less exactitude) are required which are included in the JSON returned by [Nominatim] \(see in the [Library API](#library-api) how to provide it\).
 * If your country or state is missing or wrong you can add it or open an [issue][issure-report] (and point to a definiton of the holidays).
 
