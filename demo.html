@@ -33,6 +33,20 @@
 		<script type="text/javascript" src="opening_hours.js"></script>
 		<script type="text/javascript" src="js/i18next-1.6.3.min.js"></script>
 		<script type="text/javascript">
+
+			// add calculation for calendar week to date {{{
+			function dateAtWeek(date, week) {
+				var minutes_in_day = 60 * 24;
+				var msec_in_day    = 1000 * 60 * minutes_in_day;
+				var msec_in_week   = msec_in_day * 7;
+
+				var tmpdate = new Date(date.getFullYear(), 0, 1);
+				tmpdate.setDate(1 - (tmpdate.getDay() + 6) % 7 + week * 7); // start of week n where week starts on Monday
+				return Math.floor((date - tmpdate) / msec_in_week);
+			}
+
+
+			// }}}
 			// localization {{{
 			var resources = { // English is fallback language.
 				en: { translation: {
@@ -544,7 +558,8 @@
 					if (!has_next_change && table[row].text.length == 0) { // 24/7
 						table[row].times += '<div class="timebar ' + (is_open ? 'open' : (unknown ? 'unknown' : 'closed'))
 							+ '" style="width:100%"></div>';
-						table[row].text.push(i18n.t('words.open') + ' 00:00 ' + i18n.t('words.to') + '23:59');
+						if (is_open || unknown)
+							table[row].text.push(i18n.t('words.open') + ' 00:00 ' + i18n.t('words.to') + '23:59');
 					}
 				}
 
@@ -600,7 +615,7 @@
 				if (has_next_change) {
 					var time_diff = it.getDate().getTime() - prevdate.getTime();
 					time_diff = (time_diff) / 1000;
-					time_diff += 1; // go one 1/60 second after
+					time_diff += 60; // go one second after
 					output += '<p class="' + it.getStateString(true) + '">'
 						+ i18n.t('texts.will ' + it.getStateString(false), {
 							timestring: formatdate(prevdate, it.getDate(), true),
@@ -655,8 +670,17 @@
 				document.forms.check.elements['WarnErrors'].value = '';
 
 				if (document.forms.check.elements['lat'].value !== lat || document.forms.check.elements['lon'].value !== lon) {
-					lat = document.forms.check.elements['lat'].value;
-					lon = document.forms.check.elements['lon'].value;
+					lat = parseInt(document.forms.check.elements['lat'].value);
+					lon = parseInt(document.forms.check.elements['lon'].value);
+					if (typeof lat != 'number' || typeof lon != 'number') {
+						if (typeof lat != 'number')
+							document.forms.check.elements['lat'].value = 53.1035;
+						if (typeof lon != 'number')
+							document.forms.check.elements['lon'].value = 8.8976;
+						console.log('Please enter numbers for latitude and longitude.');
+						return;
+					}
+
 					// var url = 'http://nominatim.openstreetmap.org/reverse';
 					var url = 'http://open.mapquestapi.com/nominatim/v1/reverse.php';
 					url += '?format=json&lat=' + lat + '&lon=' + lon
@@ -703,13 +727,13 @@
 
 				function u2 (v) { return v>=0 && v<10 ? "0"+v : v; }
 
-				document.forms.check.elements['yyyy'].value = date.getFullYear();
+				document.forms.check.elements['yyyy'].value       = date.getFullYear();
 				document.forms.check.elements['mm'].selectedIndex = date.getMonth();
-				document.forms.check.elements['dd'].value = u2(date.getDate());
-				document.forms.check.elements['HH'].value = u2(date.getHours());
-				document.forms.check.elements['MM'].value = u2(date.getMinutes());
-				document.forms.check.elements['wday'].value = i18n.t('weekdays.full.' + weekdays[date.getDay()]);
-				// document.forms.check.elements['week'].value = 'W'+u2();
+				document.forms.check.elements['dd'].value         = u2(date.getDate());
+				document.forms.check.elements['HH'].value         = u2(date.getHours());
+				document.forms.check.elements['MM'].value         = u2(date.getMinutes());
+				document.forms.check.elements['wday'].value       = i18n.t('weekdays.full.' + weekdays[date.getDay()]);
+				document.forms.check.elements['week'].value       = 'W'+u2(dateAtWeek(date, 0) + 1);
 
 				var user_evaluation = document.getElementById('user_evaluation');
 
@@ -783,11 +807,12 @@
 							for (var x = -1; x <= 1; x += 2) {
 								var step = x * buttons[i][1]
 								document.write('<button type="button" onclick="Evaluate(' + buttons[i][0] * step
-									+ ')">' + (step > 0 ? '+' : '') + step + ' ' + i18n.t(buttons[i][2]) + '</button> ');
+									+ ')">' + (step > 0 ? '+' : '') + step + ' ' + i18n.t(buttons[i][2]) + '</button>'
+									+ (x == 1 ? ' ' : ''));
 							}
 						} else {
 							document.write('<button type="button" onclick="Evaluate(0, true'
-								+ ')">' + i18n.t(buttons[i][2]) + '</button> ');
+								+ ')">' + i18n.t(buttons[i][2]) + '</button>');
 						}
 					}
 					</script>
@@ -809,9 +834,12 @@
 					<input size="3" name="HH" value="22" onblur="Evaluate()" />:<input size="3" name="MM" value="21" onblur="Evaluate()" />
 					&#160;
 					<input size="10" name="wday" readonly="readonly" />
-					<input size="7" name="week" readonly="readonly" />
+					<input size="3"  name="week" readonly="readonly" />
+				</p>
+
+				<p>
 					<script type="text/javascript">
-						document.write(i18n.t('words.position') + ': ');
+						document.write(i18n.t('words.position') + ':<br />');
 						document.write(i18n.t('words.lat') + ': <input size="7" id="lat" value="53.1035" onblur="Evaluate()" /> ');
 						document.write(i18n.t('words.lon') + ': <input size="7" id="lon" value="8.8976"  onblur="Evaluate()" /> ');
 						document.write(i18n.t('words.country') + ': <input size="3" id="cc" readonly="readonly" /> ');
@@ -948,7 +976,8 @@
 			</div><!-- }}} -->
 
 		<script type="text/javascript">
-		  document.write(i18n.t('texts.other implementation', { by: 'Netzwolf', url: 'http://www.netzwolf.info/en/cartography/osm/time_domain/form_hours' }));
+			document.write(i18n.t('texts.other implementation',
+				{ by: 'Netzwolf', url: 'http://www.netzwolf.info/en/cartography/osm/time_domain/form_hours' }));
 			document.write(', '
 				+ ' <a href="http://www.netzwolf.info/en/cartography/osm/time_domain/" target="_blank">'
 				+ i18n.t('words.his') + ' ' + i18n.t('words.docu') + '</a>');
@@ -957,7 +986,7 @@
 				+ i18n.t('texts.the OSM wiki') + '</a>.<br />');
 
 			document.write(i18n.t('texts.this website', { url: 'https://github.com/AMDmi3/opening_hours.js', hoster: 'GitHub' }));
-	  </script>
+		</script>
 		</div><!-- }}} -->
 	</body><!-- }}} -->
 </html>
