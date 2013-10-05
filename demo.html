@@ -109,18 +109,18 @@
 							"open now": "Facility is now open",
 							"unknown now": "Facility might be open now",
 							"closed now": "Facility is now closed",
-							"will close": "but will close __timestring__.",
-							"will unknown": "but will maybe open __timestring__.",
-							"will open": "but will open __timestring__.",
+							"will close": "but <a href=\"__href__\">will</a> close __timestring__.",
+							"will unknown": "but <a href=\"__href__\">will</a> maybe open __timestring__.",
+							"will open": "but <a href=\"__href__\">will</a> open __timestring__.",
 							"depends on": ", but that depends on __comment__.",
 							"week stable": "Schedule is valid in any given week.",
 							"not week stable": "Attention! This schedule might change for other weeks.",
 							"value for": "value for",
 							"MatchingRule": "Substring used by applied rule",
 							"warn error": "Error and warning messages",
-							"other implementation": "For more information you can check out the <a href=\"__url__\">original JS implementation</a> written by __by__",
+							"other implementation": "For more information you can check out the <a href=\"__url__\" target=\"_blank\">original JS implementation</a> written by __by__",
 							"the OSM wiki": "the OSM wiki",
-							"this website": "This website and the JavaScript library used for the evalutation of opening hours is developed on <a href=\"__url__\">__hoster__</a>.",
+							"this website": "This website and the JavaScript library used for the evalutation of opening hours is developed on <a href=\"__url__\" target=\"_blank\">__hoster__</a>.",
 						},
 						"words": {
 							"to": "to",
@@ -128,7 +128,7 @@
 							"no": "no",
 							"his": "his",
 							"docu": "documentation",
-							"of course": "natürlich",
+							"of course": "of course",
 							"open": "open",
 							"unknown": "unknown",
 							"closed": "closed",
@@ -227,18 +227,18 @@
 							"open now": "Die Einrichtung hat jetzt geöffnet",
 							"unknown now": "Die Einrichtung ist möglicherweise jetzt geöffnet",
 							"closed now": "Die Einrichtung ist jetzt geschlossen",
-							"will close": "aber wird __timestring__ schließen.",
-							"will unknown": "aber wird eventuell __timestring__ öffnen.",
-							"will open": "aber wird __timestring__ öffnen.",
+							"will close": "aber <a href=\"__href__\">wird</a> __timestring__ schließen.",
+							"will unknown": "aber <a href=\"__href__\">wird</a> eventuell __timestring__ öffnen.",
+							"will open": "aber <a href=\"__href__\">wird</a> __timestring__ öffnen.",
 							"depends on": ", abhängig von __comment__.",
 							"week stable": "Dieser Wochenplan gilt für jede Woche.",
 							"not week stable": "Achtung! Dieser Wochenplan kann sich in anderen Wochen ändern.",
 							"value for": "Wert für",
 							"MatchingRule": "Zur Anwendung gekommene Regel",
 							"warn error": "Fehler und Warnungen",
-							"other implementation": "Für weitere Informationen kannst dir eine zweite <a href=\"__url__\">JS Implementierung</a> von __by__ anschauen",
+							"other implementation": "Für weitere Informationen kannst dir eine weitere (die erste) <a href=\"__url__\" target=\"_blank\">JS Implementierung</a>, von __by__ anschauen",
 							"the OSM wiki": "das OSM wiki",
-							"this website": "Die Entwicklung dieser Webseite und der JavaScript Bibliothek zur Auswertung der Öffnungszeiten findet auf <a href=\"__url__\">__hoster__</a> statt.",
+							"this website": "Die Entwicklung dieser Webseite und der JavaScript Bibliothek zur Auswertung der Öffnungszeiten findet auf <a href=\"__url__\" target=\"_blank\">__hoster__</a> statt.",
 						},
 						"words": {
 							"to": "-",
@@ -246,6 +246,7 @@
 							"no": "kein",
 							"his": "seine",
 							"docu": "Dokumentation",
+							"of course": "natürlich",
 							"open": "geöffnet",
 							"unknown": "unbekannt",
 							"closed": "geschlossen",
@@ -352,8 +353,8 @@
 							"closed always": "Заведение всегда закрыто.",
 							"open now": "Сейчас заведение открыто",
 							"closed now": "Сейчас заведение закрыто",
-							"will close": "Закроется __timestring__.",
-							"will open": "Откроется __timestring__.",
+							"will close": "<a href=\"__href__\">Закроется</a> __timestring__.",
+							"will open": "<a href=\"__href__\">Откроется</a> __timestring__.",
 							"week stable": "Расписание верно для любой недели.",
 							"not week stable": "ВНИМАНИЕ! Расписание меняется в другие недели.",
 							"value for": "значение для",
@@ -597,9 +598,14 @@
 				output += '</p>';
 
 				if (has_next_change) {
-					output += '<p class="' + it.getStateString(true) + '">' +
-						i18n.t('texts.will ' + it.getStateString(false), { timestring: formatdate(prevdate, it.getDate(), true) });
-					output += '</p>';
+					var time_diff = it.getDate().getTime() - prevdate.getTime();
+					time_diff = (time_diff) / 1000;
+					time_diff += 1; // go one 1/60 second after
+					output += '<p class="' + it.getStateString(true) + '">'
+						+ i18n.t('texts.will ' + it.getStateString(false), {
+							timestring: formatdate(prevdate, it.getDate(), true),
+							href: 'javascript:Evaluate(' + time_diff + ')',
+						}) + '</p>';
 				}
 
 				output += drawTable(it, prevdate, has_next_change);
@@ -638,12 +644,12 @@
 			/*<![CDATA[*/
 
 			var lat, lon, nominatim;
+			var url_lang = 'en';
 
 			function Evaluate (offset, reset) {
 				if (typeof offset == 'undefined') offset = 0;
 
 				document.forms.check.elements['comment'].value = '';
-				document.forms.check.elements['rr'].value = '';
 				document.forms.check.elements['status'].value = '';
 				document.forms.check.elements['MatchingRule'].value = '';
 				document.forms.check.elements['WarnErrors'].value = '';
@@ -655,17 +661,32 @@
 					var url = 'http://open.mapquestapi.com/nominatim/v1/reverse.php';
 					url += '?format=json&lat=' + lat + '&lon=' + lon
 						+ '&zoom=18&addressdetails=1&email=ypid23@aol.de';
+					var url_lang_set = 'accept-language=';
 
 					var xhr = new XMLHttpRequest();
-					xhr.open( "GET", url, true );      // true makes this call asynchronous
+					xhr.open( "GET", url + '&' + url_lang_set + url_lang, true );      // true makes this call asynchronous
 					xhr.onreadystatechange = function () {    // need eventhandler since our call is async
 						if ( xhr.readyState == 4 && xhr.status == 200 ) {  // check for success
 							nominatim = JSON.parse( xhr.responseText );
 							// console.log(JSON.stringify(nominatim, null, '\t'));
 
-							document.forms.check.elements['cc'].value    = nominatim.address.country_code;
-							document.forms.check.elements['state'].value = nominatim.address.state;
-							Evaluate();
+							if (nominatim.address.country_code != url_lang) {
+								xhr.open( "GET", url + '&' + url_lang_set + nominatim.address.country_code, true );
+								xhr.onreadystatechange = function () {
+									if ( xhr.readyState == 4 && xhr.status == 200 ) {  // check for success
+										nominatim = JSON.parse( xhr.responseText );
+									}
+									url_lang = nominatim.address.country_code;
+									document.forms.check.elements['cc'].value    = nominatim.address.country_code;
+									document.forms.check.elements['state'].value = nominatim.address.state;
+									Evaluate();
+								}
+								xhr.send(null);
+							} else {
+								document.forms.check.elements['cc'].value    = nominatim.address.country_code;
+								document.forms.check.elements['state'].value = nominatim.address.state;
+								Evaluate();
+							}
 						}
 					};
 					xhr.send(null);
@@ -705,7 +726,6 @@
 				if (!crashed) {
 					document.forms.check.elements['comment'].value = typeof it.getComment() != 'undefined'
 						? it.getComment() : '>>' + i18n.t('words.no') + ' ' + i18n.t('words.comment') + '<<';
-					// document.forms.check.elements['rr'].value = result.region || '';
 					document.forms.check.elements['status'].value = (it.getState() ? i18n.t('words.open')
 						: (it.getUnknown() ? i18n.t('words.unknown') : i18n.t('words.closed')));
 					document.forms.check.elements['MatchingRule'].value = typeof it.getMatchingRule() == 'undefined'
@@ -792,8 +812,8 @@
 					<input size="7" name="week" readonly="readonly" />
 					<script type="text/javascript">
 						document.write(i18n.t('words.position') + ': ');
-						document.write(i18n.t('words.lat') + ': <input size="7" id="lat" value="52.5244" onblur="Evaluate()" /> ');
-						document.write(i18n.t('words.lon') + ': <input size="7" id="lon" value="13.3062" onblur="Evaluate()" /> ');
+						document.write(i18n.t('words.lat') + ': <input size="7" id="lat" value="53.1035" onblur="Evaluate()" /> ');
+						document.write(i18n.t('words.lon') + ': <input size="7" id="lon" value="8.8976"  onblur="Evaluate()" /> ');
 						document.write(i18n.t('words.country') + ': <input size="3" id="cc" readonly="readonly" /> ');
 						document.write(i18n.t('words.state') + ': <input size="20" id="state" readonly="readonly" />');
 					</script>
@@ -827,7 +847,6 @@
 					<script type="text/javascript">document.write(i18n.t('words.status') + ':<br />');</script>
 					<input size="10" name="status" readonly="readonly" />
 					<input size="60" name="comment" readonly="readonly" />
-					<input size="6" name="rr" readonly="readonly" />
 				</p>
 
 				<p>
@@ -927,10 +946,10 @@
 		<script type="text/javascript">
 		  document.write(i18n.t('texts.other implementation', { by: 'Netzwolf', url: 'http://www.netzwolf.info/en/cartography/osm/time_domain/form_hours' }));
 			document.write(', '
-				+ ' <a href="http://www.netzwolf.info/en/cartography/osm/time_domain/">'
+				+ ' <a href="http://www.netzwolf.info/en/cartography/osm/time_domain/" target="_blank">'
 				+ i18n.t('words.his') + ' ' + i18n.t('words.docu') + '</a>');
 			document.write(' ' + i18n.t('words.and') + ' ' + i18n.t('words.of course') + ' '
-				+ '<a href="http://wiki.openstreetmap.org/wiki/Key:opening_hours">'
+				+ '<a href="http://wiki.openstreetmap.org/wiki/Key:opening_hours" target="_blank">'
 				+ i18n.t('texts.the OSM wiki') + '</a>.<br />');
 
 			document.write(i18n.t('texts.this website', { url: 'https://github.com/AMDmi3/opening_hours.js', hoster: 'GitHub' }));
