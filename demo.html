@@ -668,11 +668,6 @@
 			function Evaluate (offset, reset) {
 				if (typeof offset == 'undefined') offset = 0;
 
-				document.forms.check.elements['comment'].value = '';
-				document.forms.check.elements['status'].value = '';
-				document.forms.check.elements['MatchingRule'].value = '';
-				document.forms.check.elements['WarnErrors'].value = '';
-
 				if (document.forms.check.elements['lat'].value !== lat || document.forms.check.elements['lon'].value !== lon) {
 					lat = parseInt(document.forms.check.elements['lat'].value);
 					lon = parseInt(document.forms.check.elements['lon'].value);
@@ -739,7 +734,9 @@
 				document.forms.check.elements['wday'].value       = i18n.t('weekdays.full.' + weekdays[date.getDay()]);
 				document.forms.check.elements['week'].value       = 'W'+u2(dateAtWeek(date, 0) + 1);
 
-				var user_evaluation = document.getElementById('user_evaluation');
+				var show_time_table         = document.getElementById('show_time_table');
+				var show_warnings_or_errors = document.getElementById('show_warnings_or_errors');
+				var show_results            = document.getElementById('show_results');
 
 				var crashed = false;
 				try {
@@ -747,20 +744,40 @@
 					var it = oh.getIterator(date);
 				} catch (err) {
 					crashed = err;
-					document.forms.check.elements['WarnErrors'].value = crashed;
-					user_evaluation.innerHTML = '';
+					console.log(crashed.split('\n').length);
+					show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.warn error') + ':<br />'
+						+ '<textarea rows="' + crashed.split('\n').length + '" style="width: 100%" name="WarnErrors" readonly="readonly">' + crashed
+						+ '</textarea></p>';
+					show_time_table.innerHTML = '';
+					show_results.innerHTML    = '';
 				}
 
 				if (!crashed) {
+					show_results.innerHTML = '<p>' + i18n.t('words.status') + ':<br />'
+						+ '<input size="10" name="status" readonly="readonly" />'
+						+ '<input size="60" name="comment" readonly="readonly" />'
+						+ '</p>' + '<p>'
+						+ i18n.t('texts.MatchingRule') + ':<br />'
+						+ '<input style="width: 100%" name="MatchingRule" readonly="readonly" />'
+						+ '</p>';
+
 					document.forms.check.elements['comment'].value = typeof it.getComment() != 'undefined'
 						? it.getComment() : '>>' + i18n.t('words.no') + ' ' + i18n.t('words.comment') + '<<';
 					document.forms.check.elements['status'].value = (it.getState() ? i18n.t('words.open')
 						: (it.getUnknown() ? i18n.t('words.unknown') : i18n.t('words.closed')));
 					document.forms.check.elements['MatchingRule'].value = typeof it.getMatchingRule() == 'undefined'
 						? i18n.t('words.none') : it.getMatchingRule();
-					document.forms.check.elements['WarnErrors'].value = oh.getWarnings();
+					var warnings = oh.getWarnings();
+					if (warnings) {
+						show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.warn error') + ':<br />'
+							+ '<textarea rows="' + warnings.split('\n').length
+							+ '" style="width: 100%" name="WarnErrors" readonly="readonly">' + warnings
+							+ '</textarea></p>';
+					} else {
+						show_warnings_or_errors.innerHTML = '';
+					}
 
-					user_evaluation.innerHTML = drawTableAndComments(oh, it);
+					show_time_table.innerHTML = drawTableAndComments(oh, it);
 				}
 			}
 
@@ -788,7 +805,7 @@
 				var lng = position.coords.longitude;
 				console.log("Current position: " + lat + " " + lng);
 			}
-			window.onload = function () {Evaluate();
+			window.onload = function () {Evaluate(0, true);
 			// if(navigator.geolocation)
 			// 	navigator.geolocation.getCurrentPosition(onPositionUpdate);
 			};
@@ -871,26 +888,14 @@
 				</p>
 				<!-- }}} -->
 
-				<div id="user_evaluation"><!-- {{{ -->
+				<div id="show_warnings_or_errors"><!-- {{{ -->
 				</div><!-- }}} -->
 
-				<!-- Display results {{{ -->
-				<p>
-					<script type="text/javascript">document.write(i18n.t('words.status') + ':<br />');</script>
-					<input size="10" name="status" readonly="readonly" />
-					<input size="60" name="comment" readonly="readonly" />
-				</p>
+				<div id="show_time_table"><!-- {{{ -->
+				</div><!-- }}} -->
 
-				<p>
-					<script type="text/javascript">document.write(i18n.t('texts.MatchingRule') + ':<br />');</script>
-					<input style="width: 100%" name="MatchingRule" readonly="readonly" />
-				</p>
-
-				<p>
-					<script type="text/javascript">document.write(i18n.t('texts.warn error') + ':<br />');</script>
-					<textarea rows="5" style="width: 100%" name="WarnErrors" readonly="readonly"></textarea><br />
-				</p>
-				<!-- }}} -->
+				<div id="show_results"><!-- {{{ -->
+				</div><!-- }}} -->
 			</form>
 
 			<p style="text-align: right">
