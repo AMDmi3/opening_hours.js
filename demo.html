@@ -606,9 +606,9 @@
 				output += '<p class="' + state_string_past + '">'
 					+ i18n.t('texts.' + state_string_past+ ' ' + (has_next_change ? 'now' : 'always'));
 				if (unknown) {
-					output += (comment != 'undefined' ? i18n.t('texts.depends on', { comment: '"' + comment + '"' }) : '');
+					output += (typeof comment != 'undefined' ? i18n.t('texts.depends on', { comment: '"' + comment + '"' }) : '');
 				} else {
-					output += (comment != 'undefined' ? ', ' + i18n.t('words.comment') + ': "' + comment + '"' : '');
+					output += (typeof comment != 'undefined' ? ', ' + i18n.t('words.comment') + ': "' + comment + '"' : '');
 				}
 				output += '</p>';
 
@@ -632,6 +632,10 @@
 
 				return output;
 			}
+			// }}}
+			// default values {{{
+			var def_lat = 48.7769;
+			var def_lon = 9.1844;
 			// }}}
 		</script>
 		<!-- }}} -->
@@ -674,9 +678,9 @@
 					lon = parseInt(document.forms.check.elements['lon'].value);
 					if (typeof lat != 'number' || typeof lon != 'number') {
 						if (typeof lat != 'number')
-							document.forms.check.elements['lat'].value = 53.1035;
+							document.forms.check.elements['lat'].value = def_lat;
 						if (typeof lon != 'number')
-							document.forms.check.elements['lon'].value = 8.8976;
+							document.forms.check.elements['lon'].value = def_lon;
 						console.log('Please enter numbers for latitude and longitude.');
 						return;
 					}
@@ -840,8 +844,8 @@
 				<p>
 					<script type="text/javascript">
 						document.write(i18n.t('words.position') + ':<br />');
-						document.write(i18n.t('words.lat') + ': <input size="7" id="lat" value="53.1035" onblur="Evaluate()" /> ');
-						document.write(i18n.t('words.lon') + ': <input size="7" id="lon" value="8.8976"  onblur="Evaluate()" /> ');
+						document.write(i18n.t('words.lat') + ': <input size="7" id="lat" value="' + def_lat + '" onblur="Evaluate()" /> ');
+						document.write(i18n.t('words.lon') + ': <input size="7" id="lon" value="' + def_lon + '"  onblur="Evaluate()" /> ');
 						document.write(i18n.t('words.country') + ': <input size="3" id="cc" readonly="readonly" /> ');
 						document.write(i18n.t('words.state') + ': <input size="20" id="state" readonly="readonly" />');
 					</script>
