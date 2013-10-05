@@ -222,17 +222,24 @@
 					weekdays: 'Mo-Fr',
 				}, 'Please ommit "<ko>".': {
 					h: '',
+				}, 'Please ommit "<ko>". You might want to express open end which can be specified as "12:00+" for example': {
 					from: '',
 				}, 'Please use notation "<ok>" for "<ko>".': {
-					to: '-',
+					'–':  '-',
+					to:   '-',
 					till: '-',
-					and: ',',
-					always: '24/7',
+					and:  ',',
+					'&':  ',',
+					daily:    'Mo-Su',
+					always:   '24/7',
+					midnight: '00:00',
 				}, 'Please use time format in 24 hours notation ("<ko>").': {
 					pm: '',
 					am: '',
 				}, 'Bitte verzichte auf "<ko>".': {
 					uhr: '',
+				}, 'Bitte verzichte auf "<ko>". Sie möchten vermutlich eine Öffnungszeit ohne vorgegebenes Ende angeben. Beispiel: "12:00+"': {
+					ab:  '',
 					von: '',
 				}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>".': {
 					bis: '-',
@@ -588,7 +595,7 @@
 				} else if (tmp = value.match(/^days?/i)) {
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^[a-zA-Z]+\b/i)) {
+				} else if (tmp = value.match(/^(:?&|–|[a-zA-Z]+\b)/i)) {
 					// Handle all remaining words with error tolerance
 					var correct_val = returnCorrectWordOrToken(tmp[0].toLowerCase(), value.length);
 					if (typeof correct_val == 'object') {

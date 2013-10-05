@@ -16,6 +16,7 @@ test.addTest('Time intervals', [
 		'10:00-12:00',
 		'10:00-12:00,',
 		'10:00-12:00;',
+		'daily 10:00-12:00;', // error tolerance
 		'10:00-11:00,11:00-12:00',
 		'10:00-11:00;11:00-12:00',
 		'10:00-14:00;12:00-14:00 off',
@@ -395,11 +396,13 @@ test.addTest('Weekdays', [
 
 test.addTest('Omitted time', [
 		'Mo,We',
+		'Mo&We', // error tolerance
+		'Mo and We', // error tolerance
 		'Mo-We; Tu off',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.02 0:00' ],
 		[ '2012.10.03 0:00', '2012.10.04 0:00' ],
-	], 1000 * 60 * 60 * 24 * 2, 0, true);
+	], 1000 * 60 * 60 * 24 * 2, 0, true, {}, 'not last test');
 
 test.addTest('Time ranges spanning midnight w/weekdays', [
 		'We 22:00-02:00',
@@ -1047,10 +1050,12 @@ test.addTest('Time intervals (not specified/documented use of colon, please avoi
 test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', [
 		// 'Mo[2] - 6 days', // considered as "correct"
 		'Mo[2] - 0 days', // pointless
+		'Mo&Th',
+		'Mon',
 		'2013-2015/1',
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1',
 		'24/7; Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
-	], 'not only test');
+	], 'only test');
 
 test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Mo[2] - 7 days',
