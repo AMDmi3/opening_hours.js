@@ -623,6 +623,9 @@
 				} else if (value.match(/^\|\|/)) {
 					// || terminates block
 					// next tokens belong to a fallback block
+					if (curr_block_tokens.length == 0)
+						throw formatWarnErrorMessage(-1, value.length - 2, 'Rule before fallback rule does not contain anything useful');
+
 					all_tokens.push([ curr_block_tokens, last_block_fallback_terminated, value.length ]);
 					value = value.substr(2);
 
@@ -886,7 +889,7 @@
 					//      should cooperate with date selectors to select the next day
 					if (minutes_from >= minutes_in_day)
 						throw formatWarnErrorMessage(nblock, at_end_time + (has_normal_time[1] ? 3 : (has_time_var_calc[1] ? 7 : 1)) - 1,
-							'Time range start outside a day');
+							'Time range starts outside of the current day');
 					if (minutes_to < minutes_from || ((has_normal_time[0] && has_normal_time[1]) && minutes_from == minutes_to))
 						minutes_to += minutes_in_day;
 					if (minutes_to > minutes_in_day * 2)

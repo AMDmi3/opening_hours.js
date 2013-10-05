@@ -1070,6 +1070,8 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'27:00-29:00',
 		'', // empty string
 		';', // only block delimiter
+		'||', // only block delimiter
+		// '12:00-14:00 ||',
 		' ', // empty string
 		"\n", // newline
 		'14:/',
@@ -1090,7 +1092,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'easter - 2 days - 2012 easter + 2 days: open "Easter Monday"',
 		'2012 easter - 2 days - easter + 2 days: open "Easter Monday"',
 		// 'easter + 333 days', // Does throw an error, but at runtime when the problem occurs.
-	], nominatiomTestJSON, 'not only test');
+	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
 		'PH', // country is not specified

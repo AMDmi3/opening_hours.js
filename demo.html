@@ -558,7 +558,7 @@
 					if (!has_next_change && table[row].text.length == 0) { // 24/7
 						table[row].times += '<div class="timebar ' + (is_open ? 'open' : (unknown ? 'unknown' : 'closed'))
 							+ '" style="width:100%"></div>';
-						if (is_open || unknown)
+						if (is_open)
 							table[row].text.push(i18n.t('words.open') + ' 00:00 ' + i18n.t('words.to') + '23:59');
 					}
 				}
