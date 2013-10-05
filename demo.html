@@ -662,15 +662,17 @@
 			<script type="text/javascript">
 			/*<![CDATA[*/
 
-			var lat, lon, nominatim;
+			var lat, string_lat, string_lon, nominatim;
 			var url_lang = 'en';
 
 			function Evaluate (offset, reset) {
 				if (typeof offset == 'undefined') offset = 0;
 
-				if (document.forms.check.elements['lat'].value !== lat || document.forms.check.elements['lon'].value !== lon) {
-					lat = parseInt(document.forms.check.elements['lat'].value);
-					lon = parseInt(document.forms.check.elements['lon'].value);
+				if (document.forms.check.elements['lat'].value !== string_lat || document.forms.check.elements['lon'].value !== string_lon) {
+					string_lat = document.forms.check.elements['lat'].value;
+					string_lon = document.forms.check.elements['lon'].value;
+					lat = parseInt(string_lat);
+					lon = parseInt(string_lon);
 					if (typeof lat != 'number' || typeof lon != 'number') {
 						if (typeof lat != 'number')
 							document.forms.check.elements['lat'].value = def_lat;
@@ -744,7 +746,6 @@
 					var it = oh.getIterator(date);
 				} catch (err) {
 					crashed = err;
-					console.log(crashed.split('\n').length);
 					show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.warn error') + ':<br />'
 						+ '<textarea rows="' + crashed.split('\n').length + '" style="width: 100%" name="WarnErrors" readonly="readonly">' + crashed
 						+ '</textarea></p>';
