@@ -132,6 +132,7 @@
 							"value for": "value for",
 							"MatchingRule": "Substring used by applied rule",
 							"warn error": "Error and warning messages",
+							"prettified value": "prettified opening_hours value",
 							"other implementation": "For more information you can check out the <a href=\"__url__\" target=\"_blank\">original JS implementation</a> written by __by__",
 							"the OSM wiki": "the OSM wiki",
 							"this website": "This website and the JavaScript library used for the evalutation of opening hours is developed on <a href=\"__url__\" target=\"_blank\">__hoster__</a>.",
@@ -250,6 +251,7 @@
 							"value for": "Wert für",
 							"MatchingRule": "Zur Anwendung gekommene Regel",
 							"warn error": "Fehler und Warnungen",
+							"prettified value": "Schön formatierter opening_hours Wert",
 							"other implementation": "Für weitere Informationen kannst dir eine weitere (die erste) <a href=\"__url__\" target=\"_blank\">JS Implementierung</a>, von __by__ anschauen",
 							"the OSM wiki": "das OSM wiki",
 							"this website": "Die Entwicklung dieser Webseite und der JavaScript Bibliothek zur Auswertung der Öffnungszeiten findet auf <a href=\"__url__\" target=\"_blank\">__hoster__</a> statt.",
@@ -740,9 +742,12 @@
 				var show_warnings_or_errors = document.getElementById('show_warnings_or_errors');
 				var show_results            = document.getElementById('show_results');
 
+				show_warnings_or_errors.innerHTML = '';
+
 				var crashed = false;
+				var value = document.forms.check.elements['expression'].value;
 				try {
-					var oh = new opening_hours(document.forms.check.elements['expression'].value, nominatim);
+					var oh = new opening_hours(value, nominatim);
 					var it = oh.getIterator(date);
 				} catch (err) {
 					crashed = err;
@@ -768,14 +773,19 @@
 						: (it.getUnknown() ? i18n.t('words.unknown') : i18n.t('words.closed')));
 					document.forms.check.elements['MatchingRule'].value = typeof it.getMatchingRule() == 'undefined'
 						? i18n.t('words.none') : it.getMatchingRule();
+
+					var prettified = oh.prettifyValue();
+					if (prettified != value) {
+						show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.prettified value') + ':<br />'
+							+ '<input style="width: 100%" name="prettifiedValue" value="' + prettified + '" readonly="readonly" /></p>';
+					}
+
 					var warnings = oh.getWarnings();
 					if (warnings) {
-						show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.warn error') + ':<br />'
+						show_warnings_or_errors.innerHTML += '<p>' + i18n.t('texts.warn error') + ':<br />'
 							+ '<textarea rows="' + warnings.split('\n').length
 							+ '" style="width: 100%" name="WarnErrors" readonly="readonly">' + warnings
 							+ '</textarea></p>';
-					} else {
-						show_warnings_or_errors.innerHTML = '';
 					}
 
 					show_time_table.innerHTML = drawTableAndComments(oh, it);
@@ -936,10 +946,10 @@
 					<li><a href="#check" onclick="EX(this)">Apr: 22:00-23:00</a></li>
 					<li><a href="#check" onclick="EX(this)">Jul-Jan: 22:00-23:00</a></li>
 					<li><a href="#check" onclick="EX(this)">Jan-Jul: 22:00-23:00</a></li>
-					<li><a href="#check" onclick="EX(this)">Jul 23 - Jan 03: "needs reservation by phone"</a></li>
-					<li><a href="#check" onclick="EX(this)">Jul 23 - Jan 03: 22:00-23:00 "Please make an reservation by phone."</a></li>
-					<li><a href="#check" onclick="EX(this)">Jul 23 - Jan 03: 08:00-11:00 "Please make an reservation by phone."</a></li>
-					<li><a href="#check" onclick="EX(this)">Jan 23 - Jul 03: 22:00-23:00 "Please make an reservation by phone."</a></li>
+					<li><a href="#check" onclick="EX(this)">Jul 23-Jan 3: "needs reservation by phone"</a></li>
+					<li><a href="#check" onclick="EX(this)">Jul 23-Jan 3: 22:00-23:00 "Please make an reservation by phone."</a></li>
+					<li><a href="#check" onclick="EX(this)">Jul 23-Jan 3: 08:00-11:00 "Please make an reservation by phone."</a></li>
+					<li><a href="#check" onclick="EX(this)">Jan 23-Jul 3: 22:00-23:00 "Please make an reservation by phone."</a></li>
 					<!-- <li><a href="#check" onclick="EX(this)">Mar Su[&#45;1] &#45; Dec 25&#45;Su&#45;28 days: 22:00&#45;23:00</a></li> -->
 					<!-- <li><a href="#check" onclick="EX(this)">Dec 25&#45;Su&#45;28 days &#45; Mar Su[&#45;1]: 22:00&#45;23:00</a></li> -->
 					<!-- Currently used around 6 times: /\d\s*&#45;\s*(mo|tu|we|th|fr|sa|su)\b/ -->
@@ -955,7 +965,7 @@
 					<li><a href="#check" onclick="EX(this)">We-Mo 23:59-22:59</a></li>
 					<li><a href="#check" onclick="EX(this)">week 2-52/2 We, week 1-53/2 Sa 0:00-24:00</a></li>
 					<li><a href="#check" onclick="EX(this)">week 4-16 We, week 38-42 Sa 0:00-24:00</a></li>
-					<li><a href="#check" onclick="EX(this)">2012 easter - 2 days - 2012 easter + 2 days: open "Around easter"</a></li>
+					<li><a href="#check" onclick="EX(this)">2012 easter -2 days-2012 easter +2 days: open "Around easter"</a></li>
 					<li>
 						<a href="#check" onclick="EX(this)">2013,2015,2050-2053,2055/2,2020-2029/3,2060/1 Jan 1</a>,
 						<a href="https://github.com/AMDmi3/opening_hours.js/tree/master#year-ranges" target="_blank">Documentation</a>
@@ -963,6 +973,7 @@
 					<li><a href="#check" onclick="EX(this)">Jan 23-Feb 11,Feb 12 00:00-24:00</a></li>
 					<li><a href="#check" onclick="EX(this)">Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug Su[-1]: 10:00-18:00</a></li>
 					<li><a href="#check" onclick="EX(this)">Su-Tu 11:00-01:00, We-Th 11:00-03:00, Fr 11:00-06:00, Sa 11:00-07:00</a></li>
+					<li><a href="#check" onclick="EX(this)">   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00      Off  </a>, check out the error correction and the prettify function</li>
 				</ol>
 
 				<ol>

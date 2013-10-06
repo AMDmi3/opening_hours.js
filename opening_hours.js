@@ -432,6 +432,7 @@
 			sunset  : 60 * 18,
 			dusk    : 60 * 18 + 30,
 		};
+		var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 		var minutes_in_day = 60 * 24;
 		var msec_in_day    = 1000 * 60 * minutes_in_day;
@@ -484,6 +485,7 @@
 		var has_token = {};
 		var tokens = tokenize(value);
 		// console.log(JSON.stringify(tokens, null, '\t'));
+		var prettified_value = '';
 		var week_stable = true;
 
 		var blocks = [];
@@ -592,7 +594,7 @@
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(?:off|closed)/i)) {
 					// reserved word
-					curr_block_tokens.push(['closed', 'closed', value.length ]);
+					curr_block_tokens.push([tmp[0].toLowerCase(), 'closed', value.length ]);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(?:PH|SH)/i)) {
 					// special day name (holidays)
@@ -653,7 +655,7 @@
 					// time separator
 					if (value[0] == '.')
 						parsing_warnings.push([ -1, value.length - 1, 'Please use ":" as hour/minute-separator' ]);
-					curr_block_tokens.push([value[0], 'timesep', value.length ]);
+					curr_block_tokens.push([ ':', 'timesep', value.length ]);
 					value = value.substr(1);
 				} else {
 					// other single-character tokens
@@ -704,7 +706,7 @@
 				// Check if 24/7 is used and it does not mean 24/7 because there are other rules. This can be avoided.
 				var has_advanced = it.advance();
 
-				if (has_advanced === true && has_token['24/7']) // Probably because of: "24/7; 12:00-14:00 open". Needs extra testing.
+				if (has_advanced === true && has_token['24/7']) // Probably because of: "24/7; 12:00-14:00 open", ". Needs extra testing.
 					parsing_warnings.push([ -1, 0, 'You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week".'
 							+ ' For correctness you might want to use "' + it.getStateString()
 							+ ' " for this rule and then write your exceptions which should achieve the same goal and is more clear'
@@ -743,9 +745,13 @@
 		//======================================================================
 		// Top-level parser
 		//======================================================================
-		function parseGroup(tokens, at, selectors) {
+		function parseGroup(tokens, at, selectors, conf) {
+			var prettified_group_value = '';
+
 			// console.log(tokens); // useful for debugging of tokenize
 			while (at < tokens.length) {
+				var old_at = at;
+				var last_subparser;
 				// console.log('Parsing at position', at +':', tokens[at]);
 				if (matchTokens(tokens, at, 'weekday')) {
 					at = parseWeekdayRange(tokens, at, selectors);
@@ -773,42 +779,37 @@
 				} else if (matchTokens(tokens, at, 'week')) {
 					at = parseWeekRange(tokens, at + 1);
 					week_stable = false;
-				} else if (at != 0 && at != tokens.length - 1 && tokens[at][0] === ':') {
+				} else if (at != 0 && at != tokens.length - 1 && tokens[at][0] == ':') {
 					// Ignore colon if they appear somewhere else than as time separator.
 					// This provides compatibility with the syntax proposed by Netzwolf:
 					// http://www.netzwolf.info/en/cartography/osm/time_domain/specification
 					if (matchTokens(tokens, at-1, 'weekday') || matchTokens(tokens, at-1, 'holiday'))
 						parsing_warnings.push([nblock, at, 'Please don’t use ":" after ' + tokens[at-1][1] + '.']);
+
+					if (prettified_group_value[-1] != ' ')
+						prettified_group_value = prettified_group_value.substring(0, prettified_group_value.length - 1)
 					at++;
 				} else if (matchTokens(tokens, at, 'number', 'timesep')
 						|| matchTokens(tokens, at, 'timevar')
 						|| matchTokens(tokens, at, '(', 'timevar')) {
 					at = parseTimeRange(tokens, at, selectors);
+					last_subparser = 'time';
 				} else if (matchTokens(tokens, at, 'closed')) {
 					selectors.meaning = false;
 					at++;
-					if (matchTokens(tokens, at, ',')) {
-						// additional block
+					if (matchTokens(tokens, at, ',')) // additional block
 						at = [ at + 1 ];
-						break;
-					}
 				} else if (matchTokens(tokens, at, 'open')) {
 					selectors.meaning = true;
 					at++;
-					if (matchTokens(tokens, at, ',')) {
-						// additional block
+					if (matchTokens(tokens, at, ',')) // additional block
 						at = [ at + 1 ];
-						break;
-					}
 				} else if (matchTokens(tokens, at, 'unknown')) {
 					selectors.meaning = false;
 					selectors.unknown = true;
 					at++;
-					if (matchTokens(tokens, at, ',')) {
-						// additional block
+					if (matchTokens(tokens, at, ',')) // additional block
 						at = [ at + 1 ];
-						break;
-					}
 				} else if (matchTokens(tokens, at, 'comment')) {
 					selectors.comment = tokens[at][0];
 					if (at > 0) {
@@ -825,22 +826,24 @@
 						selectors.unknown = true;
 					}
 					at++;
-					if (matchTokens(tokens, at, ',')) {
-						// additional block
+					if (matchTokens(tokens, at, ',')) // additional block
 						at = [ at + 1 ];
-						break;
-					}
 				} else {
 					var warnings = getWarnings();
 					throw formatWarnErrorMessage(nblock, at, 'Unexpected token: "' + tokens[at][1]
 						+ '" This means that the syntax is not valid at that point.') + (warnings ? ' ' + warnings.join('; ') : '');
 				}
 
+				if (typeof conf != 'undefined')
+					prettified_group_value += PrettifySelector(tokens, old_at, at, conf, last_subparser);
+
 				if (typeof at == 'object') {
 					// additional block
 					break;
 				}
 			}
+
+			prettified_value += prettified_group_value.replace(/\s+$/, '');
 
 			return at;
 		}
@@ -1793,7 +1796,7 @@
 				has_month[0] = matchTokens(tokens, at+has_year[0], 'month', 'number');
 				has_event[0] = matchTokens(tokens, at+has_year[0], 'event');
 				if (has_event[0])
-					has_calc[0] = getMoveDays(tokens, at+has_year[0]+1, 366, 'event like easter');
+					has_calc[0] = getMoveDays(tokens, at+has_year[0]+1, 200, 'event like easter');
 				var at_range_sep = at+has_year[0]
 						+ (has_event[0]
 							? (typeof has_calc[0] != 'undefined' && has_calc[0][1] ? 4 : 1)
@@ -1871,10 +1874,11 @@
 						}
 					}}(tokens, at, nblock, has_year, has_event, has_calc, at_sec_event_or_month));
 
-					at += at_sec_event_or_month
+					at = at_sec_event_or_month
 						+ (has_event[1]
 							? (typeof has_calc[1] != 'undefined' && has_calc[1][1] ? 4 : 1)
 							: 2);
+
 				} else if (has_month[0]) {
 					var is_range = matchTokens(tokens, at+2+has_year[0], '-', 'number'), has_period = false;
 					if (is_range)
@@ -1913,6 +1917,7 @@
 					}}(tokens, at, is_range, has_period, has_year[0]));
 
 					at += 2 + has_year[0] + (is_range ? 2 : 0) + (has_period ? 2 : 0);
+
 				} else if (has_event[0]) {
 
 					selectors.monthday.push(function(tokens, at, nblock, has_event, has_year, add_days) { return function(date) {
@@ -2025,6 +2030,7 @@
 			block:
 			for (var nblock = 0; nblock < date_matching_blocks.length; nblock++) {
 				var block = date_matching_blocks[nblock];
+
 				// console.log('Processing block ' + block + ':\t' + blocks[block].comment + '    with date', date,
 				// 	'and', blocks[block].time.length, 'time selectors');
 
@@ -2034,6 +2040,7 @@
 					if (!blocks[block].fallback || (blocks[block].fallback && !(resultstate || unknown))) {
 						resultstate = blocks[block].meaning;
 						unknown     = blocks[block].unknown;
+						match_block = block;
 
 						if (typeof blocks[block].comment != 'undefined')
 							comment     = blocks[block].comment;
@@ -2043,7 +2050,6 @@
 						if (blocks[block].fallback)
 							break block; // fallback block matched, no need for checking the rest
 					}
-					match_block = nblock;
 				}
 
 				for (var timesel = 0; timesel < blocks[block].time.length; timesel++) {
@@ -2054,6 +2060,7 @@
 						if (!blocks[block].fallback || (blocks[block].fallback && !(resultstate || unknown))) {
 							resultstate = blocks[block].meaning;
 							unknown     = blocks[block].unknown;
+							match_block = block;
 
 							if (typeof blocks[block].comment != 'undefined') // only use comment if one is specified
 								comment     = blocks[block].comment;
@@ -2077,14 +2084,13 @@
 								break block; // fallback block matched, no need for checking the rest
 							}
 						}
-						match_block = nblock;
 					}
 					if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate))
 						changedate = res[1];
 				}
 			}
 
-			// console.log('changedate', changedate, resultstate, comment);
+			// console.log('changedate', changedate, resultstate, comment, match_block);
 			return [ resultstate, changedate, unknown, comment, match_block ];
 		}
 
@@ -2153,7 +2159,6 @@
 				this.getMatchingRule = function() {
 					if (typeof state[4] == 'undefined')
 						return undefined;
-					console.log(state[4]);
 
 					var block = tokens[state[4]][0];
 					var start_pos = value.length - block[0][2];
@@ -2202,6 +2207,105 @@
 		this.getWarnings = function() {
 			var it = this.getIterator();
 			return getWarnings(it).join('\n');;
+		}
+
+		// get a nicely formated value.
+		this.prettifyValue = function() {
+			var old_parsing_warnings = parsing_warnings;
+			prettified_value = '';
+
+			var conf = {
+				'leading_zero_hour': true, // enforce leading zero
+				'one_zero_if_hour_zero': false, // enforce leading zero
+				'leave_off_closed': true, // leave keywords of and closed as is
+				'keyword_for_off_closed': 'off', // use given keyword instead of "off" or "closed"
+			};
+			for (var nblock = 0; nblock < tokens.length; nblock++) {
+				if (tokens[nblock][0].length == 0) continue;
+				// Block does contain nothing useful e.g. second block of '10:00-12:00;' (empty) which needs to be handled.
+
+				if (nblock != 0)
+					prettified_value += (tokens[nblock][1] ? ' ||' : ';') + ' ';
+
+				var continue_at = 0;
+				do {
+					if (continue_at == tokens[nblock][0].length) break;
+					// Block does contain nothing useful e.g. second block of '10:00-12:00,' (empty) which needs to be handled.
+
+					var selectors = { // Not really needed. This whole thing is only necessary because of the token used for additional blocks.
+						time: [], weekday: [], holiday: [], week: [], month: [], monthday: [], year: [], wraptime: [],
+
+						fallback: tokens[nblock][1],
+						additional: continue_at ? true : false,
+						meaning: true,
+						unknown: false,
+						comment: undefined,
+					};
+
+					continue_at = parseGroup(tokens[nblock][0], continue_at, selectors, conf);
+
+					if (typeof continue_at == 'object') {
+						continue_at = continue_at[0];
+						console.log(prettified_value);
+						prettified_value += ' ';
+						console.log(prettified_value);
+					} else {
+						continue_at = 0;
+					}
+
+				} while (continue_at)
+			}
+
+			parsing_warnings = old_parsing_warnings;
+			// return JSON.stringify(tokens, null, '\t');
+			return prettified_value;
+		}
+
+		function PrettifySelector(tokens, at, last_at, conf, last_subparser) {
+			var value = '';
+			var start_at = at;
+			while (at < last_at) {
+				if (matchTokens(tokens, at, 'weekday')) {
+					value += ['Su','Mo','Tu','We','Th','Fr','Sa'][tokens[at][0]];
+				} else if (at - start_at > 0 && last_subparser == 'time' && matchTokens(tokens, at-1, 'timesep')
+						&& matchTokens(tokens, at, 'number')) {
+					value += (tokens[at][0] < 10 ? '0' : '') + tokens[at][0].toString();
+				} else if (last_subparser == 'time' && conf.leading_zero_hour && at != tokens.length
+						&& matchTokens(tokens, at+1, 'timesep')) {
+					value += (tokens[at][0] < 10 ? (tokens[at][0] == 0 && conf.one_zero_if_hour_zero ? '' : '0') : '') + tokens[at][0].toString();
+				} else if (matchTokens(tokens, at, 'weekday')) {
+					value += ['Su','Mo','Tu','We','Th','Fr','Sa'][tokens[at][0]];
+				} else if (matchTokens(tokens, at, 'comment')) {
+					value += '"' + tokens[at][0].toString() + '"';
+				} else if (matchTokens(tokens, at, 'closed')) {
+					value += (conf.leave_off_closed ? tokens[at][0] : conf.keyword_for_off_closed);
+				} else if (at - start_at > 0 && matchTokens(tokens, at, 'number')
+						&& (matchTokens(tokens, at-1, 'month')
+						||  matchTokens(tokens, at-1, 'week')
+						)) {
+					value += ' ' + tokens[at][0];
+				} else if (at - start_at > 0 && matchTokens(tokens, at, 'month')
+						&& matchTokens(tokens, at-1, 'year')) {
+					value += ' ' + months[[tokens[at][0]]];
+				} else if (at - start_at > 0 && matchTokens(tokens, at, 'event')
+						&& matchTokens(tokens, at-1, 'year')) {
+					value += ' ' + tokens[at][0];
+				} else if (matchTokens(tokens, at, 'month')) {
+					value += months[[tokens[at][0]]];
+				} else if (at + 2 < last_at
+						&& (matchTokens(tokens, at, '-') || matchTokens(tokens, at, '+'))
+						&& matchTokens(tokens, at+1, 'number', 'calcday')) {
+					value += ' ' + tokens[at][0] + tokens[at+1][0] + ' day' + (Math.abs(tokens[at+1][0]) == 1 ? '' : 's');
+					at += 2;
+				} else {
+					// if (matchTokens(tokens, at, 'open') || matchTokens(tokens, at, 'unknown'))
+					// 	value += ' ';
+
+					value += tokens[at][0].toString();
+				}
+				at++;
+			}
+			return value + ' ';
 		}
 
 		// check whether facility is `open' on the given date (or now)
