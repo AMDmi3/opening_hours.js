@@ -481,6 +481,7 @@
 		if (value.match(/^(\s*;?\s*)+$/)) throw 'Value contains nothing meaningful which can be parsed';
 
 		var parsing_warnings = [];
+		var has_token = {};
 		var tokens = tokenize(value);
 		// console.log(JSON.stringify(tokens, null, '\t'));
 		var week_stable = true;
@@ -580,9 +581,14 @@
 
 			while (value != '') {
 				var tmp;
-				if (tmp = value.match(/^(?:week\b|24\/7|open|unknown)/i)) {
+				if (tmp = value.match(/^(?:week\b|open|unknown)/i)) {
 					// reserved word
 					curr_block_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase(), value.length ]);
+					value = value.substr(tmp[0].length);
+				} else if (tmp = value.match(/^24\/7/i)) {
+					// reserved word
+					has_token[tmp[0]] = true;
+					curr_block_tokens.push([tmp[0], tmp[0], value.length ]);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(?:off|closed)/i)) {
 					// reserved word
@@ -691,7 +697,21 @@
 			}
 		}
 
-		function getWarnings() {
+		function getWarnings(it) {
+			if (typeof it == 'object') { // getWarnings was called in a state without critical errors. We can do extended tests.
+
+				// Check if 24/7 is used and it does not mean 24/7 because there are other rules. This can be avoided.
+				var has_advanced;
+				try { // Advance code can throw errors because of movable days e.g. easter.
+					has_advanced = it.advance();
+				} catch (err) {
+					crashed = err;
+				}
+
+				if (has_advanced === true && has_token['24/7'])
+					parsing_warnings.push([ -1, 0, 'You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week". For correctness you might want to use "' + it.getStateString() + '" for this rule and then write your exceptions which should achieve the same goal and is more clear e.g. "open; Mo 12:00-14:00 off".']);
+			}
+
 			var warnings = [];
 			for (var i = 0; i < parsing_warnings.length; i++) {
 				warnings.push( formatWarnErrorMessage(parsing_warnings[i][0], parsing_warnings[i][1], parsing_warnings[i][2]) );
@@ -731,7 +751,7 @@
 				if (matchTokens(tokens, at, 'weekday')) {
 					at = parseWeekdayRange(tokens, at, selectors);
 				} else if (matchTokens(tokens, at, '24/7')) {
-					selectors.time.push(function(date) { return [true]; });
+					// selectors.time.push(function(date) { return [true]; }); // Not needed. If there is now selector it automatically matches everything.
 					at++;
 				} else if (matchTokens(tokens, at, 'holiday')) {
 					if (matchTokens(tokens, at+1, ',', 'weekday'))
@@ -2180,7 +2200,8 @@
 		// get parse warnings
 		// returns an empty string if there are no warnings
 		this.getWarnings = function() {
-			return getWarnings().join('\n');;
+			var it = this.getIterator();
+			return getWarnings(it).join('\n');;
 		}
 
 		// check whether facility is `open' on the given date (or now)

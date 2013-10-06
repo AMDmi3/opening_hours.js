@@ -33,12 +33,13 @@ test.addTest('Time intervals', [
 	], 1000 * 60 * 60 * 2 * 7, 0, true, {}, 'not last test');
 
 test.addTest('Time intervals', [
-		'24/7; Mo 15:00-16:00 off',
+		'24/7; Mo 15:00-16:00 off', // throws a warning, use next value which is equal.
+		'open; Mo 15:00-16:00 off',
 		'00:00-24:00; Mo 15:00-16:00 off',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 15:00' ],
 		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
-	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true);
+	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true, {}, 'not only test');
 
 test.addTest('Open end', [
 		'07:00+ open "visit there website to know if they did already close"', // specified comments should not be overridden
@@ -219,7 +220,7 @@ test.addTest('Variable days: public holidays', [
 	], 1000 * 60 * 60 * 24 * (20 + 2 * 2), 0, false, nominatiomTestJSON, 'not last test');
 
 test.addTest('Variable days: public holidays', [
-		'24/7; PH off',
+		'open; PH off',
 		// 'PH off; 24/7', // should not be the same if following the rules
 	], '2013.04.01 0:00', '2013.05.11 0:00', [
 		[ '2013.04.02 00:00', '2013.05.01 00:00' ],
@@ -239,7 +240,7 @@ test.addTest('Variable days: public holidays (with time range)', [
 	], '2012.01.01 0:00', '2012.04.01 0:00', [
 		[ '2012.01.01 12:00', '2012.01.01 13:00', false, 'this comment should override the holiday name which is returned as comment if PH matches.' ],
 		[ '2012.01.06 12:00', '2012.01.06 13:00', false, 'this comment should override the holiday name which is returned as comment if PH matches.' ],
-	], 1000 * 60 * 60 * 2, 0, false, nominatiomTestJSON, 'last test');
+	], 1000 * 60 * 60 * 2, 0, false, nominatiomTestJSON, 'not last test');
 
 test.addTest('PH: Only if PH is Wednesday', [
 		'PH We,Fr',
@@ -1049,7 +1050,7 @@ test.addTest('Calculations based on month range', [
 	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'not only test');
 
 test.addTest('Time intervals (not specified/documented use of colon, please avoid this)', [
-		'24/7; Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
+		'open; Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 15:00' ],
 		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
@@ -1061,10 +1062,12 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'Mo&Th',
 		'Mon',
 		'12.00-14:00',
+		'24/7; 12:00-14:00 off',
 		'2013-2015/1',
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1',
-		'24/7; Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
-	], 'only test');
+		'Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
+		'easter + 333 days', // Does throw an error, but at runtime when the problem occurs.
+	], {}, 'not only test');
 
 test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Mo[2] - 7 days',
@@ -1133,7 +1136,7 @@ process.exit(test.run() ? 0 : 1);
 //======================================================================
 function opening_hours_test() {
 	var show_passing_tests  = true;
-	var show_error_warnings = false; // enable this, if you want to see how the library reports errors and warnings
+	var show_error_warnings = true; // enable this, if you want to see how the library reports errors and warnings
 	var tests = [];
 	var tests_should_fail = [];
 	var tests_should_warn = [];
@@ -1378,9 +1381,9 @@ function opening_hours_test() {
 	// This might be useful for testing to avoid to comment tests out and something like that …
 
 	this.addTest = function(name, values, from, to, expected_intervals, expected_duration, expected_unknown_duration, expected_weekstable, nominatiomJSON, last) {
-	if (this.last == true) return;
-	if (last === 'only test') tests = [];
-	if (last === 'only test' || last === 'last test') this.last = true;
+
+		if (this.last == true) return;
+		this.handle_only_test(last);
 
 		for (var expected_interval = 0; expected_interval < expected_intervals.length; expected_interval++) {
 			// Set default of unknown to false. If you expect something else you
@@ -1398,9 +1401,8 @@ function opening_hours_test() {
 	}
 
 	this.addShouldFail = function(name, values, nominatiomJSON, last) {
-	if (this.last == true) return;
-	if (last === 'only test') tests = [];
-	if (last === 'only test' || last === 'last test') this.last = true;
+		if (this.last == true) return;
+		this.handle_only_test(last);
 
 		if (typeof values === 'string')
 			tests_should_fail.push([name, values, nominatiomJSON]);
@@ -1409,9 +1411,8 @@ function opening_hours_test() {
 				tests_should_fail.push([name, values[value], nominatiomJSON]);
 	}
 	this.addShouldWarn = function(name, values, nominatiomJSON, last) {
-	if (this.last == true) return;
-	if (last === 'only test') tests = [];
-	if (last === 'only test' || last === 'last test') this.last = true;
+		if (this.last == true) return;
+		this.handle_only_test(last);
 
 		if (typeof values == 'string')
 			tests_should_warn.push([name, values, nominatiomJSON]);
@@ -1420,15 +1421,23 @@ function opening_hours_test() {
 				tests_should_warn.push([name, values[value], nominatiomJSON]);
 	}
 	this.addCompMatchingRule = function(name, values, date, matching_rule, nominatiomJSON, last) {
-	if (this.last == true) return;
-	if (last === 'only test') tests = [];
-	if (last === 'only test' || last === 'last test') this.last = true;
+		if (this.last == true) return;
+		this.handle_only_test(last);
 
 		if (typeof values == 'string')
 			tests_comp_matching_rule.push([name, values, matching_rule, nominatiomJSON]);
 		else
 			for (var value = 0; value < values.length; value++)
 				tests_comp_matching_rule.push([name, values[value], date, matching_rule, nominatiomJSON]);
+	}
+	this.handle_only_test = function (last) {
+		if (last === 'only test') {
+			tests = [];
+			tests_should_fail = [];
+			tests_should_warn = [];
+			tests_comp_matching_rule = [];
+		}
+		if (last === 'only test' || last === 'last test') this.last = true;
 	}
 }
 

@@ -274,7 +274,9 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Supports sets of time ranges (```10:00-12:00,14:00-16:00```)
   * **EXT:** Correctly supports ranges wrapping over midnight (```10:00-26:00```, ```10:00-02:00```)
 * Supports 24/7 keyword
-  * **EXT:** 24/7 is handled as a synonym for ```00:00-24:00```, so ```Mo-Fr 24/7``` (though not really correct) is valid and will be handled correctly
+  * **EXT:** 24/7 is handled as a synonym for ```00:00-24:00```, so ```Mo-Fr 24/7``` (though not really correct, because of that you should avoid it or repace it with "open". A warning will be given if you use it anyway for that purpose) will be handled correctly
+
+	*The use of 24/7 as synonym is never needed and should be avoided.*
 * **EXT:** Supports omitting time range (```Mo-Fr; Tu off```)
 * **EXT:** Supports dot as time separator, so ```12.00-16.00``` is valid (this is used quite widely)
 * **EXT:** Supports space as time interval separator, i.e. ```Mo 12:00-14:00,16:00-20:00``` and ```Mo 12:00-14:00 16:00-20:00``` are the same thing

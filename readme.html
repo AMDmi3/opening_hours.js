@@ -1,0 +1,324 @@
+<h1>opening_hours.js</h1>
+
+<p><a href="http://wiki.openstreetmap.org/wiki/Key:opening_hours">opening_hours</a> tag is used in <a href="http://openstreetmap.org">OpenStreetMap</a> project to describe time ranges when a specific facility (for example, a cafe) is open. As it has pretty complex syntax which require special parsing and additional processing to extract some useful information (e.g. whether a facility is open at specific time, next time it's going to open/close, or a readable set of working hours), this library was written.</p>
+
+<p>Examples of some complex real-life opening_hours values:</p>
+
+<p><code>
+Mo,Tu,Th,Fr 12:00-18:00;Sa 12:00-17:00; Th[3] off; Th[-1] off
+</code></p>
+
+<p>a library which works from 12:00 to 18:00 on workdays except Wednesday, and from 12:00 to 17:00 on Saturday. It also has breaks on third and last Thursday of each month.</p>
+
+<p><code>
+00:00-24:00; Tu-Su 8:30-9:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off
+</code></p>
+
+<p>around-the-clock shop with some breaks.</p>
+
+<h2>Synopsis</h2>
+
+<p>```javascript
+var oh = new opening_hours('We 12:00-14:00');</p>
+
+<p>var from = new Date("01 Jan 2012");
+var to   = new Date("01 Feb 2012");</p>
+
+<p>// high-level API
+{
+    var intervals = oh.getOpenIntervals(from, to);
+    for (var i in intervals)
+        console.log('We are ' + (intervals[i][2] ? 'maybe ' : '')
+            + 'open from ' + (intervals[i][3] ? '("' + intervals[i][3] + '") ' : '')
+            + intervals[i][0] + ' till ' + intervals[i][1] + '.');</p>
+
+<pre><code>var duration_hours = oh.getOpenDuration(from, to).map(function(x) { return x / 1000 / 60 / 60 });
+if (duration_hours[0])
+    console.log('For a given range, we are open for ' + duration_hours[0] + ' hours');
+if (duration_hours[1])
+    console.log('For a given range, we are maybe open for ' + duration_hours[1] + ' hours');
+</code></pre>
+
+<p>}</p>
+
+<p>// helper function
+function logState(startString, endString, oh, past) {
+    if (past === true) past = 'd';
+    else past = '';</p>
+
+<pre><code>var output = '';
+if (oh.getUnknown()) {
+    output += ' maybe open'
+        + (oh.getComment() ? ' but that depends on: "' + oh.getComment() + '"' : '');
+} else {
+    output += ' ' + (oh.getState() ? 'open' : 'close' + past)
+        + (oh.getComment() ? ', comment "' + oh.getComment() + '"' : '');
+}
+console.log(startString + output + endString + '.');
+</code></pre>
+
+<p>}</p>
+
+<p>// simple API
+{
+    var state      = oh.getState(); // we use current date
+    var unknown    = oh.getUnknown();
+    var comment    = oh.getComment();
+    var nextchange = oh.getNextChange();</p>
+
+<pre><code>logState('We\'re', '', oh, true);
+
+if (typeof nextchange === 'undefined')
+    console.log('And we will never ' + (state ? 'close' : 'open'));
+else
+    console.log('And we will '
+        + (oh.getUnknown(nextchange) ? 'maybe ' : '')
+        + (state ? 'close' : 'open') + ' on ' + nextchange);
+</code></pre>
+
+<p>}</p>
+
+<p>// iterator API
+{
+    var iterator = oh.getIterator(from);</p>
+
+<pre><code>logState('Initially, we\'re', '', iterator, true);
+
+while (iterator.advance(to))
+    logState('Then we', ' at ' + iterator.getDate(), iterator);
+
+logState('And till the end we\'re', '', iterator, true);
+</code></pre>
+
+<p>}
+```</p>
+
+<h2>Library API</h2>
+
+<ul>
+<li><p><code>javascript
+var oh = new opening_hours('We 12:00-14:00');
+</code></p>
+
+<p>Constructs opening<em>hours object, given the opening</em>hours tag value.</p>
+
+<p>Throws an error string if the expression is malformed or unsupported.</p></li>
+<li><p><code>javascript
+var every_week_is_same = oh.isWeekSame();
+</code></p>
+
+<p>Checks whether open intervals are same for every week. Useful for giving a user hint whether time table may change for another week.</p></li>
+</ul>
+
+<h3>High-level API</h3>
+
+<p>Here and below, unless noted otherwise, all arguments are expected to be and all output will be in the form of Date objects.</p>
+
+<ul>
+<li><p><code>javascript
+var intervals = oh.getOpenIntervals(from, to);
+</code></p>
+
+<p>Returns array of open intervals in a given range, in a form of <code>[ [ from1, to1, unknown1, comment1 ], [ from2, to2, unknown2, comment2 ] ]</code></p>
+
+<p>Intervals are cropped with the input range.</p></li>
+<li><p><code>javascript
+var duration = oh.getOpenDuration(from, to);
+</code></p>
+
+<p>Returns an array with two durations for a given date range, in milliseconds. The first element is the duration for which the facility is open and the second is the duration for which the facility is maybe open (unknown is used).</p></li>
+</ul>
+
+<h3>Simple API</h3>
+
+<p>This API is useful for one-shot checks, but for iteration over intervals you should use the more efficient <strong>Iterator API</strong>.</p>
+
+<ul>
+<li><p><code>javascript
+var is_open = oh.getState(date);
+</code></p>
+
+<p>Checks whether the facility is open at the given <em>date</em>. You may omit <em>date</em> to use current date.</p></li>
+<li><p><code>javascript
+var unknown = oh.getUnknown();
+</code></p>
+
+<p>Checks whether the opening state is conditional or unknown at the given <em>date</em>. You may omit <em>date</em> to use current date.
+Conditions can be expressed in comments.
+If unknown is true then is_open will be false since it is not sure if it is open.</p></li>
+<li><p><code>javascript
+var comment = oh.getComment();
+</code></p>
+
+<p>Returns the comment (if one is specified) for the facility at the given <em>date</em>. You may omit <em>date</em> to use current date.
+Comments can be specified for any state.</p>
+
+<p>If no comment is specified this function will return undefined.</p></li>
+<li><p><code>javascript
+var next_change = oh.getNextChange(date, limit);
+</code></p>
+
+<p>Returns date of next state change. You may omit <em>date</em> to use current date.</p>
+
+<p>Returns undefined if the next change cannot be found. This may happen if the state won't ever change (e.g. <code>24/7</code>) or if search goes beyond <em>limit</em> (which is <em>date</em> + ~5 years if omitted).</p></li>
+</ul>
+
+<h3>Iterator API</h3>
+
+<ul>
+<li><p><code>javascript
+var iterator = oh.getIterator(date);
+</code></p>
+
+<p>Constructs an iterator which can go through open/close points, starting at <em>date</em>. You may omit <em>date</em> to use current date.</p></li>
+<li><p><code>javascript
+var current_date = iterator.getDate();
+</code></p>
+
+<p>Returns current iterator position.</p></li>
+<li><p><code>javascript
+var is_open = iterator.getState();
+</code></p>
+
+<p>Returns whether the facility is open at the current iterator position in time.</p></li>
+<li><p><code>javascript
+var unknown = iterator.getUnknown();
+</code></p>
+
+<p>Checks whether the opening state is conditional or unknown at the current iterator position in time.</p></li>
+<li><p><code>javascript
+var comment = iterator.getComment();
+</code></p>
+
+<p>Returns the comment (if one is specified) for the facility at the current iterator position in time.</p>
+
+<p>If no comment is specified this function will return undefined.</p></li>
+<li><p><code>javascript
+var had_advanced = iterator.advance(limit);
+</code></p>
+
+<p>Advances an iterator to the next position, but not further that a <em>limit</em> (which is current position + ~5 years if omitted and is used to prevent infinite loop on non-periodic opening_hours, e.g. <code>24/7</code>), returns whether the iterator was moved.</p>
+
+<p>For instance, returns false if the iterator would go beyond <em>limit</em> or if there's no next position (<code>24/7</code> case).</p></li>
+</ul>
+
+<h2>Features</h2>
+
+<p>Almost everything from opening<em>hours definition is supported, as well as some extensions (indicated as <strong>EXT:</strong> below). For instance, the library is able to process 99.4% of all opening</em>hours tags from Russia OSM data.</p>
+
+<ul>
+<li>Opening hours consist of multiple rules separated by semicolon (<code>Mo 10:00-20:00; Tu 12:00-18:00</code>)</li>
+<li>Rule may use <code>off</code> keyword to indicate that the facility is closed at that time (<code>Mo-Fr 10:00-20:00; 12:00-14:00 off</code>)</li>
+<li>Rule consists of multiple date (<code>Mo-Fr</code>, <code>Jan-Feb</code>, <code>week 2-10</code>, <code>Jan 10-Feb 10</code>) and time (<code>12:00-16:00</code>, <code>12:00-14:00,16:00-18:00</code>) conditions</li>
+<li>If a rule's date condition overlap with previous rule, it overrides (as opposed to extends) the previous rule. E.g. <code>Mo-Fr 10:00-16:00; We 12:00-18:00</code> means that on Wednesday the facility is open from 12:00 till 18:00, not from 10:00 to 18:00.</li>
+<li>Date ranges (calender ranges) can be seperated from the time range by a colon (<code>Jan 10-Feb 10: 07:30-12:00</code>) but this is not required. This was implemented to also parse the syntax proposed by <a href="http://www.netzwolf.info/en/cartography/osm/time_domain/specification">Netzwolf</a></li>
+</ul>
+
+<h3>Time ranges</h3>
+
+<ul>
+<li>Supports sets of time ranges (<code>10:00-12:00,14:00-16:00</code>)
+<ul>
+<li><strong>EXT:</strong> Correctly supports ranges wrapping over midnight (<code>10:00-26:00</code>, <code>10:00-02:00</code>)</li>
+</ul></li>
+<li>Supports 24/7 keyword
+<ul>
+<li><strong>EXT:</strong> 24/7 is handled as a synonym for <code>00:00-24:00</code>, so <code>Mo-Fr 24/7</code> (though not really correct) is valid and will be handled correctly</li>
+</ul></li>
+<li><strong>EXT:</strong> Supports omitting time range (<code>Mo-Fr; Tu off</code>)</li>
+<li><strong>EXT:</strong> Supports dot as time separator, so <code>12.00-16.00</code> is valid (this is used quite widely)</li>
+<li><strong>EXT:</strong> Supports space as time interval separator, i.e. <code>Mo 12:00-14:00,16:00-20:00</code> and <code>Mo 12:00-14:00 16:00-20:00</code> are the same thing</li>
+<li>Rudimentary support for sunrise/sunset keywords (<code>10:00-sunset</code>) (sunrise: '06:00', sunset: '18:00')</li>
+<li><em>Doesn't support open end (<code>10:00+</code>)</em></li>
+</ul>
+
+<h3>Weekday ranges</h3>
+
+<ul>
+<li>Supports set of weekdays and weekday ranges (<code>Mo-We,Fr</code>)</li>
+<li>Supports weekdays which wrap to the next week (<code>Fr-Mo</code>)</li>
+<li>Supports constrained weekdays (<code>Th[1,2-3]</code>, <code>Fr[-1]</code>)</li>
+</ul>
+
+<h3>Month ranges</h3>
+
+<ul>
+<li>Supports set of months and month ranges (<code>Jan,Mar-Apr</code>)</li>
+<li>Supports months which wrap to the next year (<code>Dec-Jan</code>)</li>
+</ul>
+
+<h3>Monthday ranges</h3>
+
+<ul>
+<li>Supports monthday ranges across multiple months (<code>Jan 01-Feb 03 10:00-20:00</code>)</li>
+<li>Supports monthday ranges within single month (<code>Jan 01-26 10:00-20:00</code>), with periods as well <code>Jan 01-29/7 10:00-20:00</code>)</li>
+<li><strong>EXT:</strong> Supports multiple monthday ranges separated by a comma (<code>Jan 23-31/3,Feb 1-12,Mar 1</code>)</li>
+</ul>
+
+<h3>Week ranges</h3>
+
+<ul>
+<li>Supports week ranges (<code>week 04-07 10:00-20:00</code>)</li>
+<li>Supports periodic weeks (<code>week 2-53/2 10:00-20:00</code>)</li>
+<li><strong>EXT:</strong> Supports multiple week ranges (<code>week 1,3-5,7-30/2 10:00-20:00</code>)</li>
+</ul>
+
+<h3>States</h3>
+
+<ul>
+<li>A facility can be in two main states for a given point in time: open (true) or
+closed (false).
+<ul>
+<li>But since the state can also depend on other information (e.g. weather
+depending, call us) than just the time, a third state can be expressed (<code>Mo unknown; Th-Fr 09:00-18:00 open</code>)
+<br/>
+In that case the main state is false and unknown is true for Monday.</li>
+</ul></li>
+</ul>
+
+<h3>Comments</h3>
+
+<ul>
+<li>Supports (additional) comments (<code>Mo unknown "on appointment"; Th-Fr 09:00-18:00 open "female only"; Su closed "really"</code>)
+<ul>
+<li>unknown can be omitted (this will also result in unknown)</li>
+<li><strong>EXT:</strong> instead of "closed" "off" will also work</li>
+<li>value can also be just a double-quoted string (<code>"on appointment"</code>) which will result in unknown.</li>
+</ul></li>
+</ul>
+
+<h3>Other</h3>
+
+<ul>
+<li><em>Doesn't support PH/SH keywords yet</em></li>
+</ul>
+
+<h2>Test</h2>
+
+<p>Simple node.js based test framework is bundled. You can run it with <code>node test.js</code> or with <code>make test</code>.</p>
+
+<h2>Performance</h2>
+
+<p>Simple node.js based benchmark is bundled. You can run it with <code>node benchmark.js</code> or with <code>make benchmark</code>.</p>
+
+<p>On author's Intel Core i5-2400 library allows ~20k/sec constructor calls and ~10k/sec openIntervals() calls with one week period. This may further improve in future.</p>
+
+<h2>Author</h2>
+
+<ul>
+<li><a href="https://github.com/AMDmi3">Dmitry Marakasov</a> <a href="&#109;&#x61;&#x69;&#108;&#116;&#x6F;:&#97;&#x6D;&#100;&#x6D;i&#51;&#64;&#97;&#109;&#x64;&#x6D;&#x69;&#51;.&#114;&#117;">&#97;&#x6D;&#100;&#x6D;i&#51;&#64;&#97;&#109;&#x64;&#x6D;&#x69;&#51;.&#114;&#117;</a></li>
+</ul>
+
+<h2>Contributors</h2>
+
+<ul>
+<li><a href="https://github.com/putnik">Sergey Leschina</a> (demo improvements)</li>
+<li><a href="https://github.com/Cactusbone">Charly Koza</a> (package.json)</li>
+<li><a href="https://github.com/ypid">Robin Schneider</a>   (improvements, more features)</li>
+</ul>
+
+<h2>License</h2>
+
+<ul>
+<li>opening_hours.js is published under the New (2-clause) BSD license</li>
+</ul>
