@@ -433,6 +433,14 @@
 			dusk    : 60 * 18 + 30,
 		};
 		var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+		var default_prettify_conf = {
+			'leading_zero_hour': true,       // enforce leading zero
+			'one_zero_if_hour_zero': false,  // only one zero "0" if hour is zero "0"
+			'leave_off_closed': true,        // leave keywords of and closed as is
+			'keyword_for_off_closed': 'off', // use given keyword instead of "off" or "closed"
+			'block_sep_string': ' ',         // separate blocks by string
+			'print_semicolon': true,         // print token which separates normal blocks
+		};
 
 		var minutes_in_day = 60 * 24;
 		var msec_in_day    = 1000 * 60 * minutes_in_day;
@@ -2201,14 +2209,31 @@
 					return state[3];
 				}
 
-				this.getMatchingRule = function() {
+				this.getMatchingRule = function(user_conf) {
 					if (typeof state[4] == 'undefined')
 						return undefined;
 
-					var block = tokens[state[4]][0];
-					var start_pos = value.length - block[0][2];
-					var end_pos   = value.length - (typeof tokens[state[4]][2] == 'undefined' ? 0 : tokens[state[4]][2]);
-					return value.substring(start_pos, end_pos);
+					if (typeof user_conf == 'undefined')
+						var user_conf = {};
+					for (key in default_prettify_conf) {
+						if (typeof user_conf[key] != 'undefined')
+							user_conf[key] = default_prettify_conf[key];
+					}
+
+					prettified_value = '';
+					var selectors = { // Not really needed. This whole thing is only necessary because of the token used for additional blocks.
+						time: [], weekday: [], holiday: [], week: [], month: [], monthday: [], year: [], wraptime: [],
+
+						fallback: false, // does not matter
+						additional: false,
+						meaning: true,
+						unknown: false,
+						comment: undefined,
+					};
+
+					parseGroup(tokens[state[4]][0], 0, selectors, user_conf);
+
+					return prettified_value;
 				}
 
 				this.advance = function(datelimit) {
@@ -2256,17 +2281,12 @@
 
 		// get a nicely formated value.
 		this.prettifyValue = function(user_conf) {
-			var conf = {
-				'leading_zero_hour': true,       // enforce leading zero
-				'one_zero_if_hour_zero': false,  // only one zero "0" if hour is zero "0"
-				'leave_off_closed': true,        // leave keywords of and closed as is
-				'keyword_for_off_closed': 'off', // use given keyword instead of "off" or "closed"
-				'block_sep_string': ' ',         // separate blocks by string
-				'print_semicolon': true,         // print token which separates normal blocks
-			};
-			for (key in user_conf) {
-				if (typeof conf[key] != 'undefined')
-					conf[key] = user_conf[key];
+			if (typeof user_conf == 'undefined')
+				var user_conf = {};
+
+			for (key in default_prettify_conf) {
+				if (typeof user_conf[key] == 'undefined')
+					user_conf[key] = default_prettify_conf[key];
 			}
 
 			prettified_value = '';
@@ -2276,8 +2296,8 @@
 
 				if (nblock != 0)
 					prettified_value += (tokens[nblock][1]
-						?  conf.block_sep_string + '|| '
-						: (conf.print_semicolon ? ';' : '') + conf.block_sep_string);
+						?  user_conf.block_sep_string + '|| '
+						: (user_conf.print_semicolon ? ';' : '') + user_conf.block_sep_string);
 
 				var continue_at = 0;
 				do {
@@ -2294,11 +2314,11 @@
 						comment: undefined,
 					};
 
-					continue_at = parseGroup(tokens[nblock][0], continue_at, selectors, conf);
+					continue_at = parseGroup(tokens[nblock][0], continue_at, selectors, user_conf);
 
 					if (typeof continue_at == 'object') {
 						continue_at = continue_at[0];
-						prettified_value += conf.block_sep_string;
+						prettified_value += user_conf.block_sep_string;
 					} else {
 						continue_at = 0;
 					}
