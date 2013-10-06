@@ -835,12 +835,10 @@
 				}
 
 				if (typeof conf != 'undefined')
-					prettified_group_value += PrettifySelector(tokens, old_at, at, conf, last_subparser);
+					prettified_group_value += prettifySelector(tokens, old_at, at, conf, last_subparser);
 
-				if (typeof at == 'object') {
-					// additional block
+				if (typeof at == 'object') // additional block
 					break;
-				}
 			}
 
 			prettified_value += prettified_group_value.replace(/\s+$/, '');
@@ -2112,6 +2110,53 @@
 			return value.substring(0, pos) + ' <--- (' + message + ')';
 		}
 
+		function prettifySelector(tokens, at, last_at, conf, last_subparser) {
+			var value = '';
+			var start_at = at;
+			while (at < last_at) {
+				if (matchTokens(tokens, at, 'weekday')) {
+					value += ['Su','Mo','Tu','We','Th','Fr','Sa'][tokens[at][0]];
+				} else if (at - start_at > 0 && last_subparser == 'time' && matchTokens(tokens, at-1, 'timesep')
+						&& matchTokens(tokens, at, 'number')) {
+					value += (tokens[at][0] < 10 ? '0' : '') + tokens[at][0].toString();
+				} else if (last_subparser == 'time' && conf.leading_zero_hour && at != tokens.length
+						&& matchTokens(tokens, at+1, 'timesep')) {
+					value += (tokens[at][0] < 10 ? (tokens[at][0] == 0 && conf.one_zero_if_hour_zero ? '' : '0') : '') + tokens[at][0].toString();
+				} else if (matchTokens(tokens, at, 'weekday')) {
+					value += ['Su','Mo','Tu','We','Th','Fr','Sa'][tokens[at][0]];
+				} else if (matchTokens(tokens, at, 'comment')) {
+					value += '"' + tokens[at][0].toString() + '"';
+				} else if (matchTokens(tokens, at, 'closed')) {
+					value += (conf.leave_off_closed ? tokens[at][0] : conf.keyword_for_off_closed);
+				} else if (at - start_at > 0 && matchTokens(tokens, at, 'number')
+						&& (matchTokens(tokens, at-1, 'month')
+						||  matchTokens(tokens, at-1, 'week')
+						)) {
+					value += ' ' + tokens[at][0];
+				} else if (at - start_at > 0 && matchTokens(tokens, at, 'month')
+						&& matchTokens(tokens, at-1, 'year')) {
+					value += ' ' + months[[tokens[at][0]]];
+				} else if (at - start_at > 0 && matchTokens(tokens, at, 'event')
+						&& matchTokens(tokens, at-1, 'year')) {
+					value += ' ' + tokens[at][0];
+				} else if (matchTokens(tokens, at, 'month')) {
+					value += months[[tokens[at][0]]];
+				} else if (at + 2 < last_at
+						&& (matchTokens(tokens, at, '-') || matchTokens(tokens, at, '+'))
+						&& matchTokens(tokens, at+1, 'number', 'calcday')) {
+					value += ' ' + tokens[at][0] + tokens[at+1][0] + ' day' + (Math.abs(tokens[at+1][0]) == 1 ? '' : 's');
+					at += 2;
+				} else {
+					// if (matchTokens(tokens, at, 'open') || matchTokens(tokens, at, 'unknown'))
+					// 	value += ' ';
+
+					value += tokens[at][0].toString();
+				}
+				at++;
+			}
+			return value + ' ';
+		}
+
 		//======================================================================
 		// Public interface
 		// All functions below are considered public.
@@ -2210,22 +2255,29 @@
 		}
 
 		// get a nicely formated value.
-		this.prettifyValue = function() {
-			var old_parsing_warnings = parsing_warnings;
-			prettified_value = '';
-
+		this.prettifyValue = function(user_conf) {
 			var conf = {
-				'leading_zero_hour': true, // enforce leading zero
-				'one_zero_if_hour_zero': false, // enforce leading zero
-				'leave_off_closed': true, // leave keywords of and closed as is
+				'leading_zero_hour': true,       // enforce leading zero
+				'one_zero_if_hour_zero': false,  // only one zero "0" if hour is zero "0"
+				'leave_off_closed': true,        // leave keywords of and closed as is
 				'keyword_for_off_closed': 'off', // use given keyword instead of "off" or "closed"
+				'block_sep_string': ' ',         // separate blocks by string
+				'print_semicolon': true,         // print token which separates normal blocks
 			};
+			for (key in user_conf) {
+				if (typeof conf[key] != 'undefined')
+					conf[key] = user_conf[key];
+			}
+
+			prettified_value = '';
 			for (var nblock = 0; nblock < tokens.length; nblock++) {
 				if (tokens[nblock][0].length == 0) continue;
 				// Block does contain nothing useful e.g. second block of '10:00-12:00;' (empty) which needs to be handled.
 
 				if (nblock != 0)
-					prettified_value += (tokens[nblock][1] ? ' ||' : ';') + ' ';
+					prettified_value += (tokens[nblock][1]
+						?  conf.block_sep_string + '|| '
+						: (conf.print_semicolon ? ';' : '') + conf.block_sep_string);
 
 				var continue_at = 0;
 				do {
@@ -2246,9 +2298,7 @@
 
 					if (typeof continue_at == 'object') {
 						continue_at = continue_at[0];
-						console.log(prettified_value);
-						prettified_value += ' ';
-						console.log(prettified_value);
+						prettified_value += conf.block_sep_string;
 					} else {
 						continue_at = 0;
 					}
@@ -2256,56 +2306,8 @@
 				} while (continue_at)
 			}
 
-			parsing_warnings = old_parsing_warnings;
 			// return JSON.stringify(tokens, null, '\t');
 			return prettified_value;
-		}
-
-		function PrettifySelector(tokens, at, last_at, conf, last_subparser) {
-			var value = '';
-			var start_at = at;
-			while (at < last_at) {
-				if (matchTokens(tokens, at, 'weekday')) {
-					value += ['Su','Mo','Tu','We','Th','Fr','Sa'][tokens[at][0]];
-				} else if (at - start_at > 0 && last_subparser == 'time' && matchTokens(tokens, at-1, 'timesep')
-						&& matchTokens(tokens, at, 'number')) {
-					value += (tokens[at][0] < 10 ? '0' : '') + tokens[at][0].toString();
-				} else if (last_subparser == 'time' && conf.leading_zero_hour && at != tokens.length
-						&& matchTokens(tokens, at+1, 'timesep')) {
-					value += (tokens[at][0] < 10 ? (tokens[at][0] == 0 && conf.one_zero_if_hour_zero ? '' : '0') : '') + tokens[at][0].toString();
-				} else if (matchTokens(tokens, at, 'weekday')) {
-					value += ['Su','Mo','Tu','We','Th','Fr','Sa'][tokens[at][0]];
-				} else if (matchTokens(tokens, at, 'comment')) {
-					value += '"' + tokens[at][0].toString() + '"';
-				} else if (matchTokens(tokens, at, 'closed')) {
-					value += (conf.leave_off_closed ? tokens[at][0] : conf.keyword_for_off_closed);
-				} else if (at - start_at > 0 && matchTokens(tokens, at, 'number')
-						&& (matchTokens(tokens, at-1, 'month')
-						||  matchTokens(tokens, at-1, 'week')
-						)) {
-					value += ' ' + tokens[at][0];
-				} else if (at - start_at > 0 && matchTokens(tokens, at, 'month')
-						&& matchTokens(tokens, at-1, 'year')) {
-					value += ' ' + months[[tokens[at][0]]];
-				} else if (at - start_at > 0 && matchTokens(tokens, at, 'event')
-						&& matchTokens(tokens, at-1, 'year')) {
-					value += ' ' + tokens[at][0];
-				} else if (matchTokens(tokens, at, 'month')) {
-					value += months[[tokens[at][0]]];
-				} else if (at + 2 < last_at
-						&& (matchTokens(tokens, at, '-') || matchTokens(tokens, at, '+'))
-						&& matchTokens(tokens, at+1, 'number', 'calcday')) {
-					value += ' ' + tokens[at][0] + tokens[at+1][0] + ' day' + (Math.abs(tokens[at+1][0]) == 1 ? '' : 's');
-					at += 2;
-				} else {
-					// if (matchTokens(tokens, at, 'open') || matchTokens(tokens, at, 'unknown'))
-					// 	value += ' ';
-
-					value += tokens[at][0].toString();
-				}
-				at++;
-			}
-			return value + ' ';
 		}
 
 		// check whether facility is `open' on the given date (or now)

@@ -759,13 +759,20 @@
 				}
 
 				if (!crashed) {
+					var prettified = oh.prettifyValue();
+					var prettified_newline_sep = oh.prettifyValue({ block_sep_string: '\n', print_semicolon: false });
+					console.log(prettified_newline_sep);
 					show_results.innerHTML = '<p>' + i18n.t('words.status') + ':<br />'
 						+ '<input size="10" name="status" readonly="readonly" />'
 						+ '<input size="60" name="comment" readonly="readonly" />'
 						+ '</p>' + '<p>'
 						+ i18n.t('texts.MatchingRule') + ':<br />'
 						+ '<input style="width: 100%" name="MatchingRule" readonly="readonly" />'
-						+ '</p>';
+						+ '</p>' + i18n.t('texts.prettified value') + ':<br />'
+						+ '<p>' + '<textarea rows="' + prettified_newline_sep.split('\n').length
+						+ '" style="width: 100%" name="prettifiedValueNewlineSep" readonly="readonly">'
+						+ prettified_newline_sep + '</textarea></p>';
+
 
 					document.forms.check.elements['comment'].value = typeof it.getComment() != 'undefined'
 						? it.getComment() : '>>' + i18n.t('words.no') + ' ' + i18n.t('words.comment') + '<<';
@@ -774,7 +781,6 @@
 					document.forms.check.elements['MatchingRule'].value = typeof it.getMatchingRule() == 'undefined'
 						? i18n.t('words.none') : it.getMatchingRule();
 
-					var prettified = oh.prettifyValue();
 					if (prettified != value) {
 						show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.prettified value') + ':<br />'
 							+ '<input style="width: 100%" name="prettifiedValue" value="' + prettified + '" readonly="readonly" /></p>';
