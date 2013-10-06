@@ -133,6 +133,7 @@
 							"MatchingRule": "Substring used by applied rule",
 							"warn error": "Error and warning messages",
 							"prettified value": "prettified opening_hours value",
+							"prettified value for displaying": "prettified opening_hours value for displaying (including newlines, do not use this as value for OSM)",
 							"other implementation": "For more information you can check out the <a href=\"__url__\" target=\"_blank\">original JS implementation</a> written by __by__",
 							"the OSM wiki": "the OSM wiki",
 							"this website": "This website and the JavaScript library used for the evalutation of opening hours is developed on <a href=\"__url__\" target=\"_blank\">__hoster__</a>.",
@@ -252,6 +253,7 @@
 							"MatchingRule": "Zur Anwendung gekommene Regel",
 							"warn error": "Fehler und Warnungen",
 							"prettified value": "Schön formatierter opening_hours Wert",
+							"prettified value for displaying": "Schön formatierter opening_hours Wert für die Anzeige (mit Zeilenumbrüchen, nicht als Tag für OSM gedacht …)",
 							"other implementation": "Für weitere Informationen kannst dir eine weitere (die erste) <a href=\"__url__\" target=\"_blank\">JS Implementierung</a>, von __by__ anschauen",
 							"the OSM wiki": "das OSM wiki",
 							"this website": "Die Entwicklung dieser Webseite und der JavaScript Bibliothek zur Auswertung der Öffnungszeiten findet auf <a href=\"__url__\" target=\"_blank\">__hoster__</a> statt.",
@@ -768,10 +770,13 @@
 						+ '</p>' + '<p>'
 						+ i18n.t('texts.MatchingRule') + ':<br />'
 						+ '<input style="width: 100%" name="MatchingRule" readonly="readonly" />'
-						+ '</p>' + i18n.t('texts.prettified value') + ':<br />'
-						+ '<p>' + '<textarea rows="' + prettified_newline_sep.split('\n').length
-						+ '" style="width: 100%" name="prettifiedValueNewlineSep" readonly="readonly">'
-						+ prettified_newline_sep + '</textarea></p>';
+						+ '</p>';
+
+					if (prettified_newline_sep.split('\n').length > 1)
+						show_results.innerHTML += '<p>' + i18n.t('texts.prettified value for displaying') + ':<br />'
+							+ '<textarea rows="' + prettified_newline_sep.split('\n').length
+							+ '" style="width: 100%" name="prettifiedValueNewlineSep" readonly="readonly">'
+							+ prettified_newline_sep + '</textarea></p>';
 
 
 					document.forms.check.elements['comment'].value = typeof it.getComment() != 'undefined'

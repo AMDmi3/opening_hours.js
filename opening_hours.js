@@ -2326,7 +2326,6 @@
 				} while (continue_at)
 			}
 
-			// return JSON.stringify(tokens, null, '\t');
 			return prettified_value;
 		}
 
