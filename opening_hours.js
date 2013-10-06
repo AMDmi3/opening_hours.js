@@ -698,18 +698,17 @@
 		}
 
 		function getWarnings(it) {
+
 			if (typeof it == 'object') { // getWarnings was called in a state without critical errors. We can do extended tests.
 
 				// Check if 24/7 is used and it does not mean 24/7 because there are other rules. This can be avoided.
-				var has_advanced;
-				try { // Advance code can throw errors because of movable days e.g. easter.
-					has_advanced = it.advance();
-				} catch (err) {
-					crashed = err;
-				}
+				var has_advanced = it.advance();
 
-				if (has_advanced === true && has_token['24/7'])
-					parsing_warnings.push([ -1, 0, 'You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week". For correctness you might want to use "' + it.getStateString() + '" for this rule and then write your exceptions which should achieve the same goal and is more clear e.g. "open; Mo 12:00-14:00 off".']);
+				if (has_advanced === true && has_token['24/7']) // Probably because of: "24/7; 12:00-14:00 open". Needs extra testing.
+					parsing_warnings.push([ -1, 0, 'You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week".'
+							+ ' For correctness you might want to use "' + it.getStateString()
+							+ ' " for this rule and then write your exceptions which should achieve the same goal and is more clear'
+							+ ' e.g. "open; Mo 12:00-14:00 off".']);
 			}
 
 			var warnings = [];
@@ -2154,6 +2153,7 @@
 				this.getMatchingRule = function() {
 					if (typeof state[4] == 'undefined')
 						return undefined;
+					console.log(state[4]);
 
 					var block = tokens[state[4]][0];
 					var start_pos = value.length - block[0][2];

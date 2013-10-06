@@ -1066,7 +1066,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'2013-2015/1',
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1',
 		'Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
-		'easter + 333 days', // Does throw an error, but at runtime when the problem occurs.
+		// 'easter + 353 days', // Does throw an error, but at runtime when the problem occurs respectivly with the call of getWarnings().
 	], {}, 'not only test');
 
 test.addShouldFail('Incorrect syntax which should throw an error', [
@@ -1136,7 +1136,7 @@ process.exit(test.run() ? 0 : 1);
 //======================================================================
 function opening_hours_test() {
 	var show_passing_tests  = true;
-	var show_error_warnings = true; // enable this, if you want to see how the library reports errors and warnings
+	var show_error_warnings = false; // enable this, if you want to see how the library reports errors and warnings
 	var tests = [];
 	var tests_should_fail = [];
 	var tests_should_warn = [];
@@ -1172,7 +1172,7 @@ function opening_hours_test() {
 	}
 
 	function runSingleTestShouldThrowWarning(name, value, nominatiomJSON) {
-		var warnings = '', oh;
+		var warnings, oh;
 		try {
 			oh = new opening_hours(value, nominatiomJSON);
 
