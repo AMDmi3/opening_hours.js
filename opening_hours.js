@@ -645,7 +645,9 @@
 					value = value.substr(tmp[0].length);
 				} else if (value.match(/^[:.]/)) {
 					// time separator
-					curr_block_tokens.push([value[0].toLowerCase(), 'timesep', value.length ]);
+					if (value[0] == '.')
+						parsing_warnings.push([ -1, value.length - 1, 'Please use ":" as hour/minute-separator' ]);
+					curr_block_tokens.push([value[0], 'timesep', value.length ]);
 					value = value.substr(1);
 				} else {
 					// other single-character tokens

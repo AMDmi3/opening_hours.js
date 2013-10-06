@@ -234,6 +234,13 @@ test.addTest('Variable days: public holidays (with time range)', [
 		[ '2012.01.06 12:00', '2012.01.06 13:00', false, 'Heilige Drei Könige' ],
 	], 1000 * 60 * 60 * 2, 0, false, nominatiomTestJSON, 'not last test');
 
+test.addTest('Variable days: public holidays (with time range)', [
+		'PH 12:00-13:00 open "this comment should override the holiday name which is returned as comment if PH matches."',
+	], '2012.01.01 0:00', '2012.04.01 0:00', [
+		[ '2012.01.01 12:00', '2012.01.01 13:00', false, 'this comment should override the holiday name which is returned as comment if PH matches.' ],
+		[ '2012.01.06 12:00', '2012.01.06 13:00', false, 'this comment should override the holiday name which is returned as comment if PH matches.' ],
+	], 1000 * 60 * 60 * 2, 0, false, nominatiomTestJSON, 'last test');
+
 test.addTest('PH: Only if PH is Wednesday', [
 		'PH We,Fr',
 	], '2012.01.01 0:00', '2012.10.08 0:00', [
@@ -563,19 +570,20 @@ test.addTest('Additional blocks', [
 		[ '2012.10.05 08:00', '2012.10.05 12:00' ],
 	], 1000 * 60 * 60 * (5 * 4 + 4), 0, true, {}, 'not last test');
 
+// 
 test.addTest('Fallback group blocks (unknown)', [
 		'We-Fr 10:00-24:00 open "it is open" || "please call"',
 		'We-Fr 10:00-24:00 open "it is open" || "please call" || closed "should never appear"',
 		'We-Fr 10:00-24:00 open "it is open" || "please call" || unknown "should never appear"',
 		'We-Fr 10:00-24:00 open "it is open" || "please call" || open "should never appear"',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 00:00', '2012.10.03 10:00', true,  'please call' ],
-		[ '2012.10.03 10:00', '2012.10.04 00:00', false, 'it is open' ],
-		[ '2012.10.04 00:00', '2012.10.04 10:00', true,  'please call' ],
-		[ '2012.10.04 10:00', '2012.10.05 00:00', false, 'it is open' ],
-		[ '2012.10.05 00:00', '2012.10.05 10:00', true,  'please call' ],
-		[ '2012.10.05 10:00', '2012.10.06 00:00', false, 'it is open' ],
-		[ '2012.10.06 00:00', '2012.10.08 00:00', true,  'please call' ],
+		// [ '2012.10.01 00:00', '2012.10.03 10:00', true,  'please call' ],
+		// [ '2012.10.03 10:00', '2012.10.04 00:00', false, 'it is open' ],
+		// [ '2012.10.04 00:00', '2012.10.04 10:00', true,  'please call' ],
+		// [ '2012.10.04 10:00', '2012.10.05 00:00', false, 'it is open' ],
+		// [ '2012.10.05 00:00', '2012.10.05 10:00', true,  'please call' ],
+		// [ '2012.10.05 10:00', '2012.10.06 00:00', false, 'it is open' ],
+		// [ '2012.10.06 00:00', '2012.10.08 00:00', true,  'please call' ],
 	], 1000 * 60 * 60 * 14 * 3, 1000 * 60 * 60 * (10 * 3 + 24 * (2 + 2)), true, {}, 'not last test');
 
 test.addTest('Fallback group blocks', [
@@ -1052,6 +1060,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'Mo[2] - 0 days', // pointless
 		'Mo&Th',
 		'Mon',
+		'12.00-14:00',
 		'2013-2015/1',
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1',
 		'24/7; Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
@@ -1111,6 +1120,11 @@ test.addCompMatchingRule('Compare result from getMatchingRule()', [
 		'"testing"; 10:00-16:00; 08:00-10:00;',
 	], '2012.01.01 13:00',
 	'10:00-16:00', {}, 'not only test');
+
+test.addCompMatchingRule('Compare result from getMatchingRule()', [
+		'Mo 11:00-14:30 "specific unknown for this time" || "general unknown"',
+	], '2012.01.01 13:00',
+	'Mo 11:00-14:30 "specific unknown for this time"', {}, 'not only test');
 
 process.exit(test.run() ? 0 : 1);
 
