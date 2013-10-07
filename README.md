@@ -22,7 +22,7 @@ Please have a look at the [demo page][] which can give you an impression how thi
 
 You need to download all dependencies when using from this repository. This can be done with ```npm install```.
 
-<!-- [demo page]: http://amdmi3.ru/files/opening_hours.js/demo.html -->
+[demo page]: http://robin.de.marissa.hostorama.ch/osm/opening_hours.js/demo.html
 
 ## Synopsis
 

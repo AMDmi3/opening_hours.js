@@ -134,8 +134,7 @@
 							"warn error": "Error and warning messages",
 							"prettified value": "prettified and valid opening_hours value (this value can be safely used in OSM)",
 							"prettified value for displaying": "prettified opening_hours value for displaying (including newlines, do not use this as value for OSM)",
-							"other implementation": "For more information you can check out the <a href=\"__url__\" target=\"_blank\">original JS implementation</a> written by __by__",
-							"the OSM wiki": "the OSM wiki",
+							"more information": "For more information you can check out the <a __href__>OSM wiki</a>.",
 							"this website": "This website and the JavaScript library used for the evalutation of opening hours is developed on <a href=\"__url__\" target=\"_blank\">__hoster__</a>.",
 						},
 						"words": {
@@ -254,8 +253,7 @@
 							"warn error": "Fehler und Warnungen",
 							"prettified value": "Schön formatierter und korrekter opening_hours Wert (dieser Wert sollte in OSM verwendet werden)",
 							"prettified value for displaying": "Schön formatierter opening_hours Wert für die Anzeige (mit Zeilenumbrüchen, nicht als Tag für OSM gedacht …)",
-							"other implementation": "Für weitere Informationen kannst dir eine weitere (die erste) <a href=\"__url__\" target=\"_blank\">JS Implementierung</a>, von __by__ anschauen",
-							"the OSM wiki": "das OSM wiki",
+							"more information": "Für weitere Informationen kannst dir das <a __href__>OSM wiki</a> anschauen.",
 							"this website": "Die Entwicklung dieser Webseite und der JavaScript Bibliothek zur Auswertung der Öffnungszeiten findet auf <a href=\"__url__\" target=\"_blank\">__hoster__</a> statt.",
 						},
 						"words": {
@@ -1008,16 +1006,10 @@
 			</div><!-- }}} -->
 
 		<script type="text/javascript">
-			document.write(i18n.t('texts.other implementation',
-				{ by: 'Netzwolf', url: 'http://www.netzwolf.info/en/cartography/osm/time_domain/form_hours' }));
-			document.write(', '
-				+ ' <a href="http://www.netzwolf.info/en/cartography/osm/time_domain/" target="_blank">'
-				+ i18n.t('words.his') + ' ' + i18n.t('words.docu') + '</a>');
-			document.write(' ' + i18n.t('words.and') + ' ' + i18n.t('words.of course') + ' '
-				+ '<a href="http://wiki.openstreetmap.org/wiki/Key:opening_hours" target="_blank">'
-				+ i18n.t('texts.the OSM wiki') + '</a>.<br />');
+			document.write(i18n.t('texts.more information',
+				{ href: 'href="http://wiki.openstreetmap.org/wiki/Key:opening_hours" target="_blank"' }) + '<br />');
 
-			document.write(i18n.t('texts.this website', { url: 'https://github.com/AMDmi3/opening_hours.js', hoster: 'GitHub' }));
+			document.write(i18n.t('texts.this website', { url: 'https://github.com/ypid/opening_hours.js', hoster: 'GitHub' }));
 		</script>
 		</div><!-- }}} -->
 	</body><!-- }}} -->
