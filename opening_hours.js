@@ -238,7 +238,7 @@
 					am: '',
 				}, 'Bitte verzichte auf "<ko>".': {
 					uhr: '',
-				}, 'Bitte verzichte auf "<ko>". Sie möchten vermutlich eine Öffnungszeit ohne vorgegebenes Ende angeben. Beispiel: "12:00+"': {
+				}, 'Bitte verzichte auf "<ko>". Sie möchten eventuell eine Öffnungszeit ohne vorgegebenes Ende angeben. Beispiel: "12:00+"': {
 					ab:  '',
 					von: '',
 				}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>".': {
@@ -415,6 +415,11 @@
 					dusk:    'dusk',
 				}, 'Please use notation "<ok>" for "<ko>".': {
 					sundown: 'sunset',
+				}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>".': {
+					'morgendämmerung': 'dawn',
+					'abenddämmerung':  'dusk',
+					sonnenaufgang: 'sunrise',
+					sonnenuntergang: ',',
 				},
 			},
 
@@ -716,8 +721,8 @@
 
 				if (has_advanced === true && has_token['24/7']) // Probably because of: "24/7; 12:00-14:00 open", ". Needs extra testing.
 					parsing_warnings.push([ -1, 0, 'You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week".'
-							+ ' For correctness you might want to use "' + it.getStateString()
-							+ ' " for this rule and then write your exceptions which should achieve the same goal and is more clear'
+							+ ' For correctness you might want to use "open" or "closed"'
+							+ ' for this rule and then write your exceptions which should achieve the same goal and is more clear'
 							+ ' e.g. "open; Mo 12:00-14:00 off".']);
 			}
 
@@ -2213,7 +2218,7 @@
 					if (typeof state[4] == 'undefined')
 						return undefined;
 
-					if (typeof user_conf == 'undefined')
+					if (typeof user_conf != 'object')
 						var user_conf = {};
 					for (key in default_prettify_conf) {
 						if (typeof user_conf[key] != 'undefined')
@@ -2281,7 +2286,7 @@
 
 		// get a nicely formated value.
 		this.prettifyValue = function(user_conf) {
-			if (typeof user_conf == 'undefined')
+			if (typeof user_conf != 'object')
 				var user_conf = {};
 
 			for (key in default_prettify_conf) {

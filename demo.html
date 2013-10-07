@@ -132,7 +132,7 @@
 							"value for": "value for",
 							"MatchingRule": "Substring used by applied rule",
 							"warn error": "Error and warning messages",
-							"prettified value": "prettified opening_hours value",
+							"prettified value": "prettified and valid opening_hours value (this value can be safely used in OSM)",
 							"prettified value for displaying": "prettified opening_hours value for displaying (including newlines, do not use this as value for OSM)",
 							"other implementation": "For more information you can check out the <a href=\"__url__\" target=\"_blank\">original JS implementation</a> written by __by__",
 							"the OSM wiki": "the OSM wiki",
@@ -252,7 +252,7 @@
 							"value for": "Wert für",
 							"MatchingRule": "Zur Anwendung gekommene Regel",
 							"warn error": "Fehler und Warnungen",
-							"prettified value": "Schön formatierter opening_hours Wert",
+							"prettified value": "Schön formatierter und korrekter opening_hours Wert (dieser Wert sollte in OSM verwendet werden)",
 							"prettified value for displaying": "Schön formatierter opening_hours Wert für die Anzeige (mit Zeilenumbrüchen, nicht als Tag für OSM gedacht …)",
 							"other implementation": "Für weitere Informationen kannst dir eine weitere (die erste) <a href=\"__url__\" target=\"_blank\">JS Implementierung</a>, von __by__ anschauen",
 							"the OSM wiki": "das OSM wiki",
@@ -754,7 +754,7 @@
 				} catch (err) {
 					crashed = err;
 					show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.warn error') + ':<br />'
-						+ '<textarea rows="' + crashed.split('\n').length + '" style="width: 100%" name="WarnErrors" readonly="readonly">' + crashed
+						+ '<textarea rows="' + crashed.split('\n').length + 1 + '" style="width: 100%" name="WarnErrors" readonly="readonly">' + crashed
 						+ '</textarea></p>';
 					show_time_table.innerHTML = '';
 					show_results.innerHTML    = '';
@@ -794,7 +794,7 @@
 					var warnings = oh.getWarnings();
 					if (warnings) {
 						show_warnings_or_errors.innerHTML += '<p>' + i18n.t('texts.warn error') + ':<br />'
-							+ '<textarea rows="' + warnings.split('\n').length
+							+ '<textarea rows="' + (warnings.split('\n').length + 1)
 							+ '" style="width: 100%" name="WarnErrors" readonly="readonly">' + warnings
 							+ '</textarea></p>';
 					}
