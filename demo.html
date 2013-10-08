@@ -80,6 +80,7 @@
 
 			var lat, string_lat, string_lon, nominatim;
 			var url_lang = 'de';
+                        var date;
 
 			function Evaluate (offset, reset) {
 				if (typeof offset == 'undefined') offset = 0;
@@ -222,14 +223,9 @@
 			}
 
 			function permalink () {
-				var mmsel = document.getElementById('mm');
-
-				var yyyymmdd =	document.getElementById('yyyy').value +
-						mmsel.options[+mmsel.selectedIndex].value +
-						document.getElementById('dd').value;
 				var exp =	document.getElementById('expression').value;
 
-				var search='?EXP='+encodeURIComponent(exp)+'&DATE='+encodeURIComponent(yyyymmdd);
+				var search='?EXP='+encodeURIComponent(exp)+'&DATE='+date.getTime();
 
 				location = location.protocol+'//'+location.host+location.pathname+search;
 			}
@@ -239,9 +235,39 @@
 				var lng = position.coords.longitude;
 				console.log("Current position: " + lat + " " + lng);
 			}
-			window.onload = function () {Evaluate(0, true);
-			// if(navigator.geolocation)
-			// 	navigator.geolocation.getCurrentPosition(onPositionUpdate);
+			window.onload = function () {
+				var prmarr = window.location.search.replace( "?", "" ).split("&");
+				var params = {};
+
+				for ( var i = 0; i < prmarr.length; i++) {
+					var tmparr = prmarr[i].split("=");
+					params[tmparr[0]] = tmparr[1];
+				}
+				if (params['EXP']) {
+					document.forms.check.elements['expression'].value = decodeURIComponent(params['EXP']);
+				}
+				if (params['DATE']) {
+					var crashed = true;
+					try {
+						date = new Date(parseInt(params['DATE']));
+						crashed = false;
+					} catch (err) {
+						console.log(err);
+					}
+					if (!crashed) {
+						console.log(date.toString(), params['DATE']);
+						document.forms.check.elements['yyyy'].value       = date.getFullYear();
+						document.forms.check.elements['mm'].selectedIndex = date.getMonth();
+						document.forms.check.elements['dd'].value         = date.getDate();
+						document.forms.check.elements['HH'].value         = date.getHours();
+						document.forms.check.elements['MM'].value         = date.getMinutes();
+					}
+					Evaluate(0, false);
+				} else {
+					Evaluate(0, true);
+				}
+				// if(navigator.geolocation)
+				// 	navigator.geolocation.getCurrentPosition(onPositionUpdate);
 			};
 
 			/*]]>*/</script>
