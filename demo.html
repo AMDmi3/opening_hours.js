@@ -159,7 +159,6 @@
 				if (!crashed) {
 					var prettified = oh.prettifyValue();
 					var prettified_newline_sep = oh.prettifyValue({ block_sep_string: '\n', print_semicolon: false });
-					console.log(prettified_newline_sep);
 					show_results.innerHTML = '<p>' + i18n.t('words.status') + ':<br />'
 						+ '<input size="10" name="status" readonly="readonly" />'
 						+ '<input size="60" name="comment" readonly="readonly" />'
