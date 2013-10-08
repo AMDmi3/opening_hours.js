@@ -288,7 +288,7 @@
 				}, 'Bitte benutze die englische Abkürzung "<ok>" für "<ko>".': {
 					januar:    0,
 					februar:   1,
-					märz:      2,
+					'märz':    2,
 					maerz:     2,
 					mai:       4,
 					juni:      5,
@@ -616,7 +616,7 @@
 				} else if (tmp = value.match(/^days?/i)) {
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(:?&|–|[a-zA-Z]+\b)/i)) {
+				} else if (tmp = value.match(/^(:?&|–|[a-zA-ZäÄàÀéÉ]+\b)/i)) {
 					// Handle all remaining words with error tolerance
 					var correct_val = returnCorrectWordOrToken(tmp[0].toLowerCase(), value.length);
 					if (typeof correct_val == 'object') {
@@ -2281,7 +2281,7 @@
 		// returns an empty string if there are no warnings
 		this.getWarnings = function() {
 			var it = this.getIterator();
-			return getWarnings(it).join('\n');;
+			return getWarnings(it);
 		}
 
 		// get a nicely formated value.

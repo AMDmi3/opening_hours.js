@@ -109,7 +109,7 @@ function getReadableState(startString, endString, oh, past) {
   var warnings = oh.getWarnings();
   ```
 
-  Get warnings which appeared during parsing as human readable string. Every violation is described on its own line. Warnings do not effect the correct evaluation, but they should be avoided.
+  Get warnings which appeared during parsing as human readable string array. Every violation is described in one element of the array. Warnings do not effect the correct evaluation, but they should be avoided.
 
 * ```javascript
   var prettified = oh.prettifyValue(conf);

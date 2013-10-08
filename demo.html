@@ -188,10 +188,10 @@
 					}
 
 					var warnings = oh.getWarnings();
-					if (warnings) {
+					if (warnings.length > 0) {
 						show_warnings_or_errors.innerHTML += '<p>' + i18n.t('texts.warn error') + ':<br />'
-							+ '<textarea rows="' + (warnings.split('\n').length + 1)
-							+ '" style="width: 100%" name="WarnErrors" readonly="readonly">' + warnings
+							+ '<textarea rows="' + (warnings.length + 1)
+							+ '" style="width: 100%" name="WarnErrors" readonly="readonly">' + warnings.join('\n')
 							+ '</textarea></p>';
 					}
 
@@ -226,10 +226,10 @@
 					var tmparr = prmarr[i].split("=");
 					params[tmparr[0]] = tmparr[1];
 				}
-				if (params['EXP']) {
+				if (typeof params['EXP'] != 'undefined') {
 					document.forms.check.elements['expression'].value = decodeURIComponent(params['EXP']);
 				}
-				if (params['DATE']) {
+				if (typeof params['DATE'] != 'undefined') {
 					var crashed = true;
 					try {
 						date = new Date(parseInt(params['DATE']));
