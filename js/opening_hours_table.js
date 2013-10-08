@@ -164,7 +164,7 @@ var OpeningHoursTable = {
         return startString + output + endString + '.';
     },
 
-    drawTableAndComments: function (oh, it) {
+    drawTableAndComments: function (oh, it, value) {
         var prevdate          = it.getDate();
         var is_open           = it.getState();
         var unknown           = it.getUnknown();
@@ -191,7 +191,7 @@ var OpeningHoursTable = {
             output += '<p class="' + it.getStateString(true) + '">'
                 + i18n.t('texts.will ' + it.getStateString(false), {
                     timestring: this.formatdate(prevdate, it.getDate(), true),
-                    href: 'javascript:Evaluate(' + time_diff + ')',
+                    href: 'javascript:Evaluate(' + time_diff + ', false, \'' + value + '\')',
                 }) + '</p>';
         }
 
