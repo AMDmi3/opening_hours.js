@@ -373,6 +373,21 @@ function translatePage() { // Gets called when localization is loaded.
     // $("headline").i18n();
 }
 
+function getUserSelectTranslateHTMLCode() {
+    var res = i18n.t('lang.choose')
+            + (i18n.lng() !== 'en' ? ' ('+ i18n.t('lang.choose', { lng: 'en' }) +')' : '' )
+            + ': ';
+    for (var lang in resources) {
+        if (resources.hasOwnProperty(lang)) {
+          res += '<button type="button" onclick="location.href=\'?setLng='
+                + lang +'\'">' + i18n.t('lang.' + lang)
+                + (i18n.lng() !== 'en' ? ' ('+ i18n.t('lang.' +lang, { lng: 'en' }) +')' : '' )
+                + '</button>';
+        }
+    }
+    return res;
+}
+
 i18n.init({
         fallbackLng: 'en',
         resStore: resources,

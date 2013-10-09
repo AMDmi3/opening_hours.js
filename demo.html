@@ -41,19 +41,7 @@
 	</head> <!-- }}} -->
     <body><!-- {{{ -->
 		<script type="text/javascript">
-			<!-- Choose language {{{ -->
-			document.write(i18n.t('lang.choose')
-					+ (i18n.lng() !== 'en' ? ' ('+ i18n.t('lang.choose', { lng: 'en' }) +')' : '' )
-					+ ': ');
-				for (var lang in resources) {
-					if (resources.hasOwnProperty(lang)) {
-					  document.write('<button type="button" onclick="location.href=\'?setLng='
-							+ lang +'\'">' + i18n.t('lang.' + lang)
-							+ (i18n.lng() !== 'en' ? ' ('+ i18n.t('lang.' +lang, { lng: 'en' }) +')' : '' )
-							+ '</button>');
-					}
-				}
-			<!-- }}} -->
+			document.write(getUserSelectTranslateHTMLCode());
 		</script>
 
 		<div id="user"><!-- {{{ -->
