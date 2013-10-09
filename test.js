@@ -1197,13 +1197,13 @@ function opening_hours_test() {
 
 		var passed = false;
 		var str = '"' + name + '" for "' + value.replace('\n', '*newline*') + '": ';
-		if (!crashed && typeof warnings == 'string' && warnings != '') {
+		if (!crashed && warnings.length > 0) {
 			str += '[1;32mPASSED[0m';
 			passed = true;
 			if (show_passing_tests)
 				console.log(str);
 			if (show_error_warnings)
-				console.log(warnings);
+				console.log(warnings.join('\n'));
 			return true;
 		} else {
 			str += '[1;31mFAILED[0m';
@@ -1223,7 +1223,7 @@ function opening_hours_test() {
 
 		var oh, intervals, durations, weekstable, prettified, intervals_ok, duration_ok, weekstable_ok, prettify_ok, crashed = true;
 
-		var warnings = '';
+		var warnings;
 		try {
 			oh = new opening_hours(value, nominatiomJSON);
 
@@ -1294,8 +1294,8 @@ function opening_hours_test() {
 			failed = true;
 		}
 
-		if (show_error_warnings && warnings != '')
-			str += '\n' + warnings;
+		if (show_error_warnings && warnings.length > 0)
+			str += '\n' + warnings.join('\n');
 
 		if ((intervals_ok && duration_ok && weekstable_ok && show_passing_tests) || crashed || failed || ignored)
 			console.log(str);
