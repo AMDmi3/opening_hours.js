@@ -449,6 +449,8 @@ test.addTest('Full range', [
 		'12:00-13:00; 24/7',
 		'Mo-Fr,Sa,Su',
 		ignored('PH,Mo-Fr,Sa,Su', 'check for week stable not implemented'),
+		ignored('PH,Mo-Fr,Sa,Su,SH', 'check for week stable not implemented'),
+		ignored('Mo-Fr,Sa,PH,Su,SH', 'check for week stable not implemented'),
 		// week stable actually, but check for that needs extra logic
 		'Jan-Dec',
 		'Feb-Jan',
@@ -917,15 +919,7 @@ test.addTest('Extensions: complex monthday ranges', [
 	], 1000 * 60 * 60 * 24 * 21, 0, false, {}, 'not last test');
 
 test.addTest('Extensions: missing time range separators', [
-		'Mo 12:00-14:00 16:00-18:00 20:00-22:00',
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 12:00', '2012.10.01 14:00' ],
-		[ '2012.10.01 16:00', '2012.10.01 18:00' ],
-		[ '2012.10.01 20:00', '2012.10.01 22:00' ],
-	], 1000 * 60 * 60 * 6, 0, true);
-
-test.addTest('Extensions: missing time range separators', [
-		'Mo-Do 8:30-20:00 Fr 8:30-18:00',
+		'Mo 12:00-14:00 16:00-18:00 20:00-22:00', // returns a warning
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 12:00', '2012.10.01 14:00' ],
 		[ '2012.10.01 16:00', '2012.10.01 18:00' ],
@@ -1122,6 +1116,8 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'2013-2015/1',
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1',
 		'Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
+		'Mo-Do 8:30-20:00 Fr 8:29-18:00',
+		'Mo 12:00-14:00 16:00-18:00 20:00-22:00',
 		// 'easter + 353 days', // Does throw an error, but at runtime when the problem occurs respectivly with the call of getWarnings().
 	], {}, 'not only test');
 
@@ -1343,10 +1339,10 @@ function opening_hours_test() {
 				str += ', bad prettified value: "' + prettified + '", expected either value or "' + first_value + '"';
 			// console.log(intervals);
 			failed = true;
-		}
 
-		if (show_error_warnings && warnings.length > 0)
-			str += '\n' + warnings.join('\n');
+			if (show_error_warnings && warnings.length > 0)
+				str += '\n' + warnings.join('\n');
+		}
 
 		if ((intervals_ok && duration_ok && weekstable_ok && show_passing_tests) || crashed || failed || ignored)
 			console.log(str);

@@ -761,18 +761,19 @@
 		//======================================================================
 		// Top-level parser
 		//======================================================================
-		function parseGroup(tokens, at, selectors, conf) {
+		function parseGroup(tokens, at, selectors, used_subparser, conf) {
 			var prettified_group_value = '';
+			var used_parseTimeRange = 0;
 
 			// console.log(tokens); // useful for debugging of tokenize
 			while (at < tokens.length) {
 				var old_at = at;
-				var last_subparser;
 				// console.log('Parsing at position', at +':', tokens[at]);
 				if (matchTokens(tokens, at, 'weekday')) {
 					at = parseWeekdayRange(tokens, at, selectors);
 				} else if (matchTokens(tokens, at, '24/7')) {
-					// selectors.time.push(function(date) { return [true]; }); // Not needed. If there is now selector it automatically matches everything.
+					// selectors.time.push(function(date) { return [true]; });
+					// Not needed. If there is no selector it automatically matches everything.
 					at++;
 				} else if (matchTokens(tokens, at, 'holiday')) {
 					if (matchTokens(tokens, at+1, ','))
@@ -810,7 +811,13 @@
 						|| matchTokens(tokens, at, 'timevar')
 						|| matchTokens(tokens, at, '(', 'timevar')) {
 					at = parseTimeRange(tokens, at, selectors);
-					last_subparser = 'time';
+
+					used_parseTimeRange++;
+
+					if (used_parseTimeRange > 1)
+						parsing_warnings.push([nblock, at, 'You have used ' + used_parseTimeRange + ' not connected time ranges in one rule.'
+								+ ' This is probably a error. Please connect them like this "12:00-13:00,15:00-18:00".']);
+
 				} else if (matchTokens(tokens, at, 'closed')) {
 					selectors.meaning = false;
 					at++;
@@ -852,8 +859,9 @@
 						+ (warnings ? ' ' + warnings.join('; ') : '');
 				}
 
-				if (typeof conf != 'undefined')
-					prettified_group_value += prettifySelector(tokens, old_at, at, conf, last_subparser);
+				if (typeof conf != 'undefined') {
+					prettified_group_value += prettifySelector(tokens, old_at, at, conf, used_parseTimeRange);
+				}
 
 				if (typeof at == 'object') // additional block
 					break;
@@ -2197,7 +2205,7 @@
 			return value.substring(0, pos) + ' <--- (' + message + ')';
 		}
 
-		function prettifySelector(tokens, at, last_at, conf, last_subparser) {
+		function prettifySelector(tokens, at, last_at, conf, used_parseTimeRange) {
 			var value = '';
 			var start_at = at;
 			while (at < last_at) {
@@ -2209,10 +2217,10 @@
 							value = value.substring(0, value.length - 1) + conf.sep_one_day_between;
 					}
 					value += weekdays[tokens[at][0]];
-				} else if (at - start_at > 0 && last_subparser == 'time' && matchTokens(tokens, at-1, 'timesep')
+				} else if (at - start_at > 0 && used_parseTimeRange > 0 && matchTokens(tokens, at-1, 'timesep')
 						&& matchTokens(tokens, at, 'number')) {
 					value += (tokens[at][0] < 10 ? '0' : '') + tokens[at][0].toString();
-				} else if (last_subparser == 'time' && conf.leading_zero_hour && at != tokens.length
+				} else if (used_parseTimeRange > 0 && conf.leading_zero_hour && at != tokens.length
 						&& matchTokens(tokens, at+1, 'timesep')) {
 					value += (tokens[at][0] < 10 ? (tokens[at][0] == 0 && conf.one_zero_if_hour_zero ? '' : '0') : '') + tokens[at][0].toString();
 				} else if (matchTokens(tokens, at, 'comment')) {
@@ -2316,7 +2324,7 @@
 						comment: undefined,
 					};
 
-					parseGroup(tokens[state[4]][0], 0, selectors, user_conf);
+					parseGroup(tokens[state[4]][0], 0, selectors, {}, user_conf);
 
 					return prettified_value;
 				}
@@ -2399,7 +2407,7 @@
 						comment: undefined,
 					};
 
-					continue_at = parseGroup(tokens[nblock][0], continue_at, selectors, user_conf);
+					continue_at = parseGroup(tokens[nblock][0], continue_at, selectors, {}, user_conf);
 
 					if (typeof continue_at == 'object') {
 						continue_at = continue_at[0];
