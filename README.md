@@ -315,7 +315,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 * Supports public holidays (```24/7; PH off```, ```PH 12:00-13:00```).
   * Currently only Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored.
-  * **EXT:** Supports limited calculations based on holidays (e.g. ```Sa,PH -1 day open```). The only two possibilities currently are +1 and -1. All other cases are not handled. This seems to be enough because the only thing which is really used is -1.
+  * **EXT:** Supports limited calculations based on holidays (e.g. ```Sa,PH -1 day open```). The only two possibilities are currently +1 and -1. All other cases are not handled. This seems to be enough because the only thing which is really used is -1.
 
 [PH-de]: http://de.wikipedia.org/wiki/Feiertage_in_Deutschland
 
@@ -353,6 +353,8 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Supports monthday ranges across multiple months (```Jan 01-Feb 03 10:00-20:00```)
 * Supports monthday ranges within single month (```Jan 01-26 10:00-20:00```), with periods as well ```Jan 01-29/7 10:00-20:00```)
 * Supports monthday ranges with years (```2013 Dec 31-2014 Jan 02 10:00-20:00```, ```2012 Jan 23-31 10:00-24:00```)
+* Supports monthday ranges based on constrained weekdays (```Jan Su[1]-Feb 03 10:00-20:00```)
+* Supports calculation based on constrained weekdays in monthday range (```Jan Su[1] +1 day-Feb 03 10:00-20:00```)
 * Supports movable events like easter (```easter - Apr 20: open "Around easter"```)
 
  Note that if easter would be after the 20th of April for one year, this will be interpreted as spanning into the next year currently.

@@ -438,6 +438,7 @@
 			dusk    : 60 * 18 + 30,
 		};
 		var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+		var weekdays = ['Su','Mo','Tu','We','Th','Fr','Sa'];
 		var default_prettify_conf = {
 			'leading_zero_hour': true,       // enforce leading zero
 			'one_zero_if_hour_zero': false,  // only one zero "0" if hour is zero "0"
@@ -445,6 +446,8 @@
 			'keyword_for_off_closed': 'off', // use given keyword instead of "off" or "closed"
 			'block_sep_string': ' ',         // separate blocks by string
 			'print_semicolon': true,         // print token which separates normal blocks
+			'leave_weekday_sep_one_day_betw': true, // use the separator (either "," or "-" which is used to separate days which follow to each other like Sa,Su or Su-Mo
+			'sep_one_day_between': ',' // separator which should be used
 		};
 
 		var minutes_in_day = 60 * 24;
@@ -772,12 +775,13 @@
 					// selectors.time.push(function(date) { return [true]; }); // Not needed. If there is now selector it automatically matches everything.
 					at++;
 				} else if (matchTokens(tokens, at, 'holiday')) {
-					if (matchTokens(tokens, at+1, ',', 'weekday'))
+					if (matchTokens(tokens, at+1, ','))
 						at = parseHoliday(tokens, at, selectors, true);
 					else
 						at = parseHoliday(tokens, at, selectors, false);
 					week_stable = false;
 				} else if (matchTokens(tokens, at, 'month', 'number')
+						|| matchTokens(tokens, at, 'month', 'weekday')
 						|| matchTokens(tokens, at, 'year', 'month', 'number')
 						|| matchTokens(tokens, at, 'year', 'event')
 						|| matchTokens(tokens, at, 'event')) {
@@ -844,7 +848,8 @@
 				} else {
 					var warnings = getWarnings();
 					throw formatWarnErrorMessage(nblock, at, 'Unexpected token: "' + tokens[at][1]
-						+ '" This means that the syntax is not valid at that point.') + (warnings ? ' ' + warnings.join('; ') : '');
+						+ '" This means that the syntax is not valid at that point or the feature you are using is currently not supported.')
+						+ (warnings ? ' ' + warnings.join('; ') : '');
 				}
 
 				if (typeof conf != 'undefined')
@@ -1184,7 +1189,7 @@
 						}}(tokens[at][0], numbers[nnumber], add_days[0]));
 					}
 
-					at = endat + 1 + add_days[1] * 3;
+					at = endat + 1 + add_days[1];
 				} else if (matchTokens(tokens, at, 'weekday')) {
 					// Single weekday (Mo) or weekday range (Mo-Fr)
 					var is_range = matchTokens(tokens, at+1, '-', 'weekday');
@@ -1260,7 +1265,7 @@
 		}
 
 		function getMoveDays(tokens, at, max_differ, name) {
-			var add_days = [ 0, false ];
+			var add_days = [ 0, 0 ]; // [ 'add days', 'how many tokens' ]
 			add_days[0] = matchTokens(tokens, at, '+') || (matchTokens(tokens, at, '-') ? -1 : 0);
 			if (add_days[0] != 0 && matchTokens(tokens, at+1, 'number', 'calcday')) {
 				// continues with '+ 5 days' or something like that
@@ -1270,7 +1275,7 @@
 				add_days[0] *= tokens[at+1][0];
 				if (add_days[0] == 0)
 					parsing_warnings.push([ nblock, at+2, 'Adding 0 does not change the date. Please omit this.' ]);
-				add_days[1] = true;
+				add_days[1] = 3;
 			} else {
 				add_days[0] = 0;
 			}
@@ -1354,7 +1359,7 @@
 						else
 							selectors.holiday.push(selector);
 
-						at += 1 + add_days[1] * 3;
+						at += 1 + add_days[1];
 					} else if (tokens[at][0] == 'SH') {
 						var applying_holidays = getMatchingHoliday(tokens[at][0]);
 
@@ -1571,9 +1576,8 @@
 							applying_holidays[holiday_name][1]
 						);
 				}
-				if (add_days[1]) {
+				if (add_days[0])
 					next_holiday.setDate(next_holiday.getDate() + add_days[0]);
-				}
 
 				sorted_holidays.push([ next_holiday, holiday_name ]);
 			}
@@ -1797,35 +1801,73 @@
 			return new Date(date.getFullYear(), month < date.getMonth() ? month + 12 : month);
 		}
 
+		function getConstrainedWeekday(tokens, at) {
+			var number = 0;
+			var endat = parseNumRange(tokens, at, function(from, to, at) {
+
+				// bad number
+				if (from == 0 || from < -5 || from > 5)
+					throw formatWarnErrorMessage(nblock, at,
+						'Number between -5 and 5 (except 0) expected');
+
+				if (from == to) {
+					if (number != 0)
+						throw formatWarnErrorMessage(nblock, at,
+							'You can not use a more than one constrained weekday in a month range');
+					number = from;
+				} else {
+					throw formatWarnErrorMessage(nblock, at+2,
+						'You can not use a range of constrained weekdays in a month range');
+				}
+			});
+
+			if (!matchTokens(tokens, endat, ']'))
+				throw formatWarnErrorMessage(nblock, endat, '"]" expected.');
+
+			return [ number, endat + 1 ];
+		}
+
 		//======================================================================
 		// Month day range parser (Jan 26-31; Jan 26-Feb 26)
 		//======================================================================
 		function parseMonthdayRange(tokens, at) {
 			for (; at < tokens.length; at++) {
-				var has_year = [], has_month = [], has_event = [], has_calc = [];
+				var has_year = [], has_month = [], has_event = [], has_calc = [], has_constrained_weekday = [], has_calc = [];
 				has_year[0]  = matchTokens(tokens, at, 'year');
 				has_month[0] = matchTokens(tokens, at+has_year[0], 'month', 'number');
 				has_event[0] = matchTokens(tokens, at+has_year[0], 'event');
 				if (has_event[0])
 					has_calc[0] = getMoveDays(tokens, at+has_year[0]+1, 200, 'event like easter');
-				var at_range_sep = at+has_year[0]
+
+				if (matchTokens(tokens, at+has_year[0], 'month', 'weekday', '[')) {
+					has_constrained_weekday[0] = getConstrainedWeekday(tokens, at+has_year[0]+3);
+					has_calc[0] = getMoveDays(tokens, has_constrained_weekday[0][1], 6, 'constrained weekdays');
+					var at_range_sep = has_constrained_weekday[0][1] + (typeof has_calc[0] != 'undefined' && has_calc[0][1] ? 3 : 0);
+				} else {
+					var at_range_sep = at+has_year[0]
 						+ (has_event[0]
 							? (typeof has_calc[0] != 'undefined' && has_calc[0][1] ? 4 : 1)
 							: 2);
-				if ((has_month[0] || has_event[0]) && matchTokens(tokens, at_range_sep, '-')) {
+				}
+
+				if ((has_month[0] || has_event[0] || has_constrained_weekday[0]) && matchTokens(tokens, at_range_sep, '-')) {
 					has_year[1]  = matchTokens(tokens, at_range_sep+1, 'year');
 					var at_sec_event_or_month = at_range_sep+1+has_year[1];
 					has_month[1] = matchTokens(tokens, at_sec_event_or_month, 'month', 'number');
 					if (!has_month[1]) {
 						has_event[1] = matchTokens(tokens, at_sec_event_or_month, 'event');
-						if (has_event[1])
+						if (has_event[1]) {
 							has_calc[1] = getMoveDays(tokens, at_sec_event_or_month+1, 366, 'event like easter');
+						} else if (matchTokens(tokens, at_sec_event_or_month, 'month', 'weekday', '[')) {
+							has_constrained_weekday[1] = getConstrainedWeekday(tokens, at_sec_event_or_month+3);
+							has_calc[1] = getMoveDays(tokens, has_constrained_weekday[1][1], 6, 'constrained weekdays');
+						}
 					}
 				}
 
-				if (has_year[0] == has_year[1] && (has_month[1] || has_event[1])) {
+				if (has_year[0] == has_year[1] && (has_month[1] || has_event[1] || has_constrained_weekday[1])) {
 
-					selectors.monthday.push(function(tokens, at, nblock, has_year, has_event, has_calc, at_sec_event_or_month) { return function(date) {
+					selectors.monthday.push(function(tokens, at, nblock, has_year, has_event, has_calc, at_sec_event_or_month, has_constrained_weekday) { return function(date) {
 						var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
 
 						if (has_event[0]) {
@@ -1838,6 +1880,19 @@
 								if (from_year_before_calc != from_date.getFullYear())
 									throw formatWarnErrorMessage(nblock, at+has_year[0]+has_calc[0][1]*3,
 										'The movable day ' + tokens[at+has_year[0]][0] + ' plus ' + has_calc[0][0]
+										+ ' days is not in the year of the movable day anymore. Currently not supported.');
+							}
+						} else if (has_constrained_weekday[0]) {
+							var from_date = dateAtNextWeekday(
+								new Date((has_year[0] ? tokens[at][0] : date.getFullYear()),
+									tokens[at+has_year[0]][0] + (has_constrained_weekday[0][0] > 0 ? 0 : 1), 1), tokens[at+has_year[0]+1][0]);
+							from_date.setDate(from_date.getDate() + (has_constrained_weekday[0][0] + (has_constrained_weekday[0][0] > 0 ? -1 : 0)) * 7);
+							if (typeof has_calc[0] != 'undefined' && has_calc[0][1]) {
+								var from_year_before_calc = from_date.getFullYear();
+								from_date.setDate(from_date.getDate() + has_calc[0][0]);
+								if (from_year_before_calc != from_date.getFullYear())
+									throw formatWarnErrorMessage(nblock, at+has_year[0]+has_calc[0][1]*3,
+										'The constrained ' + weekdays[tokens[at+has_year[0]+1][0]] + ' plus ' + has_calc[0][0]
 										+ ' days is not in the year of the movable day anymore. Currently not supported.');
 							}
 						} else {
@@ -1855,8 +1910,22 @@
 								var to_year_before_calc = to_date.getFullYear();
 								to_date.setDate(to_date.getDate() + has_calc[1][0]);
 								if (to_year_before_calc != to_date.getFullYear())
-									throw formatWarnErrorMessage(nblock, at_sec_event_or_month+has_calc[1][1]*3,
+									throw formatWarnErrorMessage(nblock, at_sec_event_or_month+has_calc[1][1],
 										'The movable day ' + tokens[at_sec_event_or_month][0] + ' plus ' + has_calc[1][0]
+										+ ' days is not in the year of the movable day anymore. Currently not supported.');
+							}
+						} else if (has_constrained_weekday[1]) {
+							var to_date = dateAtNextWeekday(
+								new Date((has_year[1] ? tokens[at_sec_event_or_month-1][0] : date.getFullYear()),
+									tokens[at_sec_event_or_month][0] + (has_constrained_weekday[1][0] > 0 ? 0 : 1), 1),
+									tokens[at_sec_event_or_month+1][0]);
+							to_date.setDate(to_date.getDate() + (has_constrained_weekday[1][0] + (has_constrained_weekday[1][0] > 0 ? -1 : 0)) * 7);
+							if (typeof has_calc[1] != 'undefined' && has_calc[1][1]) {
+								var to_year_before_calc = to_date.getFullYear();
+								to_date.setDate(to_date.getDate() + has_calc[1][0]);
+								if (to_year_before_calc != to_date.getFullYear())
+									throw formatWarnErrorMessage(nblock, at_sec_event_or_month+has_year[0]+has_calc[1][1],
+										'The constrained ' + weekdays[tokens[at_sec_event_or_month+1][0]] + ' plus ' + has_calc[1][0]
 										+ ' days is not in the year of the movable day anymore. Currently not supported.');
 							}
 						} else {
@@ -1883,12 +1952,12 @@
 							else
 								return [!inside, start_of_next_year];
 						}
-					}}(tokens, at, nblock, has_year, has_event, has_calc, at_sec_event_or_month));
+					}}(tokens, at, nblock, has_year, has_event, has_calc, at_sec_event_or_month, has_constrained_weekday));
 
-					at = at_sec_event_or_month
-						+ (has_event[1]
-							? (typeof has_calc[1] != 'undefined' && has_calc[1][1] ? 4 : 1)
-							: 2);
+					at = (has_constrained_weekday[1]
+							? has_constrained_weekday[1][1]
+							: at_sec_event_or_month + (has_event[1] ? 1 : 2))
+						+ (typeof has_calc[1] != 'undefined' ? has_calc[1][1] : 0);
 
 				} else if (has_month[0]) {
 					var is_range = matchTokens(tokens, at+2+has_year[0], '-', 'number'), has_period = false;
@@ -1940,10 +2009,10 @@
 							throw 'Movable day ' + tokens[at+has_year][0] + ' can not not be calculated.'
 								+ ' Please add the formula how to calculate it.';
 
-						if (add_days[1]) {
+						if (add_days[0]) {
 							event_date.setDate(event_date.getDate() + add_days[0]);
 							if (date.getFullYear() != event_date.getFullYear())
-								throw formatWarnErrorMessage(nblock, at+has_year+add_days[1]*3, 'The movable day ' + tokens[at+has_year][0] + ' plus '
+								throw formatWarnErrorMessage(nblock, at+has_year+add_days[1], 'The movable day ' + tokens[at+has_year][0] + ' plus '
 									+ add_days[0]
 									+ ' days is not in the year of the movable day anymore. Currently not supported.');
 						}
@@ -1959,6 +2028,10 @@
 					}}(tokens, at, nblock, has_event[0], has_year[0], has_calc[0]));
 
 					at += has_year[0] + has_event[0] + (typeof has_calc[0][1] != 'undefined' && has_calc[0][1] ? 3 : 0);
+				} else if (has_constrained_weekday[0]) {
+					at = parseMonthRange(tokens, at);
+				} else if (matchTokens(tokens, at, 'month')) {
+					return parseMonthRange(tokens, at);
 				} else {
 					// throw 'Unexpected token in monthday range: "' + tokens[at] + '"';
 					return at;
@@ -1968,6 +2041,7 @@
 					break;
 			}
 
+			// console.log(tokens[at-1], 23);
 			return at;
 		}
 
@@ -2128,15 +2202,19 @@
 			var start_at = at;
 			while (at < last_at) {
 				if (matchTokens(tokens, at, 'weekday')) {
-					value += ['Su','Mo','Tu','We','Th','Fr','Sa'][tokens[at][0]];
+					if (!conf.leave_weekday_sep_one_day_betw
+						&& at - start_at > 1 && (matchTokens(tokens, at-1, ',') || matchTokens(tokens, at-1, '-'))
+						&& matchTokens(tokens, at-2, 'weekday')
+						&& tokens[at][0] == (tokens[at-2][0] + 1) % 7)  {
+							value = value.substring(0, value.length - 1) + conf.sep_one_day_between;
+					}
+					value += weekdays[tokens[at][0]];
 				} else if (at - start_at > 0 && last_subparser == 'time' && matchTokens(tokens, at-1, 'timesep')
 						&& matchTokens(tokens, at, 'number')) {
 					value += (tokens[at][0] < 10 ? '0' : '') + tokens[at][0].toString();
 				} else if (last_subparser == 'time' && conf.leading_zero_hour && at != tokens.length
 						&& matchTokens(tokens, at+1, 'timesep')) {
 					value += (tokens[at][0] < 10 ? (tokens[at][0] == 0 && conf.one_zero_if_hour_zero ? '' : '0') : '') + tokens[at][0].toString();
-				} else if (matchTokens(tokens, at, 'weekday')) {
-					value += ['Su','Mo','Tu','We','Th','Fr','Sa'][tokens[at][0]];
 				} else if (matchTokens(tokens, at, 'comment')) {
 					value += '"' + tokens[at][0].toString() + '"';
 				} else if (matchTokens(tokens, at, 'closed')) {
@@ -2154,6 +2232,8 @@
 					value += ' ' + tokens[at][0];
 				} else if (matchTokens(tokens, at, 'month')) {
 					value += months[[tokens[at][0]]];
+					if (at + 1 < last_at && matchTokens(tokens, at+1, 'weekday'))
+					value += ' ';
 				} else if (at + 2 < last_at
 						&& (matchTokens(tokens, at, '-') || matchTokens(tokens, at, '+'))
 						&& matchTokens(tokens, at+1, 'number', 'calcday')) {

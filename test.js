@@ -283,7 +283,7 @@ test.addTest('Variable days: school holidays', [
 	], 1000 * 60 * 60 * 24 * (4 + 12 + 12 + 1 + 31 + 13 + 4 + 15), 0, false, nominatiomTestJSON, 'not last test');
 
 test.addTest('Variable days: school holiday', [
-		'24/7; SH off',
+		'open; SH off',
 	], '2014.01.01 0:00', '2014.06.15 0:00', [
 		[ '2014.01.05 00:00', '2014.04.14 00:00' ],
 		[ '2014.04.26 00:00', '2014.06.10 00:00' ],
@@ -313,13 +313,28 @@ test.addTest('SH: Only if SH is Wednesday', [
 
 test.addTest('Variable days: school holidays', [
 		'SH,PH',
-		'SH,PH,Su',
 		// 'PH,SH', // Note that later holidays override the comment for the first holidays.
 	], '2014.01.01 0:00', '2014.02.15 0:00', [
 		[ '2014.01.01 00:00', '2014.01.02 00:00', false, 'Neujahrstag' ],
 		[ '2014.01.02 00:00', '2014.01.05 00:00', false, 'Weihnachtsferien' ],
 		[ '2014.01.06 00:00', '2014.01.07 00:00', false, 'Heilige Drei Könige' ],
 	], 1000 * 60 * 60 * 24 * (4 + 1), 0, false, nominatiomTestJSON, 'not last test');
+
+test.addTest('Variable days: school holidays', [
+		'Su,SH,PH',
+		'SH,Su,PH',
+		'SH,PH,Su',
+	], '2014.01.01 0:00', '2014.02.15 0:00', [
+		[ '2014.01.01 00:00', '2014.01.02 00:00', false, 'Neujahrstag' ],
+		[ '2014.01.02 00:00', '2014.01.05 00:00', false, 'Weihnachtsferien' ],
+		[ '2014.01.05 00:00', '2014.01.06 00:00' ],
+		[ '2014.01.06 00:00', '2014.01.07 00:00', false, 'Heilige Drei Könige' ],
+		[ '2014.01.12 00:00', '2014.01.13 00:00' ],
+		[ '2014.01.19 00:00', '2014.01.20 00:00' ],
+		[ '2014.01.26 00:00', '2014.01.27 00:00' ],
+		[ '2014.02.02 00:00', '2014.02.03 00:00' ],
+		[ '2014.02.09 00:00', '2014.02.10 00:00' ],
+	], 1000 * 60 * 60 * 24 * (4 + 1 + 6), 0, false, nominatiomTestJSON, 'not last test');
 
 test.addTest('Variable times spanning midnight', [
 		'sunset-sunrise',
@@ -430,6 +445,7 @@ test.addTest('Full range', [
 		'Su-Sa 00:00-24:00',
 		'24/7',
 		'24/7; 24/7',
+		'open',
 		'12:00-13:00; 24/7',
 		'Mo-Fr,Sa,Su',
 		ignored('PH,Mo-Fr,Sa,Su', 'check for week stable not implemented'),
@@ -454,8 +470,10 @@ test.addTest('Interpetation of points im time', [
 		[ '2012.10.03 12:00', '2012.10.03 12:01' ],
 	], 1000 * 60 * 3, 0, true, {}, 'not last test');
 
-test.addTest('24/7 as time interval alias', [
-		'Mo,We 24/7',
+test.addTest('24/7 as time interval alias (don’t use it 24/7 as showen here)', [
+		'Mo,We 24/7', // throws a warning, use one of the next values instead
+		'Mo,We open',
+		'Mo,We',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.02 0:00' ],
 		[ '2012.10.03 0:00', '2012.10.04 0:00' ],
@@ -729,10 +747,34 @@ test.addTest('Date range which only applies for one year', [
 
 test.addTest('Monthday (with year) ranges spanning year boundary', [
 		'2013 Dec 31-2014 Jan 2',
-		'24/7; 2010 Jan 1-2013 Dec 30 off; 2014 Jan 3-2016 Jan 1 off',
+		'open; 2010 Jan 1-2013 Dec 30 off; 2014 Jan 3-2016 Jan 1 off',
 	], '2011.01.01 0:00', '2015.01.01 0:00', [
 		[ '2013.12.31 0:00', '2014.01.03 00:00' ],
 	], 1000 * 60 * 60 * 24 * 3, 0, false, {}, 'not last test');
+
+test.addTest('Monthday ranges with constrained weekday', [
+		'Jan Su[2]-Jan 15',
+	], '2012.01.01 0:00', '2015.01.01 0:00', [
+		[ '2012.01.08 00:00', '2012.01.16 00:00' ], // 8
+		[ '2013.01.13 00:00', '2013.01.16 00:00' ], // 3
+		[ '2014.01.12 00:00', '2014.01.16 00:00' ], // 4
+	], 1000 * 60 * 60 * 24 * (8 + 3 + 4), 0, false, {}, 'not only test');
+
+test.addTest('Monthday ranges with constrained weekday', [
+		'Jan 20-Jan Su[-1]',
+	], '2012.01.01 0:00', '2015.01.01 0:00', [
+		[ '2012.01.20 00:00', '2012.01.29 00:00' ],
+		[ '2013.01.20 00:00', '2013.01.27 00:00' ],
+		[ '2014.01.20 00:00', '2014.01.26 00:00' ],
+	], 1000 * 60 * 60 * 24 * (9 + 7 + 6), 0, false, {}, 'not last test');
+
+test.addTest('Monthday ranges with constrained weekday', [
+		'Jan Su[1] +2 days-Jan Su[3] -2 days', // just for testing, can probably be expressed better
+	], '2012.01.01 0:00', '2015.01.01 0:00', [
+		[ '2012.01.03 00:00', '2012.01.13 00:00' ],
+		[ '2013.01.08 00:00', '2013.01.18 00:00' ],
+		[ '2014.01.07 00:00', '2014.01.17 00:00' ],
+	], 1000 * 60 * 60 * 24 * (10 * 3), 0, false, {}, 'not last test');
 
 test.addTest('Date range which only applies for specific year', [
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060/1 Jan 1',
@@ -814,7 +856,7 @@ test.addTest('Selector order', [ // result should not depend on selector order
 test.addTest('Selector order', [
 		'Feb week 7',
 		'week 7 Feb',
-		'week 7 Feb 24/7',
+		'week 7 Feb open',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.02.06 0:00', '2012.02.13 00:00' ],
 	], 1000 * 60 * 60 * 24 * 7, 0, false);
@@ -876,6 +918,14 @@ test.addTest('Extensions: complex monthday ranges', [
 
 test.addTest('Extensions: missing time range separators', [
 		'Mo 12:00-14:00 16:00-18:00 20:00-22:00',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 12:00', '2012.10.01 14:00' ],
+		[ '2012.10.01 16:00', '2012.10.01 18:00' ],
+		[ '2012.10.01 20:00', '2012.10.01 22:00' ],
+	], 1000 * 60 * 60 * 6, 0, true);
+
+test.addTest('Extensions: missing time range separators', [
+		'Mo-Do 8:30-20:00 Fr 8:30-18:00',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 12:00', '2012.10.01 14:00' ],
 		[ '2012.10.01 16:00', '2012.10.01 18:00' ],
@@ -1044,7 +1094,7 @@ test.addTest('Calculations based on variable events', [
 	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'not last test');
 
 test.addTest('Calculations based on variable events', [
-		ignored('easter - Apr 02: open "Around easter"'),
+		ignored('easter - Apr 02: open "Around easter"'), // FIXME
 	], '2012.01.01 0:00', '2012.10.08 0:00', [
 	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'not only test');
 
@@ -1110,6 +1160,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Sa[1,3-.]',
 		'Sa[1,3,.]',
 		'PH + 2 day', // Normally moving PH one day is everything needed. Handling more than one move day would be harder to implement.
+		'Su-PH',      // not accepted syntax
 		'2012, Jan',
 		'easter + 370 days',
 		'easter - 2 days - 2012 easter + 2 days: open "Easter Monday"',

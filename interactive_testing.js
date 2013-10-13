@@ -16,10 +16,11 @@ var rl = readline.createInterface({
 rl.on('line', function (cmd) {
     var crashed = true;
     var needed_nominatiom_json = false;
-    var warnings = '';
+    var warnings;
     try {
         oh = new opening_hours(cmd);
-        warnings = oh.getWarnings();
+        warnings   = oh.getWarnings();
+        // prettified = oh.prettifyValue();
         crashed = false;
     } catch (err) {
         try {
@@ -39,9 +40,9 @@ rl.on('line', function (cmd) {
             comment = '>>no comment<<';
 
         var state = oh.getState() ? 'open   ' : (oh.getUnknown() ? 'unknown' : 'closed ');
-        console.log('0 ' + (needed_nominatiom_json ? 1 : 0), (warnings != '' ? 1 : 0), state, '"' + comment + '"');
-        if (args[0] != '--no-warnings' && warnings != '')
-            console.log(warnings);
+        console.log('0 ' + (needed_nominatiom_json ? 1 : 0), (warnings.length > 0 ? 1 : 0), state, '"' + comment + '"');
+        if (args[0] != '--no-warnings' && warnings.length > 0)
+            console.log(warnings.join('\n'));
     }
 }).on('close', function() {
     console.log('\nBye');
