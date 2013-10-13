@@ -301,7 +301,7 @@ test.addTest('Variable days: school holiday', [
 test.addTest('Variable days: school holidays', [
 		'SH',
 	], '2014.01.01 0:00', '2015.01.10 0:00', [
-		[ '2014.01.01 00:00', '2014.01.05 00:00', false, 'Weihnachtsferien' ], // 4
+		[ '2014.01.01 00:00', '2014.01.04 00:00', false, 'Weihnachtsferien' ], // 3
 		[ '2014.01.30 00:00', '2014.02.01 00:00', false, 'Winterferien' ],     // 2
 		[ '2014.04.03 00:00', '2014.04.23 00:00', false, 'Osterferien' ],      // 20
 		[ '2014.05.02 00:00', '2014.05.03 00:00', false, 'Osterferien' ],      // 1
@@ -310,7 +310,7 @@ test.addTest('Variable days: school holidays', [
 		[ '2014.07.31 00:00', '2014.09.11 00:00', false, 'Sommerferien' ],     // 1 + 31 + 10
 		[ '2014.10.27 00:00', '2014.11.09 00:00', false, 'Herbstferien' ],     // 5 + 8
 		[ '2014.12.22 00:00', '2015.01.06 00:00', false, 'Weihnachtsferien' ], // 10 + 5
-	], 1000 * 60 * 60 * 24 * (4 + 2 + 20 + 1 + 1 + 1 + (1 + 31 + 10) + (5 + 8) + (10 + 5)), 0, false, nominatiomTestJSON_bremen, 'not last test');
+	], 1000 * 60 * 60 * 24 * (3 + 2 + 20 + 1 + 1 + 1 + (1 + 31 + 10) + (5 + 8) + (10 + 5)), 0, false, nominatiomTestJSON_bremen, 'not last test');
 
 test.addTest('SH: Only if SH is Wednesday', [
 		'SH We',

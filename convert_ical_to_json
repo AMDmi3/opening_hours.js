@@ -25,7 +25,7 @@ my $tmp_dir_icals     = '/tmp/school_holiday_icals/';
 my @only_states       = (); # if empty, all states are processed
 
 # my @try_not_referenced_years = (0, 0);
-my @try_not_referenced_years = (7, 8);
+my @try_not_referenced_years = (2, 3);
 # number is maximum years to try which are not referenced from the website.
 # first number: years to go to past
 # last number:  years to go into future
@@ -276,6 +276,7 @@ sub parse_ical {
 # function: formats the content of the final hash as JSON {{{
 sub output_json {
     my $hash_ref = shift;
+    # warn Dumper($hash_ref);
     for my $state_name (keys %$hash_ref) {
         my $indent_level = 0;
         say q( ) x $indent_level . qq('$state_name': {);
