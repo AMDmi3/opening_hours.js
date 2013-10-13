@@ -816,7 +816,7 @@
 
 					if (used_parseTimeRange > 1)
 						parsing_warnings.push([nblock, at, 'You have used ' + used_parseTimeRange + ' not connected time ranges in one rule.'
-								+ ' This is probably a error. Please connect them like this "12:00-13:00,15:00-18:00".']);
+								+ ' This is probably a error. Please connect them like shown in this example "12:00-13:00,15:00-18:00".']);
 
 				} else if (matchTokens(tokens, at, 'closed')) {
 					selectors.meaning = false;
@@ -1124,13 +1124,10 @@
 
 							var target_day_this_month;
 
-							target_day_this_month = dateAtNextWeekday(
-								new Date(date.getFullYear(), date.getMonth() + (number > 0 ? 0 : 1), 1), weekday);
-							target_day_this_month.setDate(target_day_this_month.getDate() + (number + (number > 0 ? -1 : 0)) * 7);
+							target_day_this_month = getDateForConstrainedWeekday(date.getFullYear(), date.getMonth(), weekday, [ number ]);
 
 							var target_day_with_added_days_this_month = new Date(target_day_this_month.getFullYear(),
 								target_day_this_month.getMonth(), target_day_this_month.getDate() + add_days);
-
 
 							// The target day with added days can be before this month
 							if (target_day_with_added_days_this_month.getTime() < start_of_this_month.getTime()) {
@@ -1835,6 +1832,18 @@
 			return [ number, endat + 1 ];
 		}
 
+		function getDateForConstrainedWeekday(year, month, weekday, constrained_weekday, add_days) {
+			var tmp_date = dateAtNextWeekday(
+				new Date(year, month + (constrained_weekday[0] > 0 ? 0 : 1), 1), weekday);
+
+			tmp_date.setDate(tmp_date.getDate() + (constrained_weekday[0] + (constrained_weekday[0] > 0 ? -1 : 0)) * 7);
+
+			if (typeof add_days != 'undefined' && add_days[1])
+				tmp_date.setDate(tmp_date.getDate() + add_days[0]);
+
+			return tmp_date;
+		}
+
 		//======================================================================
 		// Month day range parser (Jan 26-31; Jan 26-Feb 26)
 		//======================================================================
@@ -1891,18 +1900,20 @@
 										+ ' days is not in the year of the movable day anymore. Currently not supported.');
 							}
 						} else if (has_constrained_weekday[0]) {
-							var from_date = dateAtNextWeekday(
-								new Date((has_year[0] ? tokens[at][0] : date.getFullYear()),
-									tokens[at+has_year[0]][0] + (has_constrained_weekday[0][0] > 0 ? 0 : 1), 1), tokens[at+has_year[0]+1][0]);
-							from_date.setDate(from_date.getDate() + (has_constrained_weekday[0][0] + (has_constrained_weekday[0][0] > 0 ? -1 : 0)) * 7);
-							if (typeof has_calc[0] != 'undefined' && has_calc[0][1]) {
-								var from_year_before_calc = from_date.getFullYear();
-								from_date.setDate(from_date.getDate() + has_calc[0][0]);
-								if (from_year_before_calc != from_date.getFullYear())
-									throw formatWarnErrorMessage(nblock, at+has_year[0]+has_calc[0][1]*3,
-										'The constrained ' + weekdays[tokens[at+has_year[0]+1][0]] + ' plus ' + has_calc[0][0]
-										+ ' days is not in the year of the movable day anymore. Currently not supported.');
-							}
+							var from_date = getDateForConstrainedWeekday((has_year[0] ? tokens[at][0] : date.getFullYear()), // year
+								tokens[at+has_year[0]][0], // month
+								tokens[at+has_year[0]+1][0], // weekday
+								has_constrained_weekday[0],
+								has_calc[0]);
+							// var from_date_without_calc = getDateForConstrainedWeekday((has_year[0] ? tokens[at][0] : date.getFullYear()), // year
+							// 	tokens[at+has_year[0]][0], // month
+							// 	tokens[at+has_year[0]+1][0], // weekday
+							// 	has_constrained_weekday[0],
+							// 	[ 0, 0 ]);
+							// 	if (from_date_without_calc.getFullYear() != from_date.getFullYear())
+							// 		throw formatWarnErrorMessage(nblock, at+has_year[0]+has_calc[0][1],
+							// 			'The constrained ' + weekdays[tokens[at+has_year[0]+1][0]] + ' plus ' + has_calc[0][0]
+							// 			+ ' days is not in the year of the movable day anymore. Currently not supported.');
 						} else {
 							var from_date = new Date((has_year[0] ? tokens[at][0] : date.getFullYear()),
 								tokens[at+has_year[0]][0], tokens[at+has_year[0]+1][0]);
@@ -1923,19 +1934,11 @@
 										+ ' days is not in the year of the movable day anymore. Currently not supported.');
 							}
 						} else if (has_constrained_weekday[1]) {
-							var to_date = dateAtNextWeekday(
-								new Date((has_year[1] ? tokens[at_sec_event_or_month-1][0] : date.getFullYear()),
-									tokens[at_sec_event_or_month][0] + (has_constrained_weekday[1][0] > 0 ? 0 : 1), 1),
-									tokens[at_sec_event_or_month+1][0]);
-							to_date.setDate(to_date.getDate() + (has_constrained_weekday[1][0] + (has_constrained_weekday[1][0] > 0 ? -1 : 0)) * 7);
-							if (typeof has_calc[1] != 'undefined' && has_calc[1][1]) {
-								var to_year_before_calc = to_date.getFullYear();
-								to_date.setDate(to_date.getDate() + has_calc[1][0]);
-								if (to_year_before_calc != to_date.getFullYear())
-									throw formatWarnErrorMessage(nblock, at_sec_event_or_month+has_year[0]+has_calc[1][1],
-										'The constrained ' + weekdays[tokens[at_sec_event_or_month+1][0]] + ' plus ' + has_calc[1][0]
-										+ ' days is not in the year of the movable day anymore. Currently not supported.');
-							}
+							var to_date = getDateForConstrainedWeekday((has_year[1] ? tokens[at_sec_event_or_month-1][0] : date.getFullYear()), // year
+								tokens[at_sec_event_or_month][0],   // month
+								tokens[at_sec_event_or_month+1][0], // weekday
+								has_constrained_weekday[1],
+								has_calc[1]);
 						} else {
 							var to_date = new Date((has_year[1] ? tokens[at_sec_event_or_month-1][0] : date.getFullYear()),
 								tokens[at_sec_event_or_month][0], tokens[at_sec_event_or_month+1][0] + 1);
@@ -1955,10 +1958,23 @@
 						} else if (date.getTime() < to_date.getTime()) {
 							return [inside, to_date];
 						} else {
-							if (has_year[0])
+							if (has_year[0]) {
 								return [!inside];
-							else
+							} else {
+								// // back matching, if from_date is moved to last year
+								// var from_date_next_year = getDateForConstrainedWeekday(date.getFullYear() + 1, // year
+								// 	tokens[at+has_year[0]][0], // month
+								// 	tokens[at+has_year[0]+1][0], // weekday
+								// 	has_constrained_weekday[0],
+								// 	has_calc[0]);
+								// if (date.getFullYear() == from_date_next_year.getFullYear()) {
+								// 	if (date.getTime() < from_date_next_year.getTime()) {
+								// 		return [!inside, from_date_next_year];
+								// 	}
+								// }
+
 								return [!inside, start_of_next_year];
+							}
 						}
 					}}(tokens, at, nblock, has_year, has_event, has_calc, at_sec_event_or_month, has_constrained_weekday));
 

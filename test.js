@@ -778,6 +778,29 @@ test.addTest('Monthday ranges with constrained weekday', [
 		[ '2014.01.07 00:00', '2014.01.17 00:00' ],
 	], 1000 * 60 * 60 * 24 * (10 * 3), 0, false, {}, 'not last test');
 
+test.addTest('Monthday ranges with constrained weekday spanning year', [
+		'Dec 20-Dec Su[-1] +4 days',
+	], '2011.01.01 0:00', '2015.01.01 0:00', [
+		[ '2011.12.20 00:00', '2011.12.29 00:00' ],
+		[ '2012.12.20 00:00', '2013.01.03 00:00' ],
+		[ '2013.12.20 00:00', '2014.01.02 00:00' ],
+		[ '2014.12.20 00:00', '2015.01.01 00:00' ],
+	], 1000 * 60 * 60 * 24 * (9 + 11 + 3 + 11 + 2 + 11 + 1), 0, false, {}, 'not last test');
+
+test.addTest('Monthday ranges with constrained', [
+		'Nov Su[-1]-Dec Su[1] -1 day',
+	], '2011.01.01 0:00', '2015.01.01 0:00', [
+		[ '2011.11.27 00:00', '2011.12.03 00:00' ],
+		[ '2012.11.25 00:00', '2012.12.01 00:00' ],
+		[ '2013.11.24 00:00', '2013.11.30 00:00' ],
+		[ '2014.11.30 00:00', '2014.12.06 00:00' ],
+	], 1000 * 60 * 60 * 24 * ((4 + 2) + (6) + (6) + (1 + 5)), 0, false, {}, 'not last test');
+
+test.addTest('Monthday ranges with constrained weekday spanning year', [
+		ignored('Jan Su[1] -5 days-Jan 10'),
+	], '2011.01.01 0:00', '2015.01.01 0:00', [
+	], 1000 * 60 * 60 * 24 * (9 + 11 + 3 + 11 + 2 + 11 + 1), 0, false, {}, 'not last test');
+
 test.addTest('Date range which only applies for specific year', [
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060/1 Jan 1',
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060/1 Jan 1 Mo-Su',
