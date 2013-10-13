@@ -35,6 +35,7 @@
 			// default values {{{
 			var def_lat = 48.7769;
 			var def_lon = 9.1844;
+			var repo_url = 'https://github.com/ypid/opening_hours.js';
 			// }}}
 		</script>
 		<!-- }}} -->
@@ -388,22 +389,36 @@
 					<li><a href="#check" onclick="EX(this)">2012 easter -2 days-2012 easter +2 days: open "Around easter"</a></li>
 					<li>
 						<a href="#check" onclick="EX(this)">2013,2015,2050-2053,2055/2,2020-2029/3,2060/1 Jan 1</a>,
-						<a href="https://github.com/AMDmi3/opening_hours.js/tree/master#year-ranges" target="_blank">Documentation</a>
+						<script type="text/javascript">
+							document.write('<a href="' + repo_url + '/tree/master#year-ranges" target="_blank">' + i18n.t('words.docu') + '</a>');
+						</script>
 					</li>
 					<li><a href="#check" onclick="EX(this)">Jan 23-Feb 11,Feb 12 00:00-24:00</a></li>
 					<li><a href="#check" onclick="EX(this)">Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug Su[-1]: 10:00-18:00</a></li>
 					<li><a href="#check" onclick="EX(this)">Su-Tu 11:00-01:00, We-Th 11:00-03:00, Fr 11:00-06:00, Sa 11:00-07:00</a></li>
-					<li><a href="#check" onclick="EX(this)">   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00      Off  </a>, check out the error correction and the prettify function</li>
+					<li><a href="#check" onclick="EX(this)">   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00      Off  </a>,
+						<script type="text/javascript">
+							document.write('(' + i18n.t('texts.check out error correction, prettify') + ')');
+						</script>
+					</li>
 				</ol>
 
 				<ol>
 					<li value="36"><a href="#check" onclick="EX(this)">We</a></li>
 					<li><a href="#check" onclick="EX(this)">PH</a></li>
-					<li><a href="#check" onclick="EX(this)">PH Mo-Fr</a> (Only if PH is from Mo till Fr)</li>
+					<li><a href="#check" onclick="EX(this)">PH Mo-Fr</a>
+						<script type="text/javascript">
+							document.write('(' + i18n.t('texts.if PH is between Mo and Fr') + ')');
+						</script>
+					</li>
 					<li><a href="#check" onclick="EX(this)">PH -1 day</a></li>
 					<li><a href="#check" onclick="EX(this)">SH</a></li>
 					<li><a href="#check" onclick="EX(this)">SH,PH</a></li>
-					<li><a href="#check" onclick="EX(this)">PH,SH</a> (This makes a small difference compared to the privours value. The name of the school holidays will override the PH names in the comment.)</li>
+					<li><a href="#check" onclick="EX(this)">PH,SH</a>
+						<script type="text/javascript">
+							document.write('(' + i18n.t('texts.SH,PH or PH,SH') + ')');
+						</script>
+					</li>
 					<li><a href="#check" onclick="EX(this)">We[1-3]</a></li>
 					<li><a href="#check" onclick="EX(this)">We[3-5]</a></li>
 					<li><a href="#check" onclick="EX(this)">Sa</a></li>
@@ -420,7 +435,7 @@
 			document.write(i18n.t('texts.more information',
 				{ href: 'href="http://wiki.openstreetmap.org/wiki/Key:opening_hours" target="_blank"' }) + '<br />');
 
-			document.write(i18n.t('texts.this website', { url: 'https://github.com/ypid/opening_hours.js', hoster: 'GitHub' }));
+			document.write(i18n.t('texts.this website', { url: repo_url, hoster: 'GitHub' }));
 		</script>
 		</div><!-- }}} -->
 	</body><!-- }}} -->
