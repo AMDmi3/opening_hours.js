@@ -10,7 +10,7 @@ benchmark: opening_hours.js benchmark.js
 	${NODE} benchmark.js
 
 # export.collection_times.json export.service_times.json
-real_test: opening_hours.js real_test.js export.opening_hours.json export.lit.json export.opening_hours\:kitchen.json export.opening_hours\:warm_kitchen.json
+real_test: opening_hours.js real_test.js export.opening_hours.json export.lit.json export.opening_hours\:kitchen.json export.opening_hours\:warm_kitchen.json export.smoking_hours.json
 	${NODE} real_test.js
 
 .PHONY : regex_search

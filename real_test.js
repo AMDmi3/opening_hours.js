@@ -20,6 +20,8 @@ test.exported_json('opening_hours:kitchen', { ignore: [ 'opening_hours' ]});
 
 test.exported_json('opening_hours:warm_kitchen', { ignore: [ 'opening_hours' ]});
 
+test.exported_json('smoking_hours', { ignore: [ 'yes' ]});
+
 // test.exported_json('service_times', { ignore: [ 'automatic' ]});
 
 // test.exported_json('collection_times');

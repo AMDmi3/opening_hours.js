@@ -732,11 +732,12 @@ test.addTest('Monthday ranges', [
 
 test.addTest('Monthday ranges', [
 		'Dec 24,Jan 2: 18:00-22:00',
+		'Dec 24,Jan 2: 18:00-22:00; Jan 20: off',
 		'Dec 24,Jan 2 18:00-22:00',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.02 18:00', '2012.01.02 22:00' ],
 		[ '2012.12.24 18:00', '2012.12.24 22:00' ],
-	], 1000 * 60 * 60 * (4 * 2), 0, false, {}, 'not only test');
+	], 1000 * 60 * 60 * (4 * 2), 0, false, {}, 'not last test');
 
 test.addTest('Monthday ranges (with year)', [
 		'2012 Jan 23-31 00:00-24:00; Feb 1-12 00:00-24:00 2012',

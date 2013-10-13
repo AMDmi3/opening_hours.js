@@ -16,10 +16,12 @@ var rl = readline.createInterface({
 rl.on('line', function (cmd) {
     var crashed = true;
     var needed_nominatiom_json = false;
-    var warnings;
+    var warnings = [];
     try {
         oh = new opening_hours(cmd);
         warnings   = oh.getWarnings();
+        if (typeof warnings != 'object')
+            console.error(warnings);
         // prettified = oh.prettifyValue();
         crashed = false;
     } catch (err) {
