@@ -314,14 +314,15 @@ Almost everything from opening_hours definition is supported, as well as some ex
 ### Holidays ###
 
 * Supports public holidays (```24/7; PH off```, ```PH 12:00-13:00```).
-  * Currently only Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored.
+  * Currently Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored. The same applies to [Austria][PH-at].
   * **EXT:** Supports limited calculations based on holidays (e.g. ```Sa,PH -1 day open```). The only two possibilities are currently +1 and -1. All other cases are not handled. This seems to be enough because the only thing which is really used is -1.
 
 [PH-de]: http://de.wikipedia.org/wiki/Feiertage_in_Deutschland
+[PH-at]: http://de.wikipedia.org/wiki/Feiertage_in_%C3%96sterreich
 
 * Support for school holidays (```SH 10:00-14:00```).
-  * Currently only Germany can easily be supported (based on ical files from [schulferien.org][]).
-  * To update the school holiday definition or add definitions for other countries (probably includes a little bit of adjustment of the script) the script [convert\_ical\_to\_json][convert-ical-to-json] can be used to generate JSON definition based on ical calendar files, which can then be added to the library.
+  * Currently only Germany is supported (based on ical files from [schulferien.org][]).
+  * To update the school holiday definition or add definitions for other countries the script [convert\_ical\_to\_json][convert-ical-to-json] can be used (probably includes a little bit of adjustment of the script) to generate JSON definition based on ical calendar files, which can then be added to the library.
 
 [schulferien.org]: http://www.schulferien.org/iCal/
 <!-- [convert&#45;ical&#45;to&#45;json]: blob/feature/convert_ical_to_json -->
@@ -330,7 +331,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * There can be to cases which need to be seperated (this applies for PH and SH):
   1. ```Mo-Fr,PH```: The facility is open Mo-Fr and PH. If PH is a Sunday for example the facility is also open. This is the default case.
   2. **EXT:** ```PH Mo-Fr```: The facility is only open if a PH falls on Mo-Fr. For example if a PH is on the weekday Wednesday then the facility will be open, if PH is Saturday it will be closed.
-* If there is no comment specified by the rule, the name of the holiday is returned as comment.
+* If there is no comment specified by the rule, the name of the holiday is used as comment.
 * To evaluate the correct holidays, the country code and the state (could be omitted but this will probably result in less exactitude) are required which are included in the JSON returned by [Nominatim] \(see in the [Library API](#library-api) how to provide it\).
 * If your country or state is missing or wrong you can add it or open an [issue][issure-report] (and point to a definiton of the holidays).
 
