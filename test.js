@@ -725,6 +725,19 @@ test.addTest('Monthday ranges', [
 		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
 	], 1000 * 60 * 60 * 24 * 21, 0, false);
 
+// test.addTest('Monthday ranges', [
+// 		'Jan 23,25', // must be expressed as Jan 23,Jan 25
+// 	], '2012.01.01 0:00', '2013.01.01 0:00', [
+// 	], 1000 * 60 * 60 * 24 * 21, 0, false, {}, 'not last test');
+
+test.addTest('Monthday ranges', [
+		'Dec 24,Jan 2: 18:00-22:00',
+		'Dec 24,Jan 2 18:00-22:00',
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+		[ '2012.01.02 18:00', '2012.01.02 22:00' ],
+		[ '2012.12.24 18:00', '2012.12.24 22:00' ],
+	], 1000 * 60 * 60 * (4 * 2), 0, false, {}, 'not only test');
+
 test.addTest('Monthday ranges (with year)', [
 		'2012 Jan 23-31 00:00-24:00; Feb 1-12 00:00-24:00 2012',
 	], '2012.01.01 0:00', '2015.01.01 0:00', [
@@ -809,6 +822,13 @@ test.addTest('Monthday ranges with constrained weekday spanning year', [
 		ignored('Jan Su[1] -5 days-Jan 10'),
 	], '2011.01.01 0:00', '2015.01.01 0:00', [
 	], 1000 * 60 * 60 * 24 * (9 + 11 + 3 + 11 + 2 + 11 + 1), 0, false, {}, 'not last test');
+
+test.addTest('Monthday ranges', [
+		'Mar Su[-1]-Oct Su[-1] -1 day open; Oct Su[-1]-Mar Su[-1] -1 day off',
+		'Mar Su[-1]-Oct Su[-1] -1 day open',
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+		[ '2012.03.25 00:00', '2012.10.27 00:00' ],
+	], 18658800000, 0, false, {}, 'not last test');
 
 test.addTest('Date range which only applies for specific year', [
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060/1 Jan 1',

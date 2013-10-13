@@ -2873,6 +2873,7 @@
 						+ (typeof has_calc[1] != 'undefined' ? has_calc[1][1] : 0);
 
 				} else if (has_month[0]) {
+
 					var is_range = matchTokens(tokens, at+2+has_year[0], '-', 'number'), has_period = false;
 					if (is_range)
 						has_period = matchTokens(tokens, at+4+has_year[0], '/', 'number');
@@ -2881,7 +2882,9 @@
 						+ (is_range ? 2 : 0) + (has_period ? 2 : 0)
 						+ !(is_range || has_period); // if not range nor has_period, add one
 
-					if (matchTokens(tokens, at_timesep_if_monthRange, 'timesep'))
+					if (matchTokens(tokens, at_timesep_if_monthRange, 'timesep', 'number')
+							&& (matchTokens(tokens, at_timesep_if_monthRange+2, '+')
+								|| matchTokens(tokens, at_timesep_if_monthRange+2, '-')))
 						return parseMonthRange(tokens, at);
 
 					selectors.monthday.push(function(tokens, at, is_range, has_period, has_year) { return function(date) {
@@ -2954,7 +2957,7 @@
 					break;
 			}
 
-			// console.log(tokens[at-1], 23);
+			// console.log(tokens[at-1], 'return');
 			return at;
 		}
 
