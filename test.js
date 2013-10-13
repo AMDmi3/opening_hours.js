@@ -243,11 +243,20 @@ test.addTest('Variable days: public holidays (with time range)', [
 
 test.addTest('PH: Only if PH is Wednesday', [
 		'PH We,Fr',
+		'PH: We,Fr',
 	], '2012.01.01 0:00', '2012.10.08 0:00', [
 		[ '2012.01.06 00:00', '2012.01.07 00:00', false, 'Heilige Drei Könige' ],       // Fr
 		[ '2012.04.06 00:00', '2012.04.07 00:00', false, 'Karfreitag' ],                // Fr
 		[ '2012.10.03 00:00', '2012.10.04 00:00', false, 'Tag der Deutschen Einheit' ], // We
 	], 1000 * 60 * 60 * 24 * 3, 0, false, nominatiomTestJSON, 'not only test');
+
+test.addTest('PH: Only if SH is Wednesday', [
+		'SH Mo-Fr',
+		'SH: Mo-Fr',
+	], '2012.12.22 0:00', '2013.01.08 0:00', [
+		[ '2012.12.24 00:00', '2012.12.29 00:00', false, 'Weihnachtsferien' ],
+		[ '2012.12.31 00:00', '2013.01.05 00:00', false, 'Weihnachtsferien' ],
+	], 1000 * 60 * 60 * 24 * (5 * 2), 0, false, nominatiomTestJSON, 'not only test');
 
 test.addTest('Variable days: public holidays', [
 		'PH +1 day',

@@ -131,7 +131,7 @@ var OpeningHoursTable = {
                 table[row].times += '<div class="timebar ' + (is_open ? 'open' : (unknown ? 'unknown' : 'closed'))
                     + '" style="width:100%"></div>';
                 if (is_open)
-                    table[row].text.push(i18n.t('words.open') + ' 00:00 ' + i18n.t('words.to') + '23:59');
+                    table[row].text.push(i18n.t('words.open') + ' 0:00 ' + i18n.t('words.to') + ' 24:00');
             }
         }
 

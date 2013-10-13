@@ -20,12 +20,12 @@ binmode STDOUT, ':encoding(UTF-8)';
 my $ical_overview_url = 'http://www.schulferien.org/iCal/';
 my $tmp_dir_icals     = '/tmp/school_holiday_icals/';
 # my @only_states       = ( 'Baden-Württemberg', 'Bayern', 'Bremen' );
-my @only_states       = ( 'Baden-Württemberg' );
+# my @only_states       = ( 'Baden-Württemberg' );
 # my @only_states       = ( 'Bremen' );
-# my @only_states       = (); # if empty, all states are processed
+my @only_states       = (); # if empty, all states are processed
 
 # my @try_not_referenced_years = (0, 0);
-my @try_not_referenced_years = (7, 6);
+my @try_not_referenced_years = (7, 8);
 # number is maximum years to try which are not referenced from the website.
 # first number: years to go to past
 # last number:  years to go into future
