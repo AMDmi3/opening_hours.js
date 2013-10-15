@@ -1392,6 +1392,7 @@
 		var tokens = tokenize(value);
 		// console.log(JSON.stringify(tokens, null, '\t'));
 		var prettified_value = '';
+		var used_subparsers = {}; // Used sub parsers for one block, will be asdreset for each block. Declared as global, because it is manipulation inside much sub parsers.
 		var week_stable = true;
 
 		var blocks = [];
@@ -1653,9 +1654,10 @@
 		//======================================================================
 		// Top-level parser
 		//======================================================================
-		function parseGroup(tokens, at, selectors, nblock, used_subparser, conf) {
+		function parseGroup(tokens, at, selectors, nblock, conf) {
 			var prettified_group_value = '';
 			var used_parseTimeRange = 0;
+			used_subparsers = {};
 
 			// console.log(tokens); // useful for debugging of tokenize
 			while (at < tokens.length) {
@@ -1705,27 +1707,37 @@
 					at = parseTimeRange(tokens, at, selectors);
 
 					used_parseTimeRange++;
-
-					if (!done_with_warnings && used_parseTimeRange > 1)
-						parsing_warnings.push([nblock, at, 'You have used ' + used_parseTimeRange + ' not connected time ranges in one rule.'
-								+ ' This is probably a error. Please connect them like shown in this example "12:00-13:00,15:00-18:00".']);
-
 				} else if (matchTokens(tokens, at, 'closed')) {
 					selectors.meaning = false;
 					at++;
 					if (matchTokens(tokens, at, ',')) // additional block
 						at = [ at + 1 ];
+
+					if (typeof used_subparsers['state keywords'] != 'number')
+						used_subparsers['state keywords'] = 1;
+					else
+						used_subparsers['state keywords']++;
 				} else if (matchTokens(tokens, at, 'open')) {
 					selectors.meaning = true;
 					at++;
 					if (matchTokens(tokens, at, ',')) // additional block
 						at = [ at + 1 ];
+
+					if (typeof used_subparsers['state keywords'] != 'number')
+						used_subparsers['state keywords'] = 1;
+					else
+						used_subparsers['state keywords']++;
 				} else if (matchTokens(tokens, at, 'unknown')) {
 					selectors.meaning = false;
 					selectors.unknown = true;
 					at++;
 					if (matchTokens(tokens, at, ',')) // additional block
 						at = [ at + 1 ];
+
+					if (typeof used_subparsers['state keywords'] != 'number')
+						used_subparsers['state keywords'] = 1;
+					else
+						used_subparsers['state keywords']++;
 				} else if (matchTokens(tokens, at, 'comment')) {
 					selectors.comment = tokens[at][0];
 					if (at > 0) {
@@ -1744,6 +1756,11 @@
 					at++;
 					if (matchTokens(tokens, at, ',')) // additional block
 						at = [ at + 1 ];
+
+					if (typeof used_subparsers['comments'] != 'number')
+						used_subparsers['comments'] = 1;
+					else
+						used_subparsers['comments']++;
 				} else {
 					var warnings = getWarnings();
 					throw formatWarnErrorMessage(nblock, at, 'Unexpected token: "' + tokens[at][1]
@@ -1760,6 +1777,26 @@
 			}
 
 			prettified_value += prettified_group_value.replace(/\s+$/, '');
+
+			if (!done_with_warnings) {
+				for (var subparser_name in used_subparsers) {
+					if (used_subparsers[subparser_name] > 1) {
+						if (subparser_name.match(/^(?:comments|state keywords)/)) {
+							parsing_warnings.push([nblock, at - 1, 'You have used ' + used_subparsers[subparser_name]
+									+ ' ' + subparser_name + ' in one rule.'
+									+ ' You may only use one in one rule.'
+									+ ' Rules can be separated by ";".' ]);
+						} else {
+							parsing_warnings.push([nblock, at - 1, 'You have used ' + used_subparsers[subparser_name]
+									+ ' not connected ' + subparser_name + ' in one rule.'
+									+ ' This is probably an error.'
+									+ ' Equal selector types can (and should) always be written in conjunction separated by comma or something.'
+									+ ' Example for time ranges "12:00-13:00,15:00-18:00". Rules can be separated by ";".']);
+						}
+					}
+				}
+			}
+
 
 			return at;
 		}
@@ -1934,6 +1971,11 @@
 				if (!matchTokens(tokens, at, ','))
 					break;
 			}
+
+			if (typeof used_subparsers['time ranges'] != 'number')
+				used_subparsers['time ranges'] = 1;
+			else
+				used_subparsers['time ranges']++;
 
 			return at;
 		}
@@ -2130,6 +2172,11 @@
 				if (!matchTokens(tokens, at, ','))
 					break;
 			}
+
+			if (typeof used_subparsers['weekdays'] != 'number')
+				used_subparsers['weekdays'] = 1;
+			else
+				used_subparsers['weekdays']++;
 
 			return at;
 		}
@@ -2557,6 +2604,11 @@
 					break;
 			}
 
+			if (typeof used_subparsers['year ranges'] != 'number')
+				used_subparsers['year ranges'] = 1;
+			else
+				used_subparsers['year ranges']++;
+
 			return at;
 		}
 
@@ -2619,6 +2671,11 @@
 				if (!matchTokens(tokens, at, ','))
 					break;
 			}
+
+			if (typeof used_subparsers['week ranges'] != 'number')
+				used_subparsers['week ranges'] = 1;
+			else
+				used_subparsers['week ranges']++;
 
 			return at;
 		}
@@ -2690,6 +2747,11 @@
 				if (!matchTokens(tokens, at, ','))
 					break;
 			}
+
+			if (typeof used_subparsers['months'] != 'number')
+				used_subparsers['months'] = 1;
+			else
+				used_subparsers['months']++;
 
 			return at;
 		}
@@ -2959,6 +3021,11 @@
 				if (!matchTokens(tokens, at, ','))
 					break;
 			}
+
+			if (typeof used_subparsers['monthday ranges'] != 'number')
+				used_subparsers['monhday ranges'] = 1;
+			else
+				used_subparsers['monhday ranges']++;
 
 			// console.log(tokens[at-1], 'return');
 			return at;
@@ -3236,7 +3303,7 @@
 						comment: undefined,
 					};
 
-					parseGroup(tokens[state[4]][0], 0, selectors, state[4], {}, user_conf);
+					parseGroup(tokens[state[4]][0], 0, selectors, state[4], user_conf);
 
 					return prettified_value;
 				}
@@ -3320,7 +3387,7 @@
 						comment: undefined,
 					};
 
-					continue_at = parseGroup(tokens[nblock][0], continue_at, selectors, nblock, {}, user_conf);
+					continue_at = parseGroup(tokens[nblock][0], continue_at, selectors, nblock, user_conf);
 
 					if (typeof continue_at == 'object') {
 						continue_at = continue_at[0];
