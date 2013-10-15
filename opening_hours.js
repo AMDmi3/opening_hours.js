@@ -1293,7 +1293,21 @@
 					za:        6,
 					zat:       6,
 					zaterdag:  6,
-				}
+				}, 'Please use the englisch abbreviation "<ok>" for "<ko>".': { // FIXME: Translate to Czech.
+					'neděle':  0,
+					ne:        0,
+					'pondělí': 1,
+					po:        1,
+					'úterý':   2,
+					'út':      2,
+					'středa':  3,
+					'st':      3,
+					'čtvrtek': 4,
+					'čt':      4,
+					'pátek':   5,
+					'pá':      5,
+					'sobota':  6,
+				},
 			},
 
 			timevar: { // Special time variables which actual value depends on the date and the position of the facility.

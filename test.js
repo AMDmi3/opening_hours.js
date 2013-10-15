@@ -1159,6 +1159,7 @@ test.addTest('Time intervals (not specified/documented use of colon, please avoi
 		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true, {}, 'not last test');
 
+// FIXME: 'Apr-Sep 09:30-10:00,12:00-12:30,17:30-18:00,19:30-20:00; Oct-Mar 09:30-10:00,15:00-15:30 "on request"'
 test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', [
 		// 'Mo[2] - 6 days', // considered as "correct"
 		'Mo[2] - 0 days', // pointless
