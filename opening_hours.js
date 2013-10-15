@@ -1387,6 +1387,7 @@
 		if (value.match(/^(\s*;?\s*)+$/)) throw 'Value contains nothing meaningful which can be parsed';
 
 		var parsing_warnings = [];
+		var done_with_warnings = false; // The functions which throw warnings can be called multiple times.
 		var has_token = {};
 		var tokens = tokenize(value);
 		// console.log(JSON.stringify(tokens, null, '\t'));
@@ -1429,7 +1430,7 @@
 					comment: undefined,
 				};
 
-				continue_at = parseGroup(tokens[nblock][0], continue_at, selectors);
+				continue_at = parseGroup(tokens[nblock][0], continue_at, selectors, nblock);
 				if (typeof continue_at == 'object')
 					continue_at = continue_at[0];
 				else
@@ -1558,7 +1559,7 @@
 					value = value.substr(tmp[0].length);
 				} else if (value.match(/^[:.]/)) {
 					// time separator
-					if (value[0] == '.')
+					if (value[0] == '.' && !done_with_warnings)
 						parsing_warnings.push([ -1, value.length - 1, 'Please use ":" as hour/minute-separator' ]);
 					curr_block_tokens.push([ ':', 'timesep', value.length ]);
 					value = value.substr(1);
@@ -1581,7 +1582,7 @@
 					for (var old_val in word_error_correction[token_name][comment]) {
 						if (old_val == word) {
 							var val = word_error_correction[token_name][comment][old_val];
-							if (token_name == 'wrong_words') {
+							if (token_name == 'wrong_words' && !done_with_warnings) {
 								parsing_warnings.push([ -1, value_length - old_val.length,
 									comment.replace(/<ko>/, old_val).replace(/<ok>/, val) ]);
 								return val;
@@ -1594,8 +1595,9 @@
 								if (token_name != 'timevar') { // normally written in lower case
 									correct_abbr = correct_abbr.charAt(0).toUpperCase() + correct_abbr.slice(1);
 								}
-								parsing_warnings.push([ -1, value_length - old_val.length,
-									comment.replace(/<ko>/, old_val).replace(/<ok>/, correct_abbr) ]);
+								if (!done_with_warnings)
+									parsing_warnings.push([ -1, value_length - old_val.length,
+										comment.replace(/<ko>/, old_val).replace(/<ok>/, correct_abbr) ]);
 							}
 							return [ val, token_name ];
 						}
@@ -1611,8 +1613,9 @@
 				// Check if 24/7 is used and it does not mean 24/7 because there are other rules. This can be avoided.
 				var has_advanced = it.advance();
 
-				if (has_advanced === true && has_token['24/7']) // Probably because of: "24/7; 12:00-14:00 open", ". Needs extra testing.
+				if (has_advanced === true && has_token['24/7'] && !done_with_warnings)
 					parsing_warnings.push([ -1, 0, 'You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week".'
+							// Probably because of: "24/7; 12:00-14:00 open", ". Needs extra testing.
 							+ ' For correctness you might want to use "open" or "closed"'
 							+ ' for this rule and then write your exceptions which should achieve the same goal and is more clear'
 							+ ' e.g. "open; Mo 12:00-14:00 off".']);
@@ -1650,7 +1653,7 @@
 		//======================================================================
 		// Top-level parser
 		//======================================================================
-		function parseGroup(tokens, at, selectors, used_subparser, conf) {
+		function parseGroup(tokens, at, selectors, nblock, used_subparser, conf) {
 			var prettified_group_value = '';
 			var used_parseTimeRange = 0;
 
@@ -1690,11 +1693,11 @@
 					// Ignore colon if they appear somewhere else than as time separator.
 					// This provides compatibility with the syntax proposed by Netzwolf:
 					// http://www.netzwolf.info/en/cartography/osm/time_domain/specification
-					if (matchTokens(tokens, at-1, 'weekday') || matchTokens(tokens, at-1, 'holiday'))
+					if (!done_with_warnings && matchTokens(tokens, at-1, 'weekday') || matchTokens(tokens, at-1, 'holiday'))
 						parsing_warnings.push([nblock, at, 'Please don’t use ":" after ' + tokens[at-1][1] + '.']);
 
 					if (prettified_group_value[-1] != ' ')
-						prettified_group_value = prettified_group_value.substring(0, prettified_group_value.length - 1)
+						prettified_group_value = prettified_group_value.substring(0, prettified_group_value.length - 1);
 					at++;
 				} else if (matchTokens(tokens, at, 'number', 'timesep')
 						|| matchTokens(tokens, at, 'timevar')
@@ -1703,7 +1706,7 @@
 
 					used_parseTimeRange++;
 
-					if (used_parseTimeRange > 1)
+					if (!done_with_warnings && used_parseTimeRange > 1)
 						parsing_warnings.push([nblock, at, 'You have used ' + used_parseTimeRange + ' not connected time ranges in one rule.'
 								+ ' This is probably a error. Please connect them like shown in this example "12:00-13:00,15:00-18:00".']);
 
@@ -2167,7 +2170,7 @@
 					throw formatWarnErrorMessage(nblock, at+2,
 						'There should be no reason to differ more than ' + max_differ + ' days from a ' + name + '. If so tell us …');
 				add_days[0] *= tokens[at+1][0];
-				if (add_days[0] == 0)
+				if (add_days[0] == 0 && !done_with_warnings)
 					parsing_warnings.push([ nblock, at+2, 'Adding 0 does not change the date. Please omit this.' ]);
 				add_days[1] = 3;
 			} else {
@@ -2391,7 +2394,7 @@
 							}
 							if (Object.keys(matching_holiday).length == 0)
 								throw 'There are no holidays ' + type_of_holidays + ' defined for country ' + location_cc + '.'
-									+ ' Please add them.';
+									+ ' Please add them: https://github.com/ypid/opening_hours.js ';
 							return matching_holiday;
 						} else {
 							throw 'Holidays ' + type_of_holidays + ' are not defined for country ' + location_cc
@@ -2400,7 +2403,7 @@
 						}
 					}
 				} else {
-					throw 'No holidays are defined for country ' + location_cc + '. Please add them.';
+					throw 'No holidays are defined for country ' + location_cc + '. Please add them: https://github.com/ypid/opening_hours.js ';
 				}
 			} else { // we have no idea which holidays do apply because the country code was not provided
 				throw 'Country code missing which is needed to select the correct holidays (see README how to provide it)'
@@ -2495,7 +2498,7 @@
 					if (matchTokens(tokens, at+1, '-', 'year', '/', 'number')) {
 						var is_range   = true;
 						var has_period = true;
-						if (tokens[at+4][0] == 1)
+						if (tokens[at+4][0] == 1 && !done_with_warnings)
 							parsing_warnings.push([nblock, at+1+3, 'Please don’t use year ranges with period equals one (see README)']);
 					} else {
 						var is_range   = matchTokens(tokens, at+1, '-', 'year');
@@ -3099,7 +3102,7 @@
 			var pos = 0;
 			if (nblock == -1) { // usage of block index not required because we do have access to value.length
 				pos = value.length - at;
-			} else { // issue accrued at a later time
+			} else { // Issue accrued at a later time, position in string needs to be reconstructed.
 				if (typeof tokens[nblock][0][at] == 'undefined') {
 					pos = value.length;
 				} else {
@@ -3221,6 +3224,7 @@
 							user_conf[key] = default_prettify_conf[key];
 					}
 
+					done_with_warnings = true;
 					prettified_value = '';
 					var selectors = { // Not really needed. This whole thing is only necessary because of the token used for additional blocks.
 						time: [], weekday: [], holiday: [], week: [], month: [], monthday: [], year: [], wraptime: [],
@@ -3232,7 +3236,7 @@
 						comment: undefined,
 					};
 
-					parseGroup(tokens[state[4]][0], 0, selectors, {}, user_conf);
+					parseGroup(tokens[state[4]][0], 0, selectors, state[4], {}, user_conf);
 
 					return prettified_value;
 				}
@@ -3290,6 +3294,7 @@
 					user_conf[key] = default_prettify_conf[key];
 			}
 
+			done_with_warnings = true;
 			prettified_value = '';
 			for (var nblock = 0; nblock < tokens.length; nblock++) {
 				if (tokens[nblock][0].length == 0) continue;
@@ -3315,7 +3320,7 @@
 						comment: undefined,
 					};
 
-					continue_at = parseGroup(tokens[nblock][0], continue_at, selectors, {}, user_conf);
+					continue_at = parseGroup(tokens[nblock][0], continue_at, selectors, nblock, {}, user_conf);
 
 					if (typeof continue_at == 'object') {
 						continue_at = continue_at[0];

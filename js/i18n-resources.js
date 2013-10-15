@@ -97,6 +97,7 @@ var resources = { // English is fallback language.
                 "config POIs": "configure POIs",
                 "reload map": "reload map",
                 "heading map": "Map with layer for the tag opening_hours",
+                "map is showing": '<a href="__mapUrl__">Without filter</a> this map is showing nodes with the tag <a rel="external" href="__wikiUrl__">opening_hours</a> as colored circles:',
                 "error": "The value could not be parsed",
                 "warning": "If there appeared warnings during evaluation, a blue __sign__ will show up in the status icon.",
                 "map filter": "There are a few filters which can be applied to find and fix mistakes (QA) or to just display open or closed facilities:",

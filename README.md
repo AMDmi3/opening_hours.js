@@ -314,7 +314,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 ### Holidays ###
 
 * Supports public holidays (```24/7; PH off```, ```PH 12:00-13:00```).
-  * Currently Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored. The same applies to [Austria][PH-at].
+  * Currently Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored. The same applies for [Austria][PH-at].
   * **EXT:** Supports limited calculations based on holidays (e.g. ```Sa,PH -1 day open```). The only two possibilities are currently +1 and -1. All other cases are not handled. This seems to be enough because the only thing which is really used is -1.
 
 [PH-de]: http://de.wikipedia.org/wiki/Feiertage_in_Deutschland

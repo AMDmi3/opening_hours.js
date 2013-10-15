@@ -1171,6 +1171,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
 		'Mo-Do 8:30-20:00 Fr 8:29-18:00',
 		'Mo 12:00-14:00 16:00-18:00 20:00-22:00',
+		'Mo-So: 08:00-22:00',
 		// 'easter + 353 days', // Does throw an error, but at runtime when the problem occurs respectivly with the call of getWarnings().
 	], {}, 'not only test');
 
