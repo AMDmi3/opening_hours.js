@@ -430,4 +430,4 @@ On author's Intel Core i5-2400 library allows ~20k/sec constructor calls and ~10
 
 
 [Nominatim]: http://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding_.2F_Address_lookup
-[issure-report]: https://github.com/AMDmi3/opening_hours.js/issues
+[issure-report]: https://github.com/ypid/opening_hours.js/issues
