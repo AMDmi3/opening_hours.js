@@ -1074,6 +1074,15 @@ test.addTest('Additional comments combined with additional blocks', [
 		[ '2012.10.01 14:00', '2012.10.01 16:00', false, 'male only' ],
 	], 1000 * 60 * 60 * 4, 0, true, {}, 'not last test');
 
+// did only not work in browser: drawTable
+test.addTest('Additional comments combined with months', [
+		'Apr-Sep; Oct-Dec "on request"',
+		'Oct-Dec "on request"; Apr-Sep',
+	], '2012.07.01 0:00', '2012.11.01 0:00', [
+		[ '2012.07.01 00:00', '2012.10.01 00:00' ],
+		[ '2012.10.01 00:00', '2012.11.01 00:00', true,  'on request' ],
+	], 7948800000, 2682000000, false, {}, 'not last test');
+
 test.addTest('Complex example used in README', [
 		'00:00-24:00; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -1159,7 +1168,6 @@ test.addTest('Time intervals (not specified/documented use of colon, please avoi
 		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true, {}, 'not last test');
 
-// FIXME: 'Apr-Sep 09:30-10:00,12:00-12:30,17:30-18:00,19:30-20:00; Oct-Mar 09:30-10:00,15:00-15:30 "on request"'
 test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', [
 		// 'Mo[2] - 6 days', // considered as "correct"
 		'Mo[2] - 0 days', // pointless
@@ -1178,7 +1186,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'"testing" "second comment"',
 		'Jan 12:00-13:00 Mo 15:00-16:00',
 		// 'easter + 353 days', // Does throw an error, but at runtime when the problem occurs respectivly with the call of getWarnings().
-	], {}, 'last test');
+	], {}, 'not last test');
 
 test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Mo[2] - 7 days',

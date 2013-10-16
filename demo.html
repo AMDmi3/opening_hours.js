@@ -194,9 +194,11 @@
 			}
 
 			function permalink () {
-				var exp =	document.getElementById('expression').value;
+				var exp = document.getElementById('expression').value;
+				var lat = document.getElementById('lat').value;
+				var lon = document.getElementById('lon').value;
 
-				var search='?EXP='+encodeURIComponent(exp)+'&DATE='+date.getTime();
+				var search='?EXP='+encodeURIComponent(exp)+'&DATE='+date.getTime() +'&lat='+lat+'&lon='+lon;
 
 				location = location.protocol+'//'+location.host+location.pathname+search;
 			}
@@ -216,6 +218,12 @@
 				}
 				if (typeof params['EXP'] != 'undefined') {
 					document.forms.check.elements['expression'].value = decodeURIComponent(params['EXP']);
+				}
+				if (typeof params['lat'] != 'undefined') {
+					document.forms.check.elements['lat'].value = decodeURIComponent(params['lat']);
+				}
+				if (typeof params['lon'] != 'undefined') {
+					document.forms.check.elements['lon'].value = decodeURIComponent(params['lon']);
 				}
 				if (typeof params['DATE'] != 'undefined') {
 					var crashed = true;
