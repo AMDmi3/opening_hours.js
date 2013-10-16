@@ -1670,8 +1670,7 @@
 		//======================================================================
 		function parseGroup(tokens, at, selectors, nblock, conf) {
 			var prettified_group_value = '';
-			var used_parseTimeRange = 0; // FIXME: Should be possible to substitute through used_subparsers.
-			used_subparsers = {};
+			used_subparsers = { 'time ranges': 0 };
 
 			// console.log(tokens); // useful for debugging of tokenize
 			while (at < tokens.length) {
@@ -1720,7 +1719,10 @@
 						|| matchTokens(tokens, at, '(', 'timevar')) {
 					at = parseTimeRange(tokens, at, selectors);
 
-					used_parseTimeRange++;
+					if (typeof used_subparsers['time ranges'] != 'number')
+						used_subparsers['time ranges'] = 1;
+					else
+						used_subparsers['time ranges']++;
 				} else if (matchTokens(tokens, at, 'closed')) {
 					selectors.meaning = false;
 					at++;
@@ -1783,7 +1785,7 @@
 				}
 
 				if (typeof conf != 'undefined') {
-					prettified_group_value += prettifySelector(tokens, old_at, at, conf, used_parseTimeRange);
+					prettified_group_value += prettifySelector(tokens, old_at, at, conf, used_subparsers['time ranges']);
 				}
 
 				if (typeof at == 'object') // additional block
@@ -1985,11 +1987,6 @@
 				if (!matchTokens(tokens, at, ','))
 					break;
 			}
-
-			if (typeof used_subparsers['time ranges'] != 'number')
-				used_subparsers['time ranges'] = 1;
-			else
-				used_subparsers['time ranges']++;
 
 			return at;
 		}

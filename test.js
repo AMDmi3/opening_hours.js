@@ -602,7 +602,6 @@ test.addTest('Additional blocks', [
 		[ '2012.10.05 08:00', '2012.10.05 12:00' ],
 	], 1000 * 60 * 60 * (5 * 4 + 4), 0, true, {}, 'not last test');
 
-// FIXME
 test.addTest('Fallback group blocks (unknown)', [
 		'We-Fr 10:00-24:00 open "it is open" || "please call"',
 		'We-Fr 10:00-24:00 open "it is open" || "please call" || closed "should never appear"',
@@ -757,7 +756,6 @@ test.addTest('Full date (with year)', [
 		'2013 Dec 31,2014 Jan 5',
 		'2013 Dec 31; 2014 Jan 5',
 		'2013-2013 Dec 31; 2014-2014 Jan 5', // force to use parseYearRange
-		// '2013-2013 Dec 31,2014 Jan 5',   // FIXME: infinite loop
 	], '2011.01.01 0:00', '2015.01.01 0:00', [
 		[ '2013.12.31 00:00', '2014.01.01 00:00' ],
 		[ '2014.01.05 00:00', '2014.01.06 00:00' ],
@@ -1141,9 +1139,11 @@ test.addTest('Calculations based on variable events', [
 	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'not last test');
 
 test.addTest('Calculations based on variable events', [
-		ignored('easter - Apr 02: open "Around easter"'), // FIXME
+		'easter-Apr 2: open "Around easter"',
 	], '2012.01.01 0:00', '2012.10.08 0:00', [
-	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'not only test');
+		[ '2012.01.01 00:00', '2012.04.03 00:00', false, 'Around easter' ],
+		[ '2012.04.08 00:00', '2012.10.08 00:00', false, 'Around easter' ],
+	], 23842800000, 0, false, nominatiomTestJSON, 'not last test');
 
 // The hard stuff. Proposed by Netzwolf: http://www.netzwolf.info/en/cartography/osm/time_domain/form_hours#check
 // Currently used around 6 times: /\d\s*-\s*(mo|tu|we|th|fr|sa|su)\b/

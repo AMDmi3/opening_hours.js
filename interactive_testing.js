@@ -43,6 +43,7 @@ rl.on('line', function (cmd) {
 
         var state = oh.getState() ? 'open   ' : (oh.getUnknown() ? 'unknown' : 'closed ');
         console.log('0 ' + (needed_nominatiom_json ? 1 : 0), (warnings.length > 0 ? 1 : 0), state, '"' + comment + '"');
+        // console.log(prettified);
         if (args[0] != '--no-warnings' && warnings.length > 0)
             console.log(warnings.join('\n'));
     }

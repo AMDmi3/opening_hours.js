@@ -172,7 +172,7 @@
 
 					if (prettified != value) {
 						show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.prettified value') + ':<br />'
-							+ '<input style="width: 100%" name="prettifiedValue" value="' + prettified + '" readonly="readonly" /></p>';
+							+ '<input style="width: 100%" name="prettifiedValue" value="' + prettified.replace(/"/g, '&quot;') + '" readonly="readonly" /></p>';
 					}
 
 					var warnings = oh.getWarnings();
