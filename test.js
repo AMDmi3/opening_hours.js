@@ -932,6 +932,7 @@ test.addTest('Input tolerance: weekdays, months in different languages', [
 		'Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off', // reference value for prettify
 		'mon, Dienstag, Mi, donnerstag 12:00-20:00; 14:00-16:00 off',
 		'mon, Tuesday, wed, Thursday 12:00-20:00; 14:00-16:00 off',
+		'mon., Tuesday, wed., Thursday. 12:00-20:00; 14:00-16:00 off',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 12:00', '2012.10.01 14:00' ],
 		[ '2012.10.01 16:00', '2012.10.01 20:00' ],

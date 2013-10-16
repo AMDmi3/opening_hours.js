@@ -1524,9 +1524,9 @@
 				} else if (tmp = value.match(/^days?/i)) {
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(:?&|–|[a-zA-ZäÄàÀéÉ]+\b)/i)) {
+				} else if (tmp = value.match(/^(&|–|[a-zA-ZäÄàÀéÉ]+\b)\.?/i)) {
 					// Handle all remaining words with error tolerance
-					var correct_val = returnCorrectWordOrToken(tmp[0].toLowerCase(), value.length);
+					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
 					if (typeof correct_val == 'object') {
 						curr_block_tokens.push([ correct_val[0], correct_val[1], value.length ]);
 						value = value.substr(tmp[0].length);
