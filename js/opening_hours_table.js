@@ -89,6 +89,7 @@ var OpeningHoursTable = {
             var state_string = it.getStateString(false);
             var prevdate = date;
             var curdate  = date;
+            // console.log(state_string, is_open, unknown, date.toString());
 
             table[row] = {
                 date: new Date(date),

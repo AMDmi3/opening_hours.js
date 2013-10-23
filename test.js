@@ -1169,6 +1169,39 @@ test.addTest('Time intervals (not specified/documented use of colon, please avoi
 		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true, {}, 'not last test');
 
+test.addTest('Points in time, mode 1', [
+		'Mo 12:00,15:00; Tu-Fr 14:00',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 12:00', '2012.10.01 12:01' ],
+		[ '2012.10.01 15:00', '2012.10.01 15:01' ],
+		[ '2012.10.02 14:00', '2012.10.02 14:01' ],
+		[ '2012.10.03 14:00', '2012.10.03 14:01' ],
+		[ '2012.10.04 14:00', '2012.10.04 14:01' ],
+		[ '2012.10.05 14:00', '2012.10.05 14:01' ],
+	], 1000 * 60 * 6, 0, false, nominatiomTestJSON, 'not last test', 1);
+
+test.addTest('Points in time, mode 1', [
+		'Mo sunrise,sunset',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 07:22', '2012.10.01 07:23' ],
+		[ '2012.10.01 19:00', '2012.10.01 19:01' ],
+	], 1000 * 60 * 2, 0, false, nominatiomTestJSON, 'not last test', 1);
+
+test.addTest('Points in time, mode 2', [
+		'Mo sunrise,sunset',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 07:22', '2012.10.01 07:23' ],
+		[ '2012.10.01 19:00', '2012.10.01 19:01' ],
+	], 1000 * 60 * 2, 0, false, nominatiomTestJSON, 'not last test', 2);
+
+test.addTest('Points in time and times ranges, mode 2', [
+		'Mo 12:00,13:00-14:00',
+		'Mo 13:00-14:00,12:00',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 12:00', '2012.10.01 12:01' ],
+		[ '2012.10.01 13:00', '2012.10.01 14:00' ],
+	], 1000 * 60 * (1 + 60), 0, false, nominatiomTestJSON, 'not last test', 2);
+
 test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', [
 		// 'Mo[2] - 6 days', // considered as "correct"
 		'Mo[2] - 0 days', // pointless
@@ -1236,6 +1269,10 @@ test.addShouldFail('Missing information (e.g. country or holidays not defined in
 		'PH', // country is not specified
 		'SH', // country is not specified
 	]);
+
+test.addShouldFail('opening_hours.js is in the wrong mode.', [
+		'Mo sunrise,sunset', // only in mode 1 or 2, default is 0
+	], nominatiomTestJSON, 'not last test');
 
 test.addCompMatchingRule('Compare result from getMatchingRule()', [
 		'10:00-16:00',
@@ -1329,7 +1366,7 @@ function opening_hours_test() {
 		return false;
 	}
 
-	function runSingleTest(name, value, first_value, from, to, expected_intervals, expected_durations, expected_weekstable, nominatiomJSON) {
+	function runSingleTest(name, value, first_value, from, to, expected_intervals, expected_durations, expected_weekstable, nominatiomJSON, oh_mode) {
 		var ignored = typeof value !== 'string';
 		if (ignored) {
 			ignored = value[1];
@@ -1340,7 +1377,7 @@ function opening_hours_test() {
 
 		var warnings;
 		try {
-			oh = new opening_hours(value, nominatiomJSON);
+			oh = new opening_hours(value, nominatiomJSON, oh_mode);
 
 			warnings = oh.getWarnings();
 
@@ -1488,7 +1525,7 @@ function opening_hours_test() {
 		var tests_length = tests.length + tests_should_fail.length + tests_should_warn.length + tests_comp_matching_rule.length;
 		var success = 0;
 		for (var test = 0; test < tests.length; test++) {
-			if (runSingleTest(tests[test][0], tests[test][1], tests[test][2], tests[test][3], tests[test][4], tests[test][5], tests[test][6], tests[test][7], tests[test][8]))
+			if (runSingleTest(tests[test][0], tests[test][1], tests[test][2], tests[test][3], tests[test][4], tests[test][5], tests[test][6], tests[test][7], tests[test][8], tests[test][9]))
 				success++;
 		}
 		for (var test = 0; test < tests_should_warn.length; test++) {
@@ -1513,7 +1550,7 @@ function opening_hours_test() {
 	this.last = false; // If set to true, no more tests are added to the testing queue.
 	// This might be useful for testing to avoid to comment tests out and something like that …
 
-	this.addTest = function(name, values, from, to, expected_intervals, expected_duration, expected_unknown_duration, expected_weekstable, nominatiomJSON, last) {
+	this.addTest = function(name, values, from, to, expected_intervals, expected_duration, expected_unknown_duration, expected_weekstable, nominatiomJSON, last, oh_mode) {
 
 		if (this.last == true) return;
 		this.handle_only_test(last);
@@ -1526,11 +1563,11 @@ function opening_hours_test() {
 		}
 		if (typeof values === 'string')
 			tests.push([name, values, values, from, to, expected_intervals,
-				[ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON]);
+				[ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON, oh_mode]);
 		else
 			for (var value = 0; value < values.length; value++)
 				tests.push([name, values[value], values[0], from, to, expected_intervals,
-					[ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON]);
+					[ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON, oh_mode]);
 	}
 
 	this.addShouldFail = function(name, values, nominatiomJSON, last) {

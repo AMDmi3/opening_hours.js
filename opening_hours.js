@@ -1200,7 +1200,7 @@
 			}
 		},
 
-		weekday: {
+		weekday: { // good source: http://www.omniglot.com/language/time/days.htm
 			'default': {
 				su: 0,
 				mo: 1,
@@ -1284,9 +1284,9 @@
 				zaterdag:  6,
 			}, 'Please use the englisch abbreviation "<ok>" for "<ko>".': { // FIXME: Translate to Czech.
 				'neděle':  0,
-				ne:        0,
+				'ne':      0,
 				'pondělí': 1,
-				po:        1,
+				'po':      1,
 				'úterý':   2,
 				'út':      2,
 				'středa':  3,
@@ -1296,6 +1296,23 @@
 				'pátek':   5,
 				'pá':      5,
 				'sobota':  6,
+			}, 'Please use the englisch abbreviation "<ok>" for "<ko>".': {
+				// Spanish.
+				'martes':    0,
+				'miércoles': 1,
+				'jueves':    2,
+				'viernes':   3,
+				'sábado':    4,
+				'domingo':   5,
+				'lunes':     6,
+				// Indonesian.
+				'selasa': 0,
+				'rabu':   1,
+				'kami':   2,
+				'jumat':  3,
+				'sabtu':  4,
+				'minggu': 5,
+				'senin':  6,
 			},
 		},
 
@@ -1333,7 +1350,7 @@
 		root.opening_hours = factory(root.SunCalc, holidays, word_error_correction);
 	}
 }(this, function (SunCalc, holidays, word_error_correction) {
-	return function(value, nominatiomJSON) {
+	return function(value, nominatiomJSON, oh_mode) {
 		var word_value_replacement = { // if the correct values can not be calculated
 			dawn    : 60 * 5 + 30,
 			sunrise : 60 * 6,
@@ -1398,7 +1415,17 @@
 			}
 		}
 
-		if (value.match(/^(\s*;?\s*)+$/)) throw 'Value contains nothing meaningful which can be parsed';
+		// 0: time ranges (opening_hours, lit, …) default
+		// 1: points in time (collection_times, service_times, …)
+		// 2: both (time ranges and points in time)
+		if (typeof oh_mode == 'undefined') {
+			oh_mode = 0;
+		} else if (!(typeof oh_mode == 'number' && (oh_mode == 0 || oh_mode == 1 || oh_mode == 2))) {
+			throw 'The third constructor parameter is oh_mode and must be a number (0, 1 or 2)'
+		}
+
+		if (value.match(/^(\s*;?\s*)+$/))
+			throw 'Value contains nothing meaningful which can be parsed';
 
 		var parsing_warnings = [];
 		var done_with_warnings = false; // The functions which throw warnings can be called multiple times.
@@ -1765,7 +1792,8 @@
 							selectors.unknown = true;
 						}
 					} else { // block starts with comment
-						selectors.time.push(function(date) { return [true]; });
+						// selectors.time.push(function(date) { return [true]; });
+						// Not needed. If there is no selector it automatically matches everything.
 						selectors.meaning = false;
 						selectors.unknown = true;
 					}
@@ -1828,6 +1856,8 @@
 				if (has_normal_time[0] || matchTokens(tokens, at, 'timevar') || has_time_var_calc[0]) {
 					// relying on the fact that always *one* of them is true
 
+					var is_point_in_time = false; // no time range
+
 					if (has_normal_time[0])
 						var minutes_from = tokens[at+has_time_var_calc[0]][0] * 60 + tokens[at+has_time_var_calc[0]+2][0];
 					else
@@ -1844,10 +1874,15 @@
 						if (matchTokens(tokens, at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 7 : 1)), '+')) {
 							has_open_end = true;
 						} else {
-							throw formatWarnErrorMessage(nblock, at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 2 : 1)),
-								'hyphen (-) or open end (+) in time range '
-								+ (has_time_var_calc[0] ? 'calculation ' : '')
-								+ 'expected');
+							if (oh_mode == 0) {
+								throw formatWarnErrorMessage(nblock, at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 2 : 1)),
+									'hyphen (-) or open end (+) in time range '
+									+ (has_time_var_calc[0] ? 'calculation ' : '')
+									+ 'expected. For working with time ranges, the mode for opening_hours.js has to altered.');
+							} else {
+								var minutes_to = minutes_from + 1;
+								is_point_in_time = true;
+							}
 						}
 					}
 
@@ -1859,28 +1894,34 @@
 							var minutes_to = minutes_from + 60 * 10;
 						else
 							var minutes_to = minutes_in_day;
-					} else {
+					} else if (!is_point_in_time) {
 						has_normal_time[1] = matchTokens(tokens, at_end_time, 'number', 'timesep', 'number');
 						has_time_var_calc[1]      = matchTokens(tokens, at_end_time, '(', 'timevar');
-						if (!has_normal_time[1] && !matchTokens(tokens, at_end_time, 'timevar') && !has_time_var_calc[1])
-							throw formatWarnErrorMessage(nblock, at_end_time, 'time range does not continue as expected');
+						if (!has_normal_time[1] && !matchTokens(tokens, at_end_time, 'timevar') && !has_time_var_calc[1]) {
+							if (!is_point_in_time)
+								throw formatWarnErrorMessage(nblock, at_end_time, 'time range does not continue as expected');
+						} else if (oh_mode == 1) {
+							throw formatWarnErrorMessage(nblock, at_end_time, 'opening_hours is running in "points in time mode".'
+								+ ' Found time range.');
+						} else {
+							if (has_normal_time[1])
+								var minutes_to = tokens[at_end_time][0] * 60 + tokens[at_end_time+2][0]
+							else
+								var minutes_to = word_value_replacement[tokens[at_end_time+has_time_var_calc[1]][0]];
 
-						if (has_normal_time[1])
-							var minutes_to = tokens[at_end_time][0] * 60 + tokens[at_end_time+2][0]
-						else
-							var minutes_to = word_value_replacement[tokens[at_end_time+has_time_var_calc[1]][0]];
+							if (has_time_var_calc[1]) {
+								timevar_add[1] = parseTimevarCalc(tokens, at_end_time);
+								minutes_to += timevar_add[1];
+							}
 
-						if (has_time_var_calc[1]) {
-							timevar_add[1] = parseTimevarCalc(tokens, at_end_time);
-							minutes_to += timevar_add[1];
+							// this shortcut makes always-open range check faster
+							// and is also useful in tests, as it doesn't produce
+							// extra check points which may hide errors in other
+							// selectors
+							// if (minutes_from == 0 && minutes_to == minutes_in_day)
+							// 	selectors.time.push(function(date) { return [true]; });
+							// Not needed. If there is no selector it automatically matches everything.
 						}
-
-						// this shortcut makes always-open range check faster
-						// and is also useful in tests, as it doesn't produce
-						// extra check points which may hide errors in other
-						// selectors
-						if (minutes_from == 0 && minutes_to == minutes_in_day)
-							selectors.time.push(function(date) { return [true]; });
 					}
 
 					// normalize minutes into range
@@ -1902,12 +1943,12 @@
 							week_stable = false;
 						if (!has_normal_time[0])
 							timevar_string[0] = tokens[at+has_time_var_calc[0]][0];
-						if (!has_normal_time[1] && !has_open_end)
+						if (!has_normal_time[1] && !has_open_end && !is_point_in_time)
 							timevar_string[1]   = tokens[at_end_time+has_time_var_calc[1]][0]
 					} // else: we can not calculate exact times so we use the already applied constants (word_value_replacement).
 
 					if (minutes_to > minutes_in_day) { // has_normal_time[1] must be true
-						selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end) { return function(date) {
+						selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
 
 							if (timevar_string[0]) {
@@ -1921,15 +1962,17 @@
 								// Needs to be added because it was added by
 								// normal times in: if (minutes_to < // minutes_from)
 								// above the selector construction.
+							} else if (is_point_in_time) {
+								minutes_to = minutes_from + 1;
 							}
 
 							if (ourminutes < minutes_from)
 								return [false, dateAtDayMinutes(date, minutes_from)];
 							else
 								return [true, dateAtDayMinutes(date, minutes_to), has_open_end];
-						}}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end));
+						}}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time));
 
-						selectors.wraptime.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end) { return function(date) {
+						selectors.wraptime.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
 
 							if (timevar_string[0]) {
@@ -1944,15 +1987,17 @@
 								// above the selector construction and
 								// subtracted in the selector construction call
 								// which returns the selector function.
+							} else if (is_point_in_time) {
+								minutes_to = minutes_from + 1;
 							}
 
 							if (ourminutes < minutes_to)
 								return [true, dateAtDayMinutes(date, minutes_to), has_open_end];
 							else
 								return [false, undefined];
-						}}(minutes_from, minutes_to - minutes_in_day, timevar_string, timevar_add, has_open_end));
+						}}(minutes_from, minutes_to - minutes_in_day, timevar_string, timevar_add, has_open_end, is_point_in_time));
 					} else {
-						selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end) { return function(date) {
+						selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
 
 							if (timevar_string[0]) {
@@ -1962,6 +2007,8 @@
 							if (timevar_string[1]) {
 								var date_to = eval('SunCalc.getTimes(date, lat, lon).' + timevar_string[1]);
 								minutes_to  = date_to.getHours() * 60 + date_to.getMinutes() + timevar_add[1];
+							} else if (is_point_in_time) {
+								minutes_to = minutes_from + 1;
 							}
 
 							if (ourminutes < minutes_from)
@@ -1970,10 +2017,12 @@
 								return [true, dateAtDayMinutes(date, minutes_to), has_open_end];
 							else
 								return [false, dateAtDayMinutes(date, minutes_from + minutes_in_day)];
-						}}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end));
+						}}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time));
 					}
 
-					at = at_end_time + (has_normal_time[1] ? 3 : (has_time_var_calc[1] ? 7 : !has_open_end));
+					at = at_end_time + (is_point_in_time ? -1 :
+							(has_normal_time[1] ? 3 : (has_time_var_calc[1] ? 7 : !has_open_end))
+							);
 				} else { // additional block
 					if (matchTokens(tokens, at, '('))
 						throw formatWarnErrorMessage(nblock, at+1, 'Missing variable time (e.g. sunrise) after: "' + tokens[at][1] + '"');
@@ -2157,9 +2206,9 @@
 						inside = false;
 					}
 
-					if (weekday_to < weekday_from) {
-						// handle full range
-						selectors.weekday.push(function(date) { return [true]; });
+					if (weekday_to < weekday_from) { // handle full range
+						// selectors.weekday.push(function(date) { return [true]; });
+						// Not needed. If there is no selector it automatically matches everything.
 					} else {
 						selectors.weekday.push(function(weekday_from, weekday_to, inside) { return function(date) {
 							var ourweekday = date.getDay();

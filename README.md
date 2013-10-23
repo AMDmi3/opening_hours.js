@@ -96,14 +96,16 @@ function getReadableState(startString, endString, oh, past) {
 ## Library API
 
 * ```javascript
-  var oh = new opening_hours('We 12:00-14:00', nominatiomJSON);
+  var oh = new opening_hours('We 12:00-14:00', nominatiomJSON, mode);
   ```
 
-  Constructs opening_hours object, given the opening_hours tag value.
+  * value (mandadory): Constructs opening_hours object, given the opening_hours tag value.
 
   Throws an error string if the expression is malformed or unsupported.
 
-  In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges](#time-ranges)) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for by using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim][] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1) and you are good to go. Note that this second parameter is optional. The data returned by Nominatim should be in the local language (the language of the country for which the opening hours apply). If not *accept-language* can be used as parameter in the request URL.
+  * nominatiomJSON (optional): In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges](#time-ranges)) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for by using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim][] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1) and you are good to go. Note that this second parameter is optional. The data returned by Nominatim should be in the local language (the language of the country for which the opening hours apply). If not *accept-language* can be used as parameter in the request URL.
+
+  * mode (optional): In OSM, the syntax originally designed to describe opening hours is now used to describe a few other things as well. A few of those other tags work with points in time instead of time ranges. To support this the mode can be specified. If there is no mode specified, opening_hours.js will only operate with time ranges and will throw an error message when points in times are used in the value.
 
 * ```javascript
   var warnings = oh.getWarnings();

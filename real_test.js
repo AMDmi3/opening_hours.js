@@ -22,9 +22,10 @@ test.exported_json('opening_hours:warm_kitchen', { ignore: [ 'opening_hours' ]})
 
 test.exported_json('smoking_hours', { ignore: [ 'yes' ]});
 
-// test.exported_json('service_times', { ignore: [ 'automatic' ]});
+test.exported_json('collection_times', { mode: 2 });
+// mode 2: "including the hyphen because there are post boxes which are emptied several (undefined) times or one (undefined) time in a certain time frame. This shall be covered also.". Ref: http://wiki.openstreetmap.org/wiki/Key:collection_times
 
-// test.exported_json('collection_times');
+test.exported_json('service_times', { mode: 2 });
 
 //======================================================================
 // Test framework
@@ -33,7 +34,7 @@ function opening_hours_test() {
 	this.exported_json = function (tagname /* file exported by the taginfo API */, options) {
 		var how_often_print_stats = 15000;
 		var importance_threshold  = 30;
-		var global_ignore = [ 'fixme' ];
+		var global_ignore = [ 'fixme', 'FIXME' ];
 
 		fs.readFile(__dirname + '/export.' + tagname + '.json', 'utf8', function (err, data) {
 			if (err) {
@@ -44,6 +45,10 @@ function opening_hours_test() {
 			var ignored_values = global_ignore;
 			if (typeof options !== 'undefined' && typeof options.ignore !== 'undefined')
 				ignored_values.push.apply(ignored_values, options.ignore);
+
+			var mode = 0;
+			if (typeof options !== 'undefined' && typeof options.mode == 'number')
+				mode = options.mode;
 
 			console.log('[1;34mParsing ' + tagname + '[0m' + (ignored_values.length != 0 ? ' (ignoring ' + ignored_values + ')': '') + ' …');
 
@@ -67,7 +72,7 @@ function opening_hours_test() {
 			var parsed_values = 0; // total number of values which are "parsed" (if one value appears more than one, it counts more than one)
 			for (var i = 0; i < total_differ; i++) {
 				if (indexOf.call(ignored_values, data.data[i].value) == -1) {
-					if (test_value(data.data[i].value)) {
+					if (test_value(data.data[i].value, mode)) {
 						success_differ++;
 						success += data.data[i].count;
 						// console.log('passed', data.data[i].value);
@@ -110,10 +115,10 @@ function opening_hours_test() {
 		});
 	}
 
-	function test_value(value) {
+	function test_value(value, mode) {
 		var crashed = true;
 		try {
-			oh = new opening_hours(value, nominatiomTestJSON);
+			oh = new opening_hours(value, nominatiomTestJSON, mode);
 
 			crashed = false;
 		} catch (err) {

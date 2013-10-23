@@ -103,7 +103,7 @@
 							}
 						}
 					};
-					xhr.send(null);
+					// xhr.send(null);
 				}
 
 				date = reset ? new Date() : new Date(
@@ -133,8 +133,10 @@
 
 				var crashed = false;
 				var value = document.forms.check.elements['expression'].value;
+				var mode = parseInt(document.getElementById('mode').selectedIndex);
+				console.log(mode);
 				try {
-					var oh = new opening_hours(value, nominatim);
+					var oh = new opening_hours(value, nominatim, mode);
 					var it = oh.getIterator(date);
 				} catch (err) {
 					crashed = err;
@@ -197,8 +199,9 @@
 				var exp = document.getElementById('expression').value;
 				var lat = document.getElementById('lat').value;
 				var lon = document.getElementById('lon').value;
+				var mode = document.getElementById('mode').selectedIndex;
 
-				var search='?EXP='+encodeURIComponent(exp)+'&DATE='+date.getTime() +'&lat='+lat+'&lon='+lon;
+				var search='?EXP='+encodeURIComponent(exp)+'&DATE='+date.getTime() +'&lat='+lat+'&lon='+lon+'&mode='+mode;
 
 				location = location.protocol+'//'+location.host+location.pathname+search;
 			}
@@ -224,6 +227,9 @@
 				}
 				if (typeof params['lon'] != 'undefined') {
 					document.forms.check.elements['lon'].value = decodeURIComponent(params['lon']);
+				}
+				if (typeof params['mode'] != 'undefined') {
+					document.forms.check.elements['mode'].value = decodeURIComponent(params['mode']);
 				}
 				if (typeof params['DATE'] != 'undefined') {
 					var crashed = true;
@@ -304,6 +310,16 @@
 						document.write(i18n.t('words.lon') + ': <input size="7" id="lon" value="' + def_lon + '"  onblur="Evaluate()" /> ');
 						document.write(i18n.t('words.country') + ': <input size="3" id="cc" readonly="readonly" /> ');
 						document.write(i18n.t('words.state') + ': <input size="20" id="state" readonly="readonly" />');
+					</script>
+				</p>
+
+				<p>
+					<script type="text/javascript">
+						document.write(i18n.t('words.mode') + ': <select id="mode" name="mode" onchange="Evaluate()">');
+						for (var i = 0; i <= 2; i++) {
+							document.write('<option value="' + i + '">' + i18n.t('texts.mode ' + i) + '</option>');
+						}
+						document.write('</select>');
 					</script>
 				</p>
 
