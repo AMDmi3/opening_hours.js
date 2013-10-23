@@ -20,7 +20,7 @@ around-the-clock shop with some breaks.
 
 Please have a look at the [demo page][] which can give you an impression how this library can be used and what it is capable of.
 
-You need to download all dependencies when using from this repository. This can be done with ```npm install```.
+You need to download all dependencies when using from this repository. This can be done with ```git submodule update --init```.
 
 [demo page]: http://robin.de.marissa.hostorama.ch/osm/opening_hours.js/demo.html
 
@@ -413,6 +413,13 @@ You want to try some opening_hours yourself? Just run ```make interactive_testin
 Simple node.js based benchmark is bundled. You can run it with ```node benchmark.js``` or with ```make benchmark```.
 
 On author's Intel Core i5-2400 library allows ~20k/sec constructor calls and ~10k/sec openIntervals() calls with one week period. This may further improve in future.
+
+## Used in other projects
+This library is used in the following projects:
+
+* [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours)
+* [JOSM](http://josm.openstreetmap.de/), [ticket for integration](http://josm.openstreetmap.de/ticket/9157)
+* [opening_hours_map](https://github.com/ypid/opening_hours_map)
 
 ## Author ##
 
