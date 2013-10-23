@@ -396,7 +396,7 @@ Simple node.js based test framework is bundled. You can run it with ```node test
 ### Large scale ###
 To see how this library performance in the real OpenStreetMap world you can run ```make real_test``` or ```node real_test.js``` (data needs to be exported first) to try to process every value which uses the opening_hours syntax from [taginfo][] with this library.
 
-Currently (October 2013) this library can parse 95 % of all opening_hours values in OSM. (If identical values appear multiple times then each value counts separately)
+Currently (October 2013) this library can parse 95 % of all opening_hours values in OSM. If identical values appear multiple times then each value counts.
 
 [taginfo]: http://taginfo.openstreetmap.org/
 
@@ -405,8 +405,10 @@ Python script to search with regular expressions over OSM opening_hours style ta
 
 This script not only shows you if the found value can be processed with this library or not, it also indicates using different colors if the facility is currently open (open: green, unknown: magenta, closed: blue).
 
-## Test it yourself ##
+## Test it yourself (the geeky way) ##
 You want to try some opening_hours yourself? Just run ```make interactive_testing``` or ```node interactive_testing.js``` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message). The number in the beginning of the returned line can be read as exit code (0 means the value could be processed and 1 means an critical error appeared during parsing). The second number indicates if additional location information (nominatim JSON) where necessary to parse the value (e.g. value uses variable times or days). The third number is one if the parsing did throw warnings (singular or plural).
+
+It is much easier by now. Have a look at the [demo.html](#demohtml). The reason way this peace of code was written was to have an interface which can accessed from other programming languages. It is used by the python programs regex_search.
 
 ## Performance ##
 
@@ -414,11 +416,11 @@ Simple node.js based benchmark is bundled. You can run it with ```node benchmark
 
 On author's Intel Core i5-2400 library allows ~20k/sec constructor calls and ~10k/sec openIntervals() calls with one week period. This may further improve in future.
 
-## Used in other projects
+## Used by other projects
 This library is used in the following projects:
 
 * [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours)
-* [JOSM](http://josm.openstreetmap.de/), [ticket for integration](http://josm.openstreetmap.de/ticket/9157)
+* [JOSM](http://josm.openstreetmap.de/) ([ticket for integration](http://josm.openstreetmap.de/ticket/9157))
 * [opening_hours_map](https://github.com/ypid/opening_hours_map)
 
 ## Author ##
