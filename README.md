@@ -306,6 +306,8 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 [suncalc]: https://github.com/mourner/suncalc
 
+* In mode 1 or 2, points in time are evaluated. Example: ```Mo-Fr 12:00,15:00,18:00; Su (sunrise+01:00)```. Currently a point in time is interpreted as an interval of one minute. It was the easiest thing to implement and has some advantages. See [here](https://github.com/AMDmi3/opening_hours.js/issues/12) for discussion.
+
 ### Weekday ranges ###
 
 * Supports set of weekdays and weekday ranges (```Mo-We,Fr```)

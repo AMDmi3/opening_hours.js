@@ -1194,6 +1194,12 @@ test.addTest('Points in time, mode 2', [
 		[ '2012.10.01 19:00', '2012.10.01 19:01' ],
 	], 1000 * 60 * 2, 0, false, nominatiomTestJSON, 'not last test', 2);
 
+test.addTest('Points in time, mode 2', [
+		'Mo (sunrise+01:00)',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 08:22', '2012.10.01 08:23' ],
+	], 1000 * 60 * 1, 0, false, nominatiomTestJSON, 'not last test', 2);
+
 test.addTest('Points in time and times ranges, mode 2', [
 		'Mo 12:00,13:00-14:00',
 		'Mo 13:00-14:00,12:00',
