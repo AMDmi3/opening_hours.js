@@ -105,8 +105,8 @@ var resources = { // English is fallback language.
                 "error only": "Error only",
                 "data source": 'The overlay data comes from the __APIaTag__. The map is __OSMaTag__.',
                 "mode 0": 'Only time ranges are excepted (tags opening_hours, lit)',
-                "mode 1": 'Only points in time are excepted (tags service_times, collection_times)',
-                "mode 2": 'Time ranges and points in time are excepted',
+                "mode 1": 'Only points in time are excepted',
+                "mode 2": 'Time ranges and points in time are excepted (tags service_times, collection_times)',
             },
             "words": {
                 "mode": "evaluation mode",
@@ -249,8 +249,8 @@ var resources = { // English is fallback language.
                 "error only": "Nur Fehler",
                 "data source": 'Die zugrundeliegenden Daten stammen von der __APIaTag__. Die Karte ist __OSMaTag__.',
                 "mode 0": 'Es werden nur Zeiträume akzeptiert (Tags opening_hours, lit)',
-                "mode 1": 'Es werden nur Zeitpunkte akzeptiert (Tags service_times, collection_times)',
-                "mode 2": 'Zeiträume und Zeitpunkte werden akzeptiert',
+                "mode 1": 'Es werden nur Zeitpunkte akzeptiert',
+                "mode 2": 'Zeiträume und Zeitpunkte werden akzeptiert (Tags service_times, collection_times)',
             },
             "words": {
                 "mode": "Auswerte Modus",

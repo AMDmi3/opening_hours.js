@@ -107,9 +107,9 @@ function getReadableState(startString, endString, oh, past) {
 
   * mode (optional): In OSM, the syntax originally designed to describe opening hours is now used to describe a few other things as well. A few of those other tags work with points in time instead of time ranges. To support this the mode can be specified. If there is no mode specified, opening_hours.js will only operate with time ranges and will throw an error message when points in times are used in the value.
 
-		0: time ranges (opening_hours, lit, …) default
-		1: points in time (collection_times, service_times, …)
-		2: both (time ranges and points in time)
+		* 0: time ranges (opening_hours, lit, …) default
+		* 1: points in time
+		* 2: both (time ranges and points in time, used by collection_times, service_times, …)
 
 * ```javascript
   var warnings = oh.getWarnings();
