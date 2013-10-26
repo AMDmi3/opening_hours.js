@@ -18,7 +18,6 @@
 		<script type="text/javascript" src="js/i18n-resources.js"></script>
 		<script type="text/javascript" src="js/opening_hours_table.js"></script>
 		<script type="text/javascript">
-
 			// add calculation for calendar week to date {{{
 			function dateAtWeek(date, week) {
 				var minutes_in_day = 60 * 24;
@@ -29,9 +28,8 @@
 				tmpdate.setDate(1 - (tmpdate.getDay() + 6) % 7 + week * 7); // start of week n where week starts on Monday
 				return Math.floor((date - tmpdate) / msec_in_week);
 			}
-
-
 			// }}}
+
 			// default values {{{
 			var def_lat = 48.7769;
 			var def_lon = 9.1844;
@@ -381,6 +379,7 @@
 					<li><a href="#check" onclick="EX(this)">"only after registration"</a></li>
 					<li><a href="#check" onclick="EX(this)">22:00-23:00</a></li>
 					<li><a href="#check" onclick="EX(this)">08:00-11:00</a></li>
+					<li><a href="#check" onclick="EX(this)">open; Mo 15:00-16:00 off</a></li>
 					<li><a href="#check" onclick="EX(this)">Mo-Su 22:00-23:00; We closed</a></li>
 					<li><a href="#check" onclick="EX(this)">Mo-Fr 08:00-11:00 || Tu-Th 22:00-23:00 open "Emergency only"</a></li>
 					<li><a href="#check" onclick="EX(this)">Tu-Th, We 22:00-23:00 open "Hot meals"</a></li>

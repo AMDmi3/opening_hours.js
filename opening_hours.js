@@ -1860,7 +1860,7 @@
 					var is_point_in_time = false; // no time range
 
 					if (has_normal_time[0])
-						var minutes_from = tokens[at+has_time_var_calc[0]][0] * 60 + tokens[at+has_time_var_calc[0]+2][0];
+						var minutes_from = getMinutesByHoursMinutes(tokens, nblock, at+has_time_var_calc[0]);
 					else
 						var minutes_from = word_value_replacement[tokens[at+has_time_var_calc[0]][0]];
 
@@ -1906,7 +1906,7 @@
 								+ ' Found time range.');
 						} else {
 							if (has_normal_time[1])
-								var minutes_to = tokens[at_end_time][0] * 60 + tokens[at_end_time+2][0]
+								var minutes_to = getMinutesByHoursMinutes(tokens, nblock, at_end_time);
 							else
 								var minutes_to = word_value_replacement[tokens[at_end_time+has_time_var_calc[1]][0]];
 
@@ -1930,7 +1930,7 @@
 					// XXX: this is incorrect, as it assumes the same day
 					//      should cooperate with date selectors to select the next day
 					if (minutes_from >= minutes_in_day)
-						throw formatWarnErrorMessage(nblock, at_end_time + (has_normal_time[1] ? 3 : (has_time_var_calc[1] ? 7 : 1)) - 1,
+						throw formatWarnErrorMessage(nblock, at_end_time - 1,
 							'Time range starts outside of the current day');
 					if (minutes_to < minutes_from || ((has_normal_time[0] && has_normal_time[1]) && minutes_from == minutes_to))
 						minutes_to += minutes_in_day;
@@ -2067,6 +2067,14 @@
 			if (error)
 				throw formatWarnErrorMessage(nblock, error[0],
 					'Calculcation with variable time is not in the right syntax' + error[1]);
+		}
+
+		// Only used if throwing an error is wanted.
+		function getMinutesByHoursMinutes(tokens, nblock, at) {
+			if (tokens[at+2][0] > 59)
+				throw formatWarnErrorMessage(nblock, at+2,
+						'Minutes are greter than 59.');
+			return tokens[at][0] * 60 + tokens[at+2][0];
 		}
 
 		//======================================================================

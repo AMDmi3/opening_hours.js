@@ -1256,6 +1256,8 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'26:00-27:00',
 		'23:00-55:00',
 		'14:00-16:00,.',
+		'21:00-22:60',
+		'21:60-22:59',
 		// '14:00-16:00,', // is ok
 		'Sa[1.',
 		'Sa[1,0,3]',
