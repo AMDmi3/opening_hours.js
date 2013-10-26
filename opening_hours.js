@@ -1655,12 +1655,13 @@
 				// Check if 24/7 is used and it does not mean 24/7 because there are other rules. This can be avoided.
 				var has_advanced = it.advance();
 
-				if (has_advanced === true && has_token['24/7'] && !done_with_warnings)
+				if (has_advanced === true && has_token['24/7'] && !done_with_warnings) {
 					parsing_warnings.push([ -1, 0, 'You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week".'
 							// Probably because of: "24/7; 12:00-14:00 open", ". Needs extra testing.
 							+ ' For correctness you might want to use "open" or "closed"'
 							+ ' for this rule and then write your exceptions which should achieve the same goal and is more clear'
 							+ ' e.g. "open; Mo 12:00-14:00 off".']);
+				}
 			}
 
 			var warnings = [];
@@ -3351,6 +3352,7 @@
 							user_conf[key] = default_prettify_conf[key];
 					}
 
+					var really_done_with_warnings = done_with_warnings; // getWarnings can be called later.
 					done_with_warnings = true;
 					prettified_value = '';
 					var selectors = { // Not really needed. This whole thing is only necessary because of the token used for additional blocks.
@@ -3364,6 +3366,8 @@
 					};
 
 					parseGroup(tokens[state[4]][0], 0, selectors, state[4], user_conf);
+
+					done_with_warnings = really_done_with_warnings;
 
 					return prettified_value;
 				}
@@ -3421,7 +3425,9 @@
 					user_conf[key] = default_prettify_conf[key];
 			}
 
+			var really_done_with_warnings = done_with_warnings; // getWarnings can be called later.
 			done_with_warnings = true;
+
 			prettified_value = '';
 			for (var nblock = 0; nblock < tokens.length; nblock++) {
 				if (tokens[nblock][0].length == 0) continue;
@@ -3458,6 +3464,8 @@
 
 				} while (continue_at)
 			}
+
+			done_with_warnings = really_done_with_warnings;
 
 			return prettified_value;
 		}

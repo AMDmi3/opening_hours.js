@@ -107,6 +107,10 @@ function getReadableState(startString, endString, oh, past) {
 
   * mode (optional): In OSM, the syntax originally designed to describe opening hours is now used to describe a few other things as well. A few of those other tags work with points in time instead of time ranges. To support this the mode can be specified. If there is no mode specified, opening_hours.js will only operate with time ranges and will throw an error message when points in times are used in the value.
 
+		0: time ranges (opening_hours, lit, …) default
+		1: points in time (collection_times, service_times, …)
+		2: both (time ranges and points in time)
+
 * ```javascript
   var warnings = oh.getWarnings();
   ```
@@ -332,7 +336,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 <!-- [convert&#45;ical&#45;to&#45;json]: blob/feature/convert_ical_to_json -->
 [convert-ical-to-json]: https://github.com/ypid/opening_hours.js/blob/feature/convert_ical_to_json
 
-* There can be to cases which need to be seperated (this applies for PH and SH):
+* There can be two cases which need to be seperated (this applies for PH and SH):
   1. ```Mo-Fr,PH```: The facility is open Mo-Fr and PH. If PH is a Sunday for example the facility is also open. This is the default case.
   2. **EXT:** ```PH Mo-Fr```: The facility is only open if a PH falls on Mo-Fr. For example if a PH is on the weekday Wednesday then the facility will be open, if PH is Saturday it will be closed.
 * If there is no comment specified by the rule, the name of the holiday is used as comment.
@@ -383,8 +387,8 @@ Almost everything from opening_hours definition is supported, as well as some ex
 ### Comments ###
 * Supports (additional) comments (```Mo unknown "on appointment"; Th-Fr 09:00-18:00 open "female only"; Su closed "really"```)
   * The string which is delimited by double-quotes can contain any character (except a double-quote sign)
-  * unknown can be omitted (this will also result in unknown)
   * **EXT:** instead of "closed" "off" will also work
+  * unknown can be omitted (this will also result in unknown)
   * value can also be just a double-quoted string (```"on appointment"```) which will result in unknown for any given time.
 
 ## Test ##
@@ -406,9 +410,9 @@ Python script to search with regular expressions over OSM opening_hours style ta
 This script not only shows you if the found value can be processed with this library or not, it also indicates using different colors if the facility is currently open (open: green, unknown: magenta, closed: blue).
 
 ## Test it yourself (the geeky way) ##
-You want to try some opening_hours yourself? Just run ```make interactive_testing``` or ```node interactive_testing.js``` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message). The number in the beginning of the returned line can be read as exit code (0 means the value could be processed and 1 means an critical error appeared during parsing). The second number indicates if additional location information (nominatim JSON) where necessary to parse the value (e.g. value uses variable times or days). The third number is one if the parsing did throw warnings (singular or plural).
+You want to try some opening_hours yourself? Just run ```make interactive_testing``` or ```node interactive_testing.js``` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message). The number in the beginning of the returned line can be read as exit code (0 means the value could be processed and 1 means an critical error appeared during parsing). The second number indicates if additional location information (nominatim JSON) where necessary to parse the value (e.g. value contains holidays). The third number is one if the parsing did throw warnings (singular or plural).
 
-It is much easier by now. Have a look at the [demo.html](#demohtml). The reason way this peace of code was written was to have an interface which can accessed from other programming languages. It is used by the python programs regex_search.
+Testing is much easier by now. Have a look at the [demo.html](#demohtml). The reason way this peace of code was written was to have an interface which can accessed from other programming languages. It is used by the python program regex_search.
 
 ## Performance ##
 

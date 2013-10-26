@@ -134,7 +134,6 @@
 				var crashed = false;
 				var value = document.forms.check.elements['expression'].value;
 				var mode = parseInt(document.getElementById('mode').selectedIndex);
-				console.log(mode);
 				try {
 					var oh = new opening_hours(value, nominatim, mode);
 					var it = oh.getIterator(date);
@@ -240,7 +239,6 @@
 						console.log(err);
 					}
 					if (!crashed) {
-						console.log(date.toString(), params['DATE']);
 						document.forms.check.elements['yyyy'].value       = date.getFullYear();
 						document.forms.check.elements['mm'].selectedIndex = date.getMonth();
 						document.forms.check.elements['dd'].value         = date.getDate();
