@@ -264,6 +264,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
 
 Almost everything from opening_hours definition is supported, as well as some extensions (indicated as **EXT:** below).
 
+* See the [formal specification][]
 * Opening hours consist of multiple rules separated by semicolon (```Mo 10:00-20:00; Tu 12:00-18:00```)
 * Rule may use ```off``` keyword to indicate that the facility is closed at that time (```Mo-Fr 10:00-20:00; 12:00-14:00 off```)
 * Rule consists of multiple date (```Mo-Fr```, ```Jan-Feb```, ```week 2-10```, ```Jan 10-Feb 10```) and time (```12:00-16:00```, ```12:00-14:00,16:00-18:00```) conditions
@@ -271,7 +272,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
   This also applies for time ranges spanning midnight.	This is the only way to be consistent. Example: ```22:00-02:00; Tu 12:00-14:00``` Consider for one moment to let Th override ```22:00-02:00``` partly like this ```Th 00:00-02:00,12:00-14:00``` this would result in including ```22:00-00:00``` for Th which is probably not what you want. This is not really deterministic. To express this use additional rules.
 
-* Date ranges (calendar ranges) can be seperated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][specification].
+* Date ranges (calendar ranges) can be seperated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][formal specification].
 * Supports [fallback rules][] (```We-Fr 10:00-24:00 open "it is open" || "please call"```).
 
   Note that only the rule which starts with ```||``` is a fallback rule. Other rules which might follow are considered as normal rules.
@@ -279,9 +280,6 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
   A rule does only count as additional rule if the previous rule ends with a time range (```12:00-14:00, We 16:00-18:00```), a comment (```12:00-14:00 "call us", We 16:00-18:00```) or the keywords 'open', 'unknown' or 'closed' (```12:00-14:00 unknown, We 16:00-18:00```)
 
-[specification]: http://www.netzwolf.info/en/cartography/osm/time_domain/specification
-[fallback rules]: http://www.netzwolf.info/en/cartography/osm/time_domain/specification#rule1
-[cooperative values]: http://www.netzwolf.info/en/cartography/osm/time_domain/#specification
 
 ### Time ranges ###
 
@@ -448,3 +446,6 @@ This library is used in the following projects:
 
 [Nominatim]: http://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding_.2F_Address_lookup
 [issure-report]: https://github.com/ypid/opening_hours.js/issues
+[formal specification]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification
+[fallback rules]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#rule1
+[cooperative values]: http://www.netzwolf.info/en/cartography/osm/time_domain/#specification
