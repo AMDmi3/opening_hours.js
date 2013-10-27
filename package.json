@@ -1,7 +1,13 @@
 {
 	"name": "opening_hours",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"author": "Dmitry Marakasov <amdmi3@amdmi3.ru>",
+	"contributors": [
+		{
+			"name": "Robin Schneider",
+			"email": "ypid23@aol.de",
+		},
+	],
 	"description": "Library to parse and process opening_hours tag from OpenStreetMap data",
 	"main": "opening_hours.js",
 	"repository": {
@@ -13,6 +19,7 @@
 	},
 	"keywords": [
 		"openstreetmap",
+		"OSM",
 		"opening_hours"
 	],
 	"license": "BSD",
