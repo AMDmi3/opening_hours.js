@@ -1594,7 +1594,8 @@
 
 					curr_block_tokens = [];
 					last_block_fallback_terminated = true;
-				} else if (value.match(/^\s/)) {
+				} else if (value.match(/^(?:␣|\s)/)) {
+					// Using "␣" as space is not expected to be a normal mistake. Just ignore it to make using taginfo easier.
 					value = value.substr(1);
 				} else if (tmp = value.match(/^\s+/)) {
 					// whitespace is ignored

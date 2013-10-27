@@ -425,6 +425,11 @@ This library is used in the following projects:
 * [JOSM](http://josm.openstreetmap.de/) ([ticket for integration](http://josm.openstreetmap.de/ticket/9157))
 * [opening_hours_map](https://github.com/ypid/opening_hours_map)
 
+## ToDo
+List of missing features which can currently not be expressing in any other way without much pain.
+
+* Select single (or more, comma seperated) school holidays. Proposed syntax: ```SH(Sommerferien)```
+
 ## Author ##
 
 * [Dmitry Marakasov](https://github.com/AMDmi3) <amdmi3@amdmi3.ru>
