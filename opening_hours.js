@@ -1810,7 +1810,7 @@
 				} else {
 					var warnings = getWarnings();
 					throw formatWarnErrorMessage(nblock, at, 'Unexpected token: "' + tokens[at][1]
-						+ '" This means that the syntax is not valid at that point or the feature you are using is currently not supported.')
+						+ '" This means that the syntax is not valid at that point or it is currently not supported.')
 						+ (warnings ? ' ' + warnings.join('; ') : '');
 				}
 
@@ -1880,7 +1880,7 @@
 								throw formatWarnErrorMessage(nblock, at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 2 : 1)),
 									'hyphen (-) or open end (+) in time range '
 									+ (has_time_var_calc[0] ? 'calculation ' : '')
-									+ 'expected. For working with time ranges, the mode for opening_hours.js has to altered.');
+									+ 'expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?');
 							} else {
 								var minutes_to = minutes_from + 1;
 								is_point_in_time = true;

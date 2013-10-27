@@ -429,6 +429,7 @@ This library is used in the following projects:
 List of missing features which can currently not be expressing in any other way without much pain.
 
 * Select single (or more, comma seperated) school holidays. Proposed syntax: ```SH(Sommerferien)```
+* If weekday is PH than the facility will be open weekday-1 this week. Syntax something like: ```We if (We +1 day == PH)``` ???
 
 ## Author ##
 

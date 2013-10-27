@@ -25,7 +25,7 @@ test.exported_json('smoking_hours', { ignore: [ 'yes' ]});
 test.exported_json('collection_times', { mode: 2 });
 // mode 2: "including the hyphen because there are post boxes which are emptied several (undefined) times or one (undefined) time in a certain time frame. This shall be covered also.". Ref: http://wiki.openstreetmap.org/wiki/Key:collection_times
 
-test.exported_json('service_times', { mode: 2 });
+test.exported_json('service_times', { mode: 2, ignore: [ 'automatic' ] });
 // Mostly points in time are used. But there are 244 values which use time ranges. Both seems useful.
 
 //======================================================================
