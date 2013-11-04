@@ -5,8 +5,8 @@
 	"contributors": [
 		{
 			"name": "Robin Schneider",
-			"email": "ypid23@aol.de",
-		},
+			"email": "ypid23@aol.de"
+		}
 	],
 	"description": "Library to parse and process opening_hours tag from OpenStreetMap data",
 	"main": "opening_hours.js",
