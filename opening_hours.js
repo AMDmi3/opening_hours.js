@@ -1313,6 +1313,15 @@
 				'sabtu':  4,
 				'minggu': 5,
 				'senin':  6,
+				// Swedish
+				'söndag':  0,
+				'måndag':  1,
+				ma:        1,
+				'tisdag':  2,
+				'onsdag':  3,
+				'torsdag': 4,
+				'fredag':  5,
+				'lördag':  6,
 			},
 		},
 

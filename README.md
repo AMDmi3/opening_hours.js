@@ -16,6 +16,11 @@ a library which works from 12:00 to 18:00 on workdays except Wednesday, and from
 
 around-the-clock shop with some breaks.
 
+## Install
+Just clone the repository:
+
+    git clone --recursive https://github.com/ypid/opening_hours.js.git
+
 ## demo.html
 
 Please have a look at the [demo page][] which can give you an impression how this library can be used and what it is capable of.
