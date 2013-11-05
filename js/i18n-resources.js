@@ -87,7 +87,7 @@ var resources = { // English is fallback language.
                 "value for": "value for",
                 "MatchingRule": "Substring used by applied rule",
                 "warn error": "Error and warning messages",
-                "prettified value": "prettified and opening_hours value (this value can be safely used in OSM, after all warnings have been solved)",
+                "prettified value": 'prettified and opening_hours value (this value can be safely used in OSM, after all warnings have been <a href="__copyFunc__">solved</a>)',
                 "prettified value for displaying": "prettified opening_hours value for displaying (including newlines, do not use this as value for OSM)",
                 "more information": "For more information you can check out the <a __href__>OSM wiki</a>.",
                 "this website": "This website and the JavaScript library used for the evaluation of opening hours is developed on <a href=\"__url__\" target=\"_blank\">__hoster__</a>.",
@@ -107,6 +107,7 @@ var resources = { // English is fallback language.
                 "mode 0": 'Only time ranges are excepted (tags opening_hours, lit)',
                 "mode 1": 'Only points in time are excepted',
                 "mode 2": 'Time ranges and points in time are excepted (tags service_times, collection_times)',
+                "value to long for osm": 'The value is too long for OSM. The OpenStreetMap database is currently limited to values with up to __maxLength__ characters. The prettified value has a length of __pretLength__ and the value you entered is __valLength__ characters long',
             },
             "words": {
                 "mode": "evaluation mode",
@@ -231,7 +232,7 @@ var resources = { // English is fallback language.
                 "value for": "Wert für",
                 "MatchingRule": "Zur Anwendung gekommene Regel",
                 "warn error": "Fehler und Warnungen",
-                "prettified value": "Schön formatierter opening_hours Wert (dieser Wert sollte in OSM verwendet werden, nachdem alle Warnungen beseitigt wurden)",
+                "prettified value": 'Schön formatierter opening_hours Wert (dieser Wert sollte in OSM verwendet werden, nachdem alle Warnungen <a href="__copyFunc__">beseitigt wurden</a>)',
                 "prettified value for displaying": "Schön formatierter opening_hours Wert für die Anzeige (mit Zeilenumbrüchen, nicht als Tag für OSM gedacht …)",
                 "more information": "Für weitere Informationen kannst dir das <a __href__>OSM wiki</a> anschauen.",
                 "this website": "Die Entwicklung dieser Webseite und der JavaScript Bibliothek zur Auswertung der Öffnungszeiten findet auf <a href=\"__url__\" target=\"_blank\">__hoster__</a> statt.",
@@ -251,6 +252,7 @@ var resources = { // English is fallback language.
                 "mode 0": 'Es werden nur Zeiträume akzeptiert (Tags opening_hours, lit)',
                 "mode 1": 'Es werden nur Zeitpunkte akzeptiert',
                 "mode 2": 'Zeiträume und Zeitpunkte werden akzeptiert (Tags service_times, collection_times)',
+                "value to long for osm": 'Der opening_hours Wert ist zu lang für OSM. Die OpenStreetMap Datenbank unterstützt zur Zeit nur Werte mit bis zu __maxLength__ Zeichen. Der schön formatierter Wert ist __pretLength__ Zeichen lang und der eingegebene Wert __valLength__.',
             },
             "words": {
                 "mode": "Auswerte Modus",

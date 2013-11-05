@@ -47,6 +47,9 @@
 			<!-- JS for user testing stuff {{{ -->
 			<script type="text/javascript">
 			/*<![CDATA[*/
+			function copyToClipboard(text) {
+				window.prompt('Copy to clipboard: Ctrl+C, Enter', text);
+			}
 
 			var lat, string_lat, string_lon, nominatim;
 			var url_lang = 'de';
@@ -170,8 +173,9 @@
 						? i18n.t('words.none') : it.getMatchingRule();
 
 					if (prettified != value) {
-						show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.prettified value') + ':<br />'
-							+ '<input style="width: 100%" name="prettifiedValue" value="' + prettified.replace(/"/g, '&quot;') + '" readonly="readonly" /></p>';
+						show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.prettified value',
+							{ copyFunc: 'javascript:newValue(\'' + prettified + '\')' }) + ':<br />'
+							+ '<input style="width: 100%" name="prettifiedValue" value="' + prettified.replace(/"/g, '&quot;') + '" /></p>';
 					}
 
 					var warnings = oh.getWarnings();
@@ -182,14 +186,24 @@
 							+ '</textarea></p>';
 					}
 
+					if (prettified.length > 255) {
+						show_warnings_or_errors.innerHTML += '<p>' + i18n.t('texts.value to long for osm',
+							{ pretLength: prettified.length, valLength: value.length, maxLength: 255 }) + '</p>';
+					}
+
 					show_time_table.innerHTML = OpeningHoursTable.drawTableAndComments(oh, it);
 				}
 			}
 
 			function EX (element) {
-				document.forms.check.elements['expression'].value=element.innerHTML;
-				Evaluate();
+				newValue(element.innerHTML);
 				return false;
+			}
+
+			function newValue(value) {
+				document.forms.check.elements['prettifiedValue'].focus();
+				document.forms.check.elements['expression'].value = value;
+				Evaluate();
 			}
 
 			function permalink () {
