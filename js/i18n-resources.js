@@ -70,7 +70,7 @@ var resources = { // English is fallback language.
             "texts": {
                 "open always": "Facility is always open",
                 "unknown always": "Facility is always maybe open",
-                "closed always": "Facility is always closed",
+                "closed always": "Facility is always closed in the (near) future",
                 "open now": "Facility is now open",
                 "facilitiy which is open now": "Only facilities which are open now",
                 "facilitiy which is open/unknown now": "Only facilities which are open or unknown now",
@@ -215,7 +215,7 @@ var resources = { // English is fallback language.
             "texts": {
                 "open always": "Die Einrichtung hat immer geöffnet.",
                 "unknown always": "Die Öffnungszeit der Einrichtung ist immer unbekannt",
-                "closed always": "Die Einrichtung hat nie geöffnet.",
+                "closed always": "Die Einrichtung wird in (naher) Zukunft nicht wieder öffnen.",
                 "open now": "Die Einrichtung hat jetzt geöffnet",
                 "facilitiy which is open now": "Nur Einrichtungen welche jetzt geöffnet sind",
                 "facilitiy which is open/unknown now": "Nur Einrichtungen die jetzt geöffnet oder unbekannt sind",

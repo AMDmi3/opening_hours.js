@@ -1093,6 +1093,9 @@
 				winter: 'Nov-Apr',
 			}, 'Bitte benutze die englische Schreibweise "<ok>" für "<ko>".': {
 				sommer: 'summer',
+			}, 'Bitte benutze "<ok>" für "<ko>". Beispiel: "Mo 08:00-12:00; Tu off"': {
+				ruhetag: 'off',
+				ruhetage: 'off',
 			}, 'Assuming "<ok>" for "<ko>". Please avoid using "workday": http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays': {
 				// 	// Used around 260 times but the problem is, that work day might be different in other countries.
 				wd:       'Mo-Fr',

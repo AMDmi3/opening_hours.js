@@ -14,8 +14,16 @@
 		"type": "git",
 		"url": "git://github.com/AMDmi3/opening_hours.js.git"
 	},
-	"dependencies": {
-		"suncalc" : "1.2.1"
+	"_comment": "suncalc is currently included in this repo as submodule. This should be changed when uploading it to npmjs.",
+	"_dependencies": {
+		"suncalc": ">=1.2.1"
+	},
+	"bundledDependencies": [
+		"suncalc"
+	],
+	"devDependencies": {
+		"colors": ">=0.6.2",
+		"sprintf": ">=0.1.3"
 	},
 	"keywords": [
 		"openstreetmap",

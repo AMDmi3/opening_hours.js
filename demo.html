@@ -174,7 +174,7 @@
 
 					if (prettified != value) {
 						show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.prettified value',
-							{ copyFunc: 'javascript:newValue(\'' + prettified + '\')' }) + ':<br />'
+							{ copyFunc: 'javascript:newValue(\'' + prettified.replace(/"/g, '&quot;') + '\')' }) + ':<br />'
 							+ '<input style="width: 100%" name="prettifiedValue" value="' + prettified.replace(/"/g, '&quot;') + '" /></p>';
 					}
 

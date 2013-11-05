@@ -1,5 +1,13 @@
 var opening_hours = require('./opening_hours.js');
 var fs = require('fs');
+var colors = require('colors');
+// var sprintf = require('sprintf').sprintf;
+
+colors.setTheme({
+  result: [ 'green', 'bold' ],
+});
+
+console.log("value".error);
 
 var nominatiomTestJSON = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
 
@@ -51,12 +59,14 @@ function opening_hours_test() {
 			if (typeof options !== 'undefined' && typeof options.mode == 'number')
 				mode = options.mode;
 
-			console.log('[1;34mParsing ' + tagname + '[0m' + (ignored_values.length != 0 ? ' (ignoring ' + ignored_values + ')': '') + ' …');
+			console.log('Parsing ' + tagname.blue.bold + (ignored_values.length != 0 ? ' (ignoring ' + ignored_values + ')': '') + ' …');
 
-			var success_differ = 0; // increment only by one despite that the value might appears more than one time
-			var success        = 0; // increment by number of appearances
-			var total_differ   = 0; // number of different values
-			var total          = 0; // total number of values (if one value appears more than one, it counts more than one)
+			var success_differ  = 0; // increment only by one despite that the value might appears more than one time
+			var success         = 0; // increment by number of appearances
+			var total_differ    = 0; // number of different values
+			var total           = 0; // total number of values (if one value appears more than one, it counts more than one)
+			var warnings        = 0; // number of values which throw warnings (only one warning is counted for each value if more appear)
+			var warnings_differ = 0; // number of values which throw warnings (only one warning is counted for each value if more appear)
 			var important_and_failed = [];
 
 			var data = JSON.parse(data);
@@ -73,9 +83,12 @@ function opening_hours_test() {
 			var parsed_values = 0; // total number of values which are "parsed" (if one value appears more than one, it counts more than one)
 			for (var i = 0; i < total_differ; i++) {
 				if (indexOf.call(ignored_values, data.data[i].value) == -1) {
-					if (test_value(data.data[i].value, mode)) {
+					var result = test_value(data.data[i].value, mode);
+					if (result[0]) {
 						success_differ++;
 						success += data.data[i].count;
+						warnings_differ = !!result[1];
+						warnings += data.data[i].count * !!result[1];
 						// console.log('passed', data.data[i].value);
 					} else if (data.data[i].count > importance_threshold) {
 						important_and_failed.push([data.data[i].value, data.data[i].count]);
@@ -84,9 +97,13 @@ function opening_hours_test() {
 
 					if (i != 0 && i % how_often_print_stats == 0) {
 						var delta = (new Date()).getTime() - before.getTime();
-						console.log(success + '/' + total + ' ([1;32m' + Math.round(success / parsed_values * 100) + ' %[0m),'
+						var success_procent = Math.round(success / parsed_values * 100) + ' %';
+						var warnings_procent = Math.round(warnings / success  * 100) + ' %';
+						var success_differ_procent = Math.round(success_differ / i * 100) + ' %';
+						console.log(success + '/' + total + ' (' + success_procent.result
+							+ ', with warnings: ' + warnings_procent.result + '),'
 							+ ' only different values: '+ success_differ +'/'+ total_differ
-							+' ([1;32m'+ Math.round(success_differ / i * 100) + ' %[0m)'
+							+' (' + success_differ_procent.result + ')'
 							+ ' tests passed.\t'
 							+ (total_differ - i) + ' left …\t'+ i + ' values, ' + delta + ' ms (' + (i/delta*1000).toFixed(2) + ' n/sec).');
 					}
@@ -97,9 +114,13 @@ function opening_hours_test() {
 				console.log();
 
 			console.log('Done :)');
-			console.log(success + '/' + total + ' ([1;32m' + Math.round(success / total * 100) + ' %[0m),'
+			var success_procent = Math.round(success / parsed_values * 100) + ' %';
+			var warnings_procent = Math.round(warnings / success  * 100) + ' %';
+			var success_differ_procent = Math.round(success_differ / i * 100) + ' %';
+			console.log(success + '/' + total + ' (' + success_procent.result
+					+ ', with warnings: ' + warnings_procent.result + '),'
 				+ ' only different values: '+ success_differ +'/'+ total_differ
-				+' ([1;32m'+ Math.round(success_differ / total_differ * 100) + ' %[0m)'
+				+' (' + success_differ_procent.result + ')'
 				+ ' tests passed.');
 			var delta = (new Date()).getTime() - before.getTime();
 			console.log(total + ' values, ' + delta + ' ms (' + (total/delta*1000).toFixed(2) + ' n/sec).\n');
@@ -117,16 +138,22 @@ function opening_hours_test() {
 	}
 
 	function test_value(value, mode) {
-		var crashed = true;
+		var crashed = true, warnings = [];
 		try {
 			oh = new opening_hours(value, nominatiomTestJSON, mode);
+			warnings = oh.getWarnings();
 
 			crashed = false;
 		} catch (err) {
 			// ignore
 		}
 
-		return !crashed;
+		if (typeof warnings != 'object')
+			warnings = 1; // crashed by oh.getWarnings()
+		else
+			warnings = warnings.length;
+
+		return [ !crashed, warnings ];
 	}
 
 	// helper functions
