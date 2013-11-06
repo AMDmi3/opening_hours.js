@@ -5,29 +5,29 @@
 Examples of some complex real-life opening_hours values:
 
 ```
-Mo,Tu,Th,Fr 12:00-18:00;Sa 12:00-17:00; Th[3] off; Th[-1] off
+Mo,Tu,Th,Fr 12:00-18:00; Sa 12:00-17:00; Th[3],Th[-1] off
 ```
 
 a library which works from 12:00 to 18:00 on workdays except Wednesday, and from 12:00 to 17:00 on Saturday. It also has breaks on third and last Thursday of each month.
 
 ```
-00:00-24:00; Tu-Su 8:30-9:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off
+open; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off
 ```
 
 around-the-clock shop with some breaks.
-
-## Install
-Just clone the repository:
-
-    git clone --recursive https://github.com/ypid/opening_hours.js.git
 
 ## demo.html
 
 Please have a look at the [demo page][] which can give you an impression how this library can be used and what it is capable of.
 
-You need to download all dependencies when using from this repository. This can be done with ```git submodule update --init```.
-
 [demo page]: http://robin.de.marissa.hostorama.ch/osm/opening_hours.js/demo.html
+
+## Install
+Just clone the repository:
+
+```
+git clone --recursive https://github.com/ypid/opening_hours.js.git
+```
 
 ## Synopsis
 
@@ -108,9 +108,9 @@ function getReadableState(startString, endString, oh, past) {
 
   Throws an error string if the expression is malformed or unsupported.
 
-  * nominatiomJSON (optional): In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges](#time-ranges)) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for by using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim][] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1) and you are good to go. Note that this second parameter is optional. The data returned by Nominatim should be in the local language (the language of the country for which the opening hours apply). If not *accept-language* can be used as parameter in the request URL.
+  * nominatiomJSON (optional): In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges](#time-ranges)) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for by using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim][] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=5&addressdetails=1) and you are good to go. Note that this second parameter is optional. The data returned by Nominatim should be in the local language (the language of the country for which the opening hours apply). If not *accept-language* can be used as parameter in the request URL.
 
-  * mode (optional): In OSM, the syntax originally designed to describe opening hours is now used to describe a few other things as well. A few of those other tags work with points in time instead of time ranges. To support this the mode can be specified. If there is no mode specified, opening_hours.js will only operate with time ranges and will throw an error message when points in times are used in the value.
+  * mode (optional): In OSM, the syntax originally designed to describe opening hours is now used to describe a few other things as well. Some of those other tags work with points in time instead of time ranges. To support this the mode can be specified. If there is no mode specified, opening_hours.js will only operate with time ranges and will throw an error message when points in times are used in the value.
 
 		* 0: time ranges (opening_hours, lit, …) default
 		* 1: points in time
@@ -120,7 +120,10 @@ function getReadableState(startString, endString, oh, past) {
   var warnings = oh.getWarnings();
   ```
 
-  Get warnings which appeared during parsing as human readable string array. Every violation is described in one element of the array. Warnings do not effect the correct evaluation, but they should be avoided.
+  Get warnings which appeared during parsing as human readable string array. Every violation is described in one element of the array. Almost all warnings can be auto corrected and are probably interpreted as indented by the mapper. However, this is not a granite of course. The appearance of  warning means that the value has not been tested by the mapper.
+
+	This function does also some additional testing and because of that it theoretically possible that this function throws an error like all other functions which go through time.
+
 
 * ```javascript
   var prettified = oh.prettifyValue(conf);
@@ -261,7 +264,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   var had_advanced = iterator.advance(limit);
   ```
 
-  Advances an iterator to the next position, but not further that a *limit* (which is current position + ~5 years if omitted and is used to prevent infinite loop on non-periodic opening_hours, e.g. ```24/7```), returns whether the iterator was moved.
+  Advances an iterator to the next position, but not further than *limit* (which is current position + ~5 years if omitted and is used to prevent infinite loop on non-periodic opening_hours, e.g. ```24/7```), returns whether the iterator was moved.
 
   For instance, returns false if the iterator would go beyond *limit* or if there's no next position (```24/7``` case).
 
@@ -269,8 +272,17 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
 
 Almost everything from opening_hours definition is supported, as well as some extensions (indicated as **EXT:** below).
 
+**WARN** indicates that the syntax element is evaluated correctly, but there is a better way to express this. A warning will be shown.
+
 * See the [formal specification][]
-* Opening hours consist of multiple rules separated by semicolon (```Mo 10:00-20:00; Tu 12:00-18:00```)
+* Opening hours consist of multiple rules separated by semicolon (```Mo 10:00-20:00; Tu 12:00-18:00```) or by other separated mentioned by the next to points.
+* Supports [fallback rules][] (```We-Fr 10:00-24:00 open "it is open" || "please call"```).
+
+  Note that only the rule which starts with ```||``` is a fallback rule. Other rules which might follow are considered as normal rules.
+* Supports [additional rules][] or cooperative values (```Mo-Fr 08:00-12:00, We 14:00-18:00```). A additional rule is treaded exactly the same as a normal rule, except that a additional rule does not overwrite the day for which it applies. Note that a additional rule does not use any data from previous or from following rules.
+
+  A rule does only count as additional rule if the previous rule ends with a time range (```12:00-14:00, We 16:00-18:00```), a comment (```12:00-14:00 "call us", We 16:00-18:00```) or the keywords 'open', 'unknown' or 'closed' (```12:00-14:00 unknown, We 16:00-18:00```)
+
 * Rule may use ```off``` keyword to indicate that the facility is closed at that time (```Mo-Fr 10:00-20:00; 12:00-14:00 off```)
 * Rule consists of multiple date (```Mo-Fr```, ```Jan-Feb```, ```week 2-10```, ```Jan 10-Feb 10```) and time (```12:00-16:00```, ```12:00-14:00,16:00-18:00```) conditions
 * If a rule's date condition overlap with previous rule, it overrides (as opposed to extends) the previous rule. E.g. ```Mo-Fr 10:00-16:00; We 12:00-18:00``` means that on Wednesday the facility is open from 12:00 till 18:00, not from 10:00 to 18:00.
@@ -278,24 +290,16 @@ Almost everything from opening_hours definition is supported, as well as some ex
   This also applies for time ranges spanning midnight.	This is the only way to be consistent. Example: ```22:00-02:00; Tu 12:00-14:00``` Consider for one moment to let Th override ```22:00-02:00``` partly like this ```Th 00:00-02:00,12:00-14:00``` this would result in including ```22:00-00:00``` for Th which is probably not what you want. This is not really deterministic. To express this use additional rules.
 
 * Date ranges (calendar ranges) can be seperated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][formal specification].
-* Supports [fallback rules][] (```We-Fr 10:00-24:00 open "it is open" || "please call"```).
-
-  Note that only the rule which starts with ```||``` is a fallback rule. Other rules which might follow are considered as normal rules.
-* Supports additional rules or [cooperative values][] (```Mo-Fr 08:00-12:00, We 14:00-18:00```). A additional rule is treaded exactly the same as a normal rule, except that a additional rule does not overwrite the day for which it applies. Note that a additional rule does not use any data from previous or from following rules.
-
-  A rule does only count as additional rule if the previous rule ends with a time range (```12:00-14:00, We 16:00-18:00```), a comment (```12:00-14:00 "call us", We 16:00-18:00```) or the keywords 'open', 'unknown' or 'closed' (```12:00-14:00 unknown, We 16:00-18:00```)
-
 
 ### Time ranges ###
 
 * Supports sets of time ranges (```10:00-12:00,14:00-16:00```)
-  * **EXT:** Correctly supports ranges wrapping over midnight (```10:00-26:00```, ```10:00-02:00```)
-* Supports 24/7 keyword
-  * **EXT:** 24/7 is handled as a synonym for ```00:00-24:00```, so ```Mo-Fr 24/7``` (though not really correct, because of that you should avoid it or repace it with "open". A warning will be given if you use it anyway for that purpose) will be handled correctly
+  * Correctly supports ranges wrapping over midnight (```10:00-26:00```, ```10:00-02:00```)
+* Supports 24/7 keyword (```24/7```, which means always open. Use [state keywords](#states) to express always closed.)
+  * **WARN:** 24/7 is handled as a synonym for ```00:00-24:00```, so ```Mo-Fr 24/7``` (though not really correct, because of that you should avoid it or repace it with "open". A warning will be given if you use it anyway for that purpose) will be handled correctly
 
 		*The use of 24/7 as synonym is never needed and should be avoided.*
 * **EXT:** Supports omitting time range (```Mo-Fr; Tu off```)
-* **EXT:** Supports dot as time separator, so ```12.00-16.00``` is valid (this is used quite widely)
 * **EXT:** Supports space as time interval separator, i.e. ```Mo 12:00-14:00,16:00-20:00``` and ```Mo 12:00-14:00 16:00-20:00``` are the same thing
 * Complete support for dawn/sunrise/sunset/dusk (variable times) keywords (```10:00-sunset```, ```dawn-dusk```). To calculate the correct values, the latitude and longitude are required which are included in the JSON returned by [Nominatim] \(see in the [Library API](#library-api) how to provide it\). The calculation is done by [suncalc][].
 
@@ -310,6 +314,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Supports open end (```10:00+```). It is interpreted as state unknown and the comment "Specified as open end. Closing time was guessed." if there is no comment specified. You might need to limit open end times in cases like: ```07:00+,12:00-16:00; 16:00-24:00 closed "needed because of open end"```.
 
  Open end applies until the end of the day if the opening time is before 17:00. If the opening time is between 17:00 and 21:59 the open end time ends 10 hours after the opening. And if the opening time is after 22:00 (including 22:00) the closing time will be interpreted as 8 hours after the opening time.
+* **WARN:** Supports dot as time separator (```12.00-16.00```)
 
 [suncalc]: https://github.com/mourner/suncalc
 
@@ -324,7 +329,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 ### Holidays ###
 
-* Supports public holidays (```24/7; PH off```, ```PH 12:00-13:00```).
+* Supports public holidays (```open; PH off```, ```PH 12:00-13:00```).
   * Currently Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored. The same applies for [Austria][PH-at].
   * **EXT:** Supports limited calculations based on holidays (e.g. ```Sa,PH -1 day open```). The only two possibilities are currently +1 and -1. All other cases are not handled. This seems to be enough because the only thing which is really used is -1.
 
@@ -415,7 +420,7 @@ This script not only shows you if the found value can be processed with this lib
 ## Test it yourself (the geeky way) ##
 You want to try some opening_hours yourself? Just run ```make interactive_testing``` or ```node interactive_testing.js``` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message). The number in the beginning of the returned line can be read as exit code (0 means the value could be processed and 1 means an critical error appeared during parsing). The second number indicates if additional location information (nominatim JSON) where necessary to parse the value (e.g. value contains holidays). The third number is one if the parsing did throw warnings (singular or plural).
 
-Testing is much easier by now. Have a look at the [demo.html](#demohtml). The reason way this peace of code was written was to have an interface which can accessed from other programming languages. It is used by the python program regex_search.
+Testing is much easier by now. Have a look at the [demo.html](#demohtml). The reason way this peace of code was written was to have an interface which can accessed from other programming languages. It is used by the python program [regex\_search](#small-scale).
 
 ## Performance ##
 
@@ -459,4 +464,4 @@ List of missing features which can currently not be expressing in any other way 
 [issure-report]: https://github.com/ypid/opening_hours.js/issues
 [formal specification]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification
 [fallback rules]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#rule1
-[cooperative values]: http://www.netzwolf.info/en/cartography/osm/time_domain/#specification
+[additional rules]: http://wiki.openstreetmap.org/wiki/Key:opening_hours#Examples
