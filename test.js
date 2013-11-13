@@ -677,12 +677,14 @@ test.addTest('Month ranges', [
 test.addTest('Month ranges', [
 		'Nov-Nov 00:00-24:00',
 		'Nov-Nov',
+		'2012 Nov-Nov',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.11.01 00:00', '2012.12.01 00:00' ],
 	], 1000 * 60 * 60 * 24 * 30, 0, false, {}, 'not last test');
 
 test.addTest('Month ranges', [
 		'Jan 1,Dec 24-25; Nov Th[4]',
+		'2012 Jan 1,2012 Dec 24-25; 2012 Nov Th[4]',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.01 00:00', '2012.01.02 00:00' ],
 		[ '2012.11.22 00:00', '2012.11.23 00:00' ],
@@ -720,6 +722,7 @@ test.addTest('Monthday ranges', [
 		'Jan 23-31 00:00-24:00; Feb 1-12 00:00-24:00',
 		'Jan 23-Feb 12 00:00-24:00',
 		'Jan 23-Feb 12: 00:00-24:00',
+		'2012 Jan 23-2012 Feb 12 00:00-24:00',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
 	], 1000 * 60 * 60 * 24 * 21, 0, false);
@@ -869,15 +872,27 @@ test.addTest('Calculations based on variable events', [
 		[ '2014.04.21 00:00', '2014.04.22 00:00', false, 'Easter Monday' ],
 	], 1000 * 60 * 60 * 24 * 3, 0, false, nominatiomTestJSON, 'not last test');
 
+test.addTest('Month ranges with year', [
+		'2012 Jan 10-15,Jan 11',
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+		[ '2012.01.10 00:00', '2012.01.16 00:00' ],
+	], 1000 * 60 * 60 * 24 * 6, 0, false, {}, 'not last test');
+
 test.addTest('Periodical monthdays', [
 		'Jan 1-31/8 00:00-24:00',
 		'Jan 1-31/8: 00:00-24:00',
+		'Jan 1-31/8',
+		'2012 Jan 1-31/8',
+		'2012 Jan 1-31/8; 2010 Dec 1-31/8',
+		'2012 Jan 1-31/8; 2015 Dec 1-31/8',
+		'2012 Jan 1-31/8; 2025 Dec 1-31/8',
+		'2012 Jan 1-31/8: 00:00-24:00',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.01 0:00', '2012.01.02 00:00' ],
 		[ '2012.01.09 0:00', '2012.01.10 00:00' ],
 		[ '2012.01.17 0:00', '2012.01.18 00:00' ],
 		[ '2012.01.25 0:00', '2012.01.26 00:00' ],
-	], 1000 * 60 * 60 * 24 * 4, 0, false);
+	], 1000 * 60 * 60 * 24 * 4, 0, false, {}, 'not last test');
 
 test.addTest('Periodical monthdays', [
 		'Jan 10-31/7',
@@ -1085,6 +1100,7 @@ test.addTest('Additional comments combined with months', [
 	], 7948800000, 2682000000, false, {}, 'not last test');
 
 test.addTest('Complex example used in README', [
+		'open; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off',
 		'00:00-24:00; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 08:00' ],
@@ -1223,10 +1239,12 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'Mo-So: 08:00-22:00',
 		'Mo Tu Fr',
 		'Jan Dec',
+		'Jan,,,Dec',
+		'Jan 1-22/1',
 		'"testing" "second comment"',
 		'Jan 12:00-13:00 Mo 15:00-16:00',
 		// 'easter + 353 days', // Does throw an error, but at runtime when the problem occurs respectivly with the call of getWarnings().
-	], {}, 'not last test');
+	], {}, 'last test');
 
 test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Mo[2] - 7 days',

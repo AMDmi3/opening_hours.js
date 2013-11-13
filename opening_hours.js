@@ -1214,25 +1214,26 @@
 				th: 4,
 				fr: 5,
 				sa: 6,
+			}, 'Assuming "<ok>" for "<ko>"': {
+				m:          1,
+				w:          3,
+				f:          5,
 			}, 'Please use the abbreviation "<ok>" for "<ko>".': {
 				sun:        0,
 				sunday:     0,
 				sundays:    0,
-				m:          1,
 				mon:        1,
 				monday:     1,
 				mondays:    1,
 				tue:        2,
 				tuesday:    2,
 				tuesdays:   2,
-				w:          3,
 				wed:        3,
 				wednesday:  3,
 				wednesdays: 3,
 				thu:        4,
 				thursday:   4,
 				thursdays:  4,
-				f:          5,
 				fri:        5,
 				friday:     5,
 				fridays:    5,
@@ -3054,7 +3055,7 @@
 						else if (!has_period)
 							return [true, to_date];
 
-						var period = tokens[at+5][0];
+						var period = tokens[has_year+at+5][0];
 						var nday = Math.floor((date.getTime() - from_date.getTime()) / msec_in_day);
 						var in_period = nday % period;
 
@@ -3062,6 +3063,7 @@
 							return [true, new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)];
 						else
 							return [false, new Date(date.getFullYear(), date.getMonth(), date.getDate() + period - in_period)];
+
 					}}(tokens, at, is_range, has_period, has_year[0]));
 
 					at += 2 + has_year[0] + (is_range ? 2 : 0) + (has_period ? 2 : 0);
