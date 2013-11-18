@@ -1101,8 +1101,9 @@
 				wd:       'Mo-Fr',
 				weekday:  'Mo-Fr',
 				weekdays: 'Mo-Fr',
-			}, 'Please ommit "<ko>".': {
+			}, 'Please ommit "<ko>" or use a colon instead: "12:00-14:00".': {
 				h: '',
+			}, 'Please ommit "<ko>".': {
 				season: '',
 			}, 'Please ommit "<ko>". You might want to express open end which can be specified as "12:00+" for example': {
 				from: '',
@@ -1751,10 +1752,14 @@
 				} else if (matchTokens(tokens, at, 'week')) {
 					at = parseWeekRange(tokens, at + 1);
 					week_stable = false;
+
+					// if (prettified_group_value[-1] != ' ')
+					// 	prettified_group_value = prettified_group_value.substring(0, prettified_group_value.length - 1);
 				} else if (at != 0 && at != tokens.length - 1 && tokens[at][0] == ':') {
 					// Ignore colon if they appear somewhere else than as time separator.
+					// Except the start or end of the value.
 					// This provides compatibility with the syntax proposed by Netzwolf:
-					// http://www.netzwolf.info/en/cartography/osm/time_domain/specification
+					// http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification
 					if (!done_with_warnings && matchTokens(tokens, at-1, 'weekday') || matchTokens(tokens, at-1, 'holiday'))
 						parsing_warnings.push([nblock, at, 'Please don’t use ":" after ' + tokens[at-1][1] + '.']);
 
@@ -2758,6 +2763,11 @@
 
 				if (!matchTokens(tokens, at, ','))
 					break;
+
+				if (!matchTokens(tokens, at+1, 'number')) {
+					at++; // we don‘t need the comma in parseGroup
+					break;
+				}
 			}
 
 			if (typeof used_subparsers['week ranges'] != 'number')
@@ -3055,7 +3065,7 @@
 						else if (!has_period)
 							return [true, to_date];
 
-						var period = tokens[has_year+at+5][0];
+						var period = tokens[at+has_year+5][0];
 						var nday = Math.floor((date.getTime() - from_date.getTime()) / msec_in_day);
 						var in_period = nday % period;
 
@@ -3276,7 +3286,7 @@
 			var value = '';
 			var start_at = at;
 			while (at < last_at) {
-				if (matchTokens(tokens, at, 'weekday')) {
+				if (matchTokens(tokens, at, 'weekday')) { // FIXME
 					if (!conf.leave_weekday_sep_one_day_betw
 						&& at - start_at > 1 && (matchTokens(tokens, at-1, ',') || matchTokens(tokens, at-1, '-'))
 						&& matchTokens(tokens, at-2, 'weekday')
@@ -3308,7 +3318,7 @@
 				} else if (matchTokens(tokens, at, 'month')) {
 					value += months[[tokens[at][0]]];
 					if (at + 1 < last_at && matchTokens(tokens, at+1, 'weekday'))
-					value += ' ';
+						value += ' ';
 				} else if (at + 2 < last_at
 						&& (matchTokens(tokens, at, '-') || matchTokens(tokens, at, '+'))
 						&& matchTokens(tokens, at+1, 'number', 'calcday')) {

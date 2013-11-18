@@ -1,4 +1,13 @@
 var opening_hours = require('./opening_hours.js');
+var colors = require('colors');
+
+colors.setTheme({
+  passed:  [ 'green'  , 'bold' ] ,
+  failed:  [ 'red'    , 'bold' ] ,
+  crashed: [ 'magenta', 'bold' ] ,
+  ignored: [ 'yellow' , 'bold' ] ,
+});
+
 
 var test = new opening_hours_test();
 
@@ -630,7 +639,7 @@ test.addTest('Fallback group blocks', [
 		[ '2012.10.06 00:00', '2012.10.08 00:00', false, 'we are open!!!' ], // Sa,Su
 	], 1000 * 60 * 60 * (24 * 2 * 2 + 14 * 3 + 10 * 2), 1000 * 60 * 60 * 10, true, {}, 'not last test');
 
-// example from Netzwolf: http://www.netzwolf.info/kartografie/osm/time_domain/erklaerung
+// example from Netzwolf
 test.addTest('Fallback group blocks', [
 		'Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00, PH off || Tu 06:00-06:00 open "Notdienst"',
 	], '2013.10.01 0:00', '2013.10.08 0:00', [
@@ -648,7 +657,7 @@ test.addTest('Fallback group blocks', [
 		[ '2013.10.07 14:00', '2013.10.07 18:00' ],
 	], 1000 * 60 * 60 * ((4 * 8 + 4) + (2 + 2 + (6 + 6))), 0, false, nominatiomTestJSON, 'not last test');
 
-// example from Netzwolf: http://www.netzwolf.info/en/cartography/osm/time_domain/form_hours
+// example from Netzwolf
 test.addTest('Fallback group blocks', [
 		'Mo-Fr 08:00-11:00 || Th-Sa 12:00-13:00 open "Emergency only"',
 		'Mo-Fr 08:00-11:00, Th-Sa 12:00-13:00 open "Emergency only"',
@@ -695,11 +704,12 @@ test.addTest('Week ranges', [
 		'week 1,3 00:00-24:00',
 		'week 1,3 00:00-24:00 || closed "should not change the test result"', // because comments for closed are not compared
 		'week 1,3: 00:00-24:00',
+		'week 1,week 3: 00:00-24:00',
 		'week 1-3/2 00:00-24:00',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.01 00:00', '2012.01.02 00:00' ],
 		[ '2012.01.09 00:00', '2012.01.16 00:00' ],
-	], 1000 * 60 * 60 * 24 * (1 + 7), 0, false);
+	], 1000 * 60 * 60 * 24 * (1 + 7), 0, false, {}, 'not last test');
 
 test.addTest('Week ranges', [
 		'week 2,4 00:00-24:00',
@@ -1076,7 +1086,7 @@ test.addTest('Additional comments for closed with time ranges spanning midnight'
 		[ '2012.10.07 22:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * 4 * 7, 0, true, {}, 'not last test');
 
-// proposed by Netzwolf: http://www.netzwolf.info/en/cartography/osm/time_domain/specification#rule9
+// proposed by Netzwolf: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#rule9
 // Currently not handled correctly. Could be interpreted as fallback block.
 test.addTest('Additional comments for unknown', [
 		ignored('Mo open "comment"; "I don’t know how to express easter": off'),
@@ -1171,7 +1181,7 @@ test.addTest('Calculations based on variable events', [
 		[ '2012.04.08 00:00', '2012.10.08 00:00', false, 'Around easter' ],
 	], 23842800000, 0, false, nominatiomTestJSON, 'not last test');
 
-// The hard stuff. Proposed by Netzwolf: http://www.netzwolf.info/en/cartography/osm/time_domain/form_hours#check
+// The hard stuff. Proposed by Netzwolf. Was only implemented by his implementation. Might follow in opening_hours.js.
 // Currently used around 6 times: /\d\s*-\s*(mo|tu|we|th|fr|sa|su)\b/
 test.addTest('Calculations based on month range', [
 		ignored('Mar Su[-1] - Dec 25-Su-28 days: 12:00-13:00'),
@@ -1346,7 +1356,7 @@ function opening_hours_test() {
 		var passed = false;
 		var str = '"' + name + '" for "' + value.replace('\n', '*newline*') + '": ';
 		if (crashed) {
-			str += '[1;32mPASSED[0m';
+			str += 'PASSED'.passed;
 			passed = true;
 
 			if (show_passing_tests) {
@@ -1355,7 +1365,7 @@ function opening_hours_test() {
 					console.log(crashed + '\n');
 			}
 		} else {
-			str += '[1;31mFAILED[0m';
+			str += 'FAILED'.failed;
 			console.log(str);
 		}
 
@@ -1444,7 +1454,7 @@ function opening_hours_test() {
 		var str = '"' + name + '" for "' + value + '": ';
 		var failed = false;
 		if (intervals_ok && duration_ok && prettify_ok && (weekstable_ok || ignored == 'check for week stable not implemented')) {
-			str += '[1;32mPASSED[0m';
+			str += 'PASSED'.passed;
 			if (ignored) {
 				if (ignored == 'check for week stable not implemented') {
 					str += ', [1;33mexcept weekstable which is ignored for now[0m';
@@ -1454,12 +1464,12 @@ function opening_hours_test() {
 			}
 			passed = true;
 		} else if (ignored) {
-			str += '[1;33mIGNORED[0m, reason: ' + ignored;
+			str += 'IGNORED'.ignored + ', reason: ' + ignored;
 			passed = true;
 		} else if (crashed) {
-			str += '[1;35mCRASHED[0m, reason: ' + crashed;
+			str += 'CRASHED'.crashed + ', reason: ' + crashed;
 		} else {
-			str += '[1;31mFAILED[0m';
+			str += 'FAILED'.failed;
 			if (!duration_ok)
 				str += ', bad duration(s): ' + durations + ', expected ' + expected_durations;
 			if (!intervals_ok)
@@ -1496,16 +1506,16 @@ function opening_hours_test() {
 		var passed = false;
 		var str = '"' + name + '" for "' + value.replace('\n', '*newline*') + '": ';
 		if (!crashed && matching_rule_ok) {
-			str += '[1;32mPASSED[0m';
+			str += 'PASSED'.passed;
 			passed = true;
 
 			if (show_passing_tests)
 				console.log(str);
 		} else if (crashed) {
-			str += '[1;35mCRASHED[0m, reason: ' + crashed;
+			str += 'CRASHED'.crashed + ', reason: ' + crashed;
 			console.log(str);
 		} else {
-			str += '[1;31mFAILED[0m for time ' + new Date(date);
+			str += 'FAILED'.failed + ' for time ' + new Date(date);
 			str += ', bad matching rule: "' + it.getMatchingRule() + '", expected "' + matching_rule + '"';
 			console.log(str);
 		}
