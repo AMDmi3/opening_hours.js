@@ -1741,7 +1741,7 @@
 						|| matchTokens(tokens, at, 'year', 'month', 'number')
 						|| matchTokens(tokens, at, 'year', 'event')
 						|| matchTokens(tokens, at, 'event')) {
-					at = parseMonthdayRange(tokens, at);
+					at = parseMonthdayRange(tokens, at, nblock);
 					week_stable = false;
 				} else if (matchTokens(tokens, at, 'year')) {
 					at = parseYearRange(tokens, at);
@@ -2638,7 +2638,7 @@
 					if (matchTokens(tokens, at+1, '-', 'year', '/', 'number')) {
 						var is_range   = true;
 						var has_period = true;
-						if (tokens[at+4][0] == 1 && !done_with_warnings)
+						if (!done_with_warnings && tokens[at+4][0] == 1)
 							parsing_warnings.push([nblock, at+1+3, 'Please don’t use year ranges with period equals one (see README)']);
 					} else {
 						var is_range   = matchTokens(tokens, at+1, '-', 'year');
@@ -2899,7 +2899,7 @@
 		//======================================================================
 		// Month day range parser (Jan 26-31; Jan 26-Feb 26)
 		//======================================================================
-		function parseMonthdayRange(tokens, at) {
+		function parseMonthdayRange(tokens, at, nblock) {
 			for (; at < tokens.length; at++) {
 				var has_year = [], has_month = [], has_event = [], has_calc = [], has_constrained_weekday = [], has_calc = [];
 				has_year[0]  = matchTokens(tokens, at, 'year');
@@ -3066,6 +3066,8 @@
 							return [true, to_date];
 
 						var period = tokens[at+has_year+5][0];
+						if (!done_with_warnings && period == 1)
+							parsing_warnings.push([nblock, at+has_year+5, 'Please don’t use day ranges with period equals one (see README)']);
 						var nday = Math.floor((date.getTime() - from_date.getTime()) / msec_in_day);
 						var in_period = nday % period;
 

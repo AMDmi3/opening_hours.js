@@ -1249,12 +1249,11 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'Mo-So: 08:00-22:00',
 		'Mo Tu Fr',
 		'Jan Dec',
-		'Jan,,,Dec',
 		'Jan 1-22/1',
 		'"testing" "second comment"',
 		'Jan 12:00-13:00 Mo 15:00-16:00',
 		// 'easter + 353 days', // Does throw an error, but at runtime when the problem occurs respectivly with the call of getWarnings().
-	], {}, 'last test');
+	], {}, 'not last test');
 
 test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Mo[2] - 7 days',
@@ -1299,6 +1298,8 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'easter - 2 days - 2012 easter + 2 days: open "Easter Monday"',
 		'2012 easter - 2 days - easter + 2 days: open "Easter Monday"',
 		// 'easter + 198 days', // Does throw an error, but at runtime when the problem occurs.
+		'Jan,,,Dec',
+		'Mo,,Th',
 	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [

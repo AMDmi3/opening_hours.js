@@ -368,7 +368,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 ### Monthday ranges ###
 
 * Supports monthday ranges across multiple months (```Jan 01-Feb 03 10:00-20:00```)
-* Supports monthday ranges within single month (```Jan 01-26 10:00-20:00```), with periods as well ```Jan 01-29/7 10:00-20:00```)
+* Supports monthday ranges within single month (```Jan 01-26 10:00-20:00```), with periods as well ```Jan 01-29/7 10:00-20:00```, period equals 1 should be avoided)
 * Supports monthday ranges with years (```2013 Dec 31-2014 Jan 02 10:00-20:00```, ```2012 Jan 23-31 10:00-24:00```)
 * Supports monthday ranges based on constrained weekdays (```Jan Su[1]-Feb 03 10:00-20:00```)
 * Supports calculation based on constrained weekdays in monthday range (```Jan Su[1] +1 day-Feb 03 10:00-20:00```)
