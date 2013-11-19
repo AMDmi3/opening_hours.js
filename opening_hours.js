@@ -1838,9 +1838,16 @@
 				}
 
 				if (typeof conf != 'undefined') {
+
+					// 'Mo: 12:00-13:00' -> 'Mo 12:00-13:00'
 					if (used_subparsers['time ranges'] && old_at > 1 && tokens[old_at-1][0] == ':'
 							&& matchTokens(tokens, old_at - 2, 'weekday'))
 						prettified_group_value = prettified_group_value.substring(0, prettified_group_value.length - 2) + ' ';
+
+					// 'week 1, week 3' -> 'week 1,week 3'
+					if (prettified_group_value.substr(prettified_group_value.length -2, 2) == ', '
+							&& matchTokens(tokens, old_at, 'week'))
+						prettified_group_value = prettified_group_value.substring(0, prettified_group_value.length - 1);
 
 					prettified_group_value += prettifySelector(tokens, old_at, at, conf, used_subparsers['time ranges']);
 				}
