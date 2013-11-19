@@ -1158,6 +1158,7 @@ test.addTest('Complex example used in README and benchmark', [
 test.addTest('Calculations based on variable events', [
 		'2012 easter -2 days-2012 easter +2 days: open "Around easter"',
 		'easter -2 days-easter +2 days: open "Around easter"',
+		'easter -2 days-easter +2 days open "Around easter"',
 	], '2012.01.01 0:00', '2012.10.08 0:00', [
 		[ '2012.04.06 00:00', '2012.04.10 00:00', false, 'Around easter' ],
 	], 1000 * 60 * 60 * 24 * 4, 0, false, nominatiomTestJSON, 'not only test');
@@ -1189,6 +1190,7 @@ test.addTest('Calculations based on month range', [
 	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'not only test');
 
 test.addTest('Time intervals (not specified/documented use of colon, please avoid this)', [
+		'open; Mo 15:00-16:00 off', // prettified value
 		'open; Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 15:00' ],
@@ -1246,13 +1248,13 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
 		'Mo-Do 8:30-20:00 Fr 8:29-18:00',
 		'Mo 12:00-14:00 16:00-18:00 20:00-22:00',
-		'Mo-So: 08:00-22:00',
+		'Mo-So 08:00-22:00',
 		'Mo Tu Fr',
 		'Jan Dec',
 		'Jan 1-22/1',
 		'"testing" "second comment"',
 		'Jan 12:00-13:00 Mo 15:00-16:00',
-		// 'easter + 353 days', // Does throw an error, but at runtime when the problem occurs respectivly with the call of getWarnings().
+		// 'easter + 353 days', // Does throw an error, but at runtime when the problem occurs respectively with the call of getWarnings().
 	], {}, 'not last test');
 
 test.addShouldFail('Incorrect syntax which should throw an error', [

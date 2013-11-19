@@ -1838,6 +1838,10 @@
 				}
 
 				if (typeof conf != 'undefined') {
+					if (used_subparsers['time ranges'] && old_at > 1 && tokens[old_at-1][0] == ':'
+							&& matchTokens(tokens, old_at - 2, 'weekday'))
+						prettified_group_value = prettified_group_value.substring(0, prettified_group_value.length - 2) + ' ';
+
 					prettified_group_value += prettifySelector(tokens, old_at, at, conf, used_subparsers['time ranges']);
 				}
 
@@ -3300,6 +3304,7 @@
 						&& matchTokens(tokens, at, 'number')) {
 					value += (tokens[at][0] < 10 ? '0' : '') + tokens[at][0].toString();
 				} else if (used_parseTimeRange > 0 && conf.leading_zero_hour && at != tokens.length
+						&& matchTokens(tokens, at, 'number')
 						&& matchTokens(tokens, at+1, 'timesep')) {
 					value += (tokens[at][0] < 10 ? (tokens[at][0] == 0 && conf.one_zero_if_hour_zero ? '' : '0') : '') + tokens[at][0].toString();
 				} else if (matchTokens(tokens, at, 'comment')) {
