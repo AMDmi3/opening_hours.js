@@ -369,8 +369,21 @@ test.addTest('Variable times spanning midnight', [
 test.addTest('Time ranges spanning midnight', [
 		'22:00-02:00',
 		'22:00-26:00',
-		'22-26', // Do not use. Returns warning.
 		'22-2', // Do not use. Returns warning.
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 00:00', '2012.10.01 02:00' ],
+		[ '2012.10.01 22:00', '2012.10.02 02:00' ],
+		[ '2012.10.02 22:00', '2012.10.03 02:00' ],
+		[ '2012.10.03 22:00', '2012.10.04 02:00' ],
+		[ '2012.10.04 22:00', '2012.10.05 02:00' ],
+		[ '2012.10.05 22:00', '2012.10.06 02:00' ],
+		[ '2012.10.06 22:00', '2012.10.07 02:00' ],
+		[ '2012.10.07 22:00', '2012.10.08 00:00' ],
+	], 1000 * 60 * 60 * 4 * 7, 0, true, nominatiomTestJSON);
+
+test.addTest('Time ranges spanning midnight', [
+		'22:00-26:00', // reference value for prettify
+		'22-26', // Do not use. Returns warning.
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 02:00' ],
 		[ '2012.10.01 22:00', '2012.10.02 02:00' ],
@@ -981,7 +994,7 @@ test.addTest('Input tolerance: dot as time separator', [
 		// '10.00-11.00,11.00-12.00',
 		// '10.00-11.00;11.00-12.00',
 		'10:00-14:00; 12:00-14:00 off', // reference value for prettify
-		'10-14; 12-14 off', // Do not use. Returns warning.
+		'10-14; 12-14 off', // '22-2', // Do not use. Returns warning.
 		'10.00-14.00; 12.00-14.00 off',
 		// '10.00-12.00;10.30-11.30',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -992,7 +1005,7 @@ test.addTest('Input tolerance: dot as time separator', [
 		[ '2012.10.05 10:00', '2012.10.05 12:00' ],
 		[ '2012.10.06 10:00', '2012.10.06 12:00' ],
 		[ '2012.10.07 10:00', '2012.10.07 12:00' ],
-	], 1000 * 60 * 60 * 2 * 7, 0, true);
+	], 1000 * 60 * 60 * 2 * 7, 0, true, {}, 'not last test');
 
 test.addTest('Extensions: complex monthday ranges', [
 		'Jan 23-31,Feb 1-12 00:00-24:00',

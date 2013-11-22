@@ -3354,12 +3354,21 @@
 					}
 					value += weekdays[tokens[at][0]];
 				} else if (at - start_at > 0 && used_parseTimeRange > 0 && matchTokens(tokens, at-1, 'timesep')
-						&& matchTokens(tokens, at, 'number')) {
+						&& matchTokens(tokens, at, 'number')) { // '09:0' -> '09:00'
 					value += (tokens[at][0] < 10 ? '0' : '') + tokens[at][0].toString();
 				} else if (used_parseTimeRange > 0 && conf.leading_zero_hour && at != tokens.length
 						&& matchTokens(tokens, at, 'number')
-						&& matchTokens(tokens, at+1, 'timesep')) {
+						&& matchTokens(tokens, at+1, 'timesep')) { // '9:00' -> '19:00'
 					value += (tokens[at][0] < 10 ? (tokens[at][0] == 0 && conf.one_zero_if_hour_zero ? '' : '0') : '') + tokens[at][0].toString();
+				} else if (used_parseTimeRange > 0 && at + 2 < last_at
+						&& matchTokens(tokens, at, 'number')
+						&& matchTokens(tokens, at+1, '-')
+						&& matchTokens(tokens, at+2, 'number')) { // '9-18' -> '09:00-18:00'
+					value += (tokens[at][0] < 10 ? (tokens[at][0] == 0 && conf.one_zero_if_hour_zero ? '' : '0') : '') + tokens[at][0].toString();
+					value += ':00-';
+					value += (tokens[at+2][0] < 10 ? '0' : '') + tokens[at+2][0].toString();
+					value += ':00';
+					at += 3;
 				} else if (matchTokens(tokens, at, 'comment')) {
 					value += '"' + tokens[at][0].toString() + '"';
 				} else if (matchTokens(tokens, at, 'closed')) {
