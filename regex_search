@@ -54,13 +54,13 @@ readline.set_completer(completer.complete)
 
 page_width = 20
 
-file = 'export.opening_hours.json'
+json_file = 'export.opening_hours.json'
 if len(sys.argv) > 1:
-    file = sys.argv[1]
+    json_file = sys.argv[1]
 
 key = ''
 try:
-    key  = re.match('\Aexport\.(.*)\.json', file).group(1);
+    key  = re.match('\Aexport\.(.*)\.json', json_file).group(1);
 except:
     sys.stderr.write('Did not match the key, URL will not work')
 overpass_turbo_url = 'http://overpass-turbo.eu/?template=key-value&key=%s&value=' % key
@@ -71,9 +71,9 @@ def signal_handler(signal, frame):
     sys.exit(0)
 signal.signal(signal.SIGINT, signal_handler)
 
-try:    json_data = codecs.open(file, 'r', 'utf-8')
+try:    json_data = codecs.open(json_file, 'r', 'utf-8')
 except IOError as detail:
-    print('File '+ file +' is not readable: '+ detail[1])
+    print('File '+ json_file +' is not readable: '+ detail[1])
     sys.exit(1)
 
 taginfo_tag_export = json.load(json_data)
@@ -84,7 +84,7 @@ oh = subprocess.Popen(['node', 'interactive_testing.js', '--no-warnings'],
                      stdin=subprocess.PIPE)
 oh.stdout.readline().strip() # read message from interactive_testing.js
 
-print 'Loaded %s.' % file
+print 'Loaded %s.' % json_file
 while True:
     regex = raw_input('regex search> ')
     if re.match(r'\s*\Z', regex):

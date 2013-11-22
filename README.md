@@ -294,6 +294,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 ### Time ranges ###
 
 * Supports sets of time ranges (```10:00-12:00,14:00-16:00```)
+	* **WARN:** Accept ```10-12,14-16``` as abbreviation for the previous example. Please don’t use this as this is not very explicit.
   * Correctly supports ranges wrapping over midnight (```10:00-26:00```, ```10:00-02:00```)
 * Supports 24/7 keyword (```24/7```, which means always open. Use [state keywords](#states) to express always closed.)
   * **WARN:** 24/7 is handled as a synonym for ```00:00-24:00```, so ```Mo-Fr 24/7``` (though not really correct, because of that you should avoid it or repace it with "open". A warning will be given if you use it anyway for that purpose) will be handled correctly
@@ -438,8 +439,8 @@ This library is used in the following projects:
 ## ToDo
 List of missing features which can currently not be expressing in any other way without much pain.
 
-* Select single (or more, comma seperated) school holidays. Proposed syntax: ```SH(Sommerferien)```
-* If weekday is PH than the facility will be open weekday-1 this week. Syntax something like: ```We if (We +1 day == PH)``` ???
+* Select single (or more, comma seperated) (school|public) holidays. Proposed syntax: ```SH(Sommerferien)```
+* If weekday is PH than the facility will be open weekday-1 this week. Syntax something like: ```We if (We +1 day == PH) else Th``` ???
 
 ## Author ##
 

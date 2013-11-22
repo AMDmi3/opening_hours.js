@@ -1768,7 +1768,8 @@
 					at++;
 				} else if (matchTokens(tokens, at, 'number', 'timesep')
 						|| matchTokens(tokens, at, 'timevar')
-						|| matchTokens(tokens, at, '(', 'timevar')) {
+						|| matchTokens(tokens, at, '(', 'timevar')
+						|| matchTokens(tokens, at, 'number', '-')) {
 					at = parseTimeRange(tokens, at, selectors);
 
 					if (typeof used_subparsers['time ranges'] != 'number')
@@ -2059,6 +2060,51 @@
 					at = at_end_time + (is_point_in_time ? -1 :
 							(has_normal_time[1] ? 3 : (has_time_var_calc[1] ? 7 : !has_open_end))
 							);
+				} else if (matchTokens(tokens, at, 'number', '-', 'number')) { // "Mo 09-18" -> "Mo 09:00-18:00". Please don’t use this
+					var minutes_from = tokens[at][0]   * 60;
+					var minutes_to   = tokens[at+2][0] * 60;
+
+					if (minutes_from >= minutes_in_day)
+						throw formatWarnErrorMessage(nblock, at,
+							'Time range starts outside of the current day');
+					if (minutes_to < minutes_from)
+						minutes_to += minutes_in_day;
+					if (minutes_to > minutes_in_day * 2)
+						throw formatWarnErrorMessage(nblock, at + 2,
+							'Time spanning more than two midnights not supported');
+
+					if (minutes_to > minutes_in_day) {
+						selectors.time.push(function(minutes_from, minutes_to) { return function(date) {
+							var ourminutes = date.getHours() * 60 + date.getMinutes();
+
+							if (ourminutes < minutes_from)
+								return [false, dateAtDayMinutes(date, minutes_from)];
+							else
+								return [true, dateAtDayMinutes(date, minutes_to)];
+						}}(minutes_from, minutes_to));
+
+						selectors.wraptime.push(function(minutes_from, minutes_to) { return function(date) {
+							var ourminutes = date.getHours() * 60 + date.getMinutes();
+
+							if (ourminutes < minutes_to)
+								return [true, dateAtDayMinutes(date, minutes_to)];
+							else
+								return [false, undefined];
+						}}(minutes_from, minutes_to - minutes_in_day));
+					} else {
+						selectors.time.push(function(minutes_from, minutes_to) { return function(date) {
+							var ourminutes = date.getHours() * 60 + date.getMinutes();
+
+							if (ourminutes < minutes_from)
+								return [false, dateAtDayMinutes(date, minutes_from)];
+							else if (ourminutes < minutes_to)
+								return [true, dateAtDayMinutes(date, minutes_to), has_open_end];
+							else
+								return [false, dateAtDayMinutes(date, minutes_from + minutes_in_day)];
+						}}(minutes_from, minutes_to));
+					}
+
+					at += 3;
 				} else { // additional block
 					if (matchTokens(tokens, at, '('))
 						throw formatWarnErrorMessage(nblock, at+1, 'Missing variable time (e.g. sunrise) after: "' + tokens[at][1] + '"');

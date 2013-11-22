@@ -25,6 +25,7 @@ test.addTest('Time intervals', [
 		'10:00-12:00',
 		'10:00-12:00,',
 		'10:00-12:00;',
+		'10-12', // Do not use. Returns warning.
 		'10:00-11:00,11:00-12:00',
 		'10:00-11:00; 11:00-12:00',
 		'10:00-14:00; 12:00-14:00 off',
@@ -368,6 +369,8 @@ test.addTest('Variable times spanning midnight', [
 test.addTest('Time ranges spanning midnight', [
 		'22:00-02:00',
 		'22:00-26:00',
+		'22-26', // Do not use. Returns warning.
+		'22-2', // Do not use. Returns warning.
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 02:00' ],
 		[ '2012.10.01 22:00', '2012.10.02 02:00' ],
@@ -463,6 +466,7 @@ test.addTest('Full range', [
 		'Su-Sa 00:00-24:00',
 		'24/7',
 		'24/7; 24/7',
+		'0-24',	// Do not use. Returns warning.
 		'open',
 		'12:00-13:00; 24/7',
 		'Mo-Fr,Sa,Su',
@@ -675,6 +679,8 @@ test.addTest('Fallback group blocks', [
 
 test.addTest('Month ranges', [
 		'Nov-Feb 00:00-24:00',
+		'Nov-Feb',
+		'Nov-Feb 0-24', // Do not use. Returns warning.
 		'Nov-Feb: 00:00-24:00',
 		'Jan,Feb,Nov,Dec 00:00-24:00',
 		'00:00-24:00; Mar-Oct off',
@@ -975,6 +981,7 @@ test.addTest('Input tolerance: dot as time separator', [
 		// '10.00-11.00,11.00-12.00',
 		// '10.00-11.00;11.00-12.00',
 		'10:00-14:00; 12:00-14:00 off', // reference value for prettify
+		'10-14; 12-14 off', // Do not use. Returns warning.
 		'10.00-14.00; 12.00-14.00 off',
 		// '10.00-12.00;10.30-11.30',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -1058,8 +1065,8 @@ test.addTest('Date overwriting with additional comments for unknown ', [
 	], 0, 1000 * 60 * 60 * (4 * 10 + 6), true);
 
 test.addTest('Additional comments with time ranges spanning midnight', [
-		'22:00-02:00 open "Lets party"; We 12:00-14:00 "Maybe open. Call us."',
-		'22:00-26:00; We 12:00-14:00 unknown "Maybe open. Call us."',
+		// '22:00-02:00 open "Lets party"; We 12:00-14:00 "Maybe open. Call us."',
+		'22:00-26:00; We 12:00-14:00 unknown "Maybe open. Call us."', // FIXME
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 02:00', false, "Lets party" ],
 		[ '2012.10.01 22:00', '2012.10.02 02:00', false, "Lets party" ],
@@ -1070,7 +1077,7 @@ test.addTest('Additional comments with time ranges spanning midnight', [
 		[ '2012.10.05 22:00', '2012.10.06 02:00', false, "Lets party" ],
 		[ '2012.10.06 22:00', '2012.10.07 02:00', false, "Lets party" ],
 		[ '2012.10.07 22:00', '2012.10.08 00:00', false, "Lets party" ],
-	], 1000 * 60 * 60 * 4 * 6, 1000 * 60 * 60 * 2, true);
+	], 1000 * 60 * 60 * 4 * 6, 1000 * 60 * 60 * 2, true, {}, 'not last test');
 
 test.addTest('Additional comments for closed with time ranges spanning midnight', [
 		'22:00-26:00; We 12:00-14:00 off "Not open because we are too tired"',
