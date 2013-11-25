@@ -2071,6 +2071,9 @@
 				} else if (matchTokens(tokens, at, 'number', '-', 'number')) { // "Mo 09-18" -> "Mo 09:00-18:00". Please don’t use this
 					var minutes_from = tokens[at][0]   * 60;
 					var minutes_to   = tokens[at+2][0] * 60;
+					if (!done_with_warnings)
+						parsing_warnings.push([nblock, at + 2,
+							'Time range without minutes specified. Not very explicit! Please use this syntax instead "12:00-14:00".']);
 
 					if (minutes_from >= minutes_in_day)
 						throw formatWarnErrorMessage(nblock, at,
