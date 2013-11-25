@@ -1155,7 +1155,7 @@
 				oct:  9,
 				nov: 10,
 				dec: 11,
-			}, 'Please use the englisch abbreviation "<ok>" for "<ko>".': {
+			}, 'Please use the English abbreviation "<ok>" for "<ko>".': {
 				january:    0,
 				february:   1,
 				march:      2,
@@ -1241,8 +1241,9 @@
 				sat:        6,
 				saturday:   6,
 				saturdays:  6,
-			}, 'Bitte benutze die englische Abkürzung "<ok>" für "<ko>".': {
+			}, 'Bitte benutze die englische Abkürzung "<ok>" für "<ko>". Could also mean Saturday in Polish ...': {
 				so:         0,
+			}, 'Bitte benutze die englische Abkürzung "<ok>" für "<ko>".': {
 				son:        0,
 				sonntag:    0,
 				montag:     1,
@@ -1292,7 +1293,7 @@
 				za:        6,
 				zat:       6,
 				zaterdag:  6,
-			}, 'Please use the englisch abbreviation "<ok>" for "<ko>".': { // FIXME: Translate to Czech.
+			}, 'Please use the English abbreviation "<ok>" for "<ko>".': { // FIXME: Translate to Czech.
 				'neděle':  0,
 				'ne':      0,
 				'pondělí': 1,
@@ -1306,7 +1307,7 @@
 				'pátek':   5,
 				'pá':      5,
 				'sobota':  6,
-			}, 'Please use the englisch abbreviation "<ok>" for "<ko>".': {
+			}, 'Please use the English abbreviation "<ok>" for "<ko>".': {
 				// Spanish.
 				'martes':    0,
 				'miércoles': 1,

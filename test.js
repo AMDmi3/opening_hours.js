@@ -1270,6 +1270,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'Mo[2] - 0 days', // pointless
 		'Mo&Th',
 		'Mon',
+		'8-18',
 		'12.00-14:00',
 		'24/7; 12:00-14:00 off',
 		'2013-2015/1',
