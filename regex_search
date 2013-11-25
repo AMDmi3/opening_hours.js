@@ -44,6 +44,7 @@ std_regex = ('PH', 'SH', '.',
     '\d\s*-\s*(mo|tu|we|th|fr|sa|su)\\b',
     '-\s*\d{1,2}[:.]\d{2}\s*\+',
     '[^0-9a-z .]\s*-\s*\d{1,2}:\d{2}\s*[^-+]', # Start time not specified. Opposite to open end.
+    '\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}\s*\+',  # 12:00-14:00+
     )
 
 completer = Completer(std_regex)

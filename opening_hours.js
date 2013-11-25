@@ -1332,6 +1332,14 @@
 				'torsdag': 4,
 				'fredag':  5,
 				'lördag':  6,
+				// Polish
+				'niedziela': 0, 'niedz': 0, 'n': 0, 'ndz': 0,
+				'poniedziałek': 1, 'poniedzialek': 1, 'pon': 1, 'pn': 1,
+				'wtorek': 2, 'wt': 2,
+				'środa': 3, 'sroda': 3, 'śr': 3, 'sr': 3,
+				'czwartek': 4, 'czw': 4, 'cz': 4,
+				'piątek': 5, 'piatek': 5, 'pt': 5,
+				'sobota': 6, 'sob': 6, // 'so': 6 // abbreviation also used in German
 			},
 		},
 
