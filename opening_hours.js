@@ -1107,6 +1107,8 @@
 				season: '',
 			}, 'Please ommit "<ko>". You might want to express open end which can be specified as "12:00+" for example': {
 				from: '',
+			}, 'Please use notation "<ok>" for "<ko>". If the times are unsure or variate consider a comment e.g. 12:00-14:00 "only on sunshine".': {
+				'~':  '-',
 			}, 'Please use notation "<ok>" for "<ko>".': {
 				'–':  '-',
 				to:   '-',
@@ -1241,25 +1243,32 @@
 				sat:        6,
 				saturday:   6,
 				saturdays:  6,
-			}, 'Bitte benutze die englische Abkürzung "<ok>" für "<ko>". Could also mean Saturday in Polish ...': {
+			}, 'Bitte benutze die englische Abkürzung "<ok>" für "<ko>". Could also mean Saturday in Polish …': {
 				so:         0,
 			}, 'Bitte benutze die englische Abkürzung "<ok>" für "<ko>".': {
-				son:        0,
-				sonntag:    0,
-				montag:     1,
-				di:         2,
-				die:        2,
-				dienstag:   2,
-				mi:         3,
-				mit:        3,
-				mittwoch:   3,
-				'do':       4,
-				don:        4,
-				donnerstag: 4,
-				fre:        5,
-				freitag:    5,
-				sam:        6,
-				samstag:    6,
+				son:         0,
+				sonntag:     0,
+				sonntags:    0,
+				montag:      1,
+				montags:     1,
+				di:          2,
+				die:         2,
+				dienstag:    2,
+				dienstags:   2,
+				mi:          3,
+				mit:         3,
+				mittwoch:    3,
+				mittwochs:   3,
+				'do':        4,
+				don:         4,
+				donnerstag:  4,
+				donnerstags: 4,
+				fre:         5,
+				freitag:     5,
+				freitags:    5,
+				sam:         6,
+				samstag:     6,
+				samstags:    6,
 			}, 'S\'il vous plaît utiliser l\'abréviation "<ok>" pour "<ko>".': {
 				dim:      0,
 				dimanche: 0,
@@ -1579,7 +1588,7 @@
 				} else if (tmp = value.match(/^days?/i)) {
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(&|–|[a-zA-ZäÄàÀéÉ]+\b)\.?/i)) {
+				} else if (tmp = value.match(/^(&|–|~|[a-zA-ZäÄàÀéÉ]+\b)\.?/i)) {
 					// Handle all remaining words with error tolerance
 					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
 					if (typeof correct_val == 'object') {
@@ -2074,7 +2083,7 @@
 					var minutes_to   = tokens[at+2][0] * 60;
 					if (!done_with_warnings)
 						parsing_warnings.push([nblock, at + 2,
-							'Time range without minutes specified. Not very explicit! Please use this syntax instead "12:00-14:00".']);
+							'Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".']);
 
 					if (minutes_from >= minutes_in_day)
 						throw formatWarnErrorMessage(nblock, at,
