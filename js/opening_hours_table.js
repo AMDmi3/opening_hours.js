@@ -1,6 +1,6 @@
 var OpeningHoursTable = {
 
-    // JS functions for gernerating the table {{{
+    // JS functions for generating the table {{{
     // In English. Localization is done somewhere else (above).
     months:   ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'],
     weekdays: ['su','mo','tu','we','th','fr','sa'],
