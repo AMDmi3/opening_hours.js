@@ -331,11 +331,13 @@ Almost everything from opening_hours definition is supported, as well as some ex
 ### Holidays ###
 
 * Supports public holidays (```open; PH off```, ```PH 12:00-13:00```).
-  * Currently Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored. The same applies for [Austria][PH-at].
+  * Currently Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored. The same applies for [Austria][PH-at]. Also supported:
+	  * [France][PH-fr]
   * **EXT:** Supports limited calculations based on holidays (e.g. ```Sa,PH -1 day open```). The only two possibilities are currently +1 and -1. All other cases are not handled. This seems to be enough because the only thing which is really used is -1.
 
 [PH-de]: http://de.wikipedia.org/wiki/Feiertage_in_Deutschland
 [PH-at]: http://de.wikipedia.org/wiki/Feiertage_in_%C3%96sterreich
+[PH-fr]: https://fr.wikipedia.org/wiki/F%EAtes_et_jours_f%E9ri%E9s_en_France
 
 * Support for school holidays (```SH 10:00-14:00```).
   * Currently only Germany is supported (based on ical files from [schulferien.org][]).
@@ -455,6 +457,7 @@ List of missing features which can currently not be expressing in any other way 
 ## Credits ##
 
 * [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favour of opening_hours.js but a few parts where reused (mainly the error tolerance and the online evalutation for the demo page). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
+* [don-vip](https://github.com/don-vip) (Thanks for contributing a French translation and public holidays for France.)
 
 ## License ##
 
