@@ -16,11 +16,11 @@ open; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off
 
 around-the-clock shop with some breaks.
 
-## demo.html
+## evaluation tool/demo.html
 
-Please have a look at the [demo page][] which can give you an impression how this library can be used and what it is capable of.
+Please have a look at the [evaluation tool][] which can give you an impression how this library can be used and what it is capable of.
 
-[demo page]: http://robin.de.marissa.hostorama.ch/osm/opening_hours.js/demo.html
+[evaluation tool]: http://openingh.openstreetmap.de/evaluation_tool/
 
 ## Install
 Just clone the repository:
@@ -458,6 +458,13 @@ List of missing features which can currently not be expressing in any other way 
 
 * [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favour of opening_hours.js but a few parts where reused (mainly the error tolerance and the online evalutation for the demo page). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
 * [don-vip](https://github.com/don-vip) (Thanks for contributing a French translation and public holidays for France.)
+
+
+## Links about this project ##
+
+* [fossgis-project][]
+
+[fossgis-project]: http://wiki.openstreetmap.org/wiki/FOSSGIS/Server/Projects/opening_hours.js
 
 ## License ##
 
