@@ -109,6 +109,7 @@ var resources = { // English is fallback language.
                 "mode 1": 'Only points in time are excepted',
                 "mode 2": 'Time ranges and points in time are excepted (tags service_times, collection_times)',
                 "value to long for osm": 'The value is too long for OSM. The OpenStreetMap database is currently limited to values with up to __maxLength__ characters. The prettified value has a length of __pretLength__ and the value you entered is __valLength__ characters long',
+                "low zoom level": 'The POIs will start to appear at zoom level ${next} and above. You are currently on zoom level ${actual}.',
             },
             "words": {
                 "mode": "evaluation mode",
@@ -413,6 +414,7 @@ var resources = { // English is fallback language.
                 "mode 1": 'Es werden nur Zeitpunkte akzeptiert',
                 "mode 2": 'Zeiträume und Zeitpunkte werden akzeptiert (Tags service_times, collection_times)',
                 "value to long for osm": 'Der opening_hours Wert ist zu lang für OSM. Die OpenStreetMap Datenbank unterstützt zur Zeit nur Werte mit bis zu __maxLength__ Zeichen. Der schön formatierter Wert ist __pretLength__ Zeichen lang und der eingegebene Wert __valLength__.',
+                "low zoom level": 'Die Marker werden erst auf Zoom Stufe ${next} geladen. Aktuelle Zoom Stufe ist ${actual}.',
             },
             "words": {
                 "mode": "Auswerte Modus",
