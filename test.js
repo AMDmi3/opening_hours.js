@@ -66,6 +66,21 @@ test.addTest('Open end', [
 		[ '2012.10.01 17:00', '2012.10.02 00:00', true, 'Specified as open end. Closing time was guessed.' ],
 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
 
+// test.addTest('Fixed time followed by open end', [
+// 		'14:00-17:00+',
+// 	], '2012.10.01 0:00', '2012.10.02 0:00', [
+// 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, {}, 'not last test');
+//
+// test.addTest('variable time range followed by open end', [
+// 		'14:00-sunset+',
+// 	], '2012.10.01 0:00', '2012.10.02 0:00', [
+// 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
+//
+// test.addTest('variable time range followed by open end', [
+// 		'sunrise-14:00+',
+// 	], '2012.10.01 0:00', '2012.10.02 0:00', [
+// 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
+
 test.addTest('Open end', [
 		'17:00+ closed',
 		'17:00-19:00 closed',
@@ -437,6 +452,17 @@ test.addTest('Constrained weekday (complex real world example)', [
 		[ '2013.08.25 10:00', '2013.08.25 18:00' ],
 		[ '2013.09.08 14:00', '2013.09.08 18:00' ],
 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
+
+// test.addTest('real world example. Was not processed right.', [
+// 		'Mo: geschlossen, Di: 14-18Uhr, Mi-Sa: 10-18Uhr',
+// 	], '2013.08.01 0:00', '2013.10.08 0:00', [
+// 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
+//
+// test.addTest('real world example. Was not processed right.', [
+// 		'Mo-Fr 09:00-12:00, Mo,Tu,Th 15:00-18:00',
+// 		'Mo – Fr: 9 – 12 Uhr und Mo, Di, Do: 15 – 18 Uhr',
+// 	], '2013.08.01 0:00', '2013.10.08 0:00', [
+// 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
 
 test.addTest('Weekdays', [
 		'Mo,Th,Sa,Su 10:00-12:00',
@@ -1003,6 +1029,16 @@ test.addTest('Input tolerance: dot as time separator', [
 		[ '2012.10.07 10:00', '2012.10.07 12:00' ],
 	], 1000 * 60 * 60 * 2 * 7, 0, true, {}, 'not last test');
 
+// test.addTest('Input tolerance: short time (test prettify)', [
+// 		'10:00-12:00,13:00-20:00', // reference value for prettify
+// 		'10-12,13-20',
+// 	], '2012.10.01 0:00', '2012.10.03 0:00', [
+// 		[ '2012.10.01 10:00', '2012.10.01 12:00' ],
+// 		[ '2012.10.01 13:00', '2012.10.01 20:00' ],
+// 		[ '2012.10.02 10:00', '2012.10.02 12:00' ],
+// 		[ '2012.10.02 13:00', '2012.10.02 20:00' ],
+// 	], 1000 * 60 * 60 * (2 + 7) * 2, 0, true, {}, 'not last test');
+
 test.addTest('Input tolerance: dot as time separator', [
 		'10:00-12:00', // reference value for prettify
 		'10.00-12.00',
@@ -1265,6 +1301,46 @@ test.addTest('Points in time and times ranges, mode 2', [
 		[ '2012.10.01 13:00', '2012.10.01 14:00' ],
 	], 1000 * 60 * (1 + 60), 0, false, nominatiomTestJSON, 'not last test', 2);
 
+test.addTest('Points in time', [
+		'Mo-Fr 10:00-16:00/01:30',
+		'Mo-Fr 10:00-16:00/90',
+		'Mo-Fr 10:00-16:00/90; Sa off "testing at end"',
+	], '2012.10.01 0:00', '2012.10.03 0:00', [
+		[ '2012.10.01 10:00', '2012.10.01 10:01' ],
+		[ '2012.10.01 11:30', '2012.10.01 11:31' ],
+		[ '2012.10.01 13:00', '2012.10.01 13:01' ],
+		[ '2012.10.01 14:30', '2012.10.01 14:31' ],
+		[ '2012.10.01 16:00', '2012.10.01 16:01' ],
+		[ '2012.10.02 10:00', '2012.10.02 10:01' ],
+		[ '2012.10.02 11:30', '2012.10.02 11:31' ],
+		[ '2012.10.02 13:00', '2012.10.02 13:01' ],
+		[ '2012.10.02 14:30', '2012.10.02 14:31' ],
+		[ '2012.10.02 16:00', '2012.10.02 16:01' ],
+	], 1000 * 60 * 5 * 2, 0, false, nominatiomTestJSON, 'not only test', 1);
+
+test.addTest('Points in time', [
+		'Mo-Fr 10:00-16:00/02:00',
+		'Mo-Fr 10:00-16:00/120',
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+		[ '2012.10.01 10:00', '2012.10.01 10:01' ],
+		[ '2012.10.01 12:00', '2012.10.01 12:01' ],
+		[ '2012.10.01 14:00', '2012.10.01 14:01' ],
+		[ '2012.10.01 16:00', '2012.10.01 16:01' ],
+	], 1000 * 60 * 4, 0, false, nominatiomTestJSON, 'not only test', 1);
+
+test.addTest('Points in time, time wrap', [
+		'Mo-Fr 22:00-03:00/01:00',
+	], '2012.10.01 0:00', '2012.10.03 0:00', [
+		[ '2012.10.01 22:00', '2012.10.01 22:01' ],
+		[ '2012.10.01 23:00', '2012.10.01 23:01' ],
+		[ '2012.10.02 00:00', '2012.10.02 00:01' ],
+		[ '2012.10.02 01:00', '2012.10.02 01:01' ],
+		[ '2012.10.02 02:00', '2012.10.02 02:01' ],
+		[ '2012.10.02 03:00', '2012.10.02 03:01' ],
+		[ '2012.10.02 22:00', '2012.10.02 22:01' ],
+		[ '2012.10.02 23:00', '2012.10.02 23:01' ],
+	], 1000 * 60 * 8, 0, false, nominatiomTestJSON, 'not last test', 1);
+
 test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', [
 		// 'Mo[2] - 6 days', // considered as "correct"
 		'Mo[2] - 0 days', // pointless
@@ -1332,6 +1408,8 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		// 'easter + 198 days', // Does throw an error, but at runtime when the problem occurs.
 		'Jan,,,Dec',
 		'Mo,,Th',
+		'12:00-15:00/60',
+		'12:00-15:00/1:00',
 	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [

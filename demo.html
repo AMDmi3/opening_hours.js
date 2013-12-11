@@ -202,7 +202,7 @@
 
 			function newValue(value) {
 				document.forms.check.elements['prettifiedValue'].focus();
-				document.forms.check.elements['expression'].value = value;
+				document.forms.check.elements['expression'].value = document.forms.check.elements['prettifiedValue'].value;
 				Evaluate();
 			}
 

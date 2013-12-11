@@ -1119,9 +1119,10 @@
 				winter: 'Nov-Apr',
 			}, 'Bitte benutze die englische Schreibweise "<ok>" für "<ko>".': {
 				sommer: 'summer',
-			}, 'Bitte benutze "<ok>" für "<ko>". Beispiel: "Mo 08:00-12:00; Tu off"': {
-				ruhetag: 'off',
-				ruhetage: 'off',
+			}, 'Bitte benutze "<ok>" für "<ko>". Beispiel: "Mo-Fr 08:00-12:00; Tu off"': {
+				ruhetag:     'off',
+				ruhetage:    'off',
+				geschlossen: 'off',
 			}, 'Assuming "<ok>" for "<ko>". Please avoid using "workday": http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays': {
 				// 	// Used around 260 times but the problem is, that work day might be different in other countries.
 				wd:       'Mo-Fr',
@@ -1144,6 +1145,8 @@
 				daily:    'Mo-Su',
 				always:   '24/7',
 				midnight: '00:00',
+				summerholiday:  'SH',
+				summerholidays: 'SH',
 			}, 'Please use time format in 24 hours notation ("<ko>").': {
 				pm: '',
 				am: '',
@@ -1154,7 +1157,10 @@
 				von: '',
 			}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>".': {
 				bis: '-',
+				'täglich': 'Mo-Su',
+			}, 'Bitte benutze die Schreibweise "<ok>" als Ersatz für "und" bzw. "u.".': {
 				und: ',',
+				u:   ',',
 			}, 'Bitte benutze die englische Abkürzung "<ok>" für "<ko>".': {
 				feiertag:   'PH',
 				feiertage:  'PH',
@@ -1937,7 +1943,7 @@
 				if (has_normal_time[0] || matchTokens(tokens, at, 'timevar') || has_time_var_calc[0]) {
 					// relying on the fact that always *one* of them is true
 
-					var is_point_in_time = false; // no time range
+					var is_point_in_time = false; // default no time range
 
 					if (has_normal_time[0])
 						var minutes_from = getMinutesByHoursMinutes(tokens, nblock, at+has_time_var_calc[0]);
@@ -1950,9 +1956,10 @@
 						minutes_from += timevar_add[0];
 					}
 
+					var at_end_time = at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 7 : 1))+1; // after '-'
 					var has_open_end = false;
-					if (!matchTokens(tokens, at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 7 : 1)), '-')) {
-						if (matchTokens(tokens, at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 7 : 1)), '+')) {
+					if (!matchTokens(tokens, at_end_time - 1, '-')) { // not time range
+						if (matchTokens(tokens, at_end_time - 1, '+')) {
 							has_open_end = true;
 						} else {
 							if (oh_mode == 0) {
@@ -1965,9 +1972,23 @@
 								is_point_in_time = true;
 							}
 						}
+					} else if (matchTokens(tokens, at_end_time + 3, '/', 'number')) {
+						if (matchTokens(tokens, at_end_time + 5, 'timesep', 'number')) {
+							var point_in_time_period = getMinutesByHoursMinutes(tokens, nblock, at_end_time + 4);
+							var at_end_time_period = 7;
+						} else {
+							var at_end_time_period = 5;
+							var point_in_time_period = tokens[at_end_time + 4][0];
+						}
+
+						if (oh_mode == 0) {
+							throw formatWarnErrorMessage(nblock, at_end_time + at_end_time_period, 'opening_hours is running in "time range mode".'
+								+ ' Found point(s) in time.');
+						}
+						is_point_in_time = true;
 					}
 
-					var at_end_time = at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 7 : 1))+1; // after '-'
+					// minutes_to
 					if (has_open_end) {
 						if (minutes_from >= 22 * 60)
 							var minutes_to = minutes_from + 60 * 8;
@@ -2003,6 +2024,8 @@
 							// 	selectors.time.push(function(date) { return [true]; });
 							// Not needed. If there is no selector it automatically matches everything.
 						}
+					} else if (typeof point_in_time_period == 'number') {
+						var minutes_to = getMinutesByHoursMinutes(tokens, nblock, at_end_time);
 					}
 
 					// normalize minutes into range
@@ -2029,7 +2052,7 @@
 					} // else: we can not calculate exact times so we use the already applied constants (word_value_replacement).
 
 					if (minutes_to > minutes_in_day) { // has_normal_time[1] must be true
-						selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time) { return function(date) {
+						selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
 
 							if (timevar_string[0]) {
@@ -2041,19 +2064,34 @@
 								minutes_to  = date_to.getHours() * 60 + date_to.getMinutes() + timevar_add[1];
 								minutes_to += minutes_in_day;
 								// Needs to be added because it was added by
-								// normal times in: if (minutes_to < // minutes_from)
+								// normal times: if (minutes_to < minutes_from)
 								// above the selector construction.
-							} else if (is_point_in_time) {
+							} else if (is_point_in_time && typeof point_in_time_period != 'number') {
 								minutes_to = minutes_from + 1;
 							}
 
-							if (ourminutes < minutes_from)
-								return [false, dateAtDayMinutes(date, minutes_from)];
-							else
-								return [true, dateAtDayMinutes(date, minutes_to), has_open_end];
-						}}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time));
+							if (typeof point_in_time_period == 'number') {
+								if (ourminutes < minutes_from) {
+									return [false, dateAtDayMinutes(date, minutes_from)];
+								} else if (ourminutes <= minutes_to) {
+									for (var cur_min = minutes_from; ourminutes + point_in_time_period >= cur_min; cur_min += point_in_time_period) {
+										if (cur_min == ourminutes) {
+											return [true, dateAtDayMinutes(date, ourminutes + 1)];
+										} else if (ourminutes < cur_min) {
+											return [false, dateAtDayMinutes(date, cur_min)];
+										}
+									}
+								}
+								return [false, dateAtDayMinutes(date, minutes_in_day)];
+							} else {
+								if (ourminutes < minutes_from)
+									return [false, dateAtDayMinutes(date, minutes_from)];
+								else
+									return [true, dateAtDayMinutes(date, minutes_to), has_open_end];
+							}
+						}}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period));
 
-						selectors.wraptime.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time) { return function(date) {
+						selectors.wraptime.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
 
 							if (timevar_string[0]) {
@@ -2068,17 +2106,27 @@
 								// above the selector construction and
 								// subtracted in the selector construction call
 								// which returns the selector function.
-							} else if (is_point_in_time) {
-								minutes_to = minutes_from + 1;
 							}
 
-							if (ourminutes < minutes_to)
-								return [true, dateAtDayMinutes(date, minutes_to), has_open_end];
-							else
-								return [false, undefined];
-						}}(minutes_from, minutes_to - minutes_in_day, timevar_string, timevar_add, has_open_end, is_point_in_time));
+							if (typeof point_in_time_period == 'number') {
+								if (ourminutes <= minutes_to) {
+									for (var cur_min = 0; ourminutes + point_in_time_period >= cur_min; cur_min += point_in_time_period) {
+										// console.log('minutes_from: ' + minutes_from + ' (' + (minutes_from / 60) + '), minutes_to: ' + minutes_to + ', cur_min: ' + cur_min + ', ourminutes: ' + ourminutes);
+										if (cur_min == ourminutes) {
+											return [true, dateAtDayMinutes(date, ourminutes + 1)];
+										} else if (ourminutes < cur_min) {
+											return [false, dateAtDayMinutes(date, cur_min)];
+										}
+									}
+								}
+							} else {
+								if (ourminutes < minutes_to)
+									return [true, dateAtDayMinutes(date, minutes_to), has_open_end];
+							}
+							return [false, undefined];
+						}}(minutes_from, minutes_to - minutes_in_day, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period));
 					} else {
-						selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time) { return function(date) {
+						selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period) { return function(date) {
 							var ourminutes = date.getHours() * 60 + date.getMinutes();
 
 							if (timevar_string[0]) {
@@ -2088,20 +2136,35 @@
 							if (timevar_string[1]) {
 								var date_to = eval('SunCalc.getTimes(date, lat, lon).' + timevar_string[1]);
 								minutes_to  = date_to.getHours() * 60 + date_to.getMinutes() + timevar_add[1];
-							} else if (is_point_in_time) {
+							} else if (is_point_in_time && typeof point_in_time_period != 'number') {
 								minutes_to = minutes_from + 1;
 							}
 
-							if (ourminutes < minutes_from)
-								return [false, dateAtDayMinutes(date, minutes_from)];
-							else if (ourminutes < minutes_to)
-								return [true, dateAtDayMinutes(date, minutes_to), has_open_end];
-							else
-								return [false, dateAtDayMinutes(date, minutes_from + minutes_in_day)];
-						}}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time));
+							if (typeof point_in_time_period == 'number') {
+								if (ourminutes < minutes_from) {
+									return [false, dateAtDayMinutes(date, minutes_from)];
+								} else if (ourminutes <= minutes_to) {
+									for (var cur_min = minutes_from; ourminutes + point_in_time_period >= cur_min; cur_min += point_in_time_period) {
+										if (cur_min == ourminutes) {
+											return [true, dateAtDayMinutes(date, ourminutes + 1)];
+										} else if (ourminutes < cur_min) {
+											return [false, dateAtDayMinutes(date, cur_min)];
+										}
+									}
+								}
+								return [false, dateAtDayMinutes(date, minutes_in_day)];
+							} else {
+								if (ourminutes < minutes_from)
+									return [false, dateAtDayMinutes(date, minutes_from)];
+								else if (ourminutes < minutes_to)
+									return [true, dateAtDayMinutes(date, minutes_to), has_open_end];
+								else
+									return [false, dateAtDayMinutes(date, minutes_from + minutes_in_day)];
+							}
+						}}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period));
 					}
 
-					at = at_end_time + (is_point_in_time ? -1 :
+					at = at_end_time + (is_point_in_time ? (typeof point_in_time_period == 'number' ? at_end_time_period : -1) :
 							(has_normal_time[1] ? 3 : (has_time_var_calc[1] ? 7 : !has_open_end))
 							);
 				} else if (matchTokens(tokens, at, 'number', '-', 'number')) { // "Mo 09-18" -> "Mo 09:00-18:00". Please don’t use this
@@ -3415,7 +3478,7 @@
 					value += ':00-';
 					value += (tokens[at+2][0] < 10 ? '0' : '') + tokens[at+2][0].toString();
 					value += ':00';
-					at += 3;
+					at += 2;
 				} else if (matchTokens(tokens, at, 'comment')) {
 					value += '"' + tokens[at][0].toString() + '"';
 				} else if (matchTokens(tokens, at, 'closed')) {

@@ -279,7 +279,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Supports [fallback rules][] (```We-Fr 10:00-24:00 open "it is open" || "please call"```).
 
   Note that only the rule which starts with ```||``` is a fallback rule. Other rules which might follow are considered as normal rules.
-* Supports [additional rules][] or cooperative values (```Mo-Fr 08:00-12:00, We 14:00-18:00```). A additional rule is treaded exactly the same as a normal rule, except that a additional rule does not overwrite the day for which it applies. Note that a additional rule does not use any data from previous or from following rules.
+* Supports [additional rules][] or cooperative values (```Mo-Fr 08:00-12:00, We 14:00-18:00```). A additional rule is treated exactly the same as a normal rule, except that a additional rule does not overwrite the day for which it applies. Note that a additional rule does not use any data from previous or from following rules.
 
   A rule does only count as additional rule if the previous rule ends with a time range (```12:00-14:00, We 16:00-18:00```), a comment (```12:00-14:00 "call us", We 16:00-18:00```) or the keywords 'open', 'unknown' or 'closed' (```12:00-14:00 unknown, We 16:00-18:00```)
 
@@ -319,7 +319,10 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 [suncalc]: https://github.com/mourner/suncalc
 
+### Points in time ###
+
 * In mode 1 or 2, points in time are evaluated. Example: ```Mo-Fr 12:00,15:00,18:00; Su (sunrise+01:00)```. Currently a point in time is interpreted as an interval of one minute. It was the easiest thing to implement and has some advantages. See [here](https://github.com/AMDmi3/opening_hours.js/issues/12) for discussion.
+* To express regular points in time, like each hour, a abbreviation can be used to exress the above example ```Mo-Fr 12:00-18:00/3:00``` which means from 12:00 to 18:00 every three hours.
 
 ### Weekday ranges ###
 
