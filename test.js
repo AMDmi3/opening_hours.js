@@ -80,6 +80,12 @@ test.addTest('Open end', [
 // 		'sunrise-14:00+',
 // 	], '2012.10.01 0:00', '2012.10.02 0:00', [
 // 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
+//
+// test.addTest('variable time range followed by open end', [
+// 		'sunrise-(sunset+01:00)+',
+// 		'sunrise-(sunset+01:00)+; Su off',
+// 	], '2012.10.01 0:00', '2012.10.02 0:00', [
+// 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
 
 test.addTest('Open end', [
 		'17:00+ closed',
@@ -458,11 +464,19 @@ test.addTest('Constrained weekday (complex real world example)', [
 // 	], '2013.08.01 0:00', '2013.10.08 0:00', [
 // 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
 //
-// test.addTest('real world example. Was not processed right.', [
-// 		'Mo-Fr 09:00-12:00, Mo,Tu,Th 15:00-18:00',
-// 		'Mo – Fr: 9 – 12 Uhr und Mo, Di, Do: 15 – 18 Uhr',
-// 	], '2013.08.01 0:00', '2013.10.08 0:00', [
-// 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
+test.addTest('real world example.', [
+		'Mo-Fr 09:00-12:00, Mo,Tu,Th 15:00-18:00', // reference value for prettify
+		'Mo – Fr: 9 – 12 Uhr und Mo, Di, Do: 15 – 18 Uhr',
+	], '2014.09.01 0:00', '2014.09.08 0:00', [
+		[ '2014.09.01 09:00', '2014.09.01 12:00' ],
+		[ '2014.09.01 15:00', '2014.09.01 18:00' ],
+		[ '2014.09.02 09:00', '2014.09.02 12:00' ],
+		[ '2014.09.02 15:00', '2014.09.02 18:00' ],
+		[ '2014.09.03 09:00', '2014.09.03 12:00' ],
+		[ '2014.09.04 09:00', '2014.09.04 12:00' ],
+		[ '2014.09.04 15:00', '2014.09.04 18:00' ],
+		[ '2014.09.05 09:00', '2014.09.05 12:00' ],
+	], 1000 * 60 * 60 * (5 * 3 + 3 * 3), 0, true, {}, 'not last test');
 
 test.addTest('Weekdays', [
 		'Mo,Th,Sa,Su 10:00-12:00',
@@ -782,10 +796,10 @@ test.addTest('Monthday ranges', [
 		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
 	], 1000 * 60 * 60 * 24 * 21, 0, false);
 
-// test.addTest('Monthday ranges', [
-// 		'Jan 23,25', // must be expressed as Jan 23,Jan 25
-// 	], '2012.01.01 0:00', '2013.01.01 0:00', [
-// 	], 1000 * 60 * 60 * 24 * 21, 0, false, {}, 'not last test');
+test.addTest('Monthday ranges', [
+		ignored('Jan 23,25'), // must be expressed as Jan 23,Jan 25
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+	], 1000 * 60 * 60 * 24 * 21, 0, false, {}, 'not last test');
 
 test.addTest('Monthday ranges', [
 		'Dec 24,Jan 2: 18:00-22:00',
@@ -1029,15 +1043,15 @@ test.addTest('Input tolerance: dot as time separator', [
 		[ '2012.10.07 10:00', '2012.10.07 12:00' ],
 	], 1000 * 60 * 60 * 2 * 7, 0, true, {}, 'not last test');
 
-// test.addTest('Input tolerance: short time (test prettify)', [
-// 		'10:00-12:00,13:00-20:00', // reference value for prettify
-// 		'10-12,13-20',
-// 	], '2012.10.01 0:00', '2012.10.03 0:00', [
-// 		[ '2012.10.01 10:00', '2012.10.01 12:00' ],
-// 		[ '2012.10.01 13:00', '2012.10.01 20:00' ],
-// 		[ '2012.10.02 10:00', '2012.10.02 12:00' ],
-// 		[ '2012.10.02 13:00', '2012.10.02 20:00' ],
-// 	], 1000 * 60 * 60 * (2 + 7) * 2, 0, true, {}, 'not last test');
+test.addTest('Input tolerance: short time (test prettify)', [
+		'10:00-12:00,13:00-20:00', // reference value for prettify
+		'10-12,13-20',
+	], '2012.10.01 0:00', '2012.10.03 0:00', [
+		[ '2012.10.01 10:00', '2012.10.01 12:00' ],
+		[ '2012.10.01 13:00', '2012.10.01 20:00' ],
+		[ '2012.10.02 10:00', '2012.10.02 12:00' ],
+		[ '2012.10.02 13:00', '2012.10.02 20:00' ],
+	], 1000 * 60 * 60 * (2 + 7) * 2, 0, true, {}, 'not last test');
 
 test.addTest('Input tolerance: dot as time separator', [
 		'10:00-12:00', // reference value for prettify
@@ -1410,6 +1424,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Mo,,Th',
 		'12:00-15:00/60',
 		'12:00-15:00/1:00',
+		'12:00-15:00/1:',
 	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [

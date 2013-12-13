@@ -1985,6 +1985,10 @@
 							throw formatWarnErrorMessage(nblock, at_end_time + at_end_time_period, 'opening_hours is running in "time range mode".'
 								+ ' Found point(s) in time.');
 						}
+						if (at_end_time_period == 5 && matchTokens(tokens, at_end_time + at_end_time_period, 'timesep')) {
+							throw formatWarnErrorMessage(nblock, at_end_time + at_end_time_period,
+								'Time period does not continue as expected. Exampe /1:30.');
+						}
 						is_point_in_time = true;
 					}
 

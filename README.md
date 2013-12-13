@@ -322,7 +322,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 ### Points in time ###
 
 * In mode 1 or 2, points in time are evaluated. Example: ```Mo-Fr 12:00,15:00,18:00; Su (sunrise+01:00)```. Currently a point in time is interpreted as an interval of one minute. It was the easiest thing to implement and has some advantages. See [here](https://github.com/AMDmi3/opening_hours.js/issues/12) for discussion.
-* To express regular points in time, like each hour, a abbreviation can be used to exress the above example ```Mo-Fr 12:00-18:00/3:00``` which means from 12:00 to 18:00 every three hours.
+* To express regular points in time, like each hour, a abbreviation can be used to exress the above example ```Mo-Fr 12:00-18:00/03:00``` which means from 12:00 to 18:00 every three hours.
 
 ### Weekday ranges ###
 
