@@ -1375,6 +1375,16 @@ test.addTest('Points in time, period times time wrap', [
 		[ '2012.10.02 23:00', '2012.10.02 23:01' ],
 	], 1000 * 60 * 8, 0, true, {}, 'not last test', 1);
 
+test.addTest('Points in time, period times with variable times', [
+		'Mo-Fr sunrise-(sunset-02:00)/120',
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+		[ '2012.10.01 07:22', '2012.10.01 07:23' ],
+		[ '2012.10.01 09:22', '2012.10.01 09:23' ],
+		[ '2012.10.01 11:22', '2012.10.01 11:23' ],
+		[ '2012.10.01 13:22', '2012.10.01 13:23' ],
+		[ '2012.10.01 15:22', '2012.10.01 15:23' ],
+	], 1000 * 60 * 5, 0, false, nominatiomTestJSON, 'not last test', 1);
+
 test.addTest('Points in time, period times real world', [
 		'Sa 08:00,09:00,10:00,11:00,12:00,13:00,14:00, Mo-Fr 15:00,16:00,17:00,18:00,19:00,20:00',
 		'Mo-Fr 15:00-20:00/60; Sa 08:00-14:00/60',
@@ -1413,6 +1423,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'Jan 1-22/1',
 		'"testing" "second comment"',
 		'Jan 12:00-13:00 Mo 15:00-16:00',
+		'sunrise-(sunset-00:00)',
 		// 'easter + 353 days', // Does throw an error, but at runtime when the problem occurs respectively with the call of getWarnings().
 	], {}, 'not last test');
 
