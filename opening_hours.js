@@ -1941,20 +1941,21 @@
 					// relying on the fact that always *one* of them is true
 
 					var is_point_in_time = false; // default no time range
+					var has_open_end     = false; // default no open end
+					var timevar_add = [ 0, 0 ];
 
-					if (has_normal_time[0])
+					if (has_normal_time[0]) {
 						var minutes_from = getMinutesByHoursMinutes(tokens, nblock, at+has_time_var_calc[0]);
-					else
+					} else {
 						var minutes_from = word_value_replacement[tokens[at+has_time_var_calc[0]][0]];
 
-					var timevar_add = [ 0, 0 ];
-					if (has_time_var_calc[0]) {
-						timevar_add[0] = parseTimevarCalc(tokens, at);
-						minutes_from += timevar_add[0];
+						if (has_time_var_calc[0]) {
+							timevar_add[0] = parseTimevarCalc(tokens, at);
+							minutes_from += timevar_add[0];
+						}
 					}
 
 					var at_end_time = at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 7 : 1))+1; // after '-'
-					var has_open_end = false;
 					if (!matchTokens(tokens, at_end_time - 1, '-')) { // not time range
 						if (matchTokens(tokens, at_end_time - 1, '+')) {
 							has_open_end = true;
@@ -2044,8 +2045,9 @@
 
 					var timevar_string = [];
 					if (typeof lat != 'undefined') { // lon will also be defined (see above)
-						if ((!has_normal_time[0] || !has_normal_time[1]) && !has_open_end)
+						if (!has_normal_time[0] || !(has_normal_time[1] || has_open_end || is_point_in_time) )
 							week_stable = false;
+
 						if (!has_normal_time[0])
 							timevar_string[0] = tokens[at+has_time_var_calc[0]][0];
 						if (!has_normal_time[1] && !has_open_end && !is_point_in_time)

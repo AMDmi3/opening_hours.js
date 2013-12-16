@@ -73,6 +73,18 @@ test.addTest('Open end', [
 		[ '2012.10.01 17:00', '2012.10.02 00:00', true, 'Specified as open end. Closing time was guessed.' ],
 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
 
+test.addTest('Open end, variable time', [
+		'sunrise+',
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+		[ '2012.10.01 07:22', '2012.10.02 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+	], 0, 1000 * 60 * (60 * 16 + 60 - 22), false, nominatiomTestJSON, 'not last test');
+
+test.addTest('Open end, variable time', [
+		'(sunrise+01:00)+',
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+		[ '2012.10.01 08:22', '2012.10.02 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+	], 0, 1000 * 60 * (60 * 15 + 60 - 22), false, nominatiomTestJSON, 'not last test');
+
 // proposal: http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_end_fixed_time_extension
 // test.addTest('Fixed time followed by open end', [
 // 		'14:00-17:00+',
@@ -1293,7 +1305,7 @@ test.addTest('Points in time, mode 1', [
 		[ '2012.10.03 14:00', '2012.10.03 14:01' ],
 		[ '2012.10.04 14:00', '2012.10.04 14:01' ],
 		[ '2012.10.05 14:00', '2012.10.05 14:01' ],
-	], 1000 * 60 * 6, 0, false, nominatiomTestJSON, 'not last test', 1);
+	], 1000 * 60 * 6, 0, true, nominatiomTestJSON, 'not last test', 1);
 
 test.addTest('Points in time, mode 1', [
 		'Mo sunrise,sunset',
@@ -1321,9 +1333,9 @@ test.addTest('Points in time and times ranges, mode 2', [
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 12:00', '2012.10.01 12:01' ],
 		[ '2012.10.01 13:00', '2012.10.01 14:00' ],
-	], 1000 * 60 * (1 + 60), 0, false, nominatiomTestJSON, 'not last test', 2);
+	], 1000 * 60 * (1 + 60), 0, true, nominatiomTestJSON, 'not last test', 2);
 
-test.addTest('Points in time', [
+test.addTest('Points in time, period times', [
 		'Mo-Fr 10:00-16:00/01:30',
 		'Mo-Fr 10:00-16:00/90',
 		'Mo-Fr 10:00-16:00/90; Sa off "testing at end"',
@@ -1338,9 +1350,9 @@ test.addTest('Points in time', [
 		[ '2012.10.02 13:00', '2012.10.02 13:01' ],
 		[ '2012.10.02 14:30', '2012.10.02 14:31' ],
 		[ '2012.10.02 16:00', '2012.10.02 16:01' ],
-	], 1000 * 60 * 5 * 2, 0, false, nominatiomTestJSON, 'not only test', 1);
+	], 1000 * 60 * 5 * 2, 0, true, {}, 'not only test', 1);
 
-test.addTest('Points in time', [
+test.addTest('Points in time, period times', [
 		'Mo-Fr 10:00-16:00/02:00',
 		'Mo-Fr 10:00-16:00/120',
 	], '2012.10.01 0:00', '2012.10.02 0:00', [
@@ -1348,9 +1360,9 @@ test.addTest('Points in time', [
 		[ '2012.10.01 12:00', '2012.10.01 12:01' ],
 		[ '2012.10.01 14:00', '2012.10.01 14:01' ],
 		[ '2012.10.01 16:00', '2012.10.01 16:01' ],
-	], 1000 * 60 * 4, 0, false, nominatiomTestJSON, 'not only test', 1);
+	], 1000 * 60 * 4, 0, true, {}, 'not only test', 1);
 
-test.addTest('Points in time, time wrap', [
+test.addTest('Points in time, period times time wrap', [
 		'Mo-Fr 22:00-03:00/01:00',
 	], '2012.10.01 0:00', '2012.10.03 0:00', [
 		[ '2012.10.01 22:00', '2012.10.01 22:01' ],
@@ -1361,7 +1373,26 @@ test.addTest('Points in time, time wrap', [
 		[ '2012.10.02 03:00', '2012.10.02 03:01' ],
 		[ '2012.10.02 22:00', '2012.10.02 22:01' ],
 		[ '2012.10.02 23:00', '2012.10.02 23:01' ],
-	], 1000 * 60 * 8, 0, false, nominatiomTestJSON, 'not last test', 1);
+	], 1000 * 60 * 8, 0, true, {}, 'not last test', 1);
+
+test.addTest('Points in time, period times real world', [
+		'Sa 08:00,09:00,10:00,11:00,12:00,13:00,14:00, Mo-Fr 15:00,16:00,17:00,18:00,19:00,20:00',
+		'Mo-Fr 15:00-20:00/60; Sa 08:00-14:00/60',
+	], '2013.12.06 0:00', '2013.12.08 0:00', [
+		[ '2013.12.06 15:00', '2013.12.06 15:01' ],
+		[ '2013.12.06 16:00', '2013.12.06 16:01' ],
+		[ '2013.12.06 17:00', '2013.12.06 17:01' ],
+		[ '2013.12.06 18:00', '2013.12.06 18:01' ],
+		[ '2013.12.06 19:00', '2013.12.06 19:01' ],
+		[ '2013.12.06 20:00', '2013.12.06 20:01' ],
+		[ '2013.12.07 08:00', '2013.12.07 08:01' ],
+		[ '2013.12.07 09:00', '2013.12.07 09:01' ],
+		[ '2013.12.07 10:00', '2013.12.07 10:01' ],
+		[ '2013.12.07 11:00', '2013.12.07 11:01' ],
+		[ '2013.12.07 12:00', '2013.12.07 12:01' ],
+		[ '2013.12.07 13:00', '2013.12.07 13:01' ],
+		[ '2013.12.07 14:00', '2013.12.07 14:01' ],
+	], 1000 * 60 * 13, 0, true, {}, 'not last test', 1);
 
 test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', [
 		// 'Mo[2] - 6 days', // considered as "correct"
