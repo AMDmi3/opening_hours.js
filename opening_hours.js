@@ -1132,21 +1132,32 @@
 				h: '',
 			}, 'Please ommit "<ko>".': {
 				season: '',
+				hs:     '',
+				hrs:    '',
+				hours:  '',
 			}, 'Please ommit "<ko>". You might want to express open end which can be specified as "12:00+" for example': {
 				from: '',
-			}, 'Please use notation "<ok>" for "<ko>". If the times are unsure or variate consider a comment e.g. 12:00-14:00 "only on sunshine".': {
+			}, 'Please use notation "<ok>" for "<ko>". If the times are unsure or vary consider a comment e.g. 12:00-14:00 "only on sunshine".': {
 				'~':  '-',
+				'～': '-',
 			}, 'Please use notation "<ok>" for "<ko>".': {
 				'–':  '-',
+				'ー':  '-',
 				to:   '-',
 				till: '-',
 				and:  ',',
 				'&':  ',',
-				daily:    'Mo-Su',
-				always:   '24/7',
+				'：':  ':',
+				';':  ';',
+				daily:     'Mo-Su',
+				everyday:  'Mo-Su',
+				always:    '24/7',
+				nonstop:   '24/7',
 				midnight: '00:00',
-				summerholiday:  'SH',
-				summerholidays: 'SH',
+				holiday:  'PH',
+				holidays: 'PH',
+				// summerholiday:  'SH',
+				// summerholidays: 'SH',
 			}, 'Please use time format in 24 hours notation ("<ko>").': {
 				pm: '',
 				am: '',
@@ -1163,6 +1174,7 @@
 				u:   ',',
 			}, 'Bitte benutze die englische Abkürzung "<ok>" für "<ko>".': {
 				feiertag:   'PH',
+				feiertags:  'PH',
 				feiertage:  'PH',
 				feiertagen: 'PH'
 			}, 'S\'il vous plaît utiliser "<ok>" pour "<ko>".': {
@@ -1620,7 +1632,7 @@
 				} else if (tmp = value.match(/^days?/i)) {
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(&|–|~|[a-zA-ZäÄàÀéÉ]+\b)\.?/i)) {
+				} else if (tmp = value.match(/^(&|–|ー|~|～|：|[a-zA-ZäÄàÀéÉ]+\b)\.?/i)) {
 					// Handle all remaining words with error tolerance
 					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
 					if (typeof correct_val == 'object') {
