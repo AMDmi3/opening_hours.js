@@ -50,6 +50,13 @@ test.addTest('Time intervals', [
 		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true, {}, 'not last test');
 
+test.addTest('Time intervals, short time', [
+		'Mo 07:00-18:00',
+		'Mo 7-18', // throws a warning, use previous value which is equal.
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 07:00', '2012.10.01 18:00' ],
+	], 1000 * 60 * 60 * 11, 0, true, {}, 'not last test');
+
 test.addTest('Open end', [
 		'07:00+ open "visit there website to know if they did already close"', // specified comments should not be overridden
 		'07:00+ unknown "visit there website to know if they did already close"', // will always interpreted as unknown
@@ -66,6 +73,7 @@ test.addTest('Open end', [
 		[ '2012.10.01 17:00', '2012.10.02 00:00', true, 'Specified as open end. Closing time was guessed.' ],
 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
 
+// proposal: http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_end_fixed_time_extension
 // test.addTest('Fixed time followed by open end', [
 // 		'14:00-17:00+',
 // 	], '2012.10.01 0:00', '2012.10.02 0:00', [
