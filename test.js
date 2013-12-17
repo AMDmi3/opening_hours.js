@@ -2,10 +2,10 @@ var opening_hours = require('./opening_hours.js');
 var colors = require('colors');
 
 colors.setTheme({
-  passed:  [ 'green'  , 'bold' ] ,
-  failed:  [ 'red'    , 'bold' ] ,
-  crashed: [ 'magenta', 'bold' ] ,
-  ignored: [ 'yellow' , 'bold' ] ,
+	passed:  [ 'green'  , 'bold' ] ,
+	failed:  [ 'red'    , 'bold' ] ,
+	crashed: [ 'magenta', 'bold' ] ,
+	ignored: [ 'yellow' , 'bold' ] ,
 });
 
 
@@ -1484,7 +1484,12 @@ test.addShouldFail('Missing information (e.g. country or holidays not defined in
 
 test.addShouldFail('opening_hours.js is in the wrong mode.', [
 		'Mo sunrise,sunset', // only in mode 1 or 2, default is 0
+		'Mo sunrise-(sunrise+01:00)/60', // only in mode 1 or 2, default is 0
 	], nominatiomTestJSON, 'not last test');
+
+test.addShouldFail('opening_hours.js is in the wrong mode.', [
+		'Mo 12:00-14:00', // only in mode 0 or 2
+	], nominatiomTestJSON, 'not last test', 1);
 
 test.addCompMatchingRule('Compare result from getMatchingRule()', [
 		'10:00-16:00',
@@ -1519,10 +1524,10 @@ function opening_hours_test() {
 	var tests_should_warn = [];
 	var tests_comp_matching_rule = [];
 
-	function runSingleTestShouldFail(name, value, nominatiomJSON) {
+	function runSingleTestShouldFail(name, value, nominatiomJSON, oh_mode) {
 		try {
 			// since they should fail anyway we can give them the nominatiomTestJSON
-			oh = new opening_hours(value, nominatiomJSON);
+			oh = new opening_hours(value, nominatiomJSON, oh_mode);
 
 			crashed = false;
 		} catch (err) {
@@ -1745,7 +1750,7 @@ function opening_hours_test() {
 				success++;
 		}
 		for (var test = 0; test < tests_should_fail.length; test++) {
-			if (runSingleTestShouldFail(tests_should_fail[test][0], tests_should_fail[test][1], tests_should_fail[test][2]))
+			if (runSingleTestShouldFail(tests_should_fail[test][0], tests_should_fail[test][1], tests_should_fail[test][2], tests_should_fail[test][3]))
 				success++;
 		}
 		for (var test = 0; test < tests_comp_matching_rule.length; test++) {
@@ -1782,15 +1787,15 @@ function opening_hours_test() {
 					[ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON, oh_mode]);
 	}
 
-	this.addShouldFail = function(name, values, nominatiomJSON, last) {
+	this.addShouldFail = function(name, values, nominatiomJSON, last, oh_mode) {
 		if (this.last == true) return;
 		this.handle_only_test(last);
 
 		if (typeof values === 'string')
-			tests_should_fail.push([name, values, nominatiomJSON]);
+			tests_should_fail.push([name, values, nominatiomJSON, oh_mode]);
 		else
 			for (var value = 0; value < values.length; value++)
-				tests_should_fail.push([name, values[value], nominatiomJSON]);
+				tests_should_fail.push([name, values[value], nominatiomJSON, oh_mode]);
 	}
 	this.addShouldWarn = function(name, values, nominatiomJSON, last) {
 		if (this.last == true) return;

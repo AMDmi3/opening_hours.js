@@ -1148,7 +1148,6 @@
 				and:  ',',
 				'&':  ',',
 				'：':  ':',
-				';':  ';',
 				daily:     'Mo-Su',
 				everyday:  'Mo-Su',
 				always:    '24/7',
@@ -1978,8 +1977,9 @@
 							if (oh_mode == 0) {
 								throw formatWarnErrorMessage(nblock, at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 2 : 1)),
 									'hyphen (-) or open end (+) in time range '
-									+ (has_time_var_calc[0] ? 'calculation ' : '')
-									+ 'expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?');
+									+ (has_time_var_calc[0] ? 'calculation ' : '') + 'expected.'
+									+ ' For working with points in time, the mode for opening_hours.js has to be altered.'
+									+ ' Maybe wrong tag?');
 							} else {
 								var minutes_to = minutes_from + 1;
 								is_point_in_time = true;
@@ -1995,7 +1995,7 @@
 							var minutes_to = minutes_from + 10 * 60;
 						else
 							var minutes_to = minutes_in_day;
-					} else if (!is_point_in_time || typeof point_in_time_period == 'number') {
+					} else if (!is_point_in_time) {
 						has_normal_time[1] = matchTokens(tokens, at_end_time, 'number', 'timesep', 'number');
 						has_time_var_calc[1]      = matchTokens(tokens, at_end_time, '(', 'timevar');
 						if (!has_normal_time[1] && !matchTokens(tokens, at_end_time, 'timevar') && !has_time_var_calc[1]) {
@@ -2012,11 +2012,6 @@
 								timevar_add[1] = parseTimevarCalc(tokens, at_end_time);
 								minutes_to += timevar_add[1];
 							}
-
-
-							// if (oh_mode == 1 && typeof point_in_time_period != 'number')
-							// 	throw formatWarnErrorMessage(nblock, at_end_time,
-							// 		'opening_hours is running in "points in time mode". Found time range.');
 						}
 					}
 
@@ -2038,9 +2033,12 @@
 
 						if (oh_mode == 0)
 							throw formatWarnErrorMessage(nblock, at - 1,
-								'opening_hours is running in "time range mode". Found point(s) in time.');
+								'opening_hours is running in "time range mode". Found point in time.');
 
 						is_point_in_time = true;
+					} else if (oh_mode == 1 && !is_point_in_time) {
+						throw formatWarnErrorMessage(nblock, at_end_time,
+							'opening_hours is running in "points in time mode". Found time range.');
 					}
 
 					if (typeof lat != 'undefined') { // lon will also be defined (see above)
