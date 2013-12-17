@@ -1525,7 +1525,7 @@
 			var continue_at = 0;
 			do {
 				if (continue_at == tokens[nblock][0].length) break;
-				// Block does contain nothing useful e.g. second block of '10:00-12:00,' (empty) which needs to be handled.
+				// Additional block does contain nothing useful e.g. second block of '10:00-12:00,' (empty) which needs to be handled.
 
 				var selectors = {
 					// Time selectors
@@ -1550,8 +1550,10 @@
 					meaning: true,
 					unknown: false,
 					comment: undefined,
+					build_from_token_block: undefined,
 				};
 
+				selectors.build_from_token_block = [ nblock, continue_at ];
 				continue_at = parseGroup(tokens[nblock][0], continue_at, selectors, nblock);
 				if (typeof continue_at == 'object')
 					continue_at = continue_at[0];
@@ -3315,7 +3317,7 @@
 			var resultstate = false;
 			var changedate;
 			var unknown = false;
-			var comment = undefined;
+			var comment;
 			var match_block;
 
 			var date_matching_blocks = [];
@@ -3574,7 +3576,7 @@
 					if (typeof user_conf != 'object')
 						var user_conf = {};
 					for (key in default_prettify_conf) {
-						if (typeof user_conf[key] != 'undefined')
+						if (typeof user_conf[key] == 'undefined')
 							user_conf[key] = default_prettify_conf[key];
 					}
 
@@ -3591,9 +3593,12 @@
 						comment: undefined,
 					};
 
-					// console.log(tokens.toString());
-					// console.log(state[4] +' '+ tokens[state[4]]);
-					parseGroup(tokens[state[4]][0], 0, selectors, state[4], user_conf);
+					// token block index used to build the selectors for this block.
+					var token_block = blocks[state[4]].build_from_token_block;
+					parseGroup(tokens[token_block[0]][0], token_block[1], selectors, state[4], user_conf);
+
+					if (prettified_value[prettified_value.length - 1] == ',')
+						prettified_value = prettified_value.substr(0, prettified_value.length - 1);
 
 					done_with_warnings = really_done_with_warnings;
 

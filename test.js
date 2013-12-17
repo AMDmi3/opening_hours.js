@@ -688,15 +688,6 @@ test.addTest('Additional blocks', [
 		[ '2012.10.05 08:00', '2012.10.05 12:00' ],
 	], 1000 * 60 * 60 * (5 * 4 + 4), 0, true, {}, 'not last test');
 
-// for https://github.com/ypid/opening_hours.js/issues/16
-test.addTest('Additional blocks with comment', [
-		'Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"',
-		'Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"', // should mean the same
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.05 08:00', '2012.10.05 12:00' ],
-		[ '2012.10.05 12:00', '2012.10.05 16:00', false, 'Notfallsprechstunde' ],
-	], 1000 * 60 * 60 * (4 + 4), 0, true, {}, 'not last test');
-
 test.addTest('Fallback group blocks (unknown)', [
 		'We-Fr 10:00-24:00 open "it is open" || "please call"',
 		'We-Fr 10:00-24:00 open "it is open" || "please call" || closed "should never appear"',
@@ -1520,6 +1511,27 @@ test.addCompMatchingRule('Compare result from getMatchingRule()', [
 	], '2012.01.01 09:00',
 	'"general unknown"', {}, 'n last test');
 
+// for https://github.com/ypid/opening_hours.js/issues/16
+test.addTest('Additional blocks with comment', [
+		'Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"',
+		'Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"', // should mean the same
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.05 08:00', '2012.10.05 12:00' ],
+		[ '2012.10.05 12:00', '2012.10.05 16:00', false, 'Notfallsprechstunde' ],
+	], 1000 * 60 * 60 * (4 + 4), 0, true, {}, 'n last test');
+
+test.addCompMatchingRule('Compare result from getMatchingRule()', [
+		'Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"',
+		'Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"', // should mean the same
+	], '2013.12.20 09:00',
+	'Fr 08:00-12:00', {}, 'n last test');
+
+test.addCompMatchingRule('Compare result from getMatchingRule()', [
+		'Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"',
+		'Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"', // should mean the same
+	], '2013.12.20 13:00',
+	'Fr 12:00-16:00 open "Notfallsprechstunde"', {}, 'n last test');
+
 process.exit(test.run() ? 0 : 1);
 
 //======================================================================
@@ -1821,7 +1833,7 @@ function opening_hours_test() {
 		this.handle_only_test(last);
 
 		if (typeof values == 'string')
-			tests_comp_matching_rule.push([name, values, matching_rule, nominatiomJSON]);
+			tests_comp_matching_rule.push([name, values, date, matching_rule, nominatiomJSON]);
 		else
 			for (var value = 0; value < values.length; value++)
 				tests_comp_matching_rule.push([name, values[value], date, matching_rule, nominatiomJSON]);
