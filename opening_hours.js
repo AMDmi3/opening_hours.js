@@ -1115,8 +1115,10 @@
 	var word_error_correction = {
 		wrong_words: {
 			'Assuming "<ok>" for "<ko>"': {
-				summer: 'May-Oct',
-				winter: 'Nov-Apr',
+				spring: 'Mar-May',
+				summer: 'Jun-Aug',
+				autumn: 'Sep-Nov',
+				winter: 'Dec-Feb',
 			}, 'Bitte benutze die englische Schreibweise "<ok>" für "<ko>".': {
 				sommer: 'summer',
 			}, 'Bitte benutze "<ok>" für "<ko>". Beispiel: "Mo-Fr 08:00-12:00; Tu off"': {

@@ -450,7 +450,7 @@ List of missing features which can currently not be expressing in any other way 
 ## Author ##
 
 * [Dmitry Marakasov](https://github.com/AMDmi3) <amdmi3@amdmi3.ru> (initial coding and design and all basic features like time ranges, week ranges, month ranges and week ranges)
-* [Robin Schneider](https://github.com/ypid)   (added support for years, holidays, unknown, comments, open end, fallback/additional rules (and more), wrote getWarnings, prettifyValue, translated demo page to Engish and German and extended it to enter values yourself.)
+* [Robin Schneider](https://github.com/ypid)   (current maintainer. Added support for years, holidays, unknown, comments, open end, fallback/additional rules (and more), wrote getWarnings, prettifyValue, translated demo page to Engish and German and extended it to enter values yourself.)
 
 ## Contributors ##
 
