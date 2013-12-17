@@ -1990,7 +1990,7 @@
 					// minutes_to
 					if (has_open_end) {
 						if (minutes_from >= 22 * 60)
-							var minutes_to = minutes_from + 08 * 60;
+							var minutes_to = minutes_from +  8 * 60;
 						else if (minutes_from >= 17 * 60)
 							var minutes_to = minutes_from + 10 * 60;
 						else
@@ -3591,6 +3591,8 @@
 						comment: undefined,
 					};
 
+					// console.log(tokens.toString());
+					// console.log(state[4] +' '+ tokens[state[4]]);
 					parseGroup(tokens[state[4]][0], 0, selectors, state[4], user_conf);
 
 					done_with_warnings = really_done_with_warnings;
