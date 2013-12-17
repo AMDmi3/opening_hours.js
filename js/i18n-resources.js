@@ -271,6 +271,8 @@ var resources = { // English is fallback language.
                 "mode 2": "Les plages horaires et les points dans le temps sont acceptés (tags service_times, collection_times)",
                 "value to long for osm": "La valeur est trop longue pour OSM. La base de données OpenStreetMap est actuellement limitée à des valeurs d'un maximum de __maxLength__ caractères. La valeur embellie a une longueur de __pretLength__ et la valeur que vous avez entrée comporte __valLength__ caractères",
                 "low zoom level": 'Les POIs vont commencer à apparaître au niveau de zoom ${next} et au-delà. Vous êtes actuellement au niveau de zoom ${actual}.',
+                "all n entries": "Ensemble des __total__ entrées :",
+                "the first entries": "Les __number__ premières entrées sur __total__ :",
             },
             "words": {
                 "mode": "mode d'évaluation",
