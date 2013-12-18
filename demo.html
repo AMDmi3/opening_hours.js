@@ -175,7 +175,7 @@
 					if (prettified != value) {
 						show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.prettified value',
 							{ copyFunc: 'javascript:newValue(\'' + prettified.replace(/"/g, '&quot;') + '\')' }) + ':<br />'
-							+ '<input style="width: 100%" name="prettifiedValue" value="' + prettified.replace(/"/g, '&quot;') + '" /></p>';
+							+ '<input style="width: 100%" onclick="javascript:newValue(\'' + prettified.replace(/"/g, '&quot;') + '\')" id="prettifiedValue" name="prettifiedValue" value="' + prettified.replace(/"/g, '&quot;') + '" /></p>';
 					}
 
 					var warnings = oh.getWarnings();
@@ -202,7 +202,8 @@
 
 			function newValue(value) {
 				document.forms.check.elements['prettifiedValue'].focus();
-				document.forms.check.elements['expression'].value = document.forms.check.elements['prettifiedValue'].value;
+				document.forms.check.elements['prettifiedValue'].focus();
+				document.forms.check.elements['expression'].value = value;
 				Evaluate();
 			}
 
