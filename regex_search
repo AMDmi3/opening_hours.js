@@ -74,15 +74,23 @@ signal.signal(signal.SIGINT, signal_handler)
 
 try:    json_data = codecs.open(json_file, 'r', 'utf-8')
 except IOError as detail:
-    print('File '+ json_file +' is not readable: '+ detail[1])
+    sys.stderr.write('File '+ json_file +' is not readable: '+ detail[1])
     sys.exit(1)
 
 taginfo_tag_export = json.load(json_data)
 json_data.close()
 
-oh = subprocess.Popen(['node', 'interactive_testing.js', '--no-warnings'],
-                     stdout=subprocess.PIPE,
-                     stdin=subprocess.PIPE)
+subprocess_param = ['node', 'interactive_testing.js', '--no-warnings']
+try:
+    oh = subprocess.Popen(subprocess_param, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
+except OSError:
+    subprocess_param[0] = 'nodejs'
+    try:
+        oh = subprocess.Popen(subprocess_param, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
+    except OSError:
+        sys.stderr.write('You need to install nodejs.')
+        sys.exit(1)
+
 oh.stdout.readline().strip() # read message from interactive_testing.js
 
 print 'Loaded %s.' % json_file

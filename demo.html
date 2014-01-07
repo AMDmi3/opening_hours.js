@@ -17,6 +17,7 @@
 		<script type="text/javascript" src="js/i18next-1.6.3.min.js"></script>
 		<script type="text/javascript" src="js/i18n-resources.js"></script>
 		<script type="text/javascript" src="js/opening_hours_table.js"></script>
+		<script type="text/javascript" src="js/helpers.js"></script>
 		<script type="text/javascript">
 			// add calculation for calendar week to date {{{
 			function dateAtWeek(date, week) {
@@ -147,6 +148,7 @@
 					show_results.innerHTML    = '';
 				}
 
+				show_time_table.innerHTML = '<a href="javascript:josm(\'import?url=' + encodeURIComponent('http://overpass-api.de/api/xapi_meta?*[opening_hours=' + document.forms.check.elements['expression'].value + ']') + '\')">' + i18n.t('texts.load all with JOSM') + '</a><br />';
 				if (!crashed) {
 					var prettified = oh.prettifyValue();
 					var prettified_newline_sep = oh.prettifyValue({ block_sep_string: '\n', print_semicolon: false });
@@ -191,7 +193,7 @@
 							{ pretLength: prettified.length, valLength: value.length, maxLength: 255 }) + '</p>';
 					}
 
-					show_time_table.innerHTML = OpeningHoursTable.drawTableAndComments(oh, it);
+					show_time_table.innerHTML += OpeningHoursTable.drawTableAndComments(oh, it);
 				}
 			}
 
@@ -336,7 +338,8 @@
 
 				<p>
 					<script type="text/javascript">
-						document.write(i18n.t('texts.value for') + ' <q>opening_hours</q>:<br />');
+						document.write(i18n.t('texts.value for') + ' <q>opening_hours</q>:'
+								+ '<br />');
 						function submitenter(myfield,e) {
 							var keycode;
 							if (window.event) keycode = window.event.keyCode;
@@ -474,5 +477,6 @@
 			document.write(i18n.t('texts.this website', { url: repo_url, hoster: 'GitHub' }));
 		</script>
 		</div><!-- }}} -->
+	<iframe style="visibility:hidden;display:none" name='hiddenframe'></iframe>
 	</body><!-- }}} -->
 </html>

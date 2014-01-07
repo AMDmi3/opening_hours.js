@@ -36,6 +36,8 @@ test.exported_json('collection_times', { mode: 2 });
 test.exported_json('service_times', { mode: 2, ignore: [ 'automatic' ] });
 // Mostly points in time are used. But there are 244 values which use time ranges. Both seems useful.
 
+test.exported_json('fee', { ignore: [ 'yes', 'no', 'interval', 'unknown' ]});
+
 //======================================================================
 // Test framework
 //======================================================================
@@ -59,7 +61,7 @@ function opening_hours_test() {
 			if (typeof options !== 'undefined' && typeof options.mode == 'number')
 				mode = options.mode;
 
-			console.log('Parsing ' + tagname.blue.bold + (ignored_values.length != 0 ? ' (ignoring ' + ignored_values + ')': '') + ' …');
+			console.log('Parsing ' + tagname.blue.bold + (ignored_values.length != 0 ? ' (ignoring: ' + ignored_values.join(', ') + ')': '') + ' …');
 
 			var success_differ  = 0; // increment only by one despite that the value might appears more than one time
 			var success         = 0; // increment by number of appearances

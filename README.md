@@ -426,7 +426,7 @@ This script not only shows you if the found value can be processed with this lib
 ## Test it yourself (the geeky way) ##
 You want to try some opening_hours yourself? Just run ```make interactive_testing``` or ```node interactive_testing.js``` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message). The number in the beginning of the returned line can be read as exit code (0 means the value could be processed and 1 means an critical error appeared during parsing). The second number indicates if additional location information (nominatim JSON) where necessary to parse the value (e.g. value contains holidays). The third number is one if the parsing did throw warnings (singular or plural).
 
-Testing is much easier by now. Have a look at the [demo.html](#demohtml). The reason way this peace of code was written was to have an interface which can accessed from other programming languages. It is used by the python program [regex\_search](#small-scale).
+Testing is much easier by now. Have a look at the [evaluation tool](#evaluation-tooldemohtml). The reason way this peace of code was written was to have an interface which can accessed from other programming languages. It is used by the python program [regex\_search](#small-scale).
 
 ## Performance ##
 
@@ -443,25 +443,26 @@ This library is used in the following projects:
 
 ## ToDo
 List of missing features which can currently not be expressing in any other way without much pain.
+Please share your opinion on the [talk page](http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours) if you have any idea how to express (better).
 
 * Select single (or more, comma seperated) (school|public) holidays. Proposed syntax: ```SH(Sommerferien)```
+* Depending on moon position like ```"low tide only"```. Suncalc lib does support moon position. Syntax needed.
 * If weekday is PH than the facility will be open weekday-1 this week. Syntax something like: ```We if (We +1 day == PH) else Th``` ???
 
 ## Author ##
 
 * [Dmitry Marakasov](https://github.com/AMDmi3) <amdmi3@amdmi3.ru> (initial coding and design and all basic features like time ranges, week ranges, month ranges and week ranges)
-* [Robin Schneider](https://github.com/ypid)   (current maintainer. Added support for years, holidays, unknown, comments, open end, fallback/additional rules (and more), wrote getWarnings, prettifyValue, translated demo page to Engish and German and extended it to enter values yourself.)
+* [Robin Schneider](https://github.com/ypid)   (current maintainer. Added support for years, holidays, unknown, comments, open end, fallback/additional rules (and more), wrote getWarnings, prettifyValue, translated [demo page](#evaluation-tooldemohtml) to Engish and German and extended it to enter values yourself.)
 
 ## Contributors ##
 
-* [Sergey Leschina](https://github.com/putnik) (demo improvements)
+* [Sergey Leschina](https://github.com/putnik) ([demo](#evaluation-tooldemohtml) improvements)
 * [Charly Koza](https://github.com/Cactusbone) (package.json)
+* [don-vip](https://github.com/don-vip)        (French translation and public holidays for France)
 
 ## Credits ##
 
-* [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favour of opening_hours.js but a few parts where reused (mainly the error tolerance and the online evalutation for the demo page). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
-* [don-vip](https://github.com/don-vip) (Thanks for contributing a French translation and public holidays for France.)
-
+* [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favour of opening_hours.js but a few parts where reused (mainly the error tolerance and the online evalutation for the [demo page](#evaluation-tooldemohtml)). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
 
 ## Related links ##
 

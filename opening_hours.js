@@ -1115,21 +1115,29 @@
 	var word_error_correction = {
 		wrong_words: {
 			'Assuming "<ok>" for "<ko>"': {
-				spring: 'Mar-May',
-				summer: 'Jun-Aug',
-				autumn: 'Sep-Nov',
-				winter: 'Dec-Feb',
+				spring:  'Mar-May',
+				summer:  'Jun-Aug',
+				autumn:  'Sep-Nov',
+				winter:  'Dec-Feb',
+				// morning: '08:00-12:00',
+				// evening: '13:00-18:00',
+				'_':  '-',
+				'daytime': 'sunrise-sunset',
 			}, 'Bitte benutze die englische Schreibweise "<ok>" für "<ko>".': {
 				sommer: 'summer',
 			}, 'Bitte benutze "<ok>" für "<ko>". Beispiel: "Mo-Fr 08:00-12:00; Tu off"': {
 				ruhetag:     'off',
 				ruhetage:    'off',
 				geschlossen: 'off',
+				ausser:      'off',
+				außer:       'off',
 			}, 'Assuming "<ok>" for "<ko>". Please avoid using "workday": http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays': {
 				// 	// Used around 260 times but the problem is, that work day might be different in other countries.
 				wd:       'Mo-Fr',
 				weekday:  'Mo-Fr',
 				weekdays: 'Mo-Fr',
+			}, 'Please use notation something like "Mo off" instead "<ko>".': {
+				except: 'off',
 			}, 'Please ommit "<ko>" or use a colon instead: "12:00-14:00".': {
 				h: '',
 			}, 'Please ommit "<ko>".': {
@@ -1137,33 +1145,65 @@
 				hs:     '',
 				hrs:    '',
 				hours:  '',
-			}, 'Please ommit "<ko>". You might want to express open end which can be specified as "12:00+" for example': {
+			}, 'Please ommit "<ko>". You might want to express open end which can be specified as "12:00+" for example.': {
 				from: '',
+			}, 'You can use notation "<ok>" for "<ko>". You might want to express open end which can be specified as "12:00+" for example.': {
+				'-late': '+',
 			}, 'Please use notation "<ok>" for "<ko>". If the times are unsure or vary consider a comment e.g. 12:00-14:00 "only on sunshine".': {
 				'~':  '-',
 				'～': '-',
+			}, 'Please use notation "<ok>" for "<ko>". Fallback rule: 12:00-14:00 || "call us"': {
+				'otherwise':  '||',
+			}, 'You can use notation "<ok>" for "<ko>" temporally if the syntax will still be valid.': {
+				'?':  'unknown "please add this if known"',
 			}, 'Please use notation "<ok>" for "<ko>".': {
 				'–':  '-',
+				'=':  '-',
 				'ー':  '-',
 				to:   '-',
+				'до': '-',
+				a:    '-', // language unknown
+				as:   '-', // language unknown
+				'á':  '-', // language unknown
+				'ás': '-', // language unknown
+				'à':  '-', // language unknown
+				'às': '-', // language unknown
+				ate:  '-', // language unknown
 				till: '-',
 				and:  ',',
 				'&':  ',',
 				'：':  ':',
+				'°°':  ':00',
 				daily:     'Mo-Su',
 				everyday:  'Mo-Su',
 				always:    '24/7',
 				nonstop:   '24/7',
+				'24x7':    '24/7',
+				'all day': '24/7',
+				'anytime': '24/7',
+				'every day': 'Mo-Su',
+				'7days':   'Mo-Su',
+				'7j/7':    'Mo-Su', // I guess that it means that
+				'7/7':     'Mo-Su', // I guess that it means that
+				'7 days':  'Mo-Su',
 				midnight: '00:00',
 				holiday:  'PH',
 				holidays: 'PH',
+				'public holidays': 'PH',
+				'public holiday': 'PH',
 				// summerholiday:  'SH',
 				// summerholidays: 'SH',
-			}, 'Please use time format in 24 hours notation ("<ko>").': {
-				pm: '',
-				am: '',
+				weekend:  'Sa,Su',
+				weekends: 'Sa,Su',
+				'daylight': 'sunrise-sunset',
+			}, 'Please use time format in 24 hours notation ("<ko>"). If PM is used you might have to convert the hours to the 24 hours notation.': {
+				'pm': '',
+				'рм': '',
+				'am': '',
+				'ам': '',
 			}, 'Bitte verzichte auf "<ko>".': {
-				uhr: '',
+				'uhr': '',
+				'geöffnet': '',
 			}, 'Bitte verzichte auf "<ko>". Sie möchten eventuell eine Öffnungszeit ohne vorgegebenes Ende angeben. Beispiel: "12:00+"': {
 				ab:  '',
 				von: '',
@@ -1381,7 +1421,7 @@
 				// Swedish
 				'söndag':  0,
 				'måndag':  1,
-				ma:        1,
+				'ma':      1,
 				'tisdag':  2,
 				'onsdag':  3,
 				'torsdag': 4,
@@ -1395,30 +1435,53 @@
 				'czwartek': 4, 'czw': 4, 'cz': 4,
 				'piątek': 5, 'piatek': 5, 'pt': 5,
 				'sobota': 6, 'sob': 6, // 'so': 6 // abbreviation also used in German
+				// Russian
+				'воскресенье' : 0,
+				"voskresen'ye": 0,
+				'понедельник' : 1,
+				"ponedel'nik" : 1,
+				'вторник'     : 2,
+				'vtornik'     : 2,
+				'среда'       : 3,
+				'sreda'       : 3,
+				'четверг'     : 4,
+				'chetverk'    : 4,
+				'пятница'     : 5,
+				'pyatnitsa'   : 5,
+				'суббота'     : 6,
+				'subbota'     : 6,
+				// Danish
+				'søndag' : 0,
+				'mandag' : 1,
+				'tirsdag': 2,
+				'onsdag' : 3,
+				'torsdag': 4,
+				'fredag' : 5,
+				'lørdag' : 6,
 			},
 		},
 
 		timevar: { // Special time variables which actual value depends on the date and the position of the facility.
 			'default': {
-				sunrise: 'sunrise',
-				sunset:  'sunset',
-				dawn:    'dawn',
-				dusk:    'dusk',
+				'sunrise': 'sunrise',
+				'sunset':  'sunset',
+				'dawn':    'dawn',
+				'dusk':    'dusk',
 			}, 'Please use notation "<ok>" for "<ko>".': {
-				sundown: 'sunset',
+				'sundown':  'sunset',
 			}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>".': {
 				'morgendämmerung': 'dawn',
 				'abenddämmerung':  'dusk',
-				sonnenaufgang: 'sunrise',
-				sonnenuntergang: ',',
+				'sonnenaufgang':   'sunrise',
+				'sonnenuntergang': 'sunset',
 			},
 		},
 
 		'event': { // variable events
 			'default': {
-				easter: 'easter',
+				'easter': 'easter',
 			}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>".': {
-				ostern: 'easter',
+				'ostern': 'easter',
 			},
 		},
 	};
@@ -1575,6 +1638,7 @@
 				if (selectors.weekday.length > 0)
 					selectors.date.push(selectors.weekday);
 
+				// console.log('weekday: ' + JSON.stringify(selectors.weekday, null, '\t'));
 				blocks.push(selectors);
 
 				// this handles selectors with time ranges wrapping over midnight (e.g. 10:00-02:00)
@@ -1635,7 +1699,7 @@
 				} else if (tmp = value.match(/^days?/i)) {
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(&|–|ー|~|～|：|[a-zA-ZäÄàÀéÉ]+\b)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|–|=|ー|\?|~|～|：|[a-zäößàáéøčěíúýř]+\b|°°|24x7|7[ ]?days|all day|-late|public holidays?|7j?\/7|every day|до|рм|ам)\.?/i)) {
 					// Handle all remaining words with error tolerance
 					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
 					if (typeof correct_val == 'object') {
@@ -1792,8 +1856,9 @@
 				if (matchTokens(tokens, at, 'weekday')) {
 					at = parseWeekdayRange(tokens, at, selectors);
 				} else if (matchTokens(tokens, at, '24/7')) {
-					// selectors.time.push(function(date) { return [true]; });
+					selectors.time.push(function(date) { return [true]; });
 					// Not needed. If there is no selector it automatically matches everything.
+					// WRONG: This only works if there is no other selector in this selector group ...
 					at++;
 				} else if (matchTokens(tokens, at, 'holiday')) {
 					if (matchTokens(tokens, at+1, ','))
@@ -1880,8 +1945,9 @@
 							selectors.unknown = true;
 						}
 					} else { // block starts with comment
-						// selectors.time.push(function(date) { return [true]; });
+						selectors.time.push(function(date) { return [true]; });
 						// Not needed. If there is no selector it automatically matches everything.
+						// WRONG: This only works if there is no other selector in this selector group ...
 						selectors.meaning = false;
 						selectors.unknown = true;
 					}
@@ -2283,7 +2349,7 @@
 		}
 
 		//======================================================================
-		// Weekday range parser (Mo,We-Fr,Sa[1-2,-1])
+		// Weekday range parser (Mo,We-Fr,Sa[1-2,-1],PH)
 		//======================================================================
 		function parseWeekdayRange(tokens, at, selectors) {
 			for (; at < tokens.length; at++) {
@@ -2421,8 +2487,9 @@
 					}
 
 					if (weekday_to < weekday_from) { // handle full range
-						// selectors.weekday.push(function(date) { return [true]; });
+						selectors.weekday.push(function(date) { return [true]; });
 						// Not needed. If there is no selector it automatically matches everything.
+						// WRONG: This only works if there is no other selector in this selector group ...
 					} else {
 						selectors.weekday.push(function(weekday_from, weekday_to, inside) { return function(date) {
 							var ourweekday = date.getDay();

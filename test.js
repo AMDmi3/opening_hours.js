@@ -106,6 +106,11 @@ test.addTest('Open end, variable time', [
 // 		'sunrise-(sunset+01:00)+; Su off',
 // 	], '2012.10.01 0:00', '2012.10.02 0:00', [
 // 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
+//
+// test.addTest('variable time range followed by open end, day wrap and different states', [
+// 	'Mo-Su 11:00-24:00+ open "geöffnet täglich von 11:00 Uhr bis tief in die Nacht"',
+// 	], '2012.10.01 0:00', '2012.10.02 0:00', [
+// 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
 
 test.addTest('Open end', [
 		'17:00+ closed',
@@ -294,7 +299,7 @@ test.addTest('Variable days: public holidays (with time range)', [
 
 test.addTest('PH: Only if PH is Wednesday', [
 		'PH We,Fr',
-		'PH: We,Fr',
+		'PH: We,Fr', // Please don’t use ":" after holiday.
 	], '2012.01.01 0:00', '2012.10.08 0:00', [
 		[ '2012.01.06 00:00', '2012.01.07 00:00', false, 'Heilige Drei Könige' ],       // Fr
 		[ '2012.04.06 00:00', '2012.04.07 00:00', false, 'Karfreitag' ],                // Fr
@@ -303,7 +308,7 @@ test.addTest('PH: Only if PH is Wednesday', [
 
 test.addTest('PH: Only if SH is Wednesday', [
 		'SH Mo-Fr',
-		'SH: Mo-Fr',
+		'SH: Mo-Fr', // Please don’t use ":" after holiday.
 	], '2012.12.22 0:00', '2013.01.08 0:00', [
 		[ '2012.12.24 00:00', '2012.12.29 00:00', false, 'Weihnachtsferien' ],
 		[ '2012.12.31 00:00', '2013.01.05 00:00', false, 'Weihnachtsferien' ],
@@ -396,6 +401,16 @@ test.addTest('Variable days: school holidays', [
 		[ '2014.02.09 00:00', '2014.02.10 00:00' ],
 	], 1000 * 60 * 60 * 24 * (4 + 1 + 6), 0, false, nominatiomTestJSON, 'not last test');
 
+test.addTest('Variable days: Everyday including public holidays', [
+		'Mo-Su,PH',
+		'PH,Mo-Su',
+	], '2014.01.01 0:00', '2014.01.15 0:00', [
+		[ '2014.01.01 00:00', '2014.01.02 00:00', false, 'Neujahrstag' ],
+		[ '2014.01.02 00:00', '2014.01.06 00:00' ],
+		[ '2014.01.06 00:00', '2014.01.07 00:00', false, 'Heilige Drei Könige' ],
+		[ '2014.01.07 00:00', '2014.01.15 00:00' ],
+	], 1000 * 60 * 60 * 24 * 14, 0, false, nominatiomTestJSON, 'not last test');
+
 test.addTest('Variable times spanning midnight', [
 		'sunset-sunrise',
 		'sunset-sunrise Mo-Su',
@@ -481,6 +496,19 @@ test.addTest('Constrained weekday (complex real world example)', [
 
 // test.addTest('real world example. Was not processed right.', [
 // 		'Mo: geschlossen, Di: 14-18Uhr, Mi-Sa: 10-18Uhr',
+// 	], '2013.08.01 0:00', '2013.10.08 0:00', [
+// 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
+//
+
+// test.addTest('real world example. Was not processed right.', [
+// 		'Jan Su[-2]-Jan Su[-1]: Fr-Su 12:00+; Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 1-Jul 31: Th-Su 12:00+; Aug 1-Nov 30,Dec: Tu-Su 12:00+; Dec 24-26,Dec 31: off',
+// 	], '2013.08.01 0:00', '2013.10.08 0:00', [
+// 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
+//
+//
+// http://www.openstreetmap.org/node/392512497/history
+// test.addTest('real world example. Was not processed right.', [
+// 		'"(Buffet)" Mo-Th 12:00-15:00,17:00-21:30; Fr 12:00-15:00,17:00-22:30; Sa 12:00-15:00,16:30-22:30; Su 12:00-15:00,16:30-21:30 || Su-Th 11:30-22:00 open "Takeout" || Fr-Sa 11:30-23:00 open "Takeout"',
 // 	], '2013.08.01 0:00', '2013.10.08 0:00', [
 // 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
 //
@@ -772,6 +800,7 @@ test.addTest('Month ranges', [
 
 test.addTest('Month ranges', [
 		'Jan 1,Dec 24-25; Nov Th[4]',
+		'Jan 1,Dec 24,25; Nov Th[4]',
 		'2012 Jan 1,2012 Dec 24-25; 2012 Nov Th[4]',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.01 00:00', '2012.01.02 00:00' ],
@@ -1463,7 +1492,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Sa[1,3-6]',
 		'Sa[1,3-.]',
 		'Sa[1,3,.]',
-		'PH + 2 day', // Normally moving PH one day is everything needed. Handling more than one move day would be harder to implement.
+		'PH + 2 day', // Normally moving PH one day is everything needed. Handling more than one move day would be harder to implement correctly.
 		'Su-PH',      // not accepted syntax
 		'2012, Jan',
 		'easter + 370 days',
@@ -1475,6 +1504,9 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'12:00-15:00/60',
 		'12:00-15:00/1:00',
 		'12:00-15:00/1:',
+		'Jun 0-Aug 23', // out of range
+		'Jun 2-Aug 42', // out of range
+		'Jun 2-Aug 32', // out of range
 	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [

@@ -112,6 +112,8 @@ var resources = { // English is fallback language.
                 "low zoom level": 'The POIs will start to appear at zoom level ${next} and above. You are currently on zoom level ${actual}.',
                 "all n entries": 'All __total__ entries:',
                 "the first entries": 'The first __number__ of __total__ entries:',
+                "load all with JOSM": 'load all in JSOM',
+                "evaluation tool": 'evaluation tool',
             },
             "words": {
                 "mode": "evaluation mode",
@@ -418,10 +420,12 @@ var resources = { // English is fallback language.
                 "mode 0": 'Es werden nur Zeiträume akzeptiert (Tags opening_hours, lit)',
                 "mode 1": 'Es werden nur Zeitpunkte akzeptiert',
                 "mode 2": 'Zeiträume und Zeitpunkte werden akzeptiert (Tags service_times, collection_times)',
-                "value to long for osm": 'Der opening_hours Wert ist zu lang für OSM. Die OpenStreetMap Datenbank unterstützt zur Zeit nur Werte mit bis zu __maxLength__ Zeichen. Der schön formatierter Wert ist __pretLength__ Zeichen lang und der eingegebene Wert __valLength__.',
+                "value to long for osm": 'Der opening_hours Wert ist zu lang für OSM. Die OpenStreetMap Datenbank unterstützt zur Zeit nur Werte mit bis zu __maxLength__ Zeichen. Der schön formatierte Wert ist __pretLength__ Zeichen lang und der eingegebene Wert __valLength__.',
                 "low zoom level": 'Die Marker werden erst auf Zoom Stufe ${next} geladen. Aktuelle Zoom Stufe ist ${actual}.',
                 "all n entries": 'Alle __total__ Einträge:',
                 "the first entries": 'Die ersten __number__ von __total__ Einträgen:',
+                "load all with JOSM": 'Alle in JSOM laden',
+                "evaluation tool": 'Ausführlich testen',
             },
             "words": {
                 "mode": "Auswerte Modus",
