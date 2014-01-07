@@ -108,13 +108,13 @@ test.addTest('Open end, variable time', [
 // 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
 //
 // test.addTest('variable time range followed by open end, day wrap and different states', [
-// 	'Mo-Su 11:00-24:00+ open "geöffnet täglich von 11:00 Uhr bis tief in die Nacht"',
+// 	'Fr 11:00-24:00+ open "geöffnet täglich von 11:00 Uhr bis tief in die Nacht"',
 // 	], '2012.10.01 0:00', '2012.10.02 0:00', [
 // 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
 
 test.addTest('Open end', [
-		'17:00+ closed',
-		'17:00-19:00 closed',
+		'17:00+ off',
+		'17:00-19:00 off',
 	], '2012.10.01 0:00', '2012.10.02 0:00', [
 	], 0, 0, true, {}, 'not last test');
 
@@ -471,7 +471,7 @@ test.addTest('Time ranges spanning midnight with date overwriting', [
 	[ '2012.10.07 22:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * (6 * 4 + 2), 0, true, {}, 'not last test');
 
-test.addTest('Time ranges spanning midnight with date overwriting (complex real world)', [
+test.addTest('Time ranges spanning midnight with date overwriting (complex real world example)', [
 		'Su-Tu 11:00-01:00, We-Th 11:00-03:00, Fr 11:00-06:00, Sa 11:00-07:00',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 01:00', ], // Mo: Su-Tu 11:00-01:00
@@ -494,25 +494,30 @@ test.addTest('Constrained weekday (complex real world example)', [
 		[ '2013.09.08 14:00', '2013.09.08 18:00' ],
 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
 
-// test.addTest('real world example. Was not processed right.', [
-// 		'Mo: geschlossen, Di: 14-18Uhr, Mi-Sa: 10-18Uhr',
-// 	], '2013.08.01 0:00', '2013.10.08 0:00', [
-// 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
-//
+test.addTest('Real world example: Was not processed right.', [
+		'Mo off, Tu 14:00-18:00, We-Sa 10:00-18:00', // Reference value for prettify. Not perfect but still …
+		'Mo: geschlossen, Di: 14-18Uhr, Mi-Sa: 10-18Uhr', // value as found in OSM
+		'Mo off; Tu 14:00-18:00; We-Sa 10:00-18:00', // Please use this value instead. Mostly automatically corrected.
+	], '2014.01.06 0:00', '2014.01.13 0:00', [
+		[ '2014.01.07 14:00', '2014.01.07 18:00' ],
+		[ '2014.01.08 10:00', '2014.01.08 18:00' ],
+		[ '2014.01.09 10:00', '2014.01.09 18:00' ],
+		[ '2014.01.10 10:00', '2014.01.10 18:00' ],
+		[ '2014.01.11 10:00', '2014.01.11 18:00' ],
+	], 1000 * 60 * 60 * (4 + 4 * 8), 0, true, {}, 'not last test');
 
-// test.addTest('real world example. Was not processed right.', [
+// test.addTest('Real world example: Was not processed right.', [
 // 		'Jan Su[-2]-Jan Su[-1]: Fr-Su 12:00+; Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 1-Jul 31: Th-Su 12:00+; Aug 1-Nov 30,Dec: Tu-Su 12:00+; Dec 24-26,Dec 31: off',
 // 	], '2013.08.01 0:00', '2013.10.08 0:00', [
 // 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
 //
-//
 // http://www.openstreetmap.org/node/392512497/history
-// test.addTest('real world example. Was not processed right.', [
+// test.addTest('Real world example: Was not processed right.', [
 // 		'"(Buffet)" Mo-Th 12:00-15:00,17:00-21:30; Fr 12:00-15:00,17:00-22:30; Sa 12:00-15:00,16:30-22:30; Su 12:00-15:00,16:30-21:30 || Su-Th 11:30-22:00 open "Takeout" || Fr-Sa 11:30-23:00 open "Takeout"',
 // 	], '2013.08.01 0:00', '2013.10.08 0:00', [
 // 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
 //
-test.addTest('real world example.', [
+test.addTest('Warnings corrected to fallback block (real world example)', [
 		'Mo-Fr 09:00-12:00, Mo,Tu,Th 15:00-18:00', // reference value for prettify
 		'Mo – Fr: 9 – 12 Uhr und Mo, Di, Do: 15 – 18 Uhr',
 	], '2014.09.01 0:00', '2014.09.08 0:00', [
@@ -597,7 +602,8 @@ test.addTest('Interpetation of points im time', [
 
 test.addTest('24/7 as time interval alias (don’t use it 24/7 as showen here)', [
 		'Mo,We 24/7', // throws a warning, use one of the next values instead
-		'Mo,We open',
+		'Mo,We open', // preferred because more explicit
+		'Mo,We 00:00-24:00', // preferred because more explicit
 		'Mo,We',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.02 0:00' ],
@@ -766,7 +772,8 @@ test.addTest('Fallback group blocks', [
 test.addTest('Fallback group blocks', [
 		'Mo-Fr 08:00-11:00 || Th-Sa 12:00-13:00 open "Emergency only"',
 		'Mo-Fr 08:00-11:00, Th-Sa 12:00-13:00 open "Emergency only"',
-		// additional block does the same in this case because the second block does not overlap the first block.
+		// Additional block does the same in this case because the second block (including the time range) does not overlap the first block.
+		// Both variants are valid.
 	], '2013.10.01 0:00', '2013.10.08 0:00', [
 		[ '2013.10.01 08:00', '2013.10.01 11:00' ],
 		[ '2013.10.02 08:00', '2013.10.02 11:00' ],
@@ -781,10 +788,11 @@ test.addTest('Fallback group blocks', [
 test.addTest('Month ranges', [
 		'Nov-Feb 00:00-24:00',
 		'Nov-Feb',
-		'Nov-Feb 0-24', // Do not use. Returns warning.
+		'Nov-Feb 0-24', // Do not use. Returns warning and corrected value.
 		'Nov-Feb: 00:00-24:00',
 		'Jan,Feb,Nov,Dec 00:00-24:00',
 		'00:00-24:00; Mar-Oct off',
+		'open; Mar-Oct off',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.01 00:00', '2012.03.01 00:00' ],
 		[ '2012.11.01 00:00', '2013.01.01 00:00' ],
@@ -1238,8 +1246,8 @@ test.addTest('Additional comments combined with months', [
 	], 7948800000, 2682000000, false, {}, 'not last test');
 
 test.addTest('Complex example used in README', [
-		'open; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off',
-		'00:00-24:00; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off',
+		'open; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off', // Can be used (better than using 24/7 which will return a warning).
+		'00:00-24:00; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off', // preferred because more explicit
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 08:00' ],
 		[ '2012.10.01 13:00', '2012.10.02 08:30' ],
@@ -1259,7 +1267,7 @@ test.addTest('Complex example used in README', [
 
 test.addTest('Complex example used in README and benchmark', [
 		'Mo,Tu,Th,Fr 12:00-18:00; Sa 12:00-17:00; Th[3] off; Th[-1] off',
-		'Mo,Tu,Th,Fr 12:00-18:00; Sa 12:00-17:00; Th[3],Th[-1] off',
+		'Mo,Tu,Th,Fr 12:00-18:00; Sa 12:00-17:00; Th[3],Th[-1] off', // preferred because shorter
 	], '2012.10.01 0:00', '2012.10.31 0:00', [
 		[ '2012.10.01 12:00', '2012.10.01 18:00' ],
 		[ '2012.10.02 12:00', '2012.10.02 18:00' ],
@@ -1284,7 +1292,7 @@ test.addTest('Complex example used in README and benchmark', [
 	], 1000 * 60 * 60 * (6 * 16 + 5 * 4), 0, false, {}, 'not last test');
 
 test.addTest('Calculations based on variable events', [
-		'2012 easter -2 days-2012 easter +2 days: open "Around easter"',
+		'2012 easter -2 days-2012 easter +2 days: open "Around easter"', // Preferred because more explicit (year) and with the colon easier to read.
 		'easter -2 days-easter +2 days: open "Around easter"',
 		'easter -2 days-easter +2 days open "Around easter"',
 	], '2012.01.01 0:00', '2012.10.08 0:00', [
@@ -1318,8 +1326,8 @@ test.addTest('Calculations based on month range', [
 	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'not only test');
 
 test.addTest('Time intervals (not specified/documented use of colon, please avoid this)', [
-		'open; Mo 15:00-16:00 off', // prettified value
-		'open; Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
+		'00:00-24:00; Mo 15:00-16:00 off',  // prettified value
+		'00:00-24:00; Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 15:00' ],
 		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
@@ -1367,7 +1375,7 @@ test.addTest('Points in time and times ranges, mode 2', [
 test.addTest('Points in time, period times', [
 		'Mo-Fr 10:00-16:00/01:30',
 		'Mo-Fr 10:00-16:00/90',
-		'Mo-Fr 10:00-16:00/90; Sa off "testing at end"',
+		'Mo-Fr 10:00-16:00/90; Sa off "testing at end for parser"',
 	], '2012.10.01 0:00', '2012.10.03 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 10:01' ],
 		[ '2012.10.01 11:30', '2012.10.01 11:31' ],
@@ -1414,9 +1422,9 @@ test.addTest('Points in time, period times with variable times', [
 		[ '2012.10.01 15:22', '2012.10.01 15:23' ],
 	], 1000 * 60 * 5, 0, false, nominatiomTestJSON, 'not last test', 1);
 
-test.addTest('Points in time, period times real world', [
+test.addTest('Points in time, period times (real world example)', [
 		'Sa 08:00,09:00,10:00,11:00,12:00,13:00,14:00, Mo-Fr 15:00,16:00,17:00,18:00,19:00,20:00',
-		'Mo-Fr 15:00-20:00/60; Sa 08:00-14:00/60',
+		'Mo-Fr 15:00-20:00/60; Sa 08:00-14:00/60', // Preferred because shorter and easier to read and maintain.
 	], '2013.12.06 0:00', '2013.12.08 0:00', [
 		[ '2013.12.06 15:00', '2013.12.06 15:01' ],
 		[ '2013.12.06 16:00', '2013.12.06 16:01' ],
@@ -1435,12 +1443,12 @@ test.addTest('Points in time, period times real world', [
 
 test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', [
 		// 'Mo[2] - 6 days', // considered as "correct"
-		'Mo[2] - 0 days', // pointless
+		'Mo[2] - 0 days', // pointless, use "Mo[2]" instead
 		'Mo&Th',
 		'Mon',
 		'8-18',
 		'12.00-14:00',
-		'24/7; 12:00-14:00 off',
+		'24/7; 12:00-14:00 off', // see README
 		'2013-2015/1',
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1',
 		'Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
@@ -1458,7 +1466,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 
 test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Mo[2] - 7 days',
-		'sdasdlasdj a3reaw', // Test for the test framwork. This test should pass :)
+		'sdasdlasdj a3reaw', // Test for the test framwork. This test should pass :) (passes when the value can not be parsed)
 		':week 2-54 00:00-24:00',
 		':::week 2-54 00:00-24:00',
 		'week :2-54 00:00-24:00',
