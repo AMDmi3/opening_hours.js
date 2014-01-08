@@ -1,7 +1,6 @@
 (function (root, factory) {
-	//======================================================================
-	// Constants
-	//======================================================================
+	// constants (holidays, error correction) {{{
+	// holidays {{{
 	var holidays = {
 		'fr': {
 			'PH': { // http://fr.wikipedia.org/wiki/F%C3%AAtes_et_jours_f%C3%A9ri%C3%A9s_en_France
@@ -1104,14 +1103,13 @@
 			},
 		},
 	};
+	// }}}
 
-	//----------------------------------------------------------------------------
-	//  error correction
-	//  Taken form http://www.netzwolf.info/j/osm/time_domain.js
-	//  Credits go to Netzwolf
+	// error correction {{{
+	// Taken form http://www.netzwolf.info/j/osm/time_domain.js
+	// Credits go to Netzwolf
 	//
-	//  Key to word_error_correction is the token name except wrong_words
-	//----------------------------------------------------------------------------
+	// Key to word_error_correction is the token name except wrong_words
 	var word_error_correction = {
 		wrong_words: {
 			'Assuming "<ok>" for "<ko>"': {
@@ -1485,7 +1483,10 @@
 			},
 		},
 	};
+	// }}}
+	// }}}
 
+	// make the library accessible for the outside world {{{
 	if (typeof exports === 'object') {
 		// For nodejs
 		var SunCalc = require('suncalc');
@@ -1494,8 +1495,10 @@
 		// For browsers
 		root.opening_hours = factory(root.SunCalc, holidays, word_error_correction);
 	}
+	/// }}}
 }(this, function (SunCalc, holidays, word_error_correction) {
 	return function(value, nominatiomJSON, oh_mode) {
+		// short constants {{{
 		var word_value_replacement = { // if the correct values can not be calculated
 			dawn    : 60 * 5 + 30,
 			sunrise : 60 * 6,
@@ -1518,7 +1521,9 @@
 		var minutes_in_day = 60 * 24;
 		var msec_in_day    = 1000 * 60 * minutes_in_day;
 		var msec_in_week   = msec_in_day * 7;
+		// }}}
 
+		// The big picture -- How does this library work? {{{
 		//======================================================================
 		// Constructor - entry to parsing code
 		//======================================================================
@@ -1538,14 +1543,15 @@
 		// Logic:
 		// - Tokenize
 		// Foreach block:
-		//   - Run toplevel (block) parser
-		//     - Which calls subparser for specific selector types
+		//   - Run top-level (block) parser
+		//     - Which calls sub parser for specific selector types
 		//       - Which produce selector functions
+		// }}}
 
-
+		// constructor parameters {{{
 		// Evaluate additional information which can be given. They are
-		// required to reasonably calculate 'sunrise' and so on and to use the
-		// correct holidays.
+		// required to reasonably calculate 'sunrise' and to use the correct
+		// holidays.
 		var location_cc, location_state, lat, lon;
 		if (typeof nominatiomJSON != 'undefined') {
 			if (typeof nominatiomJSON.address != 'undefined' &&
@@ -1560,15 +1566,17 @@
 			}
 		}
 
-		// 0: time ranges (opening_hours, lit, …) default
-		// 1: points in time (collection_times, service_times, …)
-		// 2: both (time ranges and points in time)
+		// 0: time ranges (default), tags: opening_hours, lit, …
+		// 1: points in time
+		// 2: both (time ranges and points in time), tags: collection_times, service_times
 		if (typeof oh_mode == 'undefined') {
 			oh_mode = 0;
 		} else if (!(typeof oh_mode == 'number' && (oh_mode == 0 || oh_mode == 1 || oh_mode == 2))) {
 			throw 'The third constructor parameter is oh_mode and must be a number (0, 1 or 2)'
 		}
+		// }}}
 
+		// put tokenized blocks into list {{{
 		if (value.match(/^(\s*;?\s*)+$/))
 			throw 'Value contains nothing meaningful which can be parsed';
 
@@ -1578,7 +1586,7 @@
 		var tokens = tokenize(value);
 		// console.log(JSON.stringify(tokens, null, '\t'));
 		var prettified_value = '';
-		var used_subparsers = {}; // Used sub parsers for one block, will be asdreset for each block. Declared as global, because it is manipulation inside much sub parsers.
+		var used_subparsers = {}; // Used sub parsers for one block, will be reset for each block. Declared as global, because it is manipulation inside various sub parsers.
 		var week_stable = true;
 
 		var blocks = [];
@@ -1668,8 +1676,9 @@
 				}
 			} while (continue_at)
 		}
+		// }}}
 
-		// Tokenization function: Splits string into parts.
+		// Tokenization function: Splits string into parts. {{{
 		// output: array of arrays of pairs [content, type]
 		function tokenize(value) {
 			var all_tokens       = new Array();
@@ -1765,8 +1774,10 @@
 
 			return all_tokens;
 		}
+		// }}}
 
-		// error correction/tolerance
+		// error correction/tolerance function {{{
+		// Go through word_error_correction hash and get correct value back.
 		function returnCorrectWordOrToken(word, value_length) {
 			for (var token_name in word_error_correction) {
 				for (var comment in word_error_correction[token_name]) {
@@ -1781,8 +1792,9 @@
 								var correct_abbr;
 								for (correct_abbr in word_error_correction[token_name]['default']) {
 									if (word_error_correction[token_name]['default'][correct_abbr] == val)
-										break;
+										break; // FIXME
 								}
+								// FIXME
 								if (token_name != 'timevar') { // normally written in lower case
 									correct_abbr = correct_abbr.charAt(0).toUpperCase() + correct_abbr.slice(1);
 								}
@@ -1796,12 +1808,13 @@
 				}
 			}
 		}
+		// }}}
 
+		// return warnings as list {{{
 		function getWarnings(it) {
-
 			if (typeof it == 'object') { // getWarnings was called in a state without critical errors. We can do extended tests.
 
-				// Check if 24/7 is used and it does not mean 24/7 because there are other rules. This can be avoided.
+				// Check if 24/7 is used and it does not mean 24/7 because there are other blocks.
 				var has_advanced = it.advance();
 
 				if (has_advanced === true && has_token['24/7'] && !done_with_warnings) {
@@ -1819,8 +1832,9 @@
 			}
 			return warnings;
 		}
+		// }}}
 
-		// Function to check token array for specific pattern
+		// Function to check token array for specific pattern {{{
 		function matchTokens(tokens, at /*, matches... */) {
 			if (at + arguments.length - 2 > tokens.length)
 				return false;
@@ -1831,7 +1845,9 @@
 
 			return true;
 		}
+		// }}}
 
+		// Generate selector wrapper with time offset {{{
 		function generateDateShifter(func, shift) {
 			return function(date) {
 				var res = func(new Date(date.getTime() + shift));
@@ -1841,10 +1857,9 @@
 				return [ res[0], new Date(res[1].getTime() - shift) ];
 			}
 		}
+		// }}}
 
-		//======================================================================
-		// Top-level parser
-		//======================================================================
+		// Top-level parser {{{
 		function parseGroup(tokens, at, selectors, nblock, conf) {
 			var prettified_group_value = '';
 			used_subparsers = { 'time ranges': [ ] };
@@ -2000,6 +2015,7 @@
 									+ ' This is probably an error.'
 									+ ' Equal selector types can (and should) always be written in conjunction separated by comma or something.'
 									+ ' Example for time ranges "12:00-13:00,15:00-18:00".'
+									+ ' Example for weekdays "Mo-We,Fr".'
 							 )
 							+ ' Rules can be separated by ";".' ]
 						);
@@ -2009,10 +2025,123 @@
 
 			return at;
 		}
+		// }}}
 
-		//======================================================================
-		// Time range parser (10:00-12:00,14:00-16:00)
-		//======================================================================
+		// helper functions for sub parser {{{
+		// for given date, returns date moved to the start of specified day minute
+		function dateAtDayMinutes(date, minutes) {
+			return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, minutes);
+		}
+
+		// for given date, returns date moved to the specific day of week
+		function dateAtNextWeekday(date, day) {
+			var delta = day - date.getDay();
+			return new Date(date.getFullYear(), date.getMonth(), date.getDate() + delta + (delta < 0 ? 7 : 0));
+		}
+
+		function indexOf(needle) {
+			if(typeof Array.prototype.indexOf === 'function') {
+				indexOf = Array.prototype.indexOf;
+			} else {
+				indexOf = function(needle) {
+					var i = -1, index = -1;
+					for(i = 0; i < this.length; i++) {
+						if(this[i] === needle) {
+							index = i;
+							break;
+						}
+					}
+					return index;
+				};
+			}
+			return indexOf.call(this, needle);
+		}
+
+		// Numeric list parser (1,2,3-4,-1), used in weekday parser above
+		function parseNumRange(tokens, at, func) {
+			for (; at < tokens.length; at++) {
+				if (matchTokens(tokens, at, 'number', '-', 'number')) {
+					// Number range
+					func(tokens[at][0], tokens[at+2][0], at);
+					at += 3;
+				} else if (matchTokens(tokens, at, '-', 'number')) {
+					// Negative number
+					func(-tokens[at+1][0], -tokens[at+1][0], at);
+					at += 2
+				} else if (matchTokens(tokens, at, 'number')) {
+					// Single number
+					func(tokens[at][0], tokens[at][0], at);
+					at++;
+				} else {
+					throw formatWarnErrorMessage(nblock, at + matchTokens(tokens, at, '-'),
+						'Unexpected token in number range: ' + tokens[at][1]);
+				}
+
+				if (!matchTokens(tokens, at, ','))
+					break;
+			}
+
+			return at;
+		}
+
+		function getConstrainedWeekday(tokens, at) {
+			var number = 0;
+			var endat = parseNumRange(tokens, at, function(from, to, at) {
+
+				// bad number
+				if (from == 0 || from < -5 || from > 5)
+					throw formatWarnErrorMessage(nblock, at,
+						'Number between -5 and 5 (except 0) expected');
+
+				if (from == to) {
+					if (number != 0)
+						throw formatWarnErrorMessage(nblock, at,
+							'You can not use a more than one constrained weekday in a month range');
+					number = from;
+				} else {
+					throw formatWarnErrorMessage(nblock, at+2,
+						'You can not use a range of constrained weekdays in a month range');
+				}
+			});
+
+			if (!matchTokens(tokens, endat, ']'))
+				throw formatWarnErrorMessage(nblock, endat, '"]" expected.');
+
+			return [ number, endat + 1 ];
+		}
+
+		function getDateForConstrainedWeekday(year, month, weekday, constrained_weekday, add_days) {
+			var tmp_date = dateAtNextWeekday(
+				new Date(year, month + (constrained_weekday[0] > 0 ? 0 : 1), 1), weekday);
+
+			tmp_date.setDate(tmp_date.getDate() + (constrained_weekday[0] + (constrained_weekday[0] > 0 ? -1 : 0)) * 7);
+
+			if (typeof add_days != 'undefined' && add_days[1])
+				tmp_date.setDate(tmp_date.getDate() + add_days[0]);
+
+			return tmp_date;
+		}
+
+		function formatWarnErrorMessage(nblock, at, message) {
+			var pos = 0;
+			if (nblock == -1) { // usage of block index not required because we do have access to value.length
+				pos = value.length - at;
+			} else { // Issue accrued at a later time, position in string needs to be reconstructed.
+				if (typeof tokens[nblock][0][at] == 'undefined') {
+					pos = value.length;
+				} else {
+					pos = value.length;
+					if (typeof tokens[nblock][0][at+1] != 'undefined')
+						pos -= tokens[nblock][0][at+1][2];
+					else if (typeof tokens[nblock][2] != 'undefined')
+						pos -= tokens[nblock][2];
+				}
+			}
+			return value.substring(0, pos) + ' <--- (' + message + ')';
+		}
+		// }}}
+
+		// Time range parser (10:00-12:00,14:00-16:00) {{{
 		function parseTimeRange(tokens, at, selectors) {
 			for (; at < tokens.length; at++) {
 				var has_time_var_calc = [], has_normal_time = []; // element 0: start time, 1: end time
@@ -2309,19 +2438,25 @@
 			return at;
 		}
 
-		// for given date, returns date moved to the start of specified day minute
-		function dateAtDayMinutes(date, minutes) {
-			return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, minutes);
+		// get time in minutes from "(sunrise-01:30)" {{{
+		// Only used if throwing an error is wanted.
+		function getMinutesByHoursMinutes(tokens, nblock, at) {
+			if (tokens[at+2][0] > 59)
+				throw formatWarnErrorMessage(nblock, at+2,
+						'Minutes are greater than 59.');
+			return tokens[at][0] * 60 + tokens[at+2][0];
 		}
+		// }}}
 
-		// extract the added or subtracted time of "(sunrise-01:30)"
-		// returns in minutes e.g. -90
+		// get time in minutes from "(sunrise-01:30)" {{{
+		// Extract the added or subtracted time from "(sunrise-01:30)"
+		// returns time in minutes e.g. -90
 		function parseTimevarCalc(tokens, at) {
 			if (matchTokens(tokens, at+2, '+') || matchTokens(tokens, at+2, '-')) {
 				if (matchTokens(tokens, at+3, 'number', 'timesep', 'number')) {
 					if (matchTokens(tokens, at+6, ')')) {
 						var add_or_subtract = tokens[at+2][0] == '+' ? '1' : '-1';
-						var minutes = (tokens[at+3][0] * 60 + tokens[at+5][0]) * add_or_subtract;
+						var minutes = getMinutesByHoursMinutes(tokens, nblock, at+3) * add_or_subtract;
 						if (minutes == 0)
 							parsing_warnings.push([ nblock, at+5, 'Adding zero in a variable time calculation does not change the variable time.'
 									+ ' Please omit the calculation (example: "12:00-sunset").' ]
@@ -2341,18 +2476,10 @@
 				throw formatWarnErrorMessage(nblock, error[0],
 					'Calculcation with variable time is not in the right syntax' + error[1]);
 		}
+		// }}}
+		// }}}
 
-		// Only used if throwing an error is wanted.
-		function getMinutesByHoursMinutes(tokens, nblock, at) {
-			if (tokens[at+2][0] > 59)
-				throw formatWarnErrorMessage(nblock, at+2,
-						'Minutes are greater than 59.');
-			return tokens[at][0] * 60 + tokens[at+2][0];
-		}
-
-		//======================================================================
-		// Weekday range parser (Mo,We-Fr,Sa[1-2,-1],PH)
-		//======================================================================
+		// Weekday range parser (Mo,We-Fr,Sa[1-2,-1],PH) {{{
 		function parseWeekdayRange(tokens, at, selectors) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'weekday', '[')) {
@@ -2524,33 +2651,6 @@
 			return at;
 		}
 
-		// Numeric list parser (1,2,3-4,-1), used in weekday parser above
-		function parseNumRange(tokens, at, func) {
-			for (; at < tokens.length; at++) {
-				if (matchTokens(tokens, at, 'number', '-', 'number')) {
-					// Number range
-					func(tokens[at][0], tokens[at+2][0], at);
-					at += 3;
-				} else if (matchTokens(tokens, at, '-', 'number')) {
-					// Negative number
-					func(-tokens[at+1][0], -tokens[at+1][0], at);
-					at += 2
-				} else if (matchTokens(tokens, at, 'number')) {
-					// Single number
-					func(tokens[at][0], tokens[at][0], at);
-					at++;
-				} else {
-					throw formatWarnErrorMessage(nblock, at + matchTokens(tokens, at, '-'),
-						'Unexpected token in number range: ' + tokens[at][1]);
-				}
-
-				if (!matchTokens(tokens, at, ','))
-					break;
-			}
-
-			return at;
-		}
-
 		function getMoveDays(tokens, at, max_differ, name) {
 			var add_days = [ 0, 0 ]; // [ 'add days', 'how many tokens' ]
 			add_days[0] = matchTokens(tokens, at, '+') || (matchTokens(tokens, at, '-') ? -1 : 0);
@@ -2568,18 +2668,10 @@
 			}
 			return add_days;
 		}
+		// }}}
 
-
-		// for given date, returns date moved to the specific day of week
-		function dateAtNextWeekday(date, day) {
-			var delta = day - date.getDay();
-			return new Date(date.getFullYear(), date.getMonth(), date.getDate() + delta + (delta < 0 ? 7 : 0));
-		}
-
-		//======================================================================
-		// Holiday parser for public and school holidays (PH,SH)
+		// Holiday parser for public and school holidays (PH,SH) {{{
 		// push_to_weekday will push the selector into the weekday selector array which has the desired side effect of working in conjunction with the weekday selectors (either the holiday match or the weekday), which is the normal and expected behavior.
-		//======================================================================
 		function parseHoliday(tokens, at, selectors, push_to_weekday) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'holiday')) {
@@ -2819,24 +2911,6 @@
 			};
 		}
 
-		function indexOf(needle) {
-			if(typeof Array.prototype.indexOf === 'function') {
-				indexOf = Array.prototype.indexOf;
-			} else {
-				indexOf = function(needle) {
-					var i = -1, index = -1;
-					for(i = 0; i < this.length; i++) {
-						if(this[i] === needle) {
-							index = i;
-							break;
-						}
-					}
-					return index;
-				};
-			}
-			return indexOf.call(this, needle);
-		}
-
 		function getApplyingHolidaysForYear(applying_holidays, year, add_days) {
 			var movableDays = getMovableEventsForYear(year);
 
@@ -2877,10 +2951,9 @@
 
 			return sorted_holidays;
 		}
+		// }}}
 
-		//======================================================================
-		// Year range parser (2013,2016-2018,2020/2)
-		//======================================================================
+		// Year range parser (2013,2016-2018,2020/2) {{{
 		function parseYearRange(tokens, at) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'year')) {
@@ -2954,10 +3027,9 @@
 
 			return at;
 		}
+		// }}}
 
-		//======================================================================
-		// Week range parser (week 11-20, week 1-53/2)
-		//======================================================================
+		// Week range parser (week 11-20, week 1-53/2) {{{
 		function parseWeekRange(tokens, at) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'number')) {
@@ -3040,10 +3112,9 @@
 					date = arguments[i];
 			return date;
 		}
+		// }}}
 
-		//======================================================================
-		// Month range parser (Jan,Feb-Mar)
-		//======================================================================
+		// Month range parser (Jan,Feb-Mar) {{{
 		function parseMonthRange(tokens, at) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'month')) {
@@ -3107,48 +3178,9 @@
 		function dateAtNextMonth(date, month) {
 			return new Date(date.getFullYear(), month < date.getMonth() ? month + 12 : month);
 		}
+		// }}}
 
-		function getConstrainedWeekday(tokens, at) {
-			var number = 0;
-			var endat = parseNumRange(tokens, at, function(from, to, at) {
-
-				// bad number
-				if (from == 0 || from < -5 || from > 5)
-					throw formatWarnErrorMessage(nblock, at,
-						'Number between -5 and 5 (except 0) expected');
-
-				if (from == to) {
-					if (number != 0)
-						throw formatWarnErrorMessage(nblock, at,
-							'You can not use a more than one constrained weekday in a month range');
-					number = from;
-				} else {
-					throw formatWarnErrorMessage(nblock, at+2,
-						'You can not use a range of constrained weekdays in a month range');
-				}
-			});
-
-			if (!matchTokens(tokens, endat, ']'))
-				throw formatWarnErrorMessage(nblock, endat, '"]" expected.');
-
-			return [ number, endat + 1 ];
-		}
-
-		function getDateForConstrainedWeekday(year, month, weekday, constrained_weekday, add_days) {
-			var tmp_date = dateAtNextWeekday(
-				new Date(year, month + (constrained_weekday[0] > 0 ? 0 : 1), 1), weekday);
-
-			tmp_date.setDate(tmp_date.getDate() + (constrained_weekday[0] + (constrained_weekday[0] > 0 ? -1 : 0)) * 7);
-
-			if (typeof add_days != 'undefined' && add_days[1])
-				tmp_date.setDate(tmp_date.getDate() + add_days[0]);
-
-			return tmp_date;
-		}
-
-		//======================================================================
-		// Month day range parser (Jan 26-31; Jan 26-Feb 26)
-		//======================================================================
+		// Month day range parser (Jan 26-31; Jan 26-Feb 26) {{{
 		function parseMonthdayRange(tokens, at, nblock) {
 			for (; at < tokens.length; at++) {
 				var has_year = [], has_month = [], has_event = [], has_calc = [], has_constrained_weekday = [], has_calc = [];
@@ -3380,10 +3412,9 @@
 
 			return at;
 		}
+		// }}}
 
-		//======================================================================
-		// Main selector traversal function
-		//======================================================================
+		// Main selector traversal function (return state array for date) {{{
 		this.getStatePair = function(date) {
 			var resultstate = false;
 			var changedate;
@@ -3514,25 +3545,9 @@
 			// console.log('changedate', changedate, resultstate, comment, match_block);
 			return [ resultstate, changedate, unknown, comment, match_block ];
 		}
+		// }}}
 
-		function formatWarnErrorMessage(nblock, at, message) {
-			var pos = 0;
-			if (nblock == -1) { // usage of block index not required because we do have access to value.length
-				pos = value.length - at;
-			} else { // Issue accrued at a later time, position in string needs to be reconstructed.
-				if (typeof tokens[nblock][0][at] == 'undefined') {
-					pos = value.length;
-				} else {
-					pos = value.length;
-					if (typeof tokens[nblock][0][at+1] != 'undefined')
-						pos -= tokens[nblock][0][at+1][2];
-					else if (typeof tokens[nblock][2] != 'undefined')
-						pos -= tokens[nblock][2];
-				}
-			}
-			return value.substring(0, pos) + ' <--- (' + message + ')';
-		}
-
+		// generate prettified value based on tokens {{{
 		function prettifySelector(tokens, at, last_at, conf, used_parseTimeRange) {
 			var value = '';
 			var start_at = at;
@@ -3595,14 +3610,15 @@
 			}
 			return value + ' ';
 		}
+		// }}}
 
 		//======================================================================
-		// Public interface
+		// Public interface {{{
 		// All functions below are considered public.
 		//======================================================================
 
 		//======================================================================
-		// Iterator interface
+		// Iterator interface {{{
 		//======================================================================
 		this.getIterator = function(date) {
 			return new function(oh) {
@@ -3711,6 +3727,9 @@
 				}
 			}(this);
 		}
+		// }}}
+
+		// Simple API {{{
 
 		// get parse warnings
 		// returns an empty string if there are no warnings
@@ -3816,6 +3835,13 @@
 			return it.getDate();
 		}
 
+		this.isWeekStable = function() {
+			return week_stable;
+		}
+		// }}}
+
+		// High-level API {{{
+
 		// return array of open intervals between two dates
 		this.getOpenIntervals = function(from, to) {
 			var res = [];
@@ -3894,9 +3920,7 @@
 
 			return [ open, unknown ];
 		}
-
-		this.isWeekStable = function() {
-			return week_stable;
-		}
+		// }}}
+		// }}}
 	}
 }));
