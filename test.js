@@ -506,6 +506,18 @@ test.addTest('Real world example: Was not processed right.', [
 		[ '2014.01.11 10:00', '2014.01.11 18:00' ],
 	], 1000 * 60 * 60 * (4 + 4 * 8), 0, true, {}, 'not last test');
 
+// https://github.com/ypid/opening_hours.js/issues/23
+test.addTest('Real world example: Was not processed right.', [
+		'Mo 19:00+; We 14:00+; Su 10:00+ || "Führung, Sonderführungen nach Vereinbarung."',
+	], '2014.01.06 0:00', '2014.01.13 0:00', [
+		[ '2014.01.06 00:00', '2014.01.06 19:00', true,  'Führung, Sonderführungen nach Vereinbarung.' ],
+		[ '2014.01.06 19:00', '2014.01.07 05:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.01.07 05:00', '2014.01.08 14:00', true,  'Führung, Sonderführungen nach Vereinbarung.' ],
+		[ '2014.01.08 14:00', '2014.01.09 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.01.09 00:00', '2014.01.12 10:00', true,  'Führung, Sonderführungen nach Vereinbarung.' ],
+		[ '2014.01.12 10:00', '2014.01.13 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+	], 0, 1000 * 60 * 60 * 24 * 7, true, {}, 'not last test');
+
 // test.addTest('Real world example: Was not processed right.', [
 // 		'Jan Su[-2]-Jan Su[-1]: Fr-Su 12:00+; Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 1-Jul 31: Th-Su 12:00+; Aug 1-Nov 30,Dec: Tu-Su 12:00+; Dec 24-26,Dec 31: off',
 // 	], '2013.08.01 0:00', '2013.10.08 0:00', [
@@ -575,6 +587,7 @@ test.addTest('Full range', [
 		'0-24',	// Do not use. Returns warning.
 		'open',
 		'12:00-13:00; 24/7',
+		'00:00-24:00,12:00-13:00',
 		'Mo-Fr,Sa,Su',
 		ignored('PH,Mo-Fr,Sa,Su', 'check for week stable not implemented'),
 		ignored('PH,Mo-Fr,Sa,Su,SH', 'check for week stable not implemented'),

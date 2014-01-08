@@ -2241,6 +2241,8 @@
 								}
 							}}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period));
 						}
+					} else {
+						selectors.time.push(function(date) { return [true]; });
 					}
 				} else if (matchTokens(tokens, at, 'number', '-', 'number')) { // "Mo 09-18" -> "Mo 09:00-18:00". Please don’t use this
 					var minutes_from = tokens[at][0]   * 60;
