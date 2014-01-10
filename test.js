@@ -798,6 +798,17 @@ test.addTest('Fallback group blocks', [
 		[ '2013.10.07 08:00', '2013.10.07 11:00' ],
 	], 1000 * 60 * 60 * (3 * 5 + 3 * 1), 0, true, nominatiomTestJSON, 'not last test');
 
+test.addTest('Only in one month of the year', [
+		'Apr 08:00-12:00',
+		'Apr: 08:00-12:00',
+	], '2013.04.28 0:00', '2014.04.03 0:00', [
+		[ '2013.04.28 08:00', '2013.04.28 12:00' ],
+		[ '2013.04.29 08:00', '2013.04.29 12:00' ],
+		[ '2013.04.30 08:00', '2013.04.30 12:00' ],
+		[ '2014.04.01 08:00', '2014.04.01 12:00' ],
+		[ '2014.04.02 08:00', '2014.04.02 12:00' ],
+	], 1000 * 60 * 60 * (5 * 4), 0, false, {}, 'not last test');
+
 test.addTest('Month ranges', [
 		'Nov-Feb 00:00-24:00',
 		'Nov-Feb',
@@ -1363,6 +1374,16 @@ test.addTest('Points in time, mode 1', [
 		[ '2012.10.01 07:22', '2012.10.01 07:23' ],
 		[ '2012.10.01 19:00', '2012.10.01 19:01' ],
 	], 1000 * 60 * 2, 0, false, nominatiomTestJSON, 'not last test', 1);
+
+// based on real data which could not be parse:
+// http://www.openstreetmap.org/way/159114283/history
+test.addTest('Points in time with month, mode 1', [
+		'Apr 08:00',
+		'Apr: 08:00',
+	], '2012.04.01 0:00', '2012.04.03 0:00', [
+		[ '2012.04.01 08:00', '2012.04.01 08:01' ],
+		[ '2012.04.02 08:00', '2012.04.02 08:01' ],
+	], 1000 * 60 * 2, 0, false, {}, 'last test', 1);
 
 test.addTest('Points in time, mode 2', [
 		'Mo sunrise,sunset',

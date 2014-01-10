@@ -1156,6 +1156,7 @@
 				'?':  'unknown "please add this if known"',
 			}, 'Please use notation "<ok>" for "<ko>".': {
 				'–':  '-',
+				'−':  '-',
 				'=':  '-',
 				'ー':  '-',
 				to:   '-',
@@ -1168,17 +1169,20 @@
 				'às': '-', // language unknown
 				ate:  '-', // language unknown
 				till: '-',
+				til: '-',
 				and:  ',',
 				'&':  ',',
 				'：':  ':',
 				'°°':  ':00',
-				daily:     'Mo-Su',
-				everyday:  'Mo-Su',
+				'daily':     'Mo-Su',
+				'everyday':  'Mo-Su',
+				'every day': 'Mo-Su',
 				always:    '24/7',
 				nonstop:   '24/7',
 				'24x7':    '24/7',
-				'all day': '24/7',
 				'anytime': '24/7',
+				'all day': '24/7',
+				'all days': 'Mo-Su',
 				'every day': 'Mo-Su',
 				'7days':   'Mo-Su',
 				'7j/7':    'Mo-Su', // I guess that it means that
@@ -1708,7 +1712,7 @@
 				} else if (tmp = value.match(/^days?/i)) {
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(&|_|–|=|ー|\?|~|～|：|[a-zäößàáéøčěíúýř]+\b|°°|24x7|7[ ]?days|all day|-late|public holidays?|7j?\/7|every day|до|рм|ам)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|–|−|=|ー|\?|~|～|：|[a-zäößàáéøčěíúýř]+\b|°°|24x7|7[ ]?days|all days?|every day|-late|public holidays?|7j?\/7|every day|до|рм|ам)\.?/i)) {
 					// Handle all remaining words with error tolerance
 					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
 					if (typeof correct_val == 'object') {
@@ -1905,7 +1909,7 @@
 					// Except the start or end of the value.
 					// This provides compatibility with the syntax proposed by Netzwolf:
 					// http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification
-					if (!done_with_warnings && matchTokens(tokens, at-1, 'weekday') || matchTokens(tokens, at-1, 'holiday'))
+					if (!done_with_warnings && (matchTokens(tokens, at-1, 'weekday') || matchTokens(tokens, at-1, 'holiday')))
 						parsing_warnings.push([nblock, at, 'Please don’t use ":" after ' + tokens[at-1][1] + '.']);
 
 					if (prettified_group_value[-1] != ' ')
@@ -3329,7 +3333,8 @@
 
 					if (matchTokens(tokens, at_timesep_if_monthRange, 'timesep', 'number')
 							&& (matchTokens(tokens, at_timesep_if_monthRange+2, '+')
-								|| matchTokens(tokens, at_timesep_if_monthRange+2, '-')))
+								|| matchTokens(tokens, at_timesep_if_monthRange+2, '-')
+                                || oh_mode != 0))
 						return parseMonthRange(tokens, at);
 
 					selectors.monthday.push(function(tokens, at, is_range, has_period, has_year) { return function(date) {

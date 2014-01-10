@@ -16,7 +16,7 @@ real_test: opening_hours.js real_test.js all-osm-tags
 
 .PHONY : regex_search
 regex_search: export.$(SEARCH).json interactive_testing.js
-	./regex_search $<
+	./regex_search.py $<
 
 interactive_testing: interactive_testing.js
 	${NODE} interactive_testing.js
