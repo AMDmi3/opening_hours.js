@@ -3519,7 +3519,7 @@
 							unknown     = blocks[block].unknown;
 							match_block = block;
 
-							if (typeof blocks[block].comment != 'undefined') // only use comment if one is specified
+							if (typeof blocks[block].comment == 'string') // only use comment if one is specified
 								comment     = blocks[block].comment;
 							else if (typeof comment == 'object') // holiday name
 								comment = comment[0];
@@ -3534,11 +3534,12 @@
 								unknown     = true;
 							}
 
-							if (blocks[block].fallback) {
+                            if (blocks[block].fallback) {
 								if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate))
 									changedate = res[1];
 
-								break block; // fallback block matched, no need for checking the rest
+                                // break block; // Fallback block matched, no need for checking the rest.
+                                // WRONG: What if 'off' is used after fallback block.
 							}
 						}
 					}

@@ -528,8 +528,8 @@ test.addTest('Real world example: Was not processed right.', [
 // 		'"(Buffet)" Mo-Th 12:00-15:00,17:00-21:30; Fr 12:00-15:00,17:00-22:30; Sa 12:00-15:00,16:30-22:30; Su 12:00-15:00,16:30-21:30 || Su-Th 11:30-22:00 open "Takeout" || Fr-Sa 11:30-23:00 open "Takeout"',
 // 	], '2013.08.01 0:00', '2013.10.08 0:00', [
 // 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
-//
-test.addTest('Warnings corrected to fallback block (real world example)', [
+
+test.addTest('Warnings corrected to additional block (real world example)', [
 		'Mo-Fr 09:00-12:00, Mo,Tu,Th 15:00-18:00', // reference value for prettify
 		'Mo – Fr: 9 – 12 Uhr und Mo, Di, Do: 15 – 18 Uhr',
 	], '2014.09.01 0:00', '2014.09.08 0:00', [
@@ -798,6 +798,21 @@ test.addTest('Fallback group blocks', [
 		[ '2013.10.07 08:00', '2013.10.07 11:00' ],
 	], 1000 * 60 * 60 * (3 * 5 + 3 * 1), 0, true, nominatiomTestJSON, 'not last test');
 
+test.addTest('Fallback group blocks, with some closed times', [
+		'Mo,Tu,Th 09:00-12:00; Fr 14:00-17:30 || "Termine nach Vereinbarung"; We off',
+	], '2013.10.01 0:00', '2013.10.08 0:00', [
+		[ '2013.10.01 00:00', '2013.10.01 09:00', true,  'Termine nach Vereinbarung' ], // 9
+		[ '2013.10.01 09:00', '2013.10.01 12:00' ],
+		[ '2013.10.01 12:00', '2013.10.02 00:00', true,  'Termine nach Vereinbarung' ], // 12
+		[ '2013.10.03 00:00', '2013.10.03 09:00', true,  'Termine nach Vereinbarung' ], // 9
+		[ '2013.10.03 09:00', '2013.10.03 12:00' ],
+		[ '2013.10.03 12:00', '2013.10.04 14:00', true,  'Termine nach Vereinbarung' ], // 12 + 14
+		[ '2013.10.04 14:00', '2013.10.04 17:30' ],
+		[ '2013.10.04 17:30', '2013.10.07 09:00', true,  'Termine nach Vereinbarung' ], // 2.5 + 4 + 24 * 2 + 9
+		[ '2013.10.07 09:00', '2013.10.07 12:00' ],
+		[ '2013.10.07 12:00', '2013.10.08 00:00', true,  'Termine nach Vereinbarung' ], // 12
+	], 1000 * 60 * 60 * (3 * 3 + 3.5), 1000 * 60 * 60 * (9 + 12 + 9 + (12 + 14) + (2.5 + 4 + 24 * 2 + 9) + 12), true, {}, 'not last test');
+
 test.addTest('Only in one month of the year', [
 		'Apr 08:00-12:00',
 		'Apr: 08:00-12:00',
@@ -832,13 +847,25 @@ test.addTest('Month ranges', [
 
 test.addTest('Month ranges', [
 		'Jan 1,Dec 24-25; Nov Th[4]',
-		'Jan 1,Dec 24,25; Nov Th[4]',
+		'Jan 1,Dec 24,25; Nov Th[4]', // Was supported by time_domain as well.
 		'2012 Jan 1,2012 Dec 24-25; 2012 Nov Th[4]',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.01 00:00', '2012.01.02 00:00' ],
 		[ '2012.11.22 00:00', '2012.11.23 00:00' ],
 		[ '2012.12.24 00:00', '2012.12.26 00:00' ],
 	], 1000 * 60 * 60 * 24 * 4, 0, false, {}, 'not last test');
+
+test.addTest('Month ranges', [
+		'Jan 1,Dec 11,Dec 15-17,Dec 19-23/2,Dec 24-25',
+		'Jan 1,Dec 11,15-17,19-23/2,24,25', // Was supported by time_domain as well.
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+		[ '2012.01.01 00:00', '2012.01.02 00:00' ],
+		[ '2012.12.11 00:00', '2012.12.12 00:00' ],
+		[ '2012.12.15 00:00', '2012.12.18 00:00' ],
+		[ '2012.12.19 00:00', '2012.12.20 00:00' ],
+		[ '2012.12.21 00:00', '2012.12.22 00:00' ],
+		[ '2012.12.23 00:00', '2012.12.26 00:00' ],
+	], 1000 * 60 * 60 * 24 * (1 + 1 + 3 + 1 + 1 + 3), 0, false, {}, 'not last test');
 
 test.addTest('Week ranges', [
 		'week 1,3 00:00-24:00',
@@ -1383,7 +1410,7 @@ test.addTest('Points in time with month, mode 1', [
 	], '2012.04.01 0:00', '2012.04.03 0:00', [
 		[ '2012.04.01 08:00', '2012.04.01 08:01' ],
 		[ '2012.04.02 08:00', '2012.04.02 08:01' ],
-	], 1000 * 60 * 2, 0, false, {}, 'last test', 1);
+	], 1000 * 60 * 2, 0, false, {}, 'not last test', 1);
 
 test.addTest('Points in time, mode 2', [
 		'Mo sunrise,sunset',
