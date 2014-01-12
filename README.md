@@ -29,7 +29,7 @@ Just clone the repository:
 git clone --recursive https://github.com/ypid/opening_hours.js.git
 ```
 
-If you are a web developer and want to use this library you can do so by include the current version from here:
+If you are a web developer and want to use this library you can do so by including the current version from here:
 
 ```
 http://openingh.openstreetmap.de/evaluation_tool/opening_hours.js

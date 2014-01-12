@@ -3334,7 +3334,7 @@
 					if (matchTokens(tokens, at_timesep_if_monthRange, 'timesep', 'number')
 							&& (matchTokens(tokens, at_timesep_if_monthRange+2, '+')
 								|| matchTokens(tokens, at_timesep_if_monthRange+2, '-')
-                                || oh_mode != 0))
+								|| oh_mode != 0))
 						return parseMonthRange(tokens, at);
 
 					selectors.monthday.push(function(tokens, at, is_range, has_period, has_year) { return function(date) {
@@ -3534,12 +3534,12 @@
 								unknown     = true;
 							}
 
-                            if (blocks[block].fallback) {
+							if (blocks[block].fallback) {
 								if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate))
 									changedate = res[1];
 
-                                // break block; // Fallback block matched, no need for checking the rest.
-                                // WRONG: What if 'off' is used after fallback block.
+								// break block; // Fallback block matched, no need for checking the rest.
+								// WRONG: What if 'off' is used after fallback block.
 							}
 						}
 					}
