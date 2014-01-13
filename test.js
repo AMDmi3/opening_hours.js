@@ -506,17 +506,27 @@ test.addTest('Real world example: Was not processed right.', [
 		[ '2014.01.11 10:00', '2014.01.11 18:00' ],
 	], 1000 * 60 * 60 * (4 + 4 * 8), 0, true, {}, 'not last test');
 
-// https://github.com/ypid/opening_hours.js/issues/23
+// https://github.com/ypid/opening_hours.js/issues/26 {{{
+// Problem with wrap day in browser.
 test.addTest('Real world example: Was not processed right.', [
 		'Mo 19:00+; We 14:00+; Su 10:00+ || "Führung, Sonderführungen nach Vereinbarung."',
 	], '2014.01.06 0:00', '2014.01.13 0:00', [
-		[ '2014.01.06 00:00', '2014.01.06 19:00', true,  'Führung, Sonderführungen nach Vereinbarung.' ],
-		[ '2014.01.06 19:00', '2014.01.07 05:00', true,  'Specified as open end. Closing time was guessed.' ],
-		[ '2014.01.07 05:00', '2014.01.08 14:00', true,  'Führung, Sonderführungen nach Vereinbarung.' ],
-		[ '2014.01.08 14:00', '2014.01.09 00:00', true,  'Specified as open end. Closing time was guessed.' ],
-		[ '2014.01.09 00:00', '2014.01.12 10:00', true,  'Führung, Sonderführungen nach Vereinbarung.' ],
-		[ '2014.01.12 10:00', '2014.01.13 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.01.06 00:00', '2014.01.06 19:00', true, 'Führung, Sonderführungen nach Vereinbarung.' ],
+		[ '2014.01.06 19:00', '2014.01.07 05:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.01.07 05:00', '2014.01.08 14:00', true, 'Führung, Sonderführungen nach Vereinbarung.' ],
+		[ '2014.01.08 14:00', '2014.01.09 00:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.01.09 00:00', '2014.01.12 10:00', true, 'Führung, Sonderführungen nach Vereinbarung.' ],
+		[ '2014.01.12 10:00', '2014.01.13 00:00', true, 'Specified as open end. Closing time was guessed.' ],
 	], 0, 1000 * 60 * 60 * 24 * 7, true, {}, 'not last test');
+
+test.addTest('Real world example: Was not processed right.', [
+		'Mo 19:00-05:00 || "Sonderführungen nach Vereinbarung."',
+	], '2014.01.06 0:00', '2014.01.13 0:00', [
+		[ '2014.01.06 00:00', '2014.01.06 19:00', true,  'Sonderführungen nach Vereinbarung.' ],
+		[ '2014.01.06 19:00', '2014.01.07 05:00' ],
+		[ '2014.01.07 05:00', '2014.01.13 00:00', true,  'Sonderführungen nach Vereinbarung.' ],
+	], 1000 * 60 * 60 * 10, 1000 * 60 * 60 * (24 * 7 - 10), true, {}, 'not last test');
+// }}}
 
 // test.addTest('Real world example: Was not processed right.', [
 // 		'Jan Su[-2]-Jan Su[-1]: Fr-Su 12:00+; Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 1-Jul 31: Th-Su 12:00+; Aug 1-Nov 30,Dec: Tu-Su 12:00+; Dec 24-26,Dec 31: off',
@@ -529,12 +539,37 @@ test.addTest('Real world example: Was not processed right.', [
 // 	], '2013.08.01 0:00', '2013.10.08 0:00', [
 // 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
 
-// http://www.openstreetmap.org/way/163756418/history
+// https://github.com/ypid/opening_hours.js/issues/27 {{{
 // Problem in browser.
+//
+// http://www.openstreetmap.org/way/163756418/history
 // test.addTest('Real world example: Was not processed right.', [
 // 		'Jun 15-Sep 15: Th-Su 16:00-19:00; Sep 16-Dec 31: Sa,Su 16:00-19:00; Jan,Feb,Mar off; Dec 25,easter off',
 // 	], '2013.01.01 0:00', '2014.01.01 0:00', [
 // 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'last test');
+//
+test.addTest('Based on real world example: Is processed right.', [
+		'Nov-Dec Sa,Su 16:00-19:00; Dec 22 off',
+	], '2013.01.01 0:00', '2014.01.01 0:00', [
+		[ '2013.11.02 16:00', '2013.11.02 19:00' ],
+		[ '2013.11.03 16:00', '2013.11.03 19:00' ],
+		[ '2013.11.09 16:00', '2013.11.09 19:00' ],
+		[ '2013.11.10 16:00', '2013.11.10 19:00' ],
+		[ '2013.11.16 16:00', '2013.11.16 19:00' ],
+		[ '2013.11.17 16:00', '2013.11.17 19:00' ],
+		[ '2013.11.23 16:00', '2013.11.23 19:00' ],
+		[ '2013.11.24 16:00', '2013.11.24 19:00' ],
+		[ '2013.11.30 16:00', '2013.11.30 19:00' ],
+		[ '2013.12.01 16:00', '2013.12.01 19:00' ],
+		[ '2013.12.07 16:00', '2013.12.07 19:00' ],
+		[ '2013.12.08 16:00', '2013.12.08 19:00' ],
+		[ '2013.12.14 16:00', '2013.12.14 19:00' ],
+		[ '2013.12.15 16:00', '2013.12.15 19:00' ],
+		[ '2013.12.21 16:00', '2013.12.21 19:00' ],
+		[ '2013.12.28 16:00', '2013.12.28 19:00' ],
+		[ '2013.12.29 16:00', '2013.12.29 19:00' ],
+	], 1000 * 60 * 60 * (3 * 17), 0, false, {}, 'not last test');
+// }}}
 
 test.addTest('Warnings corrected to additional block (real world example)', [
 		'Mo-Fr 09:00-12:00, Mo,Tu,Th 15:00-18:00', // reference value for prettify
