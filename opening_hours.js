@@ -1439,8 +1439,10 @@
 				'sobota': 6, 'sob': 6, // 'so': 6 // abbreviation also used in German
 				// Russian
 				'воскресенье' : 0,
+				'Вс'          : 0,
 				"voskresen'ye": 0,
 				'понедельник' : 1,
+				'Пн'          : 1,
 				"ponedel'nik" : 1,
 				'вторник'     : 2,
 				'vtornik'     : 2,
@@ -1712,7 +1714,7 @@
 				} else if (tmp = value.match(/^days?/i)) {
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(&|_|–|−|=|ー|\?|~|～|：|[a-zäößàáéøčěíúýř]+\b|°°|24x7|7[ ]?days|all days?|every day|-late|public holidays?|7j?\/7|every day|до|рм|ам)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|–|−|=|ー|\?|~|～|：|[a-zäößàáéøčěíúýřПнВс]+\b|°°|24x7|7[ ]?days|all days?|every day|-late|public holidays?|7j?\/7|every day|до|рм|ам)\.?/i)) {
 					// Handle all remaining words with error tolerance
 					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
 					if (typeof correct_val == 'object') {
