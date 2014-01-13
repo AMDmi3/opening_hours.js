@@ -529,6 +529,13 @@ test.addTest('Real world example: Was not processed right.', [
 // 	], '2013.08.01 0:00', '2013.10.08 0:00', [
 // 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
 
+// http://www.openstreetmap.org/way/163756418/history
+// Problem in browser.
+// test.addTest('Real world example: Was not processed right.', [
+// 		'Jun 15-Sep 15: Th-Su 16:00-19:00; Sep 16-Dec 31: Sa,Su 16:00-19:00; Jan,Feb,Mar off; Dec 25,easter off',
+// 	], '2013.01.01 0:00', '2014.01.01 0:00', [
+// 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'last test');
+
 test.addTest('Warnings corrected to additional block (real world example)', [
 		'Mo-Fr 09:00-12:00, Mo,Tu,Th 15:00-18:00', // reference value for prettify
 		'Mo – Fr: 9 – 12 Uhr und Mo, Di, Do: 15 – 18 Uhr',
