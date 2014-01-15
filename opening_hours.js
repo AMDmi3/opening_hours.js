@@ -1155,6 +1155,7 @@
 			}, 'You can use notation "<ok>" for "<ko>" temporally if the syntax will still be valid.': {
 				'?':  'unknown "please add this if known"',
 			}, 'Please use notation "<ok>" for "<ko>".': {
+				'→':  '-',
 				'–':  '-',
 				'−':  '-',
 				'=':  '-',
@@ -1714,7 +1715,7 @@
 				} else if (tmp = value.match(/^days?/i)) {
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(&|_|–|−|=|ー|\?|~|～|：|[a-zäößàáéøčěíúýřПнВс]+\b|°°|24x7|7[ ]?days|all days?|every day|-late|public holidays?|7j?\/7|every day|до|рм|ам)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|→|–|−|=|ー|\?|~|～|：|[a-zäößàáéøčěíúýřПнВс]+\b|°°|25x7|7[ ]?days|all days?|every day|-late|public holidays?|7j?\/7|every day|до|рм|ам)\.?/i)) {
 					// Handle all remaining words with error tolerance
 					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
 					if (typeof correct_val == 'object') {
