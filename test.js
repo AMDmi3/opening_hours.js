@@ -198,6 +198,19 @@ test.addTest('Open end, variable time', [
 		[ '2012.10.01 08:22', '2012.10.02 00:00', true,  'Specified as open end. Closing time was guessed.' ],
 	], 0, 1000 * 60 * (60 * 15 + 60 - 22), false, nominatiomTestJSON, 'not last test');
 
+test.addTest('Open end', [
+		'17:00+ off',
+		'17:00-19:00 off',
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+	], 0, 0, true, {}, 'not last test');
+
+test.addTest('Open end', [
+		'07:00+,12:00-16:00; 16:00-24:00 closed "needed because of open end"',
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+		[ '2012.10.01 07:00', '2012.10.01 12:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2012.10.01 12:00', '2012.10.01 16:00' ],
+	], 1000 * 60 * 60 * 4, 1000 * 60 * 60 * 5, true, {}, 'not last test');
+
 // proposal: opening hours open end fixed time extension {{{
 // http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_end_fixed_time_extension
 //
@@ -227,19 +240,6 @@ test.addTest('Open end, variable time', [
 // 	], '2012.10.01 0:00', '2012.10.02 0:00', [
 // 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
 // }}}
-
-test.addTest('Open end', [
-		'17:00+ off',
-		'17:00-19:00 off',
-	], '2012.10.01 0:00', '2012.10.02 0:00', [
-	], 0, 0, true, {}, 'not last test');
-
-test.addTest('Open end', [
-		'07:00+,12:00-16:00; 16:00-24:00 closed "needed because of open end"',
-	], '2012.10.01 0:00', '2012.10.02 0:00', [
-		[ '2012.10.01 07:00', '2012.10.01 12:00', true,  'Specified as open end. Closing time was guessed.' ],
-		[ '2012.10.01 12:00', '2012.10.01 16:00' ],
-	], 1000 * 60 * 60 * 4, 1000 * 60 * 60 * 5, true, {}, 'not last test');
 // }}}
 
 // variable times {{{
@@ -698,15 +698,16 @@ test.addTest('Calculations based on constrained weekdays', [
 	], 1000 * 60 * 60 * 24 * 6, 0, false, {}, 'not last test');
 
 test.addTest('Calculations based on constrained weekdays', [
-		'Aug Su[-1] +1 day',
-	], '2013.08.28 0:00', '2013.10.08 0:00', [
-	], 0, 0, false, {}, 'not last test');
+		'Aug Su[-1] +1 day', // 25: Su;  26 Su +1 day
+	], '2013.08.01 0:00', '2013.10.08 0:00', [
+		[ '2013.08.26 00:00', '2013.08.27 00:00' ],
+	], 1000 * 60 * 60 * 24, 0, false, {}, 'not last test');
 
-// FIXME: ??
 test.addTest('Calculations based on constrained weekdays', [
 		'Aug Su[-1] +1 day',
-	], '2013.08.29 0:00', '2013.10.08 0:00', [ // Error in selector code for this date. Only when starting at this date.
-	], 0, 0, false, {}, 'not last test');
+	], '2013.08.26 8:00', '2013.10.08 0:00', [
+		[ '2013.08.26 08:00', '2013.08.27 00:00' ],
+	], 1000 * 60 * 60 * 16, 0, false, {}, 'not last test');
 
 test.addTest('Constrained weekday (complex real world example)', [
 		'Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug Su[-1]: 10:00-18:00',
@@ -1036,7 +1037,6 @@ test.addTest('Month ranges with year', [
 test.addTest('Complex monthday ranges', [
 		'Jan 23-31,Feb 1-12 00:00-24:00',
 		'Jan 23-Feb 11,Feb 12 00:00-24:00', // preferred
-		ignored('Jan 23-30,31-Feb 1-2,3-12 12 00:00-24:00'), // FIXME: What should the ending '12' mean?
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
 	], 1000 * 60 * 60 * 24 * 21, 0, false, {}, 'not last test');
@@ -1183,18 +1183,17 @@ test.addTest('Date overwriting with additional comments for unknown ', [
 	], 0, 1000 * 60 * 60 * (4 * 10 + 6), true);
 
 test.addTest('Additional comments with time ranges spanning midnight', [
-		// '22:00-02:00 open "Lets party"; We 12:00-14:00 "Maybe open. Call us."',
-		'22:00-26:00; We 12:00-14:00 unknown "Maybe open. Call us."', // FIXME
+		'22:00-26:00; We 12:00-14:00 unknown "Maybe open. Call us."',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 00:00', '2012.10.01 02:00', false, "Lets party" ],
-		[ '2012.10.01 22:00', '2012.10.02 02:00', false, "Lets party" ],
-		[ '2012.10.02 22:00', '2012.10.03 00:00', false, "Lets party" ],
-		[ '2012.10.03 12:00', '2012.10.03 14:00', true, "Maybe open. Call us." ],
-		[ '2012.10.04 00:00', '2012.10.04 02:00', false, "Lets party" ],
-		[ '2012.10.04 22:00', '2012.10.05 02:00', false, "Lets party" ],
-		[ '2012.10.05 22:00', '2012.10.06 02:00', false, "Lets party" ],
-		[ '2012.10.06 22:00', '2012.10.07 02:00', false, "Lets party" ],
-		[ '2012.10.07 22:00', '2012.10.08 00:00', false, "Lets party" ],
+		[ '2012.10.01 00:00', '2012.10.01 02:00' ],
+		[ '2012.10.01 22:00', '2012.10.02 02:00' ],
+		[ '2012.10.02 22:00', '2012.10.03 00:00' ],
+		[ '2012.10.03 12:00', '2012.10.03 14:00', true,  'Maybe open. Call us.' ],
+		[ '2012.10.04 00:00', '2012.10.04 02:00' ],
+		[ '2012.10.04 22:00', '2012.10.05 02:00' ],
+		[ '2012.10.05 22:00', '2012.10.06 02:00' ],
+		[ '2012.10.06 22:00', '2012.10.07 02:00' ],
+		[ '2012.10.07 22:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * 4 * 6, 1000 * 60 * 60 * 2, true, {}, 'not last test');
 
 test.addTest('Additional comments for closed with time ranges spanning midnight', [
@@ -1778,6 +1777,10 @@ function opening_hours_test() {
 	var tests_should_warn = [];
 	var tests_comp_matching_rule = [];
 
+	this.last = false; // If set to true, no more tests are added to the testing queue.
+	// This might be useful for testing to avoid to comment tests out and something like that …
+
+	// function runSingleTestShouldFail {{{
 	function runSingleTestShouldFail(name, value, nominatiomJSON, oh_mode) {
 		try {
 			// since they should fail anyway we can give them the nominatiomTestJSON
@@ -1806,7 +1809,9 @@ function opening_hours_test() {
 
 		return crashed;
 	}
+	// }}}
 
+	// function runSingleTestShouldThrowWarning {{{
 	function runSingleTestShouldThrowWarning(name, value, nominatiomJSON) {
 		var warnings, oh;
 		try {
@@ -1836,7 +1841,9 @@ function opening_hours_test() {
 		}
 		return false;
 	}
+	// }}}
 
+	// function runSingleTest {{{
 	function runSingleTest(name, value, first_value, from, to, expected_intervals, expected_durations, expected_weekstable, nominatiomJSON, oh_mode) {
 		var ignored = typeof value !== 'string';
 		if (ignored) {
@@ -1876,9 +1883,9 @@ function opening_hours_test() {
 
 				if (intervals[interval][0].getTime() != expected_from.getTime()
 						|| intervals[interval][1].getTime() != expected_to.getTime()
-						|| (typeof intervals[interval][2] !== 'undefined'
+						|| (typeof expected_intervals[interval][2] !== 'undefined' // unknown state boolean
 							&& intervals[interval][2] !== expected_intervals[interval][2])
-						|| (typeof intervals[interval][3] !== 'undefined'
+						|| (typeof expected_intervals[interval][3] !== 'undefined'
 							&& intervals[interval][3] !== expected_intervals[interval][3])
 						)
 					intervals_ok = false;
@@ -1924,7 +1931,9 @@ function opening_hours_test() {
 			console.log(str);
 		return passed;
 	}
+	// }}}
 
+	// function runSingleTestCompMatchingRule {{{
 	function runSingleTestCompMatchingRule(name, value, date, matching_rule, nominatiomJSON) {
 		try {
 			// since they should fail anyway we can give them the nominatiomTestJSON
@@ -1957,7 +1966,98 @@ function opening_hours_test() {
 
 		return passed;
 	}
+	// }}}
 
+	// function to run all tests {{{
+	this.run = function() {
+		var tests_length = tests.length + tests_should_fail.length + tests_should_warn.length + tests_comp_matching_rule.length;
+		var success = 0;
+		for (var test = 0; test < tests.length; test++) {
+			if (runSingleTest(tests[test][0], tests[test][1], tests[test][2], tests[test][3], tests[test][4], tests[test][5], tests[test][6], tests[test][7], tests[test][8], tests[test][9]))
+				success++;
+		}
+		for (var test = 0; test < tests_should_warn.length; test++) {
+			if (runSingleTestShouldThrowWarning(tests_should_warn[test][0], tests_should_warn[test][1], tests_should_warn[test][2]))
+				success++;
+		}
+		for (var test = 0; test < tests_should_fail.length; test++) {
+			if (runSingleTestShouldFail(tests_should_fail[test][0], tests_should_fail[test][1], tests_should_fail[test][2], tests_should_fail[test][3]))
+				success++;
+		}
+		for (var test = 0; test < tests_comp_matching_rule.length; test++) {
+			if (runSingleTestCompMatchingRule(tests_comp_matching_rule[test][0], tests_comp_matching_rule[test][1],
+					tests_comp_matching_rule[test][2], tests_comp_matching_rule[test][3]))
+				success++;
+		}
+
+		console.log(success + '/' + tests_length + ' tests passed');
+
+		return success == tests_length;
+	}
+	// }}}
+
+	// add normal test queue {{{
+	this.addTest = function(name, values, from, to, expected_intervals, expected_duration, expected_unknown_duration, expected_weekstable, nominatiomJSON, last, oh_mode) {
+
+		if (this.last == true) return;
+		this.handle_only_test(last);
+
+		for (var expected_interval = 0; expected_interval < expected_intervals.length; expected_interval++) {
+			// Set default of unknown to false. If you expect something else you
+			// will have to specify it.
+			if (typeof expected_intervals[expected_interval][2] === 'undefined')
+				expected_intervals[expected_interval][2] = false;
+		}
+		if (typeof values === 'string')
+			tests.push([name, values, values, from, to, expected_intervals,
+				[ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON, oh_mode]);
+		else
+			for (var value = 0; value < values.length; value++)
+				tests.push([name, values[value], values[0], from, to, expected_intervals,
+					[ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON, oh_mode]);
+	}
+	// }}}
+
+	// add test which should fail {{{
+	this.addShouldFail = function(name, values, nominatiomJSON, last, oh_mode) {
+		if (this.last == true) return;
+		this.handle_only_test(last);
+
+		if (typeof values === 'string')
+			tests_should_fail.push([name, values, nominatiomJSON, oh_mode]);
+		else
+			for (var value = 0; value < values.length; value++)
+				tests_should_fail.push([name, values[value], nominatiomJSON, oh_mode]);
+	}
+	// }}}
+
+	// add test which should give a warning {{{
+	this.addShouldWarn = function(name, values, nominatiomJSON, last) {
+		if (this.last == true) return;
+		this.handle_only_test(last);
+
+		if (typeof values == 'string')
+			tests_should_warn.push([name, values, nominatiomJSON]);
+		else
+			for (var value = 0; value < values.length; value++)
+				tests_should_warn.push([name, values[value], nominatiomJSON]);
+	}
+	// }}}
+
+	// add test to check if the matiching rule is evaluated correctly {{{
+	this.addCompMatchingRule = function(name, values, date, matching_rule, nominatiomJSON, last) {
+		if (this.last == true) return;
+		this.handle_only_test(last);
+
+		if (typeof values == 'string')
+			tests_comp_matching_rule.push([name, values, date, matching_rule, nominatiomJSON]);
+		else
+			for (var value = 0; value < values.length; value++)
+				tests_comp_matching_rule.push([name, values[value], date, matching_rule, nominatiomJSON]);
+	}
+	// }}}
+
+	// helpers {{{
 	function intervalsToString(intervals) {
 		var res = '';
 
@@ -1992,85 +2092,6 @@ function opening_hours_test() {
 		return res;
 	}
 
-	this.run = function() {
-		var tests_length = tests.length + tests_should_fail.length + tests_should_warn.length + tests_comp_matching_rule.length;
-		var success = 0;
-		for (var test = 0; test < tests.length; test++) {
-			if (runSingleTest(tests[test][0], tests[test][1], tests[test][2], tests[test][3], tests[test][4], tests[test][5], tests[test][6], tests[test][7], tests[test][8], tests[test][9]))
-				success++;
-		}
-		for (var test = 0; test < tests_should_warn.length; test++) {
-			if (runSingleTestShouldThrowWarning(tests_should_warn[test][0], tests_should_warn[test][1], tests_should_warn[test][2]))
-				success++;
-		}
-		for (var test = 0; test < tests_should_fail.length; test++) {
-			if (runSingleTestShouldFail(tests_should_fail[test][0], tests_should_fail[test][1], tests_should_fail[test][2], tests_should_fail[test][3]))
-				success++;
-		}
-		for (var test = 0; test < tests_comp_matching_rule.length; test++) {
-			if (runSingleTestCompMatchingRule(tests_comp_matching_rule[test][0], tests_comp_matching_rule[test][1],
-					tests_comp_matching_rule[test][2], tests_comp_matching_rule[test][3]))
-				success++;
-		}
-
-		console.log(success + '/' + tests_length + ' tests passed');
-
-		return success == tests_length;
-	}
-
-	this.last = false; // If set to true, no more tests are added to the testing queue.
-	// This might be useful for testing to avoid to comment tests out and something like that …
-
-	this.addTest = function(name, values, from, to, expected_intervals, expected_duration, expected_unknown_duration, expected_weekstable, nominatiomJSON, last, oh_mode) {
-
-		if (this.last == true) return;
-		this.handle_only_test(last);
-
-		for (var expected_interval = 0; expected_interval < expected_intervals.length; expected_interval++) {
-			// Set default of unknown to false. If you expect something else you
-			// will have to specify it.
-			if (typeof expected_intervals[expected_interval][2] === 'undefined')
-				expected_intervals[expected_interval][2] = false;
-		}
-		if (typeof values === 'string')
-			tests.push([name, values, values, from, to, expected_intervals,
-				[ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON, oh_mode]);
-		else
-			for (var value = 0; value < values.length; value++)
-				tests.push([name, values[value], values[0], from, to, expected_intervals,
-					[ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON, oh_mode]);
-	}
-
-	this.addShouldFail = function(name, values, nominatiomJSON, last, oh_mode) {
-		if (this.last == true) return;
-		this.handle_only_test(last);
-
-		if (typeof values === 'string')
-			tests_should_fail.push([name, values, nominatiomJSON, oh_mode]);
-		else
-			for (var value = 0; value < values.length; value++)
-				tests_should_fail.push([name, values[value], nominatiomJSON, oh_mode]);
-	}
-	this.addShouldWarn = function(name, values, nominatiomJSON, last) {
-		if (this.last == true) return;
-		this.handle_only_test(last);
-
-		if (typeof values == 'string')
-			tests_should_warn.push([name, values, nominatiomJSON]);
-		else
-			for (var value = 0; value < values.length; value++)
-				tests_should_warn.push([name, values[value], nominatiomJSON]);
-	}
-	this.addCompMatchingRule = function(name, values, date, matching_rule, nominatiomJSON, last) {
-		if (this.last == true) return;
-		this.handle_only_test(last);
-
-		if (typeof values == 'string')
-			tests_comp_matching_rule.push([name, values, date, matching_rule, nominatiomJSON]);
-		else
-			for (var value = 0; value < values.length; value++)
-				tests_comp_matching_rule.push([name, values[value], date, matching_rule, nominatiomJSON]);
-	}
 	this.handle_only_test = function (last) {
 		if (last === 'only test') {
 			tests = [];
@@ -2080,6 +2101,7 @@ function opening_hours_test() {
 		}
 		if (last === 'only test' || last === 'last test') this.last = true;
 	}
+	// }}}
 }
 
 function ignored(value, reason) {
