@@ -1,5 +1,6 @@
+// preamble {{{
 var opening_hours = require('./opening_hours.js');
-var colors = require('colors');
+var colors        = require('colors');
 
 colors.setTheme({
 	passed:  [ 'green'  , 'bold' ] ,
@@ -8,9 +9,9 @@ colors.setTheme({
 	ignored: [ 'yellow' , 'bold' ] ,
 });
 
-
 var test = new opening_hours_test();
 
+// nominatiomJSON {{{
 // used for sunrise, sunset … and PH,SH
 // http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1
 var nominatiomTestJSON = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
@@ -20,7 +21,12 @@ var nominatiomTestJSON_sunrise_below_default = {"place_id":"71977948","licence":
 
 // http://nominatim.openstreetmap.org/reverse?format=json&lat=53.1208&lon=8.8780&zoom=18&addressdetails=1&accept-language=de
 var nominatiomTestJSON_bremen = {"place_id":"39182271","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"28200369","lat":"53.1249048","lon":"8.8755814","display_name":"Am Lehester Deich, Lehesterdeich, Horn-Lehe, Stadtbezirk Bremen-Ost, Bremen, 28357, Deutschland, Europ\u00e4ischen Union","address":{"road":"Am Lehester Deich","neighbourhood":"Lehesterdeich","suburb":"Horn-Lehe","city_district":"Stadtbezirk Bremen-Ost","city":"Bremen","county":"Bremen","state":"Bremen","postcode":"28357","country":"Deutschland","country_code":"de","continent":"Europ\u00e4ischen Union"}};
+// }}}
 
+// }}}
+
+
+// time ranges {{{
 test.addTest('Time intervals', [
 		'10:00-12:00',
 		'10:00-12:00,',
@@ -50,13 +56,120 @@ test.addTest('Time intervals', [
 		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true, {}, 'not last test');
 
+// input tolerance {{{
+test.addTest('Input tolerance: dot as time separator', [
+		'10:00-12:00', // reference value for prettify
+		'10.00-12.00',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 10:00', '2012.10.01 12:00' ],
+		[ '2012.10.02 10:00', '2012.10.02 12:00' ],
+		[ '2012.10.03 10:00', '2012.10.03 12:00' ],
+		[ '2012.10.04 10:00', '2012.10.04 12:00' ],
+		[ '2012.10.05 10:00', '2012.10.05 12:00' ],
+		[ '2012.10.06 10:00', '2012.10.06 12:00' ],
+		[ '2012.10.07 10:00', '2012.10.07 12:00' ],
+	], 1000 * 60 * 60 * 2 * 7, 0, true, {}, 'not last test');
+
+test.addTest('Input tolerance: dot as time separator', [
+		'10:00-14:00; 12:00-14:00 off', // reference value for prettify
+		'10-14; 12-14 off', // '22-2', // Do not use. Returns warning.
+		'10.00-14.00; 12.00-14.00 off',
+		// '10.00-12.00;10.30-11.30',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 10:00', '2012.10.01 12:00' ],
+		[ '2012.10.02 10:00', '2012.10.02 12:00' ],
+		[ '2012.10.03 10:00', '2012.10.03 12:00' ],
+		[ '2012.10.04 10:00', '2012.10.04 12:00' ],
+		[ '2012.10.05 10:00', '2012.10.05 12:00' ],
+		[ '2012.10.06 10:00', '2012.10.06 12:00' ],
+		[ '2012.10.07 10:00', '2012.10.07 12:00' ],
+	], 1000 * 60 * 60 * 2 * 7, 0, true, {}, 'not last test');
+
+test.addTest('Input tolerance: short time (test prettify)', [
+		'10:00-12:00,13:00-20:00', // reference value for prettify
+		'10-12,13-20',
+	], '2012.10.01 0:00', '2012.10.03 0:00', [
+		[ '2012.10.01 10:00', '2012.10.01 12:00' ],
+		[ '2012.10.01 13:00', '2012.10.01 20:00' ],
+		[ '2012.10.02 10:00', '2012.10.02 12:00' ],
+		[ '2012.10.02 13:00', '2012.10.02 20:00' ],
+	], 1000 * 60 * 60 * (2 + 7) * 2, 0, true, {}, 'not last test');
+
 test.addTest('Time intervals, short time', [
-		'Mo 07:00-18:00',
+		'Mo 07:00-18:00', //reference value for prettify
 		'Mo 7-18', // throws a warning, use previous value which is equal.
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 07:00', '2012.10.01 18:00' ],
 	], 1000 * 60 * 60 * 11, 0, true, {}, 'not last test');
+// }}}
 
+// time range spanning midnight {{{
+test.addTest('Time ranges spanning midnight', [
+		'22:00-02:00',
+		'22:00-26:00',
+		'22-2', // Do not use. Returns warning.
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 00:00', '2012.10.01 02:00' ],
+		[ '2012.10.01 22:00', '2012.10.02 02:00' ],
+		[ '2012.10.02 22:00', '2012.10.03 02:00' ],
+		[ '2012.10.03 22:00', '2012.10.04 02:00' ],
+		[ '2012.10.04 22:00', '2012.10.05 02:00' ],
+		[ '2012.10.05 22:00', '2012.10.06 02:00' ],
+		[ '2012.10.06 22:00', '2012.10.07 02:00' ],
+		[ '2012.10.07 22:00', '2012.10.08 00:00' ],
+	], 1000 * 60 * 60 * 4 * 7, 0, true, nominatiomTestJSON);
+
+test.addTest('Time ranges spanning midnight', [
+		'22:00-26:00', // reference value for prettify
+		'22-26', // Do not use. Returns warning.
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 00:00', '2012.10.01 02:00' ],
+		[ '2012.10.01 22:00', '2012.10.02 02:00' ],
+		[ '2012.10.02 22:00', '2012.10.03 02:00' ],
+		[ '2012.10.03 22:00', '2012.10.04 02:00' ],
+		[ '2012.10.04 22:00', '2012.10.05 02:00' ],
+		[ '2012.10.05 22:00', '2012.10.06 02:00' ],
+		[ '2012.10.06 22:00', '2012.10.07 02:00' ],
+		[ '2012.10.07 22:00', '2012.10.08 00:00' ],
+	], 1000 * 60 * 60 * 4 * 7, 0, true, nominatiomTestJSON);
+
+test.addTest('Time ranges spanning midnight', [
+		'We 22:00-22:00',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.03 22:00', '2012.10.04 22:00' ],
+	], 1000 * 60 * 60 * 24, 0, true, {}, 'not last test');
+
+test.addTest('Time ranges spanning midnight with date overwriting', [
+		'22:00-02:00; Tu 12:00-14:00',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 00:00', '2012.10.01 02:00' ],
+		[ '2012.10.01 22:00', '2012.10.02 00:00' ],
+		[ '2012.10.02 12:00', '2012.10.02 14:00' ],
+		[ '2012.10.03 00:00', '2012.10.03 02:00' ],
+		[ '2012.10.03 22:00', '2012.10.04 02:00' ],
+		[ '2012.10.04 22:00', '2012.10.05 02:00' ],
+		[ '2012.10.05 22:00', '2012.10.06 02:00' ],
+		[ '2012.10.06 22:00', '2012.10.07 02:00' ],
+		[ '2012.10.07 22:00', '2012.10.08 00:00' ],
+	], 1000 * 60 * 60 * (6 * 4 + 2), 0, true, {}, 'not last test');
+
+test.addTest('Time ranges spanning midnight with date overwriting (complex real world example)', [
+		'Su-Tu 11:00-01:00, We-Th 11:00-03:00, Fr 11:00-06:00, Sa 11:00-07:00',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 00:00', '2012.10.01 01:00', ], // Mo: Su-Tu 11:00-01:00
+		[ '2012.10.01 11:00', '2012.10.02 01:00', ], // Mo: Su-Tu 11:00-01:00
+		[ '2012.10.02 11:00', '2012.10.03 01:00', ], // Tu: Su-Tu 11:00-01:00
+		[ '2012.10.03 11:00', '2012.10.04 03:00', ], // We: We-Th 11:00-03:00
+		[ '2012.10.04 11:00', '2012.10.05 03:00', ], // Th: We-Th 11:00-03:00
+		[ '2012.10.05 11:00', '2012.10.06 06:00', ], // Fr: Fr 11:00-06:00
+		[ '2012.10.06 11:00', '2012.10.07 07:00', ], // Sa: Sa 11:00-07:00
+		[ '2012.10.07 11:00', '2012.10.08 00:00', ], // Su: Su-Tu 11:00-01:00
+	], 1000 * 60 * 60 * (1 + 14 * 2 + 16 * 2 + 19 + 20 + 13), 0, true);
+// }}}
+
+// }}}
+
+// open end {{{
 test.addTest('Open end', [
 		'07:00+ open "visit there website to know if they did already close"', // specified comments should not be overridden
 		'07:00+ unknown "visit there website to know if they did already close"', // will always interpreted as unknown
@@ -85,7 +198,9 @@ test.addTest('Open end, variable time', [
 		[ '2012.10.01 08:22', '2012.10.02 00:00', true,  'Specified as open end. Closing time was guessed.' ],
 	], 0, 1000 * 60 * (60 * 15 + 60 - 22), false, nominatiomTestJSON, 'not last test');
 
-// proposal: http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_end_fixed_time_extension
+// proposal: opening hours open end fixed time extension {{{
+// http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_end_fixed_time_extension
+//
 // test.addTest('Fixed time followed by open end', [
 // 		'14:00-17:00+',
 // 	], '2012.10.01 0:00', '2012.10.02 0:00', [
@@ -111,6 +226,7 @@ test.addTest('Open end, variable time', [
 // 	'Fr 11:00-24:00+ open "geöffnet täglich von 11:00 Uhr bis tief in die Nacht"',
 // 	], '2012.10.01 0:00', '2012.10.02 0:00', [
 // 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
+// }}}
 
 test.addTest('Open end', [
 		'17:00+ off',
@@ -124,7 +240,9 @@ test.addTest('Open end', [
 		[ '2012.10.01 07:00', '2012.10.01 12:00', true,  'Specified as open end. Closing time was guessed.' ],
 		[ '2012.10.01 12:00', '2012.10.01 16:00' ],
 	], 1000 * 60 * 60 * 4, 1000 * 60 * 60 * 5, true, {}, 'not last test');
+// }}}
 
+// variable times {{{
 test.addTest('Variable times e.g. dawn, dusk', [
 		'Mo dawn-dusk',
 		'dawn-dusk',
@@ -245,6 +363,19 @@ test.addTest('Variable times spanning midnight', [
 		[ '2012.10.02 18:58', '2012.10.03 00:00' ],
 	], 1000 * 60 * ((60 * 7 + 22) + (60 * (5 + 7) + 23) + (60 * 5 + 2)), 0, false, nominatiomTestJSON, 'not last test');
 
+test.addTest('Variable times spanning midnight', [
+		'sunset-sunrise',
+		'sunset-sunrise Mo-Su',
+		// '19:00-07:22 Mo-Su', // also works but is week stable
+		'sunset-07:22 Mo-Su',
+		'19:00-sunrise Mo-Su',
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+		[ '2012.10.01 00:00', '2012.10.01 07:22' ],
+		[ '2012.10.01 19:00', '2012.10.02 00:00' ],
+	], 1000 * 60 * ((60 * 7 + 22) + (60 * 5)), 0, false, nominatiomTestJSON, 'not last test');
+// }}}
+
+// holidays {{{
 test.addTest('Variable days: public holidays', [
 		'PH',
 	], '2013.01.01 0:00', '2015.01.01 0:00', [
@@ -352,7 +483,8 @@ test.addTest('Variable days: school holiday', [
 	], '2014.01.01 0:00', '2014.06.15 0:00', [
 		[ '2014.01.05 00:00', '2014.04.14 00:00' ],
 		[ '2014.04.26 00:00', '2014.06.10 00:00' ],
-	], 1000 * 60 * 60 * 24 * (31 - 5 + 28 + 31 + 14 + 4 + 31 + 10) -(/* daylight saving time CEST */ 1000 * 60 * 60), 0, false, nominatiomTestJSON, 'not last test');
+	], 1000 * 60 * 60 * 24 * (31 - 5 + 28 + 31 + 14 + 4 + 31 + 10) -(/* daylight saving time CEST */ 1000 * 60 * 60),
+		0, false, nominatiomTestJSON, 'not last test');
 
 test.addTest('Variable days: school holidays', [
 		'SH',
@@ -410,181 +542,9 @@ test.addTest('Variable days: Everyday including public holidays', [
 		[ '2014.01.06 00:00', '2014.01.07 00:00', false, 'Heilige Drei Könige' ],
 		[ '2014.01.07 00:00', '2014.01.15 00:00' ],
 	], 1000 * 60 * 60 * 24 * 14, 0, false, nominatiomTestJSON, 'not last test');
-
-test.addTest('Variable times spanning midnight', [
-		'sunset-sunrise',
-		'sunset-sunrise Mo-Su',
-		// '19:00-07:22 Mo-Su', // also works but is week stable
-		'sunset-07:22 Mo-Su',
-		'19:00-sunrise Mo-Su',
-	], '2012.10.01 0:00', '2012.10.02 0:00', [
-		[ '2012.10.01 00:00', '2012.10.01 07:22' ],
-		[ '2012.10.01 19:00', '2012.10.02 00:00' ],
-	], 1000 * 60 * ((60 * 7 + 22) + (60 * 5)), 0, false, nominatiomTestJSON, 'not last test');
-
-test.addTest('Time ranges spanning midnight', [
-		'22:00-02:00',
-		'22:00-26:00',
-		'22-2', // Do not use. Returns warning.
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 00:00', '2012.10.01 02:00' ],
-		[ '2012.10.01 22:00', '2012.10.02 02:00' ],
-		[ '2012.10.02 22:00', '2012.10.03 02:00' ],
-		[ '2012.10.03 22:00', '2012.10.04 02:00' ],
-		[ '2012.10.04 22:00', '2012.10.05 02:00' ],
-		[ '2012.10.05 22:00', '2012.10.06 02:00' ],
-		[ '2012.10.06 22:00', '2012.10.07 02:00' ],
-		[ '2012.10.07 22:00', '2012.10.08 00:00' ],
-	], 1000 * 60 * 60 * 4 * 7, 0, true, nominatiomTestJSON);
-
-test.addTest('Time ranges spanning midnight', [
-		'22:00-26:00', // reference value for prettify
-		'22-26', // Do not use. Returns warning.
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 00:00', '2012.10.01 02:00' ],
-		[ '2012.10.01 22:00', '2012.10.02 02:00' ],
-		[ '2012.10.02 22:00', '2012.10.03 02:00' ],
-		[ '2012.10.03 22:00', '2012.10.04 02:00' ],
-		[ '2012.10.04 22:00', '2012.10.05 02:00' ],
-		[ '2012.10.05 22:00', '2012.10.06 02:00' ],
-		[ '2012.10.06 22:00', '2012.10.07 02:00' ],
-		[ '2012.10.07 22:00', '2012.10.08 00:00' ],
-	], 1000 * 60 * 60 * 4 * 7, 0, true, nominatiomTestJSON);
-
-test.addTest('Time ranges spanning midnight', [
-		'We 22:00-22:00',
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.03 22:00', '2012.10.04 22:00' ],
-	], 1000 * 60 * 60 * 24, 0, true, {}, 'not last test');
-
-test.addTest('Time ranges spanning midnight with date overwriting', [
-		'22:00-02:00; Tu 12:00-14:00',
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-	[ '2012.10.01 00:00', '2012.10.01 02:00' ],
-	[ '2012.10.01 22:00', '2012.10.02 00:00' ],
-	[ '2012.10.02 12:00', '2012.10.02 14:00' ],
-	[ '2012.10.03 00:00', '2012.10.03 02:00' ],
-	[ '2012.10.03 22:00', '2012.10.04 02:00' ],
-	[ '2012.10.04 22:00', '2012.10.05 02:00' ],
-	[ '2012.10.05 22:00', '2012.10.06 02:00' ],
-	[ '2012.10.06 22:00', '2012.10.07 02:00' ],
-	[ '2012.10.07 22:00', '2012.10.08 00:00' ],
-	], 1000 * 60 * 60 * (6 * 4 + 2), 0, true, {}, 'not last test');
-
-test.addTest('Time ranges spanning midnight with date overwriting (complex real world example)', [
-		'Su-Tu 11:00-01:00, We-Th 11:00-03:00, Fr 11:00-06:00, Sa 11:00-07:00',
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 00:00', '2012.10.01 01:00', ], // Mo: Su-Tu 11:00-01:00
-		[ '2012.10.01 11:00', '2012.10.02 01:00', ], // Mo: Su-Tu 11:00-01:00
-		[ '2012.10.02 11:00', '2012.10.03 01:00', ], // Tu: Su-Tu 11:00-01:00
-		[ '2012.10.03 11:00', '2012.10.04 03:00', ], // We: We-Th 11:00-03:00
-		[ '2012.10.04 11:00', '2012.10.05 03:00', ], // Th: We-Th 11:00-03:00
-		[ '2012.10.05 11:00', '2012.10.06 06:00', ], // Fr: Fr 11:00-06:00
-		[ '2012.10.06 11:00', '2012.10.07 07:00', ], // Sa: Sa 11:00-07:00
-		[ '2012.10.07 11:00', '2012.10.08 00:00', ], // Su: Su-Tu 11:00-01:00
-	], 1000 * 60 * 60 * (1 + 14 * 2 + 16 * 2 + 19 + 20 + 13), 0, true);
-
-test.addTest('Constrained weekday (complex real world example)', [
-		'Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug Su[-1]: 10:00-18:00',
-		'Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug Su[-1]: 10:00-18:00', // better use this instead
-	], '2013.08.01 0:00', '2013.10.08 0:00', [
-		[ '2013.08.11 14:00', '2013.08.11 18:00' ],
-		[ '2013.08.24 10:00', '2013.08.24 18:00' ],
-		[ '2013.08.25 10:00', '2013.08.25 18:00' ],
-		[ '2013.09.08 14:00', '2013.09.08 18:00' ],
-	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
-
-test.addTest('Real world example: Was not processed right.', [
-		'Mo off, Tu 14:00-18:00, We-Sa 10:00-18:00', // Reference value for prettify. Not perfect but still …
-		'Mo: geschlossen, Di: 14-18Uhr, Mi-Sa: 10-18Uhr', // value as found in OSM
-		'Mo off; Tu 14:00-18:00; We-Sa 10:00-18:00', // Please use this value instead. Mostly automatically corrected.
-	], '2014.01.06 0:00', '2014.01.13 0:00', [
-		[ '2014.01.07 14:00', '2014.01.07 18:00' ],
-		[ '2014.01.08 10:00', '2014.01.08 18:00' ],
-		[ '2014.01.09 10:00', '2014.01.09 18:00' ],
-		[ '2014.01.10 10:00', '2014.01.10 18:00' ],
-		[ '2014.01.11 10:00', '2014.01.11 18:00' ],
-	], 1000 * 60 * 60 * (4 + 4 * 8), 0, true, {}, 'not last test');
-
-// https://github.com/ypid/opening_hours.js/issues/26 {{{
-// Problem with wrap day in browser.
-test.addTest('Real world example: Was not processed right.', [
-		'Mo 19:00+; We 14:00+; Su 10:00+ || "Führung, Sonderführungen nach Vereinbarung."',
-	], '2014.01.06 0:00', '2014.01.13 0:00', [
-		[ '2014.01.06 00:00', '2014.01.06 19:00', true, 'Führung, Sonderführungen nach Vereinbarung.' ],
-		[ '2014.01.06 19:00', '2014.01.07 05:00', true, 'Specified as open end. Closing time was guessed.' ],
-		[ '2014.01.07 05:00', '2014.01.08 14:00', true, 'Führung, Sonderführungen nach Vereinbarung.' ],
-		[ '2014.01.08 14:00', '2014.01.09 00:00', true, 'Specified as open end. Closing time was guessed.' ],
-		[ '2014.01.09 00:00', '2014.01.12 10:00', true, 'Führung, Sonderführungen nach Vereinbarung.' ],
-		[ '2014.01.12 10:00', '2014.01.13 00:00', true, 'Specified as open end. Closing time was guessed.' ],
-	], 0, 1000 * 60 * 60 * 24 * 7, true, {}, 'not last test');
-
-test.addTest('Real world example: Was not processed right.', [
-		'Mo 19:00-05:00 || "Sonderführungen nach Vereinbarung."',
-	], '2014.01.06 0:00', '2014.01.13 0:00', [
-		[ '2014.01.06 00:00', '2014.01.06 19:00', true,  'Sonderführungen nach Vereinbarung.' ],
-		[ '2014.01.06 19:00', '2014.01.07 05:00' ],
-		[ '2014.01.07 05:00', '2014.01.13 00:00', true,  'Sonderführungen nach Vereinbarung.' ],
-	], 1000 * 60 * 60 * 10, 1000 * 60 * 60 * (24 * 7 - 10), true, {}, 'not last test');
 // }}}
 
-// test.addTest('Real world example: Was not processed right.', [
-// 		'Jan Su[-2]-Jan Su[-1]: Fr-Su 12:00+; Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 1-Jul 31: Th-Su 12:00+; Aug 1-Nov 30,Dec: Tu-Su 12:00+; Dec 24-26,Dec 31: off',
-// 	], '2013.08.01 0:00', '2013.10.08 0:00', [
-// 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
-//
-// http://www.openstreetmap.org/node/392512497/history
-// test.addTest('Real world example: Was not processed right.', [
-// 		'"(Buffet)" Mo-Th 12:00-15:00,17:00-21:30; Fr 12:00-15:00,17:00-22:30; Sa 12:00-15:00,16:30-22:30; Su 12:00-15:00,16:30-21:30 || Su-Th 11:30-22:00 open "Takeout" || Fr-Sa 11:30-23:00 open "Takeout"',
-// 	], '2013.08.01 0:00', '2013.10.08 0:00', [
-// 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
-
-// https://github.com/ypid/opening_hours.js/issues/27 {{{
-// Problem in browser.
-//
-// http://www.openstreetmap.org/way/163756418/history
-// test.addTest('Real world example: Was not processed right.', [
-// 		'Jun 15-Sep 15: Th-Su 16:00-19:00; Sep 16-Dec 31: Sa,Su 16:00-19:00; Jan,Feb,Mar off; Dec 25,easter off',
-// 	], '2013.01.01 0:00', '2014.01.01 0:00', [
-// 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'last test');
-//
-test.addTest('Based on real world example: Is processed right.', [
-		'Nov-Dec Sa,Su 16:00-19:00; Dec 22 off',
-	], '2013.01.01 0:00', '2014.01.01 0:00', [
-		[ '2013.11.02 16:00', '2013.11.02 19:00' ],
-		[ '2013.11.03 16:00', '2013.11.03 19:00' ],
-		[ '2013.11.09 16:00', '2013.11.09 19:00' ],
-		[ '2013.11.10 16:00', '2013.11.10 19:00' ],
-		[ '2013.11.16 16:00', '2013.11.16 19:00' ],
-		[ '2013.11.17 16:00', '2013.11.17 19:00' ],
-		[ '2013.11.23 16:00', '2013.11.23 19:00' ],
-		[ '2013.11.24 16:00', '2013.11.24 19:00' ],
-		[ '2013.11.30 16:00', '2013.11.30 19:00' ],
-		[ '2013.12.01 16:00', '2013.12.01 19:00' ],
-		[ '2013.12.07 16:00', '2013.12.07 19:00' ],
-		[ '2013.12.08 16:00', '2013.12.08 19:00' ],
-		[ '2013.12.14 16:00', '2013.12.14 19:00' ],
-		[ '2013.12.15 16:00', '2013.12.15 19:00' ],
-		[ '2013.12.21 16:00', '2013.12.21 19:00' ],
-		[ '2013.12.28 16:00', '2013.12.28 19:00' ],
-		[ '2013.12.29 16:00', '2013.12.29 19:00' ],
-	], 1000 * 60 * 60 * (3 * 17), 0, false, {}, 'not last test');
-// }}}
-
-test.addTest('Warnings corrected to additional block (real world example)', [
-		'Mo-Fr 09:00-12:00, Mo,Tu,Th 15:00-18:00', // reference value for prettify
-		'Mo – Fr: 9 – 12 Uhr und Mo, Di, Do: 15 – 18 Uhr',
-	], '2014.09.01 0:00', '2014.09.08 0:00', [
-		[ '2014.09.01 09:00', '2014.09.01 12:00' ],
-		[ '2014.09.01 15:00', '2014.09.01 18:00' ],
-		[ '2014.09.02 09:00', '2014.09.02 12:00' ],
-		[ '2014.09.02 15:00', '2014.09.02 18:00' ],
-		[ '2014.09.03 09:00', '2014.09.03 12:00' ],
-		[ '2014.09.04 09:00', '2014.09.04 12:00' ],
-		[ '2014.09.04 15:00', '2014.09.04 18:00' ],
-		[ '2014.09.05 09:00', '2014.09.05 12:00' ],
-	], 1000 * 60 * 60 * (5 * 3 + 3 * 3), 0, true, {}, 'not last test');
-
+// weekdays {{{
 test.addTest('Weekdays', [
 		'Mo,Th,Sa,Su 10:00-12:00',
 		'Mo,Th,Sa-Su 10:00-12:00',
@@ -615,6 +575,18 @@ test.addTest('Time ranges spanning midnight w/weekdays', [
 		[ '2012.10.03 22:00', '2012.10.04 02:00' ],
 	], 1000 * 60 * 60 * 4, 0, true);
 
+test.addTest('Exception blocks', [
+		'Mo-Fr 10:00-16:00; We 12:00-18:00'
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 10:00', '2012.10.01 16:00' ],
+		[ '2012.10.02 10:00', '2012.10.02 16:00' ],
+		[ '2012.10.03 12:00', '2012.10.03 18:00' ], // Not 10:00-18:00
+		[ '2012.10.04 10:00', '2012.10.04 16:00' ],
+		[ '2012.10.05 10:00', '2012.10.05 16:00' ],
+	], 1000 * 60 * 60 * 6 * 5, 0, true);
+// }}}
+
+// full range {{{
 test.addTest('Full range', [
 		'00:00-24:00',
 		'Mo-Su 00:00-24:00',
@@ -625,16 +597,16 @@ test.addTest('Full range', [
 		'Sa-Fr 00:00-24:00',
 		'Su-Sa 00:00-24:00',
 		'24/7',
-		'24/7; 24/7',
+		'24/7; 24/7', // Use value above.
 		'0-24',	// Do not use. Returns warning.
 		'open',
-		'12:00-13:00; 24/7',
-		'00:00-24:00,12:00-13:00',
+		'12:00-13:00; 24/7', // '12:00-13:00' is always ignoed.
+		'00:00-24:00,12:00-13:00', // '00:00-24:00' already matches entire day. '12:00-13:00' is pointless.
 		'Mo-Fr,Sa,Su',
 		ignored('PH,Mo-Fr,Sa,Su', 'check for week stable not implemented'),
 		ignored('PH,Mo-Fr,Sa,Su,SH', 'check for week stable not implemented'),
 		ignored('Mo-Fr,Sa,PH,Su,SH', 'check for week stable not implemented'),
-		// week stable actually, but check for that needs extra logic
+		// Is actually week stable, but check for that needs extra logic.
 		'Jan-Dec',
 		'Feb-Jan',
 		'Dec-Nov',
@@ -643,17 +615,6 @@ test.addTest('Full range', [
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
 	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
-
-// Not sure if this was intended, but this is how the code handles it.
-// And it is not bad actually.
-test.addTest('Interpetation of points im time', [
-		ignored('12:00'),
-		ignored('Mo-Fr 12:00'),
-	], '2012.10.01 0:00', '2012.10.04 0:00', [
-		[ '2012.10.01 12:00', '2012.10.01 12:01' ],
-		[ '2012.10.02 12:00', '2012.10.02 12:01' ],
-		[ '2012.10.03 12:00', '2012.10.03 12:01' ],
-	], 1000 * 60 * 3, 0, true, {}, 'not last test');
 
 test.addTest('24/7 as time interval alias (don’t use it 24/7 as showen here)', [
 		'Mo,We 24/7', // throws a warning, use one of the next values instead
@@ -664,7 +625,9 @@ test.addTest('24/7 as time interval alias (don’t use it 24/7 as showen here)',
 		[ '2012.10.01 0:00', '2012.10.02 0:00' ],
 		[ '2012.10.03 0:00', '2012.10.04 0:00' ],
 	], 1000 * 60 * 60 * 24 * 2, 0, true);
+// }}}
 
+// constrained weekdays {{{
 test.addTest('Constrained weekdays', [
 		'We[4,5] 10:00-12:00',
 		'We[4-5] 10:00-12:00',
@@ -734,26 +697,29 @@ test.addTest('Calculations based on constrained weekdays', [
 		[ '2014.01.25 00:00', '2014.01.26 00:00' ],
 	], 1000 * 60 * 60 * 24 * 6, 0, false, {}, 'not last test');
 
-test.addTest('Constrained weekday', [
+test.addTest('Calculations based on constrained weekdays', [
 		'Aug Su[-1] +1 day',
 	], '2013.08.28 0:00', '2013.10.08 0:00', [
 	], 0, 0, false, {}, 'not last test');
 
-test.addTest('Constrained weekday', [
+// FIXME: ??
+test.addTest('Calculations based on constrained weekdays', [
 		'Aug Su[-1] +1 day',
 	], '2013.08.29 0:00', '2013.10.08 0:00', [ // Error in selector code for this date. Only when starting at this date.
 	], 0, 0, false, {}, 'not last test');
 
-test.addTest('Exception blocks', [
-		'Mo-Fr 10:00-16:00; We 12:00-18:00'
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 10:00', '2012.10.01 16:00' ],
-		[ '2012.10.02 10:00', '2012.10.02 16:00' ],
-		[ '2012.10.03 12:00', '2012.10.03 18:00' ], // Not 10:00-18:00
-		[ '2012.10.04 10:00', '2012.10.04 16:00' ],
-		[ '2012.10.05 10:00', '2012.10.05 16:00' ],
-	], 1000 * 60 * 60 * 6 * 5, 0, true);
+test.addTest('Constrained weekday (complex real world example)', [
+		'Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug Su[-1]: 10:00-18:00',
+		'Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug Su[-1]: 10:00-18:00', // better use this instead
+	], '2013.08.01 0:00', '2013.10.08 0:00', [
+		[ '2013.08.11 14:00', '2013.08.11 18:00' ],
+		[ '2013.08.24 10:00', '2013.08.24 18:00' ],
+		[ '2013.08.25 10:00', '2013.08.25 18:00' ],
+		[ '2013.09.08 14:00', '2013.09.08 18:00' ],
+	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
+// }}}
 
+// additional blocks {{{
 test.addTest('Additional blocks', [
 		'Mo-Fr 10:00-16:00, We 12:00-18:00',
 		'Mo-Fr 10:00-16:00, We 12:00-18:00,',
@@ -776,7 +742,9 @@ test.addTest('Additional blocks', [
 		[ '2012.10.04 08:00', '2012.10.04 12:00' ],
 		[ '2012.10.05 08:00', '2012.10.05 12:00' ],
 	], 1000 * 60 * 60 * (5 * 4 + 4), 0, true, {}, 'not last test');
+// }}}
 
+// fallback blocks {{{
 test.addTest('Fallback group blocks (unknown)', [
 		'We-Fr 10:00-24:00 open "it is open" || "please call"',
 		'We-Fr 10:00-24:00 open "it is open" || "please call" || closed "should never appear"',
@@ -807,7 +775,9 @@ test.addTest('Fallback group blocks', [
 
 // example from Netzwolf
 test.addTest('Fallback group blocks', [
-		'Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00, PH off || Tu 06:00-06:00 open "Notdienst"',
+		'Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00, PH off || Tu 06:00-06:00 open "Notdienst"', // Original value.
+		'Mo-Fr 08:00-12:00,14:00-18:00; Sa 09:00-13:00; PH off || Tu 06:00-06:00 open "Notdienst"', // Use this instead.
+		// Additional block is not needed.
 	], '2013.10.01 0:00', '2013.10.08 0:00', [
 		[ '2013.10.01 06:00', '2013.10.01 08:00', false, 'Notdienst' ], // Tu
 		[ '2013.10.01 08:00', '2013.10.01 12:00' ],
@@ -854,7 +824,39 @@ test.addTest('Fallback group blocks, with some closed times', [
 		[ '2013.10.07 09:00', '2013.10.07 12:00' ],
 		[ '2013.10.07 12:00', '2013.10.08 00:00', true,  'Termine nach Vereinbarung' ], // 12
 	], 1000 * 60 * 60 * (3 * 3 + 3.5), 1000 * 60 * 60 * (9 + 12 + 9 + (12 + 14) + (2.5 + 4 + 24 * 2 + 9) + 12), true, {}, 'not last test');
+// }}}
 
+// week ranges {{{
+test.addTest('Week ranges', [
+		'week 1,3 00:00-24:00',
+		'week 1,3 00:00-24:00 || closed "should not change the test result"', // because comments for closed are not compared
+		'week 1,3: 00:00-24:00',
+		'week 1,week 3: 00:00-24:00',
+		'week 1-3/2 00:00-24:00',
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+		[ '2012.01.01 00:00', '2012.01.02 00:00' ],
+		[ '2012.01.09 00:00', '2012.01.16 00:00' ],
+	], 1000 * 60 * 60 * 24 * (1 + 7), 0, false, {}, 'not last test');
+
+test.addTest('Week ranges', [
+		'week 2,4 00:00-24:00',
+		'week 2-4/2 00:00-24:00',
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+		[ '2012.01.02 00:00', '2012.01.09 00:00' ],
+		[ '2012.01.16 00:00', '2012.01.23 00:00' ],
+	], 1000 * 60 * 60 * 24 * (7 + 7), 0, false);
+
+test.addTest('Week range limit', [
+		'week 2-54 00:00-24:00',
+		'week 2-54: 00:00-24:00',
+		'week 2-57',
+	], '2012.01.01 0:00', '2014.01.01 0:00', [
+		[ '2012.01.02 00:00', '2013.01.01 00:00' ],
+		[ '2013.01.07 00:00', '2014.01.01 00:00' ],
+	], 1000 * 60 * 60 * 24 * 724, 0, false);
+// }}}
+
+// full months/month ranges {{{
 test.addTest('Only in one month of the year', [
 		'Apr 08:00-12:00',
 		'Apr: 08:00-12:00',
@@ -908,35 +910,9 @@ test.addTest('Month ranges', [
 		[ '2012.12.21 00:00', '2012.12.22 00:00' ],
 		[ '2012.12.23 00:00', '2012.12.26 00:00' ],
 	], 1000 * 60 * 60 * 24 * (1 + 1 + 3 + 1 + 1 + 3), 0, false, {}, 'not last test');
+// }}}
 
-test.addTest('Week ranges', [
-		'week 1,3 00:00-24:00',
-		'week 1,3 00:00-24:00 || closed "should not change the test result"', // because comments for closed are not compared
-		'week 1,3: 00:00-24:00',
-		'week 1,week 3: 00:00-24:00',
-		'week 1-3/2 00:00-24:00',
-	], '2012.01.01 0:00', '2013.01.01 0:00', [
-		[ '2012.01.01 00:00', '2012.01.02 00:00' ],
-		[ '2012.01.09 00:00', '2012.01.16 00:00' ],
-	], 1000 * 60 * 60 * 24 * (1 + 7), 0, false, {}, 'not last test');
-
-test.addTest('Week ranges', [
-		'week 2,4 00:00-24:00',
-		'week 2-4/2 00:00-24:00',
-	], '2012.01.01 0:00', '2013.01.01 0:00', [
-		[ '2012.01.02 00:00', '2012.01.09 00:00' ],
-		[ '2012.01.16 00:00', '2012.01.23 00:00' ],
-	], 1000 * 60 * 60 * 24 * (7 + 7), 0, false);
-
-test.addTest('Week range limit', [
-		'week 2-54 00:00-24:00',
-		'week 2-54: 00:00-24:00',
-		'week 2-57',
-	], '2012.01.01 0:00', '2014.01.01 0:00', [
-		[ '2012.01.02 00:00', '2013.01.01 00:00' ],
-		[ '2013.01.07 00:00', '2014.01.01 00:00' ],
-	], 1000 * 60 * 60 * 24 * 724, 0, false);
-
+// monthday ranges {{{
 test.addTest('Monthday ranges', [
 		'Jan 23-31 00:00-24:00; Feb 1-12 00:00-24:00',
 		'Jan 23-Feb 12 00:00-24:00',
@@ -1051,52 +1027,21 @@ test.addTest('Monthday ranges', [
 		[ '2012.03.25 00:00', '2012.10.27 00:00' ],
 	], 18658800000, 0, false, {}, 'not last test');
 
-test.addTest('Date range which only applies for specific year', [
-		'2013,2015,2050-2053,2055/2,2020-2029/3,2060/1 Jan 1',
-		'2013,2015,2050-2053,2055/2,2020-2029/3,2060/1 Jan 1 Mo-Su',
-	], '2011.01.01 0:00', '2065.01.01 0:00', [
-		[ '2013.01.01 00:00', '2013.01.02 00:00' ],
-		[ '2015.01.01 00:00', '2015.01.02 00:00' ],
-		[ '2020.01.01 00:00', '2020.01.02 00:00' ],
-		[ '2023.01.01 00:00', '2023.01.02 00:00' ],
-		[ '2026.01.01 00:00', '2026.01.02 00:00' ],
-		[ '2029.01.01 00:00', '2029.01.02 00:00' ],
-		[ '2050.01.01 00:00', '2050.01.02 00:00' ],
-		[ '2051.01.01 00:00', '2051.01.02 00:00' ],
-		[ '2052.01.01 00:00', '2052.01.02 00:00' ],
-		[ '2053.01.01 00:00', '2053.01.02 00:00' ],
-		[ '2055.01.01 00:00', '2055.01.02 00:00' ],
-		[ '2057.01.01 00:00', '2057.01.02 00:00' ],
-		[ '2059.01.01 00:00', '2059.01.02 00:00' ],
-		[ '2060.01.01 00:00', '2060.01.02 00:00' ],
-		[ '2061.01.01 00:00', '2061.01.02 00:00' ],
-		[ '2062.01.01 00:00', '2062.01.02 00:00' ],
-		[ '2063.01.01 00:00', '2063.01.02 00:00' ],
-		[ '2064.01.01 00:00', '2064.01.02 00:00' ],
-	], 1000 * 60 * 60 * 24 * 18, 0, false, {}, 'not last test');
-
-test.addTest('Variable events', [
-		'easter',
-	], '2012.01.01 0:00', '2014.10.08 0:00', [
-		[ '2012.04.08 00:00', '2012.04.09 00:00' ],
-		[ '2013.03.31 00:00', '2013.04.01 00:00' ], // daylight saving time
-		[ '2014.04.20 00:00', '2014.04.21 00:00' ],
-	], 1000 * 60 * 60 * (24 * 3 - 1), 0, false, nominatiomTestJSON, 'not last test');
-
-test.addTest('Calculations based on variable events', [
-		'easter +1 day open "Easter Monday"',
-	], '2012.01.01 0:00', '2014.10.08 0:00', [
-		[ '2012.04.09 00:00', '2012.04.10 00:00', false, 'Easter Monday' ],
-		[ '2013.04.01 00:00', '2013.04.02 00:00', false, 'Easter Monday' ],
-		[ '2014.04.21 00:00', '2014.04.22 00:00', false, 'Easter Monday' ],
-	], 1000 * 60 * 60 * 24 * 3, 0, false, nominatiomTestJSON, 'not last test');
-
 test.addTest('Month ranges with year', [
 		'2012 Jan 10-15,Jan 11',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.10 00:00', '2012.01.16 00:00' ],
 	], 1000 * 60 * 60 * 24 * 6, 0, false, {}, 'not last test');
 
+test.addTest('Complex monthday ranges', [
+		'Jan 23-31,Feb 1-12 00:00-24:00',
+		'Jan 23-Feb 11,Feb 12 00:00-24:00', // preferred
+		ignored('Jan 23-30,31-Feb 1-2,3-12 12 00:00-24:00'), // FIXME: What should the ending '12' mean?
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
+	], 1000 * 60 * 60 * 24 * 21, 0, false, {}, 'not last test');
+
+// periodical monthdays {{{
 test.addTest('Periodical monthdays', [
 		'Jan 1-31/8 00:00-24:00',
 		'Jan 1-31/8: 00:00-24:00',
@@ -1121,117 +1066,37 @@ test.addTest('Periodical monthdays', [
 		[ '2012.01.24 0:00', '2012.01.25 00:00' ],
 		[ '2012.01.31 0:00', '2012.02.01 00:00' ],
 	], 1000 * 60 * 60 * 24 * 4, 0, false, {}, 'not last test');
+// }}}
 
-test.addTest('Selector order', [ // result should not depend on selector order
-		'Feb week 6',
-		'week 6 Feb',
-		'00:00-24:00 week 6 Feb',
-		'week 6 00:00-24:00 Feb',
-		'week 6 Feb 00:00-24:00',
-		'week 6 Feb Mo-Su 00:00-24:00',
-		'Mo-Su week 6 Feb 00:00-24:00',
-		'00:00-24:00 Mo-Su week 6 Feb',
-		'00:00-24:00 week 6 Mo-Su Feb',
-		'Mo-Su 00:00-24:00 week 6 Feb',
-		'2012 00:00-24:00 week 6 Feb',
-		'00:00-24:00 2012 week 6 Feb',
-		'week 6 Feb 2012-2014',
-	], '2012.01.01 0:00', '2013.01.01 0:00', [
-		[ '2012.02.01 0:00', '2012.02.06 00:00' ],
-	], 1000 * 60 * 60 * 24 * 5, 0, false);
+// }}}
 
-test.addTest('Selector order', [
-		'Feb week 7',
-		'week 7 Feb',
-		'week 7 Feb open',
-	], '2012.01.01 0:00', '2013.01.01 0:00', [
-		[ '2012.02.06 0:00', '2012.02.13 00:00' ],
-	], 1000 * 60 * 60 * 24 * 7, 0, false);
+// year ranges {{{
+test.addTest('Date range which only applies for specific year', [
+		'2013,2015,2050-2053,2055/2,2020-2029/3,2060/1 Jan 1',
+		'2013,2015,2050-2053,2055/2,2020-2029/3,2060/1 Jan 1 Mo-Su',
+	], '2011.01.01 0:00', '2065.01.01 0:00', [
+		[ '2013.01.01 00:00', '2013.01.02 00:00' ],
+		[ '2015.01.01 00:00', '2015.01.02 00:00' ],
+		[ '2020.01.01 00:00', '2020.01.02 00:00' ],
+		[ '2023.01.01 00:00', '2023.01.02 00:00' ],
+		[ '2026.01.01 00:00', '2026.01.02 00:00' ],
+		[ '2029.01.01 00:00', '2029.01.02 00:00' ],
+		[ '2050.01.01 00:00', '2050.01.02 00:00' ],
+		[ '2051.01.01 00:00', '2051.01.02 00:00' ],
+		[ '2052.01.01 00:00', '2052.01.02 00:00' ],
+		[ '2053.01.01 00:00', '2053.01.02 00:00' ],
+		[ '2055.01.01 00:00', '2055.01.02 00:00' ],
+		[ '2057.01.01 00:00', '2057.01.02 00:00' ],
+		[ '2059.01.01 00:00', '2059.01.02 00:00' ],
+		[ '2060.01.01 00:00', '2060.01.02 00:00' ],
+		[ '2061.01.01 00:00', '2061.01.02 00:00' ],
+		[ '2062.01.01 00:00', '2062.01.02 00:00' ],
+		[ '2063.01.01 00:00', '2063.01.02 00:00' ],
+		[ '2064.01.01 00:00', '2064.01.02 00:00' ],
+	], 1000 * 60 * 60 * 24 * 18, 0, false, {}, 'not last test');
+// }}}
 
-test.addTest('Input tolerance: case and whitespace', [
-		'Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off', // reference value for prettify
-		'   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00	Off  ',
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 12:00', '2012.10.01 14:00' ],
-		[ '2012.10.01 16:00', '2012.10.01 20:00' ],
-		[ '2012.10.02 12:00', '2012.10.02 14:00' ],
-		[ '2012.10.02 16:00', '2012.10.02 20:00' ],
-		[ '2012.10.03 12:00', '2012.10.03 14:00' ],
-		[ '2012.10.03 16:00', '2012.10.03 20:00' ],
-		[ '2012.10.04 12:00', '2012.10.04 14:00' ],
-		[ '2012.10.04 16:00', '2012.10.04 20:00' ],
-	], 1000 * 60 * 60 * 6 * 4, 0, true, {}, 'not last test');
-
-test.addTest('Input tolerance: weekdays, months in different languages', [
-		'Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off', // reference value for prettify
-		'mon, Dienstag, Mi, donnerstag 12:00-20:00; 14:00-16:00 off',
-		'mon, Tuesday, wed, Thursday 12:00-20:00; 14:00-16:00 off',
-		'mon., Tuesday, wed., Thursday. 12:00-20:00; 14:00-16:00 off',
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 12:00', '2012.10.01 14:00' ],
-		[ '2012.10.01 16:00', '2012.10.01 20:00' ],
-		[ '2012.10.02 12:00', '2012.10.02 14:00' ],
-		[ '2012.10.02 16:00', '2012.10.02 20:00' ],
-		[ '2012.10.03 12:00', '2012.10.03 14:00' ],
-		[ '2012.10.03 16:00', '2012.10.03 20:00' ],
-		[ '2012.10.04 12:00', '2012.10.04 14:00' ],
-		[ '2012.10.04 16:00', '2012.10.04 20:00' ],
-	], 1000 * 60 * 60 * 6 * 4, 0, true, {}, 'not last test');
-
-test.addTest('Input tolerance: dot as time separator', [
-		'10:00-14:00; 12:00-14:00 off', // reference value for prettify
-		'10-14; 12-14 off', // '22-2', // Do not use. Returns warning.
-		'10.00-14.00; 12.00-14.00 off',
-		// '10.00-12.00;10.30-11.30',
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 10:00', '2012.10.01 12:00' ],
-		[ '2012.10.02 10:00', '2012.10.02 12:00' ],
-		[ '2012.10.03 10:00', '2012.10.03 12:00' ],
-		[ '2012.10.04 10:00', '2012.10.04 12:00' ],
-		[ '2012.10.05 10:00', '2012.10.05 12:00' ],
-		[ '2012.10.06 10:00', '2012.10.06 12:00' ],
-		[ '2012.10.07 10:00', '2012.10.07 12:00' ],
-	], 1000 * 60 * 60 * 2 * 7, 0, true, {}, 'not last test');
-
-test.addTest('Input tolerance: short time (test prettify)', [
-		'10:00-12:00,13:00-20:00', // reference value for prettify
-		'10-12,13-20',
-	], '2012.10.01 0:00', '2012.10.03 0:00', [
-		[ '2012.10.01 10:00', '2012.10.01 12:00' ],
-		[ '2012.10.01 13:00', '2012.10.01 20:00' ],
-		[ '2012.10.02 10:00', '2012.10.02 12:00' ],
-		[ '2012.10.02 13:00', '2012.10.02 20:00' ],
-	], 1000 * 60 * 60 * (2 + 7) * 2, 0, true, {}, 'not last test');
-
-test.addTest('Input tolerance: dot as time separator', [
-		'10:00-12:00', // reference value for prettify
-		'10.00-12.00',
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 10:00', '2012.10.01 12:00' ],
-		[ '2012.10.02 10:00', '2012.10.02 12:00' ],
-		[ '2012.10.03 10:00', '2012.10.03 12:00' ],
-		[ '2012.10.04 10:00', '2012.10.04 12:00' ],
-		[ '2012.10.05 10:00', '2012.10.05 12:00' ],
-		[ '2012.10.06 10:00', '2012.10.06 12:00' ],
-		[ '2012.10.07 10:00', '2012.10.07 12:00' ],
-	], 1000 * 60 * 60 * 2 * 7, 0, true, {}, 'not last test');
-
-test.addTest('Extensions: complex monthday ranges', [
-		'Jan 23-31,Feb 1-12 00:00-24:00',
-		'Jan 23-Feb 11,Feb 12 00:00-24:00', //
-		ignored('Jan 23-30,31-Feb 1-2,3-12 12 00:00-24:00'), // FIXME: What should the ending '12' mean?
-	], '2012.01.01 0:00', '2013.01.01 0:00', [
-		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
-	], 1000 * 60 * 60 * 24 * 21, 0, false, {}, 'not last test');
-
-test.addTest('Extensions: missing time range separators', [
-		'Mo 12:00-14:00 16:00-18:00 20:00-22:00', // returns a warning
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 12:00', '2012.10.01 14:00' ],
-		[ '2012.10.01 16:00', '2012.10.01 18:00' ],
-		[ '2012.10.01 20:00', '2012.10.01 22:00' ],
-	], 1000 * 60 * 60 * 6, 0, true);
-
+// selector combination and order {{{
 test.addTest('Selector combination', [
 		'week 3 We',            // week + weekday
 		'week 3 Jan 11-Jan 11', // week + monthday
@@ -1259,6 +1124,37 @@ test.addTest('Selector combination', [
 		[ '2012.01.25 0:00', '2012.01.26 00:00' ],
 	], 1000 * 60 * 60 * 24 * 4, 0, false, {}, 'not last test');
 
+test.addTest('Selector order', [
+		// Result should not depend on selector order although there are some best practices:
+		// Use the selector types which can cover the biggest range first e.g. year before month.
+		'Feb week 6',
+		'week 6 Feb',
+		'00:00-24:00 week 6 Feb',
+		'week 6 00:00-24:00 Feb',
+		'week 6 Feb 00:00-24:00',
+		'week 6 Feb Mo-Su 00:00-24:00',
+		'Mo-Su week 6 Feb 00:00-24:00',
+		'00:00-24:00 Mo-Su week 6 Feb',
+		'00:00-24:00 week 6 Mo-Su Feb',
+		'Mo-Su 00:00-24:00 week 6 Feb',
+		'2012 00:00-24:00 week 6 Feb',
+		'00:00-24:00 2012 week 6 Feb',
+		'week 6 Feb 2012-2014',
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+		[ '2012.02.01 0:00', '2012.02.06 00:00' ],
+	], 1000 * 60 * 60 * 24 * 5, 0, false);
+
+test.addTest('Selector order', [
+		'Feb week 7',
+		'week 7 Feb',
+		'week 7 Feb open',
+		'open week 7 Feb', // not preferred
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+		[ '2012.02.06 0:00', '2012.02.13 00:00' ],
+	], 1000 * 60 * 60 * 24 * 7, 0, false);
+// }}}
+
+// comments {{{
 test.addTest('Additional comments', [
 		'Mo,Tu 10:00-16:00 open "no warranty"; We 12:00-18:00 open "female only"; Th closed "Not open because we are coding :)"; Fr 10:00-16:00 open "male only"; Sa 10:00-12:00 "Maybe open. Call us."',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -1315,13 +1211,6 @@ test.addTest('Additional comments for closed with time ranges spanning midnight'
 		[ '2012.10.07 22:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * 4 * 7, 0, true, {}, 'not last test');
 
-// proposed by Netzwolf: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#rule9
-// Currently not handled correctly. Could be interpreted as fallback block.
-test.addTest('Additional comments for unknown', [
-		ignored('Mo open "comment"; "I don’t know how to express easter": off'),
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-	], 0, 1000 * 60 * 60 * 2, true, {}, 'not last test');
-
 test.addTest('Additional comments combined with additional blocks', [
 		'Mo 12:00-14:00 open "female only", Mo 14:00-16:00 open "male only"',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -1337,7 +1226,9 @@ test.addTest('Additional comments combined with months', [
 		[ '2012.07.01 00:00', '2012.10.01 00:00' ],
 		[ '2012.10.01 00:00', '2012.11.01 00:00', true,  'on request' ],
 	], 7948800000, 2682000000, false, {}, 'not last test');
+// }}}
 
+// real world examples {{{
 test.addTest('Complex example used in README', [
 		'open; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off', // Can be used (better than using 24/7 which will return a warning).
 		'00:00-24:00; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off', // preferred because more explicit
@@ -1384,13 +1275,128 @@ test.addTest('Complex example used in README and benchmark', [
 		[ '2012.10.30 12:00', '2012.10.30 18:00' ],
 	], 1000 * 60 * 60 * (6 * 16 + 5 * 4), 0, false, {}, 'not last test');
 
+test.addTest('Warnings corrected to additional block (real world example)', [
+		'Mo-Fr 09:00-12:00, Mo,Tu,Th 15:00-18:00', // reference value for prettify
+		'Mo – Fr: 9 – 12 Uhr und Mo, Di, Do: 15 – 18 Uhr',
+	], '2014.09.01 0:00', '2014.09.08 0:00', [
+		[ '2014.09.01 09:00', '2014.09.01 12:00' ],
+		[ '2014.09.01 15:00', '2014.09.01 18:00' ],
+		[ '2014.09.02 09:00', '2014.09.02 12:00' ],
+		[ '2014.09.02 15:00', '2014.09.02 18:00' ],
+		[ '2014.09.03 09:00', '2014.09.03 12:00' ],
+		[ '2014.09.04 09:00', '2014.09.04 12:00' ],
+		[ '2014.09.04 15:00', '2014.09.04 18:00' ],
+		[ '2014.09.05 09:00', '2014.09.05 12:00' ],
+	], 1000 * 60 * 60 * (5 * 3 + 3 * 3), 0, true, {}, 'not last test');
+
+test.addTest('Real world example: Was not processed right.', [
+		'Mo off, Tu 14:00-18:00, We-Sa 10:00-18:00', // Reference value for prettify. Not perfect but still …
+		'Mo: geschlossen, Di: 14-18Uhr, Mi-Sa: 10-18Uhr', // value as found in OSM
+		'Mo off; Tu 14:00-18:00; We-Sa 10:00-18:00', // Please use this value instead. Mostly automatically corrected.
+	], '2014.01.06 0:00', '2014.01.13 0:00', [
+		[ '2014.01.07 14:00', '2014.01.07 18:00' ],
+		[ '2014.01.08 10:00', '2014.01.08 18:00' ],
+		[ '2014.01.09 10:00', '2014.01.09 18:00' ],
+		[ '2014.01.10 10:00', '2014.01.10 18:00' ],
+		[ '2014.01.11 10:00', '2014.01.11 18:00' ],
+	], 1000 * 60 * 60 * (4 + 4 * 8), 0, true, {}, 'not last test');
+
+// test.addTest('Real world example: Was not processed right.', [
+// 		'Jan Su[-2]-Jan Su[-1]: Fr-Su 12:00+; Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 1-Jul 31: Th-Su 12:00+; Aug 1-Nov 30,Dec: Tu-Su 12:00+; Dec 24-26,Dec 31: off',
+// 	], '2013.08.01 0:00', '2013.10.08 0:00', [
+// 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
+//
+// http://www.openstreetmap.org/node/392512497/history
+// test.addTest('Real world example: Was not processed right.', [
+// 		'"(Buffet)" Mo-Th 12:00-15:00,17:00-21:30; Fr 12:00-15:00,17:00-22:30; Sa 12:00-15:00,16:30-22:30; Su 12:00-15:00,16:30-21:30 || Su-Th 11:30-22:00 open "Takeout" || Fr-Sa 11:30-23:00 open "Takeout"',
+// 	], '2013.08.01 0:00', '2013.10.08 0:00', [
+// 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
+
+// https://github.com/ypid/opening_hours.js/issues/26 {{{
+// Problem with wrap day in browser.
+test.addTest('Real world example: Was processed right form library.', [
+		'Mo 19:00+; We 14:00+; Su 10:00+ || "Führung, Sonderführungen nach Vereinbarung."',
+	], '2014.01.06 0:00', '2014.01.13 0:00', [
+		[ '2014.01.06 00:00', '2014.01.06 19:00', true, 'Führung, Sonderführungen nach Vereinbarung.' ],
+		[ '2014.01.06 19:00', '2014.01.07 05:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.01.07 05:00', '2014.01.08 14:00', true, 'Führung, Sonderführungen nach Vereinbarung.' ],
+		[ '2014.01.08 14:00', '2014.01.09 00:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.01.09 00:00', '2014.01.12 10:00', true, 'Führung, Sonderführungen nach Vereinbarung.' ],
+		[ '2014.01.12 10:00', '2014.01.13 00:00', true, 'Specified as open end. Closing time was guessed.' ],
+	], 0, 1000 * 60 * 60 * 24 * 7, true, {}, 'not last test');
+
+test.addTest('Real world example: Was processed right form library.', [
+		'Mo 19:00-05:00 || "Sonderführungen nach Vereinbarung."',
+	], '2014.01.06 0:00', '2014.01.13 0:00', [
+		[ '2014.01.06 00:00', '2014.01.06 19:00', true,  'Sonderführungen nach Vereinbarung.' ],
+		[ '2014.01.06 19:00', '2014.01.07 05:00' ],
+		[ '2014.01.07 05:00', '2014.01.13 00:00', true,  'Sonderführungen nach Vereinbarung.' ],
+	], 1000 * 60 * 60 * 10, 1000 * 60 * 60 * (24 * 7 - 10), true, {}, 'not last test');
+
+test.addTest('Real world example: Was processed right form library.', [
+		'Mo 19:00+ || "Sonderführungen nach Vereinbarung."',
+	], '2014.01.07 1:00', '2014.01.13 0:00', [
+		[ '2014.01.07 01:00', '2014.01.07 05:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.01.07 05:00', '2014.01.13 00:00', true, 'Sonderführungen nach Vereinbarung.' ],
+	], 0, 1000 * 60 * 60 * (24 * 6 - 1), true, {}, 'not last test');
+// }}}
+
+// https://github.com/ypid/opening_hours.js/issues/27 {{{
+// Problem in browser.
+//
+// http://www.openstreetmap.org/way/163756418/history
+test.addTest('Real world example: Was not processed right.', [
+		'Jun 15-Sep 15: Th-Su 16:00-19:00; Sep 16-Dec 31: Sa,Su 16:00-19:00; Jan,Feb,Mar off; Dec 25,easter off',
+	], '2013.12.20 0:00', '2014.06.20 0:00', [
+		[ '2013.12.21 16:00', '2013.12.21 19:00' ], // Sa
+		[ '2013.12.22 16:00', '2013.12.22 19:00' ], // Su
+		[ '2013.12.28 16:00', '2013.12.28 19:00' ], // Sa
+		[ '2013.12.29 16:00', '2013.12.29 19:00' ], // Su
+		[ '2014.06.15 16:00', '2014.06.15 19:00' ], // Su
+		[ '2014.06.19 16:00', '2014.06.19 19:00' ], // Th
+	], 1000 * 60 * 60 * (3 * 6), 0, false, {}, 'not last test');
+
+test.addTest('Based on real world example: Is processed right.', [
+		'Nov-Dec Sa,Su 16:00-19:00; Dec 22 off',
+	], '2013.01.01 0:00', '2014.01.01 0:00', [
+		[ '2013.11.02 16:00', '2013.11.02 19:00' ],
+		[ '2013.11.03 16:00', '2013.11.03 19:00' ],
+		[ '2013.11.09 16:00', '2013.11.09 19:00' ],
+		[ '2013.11.10 16:00', '2013.11.10 19:00' ],
+		[ '2013.11.16 16:00', '2013.11.16 19:00' ],
+		[ '2013.11.17 16:00', '2013.11.17 19:00' ],
+		[ '2013.11.23 16:00', '2013.11.23 19:00' ],
+		[ '2013.11.24 16:00', '2013.11.24 19:00' ],
+		[ '2013.11.30 16:00', '2013.11.30 19:00' ],
+		[ '2013.12.01 16:00', '2013.12.01 19:00' ],
+		[ '2013.12.07 16:00', '2013.12.07 19:00' ],
+		[ '2013.12.08 16:00', '2013.12.08 19:00' ],
+		[ '2013.12.14 16:00', '2013.12.14 19:00' ],
+		[ '2013.12.15 16:00', '2013.12.15 19:00' ],
+		[ '2013.12.21 16:00', '2013.12.21 19:00' ],
+		[ '2013.12.28 16:00', '2013.12.28 19:00' ],
+		[ '2013.12.29 16:00', '2013.12.29 19:00' ],
+	], 1000 * 60 * 60 * (3 * 17), 0, false, {}, 'not last test');
+// }}}
+
+// }}}
+
+// variable events e.g. easter {{{
+test.addTest('Variable events', [
+		'easter',
+	], '2012.01.01 0:00', '2014.10.08 0:00', [
+		[ '2012.04.08 00:00', '2012.04.09 00:00' ],
+		[ '2013.03.31 00:00', '2013.04.01 00:00' ], // daylight saving time
+		[ '2014.04.20 00:00', '2014.04.21 00:00' ],
+	], 1000 * 60 * 60 * (24 * 3 - 1), 0, false, nominatiomTestJSON, 'not last test');
+
 test.addTest('Calculations based on variable events', [
-		'2012 easter -2 days-2012 easter +2 days: open "Around easter"', // Preferred because more explicit (year) and with the colon easier to read.
-		'easter -2 days-easter +2 days: open "Around easter"',
-		'easter -2 days-easter +2 days open "Around easter"',
-	], '2012.01.01 0:00', '2012.10.08 0:00', [
-		[ '2012.04.06 00:00', '2012.04.10 00:00', false, 'Around easter' ],
-	], 1000 * 60 * 60 * 24 * 4, 0, false, nominatiomTestJSON, 'not only test');
+		'easter +1 day open "Easter Monday"',
+	], '2012.01.01 0:00', '2014.10.08 0:00', [
+		[ '2012.04.09 00:00', '2012.04.10 00:00', false, 'Easter Monday' ],
+		[ '2013.04.01 00:00', '2013.04.02 00:00', false, 'Easter Monday' ],
+		[ '2014.04.21 00:00', '2014.04.22 00:00', false, 'Easter Monday' ],
+	], 1000 * 60 * 60 * 24 * 3, 0, false, nominatiomTestJSON, 'not last test');
 
 test.addTest('Calculations based on variable events', [
 		'Apr 5-easter -1 day: open "Before easter"',
@@ -1411,21 +1417,40 @@ test.addTest('Calculations based on variable events', [
 		[ '2012.04.08 00:00', '2012.10.08 00:00', false, 'Around easter' ],
 	], 23842800000, 0, false, nominatiomTestJSON, 'not last test');
 
-// The hard stuff. Proposed by Netzwolf. Was only implemented by his implementation. Might follow in opening_hours.js.
-// Currently used around 6 times: /\d\s*-\s*(mo|tu|we|th|fr|sa|su)\b/
-test.addTest('Calculations based on month range', [
-		ignored('Mar Su[-1] - Dec 25-Su-28 days: 12:00-13:00'),
+test.addTest('Calculations based on variable events', [
+		'2012 easter -2 days-2012 easter +2 days: open "Around easter"', // Preferred because more explicit (year) and with the colon easier to read.
+		'easter -2 days-easter +2 days: open "Around easter"',
+		'easter -2 days-easter +2 days open "Around easter"',
 	], '2012.01.01 0:00', '2012.10.08 0:00', [
-	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'not only test');
+		[ '2012.04.06 00:00', '2012.04.10 00:00', false, 'Around easter' ],
+	], 1000 * 60 * 60 * 24 * 4, 0, false, nominatiomTestJSON, 'not only test');
+// }}}
 
-test.addTest('Time intervals (not specified/documented use of colon, please avoid this)', [
-		'00:00-24:00; Mo 15:00-16:00 off',  // prettified value
-		'00:00-24:00; Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
+// additional blocks {{{
+
+// for https://github.com/ypid/opening_hours.js/issues/16
+test.addTest('Additional blocks with comment', [
+		'Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"',
+		'Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"', // should mean the same
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 00:00', '2012.10.01 15:00' ],
-		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
-	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true, {}, 'not last test');
+		[ '2012.10.05 08:00', '2012.10.05 12:00' ],
+		[ '2012.10.05 12:00', '2012.10.05 16:00', false, 'Notfallsprechstunde' ],
+	], 1000 * 60 * 60 * (4 + 4), 0, true, {}, 'n last test');
+// }}}
 
+// points in time {{{
+
+// Not sure if this was intended, but this is how the code handles it.
+// And it is not bad actually.
+// See https://github.com/AMDmi3/opening_hours.js/issues/12
+test.addTest('Interpetation of points im time', [
+		ignored('12:00'),
+		ignored('Mo-Fr 12:00'),
+	], '2012.10.01 0:00', '2012.10.04 0:00', [
+		[ '2012.10.01 12:00', '2012.10.01 12:01' ],
+		[ '2012.10.02 12:00', '2012.10.02 12:01' ],
+		[ '2012.10.03 12:00', '2012.10.03 12:01' ],
+	], 1000 * 60 * 3, 0, true, {}, 'not last test');
 test.addTest('Points in time, mode 1', [
 		'Mo 12:00,15:00; Tu-Fr 14:00',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -1475,6 +1500,7 @@ test.addTest('Points in time and times ranges, mode 2', [
 		[ '2012.10.01 13:00', '2012.10.01 14:00' ],
 	], 1000 * 60 * (1 + 60), 0, true, nominatiomTestJSON, 'not last test', 2);
 
+// period times {{{
 test.addTest('Points in time, period times', [
 		'Mo-Fr 10:00-16:00/01:30',
 		'Mo-Fr 10:00-16:00/90',
@@ -1543,6 +1569,74 @@ test.addTest('Points in time, period times (real world example)', [
 		[ '2013.12.07 13:00', '2013.12.07 13:01' ],
 		[ '2013.12.07 14:00', '2013.12.07 14:01' ],
 	], 1000 * 60 * 13, 0, true, {}, 'not last test', 1);
+// }}}
+// }}}
+
+// currently not implemented {{{
+
+// proposed by Netzwolf: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#rule9
+// Currently not handled correctly. Could be interpreted as fallback block.
+test.addTest('Additional comments for unknown', [
+		ignored('Mo open "comment"; "I don’t know how to express easter": off'),
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+	], 0, 1000 * 60 * 60 * 2, true, {}, 'not last test');
+
+// The hard stuff. Proposed by Netzwolf. Was only implemented by his implementation. Might follow in opening_hours.js.
+// Currently used around 6 times: /\d\s*-\s*(mo|tu|we|th|fr|sa|su)\b/
+test.addTest('Calculations based on month range', [
+		ignored('Mar Su[-1] - Dec 25-Su-28 days: 12:00-13:00'),
+	], '2012.01.01 0:00', '2012.10.08 0:00', [
+	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'not only test');
+// }}}
+
+// input tolerance {{{
+test.addTest('Input tolerance: case and whitespace', [
+		'Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off', // reference value for prettify
+		'   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00	Off  ',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 12:00', '2012.10.01 14:00' ],
+		[ '2012.10.01 16:00', '2012.10.01 20:00' ],
+		[ '2012.10.02 12:00', '2012.10.02 14:00' ],
+		[ '2012.10.02 16:00', '2012.10.02 20:00' ],
+		[ '2012.10.03 12:00', '2012.10.03 14:00' ],
+		[ '2012.10.03 16:00', '2012.10.03 20:00' ],
+		[ '2012.10.04 12:00', '2012.10.04 14:00' ],
+		[ '2012.10.04 16:00', '2012.10.04 20:00' ],
+	], 1000 * 60 * 60 * 6 * 4, 0, true, {}, 'not last test');
+
+test.addTest('Input tolerance: weekdays, months in different languages', [
+		'Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off', // reference value for prettify
+		'mon, Dienstag, Mi, donnerstag 12:00-20:00; 14:00-16:00 off',
+		'mon, Tuesday, wed, Thursday 12:00-20:00; 14:00-16:00 off',
+		'mon., Tuesday, wed., Thursday. 12:00-20:00; 14:00-16:00 off',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 12:00', '2012.10.01 14:00' ],
+		[ '2012.10.01 16:00', '2012.10.01 20:00' ],
+		[ '2012.10.02 12:00', '2012.10.02 14:00' ],
+		[ '2012.10.02 16:00', '2012.10.02 20:00' ],
+		[ '2012.10.03 12:00', '2012.10.03 14:00' ],
+		[ '2012.10.03 16:00', '2012.10.03 20:00' ],
+		[ '2012.10.04 12:00', '2012.10.04 14:00' ],
+		[ '2012.10.04 16:00', '2012.10.04 20:00' ],
+	], 1000 * 60 * 60 * 6 * 4, 0, true, {}, 'not last test');
+// }}}
+
+// values which should return a warning {{{
+test.addTest('Extensions: missing time range separators', [
+		'Mo 12:00-14:00 16:00-18:00 20:00-22:00', // returns a warning
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 12:00', '2012.10.01 14:00' ],
+		[ '2012.10.01 16:00', '2012.10.01 18:00' ],
+		[ '2012.10.01 20:00', '2012.10.01 22:00' ],
+	], 1000 * 60 * 60 * 6, 0, true);
+
+test.addTest('Time intervals (not specified/documented use of colon, please avoid this)', [
+		'00:00-24:00; Mo 15:00-16:00 off',  // prettified value
+		'00:00-24:00; Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 00:00', '2012.10.01 15:00' ],
+		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
+	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true, {}, 'not last test');
 
 test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', [
 		// 'Mo[2] - 6 days', // considered as "correct"
@@ -1566,7 +1660,9 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'sunrise-(sunset-00:00)',
 		// 'easter + 353 days', // Does throw an error, but at runtime when the problem occurs respectively with the call of getWarnings().
 	], {}, 'not last test');
+// }}}
 
+// values which should fail during parsing {{{
 test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Mo[2] - 7 days',
 		'sdasdlasdj a3reaw', // Test for the test framwork. This test should pass :) (passes when the value can not be parsed)
@@ -1633,7 +1729,9 @@ test.addShouldFail('opening_hours.js is in the wrong mode.', [
 test.addShouldFail('opening_hours.js is in the wrong mode.', [
 		'Mo 12:00-14:00', // only in mode 0 or 2
 	], nominatiomTestJSON, 'not last test', 1);
+// }}}
 
+// check if matching rule was evaluated correctly {{{
 test.addCompMatchingRule('Compare result from getMatchingRule()', [
 		'10:00-16:00',
 		'10:00-16:00;',
@@ -1654,15 +1752,6 @@ test.addCompMatchingRule('Compare result from getMatchingRule()', [
 	], '2012.01.01 09:00',
 	'"general unknown"', {}, 'n last test');
 
-// for https://github.com/ypid/opening_hours.js/issues/16
-test.addTest('Additional blocks with comment', [
-		'Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"',
-		'Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"', // should mean the same
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.05 08:00', '2012.10.05 12:00' ],
-		[ '2012.10.05 12:00', '2012.10.05 16:00', false, 'Notfallsprechstunde' ],
-	], 1000 * 60 * 60 * (4 + 4), 0, true, {}, 'n last test');
-
 test.addCompMatchingRule('Compare result from getMatchingRule()', [
 		'Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"',
 		'Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"', // should mean the same
@@ -1674,11 +1763,12 @@ test.addCompMatchingRule('Compare result from getMatchingRule()', [
 		'Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"', // should mean the same
 	], '2013.12.20 13:00',
 	'Fr 12:00-16:00 open "Notfallsprechstunde"', {}, 'n last test');
+// }}}
 
 process.exit(test.run() ? 0 : 1);
 
 //======================================================================
-// Test framework
+// Test framework {{{
 //======================================================================
 function opening_hours_test() {
 	var show_passing_tests  = true;
@@ -1997,3 +2087,4 @@ function ignored(value, reason) {
 		reason = 'not implemented yet';
 	return [ value, reason ];
 }
+// }}}
