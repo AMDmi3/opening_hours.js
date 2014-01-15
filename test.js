@@ -1227,7 +1227,7 @@ test.addTest('Additional comments combined with months', [
 	], 7948800000, 2682000000, false, {}, 'not last test');
 // }}}
 
-// real world examples {{{
+// real world examples, mainly values which caused a problem {{{
 test.addTest('Complex example used in README', [
 		'open; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off', // Can be used (better than using 24/7 which will return a warning).
 		'00:00-24:00; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off', // preferred because more explicit
@@ -1300,11 +1300,50 @@ test.addTest('Real world example: Was not processed right.', [
 		[ '2014.01.11 10:00', '2014.01.11 18:00' ],
 	], 1000 * 60 * 60 * (4 + 4 * 8), 0, true, {}, 'not last test');
 
-// test.addTest('Real world example: Was not processed right.', [
-// 		'Jan Su[-2]-Jan Su[-1]: Fr-Su 12:00+; Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 1-Jul 31: Th-Su 12:00+; Aug 1-Nov 30,Dec: Tu-Su 12:00+; Dec 24-26,Dec 31: off',
-// 	], '2013.08.01 0:00', '2013.10.08 0:00', [
-// 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
-//
+// problem with combined monthday and month selector {{{
+test.addTest('Real world example: Was not processed right.', [
+		'Jan Su[-2]-Jan Su[-1]: Fr-Su 12:00+;'
+		+ ' Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+;'
+		+ ' Mar 1-Jul 31: Th-Su 12:00+;'
+		+ ' Aug 1-Nov 30,Dec: Tu-Su 12:00+;'
+		+ ' Dec 24-26,Dec 31: off', // Original value.
+		'Jan Su[-2]-Jan Su[-1],Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 1-Dec 31: Tu-Su 12:00+; Dec 24-26,Dec 31: off'
+		// Optimized value. Should mean the same.
+	], '2014.11.29 0:00', '2015.01.11 0:00', [
+		[ '2014.11.29 12:00', '2014.11.30 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.11.30 12:00', '2014.12.01 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.02 12:00', '2014.12.03 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.03 12:00', '2014.12.04 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.04 12:00', '2014.12.05 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.05 12:00', '2014.12.06 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.06 12:00', '2014.12.07 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.07 12:00', '2014.12.08 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.09 12:00', '2014.12.10 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.10 12:00', '2014.12.11 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.11 12:00', '2014.12.12 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.12 12:00', '2014.12.13 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.13 12:00', '2014.12.14 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.14 12:00', '2014.12.15 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.16 12:00', '2014.12.17 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.17 12:00', '2014.12.18 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.18 12:00', '2014.12.19 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.19 12:00', '2014.12.20 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.20 12:00', '2014.12.21 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.21 12:00', '2014.12.22 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.23 12:00', '2014.12.24 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.27 12:00', '2014.12.28 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.28 12:00', '2014.12.29 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.12.30 12:00', '2014.12.31 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+	], 0, 1000 * 60 * 60 * 12 * 24, false, {}, 'not last test');
+
+test.addTest('Simplifed real world example: Was not processed right.', [
+		'Nov 1-20,Dec',
+	], '2014.01.01 0:00', '2015.01.02 0:00', [
+		[ '2014.11.01 00:00', '2014.11.21 00:00' ],
+		[ '2014.12.01 00:00', '2015.01.01 00:00' ],
+	], 1000 * 60 * 60 * 24 * (20 + 31), 0, false, {}, 'not last test');
+// }}}
+
 // http://www.openstreetmap.org/node/392512497/history
 // test.addTest('Real world example: Was not processed right.', [
 // 		'"(Buffet)" Mo-Th 12:00-15:00,17:00-21:30; Fr 12:00-15:00,17:00-22:30; Sa 12:00-15:00,16:30-22:30; Su 12:00-15:00,16:30-21:30 || Su-Th 11:30-22:00 open "Takeout" || Fr-Sa 11:30-23:00 open "Takeout"',

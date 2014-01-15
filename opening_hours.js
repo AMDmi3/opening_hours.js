@@ -3122,7 +3122,8 @@
 		// }}}
 
 		// Month range parser (Jan,Feb-Mar) {{{
-		function parseMonthRange(tokens, at) {
+		// push_to_monthday will push the selector into the monthday selector array which has the desired side effect of working in conjunction with the monthday selectors (either the month match or the monthday).
+		function parseMonthRange(tokens, at, push_to_monthday) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'month')) {
 					// Single month (Jan) or month range (Feb-Mar)
@@ -3139,7 +3140,7 @@
 						week_stable = false;
 					}
 
-					selectors.month.push(function(tokens, at, is_range) { return function(date) {
+					var selector = function(tokens, at, is_range) { return function(date) {
 						var ourmonth = date.getMonth();
 						var month_from = tokens[at][0];
 						var month_to = is_range ? tokens[at+2][0] : month_from;
@@ -3163,7 +3164,12 @@
 						} else {
 							return [inside, dateAtNextMonth(date, month_to + 1)];
 						}
-					}}(tokens, at, is_range));
+					}}(tokens, at, is_range);
+
+					if (push_to_monthday === true)
+						selectors.monthday.push(selector);
+					else
+						selectors.month.push(selector);
 
 					at += is_range ? 3 : 1;
 				} else {
@@ -3403,7 +3409,7 @@
 				} else if (has_constrained_weekday[0]) {
 					at = parseMonthRange(tokens, at);
 				} else if (matchTokens(tokens, at, 'month')) {
-					return parseMonthRange(tokens, at);
+					return parseMonthRange(tokens, at, true);
 				} else {
 					// throw 'Unexpected token in monthday range: "' + tokens[at] + '"';
 					return at;
