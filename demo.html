@@ -203,8 +203,10 @@
 			}
 
 			function newValue(value) {
-				document.forms.check.elements['prettifiedValue'].focus();
-				document.forms.check.elements['prettifiedValue'].focus();
+				if (typeof document.forms.check.elements['prettifiedValue'] == 'object') {
+					document.forms.check.elements['prettifiedValue'].focus();
+					document.forms.check.elements['prettifiedValue'].focus();
+				}
 				document.forms.check.elements['expression'].value = value;
 				Evaluate();
 			}
