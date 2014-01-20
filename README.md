@@ -461,6 +461,10 @@ Please share your opinion on the [talk page](http://wiki.openstreetmap.org/wiki/
 * Depending on moon position like ```"low tide only"```. Suncalc lib does support moon position. Syntax needed.
 * If weekday is PH than the facility will be open weekday-1 this week. Syntax something like: ```We if (We +1 day == PH) else Th``` ???
 
+List of features which can make writing easier:
+
+* ```May-Aug: (Mo-Th 9:00-20:00; Fr 11:00-22:00; Sa-Su 11:00-20:00); Mar-Apr,Sep-Oct: (Sa 8:00-20:00; Su 9:00-17:00; Mo,We 8:00-20:00; Tu,Th 8:00-14:30 16:30-20:00)```
+
 ## Author ##
 
 * [Dmitry Marakasov](https://github.com/AMDmi3) <amdmi3@amdmi3.ru> (initial coding and design and all basic features like time ranges, week ranges, month ranges and week ranges)
