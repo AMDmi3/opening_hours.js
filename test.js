@@ -1072,8 +1072,9 @@ test.addTest('Periodical monthdays', [
 
 // year ranges {{{
 test.addTest('Date range which only applies for specific year', [
-		'2013,2015,2050-2053,2055/2,2020-2029/3,2060/1 Jan 1',
-		'2013,2015,2050-2053,2055/2,2020-2029/3,2060/1 Jan 1 Mo-Su',
+		// FIXME
+		'2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1',
+		'2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1 Mo-Su',
 	], '2011.01.01 0:00', '2065.01.01 0:00', [
 		[ '2013.01.01 00:00', '2013.01.02 00:00' ],
 		[ '2015.01.01 00:00', '2015.01.02 00:00' ],
@@ -1692,11 +1693,13 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'Mo-So 08:00-22:00',
 		'Mo Tu Fr',
 		'Jan Dec',
-		'Jan 1-22/1',
+		'Jan 1-22/1', // period
 		'"testing" "second comment"',
 		'Jan 12:00-13:00 Mo 15:00-16:00',
 		'sunrise-(sunset-00:00)',
 		// 'easter + 353 days', // Does throw an error, but at runtime when the problem occurs respectively with the call of getWarnings().
+		'Jun 2-20/1', // period is one
+		'2014-2020/1', // period is one
 	], {}, 'not last test');
 // }}}
 
@@ -1752,6 +1755,8 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Jun 0-Aug 23', // out of range
 		'Jun 2-Aug 42', // out of range
 		'Jun 2-Aug 32', // out of range
+		'Jun 2-20/0', // period is zero
+		'2014-2020/0', // period is zero
 	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [

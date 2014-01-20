@@ -2117,6 +2117,18 @@
 			return [ number, endat + 1 ];
 		}
 
+		function checkPeriod(at, period, period_type) {
+			if (done_with_warnings)
+				return;
+
+			if (period === 0)
+				throw formatWarnErrorMessage(nblock, at,
+					'You can not use '+ period_type +' ranges with period equals zero.');
+			else if (period === 1)
+				parsing_warnings.push([nblock, at,
+					'Please don’t use '+ period_type +' ranges with period equals one.']);
+		}
+
 		function getDateForConstrainedWeekday(year, month, weekday, constrained_weekday, add_days) {
 			var tmp_date = dateAtNextWeekday(
 				new Date(year, month + (constrained_weekday[0] > 0 ? 0 : 1), 1), weekday);
@@ -2131,7 +2143,7 @@
 
 		function formatWarnErrorMessage(nblock, at, message) {
 			var pos = 0;
-			if (nblock == -1) { // usage of block index not required because we do have access to value.length
+			if (nblock == -1) { // Usage of block index not required because we do have access to value.length.
 				pos = value.length - at;
 			} else { // Issue accrued at a later time, position in string needs to be reconstructed.
 				if (typeof tokens[nblock][0][at] == 'undefined') {
@@ -2968,8 +2980,7 @@
 					if (matchTokens(tokens, at+1, '-', 'year', '/', 'number')) {
 						var is_range   = true;
 						var has_period = true;
-						if (!done_with_warnings && tokens[at+4][0] == 1)
-							parsing_warnings.push([nblock, at+1+3, 'Please don’t use year ranges with period equals one (see README)']);
+						checkPeriod(at+4, tokens[at+4][0], 'year');
 					} else {
 						var is_range   = matchTokens(tokens, at+1, '-', 'year');
 						var has_period = matchTokens(tokens, at+1, '/', 'number');
@@ -3229,6 +3240,7 @@
 					}
 				}
 
+				// monthday range like Jan 26-Feb 26 {{{
 				if (has_year[0] == has_year[1] && (has_month[1] || has_event[1] || has_constrained_weekday[1])) {
 
 					selectors.monthday.push(function(tokens, at, nblock, has_year, has_event, has_calc, at_sec_event_or_month, has_constrained_weekday) { return function(date) {
@@ -3330,15 +3342,22 @@
 							: at_sec_event_or_month + (has_event[1] ? 1 : 2))
 						+ (typeof has_calc[1] != 'undefined' ? has_calc[1][1] : 0);
 
+					// }}}
+					// Monthday range like Jan 26-31 {{{
 				} else if (has_month[0]) {
 
-					var is_range = matchTokens(tokens, at+2+has_year[0], '-', 'number'), has_period = false;
-					if (is_range)
-						has_period = matchTokens(tokens, at+4+has_year[0], '/', 'number');
+					var month = tokens[at+has_year[0]][0], range_from = tokens[at+1 + has_year[0]][0];
+
+					var is_range = matchTokens(tokens, at+2+has_year[0], '-', 'number'), period = undefined;
+					var range_to = tokens[at+has_year[0]+(is_range ? 3 : 1)][0] + 1;
+					if (is_range && matchTokens(tokens, at+has_year[0]+4, '/', 'number')) {
+						period = tokens[at+has_year[0]+5][0];
+						checkPeriod(at+has_year[0]+5, period, 'day');
+					}
 
 					var at_timesep_if_monthRange = at + has_year[0] + 1 // at month number
-						+ (is_range ? 2 : 0) + (has_period ? 2 : 0)
-						+ !(is_range || has_period); // if not range nor has_period, add one
+						+ (is_range ? 2 : 0) + (period ? 2 : 0)
+						+ !(is_range || period); // if not range nor has period, add one
 
 					if (matchTokens(tokens, at_timesep_if_monthRange, 'timesep', 'number')
 							&& (matchTokens(tokens, at_timesep_if_monthRange+2, '+')
@@ -3346,24 +3365,23 @@
 								|| oh_mode != 0))
 						return parseMonthRange(tokens, at);
 
-					selectors.monthday.push(function(tokens, at, is_range, has_period, has_year) { return function(date) {
+					has_year = has_year[0] ? tokens[at][0] : undefined;
+
+					selectors.monthday.push(function(month, range_from, range_to, period, has_year) { return function(date) {
 						var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
 
-						var from_date = new Date((has_year ? tokens[at][0] : date.getFullYear()),
-							tokens[at+has_year][0], tokens[at+1 + has_year][0]);
+						var from_date = new Date((typeof has_year != 'undefined' ? has_year : date.getFullYear()),
+							month, range_from);
 						var to_date   = new Date(from_date.getFullYear(), from_date.getMonth(),
-							tokens[at+(is_range ? 3 : 1)+has_year][0] + 1);
+							range_to);
 
 						if (date.getTime() < from_date.getTime())
 							return [false, from_date];
 						else if (date.getTime() >= to_date.getTime())
 							return [false, start_of_next_year];
-						else if (!has_period)
+						else if (!period)
 							return [true, to_date];
 
-						var period = tokens[at+has_year+5][0];
-						if (!done_with_warnings && period == 1)
-							parsing_warnings.push([nblock, at+has_year+5, 'Please don’t use day ranges with period equals one (see README)']);
 						var nday = Math.floor((date.getTime() - from_date.getTime()) / msec_in_day);
 						var in_period = nday % period;
 
@@ -3372,13 +3390,15 @@
 						else
 							return [false, new Date(date.getFullYear(), date.getMonth(), date.getDate() + period - in_period)];
 
-					}}(tokens, at, is_range, has_period, has_year[0]));
+					}}(month, range_from, range_to, period, has_year));
 
-					at += 2 + has_year[0] + (is_range ? 2 : 0) + (has_period ? 2 : 0);
+					at += 2 + (typeof has_year == 'undefined' ? 0 : 1) + (is_range ? 2 : 0) + (period ? 2 : 0);
 
+					// }}}
+					// Only event like easter {{{
 				} else if (has_event[0]) {
 
-					selectors.monthday.push(function(tokens, at, nblock, has_event, has_year, add_days) { return function(date) {
+					selectors.monthday.push(function(tokens, at, nblock, has_year, add_days) { return function(date) {
 
 						// console.log('enter selector with date: ' + date);
 						var movableDays = getMovableEventsForYear((has_year ? tokens[at][0] : date.getFullYear()));
@@ -3403,9 +3423,10 @@
 						else
 							return [false, new Date(date.getFullYear() + 1, 0, 1)];
 
-					}}(tokens, at, nblock, has_event[0], has_year[0], has_calc[0]));
+					}}(tokens, at, nblock, has_year[0], has_calc[0]));
 
 					at += has_year[0] + has_event[0] + (typeof has_calc[0][1] != 'undefined' && has_calc[0][1] ? 3 : 0);
+					// }}}
 				} else if (has_constrained_weekday[0]) {
 					at = parseMonthRange(tokens, at);
 				} else if (matchTokens(tokens, at, 'month')) {
