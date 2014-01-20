@@ -3346,31 +3346,33 @@
 					// Monthday range like Jan 26-31 {{{
 				} else if (has_month[0]) {
 
-					var month = tokens[at+has_year[0]][0], range_from = tokens[at+1 + has_year[0]][0];
+					has_year = has_year[0];
+					var year = tokens[at][0]; // Could be month if has no year. Tested later.
+					var month = tokens[at+has_year][0], range_from = tokens[at+1 + has_year][0];
 
-					var is_range = matchTokens(tokens, at+2+has_year[0], '-', 'number'), period = undefined;
-					var range_to = tokens[at+has_year[0]+(is_range ? 3 : 1)][0] + 1;
-					if (is_range && matchTokens(tokens, at+has_year[0]+4, '/', 'number')) {
-						period = tokens[at+has_year[0]+5][0];
-						checkPeriod(at+has_year[0]+5, period, 'day');
+					var is_range = matchTokens(tokens, at+2+has_year, '-', 'number');
+					var period = undefined;
+					var range_to = tokens[at+has_year+(is_range ? 3 : 1)][0] + 1;
+					if (is_range && matchTokens(tokens, at+has_year+4, '/', 'number')) {
+						period = tokens[at+has_year+5][0];
+						checkPeriod(at+has_year+5, period, 'day');
 					}
 
-					var at_timesep_if_monthRange = at + has_year[0] + 1 // at month number
+					var at_timesep_if_monthRange = at + has_year + 1 // at month number
 						+ (is_range ? 2 : 0) + (period ? 2 : 0)
 						+ !(is_range || period); // if not range nor has period, add one
 
+					// Check for '<month> <timespan>'
 					if (matchTokens(tokens, at_timesep_if_monthRange, 'timesep', 'number')
 							&& (matchTokens(tokens, at_timesep_if_monthRange+2, '+')
 								|| matchTokens(tokens, at_timesep_if_monthRange+2, '-')
 								|| oh_mode != 0))
 						return parseMonthRange(tokens, at);
 
-					has_year = has_year[0] ? tokens[at][0] : undefined;
-
-					selectors.monthday.push(function(month, range_from, range_to, period, has_year) { return function(date) {
+					selectors.monthday.push(function(year, has_year, month, range_from, range_to, period) { return function(date) {
 						var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
 
-						var from_date = new Date((typeof has_year != 'undefined' ? has_year : date.getFullYear()),
+						var from_date = new Date(has_year ? year : date.getFullYear(),
 							month, range_from);
 						var to_date   = new Date(from_date.getFullYear(), from_date.getMonth(),
 							range_to);
@@ -3390,9 +3392,9 @@
 						else
 							return [false, new Date(date.getFullYear(), date.getMonth(), date.getDate() + period - in_period)];
 
-					}}(month, range_from, range_to, period, has_year));
+					}}(year, has_year, month, range_from, range_to, period));
 
-					at += 2 + (typeof has_year == 'undefined' ? 0 : 1) + (is_range ? 2 : 0) + (period ? 2 : 0);
+					at += 2 + has_year + (is_range ? 2 : 0) + (period ? 2 : 0);
 
 					// }}}
 					// Only event like easter {{{
