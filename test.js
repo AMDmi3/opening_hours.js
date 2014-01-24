@@ -889,7 +889,9 @@ test.addTest('Month ranges', [
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.11.01 00:00', '2012.12.01 00:00' ],
 	], 1000 * 60 * 60 * 24 * 30, 0, false, {}, 'not last test');
+// }}}
 
+// monthday ranges {{{
 test.addTest('Month ranges', [
 		'Jan 1,Dec 24-25; Nov Th[4]',
 		'Jan 1,Dec 24,25; Nov Th[4]', // Was supported by time_domain as well.
@@ -911,9 +913,7 @@ test.addTest('Month ranges', [
 		[ '2012.12.21 00:00', '2012.12.22 00:00' ],
 		[ '2012.12.23 00:00', '2012.12.26 00:00' ],
 	], 1000 * 60 * 60 * 24 * (1 + 1 + 3 + 1 + 1 + 3), 0, false, {}, 'not last test');
-// }}}
 
-// monthday ranges {{{
 test.addTest('Monthday ranges', [
 		'Jan 23-31 00:00-24:00; Feb 1-12 00:00-24:00',
 		'Jan 23-Feb 12 00:00-24:00',
