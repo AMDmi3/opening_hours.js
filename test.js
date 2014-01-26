@@ -1692,6 +1692,10 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'Mo 12:00-14:00 16:00-18:00 20:00-22:00',
 		'Mo-So 08:00-22:00',
 		'Mo Tu Fr',
+		'Mo,Mo', // weekday selector used more than one time
+		'Mo,Sa,Mo',
+		'Jan,Jan', // month selector used more than one time
+		'Jan,Sep,Jan',
 		'Jan Dec',
 		'Jan 1-22/1', // period
 		'"testing" "second comment"',
@@ -1755,8 +1759,10 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Jun 0-Aug 23', // out of range
 		'Jun 2-Aug 42', // out of range
 		'Jun 2-Aug 32', // out of range
-		'Jun 2-20/0', // period is zero
-		'2014-2020/0', // period is zero
+		'Jun 2-32',     // out of range
+		'Jun 32',       // out of range
+		'Jun 2-20/0',   // period is zero
+		'2014-2020/0',  // period is zero
 	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [

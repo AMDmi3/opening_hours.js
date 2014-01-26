@@ -1129,6 +1129,9 @@
 				geschlossen: 'off',
 				ausser:      'off',
 				außer:       'off',
+			}, 'Neem de engelse afkorting "<ok>" voor "<ko>" alstublieft.': {
+				'gesloten':  'off',
+				'feestdag':  'PH',
 			}, 'Assuming "<ok>" for "<ko>". Please avoid using "workday": http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays': {
 				// 	// Used around 260 times but the problem is, that work day might be different in other countries.
 				wd:       'Mo-Fr',
@@ -1376,7 +1379,8 @@
 			}, 'Neem de engelse afkorting "<ok>" voor "<ko>" alstublieft.': {
 				zo:        0,
 				zon:       0,
-				zontag:    0,
+				zontag:    0, // correct?
+				zondag:    0,
 				maandag:   1,
 				din:       2,
 				dinsdag:   2,
@@ -2840,6 +2844,7 @@
 			return at;
 		}
 
+		// Helpers for holiday parsers {{{
 		// Returns a number for a date which can then be used to compare just the dates (without the time).
 		// This is necessary because a selector could be called for the middle of the day and we need to tell if it matches that day.
 		// Example: Returns 20150015 for Jan 01 2015
@@ -2970,6 +2975,7 @@
 
 			return sorted_holidays;
 		}
+		// }}}
 		// }}}
 
 		// Year range parser (2013,2016-2018,2020/2) {{{
@@ -3261,6 +3267,7 @@
 						} else if (has_constrained_weekday[0]) {
 							var from_date = getDateForConstrainedWeekday((has_year[0] ? tokens[at][0] : date.getFullYear()), // year
 								tokens[at+has_year[0]][0], // month
+							// FIXME
 								tokens[at+has_year[0]+1][0], // weekday
 								has_constrained_weekday[0],
 								has_calc[0]);
@@ -3275,6 +3282,7 @@
 							// 			+ ' days is not in the year of the movable day anymore. Currently not supported.');
 						} else {
 							var from_date = new Date((has_year[0] ? tokens[at][0] : date.getFullYear()),
+							// FIXME
 								tokens[at+has_year[0]][0], tokens[at+has_year[0]+1][0]);
 						}
 
@@ -3295,11 +3303,13 @@
 						} else if (has_constrained_weekday[1]) {
 							var to_date = getDateForConstrainedWeekday((has_year[1] ? tokens[at_sec_event_or_month-1][0] : date.getFullYear()), // year
 								tokens[at_sec_event_or_month][0],   // month
+							// FIXME
 								tokens[at_sec_event_or_month+1][0], // weekday
 								has_constrained_weekday[1],
 								has_calc[1]);
 						} else {
 							var to_date = new Date((has_year[1] ? tokens[at_sec_event_or_month-1][0] : date.getFullYear()),
+							// FIXME
 								tokens[at_sec_event_or_month][0], tokens[at_sec_event_or_month+1][0] + 1);
 						}
 
@@ -3354,8 +3364,10 @@
 
 					do {
 						var range_from = tokens[at+1 + has_year][0];
+						// FIXME
 						var is_range = matchTokens(tokens, at+2+has_year, '-', 'number');
 						var period = undefined;
+						// FIXME
 						var range_to = tokens[at+has_year+(is_range ? 3 : 1)][0] + 1;
 						if (is_range && matchTokens(tokens, at+has_year+4, '/', 'number')) {
 							period = tokens[at+has_year+5][0];
