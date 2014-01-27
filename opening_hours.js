@@ -1926,7 +1926,7 @@
 						|| matchTokens(tokens, at, 'timevar')
 						|| matchTokens(tokens, at, '(', 'timevar')
 						|| matchTokens(tokens, at, 'number', '-')) {
-					at = parseTimeRange(tokens, at, selectors);
+					at = parseTimeRange(tokens, at, selectors, false);
 
 					used_subparsers['time ranges'].push(at);
 				} else if (matchTokens(tokens, at, 'closed')) {
@@ -2165,7 +2165,10 @@
 		// }}}
 
 		// Time range parser (10:00-12:00,14:00-16:00) {{{
-		function parseTimeRange(tokens, at, selectors) {
+		//
+		// extended_open_end: <time> - <time> +
+		//                 at is here A (if extended_open_end is true)
+		function parseTimeRange(tokens, at, selectors, extended_open_end) {
 			for (; at < tokens.length; at++) {
 				var has_time_var_calc = [], has_normal_time = []; // element 0: start time, 1: end time
 				has_normal_time[0] = matchTokens(tokens, at, 'number', 'timesep', 'number');
@@ -2259,7 +2262,7 @@
 
 						is_point_in_time = true;
 					} else if (matchTokens(tokens, at, '+')) {
-						parseTimeRange(tokens, at_end_time, selectors);
+						parseTimeRange(tokens, at_end_time, selectors, true);
 						at++;
 					} else if (oh_mode == 1 && !is_point_in_time) {
 						throw formatWarnErrorMessage(nblock, at_end_time,
@@ -2274,7 +2277,7 @@
 					}
 
 					// normalize minutes into range
-					if (minutes_from >= minutes_in_day)
+					if (!extended_open_end && minutes_from >= minutes_in_day)
 						throw formatWarnErrorMessage(nblock, at_end_time - 1,
 							'Time range starts outside of the current day');
 					if (minutes_to < minutes_from || ((has_normal_time[0] && has_normal_time[1]) && minutes_from == minutes_to))

@@ -248,8 +248,10 @@ test.addTest('variable time range followed by open end', [
 
 test.addTest('variable time range followed by open end, day wrap and different states', [
 	'Fr 11:00-24:00+ open "geöffnet täglich von 11:00 Uhr bis tief in die Nacht"',
-	], '2012.10.01 0:00', '2012.10.02 0:00', [
-	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.05 11:00', '2012.10.06 00:00', false, 'geöffnet täglich von 11:00 Uhr bis tief in die Nacht' ],
+		[ '2012.10.06 00:00', '2012.10.06 08:00', true,  'geöffnet täglich von 11:00 Uhr bis tief in die Nacht' ],
+	], 1000 * 60 * 60 * 13, 1000 * 60 * 60 * 8, true, nominatiomTestJSON, 'not last test');
 // }}}
 // }}}
 
