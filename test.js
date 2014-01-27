@@ -213,32 +213,43 @@ test.addTest('Open end', [
 
 // proposal: opening hours open end fixed time extension {{{
 // http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_end_fixed_time_extension
-//
-// test.addTest('Fixed time followed by open end', [
-// 		'14:00-17:00+',
-// 	], '2012.10.01 0:00', '2012.10.02 0:00', [
-// 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, {}, 'not last test');
-//
-// test.addTest('variable time range followed by open end', [
-// 		'14:00-sunset+',
-// 	], '2012.10.01 0:00', '2012.10.02 0:00', [
-// 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
-//
-// test.addTest('variable time range followed by open end', [
-// 		'sunrise-14:00+',
-// 	], '2012.10.01 0:00', '2012.10.02 0:00', [
-// 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
-//
-// test.addTest('variable time range followed by open end', [
-// 		'sunrise-(sunset+01:00)+',
-// 		'sunrise-(sunset+01:00)+; Su off',
-// 	], '2012.10.01 0:00', '2012.10.02 0:00', [
-// 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
-//
-// test.addTest('variable time range followed by open end, day wrap and different states', [
-// 	'Fr 11:00-24:00+ open "geöffnet täglich von 11:00 Uhr bis tief in die Nacht"',
-// 	], '2012.10.01 0:00', '2012.10.02 0:00', [
-// 	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
+
+test.addTest('Fixed time followed by open end', [
+		'14:00-17:00+',
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+		[ '2012.10.01 00:00', '2012.10.01 03:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2012.10.01 14:00', '2012.10.01 17:00' ],
+		[ '2012.10.01 17:00', '2012.10.02 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+	], 1000 * 60 * 60 * 3, 1000 * 60 * 60 * (3 + 7), true, {}, 'not last test');
+
+test.addTest('variable time range followed by open end', [
+		'14:00-sunset+',
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+		[ '2012.10.01 00:00', '2012.10.01 04:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2012.10.01 14:00', '2012.10.01 19:00' ],
+		[ '2012.10.01 19:00', '2012.10.02 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+	], 1000 * 60 * 60 * 5, 1000 * 60 * 60 * (4 + 5), false, nominatiomTestJSON, 'not last test');
+
+test.addTest('variable time range followed by open end', [
+		'sunrise-14:00+',
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+		[ '2012.10.01 07:22', '2012.10.01 14:00' ],
+		[ '2012.10.01 14:00', '2012.10.02 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+	], 1000 * 60 * (38 + 60 * 6), 1000 * 60 * 60 * 10, false, nominatiomTestJSON, 'not last test');
+
+test.addTest('variable time range followed by open end', [
+		'sunrise-(sunset+01:00)+',
+		'sunrise-(sunset+01:00)+; Su off',
+	], '2012.10.06 0:00', '2012.10.07 0:00', [
+		[ '2012.10.06 00:00', '2012.10.06 05:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2012.10.06 07:29', '2012.10.06 19:50' ],
+		[ '2012.10.06 19:50', '2012.10.07 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+	], 1000 * 60 * (31 + (19 - 8) * 60 + 50), 1000 * 60 * (60 * 5 + 60 * 4 + 10), false, nominatiomTestJSON, 'not last test');
+
+test.addTest('variable time range followed by open end, day wrap and different states', [
+	'Fr 11:00-24:00+ open "geöffnet täglich von 11:00 Uhr bis tief in die Nacht"',
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+	], 0, 1000 * 60 * 60 * (3 + 24 - 17), true, nominatiomTestJSON, 'not last test');
 // }}}
 // }}}
 

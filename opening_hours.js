@@ -2176,7 +2176,7 @@
 					var is_point_in_time = false; // default no time range
 					var has_open_end     = false; // default no open end
 					var timevar_add      = [ 0, 0 ];
-					var timevar_string  = [];     // capture timevar string like 'sunrise' to calculate it for the current date.
+					var timevar_string   = [];    // capture timevar string like 'sunrise' to calculate it for the current date.
 
 					// minutes_from
 					if (has_normal_time[0]) {
@@ -2258,6 +2258,9 @@
 								'opening_hours is running in "time range mode". Found point in time.');
 
 						is_point_in_time = true;
+					} else if (matchTokens(tokens, at, '+')) {
+						parseTimeRange(tokens, at_end_time, selectors);
+						at++;
 					} else if (oh_mode == 1 && !is_point_in_time) {
 						throw formatWarnErrorMessage(nblock, at_end_time,
 							'opening_hours is running in "points in time mode". Found time range.');
@@ -2396,7 +2399,8 @@
 					} else {
 						selectors.time.push(function(date) { return [true]; });
 					}
-				} else if (matchTokens(tokens, at, 'number', '-', 'number')) { // "Mo 09-18" -> "Mo 09:00-18:00". Please don’t use this
+
+				} else if (matchTokens(tokens, at, 'number', '-', 'number')) { // "Mo 09-18" (Please don’t use this) -> "Mo 09:00-18:00".
 					var minutes_from = tokens[at][0]   * 60;
 					var minutes_to   = tokens[at+2][0] * 60;
 					if (!done_with_warnings)
