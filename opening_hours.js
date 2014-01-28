@@ -3400,21 +3400,26 @@
 						}
 
 						if (first_round) {
-						var at_timesep_if_monthRange = at + has_year + 1 // at month number
-							+ (is_range ? 2 : 0) + (period ? 2 : 0)
-							+ !(is_range || period); // if not range nor has period, add one
+							var at_timesep_if_monthRange = at + has_year + 1 // at month number
+								+ (is_range ? 2 : 0) + (period ? 2 : 0)
+								+ !(is_range || period); // if not range nor has period, add one
 
-						// Check for '<month> <timespan>'
-						if (matchTokens(tokens, at_timesep_if_monthRange, 'timesep', 'number')
-								&& (matchTokens(tokens, at_timesep_if_monthRange+2, '+')
-									|| matchTokens(tokens, at_timesep_if_monthRange+2, '-')
-									|| oh_mode != 0))
-							return parseMonthRange(tokens, at);
+							// Check for '<month> <timespan>'
+							if (matchTokens(tokens, at_timesep_if_monthRange, 'timesep', 'number')
+									&& (matchTokens(tokens, at_timesep_if_monthRange+2, '+')
+										|| matchTokens(tokens, at_timesep_if_monthRange+2, '-')
+										|| oh_mode != 0))
+								return parseMonthRange(tokens, at);
 						}
 
+						// error checking {{{
+						if (range_to < range_from)
+							throw formatWarnErrorMessage(nblock, at+has_year+3,
+									'Range in wrong order. From day is greater than to day.');
 						isValidDate(month, range_from, nblock, at+1 + has_year);
 						isValidDate(month, range_to - 1 /* added previously */,
 								nblock, at+has_year+(is_range ? 3 : 1));
+						// }}}
 
 						selectors.monthday.push(function(year, has_year, month, range_from, range_to, period) { return function(date) {
 							var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);

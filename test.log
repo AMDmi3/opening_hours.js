@@ -391,7 +391,7 @@
 "Incorrect syntax which should throw an error" for "Jun 32-34": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "Jun 2-32/2": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "Jun 32": [1m[32mPASSED[39m[22m
-"Incorrect syntax which should throw an error" for "Jun 30-24": [1m[31mFAILED[39m[22m
+"Incorrect syntax which should throw an error" for "Jun 30-24": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "Jun 2-20/0": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "2014-2020/0": [1m[32mPASSED[39m[22m
 "Missing information (e.g. country or holidays not defined in this lib)" for "PH": [1m[32mPASSED[39m[22m
@@ -411,4 +411,4 @@
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-405/413 tests passed
+406/413 tests passed
