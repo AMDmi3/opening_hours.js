@@ -1705,10 +1705,12 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'Mo 12:00-14:00 16:00-18:00 20:00-22:00',
 		'Mo-So 08:00-22:00',
 		'Mo Tu Fr',
-		'Mo,Mo', // weekday selector used more than one time
-		'Mo,Sa,Mo',
-		'Jan,Jan', // month selector used more than one time
-		'Jan,Sep,Jan',
+		// selector used more than one time {{{
+		ignored('Mo,Mo'),
+		ignored('Mo,Sa,Mo'),
+		ignored('Jan,Jan'),
+		ignored('Jan,Sep,Jan'),
+		// }}}
 		'Jan Dec',
 		'Jan 1-22/1', // period
 		'"testing" "second comment"',
@@ -1880,6 +1882,12 @@ function opening_hours_test() {
 
 	// function runSingleTestShouldThrowWarning {{{
 	function runSingleTestShouldThrowWarning(name, value, nominatiomJSON) {
+		var ignored = typeof value !== 'string';
+		if (ignored) {
+			ignored = value[1];
+			value   = value[0];
+		}
+
 		var warnings, oh;
 		try {
 			oh = new opening_hours(value, nominatiomJSON);
@@ -1893,15 +1901,19 @@ function opening_hours_test() {
 		var passed = false;
 		var str = '"' + name + '" for "' + value.replace('\n', '*newline*') + '": ';
 		if (!crashed && warnings.length > 0) {
-			str += '[1;32mPASSED[0m';
+			str += 'PASSED'.passed;
 			passed = true;
 			if (show_passing_tests)
 				console.log(str);
 			if (show_error_warnings)
 				console.log(warnings.join('\n'));
 			return true;
+		} else if (ignored) {
+			str += 'IGNORED'.ignored + ', reason: ' + ignored;
+			passed = true;
+			console.log(str);
 		} else {
-			str += '[1;31mFAILED[0m';
+			str += 'FAILED'.failed;
 			console.log(str);
 			if (show_error_warnings)
 				console.log(crashed + '\n');
@@ -1966,9 +1978,9 @@ function opening_hours_test() {
 			str += 'PASSED'.passed;
 			if (ignored) {
 				if (ignored == 'check for week stable not implemented') {
-					str += ', [1;33mexcept weekstable which is ignored for now[0m';
+					str += ', ' + 'except weekstable which is ignored for now'.ignored;
 				} else {
-					str += ', [1;33malso ignored, please unignore since the test passes![0m';
+					str += ', ' + 'also ignored, please unignore since the test passes!'.ignored;
 				}
 			}
 			passed = true;

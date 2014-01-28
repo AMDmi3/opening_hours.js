@@ -121,7 +121,7 @@
 "Full range" for "Feb-Jan": [1m[32mPASSED[39m[22m
 "Full range" for "Dec-Nov": [1m[32mPASSED[39m[22m
 "Full range" for "Jan 01-Dec 31": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
-"Full range" for "week 1-54": [1m[32mPASSED[39m[22m, [1;33mexcept weekstable which is ignored for now[0m
+"Full range" for "week 1-54": [1m[32mPASSED[39m[22m, [1m[33mexcept weekstable which is ignored for now[39m[22m
 "24/7 as time interval alias (don’t use it 24/7 as showen here)" for "Mo,We 24/7": [1m[32mPASSED[39m[22m
 "24/7 as time interval alias (don’t use it 24/7 as showen here)" for "Mo,We open": [1m[32mPASSED[39m[22m
 "24/7 as time interval alias (don’t use it 24/7 as showen here)" for "Mo,We 00:00-24:00": [1m[32mPASSED[39m[22m
@@ -315,30 +315,30 @@
 "Extensions: missing time range separators" for "Mo 12:00-14:00 16:00-18:00 20:00-22:00": [1m[32mPASSED[39m[22m
 "Time intervals (not specified/documented use of colon, please avoid this)" for "00:00-24:00; Mo 15:00-16:00 off": [1m[32mPASSED[39m[22m
 "Time intervals (not specified/documented use of colon, please avoid this)" for "00:00-24:00; Mo: 15:00-16:00 off": [1m[32mPASSED[39m[22m
-"Value not ideal (probably wrong). Should throw a warning." for "Mo[2] - 0 days": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "Mo&Th": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "Mon": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "8-18": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "12.00-14:00": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "24/7; 12:00-14:00 off": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "2013-2015/1": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "Mo: 15:00-16:00 off": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "Mo-Do 8:30-20:00 Fr 8:29-18:00": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "Mo 12:00-14:00 16:00-18:00 20:00-22:00": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "Mo-So 08:00-22:00": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "Mo Tu Fr": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "Mo,Mo": [1;31mFAILED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "Mo,Sa,Mo": [1;31mFAILED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "Jan,Jan": [1;31mFAILED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "Jan,Sep,Jan": [1;31mFAILED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "Jan Dec": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "Jan 1-22/1": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for ""testing" "second comment"": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "Jan 12:00-13:00 Mo 15:00-16:00": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "sunrise-(sunset-00:00)": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "Jun 2-20/1": [1;32mPASSED[0m
-"Value not ideal (probably wrong). Should throw a warning." for "2014-2020/1": [1;32mPASSED[0m
+"Value not ideal (probably wrong). Should throw a warning." for "Mo[2] - 0 days": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Mo&Th": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Mon": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "8-18": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "12.00-14:00": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "24/7; 12:00-14:00 off": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "2013-2015/1": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Mo: 15:00-16:00 off": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Mo-Do 8:30-20:00 Fr 8:29-18:00": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Mo 12:00-14:00 16:00-18:00 20:00-22:00": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Mo-So 08:00-22:00": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Mo Tu Fr": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Mo,Mo": [1m[33mIGNORED[39m[22m, reason: not implemented yet
+"Value not ideal (probably wrong). Should throw a warning." for "Mo,Sa,Mo": [1m[33mIGNORED[39m[22m, reason: not implemented yet
+"Value not ideal (probably wrong). Should throw a warning." for "Jan,Jan": [1m[33mIGNORED[39m[22m, reason: not implemented yet
+"Value not ideal (probably wrong). Should throw a warning." for "Jan,Sep,Jan": [1m[33mIGNORED[39m[22m, reason: not implemented yet
+"Value not ideal (probably wrong). Should throw a warning." for "Jan Dec": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Jan 1-22/1": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for ""testing" "second comment"": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Jan 12:00-13:00 Mo 15:00-16:00": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "sunrise-(sunset-00:00)": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Jun 2-20/1": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "2014-2020/1": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "Mo[2] - 7 days": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "sdasdlasdj a3reaw": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for ":week 2-54 00:00-24:00": [1m[32mPASSED[39m[22m
