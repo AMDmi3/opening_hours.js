@@ -1202,6 +1202,7 @@
 				weekend:  'Sa,Su',
 				weekends: 'Sa,Su',
 				'daylight': 'sunrise-sunset',
+				'оff': 'off', // Russian o
 			}, 'Please use time format in 24 hours notation ("<ko>"). If PM is used you might have to convert the hours to the 24 hours notation.': {
 				'pm': '',
 				'рм': '',
@@ -1719,7 +1720,7 @@
 				} else if (tmp = value.match(/^days?/i)) {
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(&|_|→|–|−|=|ー|\?|~|～|：|[a-zäößàáéøčěíúýřПнВс]+\b|°°|25x7|7[ ]?days|all days?|every day|-late|public holidays?|7j?\/7|every day|до|рм|ам)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|→|–|−|=|ー|\?|~|～|：|[a-zäößàáéøčěíúýřПнВсо]+\b|°°|25x7|7[ ]?days|all days?|every day|-late|public holidays?|7j?\/7|every day|до|рм|ам)\.?/i)) {
 					// Handle all remaining words with error tolerance
 					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
 					if (typeof correct_val == 'object') {
@@ -2161,6 +2162,24 @@
 				}
 			}
 			return value.substring(0, pos) + ' <--- (' + message + ')';
+		}
+
+		// check if date is valid
+		function isValidDate(month, day, nblock, at) {
+			// month == 0 is Jan
+
+			// May use this instead. Does not say, what is wrong as good was implementation below.
+			// var testDate = new Date(year, month, day);
+			// if (testDate.getDate() != day || testDate.getMonth() != month || testDate.getFullYear() != year) {
+			// 	console.log('date not valid');
+			// }
+
+			if (day < 1 || day > 31)
+				throw formatWarnErrorMessage(nblock, at, 'Day must be between 1 and 31.');
+			if ((month==3 || month==5 || month==8 || month==10) && day==31)
+				throw formatWarnErrorMessage(nblock, at, 'Month ' + months[month] + " doesn't have 31 days.!");
+			if (month == 1 && (day == 28 || day == 29))
+				throw formatWarnErrorMessage(nblock, at, 'Month ' + months[1]+ " either has 28 or 29 days (leap years).");
 		}
 		// }}}
 
@@ -3256,6 +3275,11 @@
 				// monthday range like Jan 26-Feb 26 {{{
 				if (has_year[0] == has_year[1] && (has_month[1] || has_event[1] || has_constrained_weekday[1])) {
 
+					if (has_month[0])
+						isValidDate(tokens[at+has_year[0]][0], tokens[at+has_year[0]+1][0], nblock, at+has_year[0]+1);
+					if (has_month[1])
+						isValidDate(tokens[at_sec_event_or_month][0], tokens[at_sec_event_or_month+1][0], nblock, at+has_year[0]+1);
+
 					selectors.monthday.push(function(tokens, at, nblock, has_year, has_event, has_calc, at_sec_event_or_month, has_constrained_weekday) { return function(date) {
 						var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
 
@@ -3274,7 +3298,6 @@
 						} else if (has_constrained_weekday[0]) {
 							var from_date = getDateForConstrainedWeekday((has_year[0] ? tokens[at][0] : date.getFullYear()), // year
 								tokens[at+has_year[0]][0], // month
-							// FIXME
 								tokens[at+has_year[0]+1][0], // weekday
 								has_constrained_weekday[0],
 								has_calc[0]);
@@ -3289,7 +3312,6 @@
 							// 			+ ' days is not in the year of the movable day anymore. Currently not supported.');
 						} else {
 							var from_date = new Date((has_year[0] ? tokens[at][0] : date.getFullYear()),
-							// FIXME
 								tokens[at+has_year[0]][0], tokens[at+has_year[0]+1][0]);
 						}
 
@@ -3310,13 +3332,11 @@
 						} else if (has_constrained_weekday[1]) {
 							var to_date = getDateForConstrainedWeekday((has_year[1] ? tokens[at_sec_event_or_month-1][0] : date.getFullYear()), // year
 								tokens[at_sec_event_or_month][0],   // month
-							// FIXME
 								tokens[at_sec_event_or_month+1][0], // weekday
 								has_constrained_weekday[1],
 								has_calc[1]);
 						} else {
 							var to_date = new Date((has_year[1] ? tokens[at_sec_event_or_month-1][0] : date.getFullYear()),
-							// FIXME
 								tokens[at_sec_event_or_month][0], tokens[at_sec_event_or_month+1][0] + 1);
 						}
 
@@ -3371,10 +3391,8 @@
 
 					do {
 						var range_from = tokens[at+1 + has_year][0];
-						// FIXME
 						var is_range = matchTokens(tokens, at+2+has_year, '-', 'number');
 						var period = undefined;
-						// FIXME
 						var range_to = tokens[at+has_year+(is_range ? 3 : 1)][0] + 1;
 						if (is_range && matchTokens(tokens, at+has_year+4, '/', 'number')) {
 							period = tokens[at+has_year+5][0];
@@ -3393,6 +3411,10 @@
 									|| oh_mode != 0))
 							return parseMonthRange(tokens, at);
 						}
+
+						isValidDate(month, range_from, nblock, at+1 + has_year);
+						isValidDate(month, range_to - 1 /* added previously */,
+								nblock, at+has_year+(is_range ? 3 : 1));
 
 						selectors.monthday.push(function(year, has_year, month, range_from, range_to, period) { return function(date) {
 							var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);

@@ -8,6 +8,11 @@ all: test real_test
 test: opening_hours.js test.js
 	${NODE} test.js
 
+.SILENT: diff-test
+diff-test: opening_hours.js test.js
+	${NODE} test.js > test.log || true
+	git diff --color-words test.log
+
 benchmark: opening_hours.js benchmark.js
 	${NODE} benchmark.js
 

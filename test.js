@@ -1770,10 +1770,14 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'12:00-15:00/1:00',
 		'12:00-15:00/1:',
 		'Jun 0-Aug 23', // out of range
+		'Feb 30-Aug 2', // out of range
 		'Jun 2-Aug 42', // out of range
 		'Jun 2-Aug 32', // out of range
 		'Jun 2-32',     // out of range
+		'Jun 32-34',    // out of range
+		'Jun 2-32/2',   // out of range
 		'Jun 32',       // out of range
+		'Jun 30-24',    // reverse
 		'Jun 2-20/0',   // period is zero
 		'2014-2020/0',  // period is zero
 	], nominatiomTestJSON, 'not last test');

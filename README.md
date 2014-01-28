@@ -460,6 +460,7 @@ Please share your opinion on the [talk page](http://wiki.openstreetmap.org/wiki/
 * Select single (or more, comma seperated) (school|public) holidays. Proposed syntax: ```SH(Sommerferien)```
 * Depending on moon position like ```"low tide only"```. Suncalc lib does support moon position. Syntax needed.
 * If weekday is PH than the facility will be open weekday-1 this week. Syntax something like: ```We if (We +1 day == PH) else Th``` ???
+* Last day of the month. Syntax needed.
 
 List of features which can make writing easier:
 
