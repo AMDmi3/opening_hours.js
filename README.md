@@ -435,10 +435,12 @@ Python script to search with regular expressions over OSM opening_hours style ta
 
 This script not only shows you if the found value can be processed with this library or not, it also indicates using different colors if the facility is currently open (open: green, unknown: magenta, closed: blue).
 
+It also offers filter options (e.g. only errors) and additional things like links to taginfo.
+
 ## Test it yourself (the geeky way) ##
 You want to try some opening_hours yourself? Just run ```make interactive_testing``` or ```node interactive_testing.js``` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message). The number in the beginning of the returned line can be read as exit code (0 means the value could be processed and 1 means an critical error appeared during parsing). The second number indicates if additional location information (nominatim JSON) where necessary to parse the value (e.g. value contains holidays). The third number is one if the parsing did throw warnings (singular or plural).
 
-Testing is much easier by now. Have a look at the [evaluation tool](#evaluation-tooldemohtml). The reason way this peace of code was written was to have an interface which can accessed from other programming languages. It is used by the python program [regex\_search](#small-scale).
+Testing is much easier by now. Have a look at the [evaluation tool](#evaluation-tooldemohtml). The reason way this peace of code was written is to have an interface which can be accessed from other programming languages. It is used by the python program [regex\_search](#small-scale).
 
 ## Performance ##
 
