@@ -112,7 +112,7 @@ var resources = { // English is fallback language.
                 "low zoom level": 'The POIs will start to appear at zoom level ${next} and above. You are currently on zoom level ${actual}.',
                 "all n entries": 'All __total__ entries:',
                 "the first entries": 'The first __number__ of __total__ entries:',
-                "load all with JOSM": 'load all in JSOM',
+                "load all with JOSM": 'load all in JOSM',
                 "evaluation tool": 'evaluation tool',
             },
             "words": {
@@ -424,7 +424,7 @@ var resources = { // English is fallback language.
                 "low zoom level": 'Die Marker werden erst auf Zoom Stufe ${next} geladen. Aktuelle Zoom Stufe ist ${actual}.',
                 "all n entries": 'Alle __total__ Einträge:',
                 "the first entries": 'Die ersten __number__ von __total__ Einträgen:',
-                "load all with JOSM": 'Alle in JSOM laden',
+                "load all with JOSM": 'Alle in JOSM laden',
                 "evaluation tool": 'Ausführlich testen',
             },
             "words": {
