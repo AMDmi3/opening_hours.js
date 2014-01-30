@@ -3,9 +3,9 @@ var opening_hours = require('./opening_hours.js');
 var colors        = require('colors');
 
 colors.setTheme({
-	passed:  [ 'green'  , 'bold' ] ,
-	failed:  [ 'red'    , 'bold' ] ,
-	crashed: [ 'magenta', 'bold' ] ,
+	passed:  [ 'green'  , 'bold' ] , // printed with console.log
+	failed:  [ 'red'    , 'bold' ] , // printed with console.warn
+	crashed: [ 'magenta', 'bold' ] , // printed with console.error
 	ignored: [ 'yellow' , 'bold' ] ,
 });
 
@@ -1869,11 +1869,11 @@ function opening_hours_test() {
 			if (show_passing_tests) {
 				console.log(str);
 				if (show_error_warnings)
-					console.log(crashed + '\n');
+					console.info(crashed + '\n');
 			}
 		} else {
 			str += 'FAILED'.failed;
-			console.log(str);
+			console.warn(str);
 		}
 
 		return crashed;
@@ -1906,7 +1906,7 @@ function opening_hours_test() {
 			if (show_passing_tests)
 				console.log(str);
 			if (show_error_warnings)
-				console.log(warnings.join('\n'));
+				console.info(warnings.join('\n'));
 			return true;
 		} else if (ignored) {
 			str += 'IGNORED'.ignored + ', reason: ' + ignored;
@@ -1914,9 +1914,9 @@ function opening_hours_test() {
 			console.log(str);
 		} else {
 			str += 'FAILED'.failed;
-			console.log(str);
+			console.warn(str);
 			if (show_error_warnings)
-				console.log(crashed + '\n');
+				console.info(crashed + '\n');
 		}
 		return false;
 	}
@@ -1978,7 +1978,7 @@ function opening_hours_test() {
 			str += 'PASSED'.passed;
 			if (ignored) {
 				if (ignored == 'check for week stable not implemented') {
-					str += ', ' + 'except weekstable which is ignored for now'.ignored;
+					str += ', ' + 'except'.ignored + ' weekstable which is ignored for now';
 				} else {
 					str += ', ' + 'also ignored, please unignore since the test passes!'.ignored;
 				}
@@ -1989,6 +1989,7 @@ function opening_hours_test() {
 			passed = true;
 		} else if (crashed) {
 			str += 'CRASHED'.crashed + ', reason: ' + crashed;
+			console.log(str);
 		} else {
 			str += 'FAILED'.failed;
 			if (!duration_ok)
@@ -1999,15 +2000,13 @@ function opening_hours_test() {
 				str += ', bad weekstable flag: ' + weekstable + ', expected ' + expected_weekstable;
 			if (!prettify_ok)
 				str += ', bad prettified value: "' + prettified + '", expected either value or "' + first_value + '"';
-			// console.log(intervals);
 			failed = true;
 
 			if (show_error_warnings && warnings.length > 0)
-				str += '\n' + warnings.join('\n');
+				console.info(warnings.join('\n'));
+			console.warn(str);
 		}
 
-		if ((intervals_ok && duration_ok && weekstable_ok && show_passing_tests) || crashed || failed || ignored)
-			console.log(str);
 		return passed;
 	}
 	// }}}
@@ -2036,18 +2035,18 @@ function opening_hours_test() {
 				console.log(str);
 		} else if (crashed) {
 			str += 'CRASHED'.crashed + ', reason: ' + crashed;
-			console.log(str);
+			console.error(str);
 		} else {
 			str += 'FAILED'.failed + ' for time ' + new Date(date);
 			str += ', bad matching rule: "' + it.getMatchingRule() + '", expected "' + matching_rule + '"';
-			console.log(str);
+			console.warn(str);
 		}
 
 		return passed;
 	}
 	// }}}
 
-	// function to run all tests {{{
+	// public function to run all tests {{{
 	this.run = function() {
 		var tests_length = tests.length + tests_should_fail.length + tests_should_warn.length + tests_comp_matching_rule.length;
 		var success = 0;
@@ -2183,9 +2182,11 @@ function opening_hours_test() {
 	// }}}
 }
 
+// public helpers functions {{{
 function ignored(value, reason) {
 	if (typeof reason === 'undefined')
 		reason = 'not implemented yet';
 	return [ value, reason ];
 }
+// }}}
 // }}}

@@ -2487,7 +2487,7 @@
 			return at;
 		}
 
-		// get time in minutes from "(sunrise-01:30)" {{{
+		// get time in minutes from <hour>:<minute> {{{
 		// Only used if throwing an error is wanted.
 		function getMinutesByHoursMinutes(tokens, nblock, at) {
 			if (tokens[at+2][0] > 59)
