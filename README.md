@@ -325,6 +325,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Support calculation with variable times (e.g. ```sunrise-(sunset-00:30)```: meaning that the time range ends 30 minutes before sunset; ```(sunrise+01:02)-(sunset-00:30)```).
 
 * Supports open end (```10:00+```). It is interpreted as state unknown and the comment "Specified as open end. Closing time was guessed." if there is no comment specified. You might need to limit open end times in cases like: ```07:00+,12:00-16:00; 16:00-24:00 closed "needed because of open end"```.
+  If a facility is open for a fix time followed by open end the shortcut ```14:00-17:00+``` can be used (see also [proposal page](http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_end_fixed_time_extension)).
 
  Open end applies until the end of the day if the opening time is before 17:00. If the opening time is between 17:00 and 21:59 the open end time ends 10 hours after the opening. And if the opening time is after 22:00 (including 22:00) the closing time will be interpreted as 8 hours after the opening time.
 * **WARN:** Supports dot as time separator (```12.00-16.00```)
@@ -459,7 +460,7 @@ This library is used in the following projects:
 List of missing features which can currently not be expressing in any other way without much pain.
 Please share your opinion on the [talk page](http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours) if you have any idea how to express (better).
 
-* Select single (or more, comma seperated) (school|public) holidays. Proposed syntax: ```SH(Sommerferien)```
+* Select single (or more, comma separated) (school|public) holidays. [Proposed syntax](http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_holiday_select): ```SH(Sommerferien)```
 * Depending on moon position like ```"low tide only"```. Suncalc lib does support moon position. Syntax needed.
 * If weekday is PH than the facility will be open weekday-1 this week. Syntax something like: ```We if (We +1 day == PH) else Th``` ???
 
