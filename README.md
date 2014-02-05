@@ -299,7 +299,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Rule consists of multiple date (```Mo-Fr```, ```Jan-Feb```, ```week 2-10```, ```Jan 10-Feb 10```) and time (```12:00-16:00```, ```12:00-14:00,16:00-18:00```) conditions
 * If a rule's date condition overlap with previous rule, it overrides (as opposed to extends) the previous rule. E.g. ```Mo-Fr 10:00-16:00; We 12:00-18:00``` means that on Wednesday the facility is open from 12:00 till 18:00, not from 10:00 to 18:00.
 
-  This also applies for time ranges spanning midnight.	This is the only way to be consistent. Example: ```22:00-02:00; Tu 12:00-14:00``` Consider for one moment to let Th override ```22:00-02:00``` partly like this ```Th 00:00-02:00,12:00-14:00``` this would result in including ```22:00-00:00``` for Th which is probably not what you want. This is not really deterministic. To express this use additional rules.
+  This also applies for time ranges spanning midnight.	This is the only way to be consistent. Example: ```22:00-02:00; Th 12:00-14:00```. By not overriding specifically for midnight ranges, we could get either ```22:00-02:00; Th 00:00-02:00,12:00-14:00,22:00-02:00``` or ```22:00-02:00; Th 00:00-02:00,12:00-14:00``` and deciding which interpretation was really intended cannot always be guessed.
 
 * Date ranges (calendar ranges) can be seperated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][formal specification].
 
