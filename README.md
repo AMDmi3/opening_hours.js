@@ -336,7 +336,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 ### Points in time ###
 
 * In mode 1 or 2, points in time are evaluated. Example: ```Mo-Fr 12:00,15:00,18:00; Su (sunrise+01:00)```. Currently a point in time is interpreted as an interval of one minute. It was the easiest thing to implement and has some advantages. See [here](https://github.com/AMDmi3/opening_hours.js/issues/12) for discussion.
-* To express regular points in time, like each hour, a abbreviation can be used to exress the above example ```Mo-Fr 12:00-18:00/03:00``` which means from 12:00 to 18:00 every three hours.
+* To express regular points in time, like each hour, a abbreviation can be used to express the above example ```Mo-Fr 12:00-18:00/03:00``` which means from 12:00 to 18:00 every three hours.
 
 ### Weekday ranges ###
 
@@ -479,13 +479,14 @@ List of features which can make writing easier:
 ## Author ##
 
 * [Dmitry Marakasov](https://github.com/AMDmi3) <amdmi3@amdmi3.ru> (initial coding and design and all basic features like time ranges, week ranges, month ranges and week ranges)
-* [Robin Schneider](https://github.com/ypid)   (current maintainer. Added support for years, holidays, unknown, comments, open end, fallback/additional rules (and more), wrote getWarnings, prettifyValue, translated [demo page](#evaluation-tooldemohtml) to English and German and extended it to enter values yourself.)
+* [Robin Schneider](https://github.com/ypid)   (Current maintainer. Added support for years, holidays, unknown, comments, open end, fallback/additional rules (and more), wrote getWarnings, prettifyValue, translated [demo page](#evaluation-tooldemohtml) to English and German and extended it to enter values yourself.)
 
 ## Contributors ##
 
 * [Sergey Leschina](https://github.com/putnik) ([demo](#evaluation-tooldemohtml) improvements)
-* [Charly Koza](https://github.com/Cactusbone) (package.json)
 * [don-vip](https://github.com/don-vip)        (French translation and public holidays for France)
+* [Charly Koza](https://github.com/Cactusbone) (fixed package.json)
+* [Simon B.](https://github.com/sesam)         (improved understandability of overlapping rules in README.md)
 
 ## Credits ##
 
