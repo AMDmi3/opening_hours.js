@@ -465,13 +465,13 @@ Please share your opinion on the [talk page](http://wiki.openstreetmap.org/wiki/
 
 List of features which can make writing easier:
 
-* ```
-  May-Aug: (Mo-Th 9:00-20:00; Fr 11:00-22:00; Sa-Su 11:00-20:00); Mar-Apr,Sep-Oct: (Sa 8:00-20:00; Su 9:00-17:00; Mo,We 8:00-20:00; Tu,Th 8:00-14:30 16:30-20:00)
-  ```
+* ```May-Aug: (Mo-Th 9:00-20:00; Fr 11:00-22:00; Sa-Su 11:00-20:00)```
 
 * Last day of the month. Better syntax needed? Can be expressed with (but not perfect, it will fail for some leap years):
   ```
-  Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)"
+  Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month";
+  Feb 29 open "last day in month (Feb, leap year)";
+  2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)"
   ```
 
 ## Author ##
