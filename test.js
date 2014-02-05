@@ -1054,6 +1054,7 @@ test.addTest('Complex monthday ranges', [
 		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
 	], 1000 * 60 * 60 * 24 * 21, 0, false, {}, 'not last test');
 
+// leap years {{{
 test.addTest('Leap year monthday', [
 		'2016 Feb 29',
 	], '2012.01.01 0:00', '2019.01.01 0:00', [
@@ -1098,6 +1099,7 @@ test.addTest('Last day in month', [
 		[ '2013.11.30 00:00', '2013.12.01 00:00', false, 'last day in month' ],
 		[ '2013.12.31 00:00', '2014.01.01 00:00', false, 'last day in month' ],
 	], 1000 * 60 * 60 * (24 * 24 - 1), 0, false, {}, 'not last test');
+// }}}
 
 // periodical monthdays {{{
 test.addTest('Periodical monthdays', [

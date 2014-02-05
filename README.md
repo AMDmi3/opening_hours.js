@@ -301,7 +301,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
   This also applies for time ranges spanning midnight.	This is the only way to be consistent. Example: ```22:00-02:00; Th 12:00-14:00```. By not overriding specifically for midnight ranges, we could get either ```22:00-02:00; Th 00:00-02:00,12:00-14:00,22:00-02:00``` or ```22:00-02:00; Th 00:00-02:00,12:00-14:00``` and deciding which interpretation was really intended cannot always be guessed.
 
-* Date ranges (calendar ranges) can be seperated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][formal specification].
+* Date ranges (calendar ranges) can be separated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][formal specification].
 
 ### Time ranges ###
 
@@ -311,7 +311,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Supports 24/7 keyword (```24/7```, which means always open. Use [state keywords](#states) to express always closed.)
   * **WARN:** 24/7 is handled as a synonym for ```00:00-24:00```, so ```Mo-Fr 24/7``` (though not really correct, because of that you should avoid it or repace it with "open". A warning will be given if you use it anyway for that purpose) will be handled correctly
 
-		*The use of 24/7 as synonym is never needed and should be avoided.*
+		*The use of 24/7 as synonym is never needed and should be avoided in cases where it does not mean 24/7.* In cases where a facility is really open 24 hours 7 days a week thats where this value is for.
 * **EXT:** Supports omitting time range (```Mo-Fr; Tu off```)
 * **EXT:** Supports space as time interval separator, i.e. ```Mo 12:00-14:00,16:00-20:00``` and ```Mo 12:00-14:00 16:00-20:00``` are the same thing
 * Complete support for dawn/sunrise/sunset/dusk (variable times) keywords (```10:00-sunset```, ```dawn-dusk```). To calculate the correct values, the latitude and longitude are required which are included in the JSON returned by [Nominatim] \(see in the [Library API](#library-api) how to provide it\). The calculation is done by [suncalc][].
@@ -325,6 +325,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Support calculation with variable times (e.g. ```sunrise-(sunset-00:30)```: meaning that the time range ends 30 minutes before sunset; ```(sunrise+01:02)-(sunset-00:30)```).
 
 * Supports open end (```10:00+```). It is interpreted as state unknown and the comment "Specified as open end. Closing time was guessed." if there is no comment specified. You might need to limit open end times in cases like: ```07:00+,12:00-16:00; 16:00-24:00 closed "needed because of open end"```.
+
   If a facility is open for a fix time followed by open end the shortcut ```14:00-17:00+``` can be used (see also [proposal page](http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_end_fixed_time_extension)).
 
  Open end applies until the end of the day if the opening time is before 17:00. If the opening time is between 17:00 and 21:59 the open end time ends 10 hours after the opening. And if the opening time is after 22:00 (including 22:00) the closing time will be interpreted as 8 hours after the opening time.
@@ -342,7 +343,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Supports set of weekdays and weekday ranges (```Mo-We,Fr```)
 * Supports weekdays which wrap to the next week (```Fr-Mo```)
 * Supports constrained weekdays (```Th[1,2-3]```, ```Fr[-1]```)
-* Supports calulations based on constrained weekdays (```Sa[-1],Sa[-1] +1 day``` e.g. last weekend in the month, this also works if Sunday is in the next month)
+* Supports calculations based on constrained weekdays (```Sa[-1],Sa[-1] +1 day``` e.g. last weekend in the month, this also works if Sunday is in the next month)
 
 ### Holidays ###
 
@@ -363,12 +364,12 @@ Almost everything from opening_hours definition is supported, as well as some ex
 <!-- [convert&#45;ical&#45;to&#45;json]: blob/feature/convert_ical_to_json -->
 [convert-ical-to-json]: https://github.com/ypid/opening_hours.js/blob/feature/convert_ical_to_json
 
-* There can be two cases which need to be seperated (this applies for PH and SH):
+* There can be two cases which need to be separated (this applies for PH and SH):
   1. ```Mo-Fr,PH```: The facility is open Mo-Fr and PH. If PH is a Sunday for example the facility is also open. This is the default case.
   2. **EXT:** ```PH Mo-Fr```: The facility is only open if a PH falls on Mo-Fr. For example if a PH is on the weekday Wednesday then the facility will be open, if PH is Saturday it will be closed.
 * If there is no comment specified by the rule, the name of the holiday is used as comment.
 * To evaluate the correct holidays, the country code and the state (could be omitted but this will probably result in less exactitude) are required which are included in the JSON returned by [Nominatim] \(see in the [Library API](#library-api) how to provide it\).
-* If your country or state is missing or wrong you can add it or open an [issue][issure-report] (and point to a definiton of the holidays).
+* If your country or state is missing or wrong you can add it or open an [issue][issure-report] (and point to a definition of the holidays).
 
 ### Year ranges ###
 
@@ -429,14 +430,14 @@ To see how this library performance in the real OpenStreetMap world you can run 
 
 Currently (October 2013) this library can parse 95 % of all opening_hours values in OSM. If identical values appear multiple times then each value counts.
 
-[taginfo]: http://taginfo.openstreetmap.org/
-
 ### Small scale ###
 Python script to search with regular expressions over OSM opening_hours style tags is bundled. You can run it with ```make regex_search``` or ```./regex_search``` which will search on the opening_hours tag. To search over different tags either use ```make regex_search SEARCH=$tagname``` (this also makes sure that the tag you would like to search on will be downloaded if necessary) or run ```./regex_search $path_to_downloaded_taginfo_json_file```.
 
 This script not only shows you if the found value can be processed with this library or not, it also indicates using different colors if the facility is currently open (open: green, unknown: magenta, closed: blue).
 
-It also offers filter options (e.g. only errors) and additional things like links to taginfo.
+It also offers filter options (e.g. only errors) and additional things like links to [taginfo][].
+
+[taginfo]: http://taginfo.openstreetmap.org/
 
 ## Test it yourself (the geeky way) ##
 You want to try some opening_hours yourself? Just run ```make interactive_testing``` or ```node interactive_testing.js``` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message). The number in the beginning of the returned line can be read as exit code (0 means the value could be processed and 1 means an critical error appeared during parsing). The second number indicates if additional location information (nominatim JSON) where necessary to parse the value (e.g. value contains holidays). The third number is one if the parsing did throw warnings (singular or plural).
@@ -458,7 +459,7 @@ This library is used in the following projects:
 
 ## ToDo
 List of missing features which can currently not be expressing in any other way without much pain.
-Please share your opinion on the [talk page](http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours) if you have any idea how to express (better).
+Please share your opinion on the [talk page](http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours) (or the discussion page to the proposal if that does exist) if you have any idea how to express this (better).
 
 * Select single (or more, comma separated) (school|public) holidays. [Proposed syntax](http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_holiday_select): ```SH(Sommerferien)```
 * Depending on moon position like ```"low tide only"```. Suncalc lib does support moon position. Syntax needed.
@@ -478,7 +479,7 @@ List of features which can make writing easier:
 ## Author ##
 
 * [Dmitry Marakasov](https://github.com/AMDmi3) <amdmi3@amdmi3.ru> (initial coding and design and all basic features like time ranges, week ranges, month ranges and week ranges)
-* [Robin Schneider](https://github.com/ypid)   (current maintainer. Added support for years, holidays, unknown, comments, open end, fallback/additional rules (and more), wrote getWarnings, prettifyValue, translated [demo page](#evaluation-tooldemohtml) to Engish and German and extended it to enter values yourself.)
+* [Robin Schneider](https://github.com/ypid)   (current maintainer. Added support for years, holidays, unknown, comments, open end, fallback/additional rules (and more), wrote getWarnings, prettifyValue, translated [demo page](#evaluation-tooldemohtml) to English and German and extended it to enter values yourself.)
 
 ## Contributors ##
 
@@ -488,7 +489,7 @@ List of features which can make writing easier:
 
 ## Credits ##
 
-* [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favour of opening_hours.js but a few parts where reused (mainly the error tolerance and the online evalutation for the [demo page](#evaluation-tooldemohtml)). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
+* [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favour of opening_hours.js but a few parts where reused (mainly the error tolerance and the online evaluation for the [demo page](#evaluation-tooldemohtml)). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
 
 ## Related links ##
 
