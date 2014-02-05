@@ -451,7 +451,7 @@ On author's Intel Core i5-2400 library allows ~20k/sec constructor calls and ~10
 ## Used by other projects
 This library is used in the following projects:
 
-* [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours)
+* [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours) (old version of this library)
 * [JOSM](http://josm.openstreetmap.de/) ([ticket for integration](http://josm.openstreetmap.de/ticket/9157))
 * [opening_hours_map](https://github.com/ypid/opening_hours_map)
 
@@ -462,11 +462,13 @@ Please share your opinion on the [talk page](http://wiki.openstreetmap.org/wiki/
 * Select single (or more, comma seperated) (school|public) holidays. Proposed syntax: ```SH(Sommerferien)```
 * Depending on moon position like ```"low tide only"```. Suncalc lib does support moon position. Syntax needed.
 * If weekday is PH than the facility will be open weekday-1 this week. Syntax something like: ```We if (We +1 day == PH) else Th``` ???
-* Last day of the month. Syntax needed.
 
 List of features which can make writing easier:
 
 * ```May-Aug: (Mo-Th 9:00-20:00; Fr 11:00-22:00; Sa-Su 11:00-20:00); Mar-Apr,Sep-Oct: (Sa 8:00-20:00; Su 9:00-17:00; Mo,We 8:00-20:00; Tu,Th 8:00-14:30 16:30-20:00)```
+
+* Last day of the month. Better syntax needed? Can be expressed with (but not perfect, it will fail for some leap years):
+  ```Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)"```
 
 ## Author ##
 

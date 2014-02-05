@@ -2174,11 +2174,12 @@
 			// 	console.log('date not valid');
 			// }
 
+			// https://en.wikipedia.org/wiki/Month#Julian_and_Gregorian_calendars
 			if (day < 1 || day > 31)
 				throw formatWarnErrorMessage(nblock, at, 'Day must be between 1 and 31.');
 			if ((month==3 || month==5 || month==8 || month==10) && day==31)
 				throw formatWarnErrorMessage(nblock, at, 'Month ' + months[month] + " doesn't have 31 days.!");
-			if (month == 1 && (day == 28 || day == 29))
+			if (month == 1 && day == 30)
 				throw formatWarnErrorMessage(nblock, at, 'Month ' + months[1]+ " either has 28 or 29 days (leap years).");
 		}
 		// }}}
@@ -3426,8 +3427,14 @@
 
 							var from_date = new Date(has_year ? year : date.getFullYear(),
 								month, range_from);
-							var to_date   = new Date(from_date.getFullYear(), from_date.getMonth(),
-								range_to);
+							if (month == 1 && range_from != from_date.getDate()) // Only on leap years does this day exist.
+								return [false]; // If day 29 does not exist,
+												// then the date object adds one day to date
+												// and this selector should not match.
+							var to_date   = new Date(from_date.getFullYear(),
+								month, range_to);
+							if (month == 1 && is_range && range_to != to_date.getDate()) // Only on leap years does this day exist.
+								return [false];
 
 							if (date.getTime() < from_date.getTime())
 								return [false, from_date];

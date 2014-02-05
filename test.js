@@ -1054,6 +1054,51 @@ test.addTest('Complex monthday ranges', [
 		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
 	], 1000 * 60 * 60 * 24 * 21, 0, false, {}, 'not last test');
 
+test.addTest('Leap year monthday', [
+		'2016 Feb 29',
+	], '2012.01.01 0:00', '2019.01.01 0:00', [
+		[ '2016.02.29 00:00', '2016.03.01 00:00' ],
+	], 1000 * 60 * 60 * 24, 0, false, {}, 'not last test');
+
+test.addTest('Leap year monthday', [
+		'2015 Feb 29',
+	], '2012.01.01 0:00', '2019.01.01 0:00', [
+	], 0, 0, false, {}, 'not last test');
+
+test.addTest('Last day in month', [
+		// something like this:
+		'Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; '
+		// The year selector can also be used but is not required as the monthday selector should only match if day exists.
+		+ 'Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)"',
+		// There is no shortcut yet. Make sure that you include comments to help other mappers to understand this and to find and replace the value easier if a sorter version was introduced.
+		'Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; 2008/4 Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)"',
+	], '2012.01.01 0:00', '2014.01.01 0:00', [
+		[ '2012.01.31 00:00', '2012.02.01 00:00', false, 'last day in month' ],
+		[ '2012.02.29 00:00', '2012.03.01 00:00', false, 'last day in month (Feb, leap year)' ],
+		[ '2012.03.31 00:00', '2012.04.01 00:00', false, 'last day in month' ],
+		[ '2012.04.30 00:00', '2012.05.01 00:00', false, 'last day in month' ],
+		[ '2012.05.31 00:00', '2012.06.01 00:00', false, 'last day in month' ],
+		[ '2012.06.30 00:00', '2012.07.01 00:00', false, 'last day in month' ],
+		[ '2012.07.31 00:00', '2012.08.01 00:00', false, 'last day in month' ],
+		[ '2012.08.31 00:00', '2012.09.01 00:00', false, 'last day in month' ],
+		[ '2012.09.30 00:00', '2012.10.01 00:00', false, 'last day in month' ],
+		[ '2012.10.31 00:00', '2012.11.01 00:00', false, 'last day in month' ],
+		[ '2012.11.30 00:00', '2012.12.01 00:00', false, 'last day in month' ],
+		[ '2012.12.31 00:00', '2013.01.01 00:00', false, 'last day in month' ],
+		[ '2013.01.31 00:00', '2013.02.01 00:00', false, 'last day in month' ],
+		[ '2013.02.28 00:00', '2013.03.01 00:00', false, 'last day in month (Feb, not leap year)' ],
+		[ '2013.03.31 00:00', '2013.04.01 00:00', false, 'last day in month' ],
+		[ '2013.04.30 00:00', '2013.05.01 00:00', false, 'last day in month' ],
+		[ '2013.05.31 00:00', '2013.06.01 00:00', false, 'last day in month' ],
+		[ '2013.06.30 00:00', '2013.07.01 00:00', false, 'last day in month' ],
+		[ '2013.07.31 00:00', '2013.08.01 00:00', false, 'last day in month' ],
+		[ '2013.08.31 00:00', '2013.09.01 00:00', false, 'last day in month' ],
+		[ '2013.09.30 00:00', '2013.10.01 00:00', false, 'last day in month' ],
+		[ '2013.10.31 00:00', '2013.11.01 00:00', false, 'last day in month' ],
+		[ '2013.11.30 00:00', '2013.12.01 00:00', false, 'last day in month' ],
+		[ '2013.12.31 00:00', '2014.01.01 00:00', false, 'last day in month' ],
+	], 1000 * 60 * 60 * (24 * 24 - 1), 0, false, {}, 'not last test');
+
 // periodical monthdays {{{
 test.addTest('Periodical monthdays', [
 		'Jan 1-31/8 00:00-24:00',
