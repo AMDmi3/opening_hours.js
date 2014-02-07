@@ -415,8 +415,8 @@ Almost everything from opening_hours definition is supported, as well as some ex
 ### Comments ###
 * Supports (additional) comments (```Mo unknown "on appointment"; Th-Fr 09:00-18:00 open "female only"; Su closed "really"```)
   * The string which is delimited by double-quotes can contain any character (except a double-quote sign)
-  * **EXT:** instead of "closed" "off" will also work
-  * unknown can be omitted (this will also result in unknown)
+  * instead of "closed" "off" will also work
+  * unknown can be omitted (just a comment (without [state](#states)) will also result in unknown)
   * value can also be just a double-quoted string (```"on appointment"```) which will result in unknown for any given time.
 
 ## Test ##
@@ -436,6 +436,9 @@ Python script to search with regular expressions over OSM opening_hours style ta
 This script not only shows you if the found value can be processed with this library or not, it also indicates using different colors if the facility is currently open (open: green, unknown: magenta, closed: blue).
 
 It also offers filter options (e.g. only errors) and additional things like links to [taginfo][].
+
+Another additional thing which might be interesting for mappers how would like to do quality assurance on tags like opening_hours. Just enter a regex for values you would like to check and correct (if you have no particular case just enter a dot which matches very character which results in every value being selected). Now you see how much values match your search pattern. As you do QA you most certainly only want to see values which can not be evaluated. To do this enter the filter "failed".
+To improve the speed of fixing errors, a [feature](https://github.com/ypid/opening_hours.js/issues/29) was added to load those failed values in JOSM. To enable this, append " josm" to the input line. So you will have something like "failed josm" as argument. Now you can hit enter and go through the values.
 
 [taginfo]: http://taginfo.openstreetmap.org/
 

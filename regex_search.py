@@ -2,6 +2,7 @@
 # encoding: utf-8
 """Search over OSM opening_hours like values and see if they can be parsed."""
 
+# modules {{{
 import sys
 import json
 import re
@@ -11,7 +12,9 @@ import signal
 import subprocess
 import urllib
 import readline
+# }}}
 
+# interpreter input history and predefined regexs {{{
 HISTFILE = '/tmp/opening_hours.regex.history'
 try:
     readline.read_history_file(HISTFILE)
@@ -53,13 +56,24 @@ STD_REGEX = ('PH', 'SH', '.',
 
 readline.parse_and_bind("tab: complete")
 readline.set_completer(Completer(STD_REGEX).complete)
+# }}}
 
+# helper functions {{{
+# signal handler {{{
 def signal_handler(signal, frame):
     """Called on SIGINT to exit gracefully."""
 
-    print('\nBye')
+    print '\nBye'
     sys.exit(0)
+# }}}
 
+# url encode {{{
+def url_encode(url):
+    return urllib.quote(url.encode('utf-8'), safe='~()*!.\'')
+# }}}
+# }}}
+
+# load and decode JSON {{{
 def load_json_file(json_file):
     """Load JSON file and return it as python dictionary."""
 
@@ -72,7 +86,9 @@ def load_json_file(json_file):
     decoded_json = json.load(json_data)
     json_data.close()
     return decoded_json
+# }}}
 
+# setup the connection to opening_hours.js {{{
 def setup_oh_interpreter():
     """Setup the connection to opening_hours.js"""
 
@@ -82,7 +98,7 @@ def setup_oh_interpreter():
                 subprocess_param,
                 stdout=subprocess.PIPE,
                 stdin=subprocess.PIPE
-                )
+            )
     except OSError:
         subprocess_param[0] = 'nodejs'
         try:
@@ -90,7 +106,7 @@ def setup_oh_interpreter():
                     subprocess_param,
                     stdout=subprocess.PIPE,
                     stdin=subprocess.PIPE
-                    )
+                )
         except OSError:
             sys.stderr.write('You need to install nodejs.')
             sys.exit(1)
@@ -99,13 +115,18 @@ def setup_oh_interpreter():
     # read description (meant for humans) from interactive_testing.js
 
     return oh_interpreter
+# }}}
 
-def run_interpeter(oh_interpreter, taginfo_tag_export, key):
+# run interpreter {{{
+def run_interpreter(oh_interpreter, taginfo_tag_export, key, do_not_load_values_again):
     """Start the interactive shell for the user."""
 
-    overpass_turbo_url = 'http://overpass-turbo.eu/ \
-            ?template=key-value&key=%s&value=' % key
-    taginfo_url        = 'http://taginfo.openstreetmap.org/tags/%s=' % key
+    overpass_turbo_url = 'http://overpass-turbo.eu/' \
+            + '?template=key-value&key=%s&value=' % key
+    taginfo_url = 'http://taginfo.openstreetmap.org/tags/%s=' % key
+    josm_remote_url = 'http://localhost:8111/import?url=%s' % (
+            url_encode(u'http://overpass-api.de/api/xapi_meta?*[opening_hours=')
+        )
     page_width = 20
     while True:
         regex = raw_input('regex search> ')
@@ -143,7 +164,7 @@ def run_interpeter(oh_interpreter, taginfo_tag_export, key):
             for taginfo_hash, res in matched:
                 total_in_use += taginfo_hash['count']
                 if do_parse_all_values_before:
-                    oh_interpreter.stdin.write(taginfo_hash['value'].encode("utf-8") + '\n')
+                    oh_interpreter.stdin.write(taginfo_hash['value'].encode('utf-8') + '\n')
                     oh_res = oh_interpreter.stdout.readline().strip()
                     oh_ok  = 0 if int(oh_res[0]) else 1
                     passed_diff_values += oh_ok
@@ -152,8 +173,8 @@ def run_interpeter(oh_interpreter, taginfo_tag_export, key):
             if do_parse_all_values_before:
                 passed_diff_values = ' (%d passed)' % passed_diff_values
                 total_passed       = ' (%d passed)' % total_passed
-            print('Matched %d%s different values%s%s'
-                    % (len(matched), passed_diff_values,
+            print('Matched %d%s different values%s%s' % (
+                        len(matched), passed_diff_values,
                         ('' if len(matched) == 1 else 's'),
                         (', total in use: %d%s' % (total_in_use, total_passed) if len(matched) != 1 else '')
                     )
@@ -163,13 +184,15 @@ def run_interpeter(oh_interpreter, taginfo_tag_export, key):
             ## you may want to use the "taginfo" flag
             print_values = raw_input('Print values'
                     ' (passable answers: "yes" for all values, "passed"'
-                    ' or "failed", additionally "show", "taginfo", "err")? ')
+                    ' or "failed", additionally "overpass", "taginfo", "err", "josm", "no_repeat")? ')
 
-            if re.match(r'^(y|p|f)', print_values, re.I):
+            if re.match(r'(y|p|f)', print_values, re.I):
                 printed_values = 1
-                print_all    = re.match(r'y', print_values, re.I)
-                print_passed = re.match(r'p', print_values, re.I)
-                show_error_m = re.search(r'err', print_values, re.I)
+                print_all    = re.match(r'\s*y',      print_values, re.I)
+                print_passed = re.match(r'\s*p',      print_values, re.I)
+                show_error_m = re.search(r'\berr',    print_values, re.I)
+                josm_load    = re.search(r'\bjosm\b', print_values, re.I)
+                josm_load_not_repeat = re.search(r'\bno_repeat\b', print_values, re.I)
                 if show_error_m:
                     page_width /= 2
                 for taginfo_hash, res in matched:
@@ -180,7 +203,7 @@ def run_interpeter(oh_interpreter, taginfo_tag_export, key):
                         # match the real printed lines so how cares …
                         if not re.match(r'^(y.*|)$', raw_input('Continue? '), re.I):
                             break
-                    oh_interpreter.stdin.write(taginfo_hash['value'].encode("utf-8") + '\n')
+                    oh_interpreter.stdin.write(taginfo_hash['value'].encode('utf-8') + '\n')
                     oh_res = oh_interpreter.stdout.readline().strip()
                     oh_ok  = False if oh_res[0] == '1' else True
                     oh_loc_needed = ', loc needed' if oh_res[2] == '1' else ''
@@ -188,45 +211,62 @@ def run_interpeter(oh_interpreter, taginfo_tag_export, key):
                     oh_warnings   = ', warnings'   if oh_res[4] == '1' else ''
                     if oh_ok:
                         passed_failed = {
-                                'open   '    : colored('Passed', 'green'),
+                                'open   ' : colored('Passed', 'green'),
                                 'unknown' : colored('Passed', 'magenta'),
-                                'closed '  : colored('Passed', 'blue'),
+                                'closed ' : colored('Passed', 'blue'),
                             }[oh_res[6:13]]
                     else:
                         passed_failed = colored('Failed', 'red')
                         oh_loc_needed = ''
                         oh_warnings   = ''
-                    if (print_all or (print_passed != None) == oh_ok):
-                        show_url = ''
+                    if print_all or (print_passed != None) == oh_ok:
+                        overpass_url = ''
                         tag_url  = ''
-                        if (re.search(r'show', print_values, re.I)):
-                            show_url = 'show: %s%s' % (
+                        if re.search(r'\bover(pass)?\b', print_values, re.I):
+                            overpass_url = 'overpass: %s%s' % (
                                     overpass_turbo_url,
-                                    urllib.quote(taginfo_hash['value'])
-                                    )
-                        if (re.search(r'tag', print_values, re.I)):
+                                    url_encode(taginfo_hash['value'])
+                                )
+                        if re.search(r'tag', print_values, re.I):
                             tag_url = 'taginfo: %s%s' % (
                                     taginfo_url,
-                                    urllib.quote(taginfo_hash['value'])
-                                    )
+                                    url_encode(taginfo_hash['value'])
+                                )
                         print 'Matched (count: %d, status: %s%s%s): %s%s%s' % (
                                 taginfo_hash['count'],
                                 passed_failed, oh_loc_needed, oh_warnings,
                                 res.group('pre'),
                                 colored(res.group('match'), 'blue'),
-                                res.group('post'))
+                                res.group('post')
+                            )
                         if show_error_m and not oh_ok:
                             print '%s\n' % oh_res[2:]
-                        if (show_url and tag_url):
-                            print ', '.join([show_url, tag_url])
-                        elif show_url:
-                            print show_url
+                        if overpass_url and tag_url:
+                            print ', '.join([overpass_url, tag_url])
+                        elif overpass_url:
+                            print overpass_url
                         elif tag_url:
                             print tag_url
+                        if josm_load:
+                            # if taginfo_hash['value'] not in do_not_load_values_again:
+                            if (josm_load_not_repeat and taginfo_hash['value'] not in do_not_load_values_again) or josm_load_not_repeat != True:
+                                if josm_load_not_repeat:
+                                    do_not_load_values_again.append(taginfo_hash['value'])
+                                josm_remote_url_for_value = '%s%s' % (josm_remote_url, url_encode('%s%s' % (taginfo_hash['value'], u']')))
+                                try:
+                                    josm_return = urllib.urlopen(josm_remote_url_for_value)
+                                    if josm_return.getcode() != 200:
+                                        sys.stderr.write('JOSM Remote HTTP request resulted in status code %d' % josm_return.getcode())
+                                except:
+                                    sys.stderr.write('Connection to JOSM could not be established.'
+                                            + ' Please start JOSM and enable remote control.\n')
+                                # print do_not_load_values_again
                         printed_values += 1
             else:
                 continue
+# }}}
 
+# main {{{
 def main():
     """Run as command line program."""
 
@@ -247,7 +287,15 @@ def main():
 
     oh_interpreter = setup_oh_interpreter()
 
-    run_interpeter(oh_interpreter, taginfo_tag_export, key)
+    with open('testing', 'r') as f:
+        do_not_load_values_again = [line.rstrip('\n').decode('utf-8') for line in f]
+
+    run_interpreter(oh_interpreter, taginfo_tag_export, key, do_not_load_values_again)
+
+    with open('testing', 'w') as f:
+        for s in do_not_load_values_again:
+            f.write(s.decode('utf-8') + '\n')
 
 if __name__ == '__main__':
     main()
+# }}}
