@@ -437,7 +437,7 @@ This script not only shows you if the found value can be processed with this lib
 
 It also offers filter options (e.g. only errors) and additional things like links to [taginfo][].
 
-Another additional thing which might be interesting for mappers how would like to do quality assurance on tags like opening_hours. Just enter a regex for values you would like to check and correct (if you have no particular case just enter a dot which matches very character which results in every value being selected). Now you see how much values match your search pattern. As you do QA you most certainly only want to see values which can not be evaluated. To do this enter the filter "failed".
+Hint: If you want to do quality assurance on tags like opening_hours you can also use this script and enter a regex for values you would like to check and correct (if you have no particular case just enter a dot which matches very character which results in every value being selected). Now you see how many values match your search pattern. As you do QA you most certainly only want to see values which can not be evaluated. To do this enter the filter "failed".
 To improve the speed of fixing errors, a [feature](https://github.com/ypid/opening_hours.js/issues/29) was added to load those failed values in JOSM. To enable this, append " josm" to the input line. So you will have something like "failed josm" as argument. Now you can hit enter and go through the values.
 
 [taginfo]: http://taginfo.openstreetmap.org/

@@ -1146,6 +1146,8 @@
 				hs:     '',
 				hrs:    '',
 				hours:  '',
+			}, 'Please ommit "<ko>". The key must not be in the value.': {
+				'opening_hours=': '',
 			}, 'Please ommit "<ko>". You might want to express open end which can be specified as "12:00+" for example.': {
 				from: '',
 			}, 'You can use notation "<ok>" for "<ko>". You might want to express open end which can be specified as "12:00+" for example.': {
@@ -1162,7 +1164,7 @@
 				'–':  '-',
 				'−':  '-',
 				'=':  '-',
-				'ー':  '-',
+				'ー': '-',
 				to:   '-',
 				'до': '-',
 				a:    '-', // language unknown
@@ -1173,7 +1175,8 @@
 				'às': '-', // language unknown
 				ate:  '-', // language unknown
 				till: '-',
-				til: '-',
+				til:  '-',
+				'through': '-',
 				and:  ',',
 				'&':  ',',
 				'：':  ':',
@@ -1700,7 +1703,7 @@
 
 			while (value != '') {
 				var tmp;
-				if (tmp = value.match(/^(?:week\b|open|unknown)/i)) {
+				if (tmp = value.match(/^(?:week\b|open\b|unknown)/i)) {
 					// reserved word
 					curr_block_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase(), value.length ]);
 					value = value.substr(tmp[0].length);
@@ -1720,7 +1723,7 @@
 				} else if (tmp = value.match(/^days?/i)) {
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(&|_|→|–|−|=|ー|\?|~|～|：|[a-zäößàáéøčěíúýřПнВсо]+\b|°°|25x7|7[ ]?days|all days?|every day|-late|public holidays?|7j?\/7|every day|до|рм|ам)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|[a-zäößàáéøčěíúýřПнВсо]+\b|°°|25x7|7[ ]?days|all days?|every day|-late|public holidays?|7j?\/7|every day|до|рм|ам)\.?/i)) {
 					// Handle all remaining words with error tolerance
 					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
 					if (typeof correct_val == 'object') {

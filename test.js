@@ -1361,6 +1361,17 @@ test.addTest('Real world example: Was not processed right.', [
 		[ '2014.01.11 10:00', '2014.01.11 18:00' ],
 	], 1000 * 60 * 60 * (4 + 4 * 8), 0, true, {}, 'not last test');
 
+test.addTest('Real world example: Was not processed right (month range/monthday range)', [
+		'Jan-Mar,Dec 25-Easter'
+	], '2014.01.06 0:00', '2014.01.13 0:00', [
+	], 1000 * 60 * 60 * (4 + 4 * 8), 0, true, {}, 'not last test');
+
+// http://www.openstreetmap.org/node/1754337209/history
+test.addTest('Real world example: Was not processed right (month range/monthday range)', [
+		'Jun 15-Sep 15: Th-Su 16:00-19:00; Sep 16-Dec 31: Sa,Su 16:00-19:00; Jan-Mar off; Dec 25-easter off'
+	], '2014.01.06 0:00', '2014.01.13 0:00', [
+	], 1000 * 60 * 60 * (4 + 4 * 8), 0, true, {}, 'not last test');
+
 // problem with combined monthday and month selector {{{
 test.addTest('Real world example: Was not processed right.', [
 		'Jan Su[-2]-Jan Su[-1]: Fr-Su 12:00+;'
