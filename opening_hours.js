@@ -1123,6 +1123,7 @@
 				'daytime': 'sunrise-sunset',
 			}, 'Bitte benutze die englische Schreibweise "<ok>" für "<ko>".': {
 				sommer: 'summer',
+				'werktags': 'Mo-Fr',
 			}, 'Bitte benutze "<ok>" für "<ko>". Beispiel: "Mo-Fr 08:00-12:00; Tu off"': {
 				ruhetag:     'off',
 				ruhetage:    'off',
@@ -1134,9 +1135,10 @@
 				'feestdag':  'PH',
 			}, 'Assuming "<ok>" for "<ko>". Please avoid using "workday": http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays': {
 				// 	// Used around 260 times but the problem is, that work day might be different in other countries.
-				wd:       'Mo-Fr',
-				weekday:  'Mo-Fr',
-				weekdays: 'Mo-Fr',
+				'wd':       'Mo-Fr',
+				'weekday':  'Mo-Fr',
+				'weekdays': 'Mo-Fr',
+				'vardagar': 'Mo-Fr',
 			}, 'Please use notation something like "Mo off" instead "<ko>".': {
 				except: 'off',
 			}, 'Please ommit "<ko>" or use a colon instead: "12:00-14:00".': {
@@ -1232,6 +1234,7 @@
 				'fermé': 'off',
 				'et':    ',',
 				'à':     '-',
+				'jours fériés': 'PH',
 			}, 'Neem de engelse afkorting "<ok>" voor "<ko>" alstublieft.': {
 				feestdag:   'PH',
 				feestdagen: 'PH',
@@ -1253,6 +1256,7 @@
 				nov: 10,
 				dec: 11,
 			}, 'Please use the English abbreviation "<ok>" for "<ko>".': {
+				'jänner':   0, // Austria
 				january:    0,
 				february:   1,
 				march:      2,
@@ -1330,6 +1334,7 @@
 				wednesday:  3,
 				wednesdays: 3,
 				thu:        4,
+				thur:       4,
 				thursday:   4,
 				thursdays:  4,
 				fri:        5,
@@ -1343,6 +1348,7 @@
 			}, 'Bitte benutze die englische Abkürzung "<ok>" für "<ko>".': {
 				son:         0,
 				sonntag:     0,
+				'sonn-':     0,
 				sonntags:    0,
 				montag:      1,
 				montags:     1,
@@ -1430,14 +1436,16 @@
 				'minggu': 5,
 				'senin':  6,
 				// Swedish
-				'söndag':  0,
-				'måndag':  1,
-				'ma':      1,
-				'tisdag':  2,
-				'onsdag':  3,
-				'torsdag': 4,
-				'fredag':  5,
-				'lördag':  6,
+				'söndag':   0,
+				'söndagar': 0,
+				'måndag':   1,
+				'ma':       1,
+				'tisdag':   2,
+				'onsdag':   3,
+				'torsdag':  4,
+				'fredag':   5,
+				'lördag':   6,
+				'lördagar': 6,
 				// Polish
 				'niedziela': 0, 'niedz': 0, 'n': 0, 'ndz': 0,
 				'poniedziałek': 1, 'poniedzialek': 1, 'pon': 1, 'pn': 1,
@@ -1723,7 +1731,7 @@
 				} else if (tmp = value.match(/^days?/i)) {
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|[a-zäößàáéøčěíúýřПнВсо]+\b|°°|25x7|7[ ]?days|all days?|every day|-late|public holidays?|7j?\/7|every day|до|рм|ам)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|25x7|7[ ]?days|all days?|every day|-late|public holidays?|7j?\/7|every day|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b)\.?/i)) {
 					// Handle all remaining words with error tolerance
 					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
 					if (typeof correct_val == 'object') {
