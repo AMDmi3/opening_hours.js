@@ -1,9 +1,11 @@
 NODE?=	node
 SEARCH?= opening_hours
 
-default: test
+default: check
 
 all: test real_test
+
+check: test
 
 test: opening_hours.js test.js
 	${NODE} test.js

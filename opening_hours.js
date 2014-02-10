@@ -1123,6 +1123,7 @@
 				'daytime': 'sunrise-sunset',
 			}, 'Bitte benutze die englische Schreibweise "<ok>" für "<ko>".': {
 				sommer: 'summer',
+				'werktag':  'Mo-Fr',
 				'werktags': 'Mo-Fr',
 			}, 'Bitte benutze "<ok>" für "<ko>". Beispiel: "Mo-Fr 08:00-12:00; Tu off"': {
 				ruhetag:     'off',
