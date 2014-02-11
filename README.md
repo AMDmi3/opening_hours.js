@@ -458,7 +458,9 @@ This library is used in the following projects:
 
 * [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours) (old version of this library)
 * [JOSM](http://josm.openstreetmap.de/) ([ticket for integration](http://josm.openstreetmap.de/ticket/9157))
-* [opening_hours_map](https://github.com/ypid/opening_hours_map)
+* [opening\_hours\_map][]
+
+[opening\_hours\_map]: https://github.com/ypid/opening_hours_map
 
 ## ToDo
 List of missing features which can currently not be expressing in any other way without much pain.
@@ -490,6 +492,18 @@ List of features which can make writing easier:
 * [don-vip](https://github.com/don-vip)        (French translation and public holidays for France)
 * [Charly Koza](https://github.com/Cactusbone) (fixed package.json)
 * [Simon B.](https://github.com/sesam)         (improved understandability of overlapping rules in README.md)
+
+## How to contribute ##
+
+You can contribute in the usual manner as known from GitHub. Just fork, change and make a pull request.
+
+### Translating ###
+
+Translations can be made in the file [js/i18n-resources.js](/ypid/opening_hours.js/blob/master/js/i18n-resources.js). Just copy the whole english block, change the language code to the new one you are adding and make your translation. You can open the [demo.html](/ypid/opening_hours.js/blob/master/demo.html) to see the result of your work.
+
+Note that this resource file does also provide the localization for the [opening\_hours\_map][]. This can also be tested by cloing the project and linking your modified opening_hours.js working copy to the opening_hours.js directory (after renaming it) inside the opening_hours_map project.
+
+After you are done, just push your commits and make a pull request.
 
 ## Credits ##
 
