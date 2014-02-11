@@ -1974,7 +1974,7 @@ function opening_hours_test() {
 			str += 'FAILED'.failed;
 			console.warn(str);
 			if (show_error_warnings)
-				console.info(crashed + '\n');
+				console.error(crashed + '\n');
 		}
 		return false;
 	}
@@ -2042,12 +2042,13 @@ function opening_hours_test() {
 				}
 			}
 			passed = true;
+			console.log(str);
 		} else if (ignored) {
 			str += 'IGNORED'.ignored + ', reason: ' + ignored;
 			passed = true;
 		} else if (crashed) {
 			str += 'CRASHED'.crashed + ', reason: ' + crashed;
-			console.log(str);
+			console.error(str);
 		} else {
 			str += 'FAILED'.failed;
 			if (!duration_ok)
