@@ -1,6 +1,6 @@
 # opening_hours.js #
 
-[opening_hours](http://wiki.openstreetmap.org/wiki/Key:opening_hours) tag is used in [OpenStreetMap](http://openstreetmap.org) project to describe time ranges when a specific facility (for example, a cafe) is open. As it has pretty complex syntax which require special parsing and additional processing to extract some useful information (e.g. whether a facility is open at specific time, next time it's going to open/close, or a readable set of working hours), this library was written.
+[opening_hours](http://wiki.openstreetmap.org/wiki/Key:opening_hours) tag is used in [OpenStreetMap](http://openstreetmap.org) project to describe time ranges when a specific facility (for example, a café) is open. As it has pretty complex syntax which require special parsing and additional processing to extract some useful information (e.g. whether a facility is open at specific time, next time it's going to open/close, or a readable set of working hours), this library was written.
 
 Examples of some complex real-life opening_hours values:
 
@@ -309,7 +309,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 	* **WARN:** Accept ```10-12,14-16``` as abbreviation for the previous example. Please don’t use this as this is not very explicit.
   * Correctly supports ranges wrapping over midnight (```10:00-26:00```, ```10:00-02:00```)
 * Supports 24/7 keyword (```24/7```, which means always open. Use [state keywords](#states) to express always closed.)
-  * **WARN:** 24/7 is handled as a synonym for ```00:00-24:00```, so ```Mo-Fr 24/7``` (though not really correct, because of that you should avoid it or repace it with "open". A warning will be given if you use it anyway for that purpose) will be handled correctly
+  * **WARN:** 24/7 is handled as a synonym for ```00:00-24:00```, so ```Mo-Fr 24/7``` (though not really correct, because of that you should avoid it or replace it with "open". A warning will be given if you use it anyway for that purpose) will be handled correctly
 
 		*The use of 24/7 as synonym is never needed and should be avoided in cases where it does not mean 24/7.* In cases where a facility is really open 24 hours 7 days a week thats where this value is for.
 * **EXT:** Supports omitting time range (```Mo-Fr; Tu off```)
@@ -369,12 +369,13 @@ Almost everything from opening_hours definition is supported, as well as some ex
   2. **EXT:** ```PH Mo-Fr```: The facility is only open if a PH falls on Mo-Fr. For example if a PH is on the weekday Wednesday then the facility will be open, if PH is Saturday it will be closed.
 * If there is no comment specified by the rule, the name of the holiday is used as comment.
 * To evaluate the correct holidays, the country code and the state (could be omitted but this will probably result in less exactitude) are required which are included in the JSON returned by [Nominatim] \(see in the [Library API](#library-api) how to provide it\).
-* If your country or state is missing or wrong you can add it or open an [issue][issure-report] (and point to a definition of the holidays).
+* If your country or state is missing or wrong you can add it or open an [issue][issue-report] (and point to a definition of the holidays).
 
 ### Year ranges ###
 
 * **EXT:** Supports year ranges (```2013,2015,2050-2053,2055/2,2020-2029/3 10:00-20:00```)
-* **EXT:** Supports periodic year (either limited by range or unlimited starting with given year) (```2020-2029/3,2055/2 10:00-20:00```) <br/>
+* **EXT:** Supports periodic year (either limited by range or unlimited starting with given year) (```2020-2029/3,2055/2 10:00-20:00```)
+
  There is one exception. It is not necessary to use a year range with a period of one (```2055-2066/1 10:00-20:00```) because this means the same as just the year range without the period (```2055-2066 10:00-20:00```) and should be expressed like this …
 
  The *oh.getWarnings()* function will give you a warning if you use this anyway.
@@ -422,6 +423,8 @@ Almost everything from opening_hours definition is supported, as well as some ex
 ## Test ##
 
 Simple node.js based test framework is bundled. You can run it with ```node test.js``` or with ```make test```.
+
+The current results of this test are also tracked in the repository and can be viewed [here](/test.log).
 
 ## Testing with real data ##
 
@@ -497,17 +500,21 @@ List of features which can make writing easier:
 
 You can contribute in the usual manner as known from GitHub. Just fork, change and make a pull request.
 
+Note that there is a git pre-commit hook used to run and compare the test framework. To activate the hook, run:
+
+    ./hooks/link_hooks
+
 ### Translating ###
 
-Translations can be made in the file [js/i18n-resources.js](/ypid/opening_hours.js/blob/master/js/i18n-resources.js). Just copy the whole english block, change the language code to the new one you are adding and make your translation. You can open the [demo.html](/ypid/opening_hours.js/blob/master/demo.html) to see the result of your work.
+Translations can be made in the file [js/i18n-resources.js](/js/i18n-resources.js). Just copy the whole English block, change the language code to the new one you are adding and make your translation. You can open the [demo.html](/demo.html) to see the result of your work.
 
-Note that this resource file does also provide the localization for the [opening\_hours\_map][]. This can also be tested by cloing the project and linking your modified opening_hours.js working copy to the opening_hours.js directory (after renaming it) inside the opening_hours_map project.
+Note that this resource file does also provide the localization for the [opening\_hours\_map][]. This can also be tested by cloning the project and linking your modified opening_hours.js working copy to the opening_hours.js directory (after renaming it) inside the opening_hours_map project.
 
 After you are done, just push your commits and make a pull request.
 
 ## Credits ##
 
-* [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favour of opening_hours.js but a few parts where reused (mainly the error tolerance and the online evaluation for the [demo page](#evaluation-tooldemohtml)). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
+* [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favor of opening_hours.js but a few parts where reused (mainly the error tolerance and the online evaluation for the [demo page](#evaluation-tooldemohtml)). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
 
 ## Related links ##
 
@@ -521,7 +528,7 @@ After you are done, just push your commits and make a pull request.
 
 
 [Nominatim]: http://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding_.2F_Address_lookup
-[issure-report]: https://github.com/ypid/opening_hours.js/issues
+[issue-report]: https://github.com/ypid/opening_hours.js/issues
 [formal specification]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification
 [fallback rules]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#rule1
 [additional rules]: http://wiki.openstreetmap.org/wiki/Key:opening_hours#Examples

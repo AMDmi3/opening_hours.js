@@ -60,7 +60,6 @@
 "Variable times which moves over fix end time" for "sunrise-06:00": [1m[32mPASSED[39m[22m
 "Variable times which moves over fix end time" for "sunrise-05:59": [1m[32mPASSED[39m[22m
 "Variable times which moves over fix end time" for "sunrise-06:00": [1m[32mPASSED[39m[22m
-"Variable times which moves over fix end time" for "sunrise-05:59": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Variable times spanning midnight" for "sunset-sunrise": [1m[32mPASSED[39m[22m
 "Variable times spanning midnight" for "sunset-sunrise Mo-Su": [1m[32mPASSED[39m[22m
 "Variable times spanning midnight" for "sunset-sunrise": [1m[32mPASSED[39m[22m
@@ -114,14 +113,10 @@
 "Full range" for "12:00-13:00; 24/7": [1m[32mPASSED[39m[22m
 "Full range" for "00:00-24:00,12:00-13:00": [1m[32mPASSED[39m[22m
 "Full range" for "Mo-Fr,Sa,Su": [1m[32mPASSED[39m[22m
-"Full range" for "PH,Mo-Fr,Sa,Su": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
-"Full range" for "PH,Mo-Fr,Sa,Su,SH": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
-"Full range" for "Mo-Fr,Sa,PH,Su,SH": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
 "Full range" for "Jan-Dec": [1m[32mPASSED[39m[22m
 "Full range" for "Feb-Jan": [1m[32mPASSED[39m[22m
 "Full range" for "Dec-Nov": [1m[32mPASSED[39m[22m
-"Full range" for "Jan 01-Dec 31": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
-"Full range" for "week 1-54": [1m[32mPASSED[39m[22m, [1m[33mexcept weekstable which is ignored for now[39m[22m
+"Full range" for "week 1-54": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m weekstable which is ignored for now
 "24/7 as time interval alias (don’t use it 24/7 as showen here)" for "Mo,We 24/7": [1m[32mPASSED[39m[22m
 "24/7 as time interval alias (don’t use it 24/7 as showen here)" for "Mo,We open": [1m[32mPASSED[39m[22m
 "24/7 as time interval alias (don’t use it 24/7 as showen here)" for "Mo,We 00:00-24:00": [1m[32mPASSED[39m[22m
@@ -187,7 +182,6 @@
 "Monthday ranges" for "Jan 23-Feb 12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Jan 23-Feb 12: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "2012 Jan 23-2012 Feb 12 00:00-24:00": [1m[32mPASSED[39m[22m
-"Monthday ranges" for "Jan 23,25": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Monthday ranges" for "Dec 24,Jan 2: 18:00-22:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Dec 24,Jan 2: 18:00-22:00; Jan 20: off": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Dec 24,Jan 2 18:00-22:00": [1m[32mPASSED[39m[22m
@@ -205,12 +199,15 @@
 "Monthday ranges with constrained weekday" for "Jan Su[1] +2 days-Jan Su[3] -2 days": [1m[32mPASSED[39m[22m
 "Monthday ranges with constrained weekday spanning year" for "Dec 20-Dec Su[-1] +4 days": [1m[32mPASSED[39m[22m
 "Monthday ranges with constrained" for "Nov Su[-1]-Dec Su[1] -1 day": [1m[32mPASSED[39m[22m
-"Monthday ranges with constrained weekday spanning year" for "Jan Su[1] -5 days-Jan 10": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Monthday ranges" for "Mar Su[-1]-Oct Su[-1] -1 day open; Oct Su[-1]-Mar Su[-1] -1 day off": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Mar Su[-1]-Oct Su[-1] -1 day open": [1m[32mPASSED[39m[22m
 "Month ranges with year" for "2012 Jan 10-15,Jan 11": [1m[32mPASSED[39m[22m
 "Complex monthday ranges" for "Jan 23-31,Feb 1-12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Complex monthday ranges" for "Jan 23-Feb 11,Feb 12 00:00-24:00": [1m[32mPASSED[39m[22m
+"Leap year monthday" for "2016 Feb 29": [1m[32mPASSED[39m[22m
+"Leap year monthday" for "2015 Feb 29": [1m[32mPASSED[39m[22m
+"Last day in month" for "Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)"": [1m[32mPASSED[39m[22m
+"Last day in month" for "Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; 2008/4 Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)"": [1m[32mPASSED[39m[22m
 "Periodical monthdays" for "Jan 1-31/8 00:00-24:00": [1m[32mPASSED[39m[22m
 "Periodical monthdays" for "Jan 1-31/8: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Periodical monthdays" for "Jan 1-31/8": [1m[32mPASSED[39m[22m
@@ -220,8 +217,6 @@
 "Periodical monthdays" for "2012 Jan 1-31/8; 2025 Dec 1-31/8": [1m[32mPASSED[39m[22m
 "Periodical monthdays" for "2012 Jan 1-31/8: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Periodical monthdays" for "Jan 10-31/7": [1m[32mPASSED[39m[22m
-"Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1": [1m[35mCRASHED[39m[22m, reason: 2013,2015,2050-2053,2055/2,2020-2029/3,2060+  <--- (Unexpected token: "+" This means that the syntax is not valid at that point or it is currently not supported.) 
-"Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1 Mo-Su": [1m[35mCRASHED[39m[22m, reason: 2013,2015,2050-2053,2055/2,2020-2029/3,2060+  <--- (Unexpected token: "+" This means that the syntax is not valid at that point or it is currently not supported.) 
 "Selector combination" for "week 3 We": [1m[32mPASSED[39m[22m
 "Selector combination" for "week 3 Jan 11-Jan 11": [1m[32mPASSED[39m[22m
 "Selector combination" for "week 3 Jan 11": [1m[32mPASSED[39m[22m
@@ -285,8 +280,6 @@
 "Calculations based on variable events" for "easter -2 days-easter +2 days open "Around easter"": [1m[32mPASSED[39m[22m
 "Additional blocks with comment" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Additional blocks with comment" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-"Interpetation of points im time" for "12:00": [1m[33mIGNORED[39m[22m, reason: not implemented yet
-"Interpetation of points im time" for "Mo-Fr 12:00": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Points in time, mode 1" for "Mo 12:00,15:00; Tu-Fr 14:00": [1m[32mPASSED[39m[22m
 "Points in time, mode 1" for "Mo sunrise,sunset": [1m[32mPASSED[39m[22m
 "Points in time with month, mode 1" for "Apr 08:00": [1m[32mPASSED[39m[22m
@@ -304,8 +297,6 @@
 "Points in time, period times with variable times" for "Mo-Fr sunrise-(sunset-02:00)/120": [1m[32mPASSED[39m[22m
 "Points in time, period times (real world example)" for "Sa 08:00,09:00,10:00,11:00,12:00,13:00,14:00, Mo-Fr 15:00,16:00,17:00,18:00,19:00,20:00": [1m[32mPASSED[39m[22m
 "Points in time, period times (real world example)" for "Mo-Fr 15:00-20:00/60; Sa 08:00-14:00/60": [1m[32mPASSED[39m[22m
-"Additional comments for unknown" for "Mo open "comment"; "I don’t know how to express easter": off": [1m[33mIGNORED[39m[22m, reason: not implemented yet
-"Calculations based on month range" for "Mar Su[-1] - Dec 25-Su-28 days: 12:00-13:00": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Input tolerance: case and whitespace" for "Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 "Input tolerance: case and whitespace" for "   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00	Off  ": [1m[32mPASSED[39m[22m
 "Input tolerance: weekdays, months in different languages" for "Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
@@ -384,7 +375,7 @@
 "Incorrect syntax which should throw an error" for "12:00-15:00/1:00": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "12:00-15:00/1:": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "Jun 0-Aug 23": [1m[32mPASSED[39m[22m
-"Incorrect syntax which should throw an error" for "Feb 30-Aug 2": [1m[31mFAILED[39m[22m
+"Incorrect syntax which should throw an error" for "Feb 30-Aug 2": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "Jun 2-Aug 42": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "Jun 2-Aug 32": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "Jun 2-32": [1m[32mPASSED[39m[22m
@@ -411,4 +402,3 @@
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-406/413 tests passed

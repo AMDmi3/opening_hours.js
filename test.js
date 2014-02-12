@@ -1898,7 +1898,8 @@ process.exit(test.run() ? 0 : 1);
 //======================================================================
 function opening_hours_test() {
 	var show_passing_tests  = true;
-	var show_error_warnings = false; // enable this, if you want to see how the library reports errors and warnings
+	// False: Can also be achieved by running make test 1>/dev/null which redirects stdout to /dev/null.
+	var show_error_warnings = false; // Enable this if you want to see what errors and warnings the library reports.
 	var tests = [];
 	var tests_should_fail = [];
 	var tests_should_warn = [];
@@ -2105,7 +2106,7 @@ function opening_hours_test() {
 	}
 	// }}}
 
-	// public function to run all tests {{{
+	// run all tests (public function) {{{
 	this.run = function() {
 		var tests_length = tests.length + tests_should_fail.length + tests_should_warn.length + tests_comp_matching_rule.length;
 		var success = 0;
@@ -2127,7 +2128,7 @@ function opening_hours_test() {
 				success++;
 		}
 
-		console.log(success + '/' + tests_length + ' tests passed');
+		console.warn(success + '/' + tests_length + ' tests passed');
 
 		return success == tests_length;
 	}
