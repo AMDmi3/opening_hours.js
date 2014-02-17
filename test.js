@@ -964,14 +964,14 @@ test.addTest('Monthday ranges spanning year boundary', [
 		[ '2013.12.31 0:00', '2014.01.01 00:00' ],
 	], 1000 * 60 * 60 * 24 * 4, 0, false, {}, 'not last test');
 
-test.addTest('Full date (with year)', [
+test.addTest('Full day (with year)', [
 		'2013 Dec 31,2014 Jan 5',
 		'2013 Dec 31; 2014 Jan 5',
 		'2013-2013 Dec 31; 2014-2014 Jan 5', // force to use parseYearRange
 	], '2011.01.01 0:00', '2015.01.01 0:00', [
 		[ '2013.12.31 00:00', '2014.01.01 00:00' ],
 		[ '2014.01.05 00:00', '2014.01.06 00:00' ],
-	], 1000 * 60 * 60 * 24 * 2, 0, false);
+	], 1000 * 60 * 60 * 24 * 2, 0, false, {}, 'not only test');
 
 test.addTest('Date range which only applies for one year', [
 		'2013 Dec 31',
@@ -1154,6 +1154,21 @@ test.addTest('Date range which only applies for specific year', [
 		[ '2062.01.01 00:00', '2062.01.02 00:00' ],
 		[ '2063.01.01 00:00', '2063.01.02 00:00' ],
 		[ '2064.01.01 00:00', '2064.01.02 00:00' ],
+	], 1000 * 60 * 60 * 24 * 18, 0, false, {}, 'not last test');
+
+test.addTest('Date range which only applies for specific year', [
+		'2060+',
+	], '2011.01.01 0:00', '2065.01.01 0:00', [
+	], 1000 * 60 * 60 * 24 * 18, 0, false, {}, 'not last test');
+
+test.addTest('Date range which only applies for specific year', [
+		'2040-2050',
+	], '2011.01.01 0:00', '2065.01.01 0:00', [
+	], 1000 * 60 * 60 * 24 * 18, 0, false, {}, 'not last test');
+
+test.addTest('Date range which only applies for specific year', [
+		'2012-2014',
+	], '2011.01.01 0:00', '2065.01.01 0:00', [
 	], 1000 * 60 * 60 * 24 * 18, 0, false, {}, 'not last test');
 // }}}
 
@@ -1775,7 +1790,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'Jan 12:00-13:00 Mo 15:00-16:00',
 		'sunrise-(sunset-00:00)',
 		// 'easter + 353 days', // Does throw an error, but at runtime when the problem occurs respectively with the call of getWarnings().
-		'Jun 2-20/1', // period is one
+		'Jun 2-20/1',  // period is one
 		'2014-2020/1', // period is one
 	], {}, 'not last test');
 // }}}
@@ -1840,6 +1855,9 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Jun 30-24',    // reverse
 		'Jun 2-20/0',   // period is zero
 		'2014-2020/0',  // period is zero
+		'2014-',
+		'2014-2014',
+		'2014-2012',
 	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
@@ -1899,6 +1917,7 @@ process.exit(test.run() ? 0 : 1);
 function opening_hours_test() {
 	var show_passing_tests  = true;
 	// False: Can also be achieved by running make test 1>/dev/null which redirects stdout to /dev/null.
+	// Note that these two variants are not quite the same.
 	var show_error_warnings = false; // Enable this if you want to see what errors and warnings the library reports.
 	var tests = [];
 	var tests_should_fail = [];

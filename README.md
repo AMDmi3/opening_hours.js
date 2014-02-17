@@ -293,7 +293,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
   Note that only the rule which starts with ```||``` is a fallback rule. Other rules which might follow are considered as normal rules.
 * Supports [additional rules][] or cooperative values (```Mo-Fr 08:00-12:00, We 14:00-18:00```). A additional rule is treated exactly the same as a normal rule, except that a additional rule does not overwrite the day for which it applies. Note that a additional rule does not use any data from previous or from following rules.
 
-  A rule does only count as additional rule if the previous rule ends with a time range (```12:00-14:00, We 16:00-18:00```), a comment (```12:00-14:00 "call us", We 16:00-18:00```) or the keywords 'open', 'unknown' or 'closed' (```12:00-14:00 unknown, We 16:00-18:00```)
+  A rule does only count as additional rule if the previous rule ends with a time range (```12:00-14:00, We 16:00-18:00```, but does not continue with a time range or course), a comment (```12:00-14:00 "call us", We 16:00-18:00```) or the keywords 'open', 'unknown' or 'closed' (```12:00-14:00 unknown, We 16:00-18:00```)
 
 * Rule may use ```off``` keyword to indicate that the facility is closed at that time (```Mo-Fr 10:00-20:00; 12:00-14:00 off```)
 * Rule consists of multiple date (```Mo-Fr```, ```Jan-Feb```, ```week 2-10```, ```Jan 10-Feb 10```) and time (```12:00-16:00```, ```12:00-14:00,16:00-18:00```) conditions

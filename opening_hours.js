@@ -2134,6 +2134,7 @@
 			return [ number, endat + 1 ];
 		}
 
+		// Check if period is ok. Period 0 or 1 don’t make much sense.
 		function checkPeriod(at, period, period_type) {
 			if (done_with_warnings)
 				return;
@@ -3031,17 +3032,24 @@
 						var has_period = matchTokens(tokens, at+1, '/', 'number');
 					}
 
-					selectors.year.push(function(tokens, at, is_range, has_period) { return function(date) {
-						var ouryear = date.getFullYear();
-						var year_from = tokens[at][0];
-						var year_to = is_range ? tokens[at+2][0] : year_from;
-
+					var year_from = tokens[at][0];
+					// error checking {{{
+						if (is_range && tokens[at+2][0] <= year_from) {
 						// handle reversed range
-						if (year_to < year_from) {
-							var tmp = year_to;
-							year_to = year_from;
-							year_from = tmp;
+						if (tokens[at+2][0] == year_from)
+							throw formatWarnErrorMessage(nblock, at,
+								'A year range in which the start year is equal to the end year does not make sense.'
+								+ ' Please remove the end year. E.g. "' + year_from + ' May 23"');
+						else
+							throw formatWarnErrorMessage(nblock, at,
+								'A year range in which the start year is greater than the end year does not make sense.'
+								+ ' Please turn it over.');
 						}
+					// }}}
+
+					selectors.year.push(function(tokens, at, year_from, is_range, has_period) { return function(date) {
+						var ouryear = date.getFullYear();
+						var year_to = is_range ? tokens[at+2][0] : year_from;
 
 						if (ouryear < year_from ){
 							return [false, new Date(year_from, 0, 1)];
@@ -3072,7 +3080,7 @@
 
 						return [false];
 
-					}}(tokens, at, is_range, has_period));
+					}}(tokens, at, year_from, is_range, has_period));
 
 					at += 1 + (is_range ? 2 : 0) + (has_period ? 2 : 0);
 				} else {

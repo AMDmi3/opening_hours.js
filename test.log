@@ -187,9 +187,9 @@
 "Monthday ranges" for "Dec 24,Jan 2 18:00-22:00": [1m[32mPASSED[39m[22m
 "Monthday ranges (with year)" for "2012 Jan 23-31 00:00-24:00; Feb 1-12 00:00-24:00 2012": [1m[32mPASSED[39m[22m
 "Monthday ranges spanning year boundary" for "Dec 31-Jan 1": [1m[32mPASSED[39m[22m
-"Full date (with year)" for "2013 Dec 31,2014 Jan 5": [1m[32mPASSED[39m[22m
-"Full date (with year)" for "2013 Dec 31; 2014 Jan 5": [1m[32mPASSED[39m[22m
-"Full date (with year)" for "2013-2013 Dec 31; 2014-2014 Jan 5": [1m[32mPASSED[39m[22m
+"Full day (with year)" for "2013 Dec 31,2014 Jan 5": [1m[32mPASSED[39m[22m
+"Full day (with year)" for "2013 Dec 31; 2014 Jan 5": [1m[32mPASSED[39m[22m
+"Full day (with year)" for "2013-2013 Dec 31; 2014-2014 Jan 5": [1m[35mCRASHED[39m[22m, reason: 2013 <--- (A year range in which the start year is equal to the end year does not make sense. Please remove the end year. E.g. "2013 May 23")
 "Date range which only applies for one year" for "2013 Dec 31": [1m[32mPASSED[39m[22m
 "Date range which only applies for one year" for "2013 Dec 31; 2014 Jan 5; 2014/1 off": [1m[32mPASSED[39m[22m
 "Monthday (with year) ranges spanning year boundary" for "2013 Dec 31-2014 Jan 2": [1m[32mPASSED[39m[22m
@@ -217,6 +217,17 @@
 "Periodical monthdays" for "2012 Jan 1-31/8; 2025 Dec 1-31/8": [1m[32mPASSED[39m[22m
 "Periodical monthdays" for "2012 Jan 1-31/8: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Periodical monthdays" for "Jan 10-31/7": [1m[32mPASSED[39m[22m
+"Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1": [1m[35mCRASHED[39m[22m, reason: 2013,2015,2050-2053,2055/2,2020-2029/3,2060+  <--- (Unexpected token: "+" This means that the syntax is not valid at that point or it is currently not supported.) 
+"Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1 Mo-Su": [1m[35mCRASHED[39m[22m, reason: 2013,2015,2050-2053,2055/2,2020-2029/3,2060+  <--- (Unexpected token: "+" This means that the syntax is not valid at that point or it is currently not supported.) 
+"Date range which only applies for specific year" for "2060+": [1m[35mCRASHED[39m[22m, reason: 2060+ <--- (Unexpected token: "+" This means that the syntax is not valid at that point or it is currently not supported.) 
+"Date range which only applies for specific year" for "2040-2050": [1m[31mFAILED[39m[22m, bad duration(s): 789004800000,0, expected 1555200000,0, bad intervals: 
+[ '2040.01.01 00:00', '2065.01.01 00:00', false, undefined ],
+expected:
+(none)
+"Date range which only applies for specific year" for "2012-2014": [1m[31mFAILED[39m[22m, bad duration(s): 1672617600000,0, expected 1555200000,0, bad intervals: 
+[ '2012.01.01 00:00', '2065.01.01 00:00', false, undefined ],
+expected:
+(none)
 "Selector combination" for "week 3 We": [1m[32mPASSED[39m[22m
 "Selector combination" for "week 3 Jan 11-Jan 11": [1m[32mPASSED[39m[22m
 "Selector combination" for "week 3 Jan 11": [1m[32mPASSED[39m[22m
@@ -262,6 +273,8 @@
 "Real world example: Was not processed right." for "Mo off, Tu 14:00-18:00, We-Sa 10:00-18:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right." for "Mo: geschlossen, Di: 14-18Uhr, Mi-Sa: 10-18Uhr": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right." for "Mo off; Tu 14:00-18:00; We-Sa 10:00-18:00": [1m[32mPASSED[39m[22m
+"Real world example: Was not processed right (month range/monthday range)" for "Jan-Mar,Dec 25-Easter": [1m[35mCRASHED[39m[22m, reason: Jan-Mar,Dec 25-Easter <--- (Missing time seperator in time range after: "number")
+"Real world example: Was not processed right (month range/monthday range)" for "Jun 15-Sep 15: Th-Su 16:00-19:00; Sep 16-Dec 31: Sa,Su 16:00-19:00; Jan-Mar off; Dec 25-easter off": [1m[31mFAILED[39m[22m, bad duration(s): 0,0, expected 129600000,0, bad weekstable flag: false, expected true
 "Real world example: Was not processed right." for "Jan Su[-2]-Jan Su[-1]: Fr-Su 12:00+; Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 1-Jul 31: Th-Su 12:00+; Aug 1-Nov 30,Dec: Tu-Su 12:00+; Dec 24-26,Dec 31: off": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right." for "Jan Su[-2]-Jan Su[-1],Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 1-Dec 31: Tu-Su 12:00+; Dec 24-26,Dec 31: off": [1m[32mPASSED[39m[22m
 "Simplifed real world example: Was not processed right." for "Nov 1-20,Dec": [1m[32mPASSED[39m[22m
@@ -385,6 +398,9 @@
 "Incorrect syntax which should throw an error" for "Jun 30-24": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "Jun 2-20/0": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "2014-2020/0": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "2014-": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "2014-2014": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "2014-2012": [1m[32mPASSED[39m[22m
 "Missing information (e.g. country or holidays not defined in this lib)" for "PH": [1m[32mPASSED[39m[22m
 "Missing information (e.g. country or holidays not defined in this lib)" for "SH": [1m[32mPASSED[39m[22m
 "opening_hours.js is in the wrong mode." for "Mo sunrise,sunset": [1m[32mPASSED[39m[22m
@@ -402,3 +418,4 @@
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
+413/425 tests passed
