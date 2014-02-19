@@ -967,7 +967,7 @@ test.addTest('Monthday ranges spanning year boundary', [
 test.addTest('Full day (with year)', [
 		'2013 Dec 31,2014 Jan 5',
 		'2013 Dec 31; 2014 Jan 5',
-		'2013-2013 Dec 31; 2014-2014 Jan 5', // force to use parseYearRange
+		'2013/10 Dec 31; 2014/10 Jan 5', // force to use parseYearRange
 	], '2011.01.01 0:00', '2015.01.01 0:00', [
 		[ '2013.12.31 00:00', '2014.01.01 00:00' ],
 		[ '2014.01.05 00:00', '2014.01.06 00:00' ],
