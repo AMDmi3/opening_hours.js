@@ -217,9 +217,9 @@
 "Periodical monthdays" for "2012 Jan 1-31/8; 2025 Dec 1-31/8": [1m[32mPASSED[39m[22m
 "Periodical monthdays" for "2012 Jan 1-31/8: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Periodical monthdays" for "Jan 10-31/7": [1m[32mPASSED[39m[22m
-"Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1": [1m[35mCRASHED[39m[22m, reason: 2013,2015,2050-2053,2055/2,2020-2029/3,2060+  <--- (Unexpected token: "+" This means that the syntax is not valid at that point or it is currently not supported.) 
-"Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1 Mo-Su": [1m[35mCRASHED[39m[22m, reason: 2013,2015,2050-2053,2055/2,2020-2029/3,2060+  <--- (Unexpected token: "+" This means that the syntax is not valid at that point or it is currently not supported.) 
-"Date range which only applies for specific year" for "2060+": [1m[35mCRASHED[39m[22m, reason: 2060+ <--- (Unexpected token: "+" This means that the syntax is not valid at that point or it is currently not supported.) 
+"Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1": [1m[32mPASSED[39m[22m
+"Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1 Mo-Su": [1m[32mPASSED[39m[22m
+"Date range which only applies for specific year" for "2060+": [1m[32mPASSED[39m[22m
 "Date range which only applies for specific year" for "2040-2050": [1m[32mPASSED[39m[22m
 "Date range which only applies for specific year" for "2012-2016": [1m[32mPASSED[39m[22m
 "Selector combination" for "week 3 We": [1m[32mPASSED[39m[22m
@@ -337,6 +337,7 @@
 "Value not ideal (probably wrong). Should throw a warning." for "sunrise-(sunset-00:00)": [1m[32mPASSED[39m[22m
 "Value not ideal (probably wrong). Should throw a warning." for "Jun 2-20/1": [1m[32mPASSED[39m[22m
 "Value not ideal (probably wrong). Should throw a warning." for "2014-2020/1": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "2014/1": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "Mo[2] - 7 days": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "sdasdlasdj a3reaw": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for ":week 2-54 00:00-24:00": [1m[32mPASSED[39m[22m
@@ -392,6 +393,7 @@
 "Incorrect syntax which should throw an error" for "Jun 30-24": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "Jun 2-20/0": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "2014-2020/0": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "2014/0": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "2014-": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "2014-2014": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "2014-2012": [1m[32mPASSED[39m[22m
@@ -412,4 +414,4 @@
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-415/425 tests passed
+420/427 tests passed

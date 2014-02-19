@@ -379,7 +379,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
  There is one exception. It is not necessary to use a year range with a period of one (```2055-2066/1 10:00-20:00```) because this means the same as just the year range without the period (```2055-2066 10:00-20:00```) and should be expressed like this …
 
  The *oh.getWarnings()* function will give you a warning if you use this anyway.
-* **EXT:** Supports way to say that a facility is open (or closed) from a specified year without limit in the future (```2055/1 10:00-20:00```)
+* **EXT:** Supports way to say that a facility is open (or closed) from a specified year without limit in the future (```2055+ 10:00-20:00```)
 
 ### Month ranges ###
 

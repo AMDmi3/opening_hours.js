@@ -2135,16 +2135,22 @@
 		}
 
 		// Check if period is ok. Period 0 or 1 don’t make much sense.
-		function checkPeriod(at, period, period_type) {
+		function checkPeriod(at, period, period_type, parm_string) {
 			if (done_with_warnings)
 				return;
 
-			if (period === 0)
+			if (period === 0) {
 				throw formatWarnErrorMessage(nblock, at,
 					'You can not use '+ period_type +' ranges with period equals zero.');
-			else if (period === 1)
-				parsing_warnings.push([nblock, at,
-					'Please don’t use '+ period_type +' ranges with period equals one.']);
+			} else if (period === 1) {
+				if (typeof parm_string == 'string' && parm_string == 'no_end_year')
+					parsing_warnings.push([nblock, at,
+						'Please don’t use '+ period_type +' ranges with period equals one.'
+						+ ' If you want to express that a facility is open starting from a year without limit use "<year>+".']);
+				else
+					parsing_warnings.push([nblock, at,
+						'Please don’t use '+ period_type +' ranges with period equals one.']);
+			}
 		}
 
 		function getDateForConstrainedWeekday(year, month, weekday, constrained_weekday, add_days) {
@@ -3026,10 +3032,18 @@
 					if (matchTokens(tokens, at+1, '-', 'year', '/', 'number')) {
 						var is_range   = true;
 						var has_period = true;
-						checkPeriod(at+4, tokens[at+4][0], 'year');
+						var period = parseInt(tokens[at+4][0]);
+						checkPeriod(at+4, period, 'year');
 					} else {
 						var is_range   = matchTokens(tokens, at+1, '-', 'year');
 						var has_period = matchTokens(tokens, at+1, '/', 'number');
+						if (has_period) {
+							var period = parseInt(tokens[at+2][0]);
+							checkPeriod(at+2, period, 'year', 'no_end_year');
+						} else if (matchTokens(tokens, at+1, '+')) {
+							var period = 1;
+							has_period = 2;
+						}
 					}
 
 					var year_from = parseInt(tokens[at][0]);
@@ -3047,7 +3061,7 @@
 						}
 					// }}}
 
-					selectors.year.push(function(tokens, at, year_from, is_range, has_period) { return function(date) {
+					selectors.year.push(function(tokens, at, year_from, is_range, has_period, period) { return function(date) {
 						var ouryear = date.getFullYear();
 						var year_to = is_range ? parseInt(tokens[at+2][0]) : year_from;
 
@@ -3055,14 +3069,8 @@
 							return [false, new Date(year_from, 0, 1)];
 						} else if (has_period) {
 							if (year_from <= ouryear) {
-								if (is_range) {
-									var period = tokens[at+4][0];
-
-									if (year_to < ouryear)
-										return [false];
-								} else {
-									var period = tokens[at+2][0];
-								}
+								if (is_range && year_to < ouryear)
+									return [false];
 								if (period > 0) {
 									if ((ouryear - year_from) % period == 0) {
 										return [true, new Date(ouryear + 1, 0, 1)];
@@ -3080,9 +3088,9 @@
 
 						return [false];
 
-					}}(tokens, at, year_from, is_range, has_period));
+					}}(tokens, at, year_from, is_range, has_period, period));
 
-					at += 1 + (is_range ? 2 : 0) + (has_period ? 2 : 0);
+					at += 1 + (is_range ? 2 : 0) + (has_period ? (has_period == 2 ? 1 : 2) : 0);
 				} else {
 					throw formatWarnErrorMessage(nblock, at, 'Unexpected token in year range: ' + tokens[at][1]);
 				}

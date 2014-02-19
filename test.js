@@ -1159,7 +1159,8 @@ test.addTest('Date range which only applies for specific year', [
 test.addTest('Date range which only applies for specific year', [
 		'2060+',
 	], '2011.01.01 0:00', '2065.01.01 0:00', [
-	], 1000 * 60 * 60 * 24 * 18, 0, false, {}, 'not last test');
+		[ '2060.01.01 00:00', '2065.01.01 00:00' ],
+	], 157852800000, 0, false, {}, 'not last test');
 
 test.addTest('Date range which only applies for specific year', [
 		'2040-2050',
@@ -1794,6 +1795,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		// 'easter + 353 days', // Does throw an error, but at runtime when the problem occurs respectively with the call of getWarnings().
 		'Jun 2-20/1',  // period is one
 		'2014-2020/1', // period is one
+		'2014/1',      // period is one
 	], {}, 'not last test');
 // }}}
 
@@ -1857,6 +1859,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Jun 30-24',    // reverse
 		'Jun 2-20/0',   // period is zero
 		'2014-2020/0',  // period is zero
+		'2014/0',       // period is zero
 		'2014-',
 		'2014-2014',
 		'2014-2012',
