@@ -220,14 +220,8 @@
 "Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1": [1m[35mCRASHED[39m[22m, reason: 2013,2015,2050-2053,2055/2,2020-2029/3,2060+  <--- (Unexpected token: "+" This means that the syntax is not valid at that point or it is currently not supported.) 
 "Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1 Mo-Su": [1m[35mCRASHED[39m[22m, reason: 2013,2015,2050-2053,2055/2,2020-2029/3,2060+  <--- (Unexpected token: "+" This means that the syntax is not valid at that point or it is currently not supported.) 
 "Date range which only applies for specific year" for "2060+": [1m[35mCRASHED[39m[22m, reason: 2060+ <--- (Unexpected token: "+" This means that the syntax is not valid at that point or it is currently not supported.) 
-"Date range which only applies for specific year" for "2040-2050": [1m[31mFAILED[39m[22m, bad duration(s): 789004800000,0, expected 1555200000,0, bad intervals: 
-[ '2040.01.01 00:00', '2065.01.01 00:00', false, undefined ],
-expected:
-(none)
-"Date range which only applies for specific year" for "2012-2014": [1m[31mFAILED[39m[22m, bad duration(s): 1672617600000,0, expected 1555200000,0, bad intervals: 
-[ '2012.01.01 00:00', '2065.01.01 00:00', false, undefined ],
-expected:
-(none)
+"Date range which only applies for specific year" for "2040-2050": [1m[32mPASSED[39m[22m
+"Date range which only applies for specific year" for "2012-2016": [1m[32mPASSED[39m[22m
 "Selector combination" for "week 3 We": [1m[32mPASSED[39m[22m
 "Selector combination" for "week 3 Jan 11-Jan 11": [1m[32mPASSED[39m[22m
 "Selector combination" for "week 3 Jan 11": [1m[32mPASSED[39m[22m
@@ -418,4 +412,4 @@ expected:
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-413/425 tests passed
+415/425 tests passed

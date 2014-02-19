@@ -3032,7 +3032,7 @@
 						var has_period = matchTokens(tokens, at+1, '/', 'number');
 					}
 
-					var year_from = tokens[at][0];
+					var year_from = parseInt(tokens[at][0]);
 					// error checking {{{
 						if (is_range && tokens[at+2][0] <= year_from) {
 						// handle reversed range
@@ -3049,7 +3049,7 @@
 
 					selectors.year.push(function(tokens, at, year_from, is_range, has_period) { return function(date) {
 						var ouryear = date.getFullYear();
-						var year_to = is_range ? tokens[at+2][0] : year_from;
+						var year_to = is_range ? parseInt(tokens[at+2][0]) : year_from;
 
 						if (ouryear < year_from ){
 							return [false, new Date(year_from, 0, 1)];
@@ -3072,7 +3072,7 @@
 								}
 							}
 						} else if (is_range) {
-							if (year_from <= ouryear && ouryear <= year_to)
+							if (ouryear <= year_to)
 								return [true, new Date(year_to + 1, 0, 1)];
 						} else if (ouryear == year_from) {
 							return [true];

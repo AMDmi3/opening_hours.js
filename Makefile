@@ -12,6 +12,7 @@ test: opening_hours.js test.js
 
 .SILENT: diff-test
 diff-test: opening_hours.js test.js
+	git checkout -- test.log
 	${NODE} test.js 1> test.log 2>&1 || true
 	git diff --color-words test.log
 

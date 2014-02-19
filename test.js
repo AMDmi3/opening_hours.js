@@ -1164,12 +1164,14 @@ test.addTest('Date range which only applies for specific year', [
 test.addTest('Date range which only applies for specific year', [
 		'2040-2050',
 	], '2011.01.01 0:00', '2065.01.01 0:00', [
-	], 1000 * 60 * 60 * 24 * 18, 0, false, {}, 'not last test');
+		[ '2040.01.01 00:00', '2051.01.01 00:00' ],
+	], 347155200000, 0, false, {}, 'not last test');
 
 test.addTest('Date range which only applies for specific year', [
-		'2012-2014',
+		'2012-2016',
 	], '2011.01.01 0:00', '2065.01.01 0:00', [
-	], 1000 * 60 * 60 * 24 * 18, 0, false, {}, 'not last test');
+		[ '2012.01.01 00:00', '2017.01.01 00:00' ],
+	], 157852800000, 0, false, {}, 'not last test');
 // }}}
 
 // selector combination and order {{{
