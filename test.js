@@ -1211,6 +1211,7 @@ test.addTest('Selector order', [
 		'00:00-24:00 week 6 Feb',
 		'week 6 00:00-24:00 Feb',
 		'week 6 Feb 00:00-24:00',
+		'week 6 Feb: 00:00-24:00',
 		'week 6 Feb Mo-Su 00:00-24:00',
 		'Mo-Su week 6 Feb 00:00-24:00',
 		'00:00-24:00 Mo-Su week 6 Feb',
@@ -1380,15 +1381,21 @@ test.addTest('Real world example: Was not processed right.', [
 	], 1000 * 60 * 60 * (4 + 4 * 8), 0, true, {}, 'not last test');
 
 test.addTest('Real world example: Was not processed right (month range/monthday range)', [
-		'Jan-Mar,Dec 25-Easter'
-	], '2014.01.06 0:00', '2014.01.13 0:00', [
-	], 1000 * 60 * 60 * (4 + 4 * 8), 0, true, {}, 'not last test');
+		'Aug,Dec 25-easter'
+	], '2014.01.01 0:00', '2015.01.01 0:00', [
+		[ '2014.01.01 00:00', '2014.04.20 00:00' ],
+		[ '2014.08.01 00:00', '2014.09.01 00:00' ],
+		[ '2014.12.25 00:00', '2015.01.01 00:00' ],
+	], 1000 * 60 * 60 * (24 * ((31 + 28 + 31 + 19) + 31 + 7)  -1), 0, false, {}, 'not last test');
 
 // http://www.openstreetmap.org/node/1754337209/history
 test.addTest('Real world example: Was not processed right (month range/monthday range)', [
-		'Jun 15-Sep 15: Th-Su 16:00-19:00; Sep 16-Dec 31: Sa,Su 16:00-19:00; Jan-Mar off; Dec 25-easter off'
-	], '2014.01.06 0:00', '2014.01.13 0:00', [
-	], 1000 * 60 * 60 * (4 + 4 * 8), 0, true, {}, 'not last test');
+		// 'Jun 15-Sep 15: Th-Su 16:00-19:00; Sep 16-Dec 31: Sa,Su 16:00-19:00; Jan-Mar off; Dec 25-easter off'
+		'Jun 15-Sep 15; Sep 16-Dec 31; Jan-Mar off; Dec 25-easter off'
+	], '2014.01.01 0:00', '2016.01.01 0:00', [
+		[ '2014.06.15 00:00', '2014.12.25 00:00' ],
+		[ '2015.06.15 00:00', '2015.12.25 00:00' ],
+	], 33357600000, 0, false, {}, 'not last test');
 
 // problem with combined monthday and month selector {{{
 test.addTest('Real world example: Was not processed right.', [

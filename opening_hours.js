@@ -3197,7 +3197,10 @@
 		// push_to_monthday will push the selector into the monthday selector array which has the desired side effect of working in conjunction with the monthday selectors (either the month match or the monthday).
 		function parseMonthRange(tokens, at, push_to_monthday) {
 			for (; at < tokens.length; at++) {
-				if (matchTokens(tokens, at, 'month')) {
+				// Use parseMonthdayRange if '<month> <daynum>' and not '<month> <hour>:<minute>'
+				if (matchTokens(tokens, at, 'month', 'number') && !matchTokens(tokens, at+2, 'timesep', 'number')) {
+					return parseMonthdayRange(tokens, at, nblock, true);
+				} else if (matchTokens(tokens, at, 'month')) {
 					// Single month (Jan) or month range (Feb-Mar)
 					var is_range = matchTokens(tokens, at+1, '-', 'month');
 
@@ -3266,7 +3269,8 @@
 		// }}}
 
 		// Month day range parser (Jan 26-31; Jan 26-Feb 26) {{{
-		function parseMonthdayRange(tokens, at, nblock) {
+		// push_to_month will push the selector into the month selector array which has the desired side effect of working in conjunction with the month selectors (either the month match or the monthday).
+		function parseMonthdayRange(tokens, at, nblock, push_to_month) {
 			for (; at < tokens.length; at++) {
 				var has_year = [], has_month = [], has_event = [], has_calc = [], has_constrained_weekday = [], has_calc = [];
 				has_year[0]  = matchTokens(tokens, at, 'year');
@@ -3309,7 +3313,7 @@
 					if (has_month[1])
 						isValidDate(tokens[at_sec_event_or_month][0], tokens[at_sec_event_or_month+1][0], nblock, at+has_year[0]+1);
 
-					selectors.monthday.push(function(tokens, at, nblock, has_year, has_event, has_calc, at_sec_event_or_month, has_constrained_weekday) { return function(date) {
+					var selector = function(tokens, at, nblock, has_year, has_event, has_calc, at_sec_event_or_month, has_constrained_weekday) { return function(date) {
 						var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
 
 						if (has_event[0]) {
@@ -3401,7 +3405,12 @@
 								return [!inside, start_of_next_year];
 							}
 						}
-					}}(tokens, at, nblock, has_year, has_event, has_calc, at_sec_event_or_month, has_constrained_weekday));
+					}}(tokens, at, nblock, has_year, has_event, has_calc, at_sec_event_or_month, has_constrained_weekday);
+
+					if (push_to_month === true)
+						selectors.month.push(selector);
+					else
+						selectors.monthday.push(selector);
 
 					at = (has_constrained_weekday[1]
 							? has_constrained_weekday[1][1]
@@ -3450,7 +3459,7 @@
 								nblock, at+has_year+(is_range ? 3 : 1));
 						// }}}
 
-						selectors.monthday.push(function(year, has_year, month, range_from, range_to, period) { return function(date) {
+						var selector = function(year, has_year, month, range_from, range_to, period) { return function(date) {
 							var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
 
 							var from_date = new Date(has_year ? year : date.getFullYear(),
@@ -3479,7 +3488,12 @@
 							else
 								return [false, new Date(date.getFullYear(), date.getMonth(), date.getDate() + period - in_period)];
 
-						}}(year, has_year, month, range_from, range_to, period));
+						}}(year, has_year, month, range_from, range_to, period);
+
+						if (push_to_month === true)
+							selectors.month.push(selector);
+						else
+							selectors.monthday.push(selector);
 
 						at += 2 + has_year + (is_range ? 2 : 0) + (period ? 2 : 0);
 
@@ -3492,7 +3506,7 @@
 					// Only event like easter {{{
 				} else if (has_event[0]) {
 
-					selectors.monthday.push(function(tokens, at, nblock, has_year, add_days) { return function(date) {
+					var selector = function(tokens, at, nblock, has_year, add_days) { return function(date) {
 
 						// console.log('enter selector with date: ' + date);
 						var movableDays = getMovableEventsForYear((has_year ? tokens[at][0] : date.getFullYear()));
@@ -3517,7 +3531,12 @@
 						else
 							return [false, new Date(date.getFullYear() + 1, 0, 1)];
 
-					}}(tokens, at, nblock, has_year[0], has_calc[0]));
+					}}(tokens, at, nblock, has_year[0], has_calc[0]);
+
+					if (push_to_month === true)
+						selectors.month.push(selector);
+					else
+						selectors.monthday.push(selector);
 
 					at += has_year[0] + has_event[0] + (typeof has_calc[0][1] != 'undefined' && has_calc[0][1] ? 3 : 0);
 					// }}}
