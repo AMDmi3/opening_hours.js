@@ -1176,9 +1176,10 @@
 				'ás': '-', // language unknown
 				'à':  '-', // language unknown
 				'às': '-', // language unknown
-				ate:  '-', // language unknown
-				till: '-',
-				til:  '-',
+				'ate':  '-', // language unknown
+				'till': '-',
+				'til':  '-',
+				'until': '-',
 				'through': '-',
 				and:  ',',
 				'&':  ',',
@@ -1198,7 +1199,8 @@
 				'7j/7':    'Mo-Su', // I guess that it means that
 				'7/7':     'Mo-Su', // I guess that it means that
 				'7 days':  'Mo-Su',
-				midnight: '00:00',
+				'7 days a week': 'Mo-Su',
+				'midnight': '00:00',
 				holiday:  'PH',
 				holidays: 'PH',
 				'public holidays': 'PH',
@@ -1732,7 +1734,7 @@
 				} else if (tmp = value.match(/^days?/i)) {
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|25x7|7[ ]?days|all days?|every day|-late|public holidays?|7j?\/7|every day|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|25x7|7[ ]?days( a week|)|all days?|every day|-late|public holidays?|7j?\/7|every day|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b)\.?/i)) {
 					// Handle all remaining words with error tolerance
 					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
 					if (typeof correct_val == 'object') {
