@@ -26,6 +26,8 @@
 "Time ranges spanning midnight" for "We 22:00-22:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight with date overwriting" for "22:00-02:00; Tu 12:00-14:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight with date overwriting (complex real world example)" for "Su-Tu 11:00-01:00, We-Th 11:00-03:00, Fr 11:00-06:00, Sa 11:00-07:00": [1m[32mPASSED[39m[22m
+"Time ranges spanning midnight (maximum supported)" for "Tu 23:59-48:00": [1m[32mPASSED[39m[22m
+"Time ranges spanning midnight with open ened (maximum supported)" for "Tu 23:59-40:00+": [1m[32mPASSED[39m[22m
 "Open end" for "07:00+ open "visit there website to know if they did already close"": [1m[32mPASSED[39m[22m
 "Open end" for "07:00+ unknown "visit there website to know if they did already close"": [1m[32mPASSED[39m[22m
 "Open end" for "17:00+": [1m[32mPASSED[39m[22m
@@ -398,6 +400,8 @@
 "Incorrect syntax which should throw an error" for "2014-": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "2014-2014": [1m[32mPASSED[39m[22m
 "Incorrect syntax which should throw an error" for "2014-2012": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "23:59-48:01": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Tu 23:59-48:00+": [1m[32mPASSED[39m[22m
 "Missing information (e.g. country or holidays not defined in this lib)" for "PH": [1m[32mPASSED[39m[22m
 "Missing information (e.g. country or holidays not defined in this lib)" for "SH": [1m[32mPASSED[39m[22m
 "opening_hours.js is in the wrong mode." for "Mo sunrise,sunset": [1m[32mPASSED[39m[22m
@@ -415,4 +419,4 @@
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-424/428 tests passed
+428/432 tests passed

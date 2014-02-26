@@ -165,6 +165,19 @@ test.addTest('Time ranges spanning midnight with date overwriting (complex real 
 		[ '2012.10.06 11:00', '2012.10.07 07:00', ], // Sa: Sa 11:00-07:00
 		[ '2012.10.07 11:00', '2012.10.08 00:00', ], // Su: Su-Tu 11:00-01:00
 	], 1000 * 60 * 60 * (1 + 14 * 2 + 16 * 2 + 19 + 20 + 13), 0, true);
+
+test.addTest('Time ranges spanning midnight (maximum supported)', [
+		'Tu 23:59-48:00',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.02 23:59', '2012.10.04 00:00' ],
+	], 1000 * 60 * (24 * 60 + 1), 0, true, {}, 'not last test');
+
+test.addTest('Time ranges spanning midnight with open ened (maximum supported)', [
+		'Tu 23:59-40:00+',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.02 23:59', '2012.10.03 16:00' ],
+		[ '2012.10.03 16:00', '2012.10.04 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+	], 1000 * 60 * (16 * 60 + 1), 1000 * 60 * 60 * 8, true, {}, 'not last test');
 // }}}
 
 // }}}
@@ -1870,6 +1883,8 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'2014-',
 		'2014-2014',
 		'2014-2012',
+		'23:59-48:01',
+		'Tu 23:59-48:00+', // Does not make much sense. Should be written in another way.
 	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
