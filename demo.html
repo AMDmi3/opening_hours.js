@@ -222,9 +222,18 @@
 				location = location.protocol+'//'+location.host+location.pathname+search;
 			}
 
+			function setCurrentPosition() {
+				if(navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(onPositionUpdate);
+				}
+			}
+
 			function onPositionUpdate(position) {
 				var lat = position.coords.latitude;
 				var lng = position.coords.longitude;
+				document.getElementById('lat').value = lat;
+				document.getElementById('lon').value = lng;
+				Evaluate();
 				console.log("Current position: " + lat + " " + lng);
 			}
 			window.onload = function () {
@@ -266,8 +275,8 @@
 				} else {
 					Evaluate(0, true);
 				}
-				// if(navigator.geolocation)
-				// 	navigator.geolocation.getCurrentPosition(onPositionUpdate);
+				if(navigator.geolocation)
+					navigator.geolocation.getCurrentPosition(onPositionUpdate);
 			};
 
 			/*]]>*/</script>
@@ -324,7 +333,8 @@
 						document.write(i18n.t('words.lat') + ': <input size="7" id="lat" value="' + def_lat + '" onblur="Evaluate()" /> ');
 						document.write(i18n.t('words.lon') + ': <input size="7" id="lon" value="' + def_lon + '"  onblur="Evaluate()" /> ');
 						document.write(i18n.t('words.country') + ': <input size="3" id="cc" readonly="readonly" /> ');
-						document.write(i18n.t('words.state') + ': <input size="20" id="state" readonly="readonly" />');
+						document.write(i18n.t('words.state') + ': <input size="20" id="state" readonly="readonly" /><br />');
+						// document.write('<button type="button" onclick="setCurrentPosition()">' + i18n.t('texts.get my position') + '</button>');
 					</script>
 				</p>
 
