@@ -1,5 +1,6 @@
 // localization {{{
 var resources = { // English is fallback language.
+    // English (en) localization {{{
     en: { translation: {
             "lang": {
                 "en": "English",
@@ -164,7 +165,8 @@ var resources = { // English is fallback language.
                 },
             },
         },
-    },
+    }, // }}}
+    // French (fr) localization {{{
     fr: { translation: {
             "lang": {
                 "en": "Anglais",
@@ -327,7 +329,8 @@ var resources = { // English is fallback language.
                 },
             },
         },
-    },
+    }, // }}}
+    // German (de) localization {{{
     de: { translation: {
             "lang": {
                 "en": "Englisch",
@@ -479,7 +482,8 @@ var resources = { // English is fallback language.
                 },
             },
         },
-    },
+    }, // }}}
+    // Russian (ru) localization {{{
     ru: { translation: {
             "lang": {
                 "en": "английский",
@@ -599,13 +603,15 @@ var resources = { // English is fallback language.
                 },
             },
         },
-    },
+    }, // }}}
+    // Portuguese (pt) localization {{{
     pt: { translation: {
             "lang": {
                 "en": "Inglês",
                 "fr": "Francês",
                 "de": "Alemão",
                 "ru": "Russo",
+                "it": "Italiano",
                 "pt": "Português",
                 "choose": "Escolha a sua linguagem",
             },
@@ -763,7 +769,8 @@ var resources = { // English is fallback language.
                 },
             },
         },
-    },
+    }, // }}}
+    // Italian localization {{{
     it: { translation: {
             "lang": {
                 "en": "Inglese",
@@ -771,6 +778,7 @@ var resources = { // English is fallback language.
                 "de": "Tedesco",
                 "ru": "Russo",
                 "it": "Italiano",
+                "pt": "Portoghese",
                 "choose": "Scegli lingua",
             },
             "months": {
@@ -927,14 +935,10 @@ var resources = { // English is fallback language.
                 },
             },
         },
-    },
+    }, // }}}
 };
 
-function translatePage() { // Gets called when localization is loaded.
-    // $(".lang").i18n();
-    // $("headline").i18n();
-}
-
+// Functions which generate localized HTML sections {{{
 function getUserSelectTranslateHTMLCode() {
     var res = i18n.t('lang.choose')
             + (i18n.lng() !== 'en' ? ' ('+ i18n.t('lang.choose', { lng: 'en' }) +')' : '' )
@@ -949,6 +953,13 @@ function getUserSelectTranslateHTMLCode() {
     }
     return res;
 }
+// }}}
+
+// Initialization code {{{
+function translatePage() { // Gets called when localization is loaded.
+    // $(".lang").i18n();
+    // $("headline").i18n();
+}
 
 i18n.init({
         fallbackLng: 'en',
@@ -957,4 +968,5 @@ i18n.init({
         useCookie: true,
         debug: true
     }, translatePage);
+// }}}
 // }}}
