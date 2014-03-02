@@ -424,7 +424,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 Simple node.js based test framework is bundled. You can run it with ```node test.js``` or with ```make test```.
 
-The current results of this test are also tracked in the repository and can be viewed [here](/test.log).
+The current results of this test are also tracked in the repository and can be viewed [here](/test.log). Note that this file uses [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code) which can be interpreted by cat in the terminal.
 
 ## Testing with real data ##
 
@@ -465,6 +465,12 @@ This library is used in the following projects:
 
 [opening\_hours\_map]: https://github.com/ypid/opening_hours_map
 
+## Related links ##
+
+* [fossgis project page on the OSM wiki][fossgis-project]
+
+[fossgis-project]: http://wiki.openstreetmap.org/wiki/FOSSGIS/Server/Projects/opening_hours.js
+
 ## ToDo
 List of missing features which can currently not be expressing in any other way without much pain.
 Please share your opinion on the [talk page](http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours) (or the discussion page to the proposal if that does exist) if you have any idea how to express this (better).
@@ -491,36 +497,34 @@ List of features which can make writing easier:
 
 ## Contributors ##
 
-* [Sergey Leschina](https://github.com/putnik) ([demo](#evaluation-tooldemohtml) improvements)
-* [don-vip](https://github.com/don-vip)        (French translation and public holidays for France)
-* [Charly Koza](https://github.com/Cactusbone) (fixed package.json)
-* [Simon B.](https://github.com/sesam)         (improved understandability of overlapping rules in README.md)
+* [Sergey Leschina](https://github.com/putnik)   ([demo](#evaluation-tooldemohtml) improvements)
+* [don-vip](https://github.com/don-vip)          (French localization and public holidays for France)
+* [Charly Koza](https://github.com/Cactusbone)   (fixed package.json)
+* [Simon B.](https://github.com/sesam)           (improved understandability of overlapping rules in README.md)
+* [NonnEmilia](https://github.com/NonnEmilia)    (Italian localization)
+* [João G. Packer](https://github.com/jgpacker)  (Portuguese localization)
 
 ## How to contribute ##
 
 You can contribute in the usual manner as known from GitHub. Just fork, change and make a pull request.
 
-Note that there is a git pre-commit hook used to run and compare the test framework. To activate the hook, run:
-
-    ./hooks/link_hooks
-
 ### Translating ###
 
-Translations can be made in the file [js/i18n-resources.js](/js/i18n-resources.js). Just copy the whole English block, change the language code to the new one you are adding and make your translation. You can open the [demo.html](/demo.html) to see the result of your work.
+Translations can be made in the file [js/i18n-resources.js](/js/i18n-resources.js). Just copy the whole English block, change the language code to the new one you are adding and make your translation. You can open the [demo.html](/demo.html) to see the result of your work. To complete your localization add the translated language name to the other languages.
 
 Note that this resource file does also provide the localization for the [opening\_hours\_map][]. This can also be tested by cloning the project and linking your modified opening_hours.js working copy to the opening_hours.js directory (after renaming it) inside the opening_hours_map project.
 
 After you are done, just push your commits and make a pull request.
 
+### Core code ###
+
+Note that there is a git pre-commit hook used to run and compare the test framework before each commit. To activate the hook, run:
+
+    ./hooks/link_hooks
+
 ## Credits ##
 
 * [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favor of opening_hours.js but a few parts where reused (mainly the error tolerance and the online evaluation for the [demo page](#evaluation-tooldemohtml)). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
-
-## Related links ##
-
-* [fossgis project page on the OSM wiki][fossgis-project]
-
-[fossgis-project]: http://wiki.openstreetmap.org/wiki/FOSSGIS/Server/Projects/opening_hours.js
 
 ## License ##
 
