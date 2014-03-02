@@ -1,11 +1,13 @@
 // localization {{{
 var resources = { // English is fallback language.
+    // English (en) localization {{{
     en: { translation: {
             "lang": {
                 "en": "English",
                 "fr": "French",
                 "de": "German",
                 "ru": "Russian",
+                "pt": "Portuguese",
                 "it": "Italian",
                 "choose": "Choose Language",
             },
@@ -149,13 +151,13 @@ var resources = { // English is fallback language.
                 "date": "date",
                 "time": { // __count__ Can not cover need for Russian language (one, several, many).
                     "minute": "minute",
-                    "minute plural": "minutes",
+                    "minute_plural": "minutes",
                     "minute many": "minutes",
                     "hour": "hour",
-                    "hour plural": "hours",
+                    "hour_plural": "hours",
                     "hour many": "hours",
                     "day": "day",
-                    "day plural": "days",
+                    "day_plural": "days",
                     "day many": "days",
                     "hours minutes sep": "and ",
                     "now": "now",
@@ -163,13 +165,15 @@ var resources = { // English is fallback language.
                 },
             },
         },
-    },
+    }, // }}}
+    // French (fr) localization {{{
     fr: { translation: {
             "lang": {
                 "en": "Anglais",
                 "fr": "Français",
                 "de": "Allemand",
                 "ru": "Russe",
+                "pt": "Portugais",
                 "it": "Italien",
                 "choose": "Choisissez la langue",
             },
@@ -311,13 +315,13 @@ var resources = { // English is fallback language.
                 "date": "date",
                 "time": { // __count__ Can not cover need for Russian language (one, several, many).
                     "minute": "minute",
-                    "minute plural": "minutes",
+                    "minute_plural": "minutes",
                     "minute many": "minutes",
                     "hour": "heure",
-                    "hour plural": "heures",
+                    "hour_plural": "heures",
                     "hour many": "heures",
                     "day": "jour",
-                    "day plural": "jours",
+                    "day_plural": "jours",
                     "day many": "jours",
                     "hours minutes sep": "et ",
                     "now": "en ce moment",
@@ -325,13 +329,15 @@ var resources = { // English is fallback language.
                 },
             },
         },
-    },
+    }, // }}}
+    // German (de) localization {{{
     de: { translation: {
             "lang": {
                 "en": "Englisch",
                 "fr": "Französisch",
                 "de": "Deutsch",
                 "ru": "Russisch",
+                "pt": "Portugiesisch",
                 "it": "Italienisch",
                 "choose": "Wähle eine Sprache",
             },
@@ -462,13 +468,13 @@ var resources = { // English is fallback language.
                 "date": "Datum",
                 "time": { // __count__ Can not cover need for Russian language (one, several, many).
                     "minute": "Minute",
-                    "minute plural": "Minuten",
+                    "minute_plural": "Minuten",
                     "minute many": "Minuten",
                     "hour": "Stunde",
-                    "hour plural": "Stunden",
+                    "hour_plural": "Stunden",
                     "hour many": "Stunden",
                     "day": "Tag",
-                    "day plural": "Tage",
+                    "day_plural": "Tage",
                     "day many": "Tage",
                     "hours minutes sep": "und ",
                     "now": "Jetzt",
@@ -476,13 +482,15 @@ var resources = { // English is fallback language.
                 },
             },
         },
-    },
+    }, // }}}
+    // Russian (ru) localization {{{
     ru: { translation: {
             "lang": {
                 "en": "английский",
                 "fr": "французский",
                 "de": "немецкий",
                 "ru": "русский",
+                "pt": "португальский",
                 "it": "итальянский",
                 "choose": "Выберите язык",
             },
@@ -582,20 +590,187 @@ var resources = { // English is fallback language.
                 "none": "никто",
                 "time": {
                     "minute": "минуту",
-                    "minute plural": "минуты",
+                    "minute_plural": "минуты",
                     "minute many": "минут",
                     "hour": "час",
-                    "hour plural": "часа",
+                    "hour_plural": "часа",
                     "hour many": "часов",
                     "day": "день",
-                    "day plural": "дня",
+                    "day_plural": "дня",
                     "day many": "дней",
                     "now": "сейчас",
                     "time": "время",
                 },
             },
         },
-    },
+    }, // }}}
+    // Portuguese (pt) localization {{{
+    pt: { translation: {
+            "lang": {
+                "en": "Inglês",
+                "fr": "Francês",
+                "de": "Alemão",
+                "ru": "Russo",
+                "it": "Italiano",
+                "pt": "Português",
+                "choose": "Escolha a sua linguagem",
+            },
+            "months": {
+                "short": {
+                    "jan": "Jan",
+                    "feb": "Fev",
+                    "mar": "Mar",
+                    "apr": "Abr",
+                    "may": "Mai",
+                    "jun": "Jun",
+                    "jul": "Jul",
+                    "aug": "Ago",
+                    "sep": "Set",
+                    "oct": "Out",
+                    "nov": "Nov",
+                    "dec": "Dez",
+                },
+                "full": {
+                    "jan": "Janeiro",
+                    "feb": "Fevereiro",
+                    "mar": "Março",
+                    "apr": "Abril",
+                    "may": "Maio",
+                    "jun": "Junho",
+                    "jul": "Julho",
+                    "aug": "Agosto",
+                    "sep": "Setembro",
+                    "oct": "Outubro",
+                    "nov": "Novembro",
+                    "dec": "Dezembro",
+                },
+            },
+
+            "weekdays": {
+                "short": {
+                    "su": "Dom",
+                    "mo": "Seg",
+                    "tu": "Ter",
+                    "we": "Qua",
+                    "th": "Qui",
+                    "fr": "Sex",
+                    "sa": "Sab"
+                },
+                "full": {
+                    "su": "Domingo",
+                    "mo": "Segunda-feira",
+                    "tu": "Terça-feira",
+                    "we": "Quarta-feira",
+                    "th": "Quinta-feira",
+                    "fr": "Sexta-feira",
+                    "sa": "Sábado",
+                },
+                "word next": { // palavra "próximo" antes de um dia da semana
+                    "su": "próximo",
+                    "mo": "próxima",
+                    "tu": "próxima",
+                    "we": "próxima",
+                    "th": "próxima",
+                    "fr": "próxima",
+                    "sa": "próximo",
+                }
+            },
+            "texts": {
+                "open always": "O lugar está sempre aberto",
+                "unknown always": "Talvez o lugar sempre esteja aberto",
+                "closed always": "O lugar está fechado e não se sabe quando ele vai reabrir",
+                "open now": "O lugar está aberto agora",
+                "facilitiy which is open now": "Somente lugares que estão aberto agora",
+                "facilitiy which is open/unknown now": "Somente lugares que estão aberto agora ou que talvez estejam",
+                "facilitiy which is unknown now": "O lugar pode estar aberto agora",
+                "facilitiy which is closed now": "Somente lugares que estão fechados agora",
+                "unknown now": "O lugar pode estar aberto agora",
+                "closed now": "O lugar está fechado agora",
+                "will close": "Mas <a href=\"__href__\">vai</a> fechar __timestring__.",
+                "will unknown": "Mas talvez <a href=\"__href__\">vá</a> abrir __timestring__.",
+                "will open": "Mas <a href=\"__href__\">vai</a> abrir __timestring__.",
+                "depends on": ", Mas isso depende de __comment__.",
+                "week stable": "O horário é o mesmo toda semana.",
+                "not week stable": "Atenção! Este horário pode mudar em outras semanas.",
+                "value for": "Valor para a etiqueta",
+                "MatchingRule": "\"Substring\" usada pela regra aplicada", //como traduzir?
+                "warn error": "Mensagens de erro e avisos",
+                "prettified value": 'Valor "embelezado" da chave opening_hours (este valor pode ser utilizado no OSM sem problemas depois que todos os avisos tenham sido <a href="__copyFunc__">resolvidos</a>)',
+                "prettified value for displaying": "Exibição do valor \"embelezado\" da etiqueta \"opening_hours\" (inclui quebras de linha, não use isso como valor no OSM)",
+                "more information": "Para mais informações, veja a <a __href__>wiki do OSM</a>.",
+                "this website": "Este sítio e a biblioteca JavaScript usados para a avaliação dos horários de funcionamento são desenvolvidos no <a href=\"__url__\" target=\"_blank\">__hoster__</a>.",
+                "if PH is between Mo and Fr": "Somente se o feriado for um dia da semana (Mo-Fr)",
+                "check out error correction, prettify": "Verificar a correção dos erros e embelezar função para o valor da chave \"opening_hours\"",
+                "SH,PH or PH,SH": "Isso tem uma pequena diferença comparado com o valor anterior. Aqui os nomes dos feriados escolares vão ter prioridade sobre os nomes de outros tipos de feriados nos comentários.",
+                "config POIs": "Configurar Pontos de Interesse",
+                "reload map": "Recarregar mapa",
+                "heading map": "Mapa com uma camada para a etiqueta \"opening_hours\" baseado no OpenStreetMap",
+                "map is showing": '<a href="__mapUrl__">Sem o filtro</a> este mapa está mostrando como circulos coloridos os pontos que possuem a etiqueta <a rel="external" href="__wikiUrl__">opening_hours</a>:',
+                "error": "O valor não pode ser analisado",
+                "warning": "Se apareceram avisos durante a avaliação, um __sign__ azul vai aparecer na barra de estado",
+                "map filter": "Alguns filtros podem ser aplicados para encontrar e consertar erros (CQ) ou para mostrar somente lugares abertos ou fechados:",
+                "warnings only": "Somente avisos",
+                "error only": "Somente erros",
+                "data source": 'Os dados da camada vem de __APIaTag__. O mapa é __OSMaTag__.',
+                "mode 0": 'Somente intervalos de tempo são aceitos (etiquetas \"opening_hours\" e \"lit\")',
+                "mode 1": 'Somente pontos específicos no tempo são aceitos',
+                "mode 2": 'Intervalos de tempo e pontos específicos no tempo são aceitos (etiquetas \"service_times\" e \"collection_times\")',
+                "value to long for osm": 'O valor é longo demais para o OSM. O banco de dados do OpenStreetMap atualmente é limitado a valores de até __maxLength__ caracteres. O valor "embelezado" tem um comprimento de __pretLength__ e o valor que você digitou tem __valLength__ caracteres',
+                "low zoom level": 'Os Pontos de Interesse vão começar a aparecer em um nível de zoom maior ou igual a ${next}. Agora você está no nível de zoom ${actual}.',
+                "all n entries": 'Todos os __total__ resultados:',
+                "the first entries": 'Os primeiros __number__ de __total__ resultados:',
+                "load all with JOSM": 'Carregar tudo no JOSM',
+                "evaluation tool": 'Derramenta de avaliação',
+            },
+            "words": {
+                "mode": "Modo de avaliação",
+                "green": "verde",
+                "yellow": "amarelo",
+                "red": "vermelho",
+                "violet": "violeta",
+                "to": "até",
+                "and": "e",
+                "no": "sem",
+                "his": "dele",
+                "docu": "documentação",
+                "of course": "é claro",
+                "open": "Aberto de",
+                "unknown": "Desconhecido",
+                "closed": "Fechado",
+                "comment": "comentário",
+                "today": "hoje",
+                "tomorrow": "amanhã",
+                // "on weekday": "on", // not needed in this context
+                "on weekday": " ", // revisar esta
+                "in duration": "em",
+                "region": "Região",
+                "position": "Posição",
+                "lat": "Latitude",
+                "lon": "Longitude",
+                "country": "País",
+                "state": "Estado",
+                "status": "Estado",
+                "examples": "Exemplos", //revisar: maiusculo mesmo?
+                "none": "nenhum",
+                "date": "Data",
+                "time": { // __count__ Can not cover need for Russian language (one, several, many).
+                    "minute": "minuto",
+                    "minute_plural": "minutos",
+                    "minute many": "minutos",
+                    "hour": "hora",
+                    "hour_plural": "horas",
+                    "hour many": "horas",
+                    "day": "dia",
+                    "day_plural": "dias",
+                    "day many": "dias",
+                    "hours minutes sep": "e ",
+                    "now": "Agora",
+                    "time": "tempo",
+                },
+            },
+        },
+    }, // }}}
+    // Italian localization {{{
     it: { translation: {
             "lang": {
                 "en": "Inglese",
@@ -603,6 +778,7 @@ var resources = { // English is fallback language.
                 "de": "Tedesco",
                 "ru": "Russo",
                 "it": "Italiano",
+                "pt": "Portoghese",
                 "choose": "Scegli lingua",
             },
             "months": {
@@ -745,13 +921,13 @@ var resources = { // English is fallback language.
                 "date": "data",
                 "time": { // __count__ Can not cover need for Russian language (one, several, many).
                     "minute": "minuto",
-                    "minute plural": "minuti",
+                    "minute_plural": "minuti",
                     "minute many": "minuti",
                     "hour": "ora",
-                    "hour plural": "ore",
+                    "hour_plural": "ore",
                     "hour many": "ore",
                     "day": "giorno",
-                    "day plural": "giorni",
+                    "day_plural": "giorni",
                     "day many": "giorni",
                     "hours minutes sep": "e ",
                     "now": "adesso",
@@ -759,14 +935,10 @@ var resources = { // English is fallback language.
                 },
             },
         },
-    },
+    }, // }}}
 };
 
-function translatePage() { // Gets called when localization is loaded.
-    // $(".lang").i18n();
-    // $("headline").i18n();
-}
-
+// Functions which generate localized HTML sections {{{
 function getUserSelectTranslateHTMLCode() {
     var res = i18n.t('lang.choose')
             + (i18n.lng() !== 'en' ? ' ('+ i18n.t('lang.choose', { lng: 'en' }) +')' : '' )
@@ -781,6 +953,13 @@ function getUserSelectTranslateHTMLCode() {
     }
     return res;
 }
+// }}}
+
+// Initialization code {{{
+function translatePage() { // Gets called when localization is loaded.
+    // $(".lang").i18n();
+    // $("headline").i18n();
+}
 
 i18n.init({
         fallbackLng: 'en',
@@ -789,4 +968,5 @@ i18n.init({
         useCookie: true,
         debug: true
     }, translatePage);
+// }}}
 // }}}

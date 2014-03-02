@@ -54,12 +54,13 @@ var OpeningHoursTable = {
     pad: function (n) { return n < 10 ? '0'+n : n; },
 
     plural: function (n, trans_base) {
-        if (n % 10 >= 5 || n % 10 == 0 || (n % 100 >= 10 && n % 100 < 20)) {
-            return i18n.t(trans_base + ' many');
-        } else if (n % 10 < 2) {
+        if (n == 1) {
             return i18n.t(trans_base); // singular form
+        } else if (n < 2) { // FIXME: Is this correct for Russian?
+            return i18n.t(trans_base + ' many');
+        } else {
+            return i18n.t(trans_base + '_plural');
         }
-        return i18n.t(trans_base + ' plural');
     },
 
     printDate: function (date) {
