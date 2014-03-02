@@ -48,10 +48,15 @@ STD_REGEX = ('PH', 'SH', '.',
     r'(?:dusk|sun|dawn|\d{1,2}[.:]\d{2})\+',
     r'\d\s*-\s*(mo|tu|we|th|fr|sa|su)\\b',
     r'-\s*\d{1,2}[:.]\d{2}\s*?\+',
-    r'[^0-9a-z .]\s*?-\s*?\d{1,2}:\d{2}\s*?[^-+]',
+    r'[^0-9a-z ?.]\s*?-\s*?\d{1,2}:\d{2}\s*?[^+]',
     # Start time not specified (not in the syntax specification).
     # Opposite to open end.
+    # http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_until#Notes
+    #
     r'\d{1,2}:\d{2}\s*?-\s*?\d{1,2}:\d{2}\s*?\+', # 12:00-14:00+
+    # http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_end_fixed_time_extension#Summary
+    #
+    r'^(?:(?:[0-1][0-9]|2[0-4])(?:[1-5][0-9]|0[0-9])\s*-?\s*){2}$', # match 1700-2300
     )
 
 readline.parse_and_bind("tab: complete")
