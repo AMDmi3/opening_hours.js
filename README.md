@@ -431,7 +431,7 @@ The current results of this test are also tracked in the repository and can be v
 ### Large scale ###
 To see how this library performance in the real OpenStreetMap world you can run ```make real_test``` or ```node real_test.js``` (data needs to be exported first) to try to process every value which uses the opening_hours syntax from [taginfo][] with this library.
 
-Currently (October 2013) this library can parse 95 % of all opening_hours values in OSM. If identical values appear multiple times then each value counts.
+Currently (March 2014) this library can parse 97 % (245639/253588) of all opening_hours values in OSM. If identical values appear multiple times then each value counts.
 
 ### Small scale ###
 Python script to search with regular expressions over OSM opening_hours style tags is bundled. You can run it with ```make regex_search``` or ```./regex_search``` which will search on the opening_hours tag. To search over different tags either use ```make regex_search SEARCH=$tagname``` (this also makes sure that the tag you would like to search on will be downloaded if necessary) or run ```./regex_search $path_to_downloaded_taginfo_json_file```.
@@ -454,7 +454,7 @@ Testing is much easier by now. Have a look at the [evaluation tool](#evaluation-
 
 Simple node.js based benchmark is bundled. You can run it with ```node benchmark.js``` or with ```make benchmark```.
 
-On author's Intel Core i5-2400 library allows ~20k/sec constructor calls and ~10k/sec openIntervals() calls with one week period. This may further improve in future.
+On author's Intel Core i5-2540M CPU @ 2.60GHz library allows ~8k/sec constructor calls and ~2.5k/sec openIntervals() calls with one week period. This may further improve in future.
 
 ## Used by other projects
 This library is used in the following projects:
