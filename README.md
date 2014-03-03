@@ -23,11 +23,20 @@ Please have a look at the [evaluation tool][] which can give you an impression h
 [evaluation tool]: http://openingh.openstreetmap.de/evaluation_tool/
 
 ## Install
+
+### For Developer
 Just clone the repository:
 
 ```
 git clone --recursive https://github.com/ypid/opening_hours.js.git
 ```
+
+and install it’s dependencies:
+```
+npm install
+```
+
+### Web developer
 
 If you are a web developer and want to use this library you can do so by including the current version from here:
 
@@ -40,6 +49,10 @@ However, before you load opening_hours.js you have to load its dependencies (eit
 ```
 http://openingh.openstreetmap.de/evaluation_tool/js/suncalc/suncalc.js
 ```
+
+### NodeJS developer
+
+This library is on packaged with npm under the name [opening_hours](https://www.npmjs.org/package/opening_hours) so you should have no problem using it.
 
 ## Synopsis
 
