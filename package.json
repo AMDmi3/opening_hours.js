@@ -1,6 +1,6 @@
 {
 	"name": "opening_hours",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"author": "Dmitry Marakasov <amdmi3@amdmi3.ru>",
 	"contributors": [
 		{
@@ -12,15 +12,11 @@
 	"main": "opening_hours.js",
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/AMDmi3/opening_hours.js.git"
+		"url": "https://github.com/ypid/opening_hours.js"
 	},
-	"_comment": "suncalc is currently included in this repo as submodule. This should be changed when uploading it to npmjs.",
-	"_dependencies": {
+	"dependencies": {
 		"suncalc": ">=1.2.1"
 	},
-	"bundledDependencies": [
-		"suncalc"
-	],
 	"devDependencies": {
 		"colors": ">=0.6.2",
 		"sprintf": ">=0.1.3"
