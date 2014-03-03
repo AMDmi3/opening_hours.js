@@ -33,7 +33,7 @@ rl.on('line', function (cmd) {
         }
     }
 
-    var result = {};
+    var result = { 'needed_nominatiom_json': needed_nominatiom_json };
     if (crashed) {
         result.error = true;
         result.eval_notes = crashed;
@@ -47,6 +47,8 @@ rl.on('line', function (cmd) {
         result.state_string  = oh.getStateString();
         result.next_change   = oh.getNextChange();
         result.matching_rule = oh.getMatchingRule();
+        result.matching_rule = oh.getMatchingRule();
+        result.prettified    = oh.prettifyValue();
     }
     console.log(JSON.stringify(result, null, '\t') + '\n');
 
@@ -55,4 +57,4 @@ rl.on('line', function (cmd) {
     process.exit(0);
 });
 
-console.info('You can enter your opening_hours like value and hit enter to evaluate. The first boolean returned is the exit code, the second is one if location information was needed.');
+console.info('You can enter your opening_hours like value and hit enter to evaluate. The result will be returned is represented as JSON.');
