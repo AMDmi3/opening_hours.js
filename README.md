@@ -31,7 +31,7 @@ Just clone the repository:
 git clone --recursive https://github.com/ypid/opening_hours.js.git
 ```
 
-and install it’s dependencies:
+and install it’s dependencies (execute inside the repository):
 ```
 npm install
 ```
@@ -52,7 +52,7 @@ http://openingh.openstreetmap.de/evaluation_tool/js/suncalc/suncalc.js
 
 ### NodeJS developer
 
-This library is on packaged with npm under the name [opening_hours](https://www.npmjs.org/package/opening_hours) so you should have no problem using it.
+This library is packaged with npm and is available under the name [opening_hours](https://www.npmjs.org/package/opening_hours) so you should have no problems using it.
 
 ## Synopsis
 
