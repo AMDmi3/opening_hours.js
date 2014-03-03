@@ -18,7 +18,7 @@ rl.on('line', function (cmd) {
     var warnings = [];
     try {
         oh = new opening_hours(cmd);
-        warnings   = oh.getWarnings();
+        warnings = oh.getWarnings();
         if (typeof warnings != 'object')
             console.error(warnings);
         // prettified = oh.prettifyValue();
@@ -33,22 +33,26 @@ rl.on('line', function (cmd) {
         }
     }
 
+    var result = {};
     if (crashed) {
+        result.error = true;
+        result.eval_notes = crashed;
         console.log('1 ' + crashed);
     } else {
-        var comment = oh.getComment();
-        if (typeof comment === 'undefined')
-            comment = '>>no comment<<';
-
-        var state = oh.getState() ? 'open   ' : (oh.getUnknown() ? 'unknown' : 'closed ');
-        console.log('0 ' + (needed_nominatiom_json ? 1 : 0), (warnings.length > 0 ? 1 : 0), state, '"' + comment + '"');
-        // console.log(prettified);
-        if (args[0] != '--no-warnings' && warnings.length > 0)
-            console.log(warnings.join('\n'));
+        result.error         = false;
+        result.eval_notes    = warnings;
+        result.comment       = oh.getComment();
+        result.state         = oh.getState();
+        result.unknown       = oh.getUnknown();
+        result.state_string  = oh.getStateString();
+        result.next_change   = oh.getNextChange();
+        result.matching_rule = oh.getMatchingRule();
     }
+    console.log(JSON.stringify(result, null, '\t') + '\n');
+
 }).on('close', function() {
     console.log('\nBye');
     process.exit(0);
 });
 
-console.log('You can enter your opening_hours like value and hit enter to evaluate. The first boolean returned is the exit code, the second is one if location information was needed.');
+console.info('You can enter your opening_hours like value and hit enter to evaluate. The first boolean returned is the exit code, the second is one if location information was needed.');
