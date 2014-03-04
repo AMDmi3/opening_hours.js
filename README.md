@@ -23,11 +23,20 @@ Please have a look at the [evaluation tool][] which can give you an impression h
 [evaluation tool]: http://openingh.openstreetmap.de/evaluation_tool/
 
 ## Install
+
+### For Developer
 Just clone the repository:
 
 ```
 git clone --recursive https://github.com/ypid/opening_hours.js.git
 ```
+
+and install it’s dependencies (execute inside the repository):
+```
+npm install
+```
+
+### Web developer
 
 If you are a web developer and want to use this library you can do so by including the current version from here:
 
@@ -40,6 +49,10 @@ However, before you load opening_hours.js you have to load its dependencies (eit
 ```
 http://openingh.openstreetmap.de/evaluation_tool/js/suncalc/suncalc.js
 ```
+
+### NodeJS developer
+
+This library is packaged with npm and is available under the name [opening_hours](https://www.npmjs.org/package/opening_hours) so you should have no problems using it.
 
 ## Synopsis
 
@@ -524,7 +537,7 @@ Note that there is a git pre-commit hook used to run and compare the test framew
 
 ## Credits ##
 
-* [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favor of opening_hours.js but a few parts where reused (mainly the error tolerance and the online evaluation for the [demo page](#evaluation-tooldemohtml)). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
+* [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favor of opening_hours.js but a few parts where reused (mainly the input tolerance and the online evaluation for the [demo page](#evaluation-tooldemohtml)). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
 
 ## License ##
 
