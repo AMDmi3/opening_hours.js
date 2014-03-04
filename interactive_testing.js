@@ -35,9 +35,8 @@ rl.on('line', function (cmd) {
 
     var result = { 'needed_nominatiom_json': needed_nominatiom_json };
     if (crashed) {
-        result.error = true;
+        result.error      = true;
         result.eval_notes = crashed;
-        console.log('1 ' + crashed);
     } else {
         result.error         = false;
         result.eval_notes    = warnings;
@@ -49,6 +48,7 @@ rl.on('line', function (cmd) {
         result.matching_rule = oh.getMatchingRule();
         result.matching_rule = oh.getMatchingRule();
         result.prettified    = oh.prettifyValue();
+        result.week_stable   = oh.isWeekStable();
     }
     console.log(JSON.stringify(result, null, '\t') + '\n');
 

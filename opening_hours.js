@@ -3882,14 +3882,14 @@
 
 		// Simple API {{{
 
-		// get parse warnings
-		// returns an empty string if there are no warnings
+		// Get parse warnings.
+		// Returns an empty string if there are no warnings.
 		this.getWarnings = function() {
 			var it = this.getIterator();
 			return getWarnings(it);
 		}
 
-		// get a nicely formated value.
+		// Get a nicely formated value.
 		this.prettifyValue = function(user_conf) {
 			if (typeof user_conf != 'object')
 				var user_conf = {};
@@ -3944,7 +3944,7 @@
 			return prettified_value;
 		}
 
-		// check whether facility is `open' on the given date (or now)
+		// Check whether facility is `open' on the given date (or now).
 		this.getState = function(date) {
 			var it = this.getIterator(date);
 			return it.getState();
@@ -3953,7 +3953,7 @@
 		// If the state of a amenity is conditional. Conditions can be expressed in comments.
 		// True will only be returned if the state is false as the getState only
 		// returns true if the amenity is really open. So you may want to check
-		// the resold of getUnknown if getState returned false.
+		// the result of getUnknown if getState returned false.
 		this.getUnknown = function(date) {
 			var it = this.getIterator(date);
 			return it.getUnknown();
@@ -3966,19 +3966,19 @@
 		}
 
 		// Returns the comment.
-		// Most often this will be an empty string as comments are not used that
-		// often in OSM yet.
+		// If no comment is specified this function will return undefined.
 		this.getComment = function(date) {
 			var it = this.getIterator(date);
 			return it.getComment();
 		}
 
+		// Return the block which matched thus deterrents the current state.
 		this.getMatchingRule = function(date) {
 			var it = this.getIterator(date);
 			return it.getMatchingRule();
 		}
 
-		// returns time of next status change
+		// Returns time of next status change.
 		this.getNextChange = function(date, maxdate) {
 			var it = this.getIterator(date);
 			if (!it.advance(maxdate))
@@ -3986,6 +3986,7 @@
 			return it.getDate();
 		}
 
+		// Checks whether open intervals are same for every week.
 		this.isWeekStable = function() {
 			return week_stable;
 		}

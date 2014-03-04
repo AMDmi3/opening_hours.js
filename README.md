@@ -159,7 +159,7 @@ function getReadableState(startString, endString, oh, past) {
 	The function excepts one optional argument which must be a hash. This hash can hold configuration options. One example: ```{ block_sep_string: '\n', print_semicolon: false }```. Look in the source code if you need more.
 
 * ```javascript
-  var every_week_is_same = oh.isWeekSame();
+  var every_week_is_same = oh.isWeekStable();
   ```
 
   Checks whether open intervals are same for every week. Useful for giving a user hint whether time table may change for another week.
@@ -266,10 +266,12 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   Checks whether the opening state is conditional or unknown at the current iterator position in time.
 
 * ```javascript
-  var state_string = iterator.getStateString();
+  var state_string = iterator.getStateString(past);
   ```
 
-	Return state string. Either 'open', 'unknown' or 'closed'.
+	Return state string. Either 'open', 'unknown' or 'closed?'.
+
+	If the boolean parameter `past` is true you will get 'closed' else you will get 'close'.
 
 * ```javascript
  	var comment = iterator.getComment();

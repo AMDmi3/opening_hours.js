@@ -12,6 +12,7 @@ import signal
 import subprocess
 import urllib
 import readline
+from osm_time.OpeningHours import OpeningHours, ParseException
 # }}}
 
 # interpreter input history and predefined regexs {{{
@@ -93,37 +94,8 @@ def load_json_file(json_file):
     return decoded_json
 # }}}
 
-# setup the connection to opening_hours.js {{{
-def setup_oh_interpreter():
-    """Setup the connection to opening_hours.js"""
-
-    subprocess_param = ['node', 'interactive_testing.js', '--no-warnings']
-    try:
-        oh_interpreter = subprocess.Popen(
-                subprocess_param,
-                stdout=subprocess.PIPE,
-                stdin=subprocess.PIPE
-            )
-    except OSError:
-        subprocess_param[0] = 'nodejs'
-        try:
-            oh_interpreter = subprocess.Popen(
-                    subprocess_param,
-                    stdout=subprocess.PIPE,
-                    stdin=subprocess.PIPE
-                )
-        except OSError:
-            sys.stderr.write('You need to install nodejs.')
-            sys.exit(1)
-
-    oh_interpreter.stdout.readline()
-    # read description (meant for humans) from interactive_testing.js
-
-    return oh_interpreter
-# }}}
-
 # run interpreter {{{
-def run_interpreter(oh_interpreter, taginfo_tag_export, key, do_not_load_values_again):
+def run_interpreter(taginfo_tag_export, key, do_not_load_values_again):
     """Start the interactive shell for the user."""
 
     overpass_turbo_url = 'http://overpass-turbo.eu/' \
@@ -169,11 +141,12 @@ def run_interpreter(oh_interpreter, taginfo_tag_export, key, do_not_load_values_
             for taginfo_hash, res in matched:
                 total_in_use += taginfo_hash['count']
                 if do_parse_all_values_before:
-                    oh_interpreter.stdin.write(taginfo_hash['value'].encode('utf-8') + '\n')
-                    oh_res = oh_interpreter.stdout.readline().strip()
-                    oh_ok  = 0 if int(oh_res[0]) else 1
-                    passed_diff_values += oh_ok
-                    total_passed += oh_ok * taginfo_hash['count']
+                    try:
+                        oh_result = OpeningHours(taginfo_hash['value'].encode('utf-8'))
+                    except ParseException as e:
+                        continue
+                    passed_diff_values += 1
+                    total_passed += taginfo_hash['count']
 
             if do_parse_all_values_before:
                 passed_diff_values = ' (%d passed)' % passed_diff_values
@@ -208,19 +181,21 @@ def run_interpreter(oh_interpreter, taginfo_tag_export, key, do_not_load_values_
                         # match the real printed lines so how cares …
                         if not re.match(r'^(y.*|)$', raw_input('Continue? '), re.I):
                             break
-                    oh_interpreter.stdin.write(taginfo_hash['value'].encode('utf-8') + '\n')
-                    oh_res = oh_interpreter.stdout.readline().strip()
-                    oh_ok  = False if oh_res[0] == '1' else True
-                    oh_loc_needed = ', loc needed' if oh_res[2] == '1' else ''
-                    # location (provided by nominatiom JSON)
-                    oh_warnings   = ', warnings'   if oh_res[4] == '1' else ''
+                    oh_ok = True
+                    try:
+                        oh_result = OpeningHours(taginfo_hash['value'].encode('utf-8'))
+                    except ParseException as e:
+                        oh_ok = False
+                        continue
+                    oh_loc_needed = ', loc needed' if oh_result._neededNominatiomJson() else ''
+                    oh_warnings   = ', warnings'   if oh_result.getWarnings() else ''
                     if oh_ok:
                         passed_failed = {
-                                'open   ' : colored('Passed', 'green'),
+                                'open'    : colored('Passed', 'green'),
                                 'unknown' : colored('Passed', 'magenta'),
-                                'closed ' : colored('Passed', 'blue'),
-                            }[oh_res[6:13]]
-                    else:
+                                'close'  : colored('Passed', 'blue'),
+                            }[oh_result.getStateString()]
+                    else                  :
                         passed_failed = colored('Failed', 'red')
                         oh_loc_needed = ''
                         oh_warnings   = ''
@@ -290,12 +265,10 @@ def main():
     taginfo_tag_export = load_json_file(json_file)
     print 'Loaded %s.' % json_file
 
-    oh_interpreter = setup_oh_interpreter()
-
     with open('testing', 'r') as f:
         do_not_load_values_again = [line.rstrip('\n').decode('utf-8') for line in f]
 
-    run_interpreter(oh_interpreter, taginfo_tag_export, key, do_not_load_values_again)
+    run_interpreter(taginfo_tag_export, key, do_not_load_values_again)
 
     with open('testing', 'w') as f:
         for s in do_not_load_values_again:
