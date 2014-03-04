@@ -1,7 +1,7 @@
 {
 	"name"        : "opening_hours",
 	"description" : "Library to parse and process opening_hours tag from OpenStreetMap data",
-	"version"     : "2.1.6",
+	"version"     : "2.1.7",
 	"author"      : "Dmitry Marakasov <amdmi3@amdmi3.ru>",
 	"homepage"    : "https://github.com/ypid/opening_hours.js",
 	"contributors": [

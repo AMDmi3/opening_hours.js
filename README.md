@@ -16,15 +16,15 @@ a library which works from 12:00 to 18:00 on workdays except Wednesday, and from
 
 around-the-clock shop with some breaks.
 
-## evaluation tool/demo.html
+## evaluation tool/demo.html ##
 
 Please have a look at the [evaluation tool][] which can give you an impression how this library can be used and what it is capable of.
 
 [evaluation tool]: http://openingh.openstreetmap.de/evaluation_tool/
 
-## Install
+## Install ##
 
-### For Developer
+### For Developer ###
 Just clone the repository:
 
 ```
@@ -36,7 +36,7 @@ and install it’s dependencies (execute inside the repository):
 npm install
 ```
 
-### Web developer
+### Web developer ###
 
 If you are a web developer and want to use this library you can do so by including the current version from here:
 
@@ -50,11 +50,11 @@ However, before you load opening_hours.js you have to load its dependencies (eit
 http://openingh.openstreetmap.de/evaluation_tool/js/suncalc/suncalc.js
 ```
 
-### NodeJS developer
+### NodeJS developer ###
 
 This library is packaged with npm and is available under the name [opening_hours](https://www.npmjs.org/package/opening_hours) so you should have no problems using it.
 
-## Synopsis
+## Synopsis ##
 
 ```javascript
 var oh = new opening_hours('We 12:00-14:00');
@@ -123,7 +123,7 @@ function getReadableState(startString, endString, oh, past) {
 }
 ```
 
-## Library API
+## Library API ##
 
 * ```javascript
   var oh = new opening_hours('We 12:00-14:00', nominatiomJSON, mode);
@@ -164,7 +164,7 @@ function getReadableState(startString, endString, oh, past) {
 
   Checks whether open intervals are same for every week. Useful for giving a user hint whether time table may change for another week.
 
-### High-level API
+### High-level API ###
 
 Here and below, unless noted otherwise, all arguments are expected to be and all output will be in the form of Date objects.
 
@@ -182,7 +182,7 @@ Here and below, unless noted otherwise, all arguments are expected to be and all
 
   Returns an array with two durations for a given date range, in milliseconds. The first element is the duration for which the facility is open and the second is the duration for which the facility is maybe open (unknown is used).
 
-### Simple API
+### Simple API ###
 
 This API is useful for one-shot checks, but for iteration over intervals you should use the more efficient **Iterator API**.
 
@@ -233,7 +233,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   A opening_hours string can consist of multiple rules (or internally called blocks) from which one of them is used for a given point in time. If no rule applies, the state will be closed and this function returns undefined.
 
 
-### Iterator API
+### Iterator API ###
 
 * ```javascript
   var iterator = oh.getIterator(date);
@@ -295,7 +295,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
 
   For instance, returns false if the iterator would go beyond *limit* or if there's no next position (```24/7``` case).
 
-## Features
+## Features ##
 
 Almost everything from opening_hours definition is supported, as well as some extensions (indicated as **EXT:** below).
 
@@ -461,9 +461,9 @@ To improve the speed of fixing errors, a [feature](https://github.com/ypid/openi
 [taginfo]: http://taginfo.openstreetmap.org/
 
 ## Test it yourself (the geeky way) ##
-You want to try some opening_hours yourself? Just run ```make interactive_testing``` or ```node interactive_testing.js``` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message). The number in the beginning of the returned line can be read as exit code (0 means the value could be processed and 1 means an critical error appeared during parsing). The second number indicates if additional location information (nominatim JSON) where necessary to parse the value (e.g. value contains holidays). The third number is one if the parsing did throw warnings (singular or plural).
+You want to try some opening_hours yourself? Just run ```make interactive_testing``` or ```node interactive_testing.js``` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message). In return you will get an JSON blob as answer.
 
-Testing is much easier by now. Have a look at the [evaluation tool](#evaluation-tooldemohtml). The reason way this peace of code was written is to have an interface which can be accessed from other programming languages. It is used by the python program [regex\_search](#small-scale).
+Testing is much easier by now. Have a look at the [evaluation tool](#evaluation-tooldemohtml). The reason way this peace of code was written is to have an interface which can be accessed from other programming languages. It is used by the python module [pyopening\_hours][].
 
 ## Performance ##
 
@@ -471,7 +471,7 @@ Simple node.js based benchmark is bundled. You can run it with ```node benchmark
 
 On author's Intel Core i5-2540M CPU @ 2.60GHz library allows ~8k/sec constructor calls and ~2.5k/sec openIntervals() calls with one week period. This may further improve in future.
 
-## Used by other projects
+## Used by other projects ##
 This library is used in the following projects:
 
 * [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours) (old version of this library)
@@ -488,7 +488,7 @@ This library is used in the following projects:
 
 [fossgis-project]: http://wiki.openstreetmap.org/wiki/FOSSGIS/Server/Projects/opening_hours.js
 
-## ToDo
+## ToDo ##
 List of missing features which can currently not be expressing in any other way without much pain.
 Please share your opinion on the [talk page](http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours) (or the discussion page to the proposal if that does exist) if you have any idea how to express this (better).
 
