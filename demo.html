@@ -239,6 +239,7 @@
 			window.onload = function () {
 				var prmarr = window.location.search.replace( "?", "" ).split("&");
 				var params = {};
+				var customCoords = false;
 
 				for ( var i = 0; i < prmarr.length; i++) {
 					var tmparr = prmarr[i].split("=");
@@ -249,9 +250,11 @@
 				}
 				if (typeof params['lat'] != 'undefined') {
 					document.forms.check.elements['lat'].value = decodeURIComponent(params['lat']);
+					customCoords = true;
 				}
 				if (typeof params['lon'] != 'undefined') {
 					document.forms.check.elements['lon'].value = decodeURIComponent(params['lon']);
+					customCoords = true;
 				}
 				if (typeof params['mode'] != 'undefined') {
 					document.forms.check.elements['mode'].value = decodeURIComponent(params['mode']);
@@ -275,7 +278,7 @@
 				} else {
 					Evaluate(0, true);
 				}
-				if(navigator.geolocation)
+				if(navigator.geolocation && !customCoords)
 					navigator.geolocation.getCurrentPosition(onPositionUpdate);
 			};
 
