@@ -477,8 +477,10 @@ This library is used in the following projects:
 * [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours) (old version of this library)
 * [JOSM](http://josm.openstreetmap.de/) ([ticket for integration](http://josm.openstreetmap.de/ticket/9157))
 * [opening\_hours\_map][]
+* [pyopening\_hours][] (python module for opening_hours.js)
 
 [opening\_hours\_map]: https://github.com/ypid/opening_hours_map
+[pyopening\_hours]: https://github.com/ypid/pyopening_hours
 
 ## Related links ##
 

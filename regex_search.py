@@ -12,6 +12,7 @@ import signal
 import subprocess
 import urllib
 import readline
+sys.path.append('pyopening_hours/')
 from osm_time.OpeningHours import OpeningHours, ParseException
 # }}}
 

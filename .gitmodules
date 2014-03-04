@@ -1,0 +1,3 @@
+[submodule "pyopening_hours"]
+	path = pyopening_hours
+	url = https://github.com/ypid/pyopening_hours
