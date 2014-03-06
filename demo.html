@@ -62,8 +62,8 @@
 				if (document.forms.check.elements['lat'].value !== string_lat || document.forms.check.elements['lon'].value !== string_lon) {
 					string_lat = document.forms.check.elements['lat'].value;
 					string_lon = document.forms.check.elements['lon'].value;
-					lat = parseInt(string_lat);
-					lon = parseInt(string_lon);
+					lat = parseFloat(string_lat);
+					lon = parseFloat(string_lon);
 					if (typeof lat != 'number' || typeof lon != 'number') {
 						if (typeof lat != 'number')
 							document.forms.check.elements['lat'].value = def_lat;
@@ -239,6 +239,7 @@
 			window.onload = function () {
 				var prmarr = window.location.search.replace( "?", "" ).split("&");
 				var params = {};
+				var customCoords = false;
 
 				for ( var i = 0; i < prmarr.length; i++) {
 					var tmparr = prmarr[i].split("=");
@@ -249,9 +250,11 @@
 				}
 				if (typeof params['lat'] != 'undefined') {
 					document.forms.check.elements['lat'].value = decodeURIComponent(params['lat']);
+					customCoords = true;
 				}
 				if (typeof params['lon'] != 'undefined') {
 					document.forms.check.elements['lon'].value = decodeURIComponent(params['lon']);
+					customCoords = true;
 				}
 				if (typeof params['mode'] != 'undefined') {
 					document.forms.check.elements['mode'].value = decodeURIComponent(params['mode']);
@@ -275,7 +278,7 @@
 				} else {
 					Evaluate(0, true);
 				}
-				if(navigator.geolocation)
+				if(navigator.geolocation && !customCoords)
 					navigator.geolocation.getCurrentPosition(onPositionUpdate);
 			};
 
