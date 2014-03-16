@@ -133,7 +133,7 @@ function getReadableState(startString, endString, oh, past) {
 
   Throws an error string if the expression is malformed or unsupported.
 
-  * nominatiomJSON (optional): In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges](#time-ranges)) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for by using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim][] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=5&addressdetails=1) and you are good to go. Note that this second parameter is optional. The data returned by Nominatim should be in the local language (the language of the country for which the opening hours apply). If not *accept-language* can be used as parameter in the request URL.
+  * nominatiomJSON (optional): In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges][ohlib.time-ranges]) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for by using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim][] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=5&addressdetails=1) and you are good to go. Note that this second parameter is optional. The data returned by Nominatim should be in the local language (the language of the country for which the opening hours apply). If not *accept-language* can be used as parameter in the request URL.
 
   * mode (optional): In OSM, the syntax originally designed to describe opening hours is now used to describe a few other things as well. Some of those other tags work with points in time instead of time ranges. To support this the mode can be specified. If there is no mode specified, opening_hours.js will only operate with time ranges and will throw an error message when points in times are used in the value.
 
@@ -323,13 +323,13 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Supports sets of time ranges (```10:00-12:00,14:00-16:00```)
 	* **WARN:** Accept ```10-12,14-16``` as abbreviation for the previous example. Please don’t use this as this is not very explicit.
   * Correctly supports ranges wrapping over midnight (```10:00-26:00```, ```10:00-02:00```)
-* Supports 24/7 keyword (```24/7```, which means always open. Use [state keywords](#states) to express always closed.)
+* Supports 24/7 keyword (```24/7```, which means always open. Use [state keywords][ohlib.states] to express always closed.)
   * **WARN:** 24/7 is handled as a synonym for ```00:00-24:00```, so ```Mo-Fr 24/7``` (though not really correct, because of that you should avoid it or replace it with "open". A warning will be given if you use it anyway for that purpose) will be handled correctly
 
 		*The use of 24/7 as synonym is never needed and should be avoided in cases where it does not mean 24/7.* In cases where a facility is really open 24 hours 7 days a week thats where this value is for.
 * **EXT:** Supports omitting time range (```Mo-Fr; Tu off```)
 * **EXT:** Supports space as time interval separator, i.e. ```Mo 12:00-14:00,16:00-20:00``` and ```Mo 12:00-14:00 16:00-20:00``` are the same thing
-* Complete support for dawn/sunrise/sunset/dusk (variable times) keywords (```10:00-sunset```, ```dawn-dusk```). To calculate the correct values, the latitude and longitude are required which are included in the JSON returned by [Nominatim] \(see in the [Library API](#library-api) how to provide it\). The calculation is done by [suncalc][].
+* Complete support for dawn/sunrise/sunset/dusk (variable times) keywords (```10:00-sunset```, ```dawn-dusk```). To calculate the correct values, the latitude and longitude are required which are included in the JSON returned by [Nominatim] \(see in the [Library API][ohlib.library-api] how to provide it\). The calculation is done by [suncalc][].
 
  If the coordinates are missing, constant times will be used (dawn: '05:30', sunrise: '06:00', sunset: '18:00', dusk: '18:30').
 
@@ -383,7 +383,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
   1. ```Mo-Fr,PH```: The facility is open Mo-Fr and PH. If PH is a Sunday for example the facility is also open. This is the default case.
   2. **EXT:** ```PH Mo-Fr```: The facility is only open if a PH falls on Mo-Fr. For example if a PH is on the weekday Wednesday then the facility will be open, if PH is Saturday it will be closed.
 * If there is no comment specified by the rule, the name of the holiday is used as comment.
-* To evaluate the correct holidays, the country code and the state (could be omitted but this will probably result in less exactitude) are required which are included in the JSON returned by [Nominatim] \(see in the [Library API](#library-api) how to provide it\).
+* To evaluate the correct holidays, the country code and the state (could be omitted but this will probably result in less exactitude) are required which are included in the JSON returned by [Nominatim] \(see in the [Library API][ohlib.library-api] how to provide it\).
 * If your country or state is missing or wrong you can add it or open an [issue][issue-report] (and point to a definition of the holidays).
 
 ### Year ranges ###
@@ -432,7 +432,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Supports (additional) comments (```Mo unknown "on appointment"; Th-Fr 09:00-18:00 open "female only"; Su closed "really"```)
   * The string which is delimited by double-quotes can contain any character (except a double-quote sign)
   * instead of "closed" "off" will also work
-  * unknown can be omitted (just a comment (without [state](#states)) will also result in unknown)
+  * unknown can be omitted (just a comment (without [state][ohlib.states]) will also result in unknown)
   * value can also be just a double-quoted string (```"on appointment"```) which will result in unknown for any given time.
 
 ## Test ##
@@ -463,7 +463,7 @@ To improve the speed of fixing errors, a [feature](https://github.com/ypid/openi
 ## Test it yourself (the geeky way) ##
 You want to try some opening_hours yourself? Just run ```make interactive_testing``` or ```node interactive_testing.js``` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message). In return you will get an JSON blob as answer.
 
-Testing is much easier by now. Have a look at the [evaluation tool](#evaluation-tooldemohtml). The reason way this peace of code was written is to have an interface which can be accessed from other programming languages. It is used by the python module [pyopening\_hours][].
+Testing is much easier by now. Have a look at the [evaluation tool][ohlib.evaluation-tooldemohtml]. The reason way this peace of code was written is to have an interface which can be accessed from other programming languages. It is used by the python module [pyopening\_hours][].
 
 ## Performance ##
 
@@ -510,15 +510,15 @@ List of features which can make writing easier:
 ## Author ##
 
 * [Dmitry Marakasov](https://github.com/AMDmi3) <amdmi3@amdmi3.ru> (initial coding and design and all basic features like time ranges, week ranges, month ranges and week ranges)
-* [Robin Schneider](https://github.com/ypid)   (Current maintainer. Added support for years, holidays, unknown, comments, open end, fallback/additional rules (and more), wrote getWarnings, prettifyValue, translated [demo page](#evaluation-tooldemohtml) to English and German and extended it to enter values yourself.)
+* [Robin Schneider](https://github.com/ypid)   (Current maintainer. Added support for years, holidays, unknown, comments, open end, fallback/additional rules (and more), wrote getWarnings, prettifyValue, translated [demo page][ohlib.evaluation-tooldemohtml] to English and German and extended it to enter values yourself.)
 
 ## Contributors ##
 
-* [Sergey Leschina](https://github.com/putnik)   ([demo](#evaluation-tooldemohtml) improvements)
+* [Sergey Leschina](https://github.com/putnik)   ([demo][ohlib.evaluation-tooldemohtml] improvements)
 * [don-vip](https://github.com/don-vip)          (French localization and public holidays for France)
 * [Charly Koza](https://github.com/Cactusbone)   (fixed package.json)
 * [Simon B.](https://github.com/sesam)           (improved understandability of overlapping rules in README.md)
-* [NonnEmilia](https://github.com/NonnEmilia)    (Italian localization)
+* [NonnEmilia](https://github.com/NonnEmilia)    (Italian localization and fixes in the [demo page][ohlib.evaluation-tooldemohtml].)
 * [João G. Packer](https://github.com/jgpacker)  (Portuguese localization)
 
 ## How to contribute ##
@@ -541,7 +541,7 @@ Note that there is a git pre-commit hook used to run and compare the test framew
 
 ## Credits ##
 
-* [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favor of opening_hours.js but a few parts where reused (mainly the input tolerance and the online evaluation for the [demo page](#evaluation-tooldemohtml)). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
+* [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favor of opening_hours.js but a few parts where reused (mainly the input tolerance and the online evaluation for the [demo page][ohlib.evaluation-tooldemohtml]). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
 
 ## License ##
 
@@ -553,3 +553,9 @@ Note that there is a git pre-commit hook used to run and compare the test framew
 [formal specification]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification
 [fallback rules]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#rule1
 [additional rules]: http://wiki.openstreetmap.org/wiki/Key:opening_hours#Examples
+
+<!-- References to other parts of this documentation. Can not use short links only referring to the section inside the README.md any more because this will not work on other pages like https://www.npmjs.org/package/opening_hours -->
+[ohlib.time-ranges]: #time-ranges
+[ohlib.states]: #states
+[ohlib.evaluation-tooldemohtml]: #evaluation-tooldemohtml
+[ohlib.library-api]: #library-api
