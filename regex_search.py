@@ -144,7 +144,7 @@ def run_interpreter(taginfo_tag_export, key, do_not_load_values_again):
                 if do_parse_all_values_before:
                     try:
                         oh_result = OpeningHours(taginfo_hash['value'].encode('utf-8'))
-                    except ParseException as e:
+                    except ParseException:
                         continue
                     passed_diff_values += 1
                     total_passed += taginfo_hash['count']

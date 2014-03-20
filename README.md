@@ -47,7 +47,7 @@ http://openingh.openstreetmap.de/evaluation_tool/opening_hours.js
 However, before you load opening_hours.js you have to load its dependencies (either from here or somewhere else):
 
 ```
-http://openingh.openstreetmap.de/evaluation_tool/js/suncalc/suncalc.js
+http://openingh.openstreetmap.de/evaluation_tool/node_modules/suncalc/suncalc.js
 ```
 
 ### NodeJS developer ###

@@ -1,0 +1,498 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head><!-- {{{ -->
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>opening_hours demo</title>
+		<!-- Some CSS {{{ -->
+		<style>
+			body { font-family: sans-serif }
+		</style>
+		<link rel="stylesheet" href="css/table.css"/>
+		<!-- }}} -->
+		<!-- Javascript {{{ -->
+		<!-- <script type="text/javascript" src="js/jquery&#45;1.10.2.min.js"></script> -->
+		<script type="text/javascript" src="node_modules/suncalc/suncalc.js"></script>
+		<script type="text/javascript" src="opening_hours.js"></script>
+		<script type="text/javascript" src="js/i18next-1.6.3.min.js"></script>
+		<script type="text/javascript" src="js/i18n-resources.js"></script>
+		<script type="text/javascript" src="js/opening_hours_table.js"></script>
+		<script type="text/javascript" src="js/helpers.js"></script>
+		<script type="text/javascript">
+			// add calculation for calendar week to date {{{
+			function dateAtWeek(date, week) {
+				var minutes_in_day = 60 * 24;
+				var msec_in_day    = 1000 * 60 * minutes_in_day;
+				var msec_in_week   = msec_in_day * 7;
+
+				var tmpdate = new Date(date.getFullYear(), 0, 1);
+				tmpdate.setDate(1 - (tmpdate.getDay() + 6) % 7 + week * 7); // start of week n where week starts on Monday
+				return Math.floor((date - tmpdate) / msec_in_week);
+			}
+			// }}}
+
+			// default values {{{
+			var def_lat = 48.7769;
+			var def_lon = 9.1844;
+			var repo_url = 'https://github.com/ypid/opening_hours.js';
+			// }}}
+		</script>
+		<!-- }}} -->
+	</head> <!-- }}} -->
+	<body><!-- {{{ -->
+		<script type="text/javascript">
+			document.write(getUserSelectTranslateHTMLCode());
+		</script>
+
+		<div id="user"><!-- {{{ -->
+			<!-- JS for user testing stuff {{{ -->
+			<script type="text/javascript">
+			/*<![CDATA[*/
+			function copyToClipboard(text) {
+				window.prompt('Copy to clipboard: Ctrl+C, Enter', text);
+			}
+
+			var lat, string_lat, string_lon, nominatim;
+			var url_lang = 'de';
+			var date;
+
+			function Evaluate (offset, reset) {
+				if (typeof offset == 'undefined') offset = 0;
+
+				if (document.forms.check.elements['lat'].value !== string_lat || document.forms.check.elements['lon'].value !== string_lon) {
+					string_lat = document.forms.check.elements['lat'].value;
+					string_lon = document.forms.check.elements['lon'].value;
+					lat = parseFloat(string_lat);
+					lon = parseFloat(string_lon);
+					if (typeof lat != 'number' || typeof lon != 'number') {
+						if (typeof lat != 'number')
+							document.forms.check.elements['lat'].value = def_lat;
+						if (typeof lon != 'number')
+							document.forms.check.elements['lon'].value = def_lon;
+						console.log('Please enter numbers for latitude and longitude.');
+						return;
+					}
+
+					// var url = 'http://nominatim.openstreetmap.org/reverse';
+					var url = 'http://open.mapquestapi.com/nominatim/v1/reverse.php';
+					url += '?format=json&lat=' + lat + '&lon=' + lon
+						+ '&zoom=5&addressdetails=1&email=ypid23@aol.de';
+					var url_lang_set = 'accept-language=';
+
+					var xhr = new XMLHttpRequest();
+					xhr.open( "GET", url + '&' + url_lang_set + url_lang, true );      // true makes this call asynchronous
+					xhr.onreadystatechange = function () {    // need eventhandler since our call is async
+						if ( xhr.readyState == 4 && xhr.status == 200 ) {  // check for success
+							nominatim = JSON.parse( xhr.responseText );
+							// console.log(JSON.stringify(nominatim, null, '\t'));
+
+							if (nominatim.address.country_code != url_lang) {
+								xhr.open( "GET", url + '&' + url_lang_set + nominatim.address.country_code, true );
+								xhr.onreadystatechange = function () {
+									if ( xhr.readyState == 4 && xhr.status == 200 ) {  // check for success
+										nominatim = JSON.parse( xhr.responseText );
+									}
+									url_lang = nominatim.address.country_code;
+									document.forms.check.elements['cc'].value    = nominatim.address.country_code;
+									document.forms.check.elements['state'].value = nominatim.address.state;
+									Evaluate();
+								}
+								xhr.send(null);
+							} else {
+								document.forms.check.elements['cc'].value    = nominatim.address.country_code;
+								document.forms.check.elements['state'].value = nominatim.address.state;
+								Evaluate();
+							}
+						}
+					};
+					xhr.send(null);
+				}
+
+				date = reset ? new Date() : new Date(
+						document.forms.check.elements['yyyy'].value,
+						document.forms.check.elements['mm'].selectedIndex,
+						document.forms.check.elements['dd'].value,
+						document.forms.check.elements['HH'].value,
+						parseInt(document.forms.check.elements['MM'].value),
+						offset
+					);
+
+				function u2 (v) { return v>=0 && v<10 ? "0"+v : v; }
+
+				document.forms.check.elements['yyyy'].value       = date.getFullYear();
+				document.forms.check.elements['mm'].selectedIndex = date.getMonth();
+				document.forms.check.elements['dd'].value         = u2(date.getDate());
+				document.forms.check.elements['HH'].value         = u2(date.getHours());
+				document.forms.check.elements['MM'].value         = u2(date.getMinutes());
+				document.forms.check.elements['wday'].value       = i18n.t('weekdays.full.' + OpeningHoursTable.weekdays[date.getDay()]);
+				document.forms.check.elements['week'].value       = 'W'+u2(dateAtWeek(date, 0) + 1);
+
+				var show_time_table         = document.getElementById('show_time_table');
+				var show_warnings_or_errors = document.getElementById('show_warnings_or_errors');
+				var show_results            = document.getElementById('show_results');
+
+				show_warnings_or_errors.innerHTML = '';
+
+				var crashed = false;
+				var value = document.forms.check.elements['expression'].value;
+				var mode = parseInt(document.getElementById('mode').selectedIndex);
+				try {
+					var oh = new opening_hours(value, nominatim, mode);
+					var it = oh.getIterator(date);
+				} catch (err) {
+					crashed = err;
+					show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.warn error') + ':<br />'
+						+ '<textarea rows="' + crashed.split('\n').length + 1 + '" style="width: 100%" name="WarnErrors" readonly="readonly">' + crashed
+						+ '</textarea></p>';
+					show_time_table.innerHTML = '';
+					show_results.innerHTML    = '';
+				}
+
+				show_time_table.innerHTML = '<a href="javascript:josm(\'import?url=' + encodeURIComponent('http://overpass-api.de/api/xapi_meta?*[opening_hours=' + document.forms.check.elements['expression'].value + ']') + '\')">' + i18n.t('texts.load all with JOSM') + '</a><br />';
+				if (!crashed) {
+					var prettified = oh.prettifyValue();
+					var prettified_newline_sep = oh.prettifyValue({ block_sep_string: '\n', print_semicolon: false });
+					show_results.innerHTML = '<p>' + i18n.t('words.status') + ':<br />'
+						+ '<input size="10" name="status" readonly="readonly" />'
+						+ '<input size="60" name="comment" readonly="readonly" />'
+						+ '</p>' + '<p>'
+						+ i18n.t('texts.MatchingRule') + ':<br />'
+						+ '<input style="width: 100%" name="MatchingRule" readonly="readonly" />'
+						+ '</p>';
+
+					if (prettified_newline_sep.split('\n').length > 1)
+						show_results.innerHTML += '<p>' + i18n.t('texts.prettified value for displaying') + ':<br />'
+							+ '<textarea rows="' + prettified_newline_sep.split('\n').length
+							+ '" style="width: 100%" name="prettifiedValueNewlineSep" readonly="readonly">'
+							+ prettified_newline_sep + '</textarea></p>';
+
+
+					document.forms.check.elements['comment'].value = typeof it.getComment() != 'undefined'
+						? it.getComment() : '>>' + i18n.t('words.no') + ' ' + i18n.t('words.comment') + '<<';
+					document.forms.check.elements['status'].value = (it.getState() ? i18n.t('words.open')
+						: (it.getUnknown() ? i18n.t('words.unknown') : i18n.t('words.closed')));
+					document.forms.check.elements['MatchingRule'].value = typeof it.getMatchingRule() == 'undefined'
+						? i18n.t('words.none') : it.getMatchingRule();
+
+					if (prettified != value) {
+						show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.prettified value',
+							{ copyFunc: 'javascript:newValue(\'' + prettified.replace(/"/g, '&quot;') + '\')' }) + ':<br />'
+							+ '<input style="width: 100%" onclick="javascript:newValue(\'' + prettified.replace(/"/g, '&quot;') + '\')" id="prettifiedValue" name="prettifiedValue" value="' + prettified.replace(/"/g, '&quot;') + '" /></p>';
+					}
+
+					var warnings = oh.getWarnings();
+					if (warnings.length > 0) {
+						show_warnings_or_errors.innerHTML += '<p>' + i18n.t('texts.warn error') + ':<br />'
+							+ '<textarea rows="' + (warnings.length + 1)
+							+ '" style="width: 100%" name="WarnErrors" readonly="readonly">' + warnings.join('\n')
+							+ '</textarea></p>';
+					}
+
+					if (prettified.length > 255) {
+						show_warnings_or_errors.innerHTML += '<p>' + i18n.t('texts.value to long for osm',
+							{ pretLength: prettified.length, valLength: value.length, maxLength: 255 }) + '</p>';
+					}
+
+					show_time_table.innerHTML += OpeningHoursTable.drawTableAndComments(oh, it);
+				}
+			}
+
+			function EX (element) {
+				newValue(element.innerHTML);
+				return false;
+			}
+
+			function newValue(value) {
+				if (typeof document.forms.check.elements['prettifiedValue'] == 'object') {
+					document.forms.check.elements['prettifiedValue'].focus();
+					document.forms.check.elements['prettifiedValue'].focus();
+				}
+				document.forms.check.elements['expression'].value = value;
+				Evaluate();
+			}
+
+			function permalink () {
+				var exp = document.getElementById('expression').value;
+				var lat = document.getElementById('lat').value;
+				var lon = document.getElementById('lon').value;
+				var mode = document.getElementById('mode').selectedIndex;
+
+				var search='?EXP='+encodeURIComponent(exp)+'&DATE='+date.getTime() +'&lat='+lat+'&lon='+lon+'&mode='+mode;
+
+				location = location.protocol+'//'+location.host+location.pathname+search;
+			}
+
+			function setCurrentPosition() {
+				if(navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(onPositionUpdate);
+				}
+			}
+
+			function onPositionUpdate(position) {
+				var lat = position.coords.latitude;
+				var lng = position.coords.longitude;
+				document.getElementById('lat').value = lat;
+				document.getElementById('lon').value = lng;
+				Evaluate();
+				console.log("Current position: " + lat + " " + lng);
+			}
+			window.onload = function () {
+				var prmarr = window.location.search.replace( "?", "" ).split("&");
+				var params = {};
+				var customCoords = false;
+
+				for ( var i = 0; i < prmarr.length; i++) {
+					var tmparr = prmarr[i].split("=");
+					params[tmparr[0]] = tmparr[1];
+				}
+				if (typeof params['EXP'] != 'undefined') {
+					document.forms.check.elements['expression'].value = decodeURIComponent(params['EXP']);
+				}
+				if (typeof params['lat'] != 'undefined') {
+					document.forms.check.elements['lat'].value = decodeURIComponent(params['lat']);
+					customCoords = true;
+				}
+				if (typeof params['lon'] != 'undefined') {
+					document.forms.check.elements['lon'].value = decodeURIComponent(params['lon']);
+					customCoords = true;
+				}
+				if (typeof params['mode'] != 'undefined') {
+					document.forms.check.elements['mode'].value = decodeURIComponent(params['mode']);
+				}
+				if (typeof params['DATE'] != 'undefined') {
+					var crashed = true;
+					try {
+						date = new Date(parseInt(params['DATE']));
+						crashed = false;
+					} catch (err) {
+						console.log(err);
+					}
+					if (!crashed) {
+						document.forms.check.elements['yyyy'].value       = date.getFullYear();
+						document.forms.check.elements['mm'].selectedIndex = date.getMonth();
+						document.forms.check.elements['dd'].value         = date.getDate();
+						document.forms.check.elements['HH'].value         = date.getHours();
+						document.forms.check.elements['MM'].value         = date.getMinutes();
+					}
+					Evaluate(0, false);
+				} else {
+					Evaluate(0, true);
+				}
+				if(navigator.geolocation && !customCoords)
+					navigator.geolocation.getCurrentPosition(onPositionUpdate);
+			};
+
+			/*]]>*/</script>
+			<!-- }}} -->
+
+			<form id="check" action="#">
+				<!-- User input {{{ -->
+				<p>
+					<script type="text/javascript">
+					var buttons = [
+						[ 3600 * 24, 1, 'words.time.day'    ],
+						[ 3600     , 1, 'words.time.hour'   ],
+						[ 60       , 1, 'words.time.minute' ],
+						[ 0        , 0, 'words.time.now'    ],
+					];
+					for (var i = 0; i < buttons.length; i++) {
+						if (buttons[i][1] != 0) {
+							for (var x = -1; x <= 1; x += 2) {
+								var step = x * buttons[i][1]
+								document.write('<button type="button" onclick="Evaluate(' + buttons[i][0] * step
+									+ ')">' + (step > 0 ? '+' : '') + step + ' ' + i18n.t(buttons[i][2]) + '</button>'
+									+ (x == 1 ? ' ' : ''));
+							}
+						} else {
+							document.write('<button type="button" onclick="Evaluate(0, true'
+								+ ')">' + i18n.t(buttons[i][2]) + '</button>');
+						}
+					}
+					</script>
+				</p>
+
+				<p>
+					<script type="text/javascript">
+						document.write(i18n.t('words.date') + ' ' + i18n.t('words.and') + ' ' + i18n.t('words.time.time') + ':<br />');
+						document.write('<input id="dd" size="3" name="dd" value="02" onblur="Evaluate()"/>.');
+						document.write('<select id="mm" name="mm" onchange="Evaluate()">');
+						for (var i = 0; i < OpeningHoursTable.months.length; i++) {
+							document.write('<option value="' + i + 1 + '">' + i18n.t('months.full.' + OpeningHoursTable.months[i]) + '</option>');
+						}
+						document.write('</select>');
+					</script>
+
+					<input id="yyyy" size="5" name="yyyy" value="2013" onblur="Evaluate()" />
+					&#160;
+					<input size="3" name="HH" value="22" onblur="Evaluate()" />:<input size="3" name="MM" value="21" onblur="Evaluate()" />
+					&#160;
+					<input size="10" name="wday" readonly="readonly" />
+					<input size="3"  name="week" readonly="readonly" />
+				</p>
+
+				<p>
+					<script type="text/javascript">
+						document.write(i18n.t('words.position') + ':<br />');
+						document.write(i18n.t('words.lat') + ': <input size="7" id="lat" value="' + def_lat + '" onblur="Evaluate()" /> ');
+						document.write(i18n.t('words.lon') + ': <input size="7" id="lon" value="' + def_lon + '"  onblur="Evaluate()" /> ');
+						document.write(i18n.t('words.country') + ': <input size="3" id="cc" readonly="readonly" /> ');
+						document.write(i18n.t('words.state') + ': <input size="20" id="state" readonly="readonly" /><br />');
+						// document.write('<button type="button" onclick="setCurrentPosition()">' + i18n.t('texts.get my position') + '</button>');
+					</script>
+				</p>
+
+				<p>
+					<script type="text/javascript">
+						document.write(i18n.t('words.mode') + ': <select id="mode" name="mode" onchange="Evaluate()">');
+						for (var i = 0; i <= 2; i++) {
+							document.write('<option value="' + i + '">' + i18n.t('texts.mode ' + i) + '</option>');
+						}
+						document.write('</select>');
+					</script>
+				</p>
+
+				<p>
+					<script type="text/javascript">
+						document.write(i18n.t('texts.value for') + ' <q>opening_hours</q>:'
+								+ '<br />');
+						function submitenter(myfield,e) {
+							var keycode;
+							if (window.event) keycode = window.event.keyCode;
+							else if (e) keycode = e.which;
+							else return true;
+
+							if (keycode == 13) {
+								Evaluate();
+								return false;
+							} else
+								return true;
+						}
+					</script>
+					<input id="expression" onKeyPress="return submitenter(this,event)" style="width:100%" name="expression" value="Mo-Fr 10:00-20:00" onblur="Evaluate()" />
+				</p>
+				<!-- }}} -->
+
+				<div id="show_warnings_or_errors"><!-- {{{ -->
+				</div><!-- }}} -->
+
+				<div id="show_time_table"><!-- {{{ -->
+				</div><!-- }}} -->
+
+				<div id="show_results"><!-- {{{ -->
+				</div><!-- }}} -->
+			</form>
+
+			<p style="text-align: right">
+			<a href="#" onclick="permalink();return false">permalink</a>
+			</p>
+
+			<hr /><!-- Examples {{{ -->
+			<script type="text/javascript">document.write('<a href="javascript:toggle(\'user_examples\')"><h2 id="examples">'
+				+ i18n.t('words.examples') + ':</h2></a>');</script>
+			<!-- JS for toggeling exampes on and off {{{ -->
+			<script type="text/javascript">
+				function toggle(control){
+					var elem = document.getElementById(control);
+
+					if(elem.style.display == "none"){
+						elem.style.display = "block";
+					}else{
+						elem.style.display = "none";
+					}
+				}
+			</script>
+			<!-- }}} -->
+			<div id="user_examples"><!-- {{{ -->
+				<ol>
+					<li><a href="#check" onclick="EX(this)">Mo-Fr 10:00-20:00</a></li>
+					<li><a href="#check" onclick="EX(this)">Mo,Tu,Th,Fr 12:00-18:00; Sa 12:00-17:00; Th[3] off; Th[-1] off</a></li>
+					<li><a href="#check" onclick="EX(this)">00:00-24:00; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off</a></li>
+					<li><a href="#check" onclick="EX(this)">Fr-Sa 18:00-06:00</a></li>
+					<li><a href="#check" onclick="EX(this)">24/7</a></li>
+					<li><a href="#check" onclick="EX(this)">"only after registration"</a></li>
+					<li><a href="#check" onclick="EX(this)">22:00-23:00</a></li>
+					<li><a href="#check" onclick="EX(this)">08:00-11:00</a></li>
+					<li><a href="#check" onclick="EX(this)">open; Mo 15:00-16:00 off</a></li>
+					<li><a href="#check" onclick="EX(this)">Mo-Su 22:00-23:00; We closed</a></li>
+					<li><a href="#check" onclick="EX(this)">We-Fr 10:00-24:00 open "it is open" || "please call"</a></li>
+					<li><a href="#check" onclick="EX(this)">Mo-Fr 08:00-11:00 || Tu-Th 22:00-23:00 open "Emergency only"</a></li>
+					<li><a href="#check" onclick="EX(this)">Tu-Th, We 22:00-23:00 open "Hot meals"</a></li>
+					<li><a href="#check" onclick="EX(this)">Oct: 22:00-23:00</a></li>
+					<li><a href="#check" onclick="EX(this)">Apr: 22:00-23:00</a></li>
+					<li><a href="#check" onclick="EX(this)">Jul-Jan: 22:00-23:00</a></li>
+					<li><a href="#check" onclick="EX(this)">Jan-Jul: 22:00-23:00</a></li>
+					<li><a href="#check" onclick="EX(this)">Jul 23-Jan 3: "needs reservation by phone"</a></li>
+					<li><a href="#check" onclick="EX(this)">Jul 23-Jan 3: 22:00-23:00 "Please make an reservation by phone."</a></li>
+					<li><a href="#check" onclick="EX(this)">Jul 23-Jan 3: 08:00-11:00 "Please make an reservation by phone."</a></li>
+					<li><a href="#check" onclick="EX(this)">Jan 23-Jul 3: 22:00-23:00 "Please make an reservation by phone."</a></li>
+					<li><a href="#check" onclick="EX(this)">Mar Su[-1]-Dec Su[1] -2 days: 22:00-23:00</a></li>
+					<!-- <li><a href="#check" onclick="EX(this)">Mar Su[&#45;1] &#45; Dec 25&#45;Su&#45;28 days: 22:00&#45;23:00</a></li> -->
+					<!-- <li><a href="#check" onclick="EX(this)">Dec 25&#45;Su&#45;28 days &#45; Mar Su[&#45;1]: 22:00&#45;23:00</a></li> -->
+					<!-- Currently used around 6 times: /\d\s*&#45;\s*(mo|tu|we|th|fr|sa|su)\b/ -->
+					<li><a href="#check" onclick="EX(this)">Sa[-1],Sa[-1] +1 day 10:00-12:00 open "last weekend in the month"</a></li>
+					<li><a href="#check" onclick="EX(this)">Sa-Su 00:00-24:00</a></li>
+					<li><a href="#check" onclick="EX(this)">Mo-Fr 00:00-24:00</a></li>
+					<li><a href="#check" onclick="EX(this)">sunrise-sunset closed "Beware of sunburn!"</a></li>
+					<li><a href="#check" onclick="EX(this)">sunset-sunrise open "Beware of vampires!"</a></li>
+					<li><a href="#check" onclick="EX(this)">(sunset+1:00)-24:00 || closed "No drink before sunset!"</a></li>
+					<li><a href="#check" onclick="EX(this)">22:00+</a></li>
+					<!-- <li><a href="#check" onclick="EX(this)">&#45;23:00</a></li> -->
+					<li><a href="#check" onclick="EX(this)">Tu 23:59-22:59</a></li>
+					<li><a href="#check" onclick="EX(this)">We-Mo 23:59-22:59</a></li>
+					<li><a href="#check" onclick="EX(this)">week 2-52/2 We, week 1-53/2 Sa 0:00-24:00</a></li>
+					<li><a href="#check" onclick="EX(this)">week 4-16 We, week 38-42 Sa 0:00-24:00</a></li>
+					<li><a href="#check" onclick="EX(this)">2012 easter -2 days-2012 easter +2 days: open "Around easter"</a></li>
+					<li>
+						<a href="#check" onclick="EX(this)">2013,2015,2050-2053,2055/2,2020-2029/3,2060/1 Jan 1</a>,
+						<script type="text/javascript">
+							document.write('<a href="' + repo_url + '/tree/master#year-ranges" target="_blank">' + i18n.t('words.docu') + '</a>');
+						</script>
+					</li>
+					<li><a href="#check" onclick="EX(this)">Jan 23-Feb 11,Feb 12 00:00-24:00</a></li>
+					<li><a href="#check" onclick="EX(this)">Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug Su[-1]: 10:00-18:00</a></li>
+					<li><a href="#check" onclick="EX(this)">Su-Tu 11:00-01:00, We-Th 11:00-03:00, Fr 11:00-06:00, Sa 11:00-07:00</a></li>
+					<li><a href="#check" onclick="EX(this)">   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00      Off  </a>,
+						<script type="text/javascript">
+							document.write('(' + i18n.t('texts.check out error correction, prettify') + ')');
+						</script>
+					</li>
+				</ol>
+
+				<ol>
+					<li value="36"><a href="#check" onclick="EX(this)">We</a></li>
+					<li><a href="#check" onclick="EX(this)">PH</a></li>
+					<li><a href="#check" onclick="EX(this)">PH Mo-Fr</a>
+						<script type="text/javascript">
+							document.write('(' + i18n.t('texts.if PH is between Mo and Fr') + ')');
+						</script>
+					</li>
+					<li><a href="#check" onclick="EX(this)">PH -1 day</a></li>
+					<li><a href="#check" onclick="EX(this)">SH</a></li>
+					<li><a href="#check" onclick="EX(this)">SH,PH</a></li>
+					<li><a href="#check" onclick="EX(this)">PH,SH</a>
+						<script type="text/javascript">
+							document.write('(' + i18n.t('texts.SH,PH or PH,SH') + ')');
+						</script>
+					</li>
+					<li><a href="#check" onclick="EX(this)">We[1-3]</a></li>
+					<li><a href="#check" onclick="EX(this)">We[3-5]</a></li>
+					<li><a href="#check" onclick="EX(this)">Sa</a></li>
+					<li><a href="#check" onclick="EX(this)">Sa[1]</a></li>
+					<li><a href="#check" onclick="EX(this)">Sa[1-3]</a></li>
+					<li><a href="#check" onclick="EX(this)">Tu-Th</a></li>
+					<li><a href="#check" onclick="EX(this)">Fr-Mo</a></li>
+					<li><a href="#check" onclick="EX(this)">Mo-Su; We "only after registration"</a></li>
+					<li><a href="#check" onclick="EX(this)">Oct: We[1]</a></li>
+				</ol> <!-- }}} -->
+			</div><!-- }}} -->
+
+		<script type="text/javascript">
+			document.write(i18n.t('texts.more information',
+				{ href: 'href="http://wiki.openstreetmap.org/wiki/Key:opening_hours" target="_blank"' }) + '<br />');
+
+			document.write(i18n.t('texts.this website', { url: repo_url, hoster: 'GitHub' }));
+		</script>
+		</div><!-- }}} -->
+	<iframe style="visibility:hidden;display:none" name='hiddenframe'></iframe>
+	</body><!-- }}} -->
+</html>
