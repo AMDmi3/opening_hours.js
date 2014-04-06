@@ -520,6 +520,7 @@ List of features which can make writing easier:
 * [Simon B.](https://github.com/sesam)           (improved understandability of overlapping rules in README.md)
 * [NonnEmilia](https://github.com/NonnEmilia)    (Italian localization and fixes in the [demo page][ohlib.evaluation-tooldemohtml].)
 * [João G. Packer](https://github.com/jgpacker)  (Portuguese localization)
+* [Zgarbul Andrey](https://github.com/burrbull)  (Ukrainian localization and public holidays for Ukraine)
 
 ## How to contribute ##
 
