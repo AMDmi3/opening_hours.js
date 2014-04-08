@@ -2999,9 +2999,9 @@
 			var oE = (2*oA+4*oB - oD + 34) % 7;
 			var oF = oD+oE
 			
-			if (oF < 9) {oDate = new Date(Y, 4, oF+4);}
-			else {if ((oF+4)<31) {oDate = new Date(Y, 4, oF+4);}
-			      else {oDate = new Date(Y, 5, oF-26);}}
+			if (oF < 9) {oDate = new Date(Y, 4-1, oF+4);}
+			else {if ((oF+4)<31) {oDate = new Date(Y, 4-1, oF+4);}
+			      else {oDate = new Date(Y, 5-1, oF-26);}}
 
 			return {
 				'easter': new Date(Y, M - 1, D),
