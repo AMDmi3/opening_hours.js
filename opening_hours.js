@@ -1107,6 +1107,7 @@
 				"Новий рік"                  : [  1,  1 ],
 				"Різдво"                     : [  1,  7 ],
 				"Міжнародний жіночий день"   : [  3,  8 ],
+				"Великдень"                  : [ 'orthodox easter',  1 ],
 				"День Праці 1"               : [  5,  1 ],
 				"День Праці 2"               : [  5,  2 ],
 				"День Перемоги"              : [  5,  9 ],
@@ -2989,9 +2990,22 @@
 			var L = I - J;
 			var M = 3 + Math.floor((L + 40)/44);
 			var D = L + 28 - 31*Math.floor(M/4);
+			
+			// calculate orthodox easter
+			var oA = Y % 4;
+			var oB = Y % 7;
+			var oC = Y % 19;
+			var oD = (19*oC + 15) % 30;
+			var oE = (2*oA+4*oB - oD + 34) % 7;
+			var oF = oD+oE
+			
+			if (oF < 9) {oDate = new Date(Y, 4, oF+4);}
+			else {if ((oF+4)<31) {oDate = new Date(Y, 4, oF+4);}
+			      else {oDate = new Date(Y, 5, oF-26);}}
 
 			return {
 				'easter': new Date(Y, M - 1, D),
+				'orthodox easter' : oDate,
 			};
 		}
 
