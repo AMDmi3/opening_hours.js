@@ -364,12 +364,18 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 * Supports public holidays (```open; PH off```, ```PH 12:00-13:00```).
   * Currently Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored. The same applies for [Austria][PH-at]. Also supported:
-	  * [France][PH-fr]
+    * [France][PH-fr]
+    * [Canada][PH-ca]
+    * [Ukraine][PH-ua]
+    * [Slovenian][PH-si]
   * **EXT:** Supports limited calculations based on holidays (e.g. ```Sa,PH -1 day open```). The only two possibilities are currently +1 and -1. All other cases are not handled. This seems to be enough because the only thing which is really used is -1.
 
 [PH-de]: http://de.wikipedia.org/wiki/Feiertage_in_Deutschland
 [PH-at]: http://de.wikipedia.org/wiki/Feiertage_in_%C3%96sterreich
 [PH-fr]: https://fr.wikipedia.org/wiki/F%EAtes_et_jours_f%E9ri%E9s_en_France
+[PH-ca]: https://en.wikipedia.org/wiki/Public_holidays_in_Canada
+[PH-ua]: http://uk.wikipedia.org/wiki/%D0%A1%D0%B2%D1%8F%D1%82%D0%B0_%D1%82%D0%B0_%D0%BF%D0%B0%D0%BC%27%D1%8F%D1%82%D0%BD%D1%96_%D0%B4%D0%BD%D1%96_%D0%B2_%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%96
+[PH-si]: http://www.vlada.si/o_sloveniji/politicni_sistem/prazniki/
 
 * Support for school holidays (```SH 10:00-14:00```).
   * Currently only Germany is supported (based on ical files from [schulferien.org][]).
@@ -522,6 +528,7 @@ List of features which can make writing easier:
 * [João G. Packer](https://github.com/jgpacker)    (Portuguese localization)
 * [James Badger](https://github.com/openfirmware)  (Add Canadian national, provincial public holidays and fixed Russian localization)
 * [Zgarbul Andrey](https://github.com/burrbull)    (Ukrainian localization and public holidays for Ukraine)
+* [Blaž Lorger](https://github.com/blorger)        (public holidays for Slovenian)
 
 ## How to contribute ##
 
