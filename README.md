@@ -527,7 +527,7 @@ Note that this resource file does also provide the localization for the [opening
 
 ### Holidays ###
 
-Holidays can be added to the file [opening_hours.js][ohlib.opening_hours.js] as JavaScript Object notation. Have a look at the current definitions for other [Holidays][ohlib.holidays] . Please add the source for this information (in form of an URL) as comment.
+Holidays can be added to the file [opening_hours.js][ohlib.opening_hours.js] as JavaScript Object notation. Have a look at the current definitions for [other holidays][ohlib.holidays] . Please add the source for this information (in form of an URL) as comment.
 
 ### Core code ###
 
