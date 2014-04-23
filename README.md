@@ -513,6 +513,28 @@ List of features which can make writing easier:
   2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)"
   ```
 
+## How to contribute ##
+
+You can contribute in the usual manner as known from GitHub. Just fork, change and make a pull request.
+
+### Translating ###
+
+This project uses http://i18next.com/ for translation.
+
+Translations can be made in the file [js/i18n-resources.js][ohlib.js/i18n-resources.js]. Just copy the whole English block, change the language code to the one you are adding and make your translation. You can open the [demo.html](/demo.html) to see the result of your work. To complete your localization add the translated language name to the other languages.
+
+Note that this resource file does also provide the localization for the [opening\_hours\_map][]. This can also be tested by cloning the project and linking your modified opening_hours.js working copy to the opening_hours.js directory (after renaming it) inside the opening_hours_map project.
+
+### Holidays ###
+
+Holidays can be added to the file [opening_hours.js][ohlib.opening_hours.js] as JavaScript Object notation. Have a look at the current definitions for other [Holidays][ohlib.holidays] . Please add the source for this information (in form of an URL) as comment.
+
+### Core code ###
+
+Note that there is a git pre-commit hook used to run and compare the test framework before each commit. To activate the hook, run:
+
+    ./hooks/link_hooks
+
 ## Author ##
 
 * [Dmitry Marakasov](https://github.com/AMDmi3) <amdmi3@amdmi3.ru> (initial coding and design and all basic features like time ranges, week ranges, month ranges and week ranges)
@@ -529,24 +551,6 @@ List of features which can make writing easier:
 * [James Badger](https://github.com/openfirmware)  (Add Canadian national, provincial public holidays and fixed Russian localization)
 * [Zgarbul Andrey](https://github.com/burrbull)    (Ukrainian localization and public holidays for Ukraine)
 * [Blaž Lorger](https://github.com/blorger)        (public holidays for Slovenian)
-
-## How to contribute ##
-
-You can contribute in the usual manner as known from GitHub. Just fork, change and make a pull request.
-
-### Translating ###
-
-Translations can be made in the file [js/i18n-resources.js](/js/i18n-resources.js). Just copy the whole English block, change the language code to the new one you are adding and make your translation. You can open the [demo.html](/demo.html) to see the result of your work. To complete your localization add the translated language name to the other languages.
-
-Note that this resource file does also provide the localization for the [opening\_hours\_map][]. This can also be tested by cloning the project and linking your modified opening_hours.js working copy to the opening_hours.js directory (after renaming it) inside the opening_hours_map project.
-
-After you are done, just push your commits and make a pull request.
-
-### Core code ###
-
-Note that there is a git pre-commit hook used to run and compare the test framework before each commit. To activate the hook, run:
-
-    ./hooks/link_hooks
 
 ## Credits ##
 
@@ -566,5 +570,8 @@ Note that there is a git pre-commit hook used to run and compare the test framew
 <!-- References to other parts of this documentation. Can not use short links only referring to the section inside the README.md any more because this will not work on other pages like https://www.npmjs.org/package/opening_hours -->
 [ohlib.time-ranges]: #time-ranges
 [ohlib.states]: #states
+[ohlib.holidays]: #holidays
 [ohlib.evaluation-tooldemohtml]: #evaluation-tooldemohtml
 [ohlib.library-api]: #library-api
+[ohlib.opening_hours.js]: /opening_hours.js
+[ohlib.js/i18n-resources.js]: /js/i18n-resources.js
