@@ -187,7 +187,6 @@ def run_interpreter(taginfo_tag_export, key, do_not_load_values_again):
                         oh_result = OpeningHours(taginfo_hash['value'])
                     except ParseException as e:
                         oh_ok = False
-                        continue
                     oh_loc_needed = ', loc needed' if oh_result._neededNominatiomJson() else ''
                     oh_warnings   = ', warnings'   if oh_result.getWarnings() else ''
                     if oh_ok:
