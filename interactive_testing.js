@@ -44,8 +44,11 @@ rl.on('line', function (cmd) {
         result.state         = oh.getState();
         result.unknown       = oh.getUnknown();
         result.state_string  = oh.getStateString();
-        result.next_change   = oh.getNextChange();
-        result.matching_rule = oh.getMatchingRule();
+        try {
+            result.next_change   = oh.getNextChange();
+        } catch (err) {
+            // This might throw an exception if there is no change.
+        }
         result.matching_rule = oh.getMatchingRule();
         result.prettified    = oh.prettifyValue();
         result.week_stable   = oh.isWeekStable();

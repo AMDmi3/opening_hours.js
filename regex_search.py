@@ -85,7 +85,7 @@ def load_json_file(json_file):
     """Load JSON file and return it as python dictionary."""
 
     try:
-        json_data = codecs.open(json_file, 'r', 'utf-8')
+        json_data = codecs.open(json_file, 'r', 'UTF-8')
     except IOError as detail:
         sys.stderr.write('File '+ json_file +' is not readable: '+ detail[1])
         sys.exit(1)
@@ -143,7 +143,7 @@ def run_interpreter(taginfo_tag_export, key, do_not_load_values_again):
                 total_in_use += taginfo_hash['count']
                 if do_parse_all_values_before:
                     try:
-                        oh_result = OpeningHours(taginfo_hash['value'].encode('utf-8'))
+                        oh_result = OpeningHours(taginfo_hash['value'])
                     except ParseException:
                         continue
                     passed_diff_values += 1
@@ -184,7 +184,7 @@ def run_interpreter(taginfo_tag_export, key, do_not_load_values_again):
                             break
                     oh_ok = True
                     try:
-                        oh_result = OpeningHours(taginfo_hash['value'].encode('utf-8'))
+                        oh_result = OpeningHours(taginfo_hash['value'])
                     except ParseException as e:
                         oh_ok = False
                         continue
