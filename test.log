@@ -319,98 +319,57 @@
 "Extensions: missing time range separators" for "Mo 12:00-14:00 16:00-18:00 20:00-22:00": [1m[32mPASSED[39m[22m
 "Time intervals (not specified/documented use of colon, please avoid this)" for "00:00-24:00; Mo 15:00-16:00 off": [1m[32mPASSED[39m[22m
 "Time intervals (not specified/documented use of colon, please avoid this)" for "00:00-24:00; Mo: 15:00-16:00 off": [1m[32mPASSED[39m[22m
-"Value not ideal (probably wrong). Should throw a warning." for "Mo[2] - 0 days": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Mo[2] - 0 days; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Mo[2] - 0 days <--- (Adding 0 does not change the date. Please omit this.)
-"Value not ideal (probably wrong). Should throw a warning." for "Mo&Th": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Mo&Th; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Mo& <--- (Please use notation "," for "&".)
-"Value not ideal (probably wrong). Should throw a warning." for "Mon": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Mon; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Mon <--- (Please use the abbreviation "Mo" for "mon".)
-"Value not ideal (probably wrong). Should throw a warning." for "8-18": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "8-18; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 8-18 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
-"Value not ideal (probably wrong). Should throw a warning." for "12.00-14:00": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "12.00-14:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 12. <--- (Please use ":" as hour/minute-separator)
-"Value not ideal (probably wrong). Should throw a warning." for "24/7; 12:00-14:00 off": [1m[32mPASSED[39m[22m
-24/7; 12:00-14:00 off <--- (You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week". For correctness you might want to use "open" or "closed" for this rule and then write your exceptions which should achieve the same goal and is more clear e.g. "open; Mo 12:00-14:00 off".)
-"Value not ideal (probably wrong). Should throw a warning." for "2013-2015/1": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "24/7; 12:00-14:00 off; unknown "warning at correct possition?"": [1m[31mFAILED[39m[22m
+false
+
+"Value not ideal (probably wrong). Should throw a warning." for "2013-2015/1; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 2013-2015/1 <--- (Please don’t use year ranges with period equals one.)
-"Value not ideal (probably wrong). Should throw a warning." for "2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1  <--- (Please don’t use year ranges with period equals one.)
-"Value not ideal (probably wrong). Should throw a warning." for "Mo: 15:00-16:00 off": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Mo: 15:00-16:00 off; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Mo:  <--- (Please don’t use ":" after weekday.)
-"Value not ideal (probably wrong). Should throw a warning." for "Mo-Do 8:30-20:00 Fr 8:29-18:00": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Mo-Do 8:30-20:00 Fr 8:29-18:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Mo-Do <--- (Bitte benutze die englische Abkürzung "Th" für "do".)
 Mo-Do 8:30-20:00 Fr 8:29-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 Mo-Do 8:30-20:00 Fr  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-"Value not ideal (probably wrong). Should throw a warning." for "Mo 12:00-14:00 16:00-18:00 20:00-22:00": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Mo 12:00-14:00 16:00-18:00 20:00-22:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Mo 12:00-14:00 16:00-18:00 20:00-22:00 <--- (You have used 3 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-"Value not ideal (probably wrong). Should throw a warning." for "Mo-So 08:00-22:00": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Mo-So 08:00-22:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Mo-So <--- (Bitte benutze die englische Abkürzung "Su" für "so". Could also mean Saturday in Polish …)
-"Value not ideal (probably wrong). Should throw a warning." for "Mo Tu Fr": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Mo Tu Fr; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Mo Tu Fr <--- (You have used 3 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo,Mo": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Value not ideal (probably wrong). Should throw a warning." for "Mo,Sa,Mo": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Value not ideal (probably wrong). Should throw a warning." for "Jan,Jan": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Value not ideal (probably wrong). Should throw a warning." for "Jan,Sep,Jan": [1m[33mIGNORED[39m[22m, reason: not implemented yet
-"Value not ideal (probably wrong). Should throw a warning." for "Jan Dec": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Jan Dec; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Jan Dec <--- (You have used 2 not connected months in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-"Value not ideal (probably wrong). Should throw a warning." for "Jan 1-22/1": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Jan 1-22/1; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Jan 1-22/1 <--- (Please don’t use day ranges with period equals one.)
-"Value not ideal (probably wrong). Should throw a warning." for ""testing" "second comment"": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for ""testing" "second comment"; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 "testing" "second comment" <--- (You have used 2 comments in one rule. You may only use one in one rule. Rules can be separated by ";".)
-"Value not ideal (probably wrong). Should throw a warning." for "Jan 12:00-13:00 Mo 15:00-16:00": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Jan 12:00-13:00 Mo 15:00-16:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Jan 12:00-13:00 Mo 15:00-16:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-"Value not ideal (probably wrong). Should throw a warning." for "sunrise-(sunset-00:00)": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "sunrise-(sunset-00:00); unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 sunrise-(sunset-00:00 <--- (Adding zero in a variable time calculation does not change the variable time. Please omit the calculation (example: "12:00-sunset").)
-"Value not ideal (probably wrong). Should throw a warning." for "Jun 2-20/1": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Jun 2-20/1; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Jun 2-20/1 <--- (Please don’t use day ranges with period equals one.)
-"Value not ideal (probably wrong). Should throw a warning." for "2014-2020/1": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "2014-2020/1; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 2014-2020/1 <--- (Please don’t use year ranges with period equals one.)
-"Value not ideal (probably wrong). Should throw a warning." for "2014/1": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "2014/1; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 2014/1 <--- (Please don’t use year ranges with period equals one. If you want to express that a facility is open starting from a year without limit use "<year>+".)
-"Incorrect syntax which should throw an error" for "Mo[2] - 7 days": [1m[32mPASSED[39m[22m
-Mo[2] - 7 <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) Mo[2] - 7 days <--- (Please use notation "Mo-Su" for "7 days".)
-
 "Incorrect syntax which should throw an error" for "sdasdlasdj a3reaw": [1m[32mPASSED[39m[22m
 sd <--- (Unexpected token: "s" This means that the syntax is not valid at that point or it is currently not supported.) sdasdlasdj a3reaw <--- (Assuming "We" for "w")
-
-"Incorrect syntax which should throw an error" for ":week 2-54 00:00-24:00": [1m[32mPASSED[39m[22m
-: <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
-
-"Incorrect syntax which should throw an error" for ":::week 2-54 00:00-24:00": [1m[32mPASSED[39m[22m
-: <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
-
-"Incorrect syntax which should throw an error" for "week :2-54 00:00-24:00": [1m[32mPASSED[39m[22m
-week : <--- (Unexpected token in week range: timesep)
-
-"Incorrect syntax which should throw an error" for "week 2-54 00:00-24:00:": [1m[32mPASSED[39m[22m
-week 2-54 00:00-24:00: <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
-
-"Incorrect syntax which should throw an error" for "week 2-54 00:00-24:00:::": [1m[32mPASSED[39m[22m
-week 2-54 00:00-24:00::: <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
-
-"Incorrect syntax which should throw an error" for "week 2-54 00::00-24:00": [1m[32mPASSED[39m[22m
-week 2-54 00:: <--- (Missing minutes in time range after: "timesep")
-
-"Incorrect syntax which should throw an error" for "(sunrise+01:00-sunset": [1m[32mPASSED[39m[22m
-(sunrise+01:00- <--- (Calculcation with variable time is not in the right syntax. Missing ")".)
-
-"Incorrect syntax which should throw an error" for "(sunrise+01::)-sunset": [1m[32mPASSED[39m[22m
-(sunrise+01:: <--- (Calculcation with variable time is not in the right syntax (time).)
-
-"Incorrect syntax which should throw an error" for "(sunrise)-sunset": [1m[32mPASSED[39m[22m
-(sunrise) <--- (Calculcation with variable time is not in the right syntax. "+" or "-" expected.)
-
-"Incorrect syntax which should throw an error" for "(": [1m[32mPASSED[39m[22m
-( <--- (Unexpected token: "(" This means that the syntax is not valid at that point or it is currently not supported.) 
-
-"Incorrect syntax which should throw an error" for "sunrise-(": [1m[32mPASSED[39m[22m
-sunrise-( <--- (time range does not continue as expected)
-
-"Incorrect syntax which should throw an error" for "sunrise-sunset,(": [1m[32mPASSED[39m[22m
-sunrise-sunset,( <--- (Missing variable time (e.g. sunrise) after: "(")
-
-"Incorrect syntax which should throw an error" for "27:00-29:00": [1m[32mPASSED[39m[22m
-27:00- <--- (Time range starts outside of the current day)
 
 "Incorrect syntax which should throw an error" for "": [1m[32mPASSED[39m[22m
 Value contains nothing meaningful which can be parsed
@@ -427,131 +386,173 @@ Value contains nothing meaningful which can be parsed
 "Incorrect syntax which should throw an error" for "*newline*": [1m[32mPASSED[39m[22m
 Value contains nothing meaningful which can be parsed
 
-"Incorrect syntax which should throw an error" for "14:/": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Mo[2] - 7 days; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
+Mo[2] - 7 <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) Mo[2] - 7 days <--- (Please use notation "Mo-Su" for "7 days".)
+
+"Incorrect syntax which should throw an error" for ":week 2-54 00:00-24:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
+: <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
+
+"Incorrect syntax which should throw an error" for ":::week 2-54 00:00-24:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
+: <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
+
+"Incorrect syntax which should throw an error" for "week :2-54 00:00-24:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
+week : <--- (Unexpected token in week range: timesep)
+
+"Incorrect syntax which should throw an error" for "week 2-54 00:00-24:00:; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
+week 2-54 00:00-24:00: <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
+
+"Incorrect syntax which should throw an error" for "week 2-54 00:00-24:00:::; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
+week 2-54 00:00-24:00::: <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
+
+"Incorrect syntax which should throw an error" for "week 2-54 00::00-24:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
+week 2-54 00:: <--- (Missing minutes in time range after: "timesep")
+
+"Incorrect syntax which should throw an error" for "(sunrise+01:00-sunset; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
+(sunrise+01:00- <--- (Calculcation with variable time is not in the right syntax. Missing ")".)
+
+"Incorrect syntax which should throw an error" for "(sunrise+01::)-sunset; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
+(sunrise+01:: <--- (Calculcation with variable time is not in the right syntax (time).)
+
+"Incorrect syntax which should throw an error" for "(sunrise)-sunset; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
+(sunrise) <--- (Calculcation with variable time is not in the right syntax. "+" or "-" expected.)
+
+"Incorrect syntax which should throw an error" for "(; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
+( <--- (Unexpected token: "(" This means that the syntax is not valid at that point or it is currently not supported.) 
+
+"Incorrect syntax which should throw an error" for "sunrise-(; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
+sunrise-( <--- (time range does not continue as expected)
+
+"Incorrect syntax which should throw an error" for "sunrise-sunset,(; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
+sunrise-sunset,(; unknown "warning at correct possition?" <--- (Missing variable time (e.g. sunrise) after: "(")
+
+"Incorrect syntax which should throw an error" for "27:00-29:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
+27:00- <--- (Time range starts outside of the current day)
+
+"Incorrect syntax which should throw an error" for "14:/; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 14:/ <--- (Missing minutes in time range after: "timesep")
 
-"Incorrect syntax which should throw an error" for "14:00/": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "14:00/; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 14:00/ <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
 
-"Incorrect syntax which should throw an error" for "14:00-/": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "14:00-/; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 14:00-/ <--- (time range does not continue as expected)
 
-"Incorrect syntax which should throw an error" for "26:00-27:00": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "26:00-27:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 26:00- <--- (Time range starts outside of the current day)
 
-"Incorrect syntax which should throw an error" for "23:00-55:00": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "23:00-55:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 23:00-55:00 <--- (Time spanning more than two midnights not supported)
 
-"Incorrect syntax which should throw an error" for "14:00-16:00,.": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "14:00-16:00,.; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 14:00-16:00,. <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 14:00-16:00,. <--- (Please use ":" as hour/minute-separator)
 
-"Incorrect syntax which should throw an error" for "21:00-22:60": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "21:00-22:60; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 21:00-22:60 <--- (Minutes are greater than 59.)
 
-"Incorrect syntax which should throw an error" for "21:60-22:59": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "21:60-22:59; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 21:60 <--- (Minutes are greater than 59.)
 
-"Incorrect syntax which should throw an error" for "Sa[1.": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Sa[1.; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Sa[1. <--- ("]" or more numbers expected.)
 
-"Incorrect syntax which should throw an error" for "Sa[1,0,3]": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Sa[1,0,3]; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Sa[1,0 <--- (Number between -5 and 5 (except 0) expected)
 
-"Incorrect syntax which should throw an error" for "Sa[1,3-6]": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Sa[1,3-6]; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Sa[1,3-6 <--- (Number between -5 and 5 (except 0) expected.)
 
-"Incorrect syntax which should throw an error" for "Sa[1,3-.]": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Sa[1,3-.]; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Sa[1,3- <--- ("]" or more numbers expected.)
 
-"Incorrect syntax which should throw an error" for "Sa[1,3,.]": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Sa[1,3,.]; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Sa[1,3,. <--- (Unexpected token in number range: timesep)
 
-"Incorrect syntax which should throw an error" for "PH + 2 day": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "PH + 2 day; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 PH + 2 day <--- (There should be no reason to differ more than 1 days from a public holiday. If so tell us …)
 
-"Incorrect syntax which should throw an error" for "Su-PH": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Su-PH; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Su- <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) 
 
-"Incorrect syntax which should throw an error" for "2012, Jan": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "2012, Jan; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 2012, Jan <--- (Unexpected token in year range: month)
 
-"Incorrect syntax which should throw an error" for "easter + 370 days": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "easter + 370 days; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 easter + 370 days <--- (There should be no reason to differ more than 200 days from a event like easter. If so tell us …)
 
-"Incorrect syntax which should throw an error" for "easter - 2 days - 2012 easter + 2 days: open "Easter Monday"": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "easter - 2 days - 2012 easter + 2 days: open "Easter Monday"; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 easter - 2 days -  <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) 
 
-"Incorrect syntax which should throw an error" for "2012 easter - 2 days - easter + 2 days: open "Easter Monday"": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "2012 easter - 2 days - easter + 2 days: open "Easter Monday"; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 2012 easter - 2 days -  <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) 
 
-"Incorrect syntax which should throw an error" for "Jan,,,Dec": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Jan,,,Dec; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Jan,, <--- (Unexpected token in month range: ,)
 
-"Incorrect syntax which should throw an error" for "Mo,,Th": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Mo,,Th; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Mo,, <--- (Unexpected token in weekday range: ,)
 
-"Incorrect syntax which should throw an error" for "12:00-15:00/60": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "12:00-15:00/60; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 12:00-15:00/60 <--- (opening_hours is running in "time range mode". Found point in time.)
 
-"Incorrect syntax which should throw an error" for "12:00-15:00/1:00": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "12:00-15:00/1:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 12:00-15:00/1:00 <--- (opening_hours is running in "time range mode". Found point in time.)
 
-"Incorrect syntax which should throw an error" for "12:00-15:00/1:": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "12:00-15:00/1:; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 12:00-15:00/1: <--- (Time period does not continue as expected. Exampe "/01:30".)
 
-"Incorrect syntax which should throw an error" for "Jun 0-Aug 23": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Jun 0-Aug 23; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Jun 0 <--- (Day must be between 1 and 31.)
 
-"Incorrect syntax which should throw an error" for "Feb 30-Aug 2": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Feb 30-Aug 2; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Feb 30 <--- (Month Feb either has 28 or 29 days (leap years).)
 
-"Incorrect syntax which should throw an error" for "Jun 2-Aug 42": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Jun 2-Aug 42; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Jun 2 <--- (Day must be between 1 and 31.)
 
-"Incorrect syntax which should throw an error" for "Jun 2-Aug 32": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Jun 2-Aug 32; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Jun 2 <--- (Day must be between 1 and 31.)
 
-"Incorrect syntax which should throw an error" for "Jun 2-32": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Jun 2-32; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Jun 2-32 <--- (Day must be between 1 and 31.)
 
-"Incorrect syntax which should throw an error" for "Jun 32-34": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Jun 32-34; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Jun 32 <--- (Day must be between 1 and 31.)
 
-"Incorrect syntax which should throw an error" for "Jun 2-32/2": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Jun 2-32/2; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Jun 2-32 <--- (Day must be between 1 and 31.)
 
-"Incorrect syntax which should throw an error" for "Jun 32": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Jun 32; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Jun 32 <--- (Day must be between 1 and 31.)
 
-"Incorrect syntax which should throw an error" for "Jun 30-24": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Jun 30-24; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Jun 30-24 <--- (Range in wrong order. From day is greater than to day.)
 
-"Incorrect syntax which should throw an error" for "Jun 2-20/0": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Jun 2-20/0; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 Jun 2-20/0 <--- (You can not use day ranges with period equals zero.)
 
-"Incorrect syntax which should throw an error" for "2014-2020/0": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "2014-2020/0; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 2014-2020/0 <--- (You can not use year ranges with period equals zero.)
 
-"Incorrect syntax which should throw an error" for "2014/0": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "2014/0; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 2014/0 <--- (You can not use year ranges with period equals zero.)
 
-"Incorrect syntax which should throw an error" for "2014-": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "2014-; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 2014- <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) 
 
-"Incorrect syntax which should throw an error" for "2014-2014": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "2014-2014; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 2014 <--- (A year range in which the start year is equal to the end year does not make sense. Please remove the end year. E.g. "2014 May 23")
 
-"Incorrect syntax which should throw an error" for "2014-2012": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "2014-2012; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 2014 <--- (A year range in which the start year is greater than the end year does not make sense. Please turn it over.)
 
-"Incorrect syntax which should throw an error" for "23:59-48:01": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "23:59-48:01; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 23:59-48:01 <--- (Time spanning more than two midnights not supported)
 
-"Incorrect syntax which should throw an error" for "Tu 23:59-48:00+": [1m[32mPASSED[39m[22m
-Tu 23:59-48:00+ <--- (Time spanning more than two midnights not supported)
+"Incorrect syntax which should throw an error" for "Tu 23:59-48:00+; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
+Tu 23:59-48:00+; unknown "warning at correct possition?" <--- (Time spanning more than two midnights not supported)
 
-"Incorrect syntax which should throw an error" for "12:00; open; closed": [1m[32mPASSED[39m[22m
-12:00; open; closed <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
+"Incorrect syntax which should throw an error" for "12:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
+12:00; unknown "warning at correct possition?" <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
 
 "Missing information (e.g. country or holidays not defined in this lib)" for "PH": [1m[32mPASSED[39m[22m
 Country code missing which is needed to select the correct holidays (see README how to provide it)
@@ -580,4 +581,4 @@ Mo 12:00-14 <--- (opening_hours is running in "points in time mode". Found time 
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-432/436 tests passed
+431/436 tests passed

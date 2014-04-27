@@ -1793,6 +1793,9 @@ test.addTest('Input tolerance: weekdays, months in different languages', [
 	], 1000 * 60 * 60 * 6 * 4, 0, true, {}, 'not last test');
 // }}}
 
+var value_suffix = '; unknown "warning at correct possition?"';
+// This suffix value is there to test if the warning marks the correct position of the problem.
+
 // values which should return a warning {{{
 test.addTest('Extensions: missing time range separators', [
 		'Mo 12:00-14:00 16:00-18:00 20:00-22:00', // returns a warning
@@ -1812,104 +1815,106 @@ test.addTest('Time intervals (not specified/documented use of colon, please avoi
 
 test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', [
 		// 'Mo[2] - 6 days', // considered as "correct"
-		'Mo[2] - 0 days', // pointless, use "Mo[2]" instead
-		'Mo&Th',
-		'Mon',
-		'8-18',
-		'12.00-14:00',
-		'24/7; 12:00-14:00 off', // see README
-		'2013-2015/1',
-		'2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1',
-		'Mo: 15:00-16:00 off', // The colon between weekday and time range is ignored. This is used in OSM.
-		'Mo-Do 8:30-20:00 Fr 8:29-18:00',
-		'Mo 12:00-14:00 16:00-18:00 20:00-22:00',
-		'Mo-So 08:00-22:00',
-		'Mo Tu Fr',
+		'Mo[2] - 0 days' + value_suffix, // pointless, use "Mo[2]" instead
+		'Mo&Th' + value_suffix,
+		'Mon' + value_suffix,
+		'8-18' + value_suffix,
+		'12.00-14:00' + value_suffix,
+		'24/7; 12:00-14:00 off' + value_suffix, // see README, FIXME
+		'2013-2015/1' + value_suffix,
+		'2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1' + value_suffix,
+		'Mo: 15:00-16:00 off' + value_suffix, // The colon between weekday and time range is ignored. This is used in OSM.
+		'Mo-Do 8:30-20:00 Fr 8:29-18:00' + value_suffix,
+		'Mo 12:00-14:00 16:00-18:00 20:00-22:00' + value_suffix,
+		'Mo-So 08:00-22:00' + value_suffix,
+		'Mo Tu Fr' + value_suffix,
 		// selector used more than one time {{{
 		ignored('Mo,Mo'),
 		ignored('Mo,Sa,Mo'),
 		ignored('Jan,Jan'),
 		ignored('Jan,Sep,Jan'),
 		// }}}
-		'Jan Dec',
-		'Jan 1-22/1', // period
-		'"testing" "second comment"',
-		'Jan 12:00-13:00 Mo 15:00-16:00',
-		'sunrise-(sunset-00:00)',
-		// 'easter + 353 days', // Does throw an error, but at runtime when the problem occurs respectively with the call of getWarnings().
-		'Jun 2-20/1',  // period is one
-		'2014-2020/1', // period is one
-		'2014/1',      // period is one
+		'Jan Dec' + value_suffix,
+		'Jan 1-22/1' + value_suffix, // period
+		'"testing" "second comment"' + value_suffix,
+		'Jan 12:00-13:00 Mo 15:00-16:00' + value_suffix,
+		'sunrise-(sunset-00:00)' + value_suffix,
+		// 'easter + 353 days' + value_suffix, // Does throw an error, but at runtime when the problem occurs respectively with the call of getWarnings().
+		'Jun 2-20/1' + value_suffix,  // period is one
+		'2014-2020/1' + value_suffix, // period is one
+		'2014/1' + value_suffix,      // period is one
 	], {}, 'not last test');
 // }}}
 
 // values which should fail during parsing {{{
 test.addShouldFail('Incorrect syntax which should throw an error', [
-		'Mo[2] - 7 days',
+		// stupid tests {{{
 		'sdasdlasdj a3reaw', // Test for the test framwork. This test should pass :) (passes when the value can not be parsed)
-		':week 2-54 00:00-24:00',
-		':::week 2-54 00:00-24:00',
-		'week :2-54 00:00-24:00',
-		'week 2-54 00:00-24:00:',
-		'week 2-54 00:00-24:00:::',
-		'week 2-54 00::00-24:00',
-		'(sunrise+01:00-sunset',
-		'(sunrise+01::)-sunset',
-		'(sunrise)-sunset',
-		'(',
-		'sunrise-(',
-		'sunrise-sunset,(',
-		'27:00-29:00',
 		'', // empty string
 		';', // only block delimiter
 		'||', // only block delimiter
 		// '12:00-14:00 ||',
 		' ', // empty string
 		"\n", // newline
-		'14:/',
-		'14:00/',
-		'14:00-/',
-		'26:00-27:00',
-		'23:00-55:00',
-		'14:00-16:00,.',
-		'21:00-22:60',
-		'21:60-22:59',
+		// }}}
+		'Mo[2] - 7 days' + value_suffix,
+		':week 2-54 00:00-24:00' + value_suffix,
+		':::week 2-54 00:00-24:00' + value_suffix,
+		'week :2-54 00:00-24:00' + value_suffix,
+		'week 2-54 00:00-24:00:' + value_suffix,
+		'week 2-54 00:00-24:00:::' + value_suffix,
+		'week 2-54 00::00-24:00' + value_suffix,
+		'(sunrise+01:00-sunset' + value_suffix,
+		'(sunrise+01::)-sunset' + value_suffix,
+		'(sunrise)-sunset' + value_suffix,
+		'(' + value_suffix,
+		'sunrise-(' + value_suffix,
+		'sunrise-sunset,(' + value_suffix, // FIXME
+		'27:00-29:00' + value_suffix,
+		'14:/' + value_suffix,
+		'14:00/' + value_suffix,
+		'14:00-/' + value_suffix,
+		'26:00-27:00' + value_suffix,
+		'23:00-55:00' + value_suffix,
+		'14:00-16:00,.' + value_suffix,
 		// '14:00-16:00,', // is ok
-		'Sa[1.',
-		'Sa[1,0,3]',
-		'Sa[1,3-6]',
-		'Sa[1,3-.]',
-		'Sa[1,3,.]',
-		'PH + 2 day', // Normally moving PH one day is everything needed. Handling more than one move day would be harder to implement correctly.
-		'Su-PH',      // not accepted syntax
-		'2012, Jan',
-		'easter + 370 days',
-		'easter - 2 days - 2012 easter + 2 days: open "Easter Monday"',
-		'2012 easter - 2 days - easter + 2 days: open "Easter Monday"',
+		'21:00-22:60' + value_suffix,
+		'21:60-22:59' + value_suffix,
+		'Sa[1.' + value_suffix,
+		'Sa[1,0,3]' + value_suffix,
+		'Sa[1,3-6]' + value_suffix,
+		'Sa[1,3-.]' + value_suffix,
+		'Sa[1,3,.]' + value_suffix,
+		'PH + 2 day' + value_suffix, // Normally moving PH one day is everything needed. Handling more than one move day would be harder to implement correctly.
+		'Su-PH' + value_suffix,      // not accepted syntax
+		'2012, Jan' + value_suffix,
+		'easter + 370 days' + value_suffix,
+		'easter - 2 days - 2012 easter + 2 days: open "Easter Monday"' + value_suffix,
+		'2012 easter - 2 days - easter + 2 days: open "Easter Monday"' + value_suffix,
 		// 'easter + 198 days', // Does throw an error, but at runtime when the problem occurs.
-		'Jan,,,Dec',
-		'Mo,,Th',
-		'12:00-15:00/60',
-		'12:00-15:00/1:00',
-		'12:00-15:00/1:',
-		'Jun 0-Aug 23', // out of range
-		'Feb 30-Aug 2', // out of range
-		'Jun 2-Aug 42', // out of range
-		'Jun 2-Aug 32', // out of range
-		'Jun 2-32',     // out of range
-		'Jun 32-34',    // out of range
-		'Jun 2-32/2',   // out of range
-		'Jun 32',       // out of range
-		'Jun 30-24',    // reverse
-		'Jun 2-20/0',   // period is zero
-		'2014-2020/0',  // period is zero
-		'2014/0',       // period is zero
-		'2014-',
-		'2014-2014',
-		'2014-2012',
-		'23:59-48:01',
-		'Tu 23:59-48:00+', // Does not make much sense. Should be written in another way.
-		'12:00; open; closed',     // Should point to the correct position.
+		'Jan,,,Dec' + value_suffix,
+		'Mo,,Th' + value_suffix,
+		'12:00-15:00/60' + value_suffix,
+		'12:00-15:00/1:00' + value_suffix,
+		'12:00-15:00/1:' + value_suffix,
+		'Jun 0-Aug 23' + value_suffix, // out of range
+		'Feb 30-Aug 2' + value_suffix, // out of range
+		'Jun 2-Aug 42' + value_suffix, // out of range
+		'Jun 2-Aug 32' + value_suffix, // out of range
+		'Jun 2-32' + value_suffix,     // out of range
+		'Jun 32-34' + value_suffix,    // out of range
+		'Jun 2-32/2' + value_suffix,   // out of range
+		'Jun 32' + value_suffix,       // out of range
+		'Jun 30-24' + value_suffix,    // reverse
+		'Jun 2-20/0' + value_suffix,   // period is zero
+		'2014-2020/0' + value_suffix,  // period is zero
+		'2014/0' + value_suffix,       // period is zero
+		'2014-' + value_suffix,
+		'2014-2014' + value_suffix,
+		'2014-2012' + value_suffix,
+		'23:59-48:01' + value_suffix,
+		'Tu 23:59-48:00+' + value_suffix, // Does not make much sense. Should be written in another way. FIXME
+		'12:00' + value_suffix,     // Should point to the correct position. FIXME
 	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
