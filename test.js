@@ -1874,8 +1874,6 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'14:/' + value_suffix,
 		'14:00/' + value_suffix,
 		'14:00-/' + value_suffix,
-		'26:00-27:00' + value_suffix,
-		'23:00-55:00' + value_suffix,
 		'14:00-16:00,.' + value_suffix,
 		// '14:00-16:00,', // is ok
 		'21:00-22:60' + value_suffix,
@@ -1912,9 +1910,11 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'2014-' + value_suffix,
 		'2014-2014' + value_suffix,
 		'2014-2012' + value_suffix,
+		'26:00-27:00' + value_suffix,
+		'23:00-55:00' + value_suffix,
 		'23:59-48:01' + value_suffix,
 		'Tu 23:59-48:00+' + value_suffix, // Does not make much sense. Should be written in another way. FIXME
-		'12:00' + value_suffix,     // Should point to the correct position. FIXME
+		'12:00' + value_suffix,           // Should point to the correct position. FIXME
 	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [

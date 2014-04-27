@@ -2403,12 +2403,18 @@
 			} else { // Issue accrued at a later time, position in string needs to be reconstructed.
 				if (typeof tokens[nblock][0][at] == 'undefined') {
 					pos = value.length;
+					if (typeof tokens[nblock][0][tokens[nblock][0].length-1] != 'undefined') {
+						// pos -= tokens[nblock][0][tokens[nblock][0].length-1][2];
+						// console.log("FIXME");
+					}
 				} else {
 					pos = value.length;
-					if (typeof tokens[nblock][0][at+1] != 'undefined')
+					if (typeof tokens[nblock][0][at+1] != 'undefined') {
 						pos -= tokens[nblock][0][at+1][2];
-					else if (typeof tokens[nblock][2] != 'undefined')
+					} else if (typeof tokens[nblock][2] != 'undefined') {
 						pos -= tokens[nblock][2];
+					} else {
+					}
 				}
 			}
 			return value.substring(0, pos) + ' <--- (' + message + ')';
@@ -2723,7 +2729,7 @@
 					at += 3;
 				} else { // additional block
 					if (matchTokens(tokens, at, '('))
-						throw formatWarnErrorMessage(nblock, at+1, 'Missing variable time (e.g. sunrise) after: "' + tokens[at][1] + '"');
+						throw formatWarnErrorMessage(nblock, at, 'Missing variable time (e.g. sunrise) after: "' + tokens[at][1] + '"');
 					if (matchTokens(tokens, at, 'number', 'timesep'))
 						throw formatWarnErrorMessage(nblock, at+2, 'Missing minutes in time range after: "' + tokens[at+1][1] + '"');
 					if (matchTokens(tokens, at, 'number'))

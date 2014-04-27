@@ -423,7 +423,7 @@ week 2-54 00:: <--- (Missing minutes in time range after: "timesep")
 sunrise-( <--- (time range does not continue as expected)
 
 "Incorrect syntax which should throw an error" for "sunrise-sunset,(; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
-sunrise-sunset,(; unknown "warning at correct possition?" <--- (Missing variable time (e.g. sunrise) after: "(")
+sunrise-sunset,( <--- (Missing variable time (e.g. sunrise) after: "(")
 
 "Incorrect syntax which should throw an error" for "27:00-29:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 27:00- <--- (Time range starts outside of the current day)
@@ -436,12 +436,6 @@ sunrise-sunset,(; unknown "warning at correct possition?" <--- (Missing variable
 
 "Incorrect syntax which should throw an error" for "14:00-/; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 14:00-/ <--- (time range does not continue as expected)
-
-"Incorrect syntax which should throw an error" for "26:00-27:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
-26:00- <--- (Time range starts outside of the current day)
-
-"Incorrect syntax which should throw an error" for "23:00-55:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
-23:00-55:00 <--- (Time spanning more than two midnights not supported)
 
 "Incorrect syntax which should throw an error" for "14:00-16:00,.; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 14:00-16:00,. <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 14:00-16:00,. <--- (Please use ":" as hour/minute-separator)
@@ -544,6 +538,12 @@ Jun 2-20/0 <--- (You can not use day ranges with period equals zero.)
 
 "Incorrect syntax which should throw an error" for "2014-2012; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 2014 <--- (A year range in which the start year is greater than the end year does not make sense. Please turn it over.)
+
+"Incorrect syntax which should throw an error" for "26:00-27:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
+26:00- <--- (Time range starts outside of the current day)
+
+"Incorrect syntax which should throw an error" for "23:00-55:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
+23:00-55:00 <--- (Time spanning more than two midnights not supported)
 
 "Incorrect syntax which should throw an error" for "23:59-48:01; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
 23:59-48:01 <--- (Time spanning more than two midnights not supported)
