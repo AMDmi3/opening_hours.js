@@ -1793,7 +1793,7 @@ test.addTest('Input tolerance: weekdays, months in different languages', [
 	], 1000 * 60 * 60 * 6 * 4, 0, true, {}, 'not last test');
 // }}}
 
-var value_suffix = '; unknown "warning at correct possition?"';
+var value_suffix = '; 00:23-00:42 unknown "warning at correct possition?"';
 // This suffix value is there to test if the warning marks the correct position of the problem.
 
 // values which should return a warning {{{
@@ -1820,7 +1820,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'Mon' + value_suffix,
 		'8-18' + value_suffix,
 		'12.00-14:00' + value_suffix,
-		'24/7; 12:00-14:00 off' + value_suffix, // see README, FIXME
+		'24/7; 12:00-14:00 off' + value_suffix, // see README
 		'2013-2015/1' + value_suffix,
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1' + value_suffix,
 		'Mo: 15:00-16:00 off' + value_suffix, // The colon between weekday and time range is ignored. This is used in OSM.
