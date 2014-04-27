@@ -95,7 +95,7 @@ class OpeningHoursRegexSearch: # {{{
             if len(matched) == 0:
                 logging.info('Did not match any value with regular expression: %s', user_regex)
             else:
-                matched = sorted(matched, key=lambda k: k[0]['count'], reverse=True)
+                matched = sorted(matched, key=lambda k: k[0]['count'], reverse=True) # show the values which appear often first
                 do_parse_all_values_before = True
                 if (len(matched) > 10000
                         and not re.match(r'^y', raw_input('Try to parse each value (probably takes a second)? '), re.I)):
@@ -108,6 +108,8 @@ class OpeningHoursRegexSearch: # {{{
                     if do_parse_all_values_before:
                         try:
                             oh_result = OpeningHours(taginfo_hash['value'])
+                        except ImportError as e:
+                            raise e
                         except ParseException:
                             continue
                         passed_diff_values += 1
@@ -144,15 +146,18 @@ class OpeningHoursRegexSearch: # {{{
                             # If nothing is printed in this iteration, the
                             # question would pop up again. The variable
                             # "printed_values" does already not match the real
-                            # printed lines so how cares …
+                            # printed lines so who cares …
                             if not re.match(r'^(y.*|)$', raw_input('Continue? '), re.I):
                                 break
-                        oh_ok = True
 
+                        oh_ok = True
                         try:
                             oh_result = OpeningHours(taginfo_hash['value'])
+                        except ImportError as e:
+                            raise e
                         except ParseException as e:
                             oh_ok = False
+
                         oh_loc_needed = ', loc needed' if oh_result._neededNominatiomJson() else ''
                         oh_warnings   = ', warnings'   if oh_result.getWarnings() else ''
                         if oh_ok:

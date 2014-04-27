@@ -1909,6 +1909,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'2014-2012',
 		'23:59-48:01',
 		'Tu 23:59-48:00+', // Does not make much sense. Should be written in another way.
+		'12:00; open; closed',     // Should point to the correct position.
 	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
@@ -1969,7 +1970,9 @@ function opening_hours_test() {
 	var show_passing_tests  = true;
 	// False: Can also be achieved by running make test 1>/dev/null which redirects stdout to /dev/null.
 	// Note that these two variants are not quite the same.
-	var show_error_warnings = false; // Enable this if you want to see what errors and warnings the library reports.
+	var show_error_warnings = true; // Enable this if you want to see what errors and warnings the library reports.
+	// By default enabled to see changes in the warning message. Now that the
+	// log is version controlled it is easy to keep track of changes.
 	var tests = [];
 	var tests_should_fail = [];
 	var tests_should_warn = [];
