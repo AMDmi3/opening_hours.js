@@ -549,10 +549,10 @@ Jun 2-20/0 <--- (You can not use day ranges with period equals zero.)
 23:59-48:01 <--- (Time spanning more than two midnights not supported)
 
 "Incorrect syntax which should throw an error" for "Tu 23:59-48:00+; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
-Tu 23:59-48:00+; unknown "warning at correct possition?" <--- (Time spanning more than two midnights not supported)
+Tu 23:59-48:00+ <--- (Time spanning more than two midnights not supported)
 
 "Incorrect syntax which should throw an error" for "12:00; unknown "warning at correct possition?"": [1m[32mPASSED[39m[22m
-12:00; unknown "warning at correct possition?" <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
+12:00 <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
 
 "Missing information (e.g. country or holidays not defined in this lib)" for "PH": [1m[32mPASSED[39m[22m
 Country code missing which is needed to select the correct holidays (see README how to provide it)

@@ -1869,7 +1869,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'(sunrise)-sunset' + value_suffix,
 		'(' + value_suffix,
 		'sunrise-(' + value_suffix,
-		'sunrise-sunset,(' + value_suffix, // FIXME
+		'sunrise-sunset,(' + value_suffix,
 		'27:00-29:00' + value_suffix,
 		'14:/' + value_suffix,
 		'14:00/' + value_suffix,
@@ -1913,8 +1913,8 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'26:00-27:00' + value_suffix,
 		'23:00-55:00' + value_suffix,
 		'23:59-48:01' + value_suffix,
-		'Tu 23:59-48:00+' + value_suffix, // Does not make much sense. Should be written in another way. FIXME
-		'12:00' + value_suffix,           // Should point to the correct position. FIXME
+		'Tu 23:59-48:00+' + value_suffix, // Does not make much sense. Should be written in another way.
+		'12:00' + value_suffix,
 	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [

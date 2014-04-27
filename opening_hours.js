@@ -2405,7 +2405,7 @@
 					pos = value.length;
 					if (typeof tokens[nblock][0][tokens[nblock][0].length-1] != 'undefined') {
 						// pos -= tokens[nblock][0][tokens[nblock][0].length-1][2];
-						// console.log("FIXME");
+						console.warn("FIXME");
 					}
 				} else {
 					pos = value.length;
@@ -2427,7 +2427,7 @@
 			// May use this instead. Does not say, what is wrong as good was implementation below.
 			// var testDate = new Date(year, month, day);
 			// if (testDate.getDate() != day || testDate.getMonth() != month || testDate.getFullYear() != year) {
-			// 	console.log('date not valid');
+			// 	console.error('date not valid');
 			// }
 
 			// https://en.wikipedia.org/wiki/Month#Julian_and_Gregorian_calendars
@@ -2476,7 +2476,13 @@
 							has_open_end = true;
 						} else {
 							if (oh_mode == 0) {
-								throw formatWarnErrorMessage(nblock, at+(has_normal_time[0] ? 3 : (has_time_var_calc[0] ? 2 : 1)),
+								throw formatWarnErrorMessage(nblock, at+(
+										has_normal_time[0] ? (
+												typeof tokens[at+3] == 'object' ? 3 : 2
+											) : (
+												has_time_var_calc[0] ? 2 : 1
+											)
+										),
 									'hyphen (-) or open end (+) in time range '
 									+ (has_time_var_calc[0] ? 'calculation ' : '') + 'expected.'
 									+ ' For working with points in time, the mode for opening_hours.js has to be altered.'
@@ -2559,7 +2565,7 @@
 					if (minutes_to < minutes_from || ((has_normal_time[0] && has_normal_time[1]) && minutes_from == minutes_to))
 						minutes_to += minutes_in_day;
 					if (minutes_to > minutes_in_day * 2)
-						throw formatWarnErrorMessage(nblock, at_end_time + (has_normal_time[1] ? 3 : (has_time_var_calc[1] ? 7 : 1)) - 1,
+						throw formatWarnErrorMessage(nblock, at_end_time + (has_normal_time[1] ? 4 : (has_time_var_calc[1] ? 7 : 1)) - 2,
 							'Time spanning more than two midnights not supported');
 
 					// this shortcut makes always-open range check faster
