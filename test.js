@@ -1757,6 +1757,8 @@ test.addTest('Additional comments for unknown', [
 // Currently used around 6 times: /\d\s*-\s*(mo|tu|we|th|fr|sa|su)\b/
 test.addTest('Calculations based on month range', [
 		ignored('Mar Su[-1] - Dec 25-Su-28 days: 12:00-13:00'),
+		ignored('Mo-Fr 09:00-12:30; Sa 09:00-13:00; Dec 25-Su-28 days - Dec 24: Mo-Fr 09:00-16:00,Sa 09:00-16:00'),
+		// http://www.openstreetmap.org/node/542882513
 	], '2012.01.01 0:00', '2012.10.08 0:00', [
 	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'not only test');
 // }}}
@@ -1843,6 +1845,8 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'Jun 2-20/1' + value_suffix,  // period is one
 		'2014-2020/1' + value_suffix, // period is one
 		'2014/1' + value_suffix,      // period is one
+		'Mo-Sa 11:00-21:00 Su off' + value_suffix, // http://www.openstreetmap.org/way/228339826
+		// 'Mo-Sa 11:00-21:00 Su,PH off' + value_suffix, // http://www.openstreetmap.org/way/228339826
 	], {}, 'not last test');
 // }}}
 
