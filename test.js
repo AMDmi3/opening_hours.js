@@ -4,6 +4,7 @@ var colors        = require('colors');
 
 colors.setTheme({
 	passed:  [ 'green'  , 'bold' ] , // printed with console.log
+	warn:    [ 'blue'   , 'bold' ] , // printed with console.info
 	failed:  [ 'red'    , 'bold' ] , // printed with console.warn
 	crashed: [ 'magenta', 'bold' ] , // printed with console.error
 	ignored: [ 'yellow' , 'bold' ] ,
@@ -24,7 +25,6 @@ var nominatiomTestJSON_bremen = {"place_id":"39182271","licence":"Data \u00a9 Op
 // }}}
 
 // }}}
-
 
 // time ranges {{{
 test.addTest('Time intervals', [
@@ -87,7 +87,9 @@ test.addTest('Input tolerance: dot as time separator', [
 
 test.addTest('Input tolerance: short time (test prettify)', [
 		'10:00-12:00,13:00-20:00', // reference value for prettify
-		'10-12,13-20',
+		'10-12,13-20',             // Do not use. Returns warning.
+		'10am-12am,1pm-8pm',       // Do not use. Returns warning.
+		'10:00am-12:00am,1:00pm-8:00pm',       // Do not use. Returns warning.
 	], '2012.10.01 0:00', '2012.10.03 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 12:00' ],
 		[ '2012.10.01 13:00', '2012.10.01 20:00' ],
@@ -1795,7 +1797,7 @@ test.addTest('Input tolerance: weekdays, months in different languages', [
 	], 1000 * 60 * 60 * 6 * 4, 0, true, {}, 'not last test');
 // }}}
 
-var value_suffix = '; 00:23-00:42 unknown "warning at correct possition?"';
+var value_suffix = '; 00:23-00:42 unknown "warning at correct position?"';
 // This suffix value is there to test if the warning marks the correct position of the problem.
 
 // values which should return a warning {{{
@@ -1976,24 +1978,27 @@ process.exit(test.run() ? 0 : 1);
 // Test framework {{{
 //======================================================================
 function opening_hours_test() {
-	var show_passing_tests  = true;
+	this.show_passing_tests = true;
 	// False: Can also be achieved by running make test 1>/dev/null which redirects stdout to /dev/null.
 	// Note that these two variants are not quite the same.
-	var show_error_warnings = true; // Enable this if you want to see what errors and warnings the library reports.
+	this.show_error_warnings = true; // Enable this if you want to see what errors and warnings the library reports.
 	// By default enabled to see changes in the warning message. Now that the
 	// log is version controlled it is easy to keep track of changes.
-	var tests = [];
-	var tests_should_fail = [];
-	var tests_should_warn = [];
-	var tests_comp_matching_rule = [];
+	this.tests = [];
+	this.tests_should_fail = [];
+	this.tests_should_warn = [];
+	this.tests_comp_matching_rule = [];
 
 	this.last = false; // If set to true, no more tests are added to the testing queue.
 	// This might be useful for testing to avoid to comment tests out and something like that …
 
-	// function runSingleTestShouldFail {{{
-	function runSingleTestShouldFail(name, value, nominatiomJSON, oh_mode) {
+	this.runSingleTestShouldFail = function(test_data_object) { // {{{
+		var name = test_data_object[0],
+			value = test_data_object[1],
+			nominatiomJSON = test_data_object[2],
+			oh_mode = test_data_object[3];
 		try {
-			// since they should fail anyway we can give them the nominatiomTestJSON
+			// Since they should fail anyway we can give them the nominatiomTestJSON.
 			oh = new opening_hours(value, nominatiomJSON, oh_mode);
 
 			crashed = false;
@@ -2007,9 +2012,9 @@ function opening_hours_test() {
 			str += 'PASSED'.passed;
 			passed = true;
 
-			if (show_passing_tests) {
+			if (this.show_passing_tests) {
 				console.log(str);
-				if (show_error_warnings)
+				if (this.show_error_warnings)
 					console.info(crashed + '\n');
 			}
 		} else {
@@ -2021,8 +2026,10 @@ function opening_hours_test() {
 	}
 	// }}}
 
-	// function runSingleTestShouldThrowWarning {{{
-	function runSingleTestShouldThrowWarning(name, value, nominatiomJSON) {
+	this.runSingleTestShouldThrowWarning = function(test_data_object) { // {{{
+		var name = test_data_object[0],
+			value = test_data_object[1],
+			nominatiomJSON = test_data_object[2];
 		var ignored = typeof value !== 'string';
 		if (ignored) {
 			ignored = value[1];
@@ -2041,13 +2048,13 @@ function opening_hours_test() {
 
 		var passed = false;
 		var str = '"' + name + '" for "' + value.replace('\n', '*newline*') + '": ';
+		this.print_warnings(warnings);
 		if (!crashed && warnings.length > 0) {
 			str += 'PASSED'.passed;
 			passed = true;
-			if (show_passing_tests)
+			if (this.show_passing_tests)
 				console.log(str);
-			if (show_error_warnings)
-				console.info(warnings.join('\n'));
+			this.print_warnings(warnings);
 			return true;
 		} else if (ignored) {
 			str += 'IGNORED'.ignored + ', reason: ' + ignored;
@@ -2056,15 +2063,25 @@ function opening_hours_test() {
 		} else {
 			str += 'FAILED'.failed;
 			console.warn(str);
-			if (show_error_warnings)
+			this.print_warnings(warnings);
+			if (this.show_error_warnings)
 				console.error(crashed + '\n');
 		}
 		return false;
 	}
 	// }}}
 
-	// function runSingleTest {{{
-	function runSingleTest(name, value, first_value, from, to, expected_intervals, expected_durations, expected_weekstable, nominatiomJSON, oh_mode) {
+	this.runSingleTest = function(test_data_object) { // {{{
+		var name = test_data_object[0],
+			value = test_data_object[1],
+			first_value = test_data_object[2],
+			from = test_data_object[3],
+			to = test_data_object[4],
+			expected_intervals = test_data_object[5],
+			expected_durations = test_data_object[6],
+			expected_weekstable = test_data_object[7],
+			nominatiomJSON = test_data_object[8],
+			oh_mode = test_data_object[9];
 		var ignored = typeof value !== 'string';
 		if (ignored) {
 			ignored = value[1];
@@ -2089,7 +2106,6 @@ function opening_hours_test() {
 				&& (typeof expected_durations[1] === 'undefined' || durations[1] === expected_durations[1]);
 			weekstable_ok = typeof expected_weekstable === 'undefined' || weekstable === expected_weekstable;
 			prettify_ok   = typeof prettified === 'undefined' || prettified === value || prettified === first_value;
-			// prettify_ok = true;
 
 			crashed = false;
 		} catch (err) {
@@ -2115,7 +2131,10 @@ function opening_hours_test() {
 		var passed = false;
 		var str = '"' + name + '" for "' + value + '": ';
 		var failed = false;
-		if (intervals_ok && duration_ok && prettify_ok && (weekstable_ok || ignored == 'check for week stable not implemented')) {
+		if (intervals_ok
+				&& duration_ok
+				&& prettify_ok
+				&& (weekstable_ok || ignored == 'check for week stable not implemented')) {
 			str += 'PASSED'.passed;
 			if (ignored) {
 				if (ignored == 'check for week stable not implemented') {
@@ -2126,6 +2145,7 @@ function opening_hours_test() {
 			}
 			passed = true;
 			console.log(str);
+			this.print_warnings(warnings);
 		} else if (ignored) {
 			str += 'IGNORED'.ignored + ', reason: ' + ignored;
 			passed = true;
@@ -2144,42 +2164,46 @@ function opening_hours_test() {
 				str += ', bad prettified value: "' + prettified + '", expected either value or "' + first_value + '"';
 			failed = true;
 
-			if (show_error_warnings && warnings.length > 0)
-				console.info(warnings.join('\n'));
 			console.warn(str);
+			this.print_warnings(warnings);
 		}
 
 		return passed;
 	}
 	// }}}
 
-	// function runSingleTestCompMatchingRule {{{
-	function runSingleTestCompMatchingRule(name, value, date, matching_rule, nominatiomJSON) {
+	this.runSingleTestCompMatchingRule = function(test_data_object) { // {{{
+		var name           = test_data_object[0],
+			value          = test_data_object[1],
+			point_in_time  = test_data_object[2],
+			matching_rule  = test_data_object[3],
+			nominatiomJSON = test_data_object[4];
 		try {
 			// since they should fail anyway we can give them the nominatiomTestJSON
 			oh = new opening_hours(value, nominatiomJSON);
-			it = oh.getIterator(new Date(date));
+			it = oh.getIterator(new Date(point_in_time));
+
+			var matching_rule_ok = it.getMatchingRule() == matching_rule;
+
+		var passed = false;
 
 			crashed = false;
 		} catch (err) {
 			crashed = err;
 		}
 
-		var matching_rule_ok = it.getMatchingRule() == matching_rule;
-
-		var passed = false;
 		var str = '"' + name + '" for "' + value.replace('\n', '*newline*') + '": ';
 		if (!crashed && matching_rule_ok) {
 			str += 'PASSED'.passed;
 			passed = true;
 
-			if (show_passing_tests)
+			if (this.show_passing_tests)
 				console.log(str);
 		} else if (crashed) {
 			str += 'CRASHED'.crashed + ', reason: ' + crashed;
 			console.error(str);
 		} else {
-			str += 'FAILED'.failed + ' for time ' + new Date(date);
+			str += 'FAILED'.failed + ' for time ' + new Date(point_in_time);
 			str += ', bad matching rule: "' + it.getMatchingRule() + '", expected "' + matching_rule + '"';
 			console.warn(str);
 		}
@@ -2190,23 +2214,25 @@ function opening_hours_test() {
 
 	// run all tests (public function) {{{
 	this.run = function() {
-		var tests_length = tests.length + tests_should_fail.length + tests_should_warn.length + tests_comp_matching_rule.length;
+		var tests_length = this.tests.length
+			+ this.tests_should_fail.length
+			+ this.tests_should_warn.length
+			+ this.tests_comp_matching_rule.length;
 		var success = 0;
-		for (var test = 0; test < tests.length; test++) {
-			if (runSingleTest(tests[test][0], tests[test][1], tests[test][2], tests[test][3], tests[test][4], tests[test][5], tests[test][6], tests[test][7], tests[test][8], tests[test][9]))
+		for (var test = 0; test < this.tests.length; test++) {
+			if (this.runSingleTest(this.tests[test]))
 				success++;
 		}
-		for (var test = 0; test < tests_should_warn.length; test++) {
-			if (runSingleTestShouldThrowWarning(tests_should_warn[test][0], tests_should_warn[test][1], tests_should_warn[test][2]))
+		for (var test = 0; test < this.tests_should_warn.length; test++) {
+			if (this.runSingleTestShouldThrowWarning(this.tests_should_warn[test]))
 				success++;
 		}
-		for (var test = 0; test < tests_should_fail.length; test++) {
-			if (runSingleTestShouldFail(tests_should_fail[test][0], tests_should_fail[test][1], tests_should_fail[test][2], tests_should_fail[test][3]))
+		for (var test = 0; test < this.tests_should_fail.length; test++) {
+			if (this.runSingleTestShouldFail(this.tests_should_fail[test]))
 				success++;
 		}
-		for (var test = 0; test < tests_comp_matching_rule.length; test++) {
-			if (runSingleTestCompMatchingRule(tests_comp_matching_rule[test][0], tests_comp_matching_rule[test][1],
-					tests_comp_matching_rule[test][2], tests_comp_matching_rule[test][3]))
+		for (var test = 0; test < this.tests_comp_matching_rule.length; test++) {
+			if (this.runSingleTestCompMatchingRule(this.tests_comp_matching_rule[test]))
 				success++;
 		}
 
@@ -2233,7 +2259,7 @@ function opening_hours_test() {
 				[ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON, oh_mode]);
 		else
 			for (var value = 0; value < values.length; value++)
-				tests.push([name, values[value], values[0], from, to, expected_intervals,
+				this.tests.push([name, values[value], values[0], from, to, expected_intervals,
 					[ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON, oh_mode]);
 	}
 	// }}}
@@ -2244,10 +2270,10 @@ function opening_hours_test() {
 		this.handle_only_test(last);
 
 		if (typeof values === 'string')
-			tests_should_fail.push([name, values, nominatiomJSON, oh_mode]);
+			this.tests_should_fail.push([name, values, nominatiomJSON, oh_mode]);
 		else
 			for (var value = 0; value < values.length; value++)
-				tests_should_fail.push([name, values[value], nominatiomJSON, oh_mode]);
+				this.tests_should_fail.push([name, values[value], nominatiomJSON, oh_mode]);
 	}
 	// }}}
 
@@ -2257,10 +2283,10 @@ function opening_hours_test() {
 		this.handle_only_test(last);
 
 		if (typeof values == 'string')
-			tests_should_warn.push([name, values, nominatiomJSON]);
+			this.tests_should_warn.push([name, values, nominatiomJSON]);
 		else
 			for (var value = 0; value < values.length; value++)
-				tests_should_warn.push([name, values[value], nominatiomJSON]);
+				this.tests_should_warn.push([name, values[value], nominatiomJSON]);
 	}
 	// }}}
 
@@ -2270,15 +2296,15 @@ function opening_hours_test() {
 		this.handle_only_test(last);
 
 		if (typeof values == 'string')
-			tests_comp_matching_rule.push([name, values, date, matching_rule, nominatiomJSON]);
+			this.tests_comp_matching_rule.push([name, values, date, matching_rule, nominatiomJSON]);
 		else
 			for (var value = 0; value < values.length; value++)
-				tests_comp_matching_rule.push([name, values[value], date, matching_rule, nominatiomJSON]);
+				this.tests_comp_matching_rule.push([name, values[value], date, matching_rule, nominatiomJSON]);
 	}
 	// }}}
 
 	// helpers {{{
-	function intervalsToString(intervals) {
+	function intervalsToString(intervals) { // {{{
 		var res = '';
 
 		if (intervals.length == 0)
@@ -2298,8 +2324,9 @@ function opening_hours_test() {
 
 		return res;
 	}
+	// }}}
 
-	function formatDate(date) {
+	function formatDate(date) { // {{{
 		if (typeof date === 'string')
 			return date;
 
@@ -2311,16 +2338,25 @@ function opening_hours_test() {
 		res += ('0' + date.getMinutes()).substr(-2, 2);
 		return res;
 	}
+	// }}}
 
-	this.handle_only_test = function (last) {
+	this.handle_only_test = function(last) { // {{{
 		if (last === 'only test') {
-			tests = [];
-			tests_should_fail = [];
-			tests_should_warn = [];
-			tests_comp_matching_rule = [];
+			this.tests = [];
+			this.tests_should_fail = [];
+			this.tests_should_warn = [];
+			this.tests_comp_matching_rule = [];
 		}
 		if (last === 'only test' || last === 'last test') this.last = true;
 	}
+	// }}}
+
+	this.print_warnings = function(warnings) { // {{{
+		if (this.show_error_warnings && typeof warnings == 'object' && warnings.length > 0) {
+			console.info('With ' + 'warnings'.warn + ':\n\t*' + warnings.join('\n\t*'));
+		}
+	}
+	// }}}
 	// }}}
 }
 

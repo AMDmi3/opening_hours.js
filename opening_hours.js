@@ -1841,7 +1841,7 @@
 		var tokens = tokenize(value);
 		// console.log(JSON.stringify(tokens, null, '\t'));
 		var prettified_value = '';
-		var used_subparsers = {}; // Used sub parsers for one block, will be reset for each block. Declared as global, because it is manipulation inside various sub parsers.
+		var used_subparsers = {}; // Used sub parsers for one block, will be reset for each block. Declared in global namespace, because it is manipulation inside various sub parsers.
 		var week_stable = true;
 
 		var blocks = [];
@@ -1904,8 +1904,8 @@
 				// console.log('weekday: ' + JSON.stringify(selectors.weekday, null, '\t'));
 				blocks.push(selectors);
 
-				// this handles selectors with time ranges wrapping over midnight (e.g. 10:00-02:00)
-				// it generates wrappers for all selectors and creates a new block
+				// This handles selectors with time ranges wrapping over midnight (e.g. 10:00-02:00)
+				// it generates wrappers for all selectors and creates a new block.
 				if (selectors.wraptime.length > 0) {
 					var wrapselectors = {
 						time: selectors.wraptime,
@@ -1933,27 +1933,32 @@
 		}
 		// }}}
 
-		// Tokenization function: Splits string into parts. {{{
-		// output: array of arrays of pairs [content, type]
+		/* Tokenization function: Splits string into parts. {{{
+		 *
+		 * :param value: Raw opening_hours value.
+		 * :returns: Tokenized list object. Complex structure. You can print the
+		 *		thing as JSON if you would like to know in details.
+		 *		The most inner list has the following items: [ internal_value, token_name, value_length ].
+		 */
 		function tokenize(value) {
-			var all_tokens       = new Array();
+			var all_tokens        = new Array();
 			var curr_block_tokens = new Array();
 
 			var last_block_fallback_terminated = false;
 
 			while (value != '') {
 				var tmp;
-				if (tmp = value.match(/^(?:week\b|open\b|unknown)/i)) {
-					// reserved word
+				if (tmp = value.match(/^(?:week\b|open\b|unknown\b)/i)) {
+					// Reserved keywords.
 					curr_block_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase(), value.length ]);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^24\/7/i)) {
-					// reserved word
+					// Reserved keyword.
 					has_token[tmp[0]] = true;
 					curr_block_tokens.push([tmp[0], tmp[0], value.length ]);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(?:off|closed)/i)) {
-					// reserved word
+					// Reserved keywords.
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'closed', value.length ]);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(?:PH|SH)/i)) {
@@ -1964,12 +1969,31 @@
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|25x7|7[ ]?days( a week|)|all days?|every day|-late|public holidays?|7j?\/7|every day|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b)\.?/i)) {
-					// Handle all remaining words with error tolerance
+					// Handle all remaining words with error tolerance.
 					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
 					if (typeof correct_val == 'object') {
 						curr_block_tokens.push([ correct_val[0], correct_val[1], value.length ]);
 						value = value.substr(tmp[0].length);
 					} else if (typeof correct_val == 'string') {
+						if (tmp[1].toLowerCase() == 'pm') {
+							var hours_token_at = curr_block_tokens.length - 3;
+							if (hours_token_at > 0) {
+								if (matchTokens(curr_block_tokens, hours_token_at,
+											'number', 'timesep', 'number')
+										) {
+									var hours_token = curr_block_tokens[hours_token_at];
+								} else if (matchTokens(curr_block_tokens, hours_token_at + 2,
+											'number')
+										) {
+									hours_token_at += 2;
+									var hours_token = curr_block_tokens[hours_token_at];
+								}
+								if (hours_token[0] <= 12) {
+									hours_token[0] += 12;
+									curr_block_tokens[hours_token_at] = hours_token;
+								}
+							}
+						}
 						value = correct_val + value.substr(tmp[0].length);
 					} else {
 						// other single-character tokens
@@ -1978,7 +2002,7 @@
 					}
 				} else if (tmp = value.match(/^\d+/)) {
 					// number
-					if (tmp[0] > 1900) // assumed to be a year number
+					if (tmp[0] > 1900) // Assumed to be a year number.
 						curr_block_tokens.push([tmp[0], 'year', value.length ]);
 					else
 						curr_block_tokens.push([+tmp[0], 'number', value.length ]);
@@ -2031,41 +2055,67 @@
 		}
 		// }}}
 
-		// error correction/tolerance function {{{
-		// Go through word_error_correction hash and get correct value back.
+		/* error correction/tolerance function {{{
+		 * Go through word_error_correction hash and get correct value back.
+		 *
+		 * :param word: Wrong Word or character.
+		 * :param value_length: Current value_length (used for warnings).
+		 * :returns:
+		 *		* (valid) opening_hours sub string.
+		 *		* object with [ internal_value, token_name ] if value is correct.
+		 *		* undefined if word could not be found (and thus not be corrected).
+		 */
 		function returnCorrectWordOrToken(word, value_length) {
 			for (var token_name in word_error_correction) {
 				for (var comment in word_error_correction[token_name]) {
 					for (var old_val in word_error_correction[token_name][comment]) {
 						if (old_val == word) {
 							var val = word_error_correction[token_name][comment][old_val];
-							if (token_name == 'wrong_words' && !done_with_warnings) {
+							if (comment == 'default') {
+								// Return internal representation of word.
+								return [ val, token_name ];
+							} else if (token_name == 'wrong_words' && !done_with_warnings) {
+								// Replace wrong words or characters with correct ones.
+								// This will return a string which is then being tokenized.
 								parsing_warnings.push([ -1, value_length - old_val.length,
 									comment.replace(/<ko>/, old_val).replace(/<ok>/, val) ]);
 								return val;
-							} else if (comment != 'default'){
+							} else {
+								// Get correct string value from the 'default' hash and generate warning.
 								var correct_abbr;
 								for (correct_abbr in word_error_correction[token_name]['default']) {
 									if (word_error_correction[token_name]['default'][correct_abbr] == val)
-										break; // FIXME
+										break;
 								}
-								// FIXME
-								if (token_name != 'timevar') { // normally written in lower case
-									correct_abbr = correct_abbr.charAt(0).toUpperCase() + correct_abbr.slice(1);
+								if (typeof correct_abbr == 'undefined') {
+									throw 'Please file a bug for opening_hours.js.'
+										+ ' Including the stacktrace.'
+								}
+								if (token_name != 'timevar') {
+									// Everything else than timevar:
+									// E.g. 'Mo' are start with a upper case letter.
+									// It just looks better.
+									correct_abbr = correct_abbr.charAt(0).toUpperCase()
+										+ correct_abbr.slice(1);
 								}
 								if (!done_with_warnings)
 									parsing_warnings.push([ -1, value_length - old_val.length,
 										comment.replace(/<ko>/, old_val).replace(/<ok>/, correct_abbr) ]);
+								return [ val, token_name ];
 							}
-							return [ val, token_name ];
 						}
 					}
 				}
 			}
+			return undefined;
 		}
 		// }}}
 
-		// return warnings as list {{{
+		/* return warnings as list {{{
+		 *
+		 * :param it: Raw opening_hours value.
+		 * :returns: Warnings as list with one warning per element.
+		 */
 		function getWarnings(it) {
 			if (typeof it == 'object') { // getWarnings was called in a state without critical errors. We can do extended tests.
 
@@ -2089,7 +2139,13 @@
 		}
 		// }}}
 
-		// Function to check token array for specific pattern {{{
+		/* Function to check token array for specific pattern {{{
+		 *
+		 * :param tokens: List of token objects.
+		 * :param at: Position at which the matching should begin.
+		 * :param token_name(s): One or many token_name strings which have to match in that order.
+		 * :returns: true if token_name(s) match in order false otherwise.
+		 */
 		function matchTokens(tokens, at /*, matches... */) {
 			if (at + arguments.length - 2 > tokens.length)
 				return false;
@@ -2102,7 +2158,13 @@
 		}
 		// }}}
 
-		// Generate selector wrapper with time offset {{{
+		/* Generate selector wrapper with time offset {{{
+		 *
+		 * :param func: Generated selector code function.
+		 * :param shirt: Time to shift in milliseconds.
+		 * :param token_name(s): One or many token_name strings which have to match in that order.
+		 * :returns: See selector code.
+		 */
 		function generateDateShifter(func, shift) {
 			return function(date) {
 				var res = func(new Date(date.getTime() + shift));
@@ -2114,7 +2176,15 @@
 		}
 		// }}}
 
-		// Top-level parser {{{
+		/* Top-level parser {{{
+		 *
+		 * :param tokens: List of token objects.
+		 * :param at: Position at which the matching should begin.
+		 * :param selectors: Reference to selector object.
+		 * :param nblock: Block number starting with 0.
+		 * :param conf: Configuration for prettifyValue.
+		 * :returns: See selector code.
+		 */
 		function parseGroup(tokens, at, selectors, nblock, conf) {
 			var prettified_group_value = '';
 			used_subparsers = { 'time ranges': [ ] };
@@ -2237,7 +2307,6 @@
 				}
 
 				if (typeof conf != 'undefined') {
-
 					// 'Mo: 12:00-13:00' -> 'Mo 12:00-13:00'
 					if (used_subparsers['time ranges'] && old_at > 1 && tokens[old_at-1][0] == ':'
 							&& matchTokens(tokens, old_at - 2, 'weekday'))
@@ -3979,7 +4048,7 @@
 		}
 		// }}}
 
-		// generate prettified value based on tokens {{{
+		// Generate prettified value based on tokens {{{
 		function prettifySelector(tokens, at, last_at, conf, used_parseTimeRange) {
 			var value = '';
 			var start_at = at;
@@ -3992,21 +4061,32 @@
 							value = value.substring(0, value.length - 1) + conf.sep_one_day_between;
 					}
 					value += weekdays[tokens[at][0]];
-				} else if (at - start_at > 0 && used_parseTimeRange > 0 && matchTokens(tokens, at-1, 'timesep')
-						&& matchTokens(tokens, at, 'number')) { // '09:0' -> '09:00'
+				} else if (at - start_at > 0 // e.g. '09:0' -> '09:00'
+						&& used_parseTimeRange > 0
+						&& matchTokens(tokens, at-1, 'timesep')
+						&& matchTokens(tokens, at, 'number')) {
 					value += (tokens[at][0] < 10 ? '0' : '') + tokens[at][0].toString();
-				} else if (used_parseTimeRange > 0 && conf.leading_zero_hour && at != tokens.length
+				} else if (used_parseTimeRange > 0 // e.g. '9:00' -> ' 09:00'
+						&& conf.leading_zero_hour
+						&& at != tokens.length
 						&& matchTokens(tokens, at, 'number')
-						&& matchTokens(tokens, at+1, 'timesep')) { // '9:00' -> '19:00'
-					value += (tokens[at][0] < 10 ? (tokens[at][0] == 0 && conf.one_zero_if_hour_zero ? '' : '0') : '') + tokens[at][0].toString();
-				} else if (used_parseTimeRange > 0 && at + 2 < last_at
+						&& matchTokens(tokens, at+1, 'timesep')) {
+					value += (
+							tokens[at][0] < 10 ?
+								(tokens[at][0] == 0 && conf.one_zero_if_hour_zero ?
+								 '' : '0') :
+								'') + tokens[at][0].toString();
+				} else if (used_parseTimeRange > 0 // e.g. '9-18' -> '09:00-18:00'
+						&& at + 2 < last_at
 						&& matchTokens(tokens, at, 'number')
 						&& matchTokens(tokens, at+1, '-')
-						&& matchTokens(tokens, at+2, 'number')) { // '9-18' -> '09:00-18:00'
-					value += (tokens[at][0] < 10 ? (tokens[at][0] == 0 && conf.one_zero_if_hour_zero ? '' : '0') : '') + tokens[at][0].toString();
-					value += ':00-';
-					value += (tokens[at+2][0] < 10 ? '0' : '') + tokens[at+2][0].toString();
-					value += ':00';
+						&& matchTokens(tokens, at+2, 'number')) {
+					value += (tokens[at][0] < 10 ?
+							(tokens[at][0] == 0 && conf.one_zero_if_hour_zero ? '' : '0')
+							: '') + tokens[at][0].toString();
+					value += ':00-'
+						+ (tokens[at+2][0] < 10 ? '0' : '') + tokens[at+2][0].toString()
+						+ ':00';
 					at += 2;
 				} else if (matchTokens(tokens, at, 'comment')) {
 					value += '"' + tokens[at][0].toString() + '"';
@@ -4357,3 +4437,4 @@
 		// }}}
 	}
 }));
+// vim: set ts=4 sw=4 tw=0 noet foldmarker={{{,}}} foldlevel=0 foldmethod=marker :
