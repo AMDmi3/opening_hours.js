@@ -2113,7 +2113,7 @@
 
 		/* return warnings as list {{{
 		 *
-		 * :param it: Raw opening_hours value.
+		 * :param it: Iterator object if available (optional).
 		 * :returns: Warnings as list with one warning per element.
 		 */
 		function getWarnings(it) {
@@ -2352,17 +2352,38 @@
 		// }}}
 
 		// helper functions for sub parser {{{
-		// for given date, returns date moved to the start of specified day minute
+
+		/* For given date, returns date moved to the start of the day with an offset specified in minutes. {{{
+		 * For example, if date is 2014-05-19_18:17:12, dateAtDayMinutes would
+		 * return 2014-05-19_02:00:00 for minutes=120.
+		 *
+		 * :param date: Date object.
+		 * :param minutes: Minutes used as offset starting from midnight of current day.
+		 * :returns: Moved date object.
+		 */
 		function dateAtDayMinutes(date, minutes) {
 			return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, minutes);
 		}
+		// }}}
 
-		// for given date, returns date moved to the specific day of week
+		/* For given date, returns date moved to the specific day of week {{{
+		 *
+		 * :param date: Date object.
+		 * :param day: Integer number for day of week. Starting with zero (Sunday).
+		 * :returns: Moved date object.
+		 */
 		function dateAtNextWeekday(date, day) {
 			var delta = day - date.getDay();
 			return new Date(date.getFullYear(), date.getMonth(), date.getDate() + delta + (delta < 0 ? 7 : 0));
 		}
+		// }}}
 
+		/* Function to determine whether an array contains a value {{{
+		 * Source: http://stackoverflow.com/a/1181586
+		 *
+		 * :param needle: Element to find.
+		 * :returns: Index of element if present, if not present returns -1.
+		 */
 		function indexOf(needle) {
 			if(typeof Array.prototype.indexOf === 'function') {
 				indexOf = Array.prototype.indexOf;
@@ -2380,8 +2401,16 @@
 			}
 			return indexOf.call(this, needle);
 		}
+		// }}}
 
-		// Numeric list parser (1,2,3-4,-1), used in weekday parser above
+		/* Numeric list parser (1,2,3-4,-1) {{{
+		 * Used in weekday parser above.
+		 *
+		 * :param tokens: List of token objects.
+		 * :param at: Position where to start.
+		 * :param func: Function func(from, to, at).
+		 * :returns: Position at which the token does not belong to the list any more.
+		 */
 		function parseNumRange(tokens, at, func) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'number', '-', 'number')) {
@@ -2407,7 +2436,17 @@
 
 			return at;
 		}
+		// }}}
 
+		/* List parser for constrained weekdays in month range {{{
+		 * e.g. Su[-1] which selects the last Sunday of the month.
+		 *
+		 * :param tokens: List of token objects.
+		 * :param at: Position where to start.
+		 * :returns: Array:
+		 *			0. Constrained weekday number.
+		 *			1. Position at which the token does not belong to the list any more (after ']' token).
+		 */
 		function getConstrainedWeekday(tokens, at) {
 			var number = 0;
 			var endat = parseNumRange(tokens, at, function(from, to, at) {
@@ -2420,7 +2459,7 @@
 				if (from == to) {
 					if (number != 0)
 						throw formatWarnErrorMessage(nblock, at,
-							'You can not use a more than one constrained weekday in a month range');
+							'You can not use more than one constrained weekday in a month range');
 					number = from;
 				} else {
 					throw formatWarnErrorMessage(nblock, at+2,
@@ -2433,8 +2472,18 @@
 
 			return [ number, endat + 1 ];
 		}
+		// }}}
 
 		// Check if period is ok. Period 0 or 1 don’t make much sense.
+		/* List parser for constrained weekdays in month range {{{
+		 * e.g. Su[-1] which selects the last Sunday of the month.
+		 *
+		 * :param tokens: List of token objects.
+		 * :param at: Position where to start.
+		 * :returns: Array:
+		 *			0. Constrained weekday number.
+		 *			1. Position at which the token does not belong to the list any more (after ']' token).
+		 */
 		function checkPeriod(at, period, period_type, parm_string) {
 			if (done_with_warnings)
 				return;

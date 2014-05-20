@@ -535,6 +535,21 @@ Note that there is a git pre-commit hook used to run and compare the test framew
 
     ./hooks/link_hooks
 
+All functions are documented, which should help contributers to get started.
+
+The documentation looks like this:
+
+    /* List parser for constrained weekdays in month range {{{
+     * e.g. Su[-1] which selects the last Sunday of the month.
+     *
+     * :param tokens: List of token objects.
+     * :param at: Position where to start.
+     * :returns: Array:
+     *			0. Constrained weekday number.
+     *			1. Position at which the token does not belong to the list any more (after ']' token).
+     */
+    function getConstrainedWeekday(tokens, at) {
+
 ## Author ##
 
 * [Dmitry Marakasov](https://github.com/AMDmi3) <amdmi3@amdmi3.ru> (initial coding and design and all basic features like time ranges, week ranges, month ranges and week ranges)
