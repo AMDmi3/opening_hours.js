@@ -31,6 +31,7 @@ test.addTest('Time intervals', [
 		'10:00-12:00',
 		'10:00-12:00,',
 		'10:00-12:00;',
+		'10:00-11:00; 11:00-12:00', // FIXME: Not quite following the specification.
 		'10-12', // Do not use. Returns warning.
 		'10:00-11:00,11:00-12:00',
 		'10:00-11:00; 11:00-12:00',

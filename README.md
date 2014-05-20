@@ -204,9 +204,9 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   var state_string = oh.getStateString(date, past);
   ```
 
-	Return state string at given *date*. Either 'open', 'unknown' or 'closed?'. You may omit *date* to use current date.
+  Return state string at given *date*. Either 'open', 'unknown' or 'closed?'. You may omit *date* to use current date.
 
-	If the boolean parameter `past` is true you will get 'closed' else you will get 'close'.
+  If the boolean parameter `past` is true you will get 'closed' else you will get 'close'.
 
 * ```javascript
   var comment = oh.getComment(date);
@@ -226,7 +226,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   Returns undefined if the next change cannot be found. This may happen if the state won't ever change (e.g. ```24/7```) or if search goes beyond *limit* (which is *date* + ~5 years if omitted).
 
 * ```javascript
- 	var matching_rule = oh.getMatchingRule(date);
+  var matching_rule = oh.getMatchingRule(date);
   ```
 
   Returns the matching rule. You may omit *date* to use current date.
@@ -269,12 +269,12 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   var state_string = iterator.getStateString(past);
   ```
 
-	Return state string. Either 'open', 'unknown' or 'closed?'.
+  Return state string. Either 'open', 'unknown' or 'closed?'.
 
-	If the boolean parameter `past` is true you will get 'closed' else you will get 'close'.
+  If the boolean parameter `past` is true you will get 'closed' else you will get 'close'.
 
 * ```javascript
- 	var comment = iterator.getComment();
+  var comment = iterator.getComment();
   ```
 
   Returns the comment (if one is specified) for the facility at the current iterator position in time.
@@ -282,7 +282,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   If no comment is specified this function will return undefined.
 
 * ```javascript
- 	var matching_rule = iterator.getMatchingRule();
+  var matching_rule = iterator.getMatchingRule();
   ```
 
   Returns the matching rule.
@@ -321,19 +321,19 @@ Almost everything from opening_hours definition is supported, as well as some ex
 ### Time ranges ###
 
 * Supports sets of time ranges (```10:00-12:00,14:00-16:00```)
-	* **WARN:** Accept ```10-12,14-16``` as abbreviation for the previous example. Please don’t use this as this is not very explicit.
+  * **WARN:** Accept ```10-12,14-16``` as abbreviation for the previous example. Please don’t use this as this is not very explicit.
   * Correctly supports ranges wrapping over midnight (```10:00-26:00```, ```10:00-02:00```)
 * Supports 24/7 keyword (```24/7```, which means always open. Use [state keywords][ohlib.states] to express always closed.)
   * **WARN:** 24/7 is handled as a synonym for ```00:00-24:00```, so ```Mo-Fr 24/7``` (though not really correct, because of that you should avoid it or replace it with "open". A warning will be given if you use it anyway for that purpose) will be handled correctly
 
-		*The use of 24/7 as synonym is never needed and should be avoided in cases where it does not mean 24/7.* In cases where a facility is really open 24 hours 7 days a week thats where this value is for.
+    *The use of 24/7 as synonym is never needed and should be avoided in cases where it does not mean 24/7.* In cases where a facility is really open 24 hours 7 days a week thats where this value is for.
 * **EXT:** Supports omitting time range (```Mo-Fr; Tu off```)
 * **EXT:** Supports space as time interval separator, i.e. ```Mo 12:00-14:00,16:00-20:00``` and ```Mo 12:00-14:00 16:00-20:00``` are the same thing
 * Complete support for dawn/sunrise/sunset/dusk (variable times) keywords (```10:00-sunset```, ```dawn-dusk```). To calculate the correct values, the latitude and longitude are required which are included in the JSON returned by [Nominatim] \(see in the [Library API][ohlib.library-api] how to provide it\). The calculation is done by [suncalc][].
 
- If the coordinates are missing, constant times will be used (dawn: '05:30', sunrise: '06:00', sunset: '18:00', dusk: '18:30').
+  If the coordinates are missing, constant times will be used (dawn: '05:30', sunrise: '06:00', sunset: '18:00', dusk: '18:30').
 
- If the end time (second time in time range) is near the sunrise (for instance ```sunrise-08:00```) than it can happen that the sunrise would actually be after 08:00 which would normally be interpreted as as time spanning midnight. But with variable times, this only partly applies. The rule here is that if the end time is lesser than the constant time (or the actual time) for the variable time in the start time (in that example sunrise: '06:00') then it is interpreted as the end time spanning over midnight. So this would be a valid time range spanning midnight: ```sunrise-05:59```.
+  If the end time (second time in time range) is near the sunrise (for instance ```sunrise-08:00```) than it can happen that the sunrise would actually be after 08:00 which would normally be interpreted as as time spanning midnight. But with variable times, this only partly applies. The rule here is that if the end time is lesser than the constant time (or the actual time) for the variable time in the start time (in that example sunrise: '06:00') then it is interpreted as the end time spanning over midnight. So this would be a valid time range spanning midnight: ```sunrise-05:59```.
 
   A second thing to notice is that if the variable time becomes greater than the end time and the end time is greater than the constant time than this time range will be ignored (e.g ```sunrise-08:00``` becomes ```08:03-08:00``` for one day, it  is ignored for this day).
 
@@ -343,7 +343,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
   If a facility is open for a fix time followed by open end the shortcut ```14:00-17:00+``` can be used (see also [proposal page](http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_end_fixed_time_extension)).
 
- Open end applies until the end of the day if the opening time is before 17:00. If the opening time is between 17:00 and 21:59 the open end time ends 10 hours after the opening. And if the opening time is after 22:00 (including 22:00) the closing time will be interpreted as 8 hours after the opening time.
+  Open end applies until the end of the day if the opening time is before 17:00. If the opening time is between 17:00 and 21:59 the open end time ends 10 hours after the opening. And if the opening time is after 22:00 (including 22:00) the closing time will be interpreted as 8 hours after the opening time.
 * **WARN:** Supports dot as time separator (```12.00-16.00```)
 
 [suncalc]: https://github.com/mourner/suncalc
@@ -397,7 +397,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * **EXT:** Supports year ranges (```2013,2015,2050-2053,2055/2,2020-2029/3 10:00-20:00```)
 * **EXT:** Supports periodic year (either limited by range or unlimited starting with given year) (```2020-2029/3,2055/2 10:00-20:00```)
 
- There is one exception. It is not necessary to use a year range with a period of one (```2055-2066/1 10:00-20:00```) because this means the same as just the year range without the period (```2055-2066 10:00-20:00```) and should be expressed like this …
+  There is one exception. It is not necessary to use a year range with a period of one (```2055-2066/1 10:00-20:00```) because this means the same as just the year range without the period (```2055-2066 10:00-20:00```) and should be expressed like this …
 
  The *oh.getWarnings()* function will give you a warning if you use this anyway.
 * **EXT:** Supports way to say that a facility is open (or closed) from a specified year without limit in the future (```2055+ 10:00-20:00```)
@@ -416,7 +416,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Supports calculation based on constrained weekdays in monthday range (```Jan Su[1] +1 day-Feb 03 10:00-20:00```)
 * Supports movable events like easter (```easter - Apr 20: open "Around easter"```)
 
- Note that if easter would be after the 20th of April for one year, this will be interpreted as spanning into the next year currently.
+  Note that if easter would be after the 20th of April for one year, this will be interpreted as spanning into the next year currently.
 * Supports calculations based on movable events (```2012 easter - 2 days - 2012 easter + 2 days: open "Around easter"```)
 * **EXT:** Supports multiple monthday ranges separated by a comma (```Jan 23-31/3,Feb 1-12,Mar 1```)
 
@@ -427,11 +427,9 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * **EXT:** Supports multiple week ranges (```week 1,3-5,7-30/2 10:00-20:00```)
 
 ### States ###
-* A facility can be in two main states for a given point in time: open (true) or
- closed (false).
- * But since the state can also depend on other information (e.g. weather
-  depending, call us) than just the time, a third state can be expressed (```Mo unknown; Th-Fr 09:00-18:00 open```)
-  <br/>
+* A facility can be in two main states for a given point in time: open (true) or closed (false).
+  * But since the state can also depend on other information (e.g. weather depending, call us) than just the time, a third state can be expressed (```Mo unknown; Th-Fr 09:00-18:00 open```)
+
   In that case the main state is false and unknown is true for Monday.
 
 ### Comments ###
@@ -478,9 +476,10 @@ Simple node.js based benchmark is bundled. You can run it with ```node benchmark
 On author's Intel Core i5-2540M CPU @ 2.60GHz library allows ~8k/sec constructor calls and ~2.5k/sec openIntervals() calls with one week period. This may further improve in future.
 
 ## Used by other projects ##
-This library is used in the following projects:
+This library is used by the following projects:
 
 * [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours) (old version of this library)
+* [gdzie.bl.ee](http://gdzie.bl.ee) (old version of this library)
 * [JOSM](http://josm.openstreetmap.de/) ([ticket for integration](http://josm.openstreetmap.de/ticket/9157))
 * [opening\_hours\_map][]
 * [pyopening\_hours][] (python module for opening_hours.js)
@@ -552,6 +551,8 @@ The documentation looks like this:
 function getConstrainedWeekday(tokens, at) {
 ```
 
+The opening brackets ``{{{` (and the corresponding closing onces) are used to fold the source code. See [Vim folds](http://vim.wikia.com/wiki/Folding).
+
 ## Author ##
 
 * [Dmitry Marakasov](https://github.com/AMDmi3) <amdmi3@amdmi3.ru> (initial coding and design and all basic features like time ranges, week ranges, month ranges and week ranges)
@@ -565,7 +566,7 @@ function getConstrainedWeekday(tokens, at) {
 * [Simon B.](https://github.com/sesam)             (improved understandability of overlapping rules in README.md)
 * [NonnEmilia](https://github.com/NonnEmilia)      (Italian localization and fixes in the [demo page][ohlib.evaluation-tooldemohtml])
 * [João G. Packer](https://github.com/jgpacker)    (Portuguese localization)
-* [James Badger](https://github.com/openfirmware)  (Add Canadian national, provincial public holidays and fixed Russian localization)
+* [James Badger](https://github.com/openfirmware)  (add Canadian national, provincial public holidays and fixed Russian localization)
 * [Zgarbul Andrey](https://github.com/burrbull)    (Ukrainian localization and public holidays for Ukraine)
 * [Blaž Lorger](https://github.com/blorger)        (public holidays for Slovenian)
 
@@ -584,7 +585,7 @@ function getConstrainedWeekday(tokens, at) {
 [fallback rules]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#rule1
 [additional rules]: http://wiki.openstreetmap.org/wiki/Key:opening_hours#Examples
 
-<!-- References to other parts of this documentation. Can not use short links only referring to the section inside the README.md any more because this will not work on other pages like https://www.npmjs.org/package/opening_hours -->
+<!-- References to other parts of this documentation. Can not use short links only referring to the section inside the README.md any more because this will not work on other pages like https://www.npmjs.org/package/opening_hours. Edit: This does also work on npmjs in this short version … -->
 [ohlib.time-ranges]: #time-ranges
 [ohlib.states]: #states
 [ohlib.holidays]: #holidays

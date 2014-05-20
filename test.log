@@ -1,6 +1,7 @@
 "Time intervals" for "10:00-12:00": [1m[32mPASSED[39m[22m
 "Time intervals" for "10:00-12:00,": [1m[32mPASSED[39m[22m
 "Time intervals" for "10:00-12:00;": [1m[32mPASSED[39m[22m
+"Time intervals" for "10:00-11:00; 11:00-12:00": [1m[32mPASSED[39m[22m
 "Time intervals" for "10-12": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10-12 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
@@ -756,4 +757,4 @@ Mo 12:00-14 <--- (opening_hours is running in "points in time mode". Found time 
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-436/440 tests passed
+437/441 tests passed
