@@ -1,3 +1,29 @@
+/* The big picture -- How does this library work? {{{
+ * ======================================================================
+ *  Constructor - entry to parsing code
+ * ======================================================================
+ *  Terminology:
+ *
+ *  Mo-Fr 10:00-11:00; Th 10:00-12:00
+ *  \_____block_____/  \____block___/
+ *
+ *  The README refers to blocks as rules, which is more intuitive but less clear.
+ *  Because of that only the README uses the term rule in that context.
+ *  In all internal parts of this project, the term block is used.
+ *
+ *  Mo-Fr Jan 10:00-11:00
+ *  \__/  \_/ \_________/
+ *  selectors (left to right: weekday, month, time)
+ *
+ *  Logic:
+ *  - Tokenize
+ *  Foreach block:
+ *    - Run top-level (block) parser
+ *      - Which calls sub parser for specific selector types
+ *        - Which produce selector functions
+ * For more information see https://github.com/ypid/opening_hours.js.
+ *  }}} */
+
 (function (root, factory) {
 	// constants (holidays, error correction) {{{
 	// holidays {{{
@@ -1778,31 +1804,6 @@
 		var msec_in_week   = msec_in_day * 7;
 		// }}}
 
-		// The big picture -- How does this library work? {{{
-		//======================================================================
-		// Constructor - entry to parsing code
-		//======================================================================
-		// Terminology:
-		//
-		// Mo-Fr 10:00-11:00; Th 10:00-12:00
-		// \_____block_____/  \____block___/
-		//
-		// The README refers to blocks as rules, which is more intuitive but less clear.
-		// Because of that only the README uses the term rule in that context.
-		// In all internal parts of this project, the term block is used.
-		//
-		// Mo-Fr Jan 10:00-11:00
-		// \__/  \_/ \_________/
-		// selectors (left to right: weekday, month, time)
-		//
-		// Logic:
-		// - Tokenize
-		// Foreach block:
-		//   - Run top-level (block) parser
-		//     - Which calls sub parser for specific selector types
-		//       - Which produce selector functions
-		// }}}
-
 		// constructor parameters {{{
 		// Evaluate additional information which can be given. They are
 		// required to reasonably calculate 'sunrise' and to use the correct
@@ -2179,7 +2180,7 @@
 		/* Top-level parser {{{
 		 *
 		 * :param tokens: List of token objects.
-		 * :param at: Position at which the matching should begin.
+		 * :param at: Position where to start.
 		 * :param selectors: Reference to selector object.
 		 * :param nblock: Block number starting with 0.
 		 * :param conf: Configuration for prettifyValue.
@@ -2369,11 +2370,11 @@
 		/* For given date, returns date moved to the specific day of week {{{
 		 *
 		 * :param date: Date object.
-		 * :param day: Integer number for day of week. Starting with zero (Sunday).
+		 * :param weekday: Integer number for day of week. Starting with zero (Sunday).
 		 * :returns: Moved date object.
 		 */
-		function dateAtNextWeekday(date, day) {
-			var delta = day - date.getDay();
+		function dateAtNextWeekday(date, weekday) {
+			var delta = weekday - date.getDay();
 			return new Date(date.getFullYear(), date.getMonth(), date.getDate() + delta + (delta < 0 ? 7 : 0));
 		}
 		// }}}
@@ -2475,15 +2476,6 @@
 		// }}}
 
 		// Check if period is ok. Period 0 or 1 don’t make much sense.
-		/* List parser for constrained weekdays in month range {{{
-		 * e.g. Su[-1] which selects the last Sunday of the month.
-		 *
-		 * :param tokens: List of token objects.
-		 * :param at: Position where to start.
-		 * :returns: Array:
-		 *			0. Constrained weekday number.
-		 *			1. Position at which the token does not belong to the list any more (after ']' token).
-		 */
 		function checkPeriod(at, period, period_type, parm_string) {
 			if (done_with_warnings)
 				return;
@@ -2502,6 +2494,15 @@
 			}
 		}
 
+		/* Get date moved to constrained weekday (and moved for add_days. {{{
+		 * E.g. used for 'Aug Su[-1] -1 day'.
+		 *
+		 * :param year: Year as integer.
+		 * :param month: Month as integer starting with zero.
+		 * :param weekday: Integer number for day of week. Starting with zero (Sunday).
+		 * :param constrained_weekday: Position where to start.
+		 * :returns: Date object.
+		 */
 		function getDateForConstrainedWeekday(year, month, weekday, constrained_weekday, add_days) {
 			var tmp_date = dateAtNextWeekday(
 				new Date(year, month + (constrained_weekday[0] > 0 ? 0 : 1), 1), weekday);
@@ -2513,7 +2514,15 @@
 
 			return tmp_date;
 		}
+		// }}}
 
+		/* Format warning or error message for the user. {{{
+		 *
+		 * :param nblock: Block number starting with 0.
+		 * :param at: Position at which the matching should begin.
+		 * :param message: Human readable string with the message.
+		 * :returns: String with position of the warning or error marked for the user.
+		 */
 		function formatWarnErrorMessage(nblock, at, message) {
 			var pos = 0;
 			if (nblock == -1) { // Usage of block index not required because we do have access to value.length.
@@ -2537,12 +2546,16 @@
 			}
 			return value.substring(0, pos) + ' <--- (' + message + ')';
 		}
+		// }}}
 
-		// check if date is valid
+		/* Check if date is valid. {{{
+		 *
+		 * :param month: Month as integer starting with zero.
+		 * :param date: Day of month as integer.
+		 * :returns: undefined. There is no real return value. This function just throws an exception if something is wrong.
+		 */
 		function isValidDate(month, day, nblock, at) {
-			// month == 0 is Jan
-
-			// May use this instead. Does not say, what is wrong as good was implementation below.
+			// May use this instead. The problem is that this does not give feedback as precise as the code which is used in this function.
 			// var testDate = new Date(year, month, day);
 			// if (testDate.getDate() != day || testDate.getMonth() != month || testDate.getFullYear() != year) {
 			// 	console.error('date not valid');
@@ -2557,11 +2570,18 @@
 				throw formatWarnErrorMessage(nblock, at, 'Month ' + months[1]+ " either has 28 or 29 days (leap years).");
 		}
 		// }}}
+		// }}}
 
-		// Time range parser (10:00-12:00,14:00-16:00) {{{
-		//
-		// extended_open_end: <time> - <time> +
-		//                 at is here A (if extended_open_end is true)
+		/* Time range parser (10:00-12:00,14:00-16:00) {{{
+		 *
+		 * :param tokens: List of token objects.
+		 * :param at: Position where to start.
+		 * :param selectors: Reference to selector object.
+		 * :param extended_open_end: Used for combined time range with open end.
+		 * extended_open_end: <time> - <time> +
+		 *            param at is here A (if extended_open_end is true)
+		 * :returns: Position at which the token does not belong to the selector anymore.
+		 */
 		function parseTimeRange(tokens, at, selectors, extended_open_end) {
 			for (; at < tokens.length; at++) {
 				var has_time_var_calc = [], has_normal_time = []; // element 0: start time, 1: end time
@@ -2867,9 +2887,16 @@
 
 			return at;
 		}
+		// }}}
 
-		// get time in minutes from <hour>:<minute> {{{
-		// Only used if throwing an error is wanted.
+		/* Get time in minutes from <hour>:<minute> (tokens). {{{
+		 * Only used if throwing an error is wanted.
+		 *
+		 * :param tokens: List of token objects.
+		 * :param nblock: Block number starting with 0.
+		 * :param at: Position at which the time begins.
+		 * :returns: Time in minutes.
+		 */
 		function getMinutesByHoursMinutes(tokens, nblock, at) {
 			if (tokens[at+2][0] > 59)
 				throw formatWarnErrorMessage(nblock, at+2,
@@ -2878,9 +2905,14 @@
 		}
 		// }}}
 
-		// get time in minutes from "(sunrise-01:30)" {{{
-		// Extract the added or subtracted time from "(sunrise-01:30)"
-		// returns time in minutes e.g. -90
+		/* Get time in minutes from "(sunrise-01:30)" {{{
+		 * Extract the added or subtracted time from "(sunrise-01:30)"
+		 * returns time in minutes e.g. -90.
+		 *
+		 * :param tokens: List of token objects.
+		 * :param at: Position where the specification for the point in time could be.
+		 * :returns: Time in minutes on suggest, throws an exception otherwise.
+		*/
 		function parseTimevarCalc(tokens, at) {
 			if (matchTokens(tokens, at+2, '+') || matchTokens(tokens, at+2, '-')) {
 				if (matchTokens(tokens, at+3, 'number', 'timesep', 'number')) {
@@ -2907,9 +2939,14 @@
 					'Calculcation with variable time is not in the right syntax' + error[1]);
 		}
 		// }}}
-		// }}}
 
-		// Weekday range parser (Mo,We-Fr,Sa[1-2,-1],PH) {{{
+		/* Weekday range parser (Mo,We-Fr,Sa[1-2,-1],PH). {{{
+		 *
+		 * :param tokens: List of token objects.
+		 * :param at: Position where the weekday tokens could be.
+		 * :param selectors: Reference to selector object.
+		 * :returns: Position at which the token does not belong to the selector anymore.
+		 */
 		function parseWeekdayRange(tokens, at, selectors) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'weekday', '[')) {
@@ -2947,7 +2984,7 @@
 					var add_days = getMoveDays(tokens, endat+1, 6, 'constrained weekdays');
 					week_stable = false;
 
-					// Create selector for each list element
+					// Create selector for each list element.
 					for (var nnumber = 0; nnumber < numbers.length; nnumber++) {
 
 						selectors.weekday.push(function(weekday, number, add_days) { return function(date) {
@@ -3080,9 +3117,19 @@
 
 			return at;
 		}
+		// }}}
 
+		/* Get the number of days a date should be moved (if any). {{{
+		 *
+		 * :param tokens: List of token objects.
+		 * :param at: Position where the date moving tokens could be.
+		 * :param max_differ: Maximal number of days to move (could also be zero if there are no day move tokens).
+		 * :returns: Array:
+		 *			0. Days to add.
+		 *			1. How many tokens.
+		 */
 		function getMoveDays(tokens, at, max_differ, name) {
-			var add_days = [ 0, 0 ]; // [ 'add days', 'how many tokens' ]
+			var add_days = [ 0, 0 ]; // [ 'days to add', 'how many tokens' ]
 			add_days[0] = matchTokens(tokens, at, '+') || (matchTokens(tokens, at, '-') ? -1 : 0);
 			if (add_days[0] != 0 && matchTokens(tokens, at+1, 'number', 'calcday')) {
 				// continues with '+ 5 days' or something like that
@@ -3100,8 +3147,14 @@
 		}
 		// }}}
 
-		// Holiday parser for public and school holidays (PH,SH) {{{
-		// push_to_weekday will push the selector into the weekday selector array which has the desired side effect of working in conjunction with the weekday selectors (either the holiday match or the weekday), which is the normal and expected behavior.
+		/* Holiday parser for public and school holidays (PH,SH) {{{
+		 *
+		 * :param tokens: List of token objects.
+		 * :param at: Position where to start.
+		 * :param selectors: Reference to selector object.
+		 * :param push_to_weekday: Will push the selector into the weekday selector array which has the desired side effect of working in conjunction with the weekday selectors (either the holiday match or the weekday), which is the normal and expected behavior.
+		 * :returns: Position at which the token does not belong to the selector anymore.
+		 */
 		function parseHoliday(tokens, at, selectors, push_to_weekday) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'holiday')) {
@@ -3252,15 +3305,22 @@
 		}
 
 		// Helpers for holiday parsers {{{
-		// Returns a number for a date which can then be used to compare just the dates (without the time).
-		// This is necessary because a selector could be called for the middle of the day and we need to tell if it matches that day.
-		// Example: Returns 20150015 for Jan 01 2015
+
+		/* Returns a number for a date which can then be used to compare just the dates (without the time). {{{
+		 * This is necessary because a selector could be called for the middle of the day and we need to tell if it matches that day.
+		 * Example: Returns 20150015 for Jan 01 2015
+		 *
+		 * :param date: Date object.
+		 * :param include_year: Boolean. If true include the year.
+		 * :returns: Number for the date.
+		 */
 		function getValueForDate(date, include_year) {
-			// Implicit because undefined evaluates to false
+			// Implicit because undefined evaluates to false.
 			// include_year = typeof include_year != 'undefined' ? include_year : false;
 
 			return (include_year ? date.getFullYear() * 10000 : 0) + date.getMonth() * 100 + date.getDate();
 		}
+		// }}}
 
 		// return the school holiday definition e.g. [ 5, 25, /* to */ 6, 5 ],
 		// for the specified year
@@ -3425,7 +3485,12 @@
 		// }}}
 		// }}}
 
-		// Year range parser (2013,2016-2018,2020/2) {{{
+		/* Year range parser (2013,2016-2018,2020/2). {{{
+		 *
+		 * :param tokens: List of token objects.
+		 * :param at: Position where to start.
+		 * :returns: Position at which the token does not belong to the selector anymore.
+		 */
 		function parseYearRange(tokens, at) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'year')) {
@@ -3509,7 +3574,12 @@
 		}
 		// }}}
 
-		// Week range parser (week 11-20, week 1-53/2) {{{
+		/* Week range parser (week 11-20, week 1-53/2). {{{
+		 *
+		 * :param tokens: List of token objects.
+		 * :param at: Position where to start.
+		 * :returns: Position at which the token does not belong to the selector anymore.
+		 */
 		function parseWeekRange(tokens, at) {
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'number')) {
@@ -3594,8 +3664,13 @@
 		}
 		// }}}
 
-		// Month range parser (Jan,Feb-Mar) {{{
-		// push_to_monthday will push the selector into the monthday selector array which has the desired side effect of working in conjunction with the monthday selectors (either the month match or the monthday).
+		/* Month range parser (Jan,Feb-Mar). {{{
+		 *
+		 * :param tokens: List of token objects.
+		 * :param at: Position where to start.
+		 * :param push_to_monthday: Will push the selector into the monthday selector array which has the desired side effect of working in conjunction with the monthday selectors (either the month match or the monthday).
+		 * :returns: Position at which the token does not belong to the selector anymore.
+		 */
 		function parseMonthRange(tokens, at, push_to_monthday) {
 			for (; at < tokens.length; at++) {
 				// Use parseMonthdayRange if '<month> <daynum>' and not '<month> <hour>:<minute>'
@@ -3669,8 +3744,14 @@
 		}
 		// }}}
 
-		// Month day range parser (Jan 26-31; Jan 26-Feb 26) {{{
-		// push_to_month will push the selector into the month selector array which has the desired side effect of working in conjunction with the month selectors (either the month match or the monthday).
+		/* Month day range parser (Jan 26-31; Jan 26-Feb 26). {{{
+		 *
+		 * :param tokens: List of token objects.
+		 * :param at: Position where to start.
+		 * :param nblock: Block number starting with 0.
+		 * :param push_to_month: Will push the selector into the month selector array which has the desired side effect of working in conjunction with the month selectors (either the month match or the monthday).
+		 * :returns: Position at which the token does not belong to the selector anymore.
+		 */
 		function parseMonthdayRange(tokens, at, nblock, push_to_month) {
 			for (; at < tokens.length; at++) {
 				var has_year = [], has_month = [], has_event = [], has_calc = [], has_constrained_weekday = [], has_calc = [];
@@ -3963,7 +4044,17 @@
 		}
 		// }}}
 
-		// Main selector traversal function (return state array for date) {{{
+		/* Main selector traversal function (return state array for date). {{{
+		 * Checks for given date which block and those which state and comment applies.
+		 *
+		 * :param date: Date object.
+		 * :returns: Array:
+		 *			0. resultstate: State: true for 'open', false for 'closed'.
+		 *			1. changedate: Next change as date object.
+		 *			2. unknown: true if state open is not sure.
+		 *			3. comment: Comment which applies for this time range (from date to changedate).
+		 *			4. match_block: Block number starting with 0 (nblock).
+		 */
 		this.getStatePair = function(date) {
 			var resultstate = false;
 			var changedate;
@@ -4097,7 +4188,15 @@
 		}
 		// }}}
 
-		// Generate prettified value based on tokens {{{
+		/* Generate prettified value based on tokens. {{{
+		 *
+		 * :param tokens: List of token objects.
+		 * :param at: Position where to start.
+		 * :param last_at: Position where to stop.
+		 * :param conf: Configuration options.
+		 * :param used_parseTimeRange: Boolean: True if time range parser was used for at till last_at.
+		 * :returns: Prettified value.
+		 */
 		function prettifySelector(tokens, at, last_at, conf, used_parseTimeRange) {
 			var value = '';
 			var start_at = at;
