@@ -2059,7 +2059,14 @@
 						if (correct_tokens[1] != false) { // last_block_fallback_terminated
 							throw formatLibraryBugMessage();
 						}
-						value = correct_val + value.substr(tmp[0].length);
+						for (var i = 0; i < correct_tokens[0].length; i++) {
+							curr_block_tokens.push([correct_tokens[0][i][0], correct_tokens[0][i][1], value.length]);
+							// value.length - tmp[0].length
+						}
+
+						value = value.substr(tmp[0].length);
+						// value = correct_val + value.substr(tmp[0].length);
+						// Does not work because it would generate the wrong length for formatWarnErrorMessage.
 					} else {
 						// other single-character tokens
 						curr_block_tokens.push([value[0].toLowerCase(), value[0].toLowerCase(), value.length - 1 ]);

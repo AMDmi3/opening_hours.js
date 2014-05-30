@@ -339,7 +339,7 @@ With [1m[34mwarnings[39m[22m:
 	*Mo – Fr: 9 – 12 Uhr und Mo, Di, Do: 15 – <--- (Please use notation "-" for "–".)
 	*Mo – Fr: 9 – 12 Uhr und Mo, Di, Do: 15 – 18 Uhr <--- (Bitte verzichte auf "uhr".)
 	*Mo – Fr:  <--- (Please don’t use ":" after weekday.)
-	*Mo – Fr: 9 – 12 Uhr un <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
+	*Mo – Fr: 9 – 12 Uhr  <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
 	*Mo – Fr: 9 – 12 Uhr und Mo, Di, Do:  <--- (Please don’t use ":" after weekday.)
 	*Mo – Fr: 9 – 12 Uhr und Mo, Di, Do: 15 – 18 Uhr <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
 "Real world example: Was not processed right." for "Mo off, Tu 14:00-18:00, We-Sa 10:00-18:00": [1m[32mPASSED[39m[22m
@@ -350,7 +350,7 @@ With [1m[34mwarnings[39m[22m:
 	*Mo: geschlossen, Di: 14-18Uhr <--- (Bitte verzichte auf "uhr".)
 	*Mo: geschlossen, Di: 14-18Uhr, Mi <--- (Bitte benutze die englische Abkürzung "We" für "mi".)
 	*Mo: geschlossen, Di: 14-18Uhr, Mi-Sa: 10-18Uhr <--- (Bitte verzichte auf "uhr".)
-	*Mo: geschlos <--- (Please don’t use ":" after weekday.)
+	*Mo:  <--- (Please don’t use ":" after weekday.)
 	*Mo: geschlossen, Di:  <--- (Please don’t use ":" after weekday.)
 	*Mo: geschlossen, Di: 14-18Uhr <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
 	*Mo: geschlossen, Di: 14-18Uhr, Mi-Sa:  <--- (Please don’t use ":" after weekday.)
@@ -563,7 +563,7 @@ Value contains nothing meaningful which can be parsed
 Value contains nothing meaningful which can be parsed
 
 "Incorrect syntax which should throw an error" for "Mo[2] - 7 days; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Mo[2] - 7 <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) Mo[2] - 7 days <--- (Please use notation "Mo-Su" for "7 days".)
+Mo[2] -  <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) Mo[2] - 7 days <--- (Please use notation "Mo-Su" for "7 days".)
 
 "Incorrect syntax which should throw an error" for ":week 2-54 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 : <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
@@ -833,7 +833,7 @@ Su 7:30, <--- (hyphen (-) or open end (+) in time range expected. For working wi
 Su 7:30,10 <--- (Missing time separator in time range after: "number")
 
 "Trying to trigger "Missing time separator in time range after" for mode == 1." for "Su 7:30,10?00,22:00": [1m[32mPASSED[39m[22m
- <--- (Missing time separator in time range after: "number")
+Su 7:30,10 <--- (Missing time separator in time range after: "number")
 
 "Trying to trigger "Missing time separator in time range after" for mode == 1." for "Su 7:30,10i00,22:00": [1m[32mPASSED[39m[22m
 Su 7:30,10i <--- (Missing time separator in time range after: "number")
@@ -842,7 +842,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 Su 7:30,10 <--- (Missing time separator in time range after: "number")
 
 "Trying to trigger "Missing time separator in time range after" for mode == 2." for "Su 7:30,10?00,22:00": [1m[32mPASSED[39m[22m
- <--- (Missing time separator in time range after: "number")
+Su 7:30,10 <--- (Missing time separator in time range after: "number")
 
 "Trying to trigger "Missing time separator in time range after" for mode == 2." for "Su 7:30,10i00,22:00": [1m[32mPASSED[39m[22m
 Su 7:30,10i <--- (Missing time separator in time range after: "number")
