@@ -2625,7 +2625,9 @@
 										has_normal_time[0] ? (
 												typeof tokens[at+3] == 'object' ? 3 : 2
 											) : (
-												has_time_var_calc[0] ? 2 : 1
+												has_time_var_calc[0] ? 2 : (
+														typeof tokens[at+1] != 'undefined' ? 1 : 0
+													)
 											)
 										),
 									'hyphen (-) or open end (+) in time range '
@@ -2928,7 +2930,7 @@
 						var minutes = getMinutesByHoursMinutes(tokens, nblock, at+3) * add_or_subtract;
 						if (minutes == 0)
 							parsing_warnings.push([ nblock, at+5, 'Adding zero in a variable time calculation does not change the variable time.'
-									+ ' Please omit the calculation (example: "12:00-sunset").' ]
+									+ ' Please omit the calculation (example: "sunrise-(sunset-00:00)").' ]
 								);
 						return minutes;
 					} else {

@@ -1877,11 +1877,16 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'(' + value_suffix,
 		'sunrise-(' + value_suffix,
 		'sunrise-sunset,(' + value_suffix,
+		'dusk;dawn' + value_suffix,
+		'dusk' + value_suffix,
 		'27:00-29:00' + value_suffix,
 		'14:/' + value_suffix,
 		'14:00/' + value_suffix,
 		'14:00-/' + value_suffix,
 		'14:00-16:00,.' + value_suffix,
+		'11' + value_suffix,
+		'11am' + value_suffix,
+		'14:00-16:00,11:00' + value_suffix,
 		// '14:00-16:00,', // is ok
 		'21:00-22:60' + value_suffix,
 		'21:60-22:59' + value_suffix,
@@ -1960,6 +1965,16 @@ test.addShouldFail('Time range does not continue as expected for mode == 1.', [
 		'sunrise-(' + value_suffix,
 		'sunrise-sunset,(' + value_suffix,
 	], nominatiomTestJSON, 'not last test', 2);
+
+var testing_data = [
+		'11:00',
+		'Su 7:30,',
+		'Mo-Fr 14:00,17:15,',
+		'11',
+	];
+// Appeared in real_test …
+test.addShouldFail('Trying to trigger "Missing time seperator in time range after" for mode == 1.', testing_data, nominatiomTestJSON, 'not last test', 1);
+test.addShouldFail('Trying to trigger "Missing time seperator in time range after" for mode == 2.', testing_data, nominatiomTestJSON, 'not last test', 2);
 // }}}
 
 // check if matching rule was evaluated correctly {{{
@@ -2051,9 +2066,10 @@ function opening_hours_test() {
 	// }}}
 
 	this.runSingleTestShouldThrowWarning = function(test_data_object) { // {{{
-		var name = test_data_object[0],
-			value = test_data_object[1],
-			nominatiomJSON = test_data_object[2];
+		var name           = test_data_object[0],
+			value          = test_data_object[1],
+			nominatiomJSON = test_data_object[2],
+			oh_mode        = test_data_object[3];
 		var ignored = typeof value !== 'string';
 		if (ignored) {
 			ignored = value[1];
@@ -2062,7 +2078,7 @@ function opening_hours_test() {
 
 		var warnings, oh;
 		try {
-			oh = new opening_hours(value, nominatiomJSON);
+			oh = new opening_hours(value, nominatiomJSON, oh_mode);
 
 			warnings = oh.getWarnings();
 			crashed = false;
@@ -2302,15 +2318,15 @@ function opening_hours_test() {
 	// }}}
 
 	// add test which should give a warning {{{
-	this.addShouldWarn = function(name, values, nominatiomJSON, last) {
+	this.addShouldWarn = function(name, values, nominatiomJSON, last, oh_mode) {
 		if (this.last == true) return;
 		this.handle_only_test(last);
 
 		if (typeof values == 'string')
-			this.tests_should_warn.push([name, values, nominatiomJSON]);
+			this.tests_should_warn.push([name, values, nominatiomJSON, oh_mode]);
 		else
 			for (var value = 0; value < values.length; value++)
-				this.tests_should_warn.push([name, values[value], nominatiomJSON]);
+				this.tests_should_warn.push([name, values[value], nominatiomJSON, oh_mode]);
 	}
 	// }}}
 

@@ -92,14 +92,14 @@ With [1m[34mwarnings[39m[22m:
 "Variable times e.g. dawn, dusk without coordinates (→ constant times)" for "dawn-dusk": [1m[32mPASSED[39m[22m
 "Variable times e.g. dawn, dusk without coordinates (→ constant times)" for "(dawn+00:00)-dusk": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*(dawn+00:00 <--- (Adding zero in a variable time calculation does not change the variable time. Please omit the calculation (example: "12:00-sunset").)
+	*(dawn+00:00 <--- (Adding zero in a variable time calculation does not change the variable time. Please omit the calculation (example: "sunrise-(sunset-00:00)").)
 "Variable times e.g. dawn, dusk without coordinates (→ constant times)" for "dawn-(dusk-00:00)": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*dawn-(dusk-00:00 <--- (Adding zero in a variable time calculation does not change the variable time. Please omit the calculation (example: "12:00-sunset").)
+	*dawn-(dusk-00:00 <--- (Adding zero in a variable time calculation does not change the variable time. Please omit the calculation (example: "sunrise-(sunset-00:00)").)
 "Variable times e.g. dawn, dusk without coordinates (→ constant times)" for "(dawn+00:00)-(dusk-00:00)": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*(dawn+00:00 <--- (Adding zero in a variable time calculation does not change the variable time. Please omit the calculation (example: "12:00-sunset").)
-	*(dawn+00:00)-(dusk-00:00 <--- (Adding zero in a variable time calculation does not change the variable time. Please omit the calculation (example: "12:00-sunset").)
+	*(dawn+00:00 <--- (Adding zero in a variable time calculation does not change the variable time. Please omit the calculation (example: "sunrise-(sunset-00:00)").)
+	*(dawn+00:00)-(dusk-00:00 <--- (Adding zero in a variable time calculation does not change the variable time. Please omit the calculation (example: "sunrise-(sunset-00:00)").)
 "Variable times e.g. sunrise, sunset over a few days" for "sunrise-sunset": [1m[32mPASSED[39m[22m
 "Variable times calculation with coordinates" for "(sunrise+02:00)-sunset": [1m[32mPASSED[39m[22m
 "Variable times which moves over fix end time" for "sunrise-08:02": [1m[32mPASSED[39m[22m
@@ -520,10 +520,10 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*Jan 12:00-13:00 Mo 15:00-16:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 With [1m[34mwarnings[39m[22m:
-	*sunrise-(sunset-00:00 <--- (Adding zero in a variable time calculation does not change the variable time. Please omit the calculation (example: "12:00-sunset").)
+	*sunrise-(sunset-00:00 <--- (Adding zero in a variable time calculation does not change the variable time. Please omit the calculation (example: "sunrise-(sunset-00:00)").)
 "Value not ideal (probably wrong). Should throw a warning." for "sunrise-(sunset-00:00); 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*sunrise-(sunset-00:00 <--- (Adding zero in a variable time calculation does not change the variable time. Please omit the calculation (example: "12:00-sunset").)
+	*sunrise-(sunset-00:00 <--- (Adding zero in a variable time calculation does not change the variable time. Please omit the calculation (example: "sunrise-(sunset-00:00)").)
 With [1m[34mwarnings[39m[22m:
 	*Jun 2-20/1 <--- (Please don’t use day ranges with period equals one.)
 "Value not ideal (probably wrong). Should throw a warning." for "Jun 2-20/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
@@ -601,6 +601,12 @@ sunrise-( <--- (Time range does not continue as expected)
 "Incorrect syntax which should throw an error" for "sunrise-sunset,(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 sunrise-sunset,( <--- (Missing variable time (e.g. sunrise) after: "(")
 
+"Incorrect syntax which should throw an error" for "dusk;dawn; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+dusk <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
+
+"Incorrect syntax which should throw an error" for "dusk; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+dusk <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
+
 "Incorrect syntax which should throw an error" for "27:00-29:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 27:00 <--- (Time range starts outside of the current day)
 
@@ -615,6 +621,15 @@ sunrise-sunset,( <--- (Missing variable time (e.g. sunrise) after: "(")
 
 "Incorrect syntax which should throw an error" for "14:00-16:00,.; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 14:00-16:00,. <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 14:00-16:00,. <--- (Please use ":" as hour/minute-separator)
+
+"Incorrect syntax which should throw an error" for "11; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+11 <--- (Unexpected token: "number" This means that the syntax is not valid at that point or it is currently not supported.) 
+
+"Incorrect syntax which should throw an error" for "11am; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+11am <--- (Unexpected token: "number" This means that the syntax is not valid at that point or it is currently not supported.) 11am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+
+"Incorrect syntax which should throw an error" for "14:00-16:00,11:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+14:00-16:00,11:00 <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
 
 "Incorrect syntax which should throw an error" for "21:00-22:60; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 21:00-22:60 <--- (Minutes are greater than 59.)
@@ -787,6 +802,18 @@ sunrise-( <--- (Time range does not continue as expected)
 "Time range does not continue as expected for mode == 1." for "sunrise-sunset,(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 sunrise-sunset,( <--- (Missing variable time (e.g. sunrise) after: "(")
 
+"Trying to trigger "Missing time seperator in time range after" for mode == 1." for "11:00": [1m[31mFAILED[39m[22m
+"Trying to trigger "Missing time seperator in time range after" for mode == 1." for "Su 7:30,": [1m[31mFAILED[39m[22m
+"Trying to trigger "Missing time seperator in time range after" for mode == 1." for "Mo-Fr 14:00,17:15,": [1m[31mFAILED[39m[22m
+"Trying to trigger "Missing time seperator in time range after" for mode == 1." for "11": [1m[32mPASSED[39m[22m
+11 <--- (Unexpected token: "number" This means that the syntax is not valid at that point or it is currently not supported.) 
+
+"Trying to trigger "Missing time seperator in time range after" for mode == 2." for "11:00": [1m[31mFAILED[39m[22m
+"Trying to trigger "Missing time seperator in time range after" for mode == 2." for "Su 7:30,": [1m[31mFAILED[39m[22m
+"Trying to trigger "Missing time seperator in time range after" for mode == 2." for "Mo-Fr 14:00,17:15,": [1m[31mFAILED[39m[22m
+"Trying to trigger "Missing time seperator in time range after" for mode == 2." for "11": [1m[32mPASSED[39m[22m
+11 <--- (Unexpected token: "number" This means that the syntax is not valid at that point or it is currently not supported.) 
+
 "Compare result from getMatchingRule()" for "10:00-16:00": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "10:00-16:00;": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "08:00-10:00; 10:00-16:00;": [1m[32mPASSED[39m[22m
@@ -799,4 +826,4 @@ sunrise-sunset,( <--- (Missing variable time (e.g. sunrise) after: "(")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-451/455 tests passed
+458/468 tests passed
