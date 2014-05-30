@@ -1802,6 +1802,9 @@
 		var minutes_in_day = 60 * 24;
 		var msec_in_day    = 1000 * 60 * minutes_in_day;
 		var msec_in_week   = msec_in_day * 7;
+		var library_name   = 'opening_hours.js';
+		var repository_url = 'https://github.com/ypid/' + library_name;
+		var issues_url     = repository_url + '/issues?state=open';
 		// }}}
 
 		// constructor parameters {{{
@@ -1976,6 +1979,21 @@
 		}
 		// }}}
 
+		/* Format internal library error message. {{{
+		 *
+		 * :param message: Human readable string with the error message.
+		 * :returns: Error message for the user.
+		 */
+		function formatLibraryBugMessage(message) {
+			if (typeof message == 'undefined')
+				var message = '';
+
+			return 'An error occurred during evaluation of the value "' + value + '".'
+				+ ' Please file a bug report on ' + issues_url + '.'
+				+ message;
+		}
+		// }}}
+
 		/* Tokenization function: Splits string into parts. {{{
 		 *
 		 * :param value: Raw opening_hours value.
@@ -2036,6 +2054,10 @@
 									curr_block_tokens[hours_token_at] = hours_token;
 								}
 							}
+						}
+						correct_tokens = tokenize(correct_val)[0];
+						if (correct_tokens[1] != false) { // last_block_fallback_terminated
+							throw formatLibraryBugMessage();
 						}
 						value = correct_val + value.substr(tmp[0].length);
 					} else {
@@ -2106,7 +2128,7 @@
 		 * :returns:
 		 *		* (valid) opening_hours sub string.
 		 *		* object with [ internal_value, token_name ] if value is correct.
-		 *		* undefined if word could not be found (and thus not be corrected).
+		 *		* undefined if word could not be found (and thus is not be corrected).
 		 */
 		function returnCorrectWordOrToken(word, value_length) {
 			for (var token_name in word_error_correction) {
@@ -2131,8 +2153,7 @@
 										break;
 								}
 								if (typeof correct_abbr == 'undefined') {
-									throw 'Please file a bug for opening_hours.js.'
-										+ ' Including the stacktrace.'
+									throw formatLibraryBugMessage(' Including the stacktrace.');
 								}
 								if (token_name != 'timevar') {
 									// Everything else than timevar:
@@ -2635,7 +2656,7 @@
 										),
 									'hyphen (-) or open end (+) in time range '
 									+ (has_time_var_calc[0] ? 'calculation ' : '') + 'expected.'
-									+ ' For working with points in time, the mode for opening_hours.js has to be altered.'
+									+ ' For working with points in time, the mode for ' + library_name + ' has to be altered.'
 									+ ' Maybe wrong tag?');
 							} else {
 								var minutes_to = minutes_from + 1;
@@ -3346,7 +3367,8 @@
 				holiday = SH_hash['default']; // applies for any year without explicit definition
 				if (typeof holiday == 'undefined') {
 					if (fatal) {
-						throw 'School holiday ' + SH_hash.name + ' has no definition for the year ' + year + '.';
+						throw formatLibraryBugMessage('School holiday ' + SH_hash.name + ' has no definition for the year ' + year + '.'
+								+ ' You can also add them: ' + repository_url);
 					} else {
 						return undefined;
 					}
@@ -3379,17 +3401,18 @@
 								}
 							}
 							if (Object.keys(matching_holiday).length == 0)
-								throw 'There are no holidays ' + type_of_holidays + ' defined for country ' + location_cc + '.'
-									+ ' Please add them: https://github.com/ypid/opening_hours.js ';
+							throw formatLibraryBugMessage('There are no holidays ' + type_of_holidays + ' defined for country ' + location_cc + '.'
+									+ ' You can also add them: ' + repository_url);
 							return matching_holiday;
 						} else {
-							throw 'Holidays ' + type_of_holidays + ' are not defined for country ' + location_cc
-								+ ' and state ' + location_state + '.'
-								+ ' Please add them.';
+							throw formatLibraryBugMessage('Holidays ' + type_of_holidays + ' are not defined for country ' + location_cc
+									+ ' and state ' + location_state + '.'
+									+ ' You can also add them: ' + repository_url);
 						}
 					}
 				} else {
-					throw 'No holidays are defined for country ' + location_cc + '. Please add them: https://github.com/ypid/opening_hours.js ';
+					throw formatLibraryBugMessage('No holidays are defined for country ' + location_cc + '.'
+							+ ' You can also add them: ' + repository_url);
 				}
 			} else { // we have no idea which holidays do apply because the country code was not provided
 				throw 'Country code missing which is needed to select the correct holidays (see README how to provide it)'
