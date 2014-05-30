@@ -1974,9 +1974,8 @@ for (var i = 0; i <= 2; i++) {
 	], nominatiomTestJSON, 'not last test', i);
 }
 
-// Su 7:30,  <--- (: "number")
 for (var i = 0; i <= 2; i++) {
-	test.addShouldFail('Trying to trigger "Missing time seperator in time range after" for mode == ' + i + '.', [
+	test.addShouldFail('Trying to trigger "Missing time separator in time range after" for mode == ' + i + '.', [
 		'Su 7:30,10;00,22:00',
 		// 'Su 7:30,10?00,22:00', // ? gets replaced. Not fully supported … FIXME
 		'Su 7:30,10i00,22:00',
