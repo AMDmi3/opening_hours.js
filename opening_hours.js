@@ -1934,6 +1934,48 @@
 		}
 		// }}}
 
+		/* Format warning or error message for the user. {{{
+		 *
+		 * :param nblock: Block number starting with zero.
+		 * :param at: Token position at which the issue occurred.
+		 * :param message: Human readable string with the message.
+		 * :returns: String with position of the warning or error marked for the user.
+		 */
+		function formatWarnErrorMessage(nblock, at, message) {
+			var pos = 0;
+			if (nblock == -1) { // Usage of block index not required because we do have access to value.length.
+				pos = value.length - at;
+			} else { // Issue accrued at a later time, position in string needs to be reconstructed.
+				if (typeof tokens[nblock][0][at] == 'undefined') {
+					// Given position is invalid.
+					console.warn('Bug in warning generation code which could not determine the exact position of the warning or error in string: '
+							+ '"' + value + '".');
+					pos = value.length;
+					if (typeof tokens[nblock][0][tokens[nblock][0].length-1] != 'undefined') {
+						// Fallback: Point to last token in the block which caused the problem.
+						// Run real_test regularly to fix the problem before a user is confronted with it.
+						pos -= tokens[nblock][0][tokens[nblock][0].length-1][2];
+						console.warn('Last token for block: ' + tokens[nblock][0][tokens[nblock][0].length-1]);
+						console.log(value.substring(0, pos) + ' <--- (' + message + ')');
+						console.log('\n');
+					}
+				} else {
+					pos = value.length;
+					if (typeof tokens[nblock][0][at+1] != 'undefined') {
+						pos -= tokens[nblock][0][at+1][2];
+					} else if (typeof tokens[nblock][2] != 'undefined') {
+						pos -= tokens[nblock][2];
+					} else {
+						// console.warn('Bug in formatWarnErrorMessage which could not determine the exact position of the warning or error in string: '
+								// + '"' + value + '".');
+						// FIXME
+					}
+				}
+			}
+			return value.substring(0, pos) + ' <--- (' + message + ')';
+		}
+		// }}}
+
 		/* Tokenization function: Splits string into parts. {{{
 		 *
 		 * :param value: Raw opening_hours value.
@@ -2516,45 +2558,6 @@
 		}
 		// }}}
 
-		/* Format warning or error message for the user. {{{
-		 *
-		 * :param nblock: Block number starting with zero.
-		 * :param at: Position at which the matching should begin.
-		 * :param message: Human readable string with the message.
-		 * :returns: String with position of the warning or error marked for the user.
-		 */
-		function formatWarnErrorMessage(nblock, at, message) {
-			var pos = 0;
-			if (nblock == -1) { // Usage of block index not required because we do have access to value.length.
-				pos = value.length - at;
-			} else { // Issue accrued at a later time, position in string needs to be reconstructed.
-				if (typeof tokens[nblock][0][at] == 'undefined') {
-					// Given position is invalid.
-					pos = value.length;
-					if (typeof tokens[nblock][0][tokens[nblock][0].length-1] != 'undefined') {
-						// Fallback: Point to last token in the block which caused the problem.
-						// Run real_test regularly to fix the problem before a user is confronted with it.
-						pos -= tokens[nblock][0][tokens[nblock][0].length-1][2];
-						console.warn('Bug in waring generation code which could not determine the possiton of the warning or error in string: '
-								+ '"' + value + '".');
-						console.warn('Content: ' + tokens[nblock][0][tokens[nblock][0].length-1]);
-						console.log(value.substring(0, pos) + ' <--- (' + message + ')');
-						console.log('\n');
-					}
-				} else {
-					pos = value.length;
-					if (typeof tokens[nblock][0][at+1] != 'undefined') {
-						pos -= tokens[nblock][0][at+1][2];
-					} else if (typeof tokens[nblock][2] != 'undefined') {
-						pos -= tokens[nblock][2];
-					} else {
-					}
-				}
-			}
-			return value.substring(0, pos) + ' <--- (' + message + ')';
-		}
-		// }}}
-
 		/* Check if date is valid. {{{
 		 *
 		 * :param month: Month as integer starting with zero.
@@ -2886,7 +2889,8 @@
 					if (matchTokens(tokens, at, 'number', 'timesep'))
 						throw formatWarnErrorMessage(nblock, at+1, 'Missing minutes in time range after: "' + tokens[at+1][1] + '"');
 					if (matchTokens(tokens, at, 'number'))
-						throw formatWarnErrorMessage(nblock, at+1, 'Missing time seperator in time range after: "' + tokens[at][1] + '"');
+						throw formatWarnErrorMessage(nblock, at + (typeof tokens[at+1] != 'undefined' ? 1 : 0),
+								'Missing time separator in time range after: "' + tokens[at][1] + '"');
 					return [ at ];
 				}
 

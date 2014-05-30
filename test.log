@@ -803,22 +803,40 @@ sunrise-( <--- (Time range does not continue as expected)
 sunrise-sunset,( <--- (Missing variable time (e.g. sunrise) after: "(")
 
 "Trying to trigger "Missing minutes in time range after" for mode == 0." for "Mon-Sun 14-": [1m[32mPASSED[39m[22m
-Mon-Sun 14- <--- (Missing time seperator in time range after: "number")
+Mon-Sun 14- <--- (Missing time separator in time range after: "number")
 
 "Trying to trigger "Missing minutes in time range after" for mode == 0." for "8:am": [1m[32mPASSED[39m[22m
 8:am <--- (Missing minutes in time range after: "timesep")
 
 "Trying to trigger "Missing minutes in time range after" for mode == 1." for "Mon-Sun 14-": [1m[32mPASSED[39m[22m
-Mon-Sun 14- <--- (Missing time seperator in time range after: "number")
+Mon-Sun 14- <--- (Missing time separator in time range after: "number")
 
 "Trying to trigger "Missing minutes in time range after" for mode == 1." for "8:am": [1m[32mPASSED[39m[22m
 8:am <--- (Missing minutes in time range after: "timesep")
 
 "Trying to trigger "Missing minutes in time range after" for mode == 2." for "Mon-Sun 14-": [1m[32mPASSED[39m[22m
-Mon-Sun 14- <--- (Missing time seperator in time range after: "number")
+Mon-Sun 14- <--- (Missing time separator in time range after: "number")
 
 "Trying to trigger "Missing minutes in time range after" for mode == 2." for "8:am": [1m[32mPASSED[39m[22m
 8:am <--- (Missing minutes in time range after: "timesep")
+
+"Trying to trigger "Missing time seperator in time range after" for mode == 0." for "Su 7:30,10;00,22:00": [1m[32mPASSED[39m[22m
+Su 7:30, <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
+
+"Trying to trigger "Missing time seperator in time range after" for mode == 0." for "Su 7:30,10i00,22:00": [1m[32mPASSED[39m[22m
+Su 7:30, <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
+
+"Trying to trigger "Missing time seperator in time range after" for mode == 1." for "Su 7:30,10;00,22:00": [1m[32mPASSED[39m[22m
+Su 7:30,10 <--- (Missing time separator in time range after: "number")
+
+"Trying to trigger "Missing time seperator in time range after" for mode == 1." for "Su 7:30,10i00,22:00": [1m[32mPASSED[39m[22m
+Su 7:30,10i <--- (Missing time separator in time range after: "number")
+
+"Trying to trigger "Missing time seperator in time range after" for mode == 2." for "Su 7:30,10;00,22:00": [1m[32mPASSED[39m[22m
+Su 7:30,10 <--- (Missing time separator in time range after: "number")
+
+"Trying to trigger "Missing time seperator in time range after" for mode == 2." for "Su 7:30,10i00,22:00": [1m[32mPASSED[39m[22m
+Su 7:30,10i <--- (Missing time separator in time range after: "number")
 
 "Compare result from getMatchingRule()" for "10:00-16:00": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "10:00-16:00;": [1m[32mPASSED[39m[22m
@@ -832,4 +850,4 @@ Mon-Sun 14- <--- (Missing time seperator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-462/466 tests passed
+468/472 tests passed

@@ -1966,14 +1966,24 @@ test.addShouldFail('Time range does not continue as expected for mode == 1.', [
 		'sunrise-sunset,(' + value_suffix,
 	], nominatiomTestJSON, 'not last test', 2);
 
-var testing_data = [
+// Appeared in real_test … {{{
+for (var i = 0; i <= 2; i++) {
+	test.addShouldFail('Trying to trigger "Missing minutes in time range after" for mode == ' + i + '.', [
 		'Mon-Sun 14-',
 		'8:am',
-	];
-// Appeared in real_test …
-test.addShouldFail('Trying to trigger "Missing minutes in time range after" for mode == 0.', testing_data, nominatiomTestJSON, 'not last test', 0);
-test.addShouldFail('Trying to trigger "Missing minutes in time range after" for mode == 1.', testing_data, nominatiomTestJSON, 'not last test', 1);
-test.addShouldFail('Trying to trigger "Missing minutes in time range after" for mode == 2.', testing_data, nominatiomTestJSON, 'not last test', 2);
+	], nominatiomTestJSON, 'not last test', i);
+}
+
+// Su 7:30,  <--- (: "number")
+for (var i = 0; i <= 2; i++) {
+	test.addShouldFail('Trying to trigger "Missing time seperator in time range after" for mode == ' + i + '.', [
+		'Su 7:30,10;00,22:00',
+		// 'Su 7:30,10?00,22:00', // ? gets replaced. Not fully supported … FIXME
+		'Su 7:30,10i00,22:00',
+	], nominatiomTestJSON, 'not last test', i);
+}
+// }}}
+
 // }}}
 
 // check if matching rule was evaluated correctly {{{
