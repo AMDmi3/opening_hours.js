@@ -2651,7 +2651,7 @@
 						has_normal_time[1] = matchTokens(tokens, at_end_time, 'number', 'timesep', 'number');
 						has_time_var_calc[1]      = matchTokens(tokens, at_end_time, '(', 'timevar');
 						if (!has_normal_time[1] && !matchTokens(tokens, at_end_time, 'timevar') && !has_time_var_calc[1]) {
-							throw formatWarnErrorMessage(nblock, at_end_time, 'time range does not continue as expected');
+							throw formatWarnErrorMessage(nblock, at_end_time - (typeof tokens[at_end_time] != 'undefined' ? 0 : 1), 'Time range does not continue as expected');
 						} else {
 							if (has_normal_time[1]) {
 								var minutes_to = getMinutesByHoursMinutes(tokens, nblock, at_end_time);
