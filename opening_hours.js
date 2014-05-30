@@ -1842,7 +1842,7 @@
 		var tokens = tokenize(value);
 		// console.log(JSON.stringify(tokens, null, '\t'));
 		var prettified_value = '';
-		var used_subparsers = {}; // Used sub parsers for one block, will be reset for each block. Declared in global namespace, because it is manipulation inside various sub parsers.
+		var used_subparsers = {}; // Used sub parsers for one block, will be reset for each block. Declared in global name space, because it is manipulation inside various sub parsers.
 		var week_stable = true;
 
 		var blocks = [];
@@ -2518,7 +2518,7 @@
 
 		/* Format warning or error message for the user. {{{
 		 *
-		 * :param nblock: Block number starting with 0.
+		 * :param nblock: Block number starting with zero.
 		 * :param at: Position at which the matching should begin.
 		 * :param message: Human readable string with the message.
 		 * :returns: String with position of the warning or error marked for the user.
@@ -2529,10 +2529,17 @@
 				pos = value.length - at;
 			} else { // Issue accrued at a later time, position in string needs to be reconstructed.
 				if (typeof tokens[nblock][0][at] == 'undefined') {
+					// Given position is invalid.
 					pos = value.length;
 					if (typeof tokens[nblock][0][tokens[nblock][0].length-1] != 'undefined') {
-						// pos -= tokens[nblock][0][tokens[nblock][0].length-1][2];
-						console.warn("FIXME");
+						// Fallback: Point to last token in the block which caused the problem.
+						// Run real_test regularly to fix the problem before a user is confronted with it.
+						pos -= tokens[nblock][0][tokens[nblock][0].length-1][2];
+						console.warn('Bug in formatWarnErrorMessage which could not determine the possiton of the warning or error in string: '
+								+ '"' + value + '".');
+						console.warn('Content: ' + tokens[nblock][0][tokens[nblock][0].length-1]);
+						console.log(value.substring(0, pos) + ' <--- (' + message + ')');
+						console.log('\n');
 					}
 				} else {
 					pos = value.length;
@@ -2698,7 +2705,7 @@
 
 					// normalize minutes into range
 					if (!extended_open_end && minutes_from >= minutes_in_day)
-						throw formatWarnErrorMessage(nblock, at_end_time - 1,
+						throw formatWarnErrorMessage(nblock, at_end_time - 2,
 							'Time range starts outside of the current day');
 					if (minutes_to < minutes_from || ((has_normal_time[0] && has_normal_time[1]) && minutes_from == minutes_to))
 						minutes_to += minutes_in_day;

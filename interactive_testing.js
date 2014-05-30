@@ -85,6 +85,6 @@ rl.on('line', function (value) {
     process.exit(0);
 });
 
-console.info('You can enter your opening_hours like value and hit enter to evaluate. The result will be returned is represented as JSON.');
+console.info('You can enter your opening_hours like value and hit enter to evaluate. The result handed to you is represented in the JSON.');
 console.info('If you want to create a binding for another programing language you should use the unix socket interface which gives you full access to the API.');
 // Also the stdin method breaks for certain values (e.g. newlines in values).

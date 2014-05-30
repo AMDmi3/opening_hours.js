@@ -1937,6 +1937,14 @@ test.addShouldFail('opening_hours.js is in the wrong mode.', [
 test.addShouldFail('opening_hours.js is in the wrong mode.', [
 		'Mo 12:00-14:00', // only in mode 0 or 2
 	], nominatiomTestJSON, 'not last test', 1);
+
+test.addShouldFail('Time range starts outside of the current day for mode = 1.', [
+		'Mo-Fr 13:00,15:00,17:45,19:00,24:00; Sa 13:00,24:00; Su 10:00,18:00',
+		'Mo-Fr 15:00,117:00; Sa 11:00',
+		'Mo-Fr 08:00,24:00',
+		'Mo-Fr 07:00,15:00,24.00; Sa-Su 24:00',
+		'Mo-Fr 07:00,24.00,15:00; Sa-Su 24:00',
+	], nominatiomTestJSON, 'not last test', 1);
 // }}}
 
 // check if matching rule was evaluated correctly {{{
@@ -1994,10 +2002,10 @@ function opening_hours_test() {
 	// This might be useful for testing to avoid to comment tests out and something like that …
 
 	this.runSingleTestShouldFail = function(test_data_object) { // {{{
-		var name = test_data_object[0],
-			value = test_data_object[1],
+		var name           = test_data_object[0],
+			value          = test_data_object[1],
 			nominatiomJSON = test_data_object[2],
-			oh_mode = test_data_object[3];
+			oh_mode        = test_data_object[3];
 		try {
 			// Since they should fail anyway we can give them the nominatiomTestJSON.
 			oh = new opening_hours(value, nominatiomJSON, oh_mode);

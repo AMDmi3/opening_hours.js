@@ -102,7 +102,7 @@ function opening_hours_test() {
 						var success_procent = Math.round(success / parsed_values * 100) + ' %';
 						var warnings_procent = Math.round(warnings / success  * 100) + ' %';
 						var success_differ_procent = Math.round(success_differ / i * 100) + ' %';
-						console.log(success + '/' + total + ' (' + success_procent.result
+						console.log(success + '/' + total + '\t (' + success_procent.result
 							+ ', with warnings: ' + warnings_procent.result + '),'
 							+ ' only different values: '+ success_differ +'/'+ total_differ
 							+' (' + success_differ_procent.result + ')'
