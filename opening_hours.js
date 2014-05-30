@@ -2535,7 +2535,7 @@
 						// Fallback: Point to last token in the block which caused the problem.
 						// Run real_test regularly to fix the problem before a user is confronted with it.
 						pos -= tokens[nblock][0][tokens[nblock][0].length-1][2];
-						console.warn('Bug in formatWarnErrorMessage which could not determine the possiton of the warning or error in string: '
+						console.warn('Bug in waring generation code which could not determine the possiton of the warning or error in string: '
 								+ '"' + value + '".');
 						console.warn('Content: ' + tokens[nblock][0][tokens[nblock][0].length-1]);
 						console.log(value.substring(0, pos) + ' <--- (' + message + ')');
@@ -2884,9 +2884,9 @@
 					if (matchTokens(tokens, at, '('))
 						throw formatWarnErrorMessage(nblock, at, 'Missing variable time (e.g. sunrise) after: "' + tokens[at][1] + '"');
 					if (matchTokens(tokens, at, 'number', 'timesep'))
-						throw formatWarnErrorMessage(nblock, at+2, 'Missing minutes in time range after: "' + tokens[at+1][1] + '"');
+						throw formatWarnErrorMessage(nblock, at+1, 'Missing minutes in time range after: "' + tokens[at+1][1] + '"');
 					if (matchTokens(tokens, at, 'number'))
-						throw formatWarnErrorMessage(nblock, at+2, 'Missing time seperator in time range after: "' + tokens[at][1] + '"');
+						throw formatWarnErrorMessage(nblock, at+1, 'Missing time seperator in time range after: "' + tokens[at][1] + '"');
 					return [ at ];
 				}
 

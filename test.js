@@ -1967,14 +1967,13 @@ test.addShouldFail('Time range does not continue as expected for mode == 1.', [
 	], nominatiomTestJSON, 'not last test', 2);
 
 var testing_data = [
-		'11:00',
-		'Su 7:30,',
-		'Mo-Fr 14:00,17:15,',
-		'11',
+		'Mon-Sun 14-',
+		'8:am',
 	];
 // Appeared in real_test …
-test.addShouldFail('Trying to trigger "Missing time seperator in time range after" for mode == 1.', testing_data, nominatiomTestJSON, 'not last test', 1);
-test.addShouldFail('Trying to trigger "Missing time seperator in time range after" for mode == 2.', testing_data, nominatiomTestJSON, 'not last test', 2);
+test.addShouldFail('Trying to trigger "Missing minutes in time range after" for mode == 0.', testing_data, nominatiomTestJSON, 'not last test', 0);
+test.addShouldFail('Trying to trigger "Missing minutes in time range after" for mode == 1.', testing_data, nominatiomTestJSON, 'not last test', 1);
+test.addShouldFail('Trying to trigger "Missing minutes in time range after" for mode == 2.', testing_data, nominatiomTestJSON, 'not last test', 2);
 // }}}
 
 // check if matching rule was evaluated correctly {{{

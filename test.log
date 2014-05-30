@@ -581,7 +581,7 @@ week 2-54 00:00-24:00: <--- (Unexpected token: "timesep" This means that the syn
 week 2-54 00:00-24:00::: <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
 
 "Incorrect syntax which should throw an error" for "week 2-54 00::00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-week 2-54 00:: <--- (Missing minutes in time range after: "timesep")
+week 2-54 00: <--- (Missing minutes in time range after: "timesep")
 
 "Incorrect syntax which should throw an error" for "(sunrise+01:00-sunset; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 (sunrise+01:00- <--- (Calculcation with variable time is not in the right syntax. Missing ")".)
@@ -611,7 +611,7 @@ dusk <--- (hyphen (-) or open end (+) in time range expected. For working with p
 27:00 <--- (Time range starts outside of the current day)
 
 "Incorrect syntax which should throw an error" for "14:/; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-14:/ <--- (Missing minutes in time range after: "timesep")
+14: <--- (Missing minutes in time range after: "timesep")
 
 "Incorrect syntax which should throw an error" for "14:00/; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 14:00/ <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
@@ -802,17 +802,23 @@ sunrise-( <--- (Time range does not continue as expected)
 "Time range does not continue as expected for mode == 1." for "sunrise-sunset,(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 sunrise-sunset,( <--- (Missing variable time (e.g. sunrise) after: "(")
 
-"Trying to trigger "Missing time seperator in time range after" for mode == 1." for "11:00": [1m[31mFAILED[39m[22m
-"Trying to trigger "Missing time seperator in time range after" for mode == 1." for "Su 7:30,": [1m[31mFAILED[39m[22m
-"Trying to trigger "Missing time seperator in time range after" for mode == 1." for "Mo-Fr 14:00,17:15,": [1m[31mFAILED[39m[22m
-"Trying to trigger "Missing time seperator in time range after" for mode == 1." for "11": [1m[32mPASSED[39m[22m
-11 <--- (Unexpected token: "number" This means that the syntax is not valid at that point or it is currently not supported.) 
+"Trying to trigger "Missing minutes in time range after" for mode == 0." for "Mon-Sun 14-": [1m[32mPASSED[39m[22m
+Mon-Sun 14- <--- (Missing time seperator in time range after: "number")
 
-"Trying to trigger "Missing time seperator in time range after" for mode == 2." for "11:00": [1m[31mFAILED[39m[22m
-"Trying to trigger "Missing time seperator in time range after" for mode == 2." for "Su 7:30,": [1m[31mFAILED[39m[22m
-"Trying to trigger "Missing time seperator in time range after" for mode == 2." for "Mo-Fr 14:00,17:15,": [1m[31mFAILED[39m[22m
-"Trying to trigger "Missing time seperator in time range after" for mode == 2." for "11": [1m[32mPASSED[39m[22m
-11 <--- (Unexpected token: "number" This means that the syntax is not valid at that point or it is currently not supported.) 
+"Trying to trigger "Missing minutes in time range after" for mode == 0." for "8:am": [1m[32mPASSED[39m[22m
+8:am <--- (Missing minutes in time range after: "timesep")
+
+"Trying to trigger "Missing minutes in time range after" for mode == 1." for "Mon-Sun 14-": [1m[32mPASSED[39m[22m
+Mon-Sun 14- <--- (Missing time seperator in time range after: "number")
+
+"Trying to trigger "Missing minutes in time range after" for mode == 1." for "8:am": [1m[32mPASSED[39m[22m
+8:am <--- (Missing minutes in time range after: "timesep")
+
+"Trying to trigger "Missing minutes in time range after" for mode == 2." for "Mon-Sun 14-": [1m[32mPASSED[39m[22m
+Mon-Sun 14- <--- (Missing time seperator in time range after: "number")
+
+"Trying to trigger "Missing minutes in time range after" for mode == 2." for "8:am": [1m[32mPASSED[39m[22m
+8:am <--- (Missing minutes in time range after: "timesep")
 
 "Compare result from getMatchingRule()" for "10:00-16:00": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "10:00-16:00;": [1m[32mPASSED[39m[22m
@@ -826,4 +832,4 @@ sunrise-sunset,( <--- (Missing variable time (e.g. sunrise) after: "(")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-458/468 tests passed
+462/466 tests passed
