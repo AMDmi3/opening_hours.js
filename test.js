@@ -1971,6 +1971,7 @@ for (var i = 0; i <= 2; i++) {
 	test.addShouldFail('Trying to trigger "Missing minutes in time range after" for mode == ' + i + '.', [
 		'Mon-Sun 14-',
 		'8:am',
+		'8:am; open',
 	], nominatiomTestJSON, 'not last test', i);
 }
 

@@ -808,16 +808,25 @@ Mon-Sun 14- <--- (Missing time separator in time range after: "number")
 "Trying to trigger "Missing minutes in time range after" for mode == 0." for "8:am": [1m[32mPASSED[39m[22m
 8:am <--- (Missing minutes in time range after: "timesep")
 
+"Trying to trigger "Missing minutes in time range after" for mode == 0." for "8:am; open": [1m[32mPASSED[39m[22m
+8:am <--- (Missing minutes in time range after: "timesep")
+
 "Trying to trigger "Missing minutes in time range after" for mode == 1." for "Mon-Sun 14-": [1m[32mPASSED[39m[22m
 Mon-Sun 14- <--- (Missing time separator in time range after: "number")
 
 "Trying to trigger "Missing minutes in time range after" for mode == 1." for "8:am": [1m[32mPASSED[39m[22m
 8:am <--- (Missing minutes in time range after: "timesep")
 
+"Trying to trigger "Missing minutes in time range after" for mode == 1." for "8:am; open": [1m[32mPASSED[39m[22m
+8:am <--- (Missing minutes in time range after: "timesep")
+
 "Trying to trigger "Missing minutes in time range after" for mode == 2." for "Mon-Sun 14-": [1m[32mPASSED[39m[22m
 Mon-Sun 14- <--- (Missing time separator in time range after: "number")
 
 "Trying to trigger "Missing minutes in time range after" for mode == 2." for "8:am": [1m[32mPASSED[39m[22m
+8:am <--- (Missing minutes in time range after: "timesep")
+
+"Trying to trigger "Missing minutes in time range after" for mode == 2." for "8:am; open": [1m[32mPASSED[39m[22m
 8:am <--- (Missing minutes in time range after: "timesep")
 
 "Trying to trigger "Missing time separator in time range after" for mode == 0." for "Su 7:30,10;00,22:00": [1m[32mPASSED[39m[22m
@@ -859,4 +868,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-471/475 tests passed
+474/478 tests passed

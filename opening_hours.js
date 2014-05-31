@@ -1968,10 +1968,6 @@
 						pos -= tokens[nblock][0][at+1][2];
 					} else if (typeof tokens[nblock][2] != 'undefined') {
 						pos -= tokens[nblock][2];
-					} else {
-						// console.warn('Bug in formatWarnErrorMessage which could not determine the exact position of the warning or error in string: '
-								// + '"' + value + '".');
-						// FIXME
 					}
 				}
 			}
@@ -2061,7 +2057,7 @@
 						}
 						for (var i = 0; i < correct_tokens[0].length; i++) {
 							curr_block_tokens.push([correct_tokens[0][i][0], correct_tokens[0][i][1], value.length]);
-							// value.length - tmp[0].length
+							// value.length - tmp[0].length does not have the desired effect for all test cases.
 						}
 
 						value = value.substr(tmp[0].length);
@@ -3859,15 +3855,6 @@
 								tokens[at+has_year[0]+1][0], // weekday
 								has_constrained_weekday[0],
 								has_calc[0]);
-							// var from_date_without_calc = getDateForConstrainedWeekday((has_year[0] ? tokens[at][0] : date.getFullYear()), // year
-							// 	tokens[at+has_year[0]][0], // month
-							// 	tokens[at+has_year[0]+1][0], // weekday
-							// 	has_constrained_weekday[0],
-							// 	[ 0, 0 ]);
-							// 	if (from_date_without_calc.getFullYear() != from_date.getFullYear())
-							// 		throw formatWarnErrorMessage(nblock, at+has_year[0]+has_calc[0][1],
-							// 			'The constrained ' + weekdays[tokens[at+has_year[0]+1][0]] + ' plus ' + has_calc[0][0]
-							// 			+ ' days is not in the year of the movable day anymore. Currently not supported.');
 						} else {
 							var from_date = new Date((has_year[0] ? tokens[at][0] : date.getFullYear()),
 								tokens[at+has_year[0]][0], tokens[at+has_year[0]+1][0]);
@@ -3915,18 +3902,6 @@
 							if (has_year[0]) {
 								return [!inside];
 							} else {
-								// // back matching, if from_date is moved to last year
-								// var from_date_next_year = getDateForConstrainedWeekday(date.getFullYear() + 1, // year
-								// 	tokens[at+has_year[0]][0], // month
-								// 	tokens[at+has_year[0]+1][0], // weekday
-								// 	has_constrained_weekday[0],
-								// 	has_calc[0]);
-								// if (date.getFullYear() == from_date_next_year.getFullYear()) {
-								// 	if (date.getTime() < from_date_next_year.getTime()) {
-								// 		return [!inside, from_date_next_year];
-								// 	}
-								// }
-
 								return [!inside, start_of_next_year];
 							}
 						}
@@ -4244,7 +4219,7 @@
 			var value = '';
 			var start_at = at;
 			while (at < last_at) {
-				if (matchTokens(tokens, at, 'weekday')) { // FIXME
+				if (matchTokens(tokens, at, 'weekday')) {
 					if (!conf.leave_weekday_sep_one_day_betw
 						&& at - start_at > 1 && (matchTokens(tokens, at-1, ',') || matchTokens(tokens, at-1, '-'))
 						&& matchTokens(tokens, at-2, 'weekday')
