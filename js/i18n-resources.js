@@ -12,56 +12,8 @@ var resources = { // English is fallback language.
                 "uk": "Ukrainian",
                 "choose": "Choose Language",
             },
-            "months": {
-                "short": {
-                    "jan": "Jan",
-                    "feb": "Feb",
-                    "mar": "Mar",
-                    "apr": "Apr",
-                    "may": "May",
-                    "jun": "Jun",
-                    "jul": "Jul",
-                    "aug": "Aug",
-                    "sep": "Sep",
-                    "oct": "Oct",
-                    "nov": "Nov",
-                    "dec": "Dec",
-                },
-                "full": {
-                    "jan": "January",
-                    "feb": "February",
-                    "mar": "March",
-                    "apr": "April",
-                    "may": "May",
-                    "jun": "June",
-                    "jul": "July",
-                    "aug": "August",
-                    "sep": "September",
-                    "oct": "October",
-                    "nov": "November",
-                    "dec": "December",
-                },
-            },
 
             "weekdays": {
-                "short": {
-                    "su": "Su",
-                    "mo": "Mo",
-                    "tu": "Tu",
-                    "we": "We",
-                    "th": "Th",
-                    "fr": "Fr",
-                    "sa": "Sa",
-                },
-                "full": {
-                    "su": "Sunday",
-                    "mo": "Monday",
-                    "tu": "Tuesday",
-                    "we": "Wednesday",
-                    "th": "Thursday",
-                    "fr": "Friday",
-                    "sa": "Saturday",
-                },
                 "word next": { // The Russian language seems to use other words for next for some weekdays.
                     "su": "next",
                     "mo": "next",
@@ -167,6 +119,7 @@ var resources = { // English is fallback language.
             },
         },
     }, // }}}
+
     // French (fr) localization {{{
     fr: { translation: {
             "lang": {
@@ -179,56 +132,8 @@ var resources = { // English is fallback language.
                 "uk": "	Ukrainien",
                 "choose": "Choisissez la langue",
             },
-            "months": {
-                "short": {
-                    "jan": "jan",
-                    "feb": "fév",
-                    "mar": "mar",
-                    "apr": "avr",
-                    "may": "mai",
-                    "jun": "jun",
-                    "jul": "jul",
-                    "aug": "aoû",
-                    "sep": "sep",
-                    "oct": "oct",
-                    "nov": "nov",
-                    "dec": "déc",
-                },
-                "full": {
-                    "jan": "janvier",
-                    "feb": "février",
-                    "mar": "mars",
-                    "apr": "avril",
-                    "may": "mai",
-                    "jun": "juin",
-                    "jul": "juillet",
-                    "aug": "août",
-                    "sep": "septembre",
-                    "oct": "octobre",
-                    "nov": "novembre",
-                    "dec": "décembre",
-                },
-            },
 
             "weekdays": {
-                "short": {
-                    "mo": "lu",
-                    "tu": "ma",
-                    "we": "me",
-                    "th": "je",
-                    "fr": "ve",
-                    "sa": "sa",
-                    "su": "di",
-                },
-                "full": {
-                    "mo": "lundi",
-                    "tu": "mardi",
-                    "we": "mercredi",
-                    "th": "jeudi",
-                    "fr": "vendredi",
-                    "sa": "samedi",
-                    "su": "dimanche",
-                },
                 "word next": { // The Russian language seems to use other words for next for some weekdays.
                     "mo": "prochain",
                     "tu": "prochain",
@@ -332,6 +237,7 @@ var resources = { // English is fallback language.
             },
         },
     }, // }}}
+
     // German (de) localization {{{
     de: { translation: {
             "lang": {
@@ -344,44 +250,8 @@ var resources = { // English is fallback language.
                 "uk": "Ukrainisch",
                 "choose": "Wähle eine Sprache",
             },
-            "months": {
-                "short": {
-                    "mar": "Mär",
-                    "may": "Mai",
-                    "oct": "Okt",
-                    "dec": "Dez",
-                },
-                "full": {
-                    "jan": "Januar",
-                    "feb": "Februar",
-                    "mar": "März",
-                    "may": "Mai",
-                    "jun": "Juni",
-                    "jul": "Juli",
-                    "oct": "Oktober",
-                    "dec": "Dezember",
-                },
-            },
 
             "weekdays": {
-                "short": {
-                    "su": "So",
-                    "mo": "Mo",
-                    "tu": "Di",
-                    "we": "Mi",
-                    "th": "Do",
-                    "fr": "Fr",
-                    "sa": "Sa",
-                },
-                "full": {
-                    "su": "Sonntag",
-                    "mo": "Montag",
-                    "tu": "Dienstag",
-                    "we": "Mittwoch",
-                    "th": "Donnerstag",
-                    "fr": "Freitag",
-                    "sa": "Samstag",
-                },
                 "word next": {
                     "su": "nächsten",
                     "mo": "nächsten",
@@ -486,6 +356,7 @@ var resources = { // English is fallback language.
             },
         },
     }, // }}}
+
     // Russian (ru) localization {{{
     ru: { translation: {
             "lang": {
@@ -498,55 +369,8 @@ var resources = { // English is fallback language.
                 "uk": "украинский",
                 "choose": "Выберите язык",
             },
-            "months": {
-                "short": {
-                    "jan": "Янв",
-                    "feb": "Фев",
-                    "mar": "Мар",
-                    "apr": "Апр",
-                    "may": "Май",
-                    "jun": "Июн",
-                    "jul": "Июл",
-                    "aug": "Авг",
-                    "sep": "Сен",
-                    "oct": "Окт",
-                    "nov": "Ноя",
-                    "dec": "Дек",
-                },
-                "full": {
-                    "jan": "Января",
-                    "feb": "Февраля",
-                    "mar": "Марта",
-                    "apr": "Апреля",
-                    "may": "Мая",
-                    "jun": "Июня",
-                    "jul": "Июля",
-                    "aug": "Августа",
-                    "sep": "Сентября",
-                    "oct": "Октября",
-                    "nov": "Ноября",
-                    "dec": "Декабря",
-                },
-            },
+
             "weekdays": {
-                "short": {
-                    "su": "Вс",
-                    "mo": "Пн",
-                    "tu": "Вт",
-                    "we": "Ср",
-                    "th": "Чт",
-                    "fr": "Пт",
-                    "sa": "Сб",
-                },
-                "full": {
-                    "su": "воскресенье",
-                    "mo": "понедельник",
-                    "tu": "вторник",
-                    "we": "среду",
-                    "th": "четверг",
-                    "fr": "пятницу",
-                    "sa": "субботу",
-                },
                 "word next": {
                     "su": "ближайшее",
                     "mo": "ближайший",
@@ -609,6 +433,7 @@ var resources = { // English is fallback language.
             },
         },
     }, // }}}
+
     // Portuguese (pt) localization {{{
     pt: { translation: {
             "lang": {
@@ -621,56 +446,8 @@ var resources = { // English is fallback language.
                 "uk": "Ucraniano",
                 "choose": "Escolha a sua linguagem",
             },
-            "months": {
-                "short": {
-                    "jan": "Jan",
-                    "feb": "Fev",
-                    "mar": "Mar",
-                    "apr": "Abr",
-                    "may": "Mai",
-                    "jun": "Jun",
-                    "jul": "Jul",
-                    "aug": "Ago",
-                    "sep": "Set",
-                    "oct": "Out",
-                    "nov": "Nov",
-                    "dec": "Dez",
-                },
-                "full": {
-                    "jan": "Janeiro",
-                    "feb": "Fevereiro",
-                    "mar": "Março",
-                    "apr": "Abril",
-                    "may": "Maio",
-                    "jun": "Junho",
-                    "jul": "Julho",
-                    "aug": "Agosto",
-                    "sep": "Setembro",
-                    "oct": "Outubro",
-                    "nov": "Novembro",
-                    "dec": "Dezembro",
-                },
-            },
 
             "weekdays": {
-                "short": {
-                    "su": "Dom",
-                    "mo": "Seg",
-                    "tu": "Ter",
-                    "we": "Qua",
-                    "th": "Qui",
-                    "fr": "Sex",
-                    "sa": "Sab"
-                },
-                "full": {
-                    "su": "Domingo",
-                    "mo": "Segunda-feira",
-                    "tu": "Terça-feira",
-                    "we": "Quarta-feira",
-                    "th": "Quinta-feira",
-                    "fr": "Sexta-feira",
-                    "sa": "Sábado",
-                },
                 "word next": { // palavra "próximo" antes de um dia da semana
                     "su": "próximo",
                     "mo": "próxima",
@@ -776,6 +553,7 @@ var resources = { // English is fallback language.
             },
         },
     }, // }}}
+
     // Italian localization {{{
     it: { translation: {
             "lang": {
@@ -788,56 +566,8 @@ var resources = { // English is fallback language.
                 "uk": "Ucraino",
                 "choose": "Scegli lingua",
             },
-            "months": {
-                "short": {
-                    "jan": "Gen",
-                    "feb": "Feb",
-                    "mar": "Mar",
-                    "apr": "Apr",
-                    "may": "Mag",
-                    "jun": "Giu",
-                    "jul": "Lug",
-                    "aug": "Ago",
-                    "sep": "Set",
-                    "oct": "Ott",
-                    "nov": "Nov",
-                    "dec": "Dic",
-                },
-                "full": {
-                    "jan": "Gennaio",
-                    "feb": "Febbraio",
-                    "mar": "Marzo",
-                    "apr": "Aprile",
-                    "may": "Maggio",
-                    "jun": "Giugno",
-                    "jul": "Luglio",
-                    "aug": "Agosto",
-                    "sep": "Settembre",
-                    "oct": "Ottobre",
-                    "nov": "Novembre",
-                    "dec": "Dicembre",
-                },
-            },
 
             "weekdays": {
-                "short": {
-                    "mo": "Lu",
-                    "tu": "Ma",
-                    "we": "Me",
-                    "th": "Gi",
-                    "fr": "Ve",
-                    "sa": "Sa",
-                    "su": "Do",
-                },
-                "full": {
-                    "mo": "Lunedì",
-                    "tu": "Martedì",
-                    "we": "Mercoledì",
-                    "th": "Giovedì",
-                    "fr": "Venerdì",
-                    "sa": "Sabato",
-                    "su": "Domenica",
-                },
                 "word next": { // The italian language use other words for next for sunday.
                     "mo": "il prossimo",
                     "tu": "il prossimo",
@@ -943,6 +673,7 @@ var resources = { // English is fallback language.
             },
         },
     }, // }}}
+
     // Ukrainian (uk) localization {{{
     uk: { translation: {
             "lang": {
@@ -955,55 +686,8 @@ var resources = { // English is fallback language.
                 "uk": "українська",
                 "choose": "Виберіть мову",
             },
-            "months": {
-                "short": {
-                    "jan": "Січ",
-                    "feb": "Лют",
-                    "mar": "Бер",
-                    "apr": "Квіт",
-                    "may": "Трав",
-                    "jun": "Черв",
-                    "jul": "Лип",
-                    "aug": "Серп",
-                    "sep": "Вер",
-                    "oct": "Жовт",
-                    "nov": "Лист",
-                    "dec": "Груд",
-                },
-                "full": {
-                    "jan": "Січня",
-                    "feb": "Лютого",
-                    "mar": "Березня",
-                    "apr": "Квітня",
-                    "may": "Травня",
-                    "jun": "Червня",
-                    "jul": "Липня",
-                    "aug": "Серпня",
-                    "sep": "Вересня",
-                    "oct": "Жовтня",
-                    "nov": "Листопада",
-                    "dec": "Грудня",
-                },
-            },
+
             "weekdays": {
-                "short": {
-                    "su": "Нд",
-                    "mo": "Пн",
-                    "tu": "Вт",
-                    "we": "Ср",
-                    "th": "Чт",
-                    "fr": "Пт",
-                    "sa": "Сб",
-                },
-                "full": {
-                    "su": "неділю",
-                    "mo": "понеділок",
-                    "tu": "вівторок",
-                    "we": "середу",
-                    "th": "четвер",
-                    "fr": "п'ятницю",
-                    "sa": "суботу",
-                },
                 "word next": {
                     "su": "наступну",
                     "mo": "наступний",
@@ -1141,5 +825,6 @@ i18n.init({
         useCookie: true,
         debug: true
     }, translatePage);
+moment.lang(i18n.lng());
 // }}}
 // }}}

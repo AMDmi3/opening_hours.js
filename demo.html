@@ -14,7 +14,8 @@
 		<!-- <script type="text/javascript" src="js/jquery&#45;1.10.2.min.js"></script> -->
 		<script type="text/javascript" src="node_modules/suncalc/suncalc.js"></script>
 		<script type="text/javascript" src="opening_hours.js"></script>
-		<script type="text/javascript" src="js/i18next-1.6.3.min.js"></script>
+		<script type="text/javascript" src="node_modules/i18next/lib/dep/i18next.min.js"></script>
+		<script type="text/javascript" src="node_modules/moment/min/moment-with-langs.min.js"></script>
 		<script type="text/javascript" src="js/i18n-resources.js"></script>
 		<script type="text/javascript" src="js/opening_hours_table.js"></script>
 		<script type="text/javascript" src="js/helpers.js"></script>
@@ -378,7 +379,7 @@
 				document.forms.check.elements['dd'].value         = u2(date.getDate());
 				document.forms.check.elements['HH'].value         = u2(date.getHours());
 				document.forms.check.elements['MM'].value         = u2(date.getMinutes());
-				document.forms.check.elements['wday'].value       = i18n.t('weekdays.full.' + OpeningHoursTable.weekdays[date.getDay()]);
+				document.forms.check.elements['wday'].value       = moment.weekdays(date.getDay());
 				document.forms.check.elements['week'].value       = 'W'+u2(dateAtWeek(date, 0) + 1);
 
 				var show_time_table         = document.getElementById('show_time_table');
@@ -402,7 +403,8 @@
 					show_results.innerHTML    = '';
 				}
 
-				show_time_table.innerHTML = '<a href="javascript:josm(\'import?url=' + encodeURIComponent('http://overpass-api.de/api/xapi_meta?*[opening_hours=' + document.forms.check.elements['expression'].value + ']') + '\')">' + i18n.t('texts.load all with JOSM') + '</a><br />';
+				show_time_table.innerHTML = '<a href="javascript:josm(\'import?url=' + encodeURIComponent('http://overpass-api.de/api/xapi_meta?*[opening_hours='
+					+ document.forms.check.elements['expression'].value + ']') + '\')">' + i18n.t('texts.load all with JOSM') + '</a><br />';
 				if (!crashed) {
 					var prettified = oh.prettifyValue();
 					var prettified_newline_sep = oh.prettifyValue({ block_sep_string: '\n', print_semicolon: false });
@@ -570,8 +572,8 @@
 						document.write(i18n.t('words.date') + ' ' + i18n.t('words.and') + ' ' + i18n.t('words.time.time') + ':<br />');
 						document.write('<input id="dd" size="3" name="dd" value="02" onblur="Evaluate()"/>.');
 						document.write('<select id="mm" name="mm" onchange="Evaluate()">');
-						for (var i = 0; i < OpeningHoursTable.months.length; i++) {
-							document.write('<option value="' + i + 1 + '">' + i18n.t('months.full.' + OpeningHoursTable.months[i]) + '</option>');
+						for (var i = 0; i < moment.monthsShort().length; i++) {
+							document.write('<option value="monthNumber' + i + '">' + moment.monthsShort(i) + '</option>');
 						}
 						document.write('</select>');
 					</script>
@@ -622,18 +624,24 @@
 								return true;
 						}
 					</script>
-					<input id="expression" onKeyPress="return submitenter(this,event)" style="width:100%" name="expression" value="Mo-Fr 10:00-20:00" onblur="Evaluate()" />
+					<input id="expression"
+						onKeyPress="return submitenter(this,event)"
+						style="width:100%"
+						name="expression"
+						value="Mo-Fr 10:00-20:00"
+						onblur="Evaluate()"
+					/>
 				</p>
 				<!-- }}} -->
 
-				<div id="show_warnings_or_errors"><!-- {{{ -->
-				</div><!-- }}} -->
+				<div id="show_warnings_or_errors">
+				</div>
 
-				<div id="show_time_table"><!-- {{{ -->
-				</div><!-- }}} -->
+				<div id="show_time_table">
+				</div>
 
-				<div id="show_results"><!-- {{{ -->
-				</div><!-- }}} -->
+				<div id="show_results">
+				</div>
 			</form>
 
 			<p style="text-align: right">

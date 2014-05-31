@@ -4,10 +4,14 @@ var OpeningHoursTable = {
     // In English. Localization is done somewhere else (above).
     months:   ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'],
     weekdays: ['su','mo','tu','we','th','fr','sa'],
+    // console.log(moment.weekdaysMin().map(function(weekday) { return weekday.toLowerCase() }));
 
     formatdate: function (now, nextchange, from) {
         var now_daystart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         var nextdays = (nextchange.getTime() - now_daystart.getTime()) / 1000 / 60 / 60 / 24;
+
+        // var now_moment        = moment(now);
+        // var nextchange_moment = moment(now);
 
         var timediff = '';
 
@@ -38,9 +42,9 @@ var OpeningHoursTable = {
             atday = i18n.t('words.tomorrow');
         else if (from ? (nextdays < 7) : (nextdays <= 7))
             atday = i18n.t('words.on weekday') + i18n.t('weekdays.word next.' + this.weekdays[nextchange.getDay()])
-                +' '+ i18n.t('weekdays.full.' + this.weekdays[nextchange.getDay()]);
+                +' '+ moment.weekdays(nextchange.getDay());
 
-        var atdate = nextchange.getDate() + ' ' + i18n.t('months.full.' + this.months[nextchange.getMonth()]);
+        var atdate = nextchange.getDate() + ' ' + moment.months(nextchange.getMonth());
 
         var res = [];
 
@@ -65,8 +69,11 @@ var OpeningHoursTable = {
     },
 
     printDate: function (date) {
-            return i18n.t('months.short.' + this.months[date.getMonth()]) + ' ' +
-                date.getDate() + ', ' + i18n.t('weekdays.short.' + this.weekdays[date.getDay()]);
+            return moment(date).format('MMM D, dd');
+    },
+
+    printTime: function (date) {
+            return moment(date).format('HH:mm');
     },
 
     drawTable: function (it, date_today, has_next_change) {
@@ -114,12 +121,12 @@ var OpeningHoursTable = {
                 table[row].times += '<div class="timebar ' + (is_open ? 'open' : (unknown ? 'unknown' : 'closed'))
                     + '" style="width:' + (to-fr) + '%"></div>';
                 if (is_open || unknown) {
-                    var text = i18n.t('words.' + state_string) + ' ' + prevdate.getHours() + ':' + this.pad(prevdate.getMinutes())
+                    var text = i18n.t('words.' + state_string) + ' ' + this.printTime(prevdate)
                         + ' ' + i18n.t('words.to') + ' ';
                     if (prevdate.getDay() != curdate.getDay())
                         text += '24:00';
                     else
-                        text += curdate.getHours() + ':' + this.pad(curdate.getMinutes());
+                        text += this.printTime(curdate);
 
                     table[row].text.push(text);
                 }
@@ -134,7 +141,7 @@ var OpeningHoursTable = {
                 table[row].times += '<div class="timebar ' + (is_open ? 'open' : (unknown ? 'unknown' : 'closed'))
                     + '" style="width:100%"></div>';
                 if (is_open)
-                    table[row].text.push(i18n.t('words.open') + ' 0:00 ' + i18n.t('words.to') + ' 24:00');
+                    table[row].text.push(i18n.t('words.open') + ' 00:00 ' + i18n.t('words.to') + ' 24:00');
             }
         }
 

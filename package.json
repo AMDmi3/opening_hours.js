@@ -28,7 +28,9 @@
 	},
 	"bugs": "https://github.com/ypid/opening_hours.js/issues?state=open",
 	"dependencies": {
-		"suncalc": ">=1.2.1"
+		"suncalc": ">=1.2.1",
+		"i18next": ">=1.6.3",
+		"moment": ">=2.4.0"
 	},
 	"devDependencies": {
 		"colors"  : ">=0.6.2",
