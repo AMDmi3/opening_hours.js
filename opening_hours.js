@@ -1417,9 +1417,10 @@
 				'otherwise':  '||',
 			}, 'You can use notation "<ok>" for "<ko>" temporally if the syntax will still be valid.': {
 				'?':  'unknown "please add this if known"',
+			}, 'Please use notation "<ok>" for "<ko>" (Although using "–" is typographical correct, the opening_hours syntax is defined with the normal hyphen. Correct typography should be done on application level …': {
+				'–':  '-',
 			}, 'Please use notation "<ok>" for "<ko>".': {
 				'→':  '-',
-				'–':  '-',
 				'−':  '-',
 				'=':  '-',
 				'ー': '-',
@@ -1984,9 +1985,11 @@
 			if (typeof message == 'undefined')
 				var message = '';
 
-			return 'An error occurred during evaluation of the value "' + value + '".'
+			message = 'An error occurred during evaluation of the value "' + value + '".'
 				+ ' Please file a bug report on ' + issues_url + '.'
 				+ message;
+			console.log(message);
+			return message;
 		}
 		// }}}
 

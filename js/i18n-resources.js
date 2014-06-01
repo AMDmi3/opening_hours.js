@@ -315,7 +315,7 @@ var resources = { // English is fallback language.
                 "yellow": "Gelb",
                 "red": "Rot",
                 "violet": "Violett",
-                "to": "-",
+                "to": "bis",
                 "and": "und",
                 "no": "kein",
                 "his": "seine",
