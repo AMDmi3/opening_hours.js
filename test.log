@@ -14,14 +14,14 @@ With [1m[34mwarnings[39m[22m:
 	*24/7; Mo 15:00-16:00 off <--- (You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week". For correctness you might want to use "open" or "closed" for this rule and then write your exceptions which should achieve the same goal and is more clear e.g. "open; Mo 12:00-14:00 off".)
 "Time intervals" for "open; Mo 15:00-16:00 off": [1m[32mPASSED[39m[22m
 "Time intervals" for "00:00-24:00; Mo 15:00-16:00 off": [1m[32mPASSED[39m[22m
-"Time zero intervals (allways closed)" for "off": [1m[32mPASSED[39m[22m
-"Time zero intervals (allways closed)" for "closed": [1m[32mPASSED[39m[22m
-"Time zero intervals (allways closed)" for "off; closed": [1m[32mPASSED[39m[22m
-"Time zero intervals (allways closed)" for "24/7 closed "Allways closed"": [1m[32mPASSED[39m[22m
-"Time zero intervals (allways closed)" for "closed "Allways closed"": [1m[32mPASSED[39m[22m
-"Time zero intervals (allways closed)" for "off "Allways closed"": [1m[32mPASSED[39m[22m
-"Time zero intervals (allways closed)" for "00:00-24:00 closed": [1m[32mPASSED[39m[22m
-"Time zero intervals (allways closed)" for "24/7 closed": [1m[32mPASSED[39m[22m
+"Time zero intervals (always closed)" for "off": [1m[32mPASSED[39m[22m
+"Time zero intervals (always closed)" for "closed": [1m[32mPASSED[39m[22m
+"Time zero intervals (always closed)" for "off; closed": [1m[32mPASSED[39m[22m
+"Time zero intervals (always closed)" for "24/7 closed "always closed"": [1m[32mPASSED[39m[22m
+"Time zero intervals (always closed)" for "closed "always closed"": [1m[32mPASSED[39m[22m
+"Time zero intervals (always closed)" for "off "always closed"": [1m[32mPASSED[39m[22m
+"Time zero intervals (always closed)" for "00:00-24:00 closed": [1m[32mPASSED[39m[22m
+"Time zero intervals (always closed)" for "24/7 closed": [1m[32mPASSED[39m[22m
 "Input tolerance: dot as time separator" for "10:00-12:00": [1m[32mPASSED[39m[22m
 "Input tolerance: dot as time separator" for "10.00-12.00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -224,12 +224,16 @@ With [1m[34mwarnings[39m[22m:
 "Week ranges" for "week 1,3 00:00-24:00 || closed "should not change the test result"": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 1,3: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 1,week 3: 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week ranges" for "week 1: 00:00-24:00; week 3: 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week ranges" for "week 1; week 3": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 1-3/2 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 2,4 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 2-4/2 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range limit" for "week 2-54 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range limit" for "week 2-54: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range limit" for "week 2-57": [1m[32mPASSED[39m[22m
+"Week range" for "week 2-52/2 We; week 1-53/2 Sa 0:00-24:00": [1m[35mCRASHED[39m[22m, reason: Fatal: infinite loop in nextChange
+"Week range" for "week 4-16 We; week 38-42 Sa 0:00-24:00": [1m[35mCRASHED[39m[22m, reason: Fatal: infinite loop in nextChange
 "Only in one month of the year" for "Apr 08:00-12:00": [1m[32mPASSED[39m[22m
 "Only in one month of the year" for "Apr: 08:00-12:00": [1m[32mPASSED[39m[22m
 "Month ranges" for "Nov-Feb 00:00-24:00": [1m[32mPASSED[39m[22m
@@ -590,6 +594,9 @@ week 2-54 00:00-24:00::: <--- (Unexpected token: "timesep" This means that the s
 "Incorrect syntax which should throw an error" for "week 2-54 00::00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 week 2-54 00: <--- (Missing minutes in time range after: "timesep")
 
+"Incorrect syntax which should throw an error" for "week 2-52/2 We, week 1-53/2 Sa 0:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+week 2-52/2 We, week  <--- (Unexpected token in weekday range: week)
+
 "Incorrect syntax which should throw an error" for "(sunrise+01:00-sunset; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 (sunrise+01:00- <--- (Calculcation with variable time is not in the right syntax. Missing ")".)
 
@@ -875,4 +882,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-483/487 tests passed
+486/492 tests passed

@@ -59,13 +59,13 @@ test.addTest('Time intervals', [
 		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true, {}, 'not last test');
 
-test.addTest('Time zero intervals (allways closed)', [
+test.addTest('Time zero intervals (always closed)', [
 		'off',
 		'closed',
 		'off; closed',
-		'24/7 closed "Allways closed"', // Used on the demo page.
-		'closed "Allways closed"',
-		'off "Allways closed"',
+		'24/7 closed "always closed"', // Used on the demo page.
+		'closed "always closed"',
+		'off "always closed"',
 		'00:00-24:00 closed',
 		'24/7 closed',
 	], '2012.10.01 0:00', '2018.10.08 0:00', [
@@ -883,6 +883,8 @@ test.addTest('Week ranges', [
 		'week 1,3 00:00-24:00 || closed "should not change the test result"', // because comments for closed are not compared
 		'week 1,3: 00:00-24:00',
 		'week 1,week 3: 00:00-24:00',
+		'week 1: 00:00-24:00; week 3: 00:00-24:00',
+		'week 1; week 3',
 		'week 1-3/2 00:00-24:00',
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.01 00:00', '2012.01.02 00:00' ],
@@ -904,6 +906,16 @@ test.addTest('Week range limit', [
 	], '2012.01.01 0:00', '2014.01.01 0:00', [
 		[ '2012.01.02 00:00', '2013.01.01 00:00' ],
 		[ '2013.01.07 00:00', '2014.01.01 00:00' ],
+	], 1000 * 60 * 60 * 24 * 724, 0, false);
+
+test.addTest('Week range', [
+		'week 2-52/2 We; week 1-53/2 Sa 0:00-24:00',
+	], '2012.01.01 0:00', '2014.01.01 0:00', [
+	], 1000 * 60 * 60 * 24 * 724, 0, false);
+
+test.addTest('Week range', [
+		'week 4-16 We; week 38-42 Sa 0:00-24:00',
+	], '2012.01.01 0:00', '2014.01.01 0:00', [
 	], 1000 * 60 * 60 * 24 * 724, 0, false);
 // }}}
 
@@ -1892,6 +1904,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'week 2-54 00:00-24:00:' + value_suffix,
 		'week 2-54 00:00-24:00:::' + value_suffix,
 		'week 2-54 00::00-24:00' + value_suffix,
+		'week 2-52/2 We, week 1-53/2 Sa 0:00-24:00' + value_suffix, // See definition of fallback rules in the README.md: *additional rules*
 		'(sunrise+01:00-sunset' + value_suffix,
 		'(sunrise+01::)-sunset' + value_suffix,
 		'(sunrise)-sunset' + value_suffix,
