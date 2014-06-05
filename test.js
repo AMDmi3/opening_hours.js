@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // preamble {{{
 var opening_hours = require('./opening_hours.js');
 var colors        = require('colors');
@@ -292,6 +294,13 @@ test.addTest('Variable times e.g. sunrise, sunset without coordinates (→ const
 		[ '2012.10.01 06:00', '2012.10.01 18:00' ],
 		[ '2012.10.02 06:00', '2012.10.02 18:00' ],
 	], 1000 * 60 * 60 * 12 * 2, 0, true);
+
+test.addTest('Variable times e.g. sunrise, sunset', [
+		'sunrise-sunset open "Beware of sunburn!"',
+		// 'sunrise-sunset closed "Beware of sunburn!"', // Not so intuitive I guess.
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+		[ '2012.10.01 07:22', '2012.10.01 19:00' ],
+	], 1000 * 60 * (60 * 11 + 38), 0, false, nominatiomTestJSON, 'not only test');
 
 test.addTest('Variable times calculation without coordinates', [
 		'(sunrise+01:02)-(sunset-00:30)',
@@ -991,7 +1000,7 @@ test.addTest('Full day (with year)', [
 
 test.addTest('Date range which only applies for one year', [
 		'2013 Dec 31',
-		'2013 Dec 31; 2014 Jan 5; 2014/1 off',
+		'2013 Dec 31; 2014 Jan 5; 2014+ off',
 	], '2011.01.01 0:00', '2015.01.01 0:00', [
 		[ '2013.12.31 0:00', '2014.01.01 00:00' ],
 	], 1000 * 60 * 60 * 24, 0, false);
@@ -1149,7 +1158,7 @@ test.addTest('Periodical monthdays', [
 // year ranges {{{
 test.addTest('Date range which only applies for specific year', [
 		// FIXME
-		'2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1',
+		'2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1', // Used on the demo page.
 		'2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1 Mo-Su',
 	], '2011.01.01 0:00', '2065.01.01 0:00', [
 		[ '2013.01.01 00:00', '2013.01.02 00:00' ],
@@ -2121,16 +2130,16 @@ function opening_hours_test() {
 	// }}}
 
 	this.runSingleTest = function(test_data_object) { // {{{
-		var name = test_data_object[0],
-			value = test_data_object[1],
-			first_value = test_data_object[2],
-			from = test_data_object[3],
-			to = test_data_object[4],
-			expected_intervals = test_data_object[5],
-			expected_durations = test_data_object[6],
+		var name                = test_data_object[0],
+			value               = test_data_object[1],
+			first_value         = test_data_object[2],
+			from                = test_data_object[3],
+			to                  = test_data_object[4],
+			expected_intervals  = test_data_object[5],
+			expected_durations  = test_data_object[6],
 			expected_weekstable = test_data_object[7],
-			nominatiomJSON = test_data_object[8],
-			oh_mode = test_data_object[9];
+			nominatiomJSON      = test_data_object[8],
+			oh_mode             = test_data_object[9];
 		var ignored = typeof value !== 'string';
 		if (ignored) {
 			ignored = value[1];

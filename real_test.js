@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var opening_hours = require('./opening_hours.js');
 var fs = require('fs');
 var colors = require('colors');

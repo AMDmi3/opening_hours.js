@@ -88,6 +88,7 @@ With [1m[34mwarnings[39m[22m:
 "Variable times e.g. sunrise, sunset" for "Mo sunrise-sunset": [1m[32mPASSED[39m[22m
 "Variable times e.g. sunrise, sunset" for "sunrise-sunset": [1m[32mPASSED[39m[22m
 "Variable times e.g. sunrise, sunset without coordinates (→ constant times)" for "sunrise-sunset": [1m[32mPASSED[39m[22m
+"Variable times e.g. sunrise, sunset" for "sunrise-sunset open "Beware of sunburn!"": [1m[32mPASSED[39m[22m
 "Variable times calculation without coordinates" for "(sunrise+01:02)-(sunset-00:30)": [1m[32mPASSED[39m[22m
 "Variable times e.g. dawn, dusk without coordinates (→ constant times)" for "dawn-dusk": [1m[32mPASSED[39m[22m
 "Variable times e.g. dawn, dusk without coordinates (→ constant times)" for "(dawn+00:00)-dusk": [1m[32mPASSED[39m[22m
@@ -253,9 +254,7 @@ With [1m[34mwarnings[39m[22m:
 "Full day (with year)" for "2013 Dec 31; 2014 Jan 5": [1m[32mPASSED[39m[22m
 "Full day (with year)" for "2013/10 Dec 31; 2014/10 Jan 5": [1m[32mPASSED[39m[22m
 "Date range which only applies for one year" for "2013 Dec 31": [1m[32mPASSED[39m[22m
-"Date range which only applies for one year" for "2013 Dec 31; 2014 Jan 5; 2014/1 off": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*2013 Dec 31; 2014 Jan 5; 2014/1  <--- (Please don’t use year ranges with period equals one. If you want to express that a facility is open starting from a year without limit use "<year>+".)
+"Date range which only applies for one year" for "2013 Dec 31; 2014 Jan 5; 2014+ off": [1m[32mPASSED[39m[22m
 "Monthday (with year) ranges spanning year boundary" for "2013 Dec 31-2014 Jan 2": [1m[32mPASSED[39m[22m
 "Monthday (with year) ranges spanning year boundary" for "open; 2010 Jan 1-2013 Dec 30 off; 2014 Jan 3-2016 Jan 1 off": [1m[32mPASSED[39m[22m
 "Monthday ranges with constrained weekday" for "Jan Su[2]-Jan 15": [1m[32mPASSED[39m[22m
@@ -868,4 +867,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-474/478 tests passed
+475/479 tests passed
