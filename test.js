@@ -59,6 +59,18 @@ test.addTest('Time intervals', [
 		[ '2012.10.01 16:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * (24 * 6 + 23), 0, true, {}, 'not last test');
 
+test.addTest('Time zero intervals (allways closed)', [
+		'off',
+		'closed',
+		'off; closed',
+		'24/7 closed "Allways closed"', // Used on the demo page.
+		'closed "Allways closed"',
+		'off "Allways closed"',
+		'00:00-24:00 closed',
+		'24/7 closed',
+	], '2012.10.01 0:00', '2018.10.08 0:00', [
+	], 0, 0, true, {}, 'not last test');
+
 // input tolerance {{{
 test.addTest('Input tolerance: dot as time separator', [
 		'10:00-12:00', // reference value for prettify

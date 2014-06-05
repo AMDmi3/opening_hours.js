@@ -14,6 +14,14 @@ With [1m[34mwarnings[39m[22m:
 	*24/7; Mo 15:00-16:00 off <--- (You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week". For correctness you might want to use "open" or "closed" for this rule and then write your exceptions which should achieve the same goal and is more clear e.g. "open; Mo 12:00-14:00 off".)
 "Time intervals" for "open; Mo 15:00-16:00 off": [1m[32mPASSED[39m[22m
 "Time intervals" for "00:00-24:00; Mo 15:00-16:00 off": [1m[32mPASSED[39m[22m
+"Time zero intervals (allways closed)" for "off": [1m[32mPASSED[39m[22m
+"Time zero intervals (allways closed)" for "closed": [1m[32mPASSED[39m[22m
+"Time zero intervals (allways closed)" for "off; closed": [1m[32mPASSED[39m[22m
+"Time zero intervals (allways closed)" for "24/7 closed "Allways closed"": [1m[32mPASSED[39m[22m
+"Time zero intervals (allways closed)" for "closed "Allways closed"": [1m[32mPASSED[39m[22m
+"Time zero intervals (allways closed)" for "off "Allways closed"": [1m[32mPASSED[39m[22m
+"Time zero intervals (allways closed)" for "00:00-24:00 closed": [1m[32mPASSED[39m[22m
+"Time zero intervals (allways closed)" for "24/7 closed": [1m[32mPASSED[39m[22m
 "Input tolerance: dot as time separator" for "10:00-12:00": [1m[32mPASSED[39m[22m
 "Input tolerance: dot as time separator" for "10.00-12.00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -867,4 +875,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-475/479 tests passed
+483/487 tests passed
