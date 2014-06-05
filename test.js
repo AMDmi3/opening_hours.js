@@ -299,7 +299,7 @@ test.addTest('Variable times e.g. sunrise, sunset', [
 		'sunrise-sunset open "Beware of sunburn!"',
 		// 'sunrise-sunset closed "Beware of sunburn!"', // Not so intuitive I guess.
 	], '2012.10.01 0:00', '2012.10.02 0:00', [
-		[ '2012.10.01 07:22', '2012.10.01 19:00' ],
+		[ '2012.10.01 07:22', '2012.10.01 19:00', false, 'Beware of sunburn!' ],
 	], 1000 * 60 * (60 * 11 + 38), 0, false, nominatiomTestJSON, 'not only test');
 
 test.addTest('Variable times calculation without coordinates', [
@@ -2179,7 +2179,7 @@ function opening_hours_test() {
 						|| intervals[interval][1].getTime() != expected_to.getTime()
 						|| (typeof expected_intervals[interval][2] !== 'undefined' // unknown state boolean
 							&& intervals[interval][2] !== expected_intervals[interval][2])
-						|| (typeof expected_intervals[interval][3] !== 'undefined'
+						|| (typeof intervals[interval][3] !== 'undefined'
 							&& intervals[interval][3] !== expected_intervals[interval][3])
 						)
 					intervals_ok = false;
