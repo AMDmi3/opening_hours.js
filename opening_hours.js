@@ -1838,7 +1838,7 @@
 		// }}}
 
 		// put tokenized blocks into list {{{
-		if (value.match(/^(\s*;?\s*)+$/))
+		if (value.match(/^(?:\s*;?\s*)+$/))
 			throw 'Value contains nothing meaningful which can be parsed';
 
 		var parsing_warnings = [];
@@ -3640,16 +3640,21 @@
 					}
 
 					selectors.week.push(function(tokens, at, is_range, has_period) { return function(date) {
+						// console.log('called: ' + date);
 						var ourweek = Math.floor((date - dateAtWeek(date, 0)) / msec_in_week);
 
 						var week_from = tokens[at][0] - 1;
-						var week_to = is_range ? tokens[at+2][0] - 1 : week_from;
+						var week_to   = is_range ? tokens[at+2][0] - 1 : week_from;
 
 						var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
 
 						// before range
-						if (ourweek < week_from)
+						if (ourweek < week_from) {
+							// console.log('Start of date', start_of_next_year);
+							// console.log('dateAtWeek(date, week_from)', dateAtWeek(date, week_from));
+							// console.log(getMinDate(dateAtWeek(date, week_from), start_of_next_year));
 							return [false, getMinDate(dateAtWeek(date, week_from), start_of_next_year)];
+						}
 
 						// we're after range, set check date to next year
 						if (ourweek > week_to)
@@ -4386,11 +4391,11 @@
 							return false;
 
 						// console.log('\n' + 'previous check time:', prevstate[1]
-						// 	+ ', current check time:',
-						// 	// (state[1].getHours() < 10 ? '0' : '') + state[1].getHours() +
-						// 	// ':'+(state[1].getMinutes() < 10 ? '0' : '')+ state[1].getMinutes(), state[1].getDate(),
-						// 	state[1],
-						// 	(state[0] ? 'open' : (state[2] ? 'unknown' : 'closed')) + ', comment:', state[3]);
+							// + ', current check time:',
+							// // (state[1].getHours() < 10 ? '0' : '') + state[1].getHours() +
+							// // ':'+(state[1].getMinutes() < 10 ? '0' : '')+ state[1].getMinutes(), state[1].getDate(),
+							// state[1],
+							// (state[0] ? 'open' : (state[2] ? 'unknown' : 'closed')) + ', comment:', state[3]);
 
 						// We're going backwards or staying at place.
 						// This always indicates coding error in a selector code.

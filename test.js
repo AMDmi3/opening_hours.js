@@ -101,10 +101,10 @@ test.addTest('Input tolerance: dot as time separator', [
 	], 1000 * 60 * 60 * 2 * 7, 0, true, {}, 'not last test');
 
 test.addTest('Input tolerance: short time (test prettify)', [
-		'10:00-12:00,13:00-20:00', // reference value for prettify
-		'10-12,13-20',             // Do not use. Returns warning.
-		'10am-12am,1pm-8pm',       // Do not use. Returns warning.
-		'10:00am-12:00am,1:00pm-8:00pm',       // Do not use. Returns warning.
+		'10:00-12:00,13:00-20:00',       // reference value for prettify
+		'10-12,13-20',                   // Do not use. Returns warning.
+		'10am-12am,1pm-8pm',             // Do not use. Returns warning.
+		'10:00am-12:00am,1:00pm-8:00pm', // Do not use. Returns warning.
 	], '2012.10.01 0:00', '2012.10.03 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 12:00' ],
 		[ '2012.10.01 13:00', '2012.10.01 20:00' ],
@@ -914,9 +914,12 @@ test.addTest('Week range', [
 	], 1000 * 60 * 60 * 24 * 724, 0, false);
 
 test.addTest('Week range', [
-		'week 4-16 We; week 38-42 Sa 0:00-24:00',
-	], '2012.01.01 0:00', '2014.01.01 0:00', [
-	], 1000 * 60 * 60 * 24 * 724, 0, false);
+		'week 4-16',
+		// 'week 4-16 We',
+		// 'week 38-42 Sa 0:00-24:00',
+		// 'week 4-16 We; week 38-42 Sa 0:00-24:00',
+	], '2012.01.01 0:00', '2018.01.01 0:00', [
+	], 1000 * 60 * 60 * 24 * 724, 0, false, {}, 'not only test');
 // }}}
 
 // full months/month ranges {{{
@@ -1874,7 +1877,17 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		// }}}
 		'Jan Dec' + value_suffix,
 		'Jan 1-22/1' + value_suffix, // period
-		'"testing" "second comment"' + value_suffix,
+		// https://en.wikipedia.org/wiki/International_variation_in_quotation_marks
+		'"testing" "second comment"' + value_suffix, // ": valid in opening_hours syntax
+		// '\'testing\'' + value_suffix,
+		// '„testing“' + value_suffix, // valid German quote
+		// '“testing”' + value_suffix, // valid English (and others) quote
+		// '«testing»' + value_suffix, // https://en.wikipedia.org/wiki/Guillemet
+		// '「testing」' + value_suffix, // valid Japanese quote
+		// '『testing』' + value_suffix, // valid Japanese quote
+		// '‚testing‘' + value_suffix,
+		// '‘testing‘' + value_suffix,
+		// '’testing’' + value_suffix,
 		'Jan 12:00-13:00 Mo 15:00-16:00' + value_suffix,
 		'sunrise-(sunset-00:00)' + value_suffix,
 		// 'easter + 353 days' + value_suffix, // Does throw an error, but at runtime when the problem occurs respectively with the call of getWarnings().
@@ -1883,6 +1896,8 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'2014/1' + value_suffix,      // period is one
 		'Mo-Sa 11:00-21:00 Su off' + value_suffix, // http://www.openstreetmap.org/way/228339826
 		// 'Mo-Sa 11:00-21:00 Su,PH off' + value_suffix, // http://www.openstreetmap.org/way/228339826
+		'25pm-26am' + value_suffix,
+		'10:00am-12:00am,1:00pm-8:00pm' + value_suffix,
 	], {}, 'not last test');
 // }}}
 
@@ -1959,6 +1974,9 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'26:00-27:00' + value_suffix,
 		'23:00-55:00' + value_suffix,
 		'23:59-48:01' + value_suffix,
+		'25am-26pm' + value_suffix,
+		'24am-26pm' + value_suffix,
+		'23am-49pm' + value_suffix,
 		'Tu 23:59-48:00+' + value_suffix, // Does not make much sense. Should be written in another way.
 		'12:00' + value_suffix,
 	], nominatiomTestJSON, 'not last test');

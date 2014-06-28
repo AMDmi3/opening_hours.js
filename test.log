@@ -233,7 +233,7 @@ With [1m[34mwarnings[39m[22m:
 "Week range limit" for "week 2-54: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range limit" for "week 2-57": [1m[32mPASSED[39m[22m
 "Week range" for "week 2-52/2 We; week 1-53/2 Sa 0:00-24:00": [1m[35mCRASHED[39m[22m, reason: Fatal: infinite loop in nextChange
-"Week range" for "week 4-16 We; week 38-42 Sa 0:00-24:00": [1m[35mCRASHED[39m[22m, reason: Fatal: infinite loop in nextChange
+"Week range" for "week 4-16": [1m[35mCRASHED[39m[22m, reason: Fatal: infinite loop in nextChange
 "Only in one month of the year" for "Apr 08:00-12:00": [1m[32mPASSED[39m[22m
 "Only in one month of the year" for "Apr: 08:00-12:00": [1m[32mPASSED[39m[22m
 "Month ranges" for "Nov-Feb 00:00-24:00": [1m[32mPASSED[39m[22m
@@ -555,6 +555,20 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-Sa 11:00-21:00 Su off; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Sa 11:00-21:00 Su  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+"Value not ideal (probably wrong). Should throw a warning." for "25pm-26am; 00:23-00:42 unknown "warning at correct position?"": [1m[31mFAILED[39m[22m
+25pm <--- (Time range starts outside of the current day)
+
+With [1m[34mwarnings[39m[22m:
+	*10:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00am,1:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00am,1:00pm-8:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+"Value not ideal (probably wrong). Should throw a warning." for "10:00am-12:00am,1:00pm-8:00pm; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*10:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00am,1:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00am,1:00pm-8:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
 "Incorrect syntax which should throw an error" for "sdasdlasdj a3reaw": [1m[32mPASSED[39m[22m
 sd <--- (Unexpected token: "s" This means that the syntax is not valid at that point or it is currently not supported.) sdasdlasdj a3reaw <--- (Assuming "We" for "w")
 
@@ -753,6 +767,15 @@ Jun 2-20/0 <--- (You can not use day ranges with period equals zero.)
 "Incorrect syntax which should throw an error" for "23:59-48:01; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 23:59-48:01 <--- (Time spanning more than two midnights not supported)
 
+"Incorrect syntax which should throw an error" for "25am-26pm; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+25am <--- (Time range starts outside of the current day)
+
+"Incorrect syntax which should throw an error" for "24am-26pm; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+24am <--- (Time range starts outside of the current day)
+
+"Incorrect syntax which should throw an error" for "23am-49pm; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+23am-49pm <--- (Time spanning more than two midnights not supported)
+
 "Incorrect syntax which should throw an error" for "Tu 23:59-48:00+; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Tu 23:59-48:00+ <--- (Time spanning more than two midnights not supported)
 
@@ -882,4 +905,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-486/492 tests passed
+490/497 tests passed
