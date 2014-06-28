@@ -1879,7 +1879,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'Jan 1-22/1' + value_suffix, // period
 		// https://en.wikipedia.org/wiki/International_variation_in_quotation_marks
 		'"testing" "second comment"' + value_suffix, // ": valid in opening_hours syntax
-		// '\'testing\'' + value_suffix,
+		'\'testing\'' + value_suffix,
 		'„testing"' + value_suffix, // Testing for development
 		'„testing“' + value_suffix, // valid German quote
 		'“testing”' + value_suffix, // valid English (and others) quote
