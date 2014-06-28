@@ -46,8 +46,8 @@ class OpeningHoursRegexSearch: # {{{
         try:
             json_data = codecs.open(json_file, 'r', 'UTF-8')
         except IOError as detail:
-            sys.stderr.write('File '+ json_file +' is not readable: '+ detail[1])
-            sys.exit(1)
+            raise SystemExit('File %s is not readable: %s' %
+                    (json_file, detail[1]))
 
         decoded_json = json.load(json_data)
         json_data.close()
