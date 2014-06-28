@@ -2000,7 +2000,9 @@
 		 */
 		function formatLibraryBugMessage(message) {
 			if (typeof message == 'undefined')
-				var message = ''; // FIXME add space
+				var message = '';
+			else
+				message = ' ' + message;
 
 			message = 'An error occurred during evaluation of the value "' + value + '".'
 				+ ' Please file a bug report on ' + issues_url + '.'
@@ -2200,7 +2202,7 @@
 										break;
 								}
 								if (typeof correct_abbr == 'undefined') {
-									throw formatLibraryBugMessage(' Including the stacktrace.');
+									throw formatLibraryBugMessage('Including the stacktrace.');
 								}
 								if (token_name != 'timevar') {
 									// Everything else than timevar:
