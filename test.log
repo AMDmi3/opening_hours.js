@@ -526,6 +526,67 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*"testing" "second comment" <--- (You have used 2 comments in one rule. You may only use one in one rule. Rules can be separated by ";".)
 With [1m[34mwarnings[39m[22m:
+	*„ <--- (Bitte benutze die Schreibweise """ für "„". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
+"Value not ideal (probably wrong). Should throw a warning." for "„testing"; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*„ <--- (Bitte benutze die Schreibweise """ für "„". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
+With [1m[34mwarnings[39m[22m:
+	*„ <--- (Bitte benutze die Schreibweise """ für "„". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
+	*„testing“ <--- (Bitte benutze die Schreibweise """ für "“". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
+"Value not ideal (probably wrong). Should throw a warning." for "„testing“; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*„ <--- (Bitte benutze die Schreibweise """ für "„". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
+	*„testing“ <--- (Bitte benutze die Schreibweise """ für "“". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
+With [1m[34mwarnings[39m[22m:
+	*“ <--- (Bitte benutze die Schreibweise """ für "“". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
+	*“testing” <--- (Bitte benutze die Schreibweise """ für "”". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
+"Value not ideal (probably wrong). Should throw a warning." for "“testing”; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*“ <--- (Bitte benutze die Schreibweise """ für "“". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
+	*“testing” <--- (Bitte benutze die Schreibweise """ für "”". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
+With [1m[34mwarnings[39m[22m:
+	*« <--- (Please use notation """ for "«". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+	*«testing» <--- (Please use notation """ for "»". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+"Value not ideal (probably wrong). Should throw a warning." for "«testing»; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*« <--- (Please use notation """ for "«". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+	*«testing» <--- (Please use notation """ for "»". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+With [1m[34mwarnings[39m[22m:
+	*「 <--- (Please use notation """ for "「". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+	*「testing」 <--- (Please use notation """ for "」". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+"Value not ideal (probably wrong). Should throw a warning." for "「testing」; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*「 <--- (Please use notation """ for "「". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+	*「testing」 <--- (Please use notation """ for "」". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+With [1m[34mwarnings[39m[22m:
+	*『 <--- (Please use notation """ for "『". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+	*『testing』 <--- (Please use notation """ for "』". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+"Value not ideal (probably wrong). Should throw a warning." for "『testing』; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*『 <--- (Please use notation """ for "『". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+	*『testing』 <--- (Please use notation """ for "』". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+With [1m[34mwarnings[39m[22m:
+	*‚ <--- (Please use notation """ for "‚". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+	*‚testing‘ <--- (Please use notation """ for "‘". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+"Value not ideal (probably wrong). Should throw a warning." for "‚testing‘; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*‚ <--- (Please use notation """ for "‚". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+	*‚testing‘ <--- (Please use notation """ for "‘". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+With [1m[34mwarnings[39m[22m:
+	*‘ <--- (Please use notation """ for "‘". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+	*‘testing‘ <--- (Please use notation """ for "‘". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+"Value not ideal (probably wrong). Should throw a warning." for "‘testing‘; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*‘ <--- (Please use notation """ for "‘". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+	*‘testing‘ <--- (Please use notation """ for "‘". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+With [1m[34mwarnings[39m[22m:
+	*’ <--- (Please use notation """ for "’". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+	*’testing’ <--- (Please use notation """ for "’". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+"Value not ideal (probably wrong). Should throw a warning." for "’testing’; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*’ <--- (Please use notation """ for "’". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+	*’testing’ <--- (Please use notation """ for "’". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
+With [1m[34mwarnings[39m[22m:
 	*Jan 12:00-13:00 Mo 15:00-16:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Value not ideal (probably wrong). Should throw a warning." for "Jan 12:00-13:00 Mo 15:00-16:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -905,4 +966,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-490/497 tests passed
+499/506 tests passed

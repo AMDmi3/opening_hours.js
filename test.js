@@ -1880,14 +1880,15 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		// https://en.wikipedia.org/wiki/International_variation_in_quotation_marks
 		'"testing" "second comment"' + value_suffix, // ": valid in opening_hours syntax
 		// '\'testing\'' + value_suffix,
-		// '„testing“' + value_suffix, // valid German quote
-		// '“testing”' + value_suffix, // valid English (and others) quote
-		// '«testing»' + value_suffix, // https://en.wikipedia.org/wiki/Guillemet
-		// '「testing」' + value_suffix, // valid Japanese quote
-		// '『testing』' + value_suffix, // valid Japanese quote
-		// '‚testing‘' + value_suffix,
-		// '‘testing‘' + value_suffix,
-		// '’testing’' + value_suffix,
+		'„testing"' + value_suffix, // Testing for development
+		'„testing“' + value_suffix, // valid German quote
+		'“testing”' + value_suffix, // valid English (and others) quote
+		'«testing»' + value_suffix, // https://en.wikipedia.org/wiki/Guillemet
+		'「testing」' + value_suffix, // valid Japanese quote
+		'『testing』' + value_suffix, // valid Japanese quote
+		'‚testing‘' + value_suffix,
+		'‘testing‘' + value_suffix,
+		'’testing’' + value_suffix,
 		'Jan 12:00-13:00 Mo 15:00-16:00' + value_suffix,
 		'sunrise-(sunset-00:00)' + value_suffix,
 		// 'easter + 353 days' + value_suffix, // Does throw an error, but at runtime when the problem occurs respectively with the call of getWarnings().

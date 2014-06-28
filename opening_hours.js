@@ -1481,6 +1481,22 @@
 			}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>".': {
 				'bis':     '-',
 				'täglich': 'Mo-Su',
+			}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.': {
+				'„': '"',
+				'“': '"',
+				'”': '"',
+			}, 'Please use notation "<ok>" for "<ko>". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.': {
+				'«': '"',
+				'»': '"',
+				'‚': '"',
+				'‘': '"',
+				'’': '"',
+				'「': '"',
+				'」': '"',
+				'『': '"',
+				'』': '"',
+			}, 'Please use notation "<ok>" for "<ko>". The used quote signs are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.': {
+				"'": '"',
 			}, 'Bitte benutze die Schreibweise "<ok>" als Ersatz für "und" bzw. "u.".': {
 				'und': ',',
 				'u':   ',',
@@ -1984,7 +2000,7 @@
 		 */
 		function formatLibraryBugMessage(message) {
 			if (typeof message == 'undefined')
-				var message = '';
+				var message = ''; // FIXME add space
 
 			message = 'An error occurred during evaluation of the value "' + value + '".'
 				+ ' Please file a bug report on ' + issues_url + '.'
@@ -2008,6 +2024,7 @@
 			var last_block_fallback_terminated = false;
 
 			while (value != '') {
+				// console.log("Parsing value: " + value);
 				var tmp;
 				if (tmp = value.match(/^(?:week\b|open\b|unknown\b)/i)) {
 					// Reserved keywords.
@@ -2082,6 +2099,29 @@
 				} else if (tmp = value.match(/^"([^"]*)"/)) {
 					// comment
 					curr_block_tokens.push([tmp[1], 'comment', value.length ]);
+					value = value.substr(tmp[0].length);
+				} else if (tmp = value.match(/^(["„“‚‘’«「『])([^"“”‘’»」』]*)(["”“‘’»」』])/)) {
+					// Comments with error tolerance.
+					// The comments still have to be somewhat correct meaning
+					// the start and end quote signs used have to be
+					// appropriate. So “testing„ will not match as it is not a
+					// quote but rather something unknown which the user should
+					// fix first.
+					// console.log('Matched: ' + JSON.stringify(tmp));
+					for (var pos = 1; pos <= 3; pos += 2) {
+						// console.log('Pos: ' + pos + ', substring: ' + tmp[pos]);
+						var correct_val = returnCorrectWordOrToken(tmp[pos],
+							value.length - (pos == 3 ? tmp[1].length + tmp[2].length : 0)
+						);
+						if (typeof correct_val != 'string' && tmp[pos] != '"') {
+							throw formatLibraryBugMessage(
+								'A character for error tolerance was allowed in the regular expression'
+								+ ' but is not covered by word_error_correction'
+								+ ' which is needed to format a proper message for the user.'
+							);
+						}
+					}
+					curr_block_tokens.push([tmp[2], 'comment', value.length ]);
 					value = value.substr(tmp[0].length);
 				} else if (value.match(/^;/)) {
 					// semicolon terminates block
