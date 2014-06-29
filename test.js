@@ -492,6 +492,10 @@ test.addTest('Variable times spanning midnight', [
 // holidays {{{
 test.addTest('Variable days: public holidays', [
 		'PH',
+		'holiday',         // Throws a warning.
+		'holidays',        // Throws a warning.
+		'public holidays', // Throws a warning.
+		'public holiday',  // Throws a warning.
 	], '2013.01.01 0:00', '2015.01.01 0:00', [
 		[ '2013.01.01 00:00', '2013.01.02 00:00', false, 'Neujahrstag' ],
 		[ '2013.01.06 00:00', '2013.01.07 00:00', false, 'Heilige Drei Könige' ],
@@ -661,6 +665,9 @@ test.addTest('Variable days: Everyday including public holidays', [
 // weekdays {{{
 test.addTest('Weekdays', [
 		'Mo,Th,Sa,Su 10:00-12:00',
+		'Mo,Th,weekend 10:00-12:00',        // Throws a warning.
+		'Mo & Th and weekends 10:00-12:00', // Throws a warning.
+		'Mo,Th,Sa,Su 10:00-12:00',          // Throws a warning.
 		'Mo,Th,Sa-Su 10:00-12:00',
 		'Th,Sa-Mo 10:00-12:00',
 		'10:00-12:00; Tu-We 00:00-24:00 off; Fr 00:00-24:00 off',

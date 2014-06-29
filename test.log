@@ -249,6 +249,18 @@ With [1m[34mwarnings[39m[22m:
 "Variable times spanning midnight" for "sunset-07:22 Mo-Su": [1m[32mPASSED[39m[22m
 "Variable times spanning midnight" for "19:00-sunrise Mo-Su": [1m[32mPASSED[39m[22m
 "Variable days: public holidays" for "PH": [1m[32mPASSED[39m[22m
+"Variable days: public holidays" for "holiday": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*holiday <--- (Please use notation "PH" for "holiday".)
+"Variable days: public holidays" for "holidays": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*holidays <--- (Please use notation "PH" for "holidays".)
+"Variable days: public holidays" for "public holidays": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*public holidays <--- (Please use notation "PH" for "public holidays".)
+"Variable days: public holidays" for "public holiday": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*public holiday <--- (Please use notation "PH" for "public holiday".)
 "Variable days: public holidays" for "open; PH off": [1m[32mPASSED[39m[22m
 "Variable days: public holidays (with time range)" for "PH 12:00-13:00": [1m[32mPASSED[39m[22m
 "Variable days: public holidays (with time range)" for "PH 12:00-13:00 open "this comment should override the holiday name which is returned as comment if PH matches."": [1m[32mPASSED[39m[22m
@@ -272,6 +284,15 @@ With [1m[34mwarnings[39m[22m:
 "Variable days: school holidays" for "SH,PH,Su": [1m[32mPASSED[39m[22m
 "Variable days: Everyday including public holidays" for "Mo-Su,PH": [1m[32mPASSED[39m[22m
 "Variable days: Everyday including public holidays" for "PH,Mo-Su": [1m[32mPASSED[39m[22m
+"Weekdays" for "Mo,Th,Sa,Su 10:00-12:00": [1m[32mPASSED[39m[22m
+"Weekdays" for "Mo,Th,weekend 10:00-12:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo,Th,weekend <--- (Please use notation "Sa,Su" for "weekend".)
+"Weekdays" for "Mo & Th and weekends 10:00-12:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo & <--- (Please use notation "," for "&".)
+	*Mo & Th and <--- (Please use notation "," for "and".)
+	*Mo & Th and weekends <--- (Please use notation "Sa,Su" for "weekends".)
 "Weekdays" for "Mo,Th,Sa,Su 10:00-12:00": [1m[32mPASSED[39m[22m
 "Weekdays" for "Mo,Th,Sa-Su 10:00-12:00": [1m[32mPASSED[39m[22m
 "Weekdays" for "Th,Sa-Mo 10:00-12:00": [1m[32mPASSED[39m[22m
@@ -1108,4 +1129,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-546/553 tests passed
+553/560 tests passed
