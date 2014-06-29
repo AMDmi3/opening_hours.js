@@ -381,6 +381,7 @@ With [1m[34mwarnings[39m[22m:
 "Based on real world example: Is processed right." for "May-Sep: 00:00-24:00, Apr-Oct: Sa-Su 08:00-15:00": [1m[32mPASSED[39m[22m
 "Based on real world example: Is processed right." for "Apr-Oct: Sa-Su 08:00-15:00, May-Sep: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Based on real world example: Is processed right." for "Apr-Oct: Sa-Su 08:00-15:00; May-Sep: 00:00-24:00": [1m[32mPASSED[39m[22m
+"Real world example: Was not processed right." for "Mo-Fr 07:00-19:30; Sa-Su 08:00-19:30; 19:30-21:00 open "No new laundry loads in"; Nov Th[4] off; Dec 25 off": [1m[32mPASSED[39m[22m
 "Variable events" for "easter": [1m[32mPASSED[39m[22m
 "Calculations based on variable events" for "easter +1 day open "Easter Monday"": [1m[32mPASSED[39m[22m
 "Calculations based on variable events" for "Apr 5-easter -1 day: open "Before easter"": [1m[32mPASSED[39m[22m
@@ -974,4 +975,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-501/508 tests passed
+502/509 tests passed

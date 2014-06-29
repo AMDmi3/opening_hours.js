@@ -1607,6 +1607,19 @@ test.addTest('Based on real world example: Is processed right.', [
 	], 1000 * 60 * 60 * (8 * 7 + (31 + 30 + 31 + 31 + 30) * 24 + 8 * 7), 0, false, {}, 'not last test');
 // }}}
 
+// https://github.com/ypid/opening_hours.js/issues/43 {{{
+test.addTest('Real world example: Was not processed right.', [
+		'Mo-Fr 07:00-19:30; Sa-Su 08:00-19:30; 19:30-21:00 open "No new laundry loads in"; Nov Th[4] off; Dec 25 off',
+	], '2014.12.23 0:00', '2014.12.27 0:00', [
+		[ '2014.12.23 07:00', '2014.12.23 19:30' ], // Tu
+		[ '2014.12.23 19:30', '2014.12.23 21:00', false, 'No new laundry loads in' ],
+		[ '2014.12.24 07:00', '2014.12.24 19:30' ], // We
+		[ '2014.12.24 19:30', '2014.12.24 21:00', false, 'No new laundry loads in' ],
+		[ '2014.12.26 07:00', '2014.12.26 19:30' ], // Fr
+		[ '2014.12.26 19:30', '2014.12.26 21:00', false, 'No new laundry loads in' ],
+	], 1000 * 60 * 60 * (12.5 + 1.5) * 3, 0, false, {}, 'not last test');
+// }}}
+
 // }}}
 
 // variable events e.g. easter {{{
