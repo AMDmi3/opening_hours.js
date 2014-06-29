@@ -2053,11 +2053,11 @@
 					// special day name (holidays)
 					curr_block_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
 					value = value.substr(2);
-				} else if (tmp = value.match(/^days?/i)) {
+				} else if (tmp = value.match(/^days?\b/i)) {
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|25x7|7\s?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-late|public holidays?|every day|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b)\.?/i)) {
-					// Handle all remaining words with error tolerance.
+				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|24x7|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-late|public holidays?|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b)\.?/i)) {
+					// Handle all remaining words and specific other characters with error tolerance.
 					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
 					if (typeof correct_val == 'object') {
 						curr_block_tokens.push([ correct_val[0], correct_val[1], value.length ]);

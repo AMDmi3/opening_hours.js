@@ -65,44 +65,63 @@ With [1m[34mwarnings[39m[22m:
 	*10:00am-12:00am,1.00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
 	*10:00am-12:00am,1.00pm-8. <--- (Please use ":" as hour/minute-separator)
 	*10:00am-12:00am,1.00pm-8.00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-"Time intervals, short time" for "Mo 07:00-18:00": [1m[32mPASSED[39m[22m
-"Time intervals, short time" for "Mo 7-18": [1m[32mPASSED[39m[22m
+"Error tolerance: Time intervals, short time" for "Mo 07:00-18:00": [1m[32mPASSED[39m[22m
+"Error tolerance: Time intervals, short time" for "Mo 7-18": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo 7-18 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
-"Full range" for "Mo-Su": [1m[32mPASSED[39m[22m
-"Full range" for "daily": [1m[32mPASSED[39m[22m
+"Error tolerance: Full range" for "Mo-Su": [1m[32mPASSED[39m[22m
+"Error tolerance: Full range" for "daily": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*daily <--- (Please use notation "Mo-Su" for "daily".)
-"Full range" for "everyday": [1m[32mPASSED[39m[22m
+"Error tolerance: Full range" for "everyday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*everyday <--- (Please use notation "Mo-Su" for "everyday".)
-"Full range" for "every day": [1m[32mPASSED[39m[22m
+"Error tolerance: Full range" for "every day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*every day <--- (Please use notation "Mo-Su" for "every day".)
-"Full range" for "all days": [1m[32mPASSED[39m[22m
+"Error tolerance: Full range" for "all days": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*all days <--- (Please use notation "Mo-Su" for "all days".)
-"Full range" for "every day": [1m[32mPASSED[39m[22m
+"Error tolerance: Full range" for "every day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*every day <--- (Please use notation "Mo-Su" for "every day".)
-"Full range" for "7days": [1m[32mPASSED[39m[22m
+"Error tolerance: Full range" for "7days": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7days <--- (Please use notation "Mo-Su" for "7days".)
-"Full range" for "7j/7": [1m[32mPASSED[39m[22m
+"Error tolerance: Full range" for "7j/7": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7j/7 <--- (Please use notation "Mo-Su" for "7j/7".)
-"Full range" for "7/7": [1m[32mPASSED[39m[22m
+"Error tolerance: Full range" for "7/7": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7/7 <--- (Please use notation "Mo-Su" for "7/7".)
-"Full range" for "7 days": [1m[32mPASSED[39m[22m
+"Error tolerance: Full range" for "7 days": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7 days <--- (Please use notation "Mo-Su" for "7 days".)
-"Full range" for "7 days a week": [1m[32mPASSED[39m[22m
+"Error tolerance: Full range" for "7 days a week": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7 days a week <--- (Please use notation "Mo-Su" for "7 days a week".)
-"Full range" for "7 days/week": [1m[32mPASSED[39m[22m
+"Error tolerance: Full range" for "7 days/week": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7 days/week <--- (Please use notation "Mo-Su" for "7 days/week".)
+"Error tolerance: Full range" for "24/7": [1m[32mPASSED[39m[22m
+"Error tolerance: Full range" for "always": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*always <--- (Please use notation "24/7" for "always".)
+"Error tolerance: Full range" for "nonstop": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*nonstop <--- (Please use notation "24/7" for "nonstop".)
+"Error tolerance: Full range" for "24x7": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*24x7 <--- (Please use notation "24/7" for "24x7".)
+"Error tolerance: Full range" for "anytime": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*anytime <--- (Please use notation "24/7" for "anytime".)
+"Error tolerance: Full range" for "all day": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*all day <--- (Please use notation "24/7" for "all day".)
+"Error tolerance: Time range" for "Mo 12:00-14:00 16:00-18:00 20:00-22:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00-14:00 16:00-18:00 20:00-22:00 <--- (You have used 3 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Time ranges spanning midnight" for "22:00-02:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight" for "22:00-26:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight" for "22-2": [1m[32mPASSED[39m[22m
@@ -152,6 +171,9 @@ With [1m[34mwarnings[39m[22m:
 	*(dawn+00:00 <--- (Adding zero in a variable time calculation does not change the variable time. Please omit the calculation (example: "sunrise-(sunset-00:00)").)
 	*(dawn+00:00)-(dusk-00:00 <--- (Adding zero in a variable time calculation does not change the variable time. Please omit the calculation (example: "sunrise-(sunset-00:00)").)
 "Variable times e.g. sunrise, sunset over a few days" for "sunrise-sunset": [1m[32mPASSED[39m[22m
+"Variable times e.g. sunrise, sunset over a few days" for "daylight": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*daylight <--- (Please use notation "sunrise-sunset" for "daylight".)
 "Variable times calculation with coordinates" for "(sunrise+02:00)-sunset": [1m[32mPASSED[39m[22m
 "Variable times which moves over fix end time" for "sunrise-08:02": [1m[32mPASSED[39m[22m
 "Variable times which moves over fix end time" for "sunrise-08:00": [1m[32mPASSED[39m[22m
@@ -1017,4 +1039,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-515/522 tests passed
+523/530 tests passed

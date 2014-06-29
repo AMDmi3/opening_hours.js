@@ -120,15 +120,14 @@ test.addTest('Error tolerance: short time (test prettify)', [
 		[ '2012.10.02 13:00', '2012.10.02 20:00' ],
 	], 1000 * 60 * 60 * (2 + 7) * 2, 0, true, {}, 'not last test');
 
-test.addTest('Time intervals, short time', [
+test.addTest('Error tolerance: Time intervals, short time', [
 		'Mo 07:00-18:00', //reference value for prettify
 		'Mo 7-18', // throws a warning, use previous value which is equal.
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 07:00', '2012.10.01 18:00' ],
 	], 1000 * 60 * 60 * 11, 0, true, {}, 'not last test');
 
-
-test.addTest('Full range', [
+test.addTest('Error tolerance: Full range', [
 		'Mo-Su',       // reference value for prettify
 		'daily',
 		'everyday',
@@ -144,6 +143,25 @@ test.addTest('Full range', [
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
 	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
+
+test.addTest('Error tolerance: Full range', [
+		'24/7',       // reference value for prettify
+		'always',
+		'nonstop',
+		'24x7',
+		'anytime',
+		'all day',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
+	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
+
+test.addTest('Error tolerance: Time range', [
+		'Mo 12:00-14:00 16:00-18:00 20:00-22:00', // returns a warning
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 12:00', '2012.10.01 14:00' ],
+		[ '2012.10.01 16:00', '2012.10.01 18:00' ],
+		[ '2012.10.01 20:00', '2012.10.01 22:00' ],
+	], 1000 * 60 * 60 * 6, 0, true);
 // }}}
 
 // time range spanning midnight {{{
@@ -359,11 +377,12 @@ test.addTest('Variable times e.g. dawn, dusk without coordinates (→ constant t
 
 test.addTest('Variable times e.g. sunrise, sunset over a few days', [
 		'sunrise-sunset', // If your timezone uses daylight saving times you will see a difference of around one hours between two days.
+		'daylight', // Throws a warning.
 	], '2012.10.01 0:00', '2012.10.04 0:00', [
 		[ '2012.10.01 07:22', '2012.10.01 19:00' ],
 		[ '2012.10.02 07:23', '2012.10.02 18:58' ],
 		[ '2012.10.03 07:25', '2012.10.03 18:56' ],
-	], 1000 * 60 * ((60 * 11 + 38) + (60 * 11 + 37 - 2) + (60 * 11 + 35 - 4)), 0, false, nominatiomTestJSON);
+	], 1000 * 60 * ((60 * 11 + 38) + (60 * 11 + 37 - 2) + (60 * 11 + 35 - 4)), 0, false, nominatiomTestJSON, 'not only test');
 
 test.addTest('Variable times calculation with coordinates', [
 		'(sunrise+02:00)-sunset',
