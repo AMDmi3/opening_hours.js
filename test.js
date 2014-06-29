@@ -127,34 +127,6 @@ test.addTest('Error tolerance: Time intervals, short time', [
 		[ '2012.10.01 07:00', '2012.10.01 18:00' ],
 	], 1000 * 60 * 60 * 11, 0, true, {}, 'not last test');
 
-test.addTest('Error tolerance: Full range', [
-		'Mo-Su',       // reference value for prettify
-		'daily',
-		'everyday',
-		'every day',
-		'all days',
-		'every day',
-		'7days',
-		'7j/7',
-		'7/7',
-		'7 days',
-		'7 days a week',
-		'7 days/week',
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
-	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
-
-test.addTest('Error tolerance: Full range', [
-		'24/7',       // reference value for prettify
-		'always',
-		'nonstop',
-		'24x7',
-		'anytime',
-		'all day',
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
-	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
-
 test.addTest('Error tolerance: Time range', [
 		'Mo 12:00-14:00', // reference value for prettify
 		'Mo 12:00→14:00',
@@ -1934,6 +1906,34 @@ test.addTest('Error tolerance: weekdays, months in different languages', [
 		[ '2012.10.04 12:00', '2012.10.04 14:00' ],
 		[ '2012.10.04 16:00', '2012.10.04 20:00' ],
 	], 1000 * 60 * 60 * 6 * 4, 0, true, {}, 'not last test');
+
+test.addTest('Error tolerance: Full range', [
+		'Mo-Su',       // reference value for prettify
+		'daily',
+		'everyday',
+		'every day',
+		'all days',
+		'every day',
+		'7days',
+		'7j/7',
+		'7/7',
+		'7 days',
+		'7 days a week',
+		'7 days/week',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
+	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
+
+test.addTest('Error tolerance: Full range', [
+		'24/7',       // reference value for prettify
+		'always',
+		'nonstop',
+		'24x7',
+		'anytime',
+		'all day',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
+	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
 // }}}
 
 // values which should return a warning {{{

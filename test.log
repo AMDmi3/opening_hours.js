@@ -69,56 +69,6 @@ With [1m[34mwarnings[39m[22m:
 "Error tolerance: Time intervals, short time" for "Mo 7-18": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo 7-18 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
-"Error tolerance: Full range" for "Mo-Su": [1m[32mPASSED[39m[22m
-"Error tolerance: Full range" for "daily": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*daily <--- (Please use notation "Mo-Su" for "daily".)
-"Error tolerance: Full range" for "everyday": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*everyday <--- (Please use notation "Mo-Su" for "everyday".)
-"Error tolerance: Full range" for "every day": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*every day <--- (Please use notation "Mo-Su" for "every day".)
-"Error tolerance: Full range" for "all days": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*all days <--- (Please use notation "Mo-Su" for "all days".)
-"Error tolerance: Full range" for "every day": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*every day <--- (Please use notation "Mo-Su" for "every day".)
-"Error tolerance: Full range" for "7days": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*7days <--- (Please use notation "Mo-Su" for "7days".)
-"Error tolerance: Full range" for "7j/7": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*7j/7 <--- (Please use notation "Mo-Su" for "7j/7".)
-"Error tolerance: Full range" for "7/7": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*7/7 <--- (Please use notation "Mo-Su" for "7/7".)
-"Error tolerance: Full range" for "7 days": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*7 days <--- (Please use notation "Mo-Su" for "7 days".)
-"Error tolerance: Full range" for "7 days a week": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*7 days a week <--- (Please use notation "Mo-Su" for "7 days a week".)
-"Error tolerance: Full range" for "7 days/week": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*7 days/week <--- (Please use notation "Mo-Su" for "7 days/week".)
-"Error tolerance: Full range" for "24/7": [1m[32mPASSED[39m[22m
-"Error tolerance: Full range" for "always": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*always <--- (Please use notation "24/7" for "always".)
-"Error tolerance: Full range" for "nonstop": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*nonstop <--- (Please use notation "24/7" for "nonstop".)
-"Error tolerance: Full range" for "24x7": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*24x7 <--- (Please use notation "24/7" for "24x7".)
-"Error tolerance: Full range" for "anytime": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*anytime <--- (Please use notation "24/7" for "anytime".)
-"Error tolerance: Full range" for "all day": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*all day <--- (Please use notation "24/7" for "all day".)
 "Error tolerance: Time range" for "Mo 12:00-14:00": [1m[32mPASSED[39m[22m
 "Error tolerance: Time range" for "Mo 12:00→14:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -581,6 +531,56 @@ With [1m[34mwarnings[39m[22m:
 	*mon., Tuesday <--- (Please use the abbreviation "Tu" for "tuesday".)
 	*mon., Tuesday, wed <--- (Please use the abbreviation "We" for "wed".)
 	*mon., Tuesday, wed., Thursday <--- (Please use the abbreviation "Th" for "thursday".)
+"Error tolerance: Full range" for "Mo-Su": [1m[32mPASSED[39m[22m
+"Error tolerance: Full range" for "daily": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*daily <--- (Please use notation "Mo-Su" for "daily".)
+"Error tolerance: Full range" for "everyday": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*everyday <--- (Please use notation "Mo-Su" for "everyday".)
+"Error tolerance: Full range" for "every day": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*every day <--- (Please use notation "Mo-Su" for "every day".)
+"Error tolerance: Full range" for "all days": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*all days <--- (Please use notation "Mo-Su" for "all days".)
+"Error tolerance: Full range" for "every day": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*every day <--- (Please use notation "Mo-Su" for "every day".)
+"Error tolerance: Full range" for "7days": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*7days <--- (Please use notation "Mo-Su" for "7days".)
+"Error tolerance: Full range" for "7j/7": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*7j/7 <--- (Please use notation "Mo-Su" for "7j/7".)
+"Error tolerance: Full range" for "7/7": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*7/7 <--- (Please use notation "Mo-Su" for "7/7".)
+"Error tolerance: Full range" for "7 days": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*7 days <--- (Please use notation "Mo-Su" for "7 days".)
+"Error tolerance: Full range" for "7 days a week": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*7 days a week <--- (Please use notation "Mo-Su" for "7 days a week".)
+"Error tolerance: Full range" for "7 days/week": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*7 days/week <--- (Please use notation "Mo-Su" for "7 days/week".)
+"Error tolerance: Full range" for "24/7": [1m[32mPASSED[39m[22m
+"Error tolerance: Full range" for "always": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*always <--- (Please use notation "24/7" for "always".)
+"Error tolerance: Full range" for "nonstop": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*nonstop <--- (Please use notation "24/7" for "nonstop".)
+"Error tolerance: Full range" for "24x7": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*24x7 <--- (Please use notation "24/7" for "24x7".)
+"Error tolerance: Full range" for "anytime": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*anytime <--- (Please use notation "24/7" for "anytime".)
+"Error tolerance: Full range" for "all day": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*all day <--- (Please use notation "24/7" for "all day".)
 "Extensions: missing time range separators" for "Mo 12:00-14:00 16:00-18:00 20:00-22:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo 12:00-14:00 16:00-18:00 20:00-22:00 <--- (You have used 3 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
