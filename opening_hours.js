@@ -1465,6 +1465,8 @@
 				// }}}
 				'7 days a week':   'Mo-Su',
 				'7 days/week':	   'Mo-Su',
+				'24 hours 7 days a week':   '24/7',
+				'24 hours':		   '00:00-24:00',
 				'midnight':        '00:00',
 				'holiday':         'PH',
 				'holidays':        'PH',
@@ -1477,7 +1479,6 @@
 				'weekend':         'Sa,Su',
 				'weekends':        'Sa,Su',
 				'daylight':        'sunrise-sunset',
-				'24 hours':		   '00:00-24:00',
 			}, 'Please use notation "<ok>" for "<ko>". Those characters look very similar but are not the same!': {
 				'оff':             'off', // Russian o
 			}, 'Please use time format in 24 hours notation ("<ko>"). If PM is used you might have to convert the hours to the 24 hours notation.': {
@@ -2068,11 +2069,12 @@
 					// special day name (holidays)
 					curr_block_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
 					value = value.substr(2);
-				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|24x7|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-late|(?:(?:one )?day before )?public holidays?|days?\b|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b|à|á)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-late|(?:(?:one )?day before )?public holidays?|days?\b|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b|à|á)\.?/i)) {
 					// Handle all remaining words and specific other characters with error tolerance.
 					//
 					// à|á: Word boundary does not work with unicode chars: 'test à test'.match(/\bà\b/i)
 					// https://stackoverflow.com/questions/10590098/javascript-regexp-word-boundaries-unicode-characters
+					// Order in the regular expression capturing group is important in some cases.
 					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
 					// console.log('Error tolerance for string "' + tmp[1] + '" returned "' + correct_val + '".');
 					if (typeof correct_val == 'object') {
@@ -2089,11 +2091,12 @@
 										)
 									) {
 									hours_token_at -= 2;
-								} else if (!matchTokens(curr_block_tokens, hours_token_at, 'number')) {
-									throw formatLibraryBugMessage('The problem is in the error tolerance for pm time.');
+									var hours_token = curr_block_tokens[hours_token_at];
+								} else if (matchTokens(curr_block_tokens, hours_token_at, 'number')) {
+									var hours_token = curr_block_tokens[hours_token_at];
 								}
-								var hours_token = curr_block_tokens[hours_token_at];
-								if (hours_token[0] <= 12) {
+
+								if (typeof hours_token == 'object' && hours_token[0] <= 12) {
 									hours_token[0] += 12;
 									curr_block_tokens[hours_token_at] = hours_token;
 								}

@@ -107,7 +107,7 @@ test.addTest('Error tolerance: dot as time separator', [
 		[ '2012.10.07 10:00', '2012.10.07 12:00' ],
 	], 1000 * 60 * 60 * 2 * 7, 0, true, {}, 'not last test');
 
-test.addTest('Error tolerance: short time (test prettify)', [
+test.addTest('Error tolerance: Correctly handle pm time.', [
 		'10:00-12:00,13:00-20:00',       // reference value for prettify
 		'10-12,13-20',
 		'10am-12am,1pm-8pm',
@@ -120,7 +120,7 @@ test.addTest('Error tolerance: short time (test prettify)', [
 		[ '2012.10.02 13:00', '2012.10.02 20:00' ],
 	], 1000 * 60 * 60 * (2 + 7) * 2, 0, true, {}, 'not last test');
 
-test.addTest('Error tolerance: short time (test prettify)', [
+test.addTest('Error tolerance: Correctly handle pm time.', [
 		'13:00-20:00,10:00-12:00',       // reference value for prettify
 		'1pm-8pm,10am-12am',
 		// '1pm-8pm/10am-12am', // Can not be corrected as / is a valid token
@@ -1961,6 +1961,7 @@ test.addTest('Error tolerance: Full range', [
 		'24x7',
 		'anytime',
 		'all day',
+		'24 hours 7 days a week',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
 	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
@@ -2121,6 +2122,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'25am-26pm' + value_suffix,
 		'24am-26pm' + value_suffix,
 		'23am-49pm' + value_suffix,
+		'10:am - 8:pm' + value_suffix,
 		'Tu 23:59-48:00+' + value_suffix, // Does not make much sense. Should be written in another way.
 		'12:00' + value_suffix,
 		'„testing„' + value_suffix,   // Garbage, no valid quotes what so ever.
