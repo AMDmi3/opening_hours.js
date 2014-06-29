@@ -1430,7 +1430,6 @@
 				'as':              '-', // language unknown
 				'á':               '-', // language unknown
 				'ás':              '-', // language unknown
-				'à':               '-', // language unknown
 				'às':              '-', // language unknown
 				'ate':             '-', // language unknown
 				'till':            '-',
@@ -2056,9 +2055,13 @@
 				} else if (tmp = value.match(/^days?\b/i)) {
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|24x7|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-late|public holidays?|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|24x7|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-late|public holidays?|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b|à|á)\.?/i)) {
 					// Handle all remaining words and specific other characters with error tolerance.
+					//
+					// à|á: Word boundary does not work with unicode chars: 'test à test'.match(/\bà\b/i)
+					// https://stackoverflow.com/questions/10590098/javascript-regexp-word-boundaries-unicode-characters
 					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
+					// console.log('Error tolerance for string "' + tmp[1] + '" returned "' + correct_val + '".');
 					if (typeof correct_val == 'object') {
 						curr_block_tokens.push([ correct_val[0], correct_val[1], value.length ]);
 						value = value.substr(tmp[0].length);

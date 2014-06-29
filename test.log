@@ -119,9 +119,64 @@ With [1m[34mwarnings[39m[22m:
 "Error tolerance: Full range" for "all day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*all day <--- (Please use notation "24/7" for "all day".)
-"Error tolerance: Time range" for "Mo 12:00-14:00 16:00-18:00 20:00-22:00": [1m[32mPASSED[39m[22m
+"Error tolerance: Time range" for "Mo 12:00-14:00": [1m[32mPASSED[39m[22m
+"Error tolerance: Time range" for "Mo 12:00→14:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo 12:00-14:00 16:00-18:00 20:00-22:00 <--- (You have used 3 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo 12:00→ <--- (Please use notation "-" for "→".)
+"Error tolerance: Time range" for "Mo 12:00−14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00− <--- (Please use notation "-" for "−".)
+"Error tolerance: Time range" for "Mo 12:00=14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00= <--- (Please use notation "-" for "=".)
+"Error tolerance: Time range" for "Mo 12:00ー14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00ー <--- (Please use notation "-" for "ー".)
+"Error tolerance: Time range" for "Mo 12:00 to 14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00 to <--- (Please use notation "-" for "to".)
+"Error tolerance: Time range" for "Mo 12:00 до 14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00 до <--- (Please use notation "-" for "до".)
+"Error tolerance: Time range" for "Mo 12:00 a 14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00 a <--- (Please use notation "-" for "a".)
+"Error tolerance: Time range" for "Mo 12:00 as 14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00 as <--- (Please use notation "-" for "as".)
+"Error tolerance: Time range" for "Mo 12:00 á 14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00 á <--- (Please use notation "-" for "á".)
+"Error tolerance: Time range" for "Mo 12:00 ás 14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00 ás <--- (Please use notation "-" for "ás".)
+"Error tolerance: Time range" for "Mo 12:00 à 14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00 à <--- (S'il vous plaît utiliser "-" pour "à".)
+"Error tolerance: Time range" for "Mo 12:00 às 14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00 às <--- (Please use notation "-" for "às".)
+"Error tolerance: Time range" for "Mo 12:00 ate 14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00 ate <--- (Please use notation "-" for "ate".)
+"Error tolerance: Time range" for "Mo 12:00 till 14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00 till <--- (Please use notation "-" for "till".)
+"Error tolerance: Time range" for "Mo 12:00 til 14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00 til <--- (Please use notation "-" for "til".)
+"Error tolerance: Time range" for "Mo 12:00 until 14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00 until <--- (Please use notation "-" for "until".)
+"Error tolerance: Time range" for "Mo 12:00 through 14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00 through <--- (Please use notation "-" for "through".)
+"Error tolerance: Time range" for "Mo 12:00~14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00~ <--- (Please use notation "-" for "~". If the times are unsure or vary consider a comment e.g. 12:00-14:00 "only on sunshine".)
+"Error tolerance: Time range" for "Mo 12:00～14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00～ <--- (Please use notation "-" for "～". If the times are unsure or vary consider a comment e.g. 12:00-14:00 "only on sunshine".)
 "Time ranges spanning midnight" for "22:00-02:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight" for "22:00-26:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight" for "22-2": [1m[32mPASSED[39m[22m
@@ -1039,4 +1094,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-523/530 tests passed
+542/549 tests passed
