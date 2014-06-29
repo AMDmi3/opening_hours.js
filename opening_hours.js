@@ -1441,20 +1441,27 @@
 				'&':               ',',
 				'：':              ':',
 				'°°':              ':00',
-				'daily':           'Mo-Su',
-				'everyday':        'Mo-Su',
-				'every day':       'Mo-Su',
 				'always':          '24/7',
 				'nonstop':         '24/7',
 				'24x7':            '24/7',
 				'anytime':         '24/7',
 				'all day':         '24/7',
+				'daily':           'Mo-Su',
+				'everyday':        'Mo-Su',
+				'every day':       'Mo-Su',
 				'all days':        'Mo-Su',
 				'every day':       'Mo-Su',
-				'7days':           'Mo-Su',
 				'7j/7':            'Mo-Su', // I guess that it means that
 				'7/7':             'Mo-Su', // I guess that it means that
+				/* {{{
+				 * Fixing this causes to ignore the following warning: "There should be no
+				 * reason to differ more than 6 days from a constrained
+				 * weekdays. If so tell us …".
+				 * The following mistake is expected to occur more often.
+				 */
+				'7days':           'Mo-Su',
 				'7 days':          'Mo-Su',
+				// }}}
 				'7 days a week':   'Mo-Su',
 				'7 days/week':	   'Mo-Su',
 				'midnight':        '00:00',
@@ -2049,7 +2056,7 @@
 				} else if (tmp = value.match(/^days?/i)) {
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|25x7|7[ ]?days(?: a |\/)week|all days?|every day|-late|public holidays?|7j?\/7|every day|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|25x7|7\s?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-late|public holidays?|every day|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b)\.?/i)) {
 					// Handle all remaining words with error tolerance.
 					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
 					if (typeof correct_val == 'object') {

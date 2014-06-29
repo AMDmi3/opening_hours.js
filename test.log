@@ -70,12 +70,39 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*Mo 7-18 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
 "Full range" for "Mo-Su": [1m[32mPASSED[39m[22m
-"Full range" for "7 days/week": [1m[32mPASSED[39m[22m
+"Full range" for "daily": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*7 days/week <--- (Please use notation "Mo-Su" for "7 days/week".)
+	*daily <--- (Please use notation "Mo-Su" for "daily".)
+"Full range" for "everyday": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*everyday <--- (Please use notation "Mo-Su" for "everyday".)
+"Full range" for "every day": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*every day <--- (Please use notation "Mo-Su" for "every day".)
+"Full range" for "all days": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*all days <--- (Please use notation "Mo-Su" for "all days".)
+"Full range" for "every day": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*every day <--- (Please use notation "Mo-Su" for "every day".)
+"Full range" for "7days": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*7days <--- (Please use notation "Mo-Su" for "7days".)
+"Full range" for "7j/7": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*7j/7 <--- (Please use notation "Mo-Su" for "7j/7".)
+"Full range" for "7/7": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*7/7 <--- (Please use notation "Mo-Su" for "7/7".)
+"Full range" for "7 days": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*7 days <--- (Please use notation "Mo-Su" for "7 days".)
 "Full range" for "7 days a week": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7 days a week <--- (Please use notation "Mo-Su" for "7 days a week".)
+"Full range" for "7 days/week": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*7 days/week <--- (Please use notation "Mo-Su" for "7 days/week".)
 "Time ranges spanning midnight" for "22:00-02:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight" for "22:00-26:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight" for "22-2": [1m[32mPASSED[39m[22m
@@ -673,7 +700,7 @@ Value contains nothing meaningful which can be parsed
 || <--- (Rule before fallback rule does not contain anything useful)
 
 "Incorrect syntax which should throw an error" for "Mo[2] - 7 days; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Mo[2] - 7 days <--- (There should be no reason to differ more than 6 days from a constrained weekdays. If so tell us …)
+Mo[2] -  <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) Mo[2] - 7 days <--- (Please use notation "Mo-Su" for "7 days".)
 
 "Incorrect syntax which should throw an error" for ":week 2-54 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 : <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
@@ -990,4 +1017,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-506/513 tests passed
+515/522 tests passed

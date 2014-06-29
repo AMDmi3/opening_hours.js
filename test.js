@@ -28,6 +28,13 @@ var nominatiomTestJSON_bremen = {"place_id":"39182271","licence":"Data \u00a9 Op
 
 // }}}
 
+var sane_value_suffix = '; 00:23-00:42 closed "warning at correct position?"';
+// Suffix to add to values to make the value more complex and to spot problems
+// easier without changing there meaning (in most cases).
+var value_suffix = '; 00:23-00:42 unknown "warning at correct position?"';
+// This suffix value is there to test if the warning marks the correct position of the problem.
+
+
 // time ranges {{{
 test.addTest('Time intervals', [
 		'10:00-12:00',
@@ -123,8 +130,17 @@ test.addTest('Time intervals, short time', [
 
 test.addTest('Full range', [
 		'Mo-Su',       // reference value for prettify
-		'7 days/week',
+		'daily',
+		'everyday',
+		'every day',
+		'all days',
+		'every day',
+		'7days',
+		'7j/7',
+		'7/7',
+		'7 days',
 		'7 days a week',
+		'7 days/week',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
 	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
@@ -1873,9 +1889,6 @@ test.addTest('Error tolerance: weekdays, months in different languages', [
 		[ '2012.10.04 16:00', '2012.10.04 20:00' ],
 	], 1000 * 60 * 60 * 6 * 4, 0, true, {}, 'not last test');
 // }}}
-
-var value_suffix = '; 00:23-00:42 unknown "warning at correct position?"';
-// This suffix value is there to test if the warning marks the correct position of the problem.
 
 // values which should return a warning {{{
 test.addTest('Extensions: missing time range separators', [
