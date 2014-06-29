@@ -2068,18 +2068,19 @@
 						value = value.substr(tmp[0].length);
 					} else if (typeof correct_val == 'string') {
 						if (tmp[1].toLowerCase() == 'pm') {
-							var hours_token_at = curr_block_tokens.length - 3;
-							if (hours_token_at > 0) {
-								if (matchTokens(curr_block_tokens, hours_token_at,
-											'number', 'timesep', 'number')
-										) {
-									var hours_token = curr_block_tokens[hours_token_at];
-								} else if (matchTokens(curr_block_tokens, hours_token_at + 2,
-											'number')
-										) {
-									hours_token_at += 2;
-									var hours_token = curr_block_tokens[hours_token_at];
+							var hours_token_at = curr_block_tokens.length - 1;
+							if (hours_token_at >= 0) {
+								if (hours_token_at -2 >= 0
+										&& matchTokens(
+											curr_block_tokens, hours_token_at - 2,
+											'number', 'timesep', 'number'
+										)
+									) {
+									hours_token_at -= 2;
+								} else if (!matchTokens(curr_block_tokens, hours_token_at, 'number')) {
+									throw formatLibraryBugMessage('The problem is in the error tolerance for pm time.');
 								}
+								var hours_token = curr_block_tokens[hours_token_at];
 								if (hours_token[0] <= 12) {
 									hours_token[0] += 12;
 									curr_block_tokens[hours_token_at] = hours_token;

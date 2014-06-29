@@ -109,10 +109,21 @@ test.addTest('Error tolerance: dot as time separator', [
 
 test.addTest('Error tolerance: short time (test prettify)', [
 		'10:00-12:00,13:00-20:00',       // reference value for prettify
-		'10-12,13-20',                   // Do not use. Returns warning.
-		'10am-12am,1pm-8pm',             // Do not use. Returns warning.
-		'10:00am-12:00am,1:00pm-8:00pm', // Do not use. Returns warning.
-		'10:00am-12:00am,1.00pm-8.00pm', // Do not use. Returns warning.
+		'10-12,13-20',
+		'10am-12am,1pm-8pm',
+		'10:00am-12:00am,1:00pm-8:00pm',
+		'10:00am-12:00am,1.00pm-8.00pm',
+	], '2012.10.01 0:00', '2012.10.03 0:00', [
+		[ '2012.10.01 10:00', '2012.10.01 12:00' ],
+		[ '2012.10.01 13:00', '2012.10.01 20:00' ],
+		[ '2012.10.02 10:00', '2012.10.02 12:00' ],
+		[ '2012.10.02 13:00', '2012.10.02 20:00' ],
+	], 1000 * 60 * 60 * (2 + 7) * 2, 0, true, {}, 'not last test');
+
+test.addTest('Error tolerance: short time (test prettify)', [
+		'13:00-20:00,10:00-12:00',       // reference value for prettify
+		'1pm-8pm,10am-12am',
+		'1:00pm-8:00pm,10:00am-12:00am',
 	], '2012.10.01 0:00', '2012.10.03 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 12:00' ],
 		[ '2012.10.01 13:00', '2012.10.01 20:00' ],
