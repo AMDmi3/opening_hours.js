@@ -21,7 +21,8 @@
  *    - Run top-level (block) parser
  *      - Which calls sub parser for specific selector types
  *        - Which produce selector functions
- * For more information see https://github.com/ypid/opening_hours.js.
+ * For more information see https://github.com/ypid/opening_hours.js
+ * and the doc directory more internal documentation and design.
  *  }}} */
 
 (function (root, factory) {

@@ -337,6 +337,7 @@ With [1m[34mwarnings[39m[22m:
 "Fallback group blocks (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || closed "should never appear"": [1m[32mPASSED[39m[22m
 "Fallback group blocks (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || unknown "should never appear"": [1m[32mPASSED[39m[22m
 "Fallback group blocks (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || open "should never appear"": [1m[32mPASSED[39m[22m
+"Fallback group blocks (unknown). Example for the tokenizer documentation." for "We-Fr 10:00-24:00 open "it is open" || 2012 "please call"; Jan 1 open "should never appear"": [1m[32mPASSED[39m[22m
 "Fallback group blocks" for "We-Fr 10:00-24:00 open "first" || We "please call" || open "we are open!!!"": [1m[32mPASSED[39m[22m
 "Fallback group blocks" for "Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00, PH off || Tu 06:00-06:00 open "Notdienst"": [1m[32mPASSED[39m[22m
 "Fallback group blocks" for "Mo-Fr 08:00-12:00,14:00-18:00; Sa 09:00-13:00; PH off || Tu 06:00-06:00 open "Notdienst"": [1m[32mPASSED[39m[22m
@@ -1181,4 +1182,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-568/575 tests passed
+569/576 tests passed

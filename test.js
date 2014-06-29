@@ -869,6 +869,18 @@ test.addTest('Fallback group blocks (unknown)', [
 		[ '2012.10.06 00:00', '2012.10.08 00:00', true,  'please call' ],
 	], 1000 * 60 * 60 * 14 * 3, 1000 * 60 * 60 * (10 * 3 + 24 * (2 + 2)), true, {}, 'not last test');
 
+test.addTest('Fallback group blocks (unknown). Example for the tokenizer documentation.', [
+		'We-Fr 10:00-24:00 open "it is open" || 2012 "please call"; Jan 1 open "should never appear"',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 00:00', '2012.10.03 10:00', true,  'please call' ],
+		[ '2012.10.03 10:00', '2012.10.04 00:00', false, 'it is open' ],
+		[ '2012.10.04 00:00', '2012.10.04 10:00', true,  'please call' ],
+		[ '2012.10.04 10:00', '2012.10.05 00:00', false, 'it is open' ],
+		[ '2012.10.05 00:00', '2012.10.05 10:00', true,  'please call' ],
+		[ '2012.10.05 10:00', '2012.10.06 00:00', false, 'it is open' ],
+		[ '2012.10.06 00:00', '2012.10.08 00:00', true,  'please call' ],
+	], 1000 * 60 * 60 * 14 * 3, 1000 * 60 * 60 * (10 * 3 + 24 * (2 + 2)), false, {}, 'not only test');
+
 test.addTest('Fallback group blocks', [
 		'We-Fr 10:00-24:00 open "first" || We "please call" || open "we are open!!!"',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [

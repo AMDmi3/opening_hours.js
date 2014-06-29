@@ -1,0 +1,117 @@
+# Internals
+
+## Tokens
+
+The tokens are strong in the global array `tokens` which has the following structure. The example results from the value `We-Fr 10:00-24:00 open "it is open" || 2012 "please call"; Jan 1 open "should never appear"` which is in the test framework.
+
+```javascript
+[
+    [
+        [
+            [
+                3,
+                "weekday",
+                91
+            ],
+            [
+                "-",
+                "-",
+                89
+            ],
+            [
+                5,
+                "weekday",
+                88
+            ],
+            [
+                10,
+                "number",
+                85
+            ],
+            [
+                ":",
+                "timesep",
+                83
+            ],
+            [
+                0,
+                "number",
+                82
+            ],
+            [
+                "-",
+                "-",
+                80
+            ],
+            [
+                24,
+                "number",
+                79
+            ],
+            [
+                ":",
+                "timesep",
+                77
+            ],
+            [
+                0,
+                "number",
+                76
+            ],
+            [
+                "open",
+                "open",
+                73
+            ],
+            [
+                "it is open",
+                "comment",
+                68
+            ]
+        ],
+        false,
+        55
+    ],
+    [
+        [
+            [
+                "2012",
+                "year",
+                52
+            ],
+            [
+                "please call",
+                "comment",
+                47
+            ]
+        ],
+        true,
+        34
+    ],
+    [
+        [
+            [
+                0,
+                "month",
+                32
+            ],
+            [
+                1,
+                "number",
+                28
+            ],
+            [
+                "open",
+                "open",
+                26
+            ],
+            [
+                "should never appear",
+                "comment",
+                21
+            ]
+        ],
+        false
+    ]
+]
+```
