@@ -1920,6 +1920,20 @@ test.addTest('Error tolerance: Full range', [
 		'7 days',
 		'7 days a week',
 		'7 days/week',
+		'täglich',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
+	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
+
+test.addTest('Error tolerance: Full range', [
+		'24/7',       // reference value for prettify
+		'always',
+		'nonstop',
+		'nonstop geöffnet',
+		'opening_hours=nonstop geöffnet',
+		'24x7',
+		'anytime',
+		'all day',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
 	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
