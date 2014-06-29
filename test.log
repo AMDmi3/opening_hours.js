@@ -1059,6 +1059,33 @@ Tu 23:59-48:00+ <--- (Time spanning more than two midnights not supported)
 "Incorrect syntax which should throw an error" for "12:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 12:00 <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
 
+"Incorrect syntax which should throw an error" for "„testing„; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+„t <--- (Unexpected token: "„" This means that the syntax is not valid at that point or it is currently not supported.) 
+
+"Incorrect syntax which should throw an error" for "‚testing‚; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+‚t <--- (Unexpected token: "‚" This means that the syntax is not valid at that point or it is currently not supported.) 
+
+"Incorrect syntax which should throw an error" for "»testing«; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+»t <--- (Unexpected token: "»" This means that the syntax is not valid at that point or it is currently not supported.) 
+
+"Incorrect syntax which should throw an error" for "」testing「; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+」t <--- (Unexpected token: "」" This means that the syntax is not valid at that point or it is currently not supported.) 
+
+"Incorrect syntax which should throw an error" for "』testing『; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+』t <--- (Unexpected token: "』" This means that the syntax is not valid at that point or it is currently not supported.) 
+
+"Incorrect syntax which should throw an error" for "』testing「; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+』t <--- (Unexpected token: "』" This means that the syntax is not valid at that point or it is currently not supported.) 
+
+"Incorrect syntax which should throw an error" for "』testing«; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+』t <--- (Unexpected token: "』" This means that the syntax is not valid at that point or it is currently not supported.) 
+
+"Incorrect syntax which should throw an error" for "』testing"; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+』t <--- (Unexpected token: "』" This means that the syntax is not valid at that point or it is currently not supported.) 』testing"; 00:23-00:42 unknown "warning at correct position <--- (Please use the English abbreviation "Su" for "n".); 』testing"; 00:23-00:42 unknown "warning at correct position? <--- (You can use notation "unknown "please add this if known"" for "?" temporally if the syntax will still be valid.)
+
+"Incorrect syntax which should throw an error" for ""testing«; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+"testing«; 00:23-00:42 unknown "wa <--- (Unexpected token: "w" This means that the syntax is not valid at that point or it is currently not supported.) "testing«; 00:23-00:42 unknown "warning at correct position <--- (Please use the English abbreviation "Su" for "n".); "testing«; 00:23-00:42 unknown "warning at correct position? <--- (You can use notation "unknown "please add this if known"" for "?" temporally if the syntax will still be valid.)
+
 "Missing information (e.g. country or holidays not defined in this lib)" for "PH": [1m[32mPASSED[39m[22m
 Country code missing which is needed to select the correct holidays (see README how to provide it)
 
@@ -1182,4 +1209,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-569/576 tests passed
+578/585 tests passed

@@ -2028,6 +2028,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'‚testing‘' + value_suffix,
 		'‘testing‘' + value_suffix,
 		'’testing’' + value_suffix,
+		// '（testing）' + value_suffix, // Implemented but not enabled because this replacement goes a bit to far.
 		'Jan 12:00-13:00 Mo 15:00-16:00' + value_suffix,
 		'sunrise-(sunset-00:00)' + value_suffix,
 		// 'easter + 353 days' + value_suffix, // Does throw an error, but at runtime when the problem occurs respectively with the call of getWarnings().
@@ -2120,6 +2121,15 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'23am-49pm' + value_suffix,
 		'Tu 23:59-48:00+' + value_suffix, // Does not make much sense. Should be written in another way.
 		'12:00' + value_suffix,
+		'„testing„' + value_suffix,   // Garbage, no valid quotes what so ever.
+		'‚testing‚' + value_suffix,   // Garbage, no valid quotes what so ever.
+		'»testing«' + value_suffix,   // Garbage, no valid quotes what so ever.
+		'」testing「' + value_suffix, // Garbage, no valid quotes what so ever.
+		'』testing『' + value_suffix, // Garbage, no valid quotes what so ever.
+		'』testing「' + value_suffix, // Garbage, no valid quotes what so ever.
+		'』testing«' + value_suffix,  // Garbage, no valid quotes what so ever.
+		'』testing"' + value_suffix,  // Garbage, no valid quotes what so ever. There is a second comment in the value so they get combined.
+		'"testing«' + value_suffix,  // Garbage, no valid quotes what so ever.
 	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [

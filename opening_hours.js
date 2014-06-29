@@ -1509,6 +1509,9 @@
 				'』': '"',
 			}, 'Please use notation "<ok>" for "<ko>". The used quote signs are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.': {
 				"'": '"',
+			}, 'You might want to use comments istead of brackets (which are not valid in this context). If your do, replace "<ok>" with "<ko>".': {
+				// '（': '"',
+				// '）': '"',
 			}, 'Bitte benutze die Schreibweise "<ok>" als Ersatz für "und" bzw. "u.".': {
 				'und': ',',
 				'u':   ',',
@@ -2124,7 +2127,7 @@
 					// Any character is allowed inside the comment except " itself.
 					curr_block_tokens.push([tmp[1], 'comment', value.length ]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(["'„“‚‘’«「『])([^"'“”‘’»」』]*)(["'”“‘’»」』])/)) {
+				} else if (tmp = value.match(/^(["'„“‚‘’«「『])([^"'“”‘’»」』;|]*)(["'”“‘’»」』])/)) {
 					// Comments with error tolerance.
 					// The comments still have to be somewhat correct meaning
 					// the start and end quote signs used have to be

@@ -2,7 +2,7 @@
 
 ## Tokens
 
-The tokens are strong in the global array `tokens` which has the following structure. The example results from the value `We-Fr 10:00-24:00 open "it is open" || 2012 "please call"; Jan 1 open "should never appear"` which is in the test framework.
+The tokens are strong in the array `tokens` which has the following structure. The example results from the value `We-Fr 10:00-24:00 open "it is open" || 2012 "please call"; Jan 1 open "should never appear"` which is in the test framework.
 
 ```javascript
 [
