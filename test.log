@@ -234,6 +234,7 @@ With [1m[34mwarnings[39m[22m:
 "Week range limit" for "week 2-57": [1m[32mPASSED[39m[22m
 "Week range" for "week 2-52/2 We; week 1-53/2 Sa 0:00-24:00": [1m[35mCRASHED[39m[22m, reason: Fatal: infinite loop in nextChange
 "Week range" for "week 4-16": [1m[35mCRASHED[39m[22m, reason: Fatal: infinite loop in nextChange
+"Week range first week" for "week 1": [1m[32mPASSED[39m[22m
 "Only in one month of the year" for "Apr 08:00-12:00": [1m[32mPASSED[39m[22m
 "Only in one month of the year" for "Apr: 08:00-12:00": [1m[32mPASSED[39m[22m
 "Month ranges" for "Nov-Feb 00:00-24:00": [1m[32mPASSED[39m[22m
@@ -973,4 +974,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-500/507 tests passed
+501/508 tests passed

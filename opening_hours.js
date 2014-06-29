@@ -2099,7 +2099,8 @@
 						curr_block_tokens.push([+tmp[0], 'number', value.length ]);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^"([^"]*)"/)) {
-					// comment
+					// Comment following the specification.
+					// Any character is allowed inside the comment except " itself.
 					curr_block_tokens.push([tmp[1], 'comment', value.length ]);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(["'„“‚‘’«「『])([^"'“”‘’»」』]*)(["'”“‘’»」』])/)) {
