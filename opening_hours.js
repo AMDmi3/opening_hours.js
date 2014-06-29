@@ -1468,11 +1468,14 @@
 				'holidays':        'PH',
 				'public holidays': 'PH',
 				'public holiday':  'PH',
+				'day before public holiday':  'PH -1 day',
+				'one day before public holiday':  'PH -1 day',
 				// summerholiday:  'SH',
 				// summerholidays: 'SH',
 				'weekend':         'Sa,Su',
 				'weekends':        'Sa,Su',
 				'daylight':        'sunrise-sunset',
+				'24 hours':		   '00:00-24:00',
 			}, 'Please use notation "<ok>" for "<ko>". Those characters look very similar but are not the same!': {
 				'оff':             'off', // Russian o
 			}, 'Please use time format in 24 hours notation ("<ko>"). If PM is used you might have to convert the hours to the 24 hours notation.': {
@@ -1588,6 +1591,13 @@
 				'mei':      4,
 				'augustus': 7,
 			}
+		},
+
+		calcday: {
+			'default': {
+				'day': 'day',
+				'days': 'days',
+			},
 		},
 
 		weekday: { // good source: http://www.omniglot.com/language/time/days.htm
@@ -2053,10 +2063,7 @@
 					// special day name (holidays)
 					curr_block_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
 					value = value.substr(2);
-				} else if (tmp = value.match(/^days?\b/i)) {
-					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
-					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|24x7|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-late|public holidays?|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b|à|á)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|24x7|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-late|(?:(?:one )?day before )?public holidays?|days?\b|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b|à|á)\.?/i)) {
 					// Handle all remaining words and specific other characters with error tolerance.
 					//
 					// à|á: Word boundary does not work with unicode chars: 'test à test'.match(/\bà\b/i)

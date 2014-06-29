@@ -558,6 +558,8 @@ test.addTest('Variable days: public holidays', [
 
 test.addTest('Variable days: public holidays', [
 		'PH -1 day',
+		'day before public holiday',
+		'one day before public holiday',
 	], '2014.10.25 0:00', '2015.01.15 0:00', [
 		// [ '2014.11.01 00:00', '2014.11.02 00:00' ],
 		// [ '2014.12.25 00:00', '2014.12.27 00:00' ],
@@ -704,6 +706,7 @@ test.addTest('Full range', [
 		'24/7; 24/7',     // Use value above.
 		'0-24',           // Do not use. Returns warning.
 		'midnight-24:00', // Do not use. Returns warning.
+		'24 hours',       // Do not use. Returns warning.
 		'open',
 		'12:00-13:00; 24/7', // '12:00-13:00' is always ignored.
 		'00:00-24:00,12:00-13:00', // '00:00-24:00' already matches entire day. '12:00-13:00' is pointless.

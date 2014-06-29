@@ -239,6 +239,12 @@ With [1m[34mwarnings[39m[22m:
 	*SH:  <--- (Please don’t use ":" after holiday.)
 "Variable days: public holidays" for "PH +1 day": [1m[32mPASSED[39m[22m
 "Variable days: public holidays" for "PH -1 day": [1m[32mPASSED[39m[22m
+"Variable days: public holidays" for "day before public holiday": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*day before public holiday <--- (Please use notation "PH -1 day" for "day before public holiday".)
+"Variable days: public holidays" for "one day before public holiday": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*one day before public holiday <--- (Please use notation "PH -1 day" for "one day before public holiday".)
 "Variable days: school holidays" for "SH": [1m[32mPASSED[39m[22m
 "Variable days: school holiday" for "open; SH off": [1m[32mPASSED[39m[22m
 "Variable days: school holidays" for "SH": [1m[32mPASSED[39m[22m
@@ -290,6 +296,9 @@ With [1m[34mwarnings[39m[22m:
 "Full range" for "midnight-24:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*midnight <--- (Please use notation "00:00" for "midnight".)
+"Full range" for "24 hours": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*24 hours <--- (Please use notation "00:00-24:00" for "24 hours".)
 "Full range" for "open": [1m[32mPASSED[39m[22m
 "Full range" for "12:00-13:00; 24/7": [1m[32mPASSED[39m[22m
 "Full range" for "00:00-24:00,12:00-13:00": [1m[32mPASSED[39m[22m
@@ -1172,4 +1181,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-565/572 tests passed
+568/575 tests passed
