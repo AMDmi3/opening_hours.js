@@ -1439,6 +1439,7 @@
 				'through':         '-',
 				'and':             ',',
 				'&':               ',',
+				// '/':               ',', // Can not be corrected as / is a valid token
 				'：':              ':',
 				'°°':              ':00',
 				'always':          '24/7',
@@ -2117,10 +2118,17 @@
 					}
 				} else if (tmp = value.match(/^\d+/)) {
 					// number
-					if (tmp[0] > 1900) // Assumed to be a year number.
+					if (Number(tmp[0]) > 1900) { // Assumed to be a year number.
 						curr_block_tokens.push([tmp[0], 'year', value.length ]);
-					else
+						if (Number(tmp[0]) > 2100) // Probably an error
+							parsing_warnings.push([ -1, value.length - 1,
+								'The number ' + Number(tmp[0]) + ' will be interpreted as year.'
+								+ ' This is probably not intended. Times can be specified as "12:00".'
+							]);
+					} else {
 						curr_block_tokens.push([+tmp[0], 'number', value.length ]);
+					}
+
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^"([^"]*)"/)) {
 					// Comment following the specification.

@@ -123,6 +123,7 @@ test.addTest('Error tolerance: short time (test prettify)', [
 test.addTest('Error tolerance: short time (test prettify)', [
 		'13:00-20:00,10:00-12:00',       // reference value for prettify
 		'1pm-8pm,10am-12am',
+		// '1pm-8pm/10am-12am', // Can not be corrected as / is a valid token
 		'1:00pm-8:00pm,10:00am-12:00am',
 	], '2012.10.01 0:00', '2012.10.03 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 12:00' ],
@@ -2040,6 +2041,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'25pm-26am' + value_suffix,
 		'10:00am-12:00am,1:00pm-8:00pm' + value_suffix,
 		'12:00-14:00 оff' + value_suffix, // Russian o
+		'Sa 2200' + value_suffix, // Year (currently very unlikely but following the syntax specification it is a year) or wrong time?
 	], {}, 'not last test');
 // }}}
 
@@ -2130,7 +2132,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'』testing«' + value_suffix,  // Garbage, no valid quotes what so ever.
 		'』testing"' + value_suffix,  // Garbage, no valid quotes what so ever. There is a second comment in the value so they get combined.
 		'"testing«' + value_suffix,  // Garbage, no valid quotes what so ever.
-	], nominatiomTestJSON, 'not last test');
+	], nominatiomTestJSON, 'not only test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
 		'PH', // country is not specified
