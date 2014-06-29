@@ -880,7 +880,7 @@ test.addTest('Fallback group blocks, with some closed times', [
 // week ranges {{{
 test.addTest('Week ranges', [
 		'week 1,3 00:00-24:00',
-		'week 1,3 00:00-24:00 || closed "should not change the test result"', // because comments for closed are not compared
+		'week 1,3 00:00-24:00 || closed "should not change the test result"', // because comments for closed states are not compared.
 		'week 1,3: 00:00-24:00',
 		'week 1,week 3: 00:00-24:00',
 		'week 1: 00:00-24:00; week 3: 00:00-24:00',
@@ -1907,11 +1907,11 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		// stupid tests {{{
 		'sdasdlasdj a3reaw', // Test for the test framwork. This test should pass :) (passes when the value can not be parsed)
 		'', // empty string
+		' ', // empty string
+		"\n", // newline
 		';', // only block delimiter
 		'||', // only block delimiter
 		// '12:00-14:00 ||',
-		' ', // empty string
-		"\n", // newline
 		// }}}
 		'Mo[2] - 7 days' + value_suffix,
 		':week 2-54 00:00-24:00' + value_suffix,

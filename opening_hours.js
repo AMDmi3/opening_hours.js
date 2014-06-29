@@ -3682,7 +3682,6 @@
 					}
 
 					selectors.week.push(function(tokens, at, is_range, has_period) { return function(date) {
-						// console.log('called: ' + date);
 						var ourweek = Math.floor((date - dateAtWeek(date, 0)) / msec_in_week);
 
 						var week_from = tokens[at][0] - 1;
@@ -3699,8 +3698,10 @@
 						}
 
 						// we're after range, set check date to next year
-						if (ourweek > week_to)
+						if (ourweek > week_to) {
+							// console.log("After");
 							return [false, start_of_next_year];
+						}
 
 						// we're in range
 						var period;
@@ -3715,6 +3716,7 @@
 							}
 						}
 
+						// console.log("return with: " + getMinDate(dateAtWeek(date, week_to + 1)));
 						return [true, getMinDate(dateAtWeek(date, week_to + 1), start_of_next_year)];
 					}}(tokens, at, is_range, has_period));
 

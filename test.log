@@ -643,17 +643,17 @@ sd <--- (Unexpected token: "s" This means that the syntax is not valid at that p
 "Incorrect syntax which should throw an error" for "": [1m[32mPASSED[39m[22m
 Value contains nothing meaningful which can be parsed
 
-"Incorrect syntax which should throw an error" for ";": [1m[32mPASSED[39m[22m
-Value contains nothing meaningful which can be parsed
-
-"Incorrect syntax which should throw an error" for "||": [1m[32mPASSED[39m[22m
-|| <--- (Rule before fallback rule does not contain anything useful)
-
 "Incorrect syntax which should throw an error" for " ": [1m[32mPASSED[39m[22m
 Value contains nothing meaningful which can be parsed
 
 "Incorrect syntax which should throw an error" for "*newline*": [1m[32mPASSED[39m[22m
 Value contains nothing meaningful which can be parsed
+
+"Incorrect syntax which should throw an error" for ";": [1m[32mPASSED[39m[22m
+Value contains nothing meaningful which can be parsed
+
+"Incorrect syntax which should throw an error" for "||": [1m[32mPASSED[39m[22m
+|| <--- (Rule before fallback rule does not contain anything useful)
 
 "Incorrect syntax which should throw an error" for "Mo[2] - 7 days; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Mo[2] -  <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) Mo[2] - 7 days <--- (Please use notation "Mo-Su" for "7 days".)

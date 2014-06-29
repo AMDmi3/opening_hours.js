@@ -7,6 +7,8 @@
 		<!-- Some CSS {{{ -->
 		<style>
 			body { font-family: sans-serif }
+			q:before { content:"„"; }
+			q:after { content:"“"; }
 		</style>
 		<link rel="stylesheet" href="css/table.css"/>
 		<!-- }}} -->
@@ -546,10 +548,11 @@
 				<p>
 					<script type="text/javascript">
 					var buttons = [
-						[ 3600 * 24, 1, 'words.time.day'    ],
-						[ 3600     , 1, 'words.time.hour'   ],
-						[ 60       , 1, 'words.time.minute' ],
-						[ 0        , 0, 'words.time.now'    ],
+						[ 3600 * 24 * 365, 1, 'words.time.year'    ],
+						[ 3600 * 24      , 1, 'words.time.day'     ],
+						[ 3600           , 1, 'words.time.hour'    ],
+						[ 60             , 1, 'words.time.minute'  ],
+						[ 0              , 0, 'words.time.now'     ],
 					];
 					for (var i = 0; i < buttons.length; i++) {
 						if (buttons[i][1] != 0) {
