@@ -9,6 +9,11 @@
 			body { font-family: sans-serif }
 			q:before { content:"„"; }
 			q:after { content:"“"; }
+
+			.permalink {
+				position: absolute;
+				right: 1em;
+			}
 		</style>
 		<link rel="stylesheet" href="css/table.css"/>
 		<!-- }}} -->
@@ -635,6 +640,9 @@
 						onblur="Evaluate()"
 					/>
 				</p>
+				<div class="permalink">
+					<a href="#" onclick="permalink();return false">permalink</a>
+				</div>
 				<!-- }}} -->
 
 				<div id="show_warnings_or_errors">
@@ -646,10 +654,6 @@
 				<div id="show_results">
 				</div>
 			</form>
-
-			<p style="text-align: right">
-			<a href="#" onclick="permalink();return false">permalink</a>
-			</p>
 
 			<hr /><!-- Examples {{{ -->
 			<script type="text/javascript">document.write('<a href="javascript:toggle(\'user_examples\')"><h2 id="examples">'
