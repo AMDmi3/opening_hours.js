@@ -71,8 +71,8 @@ test.addTest('Time zero intervals (always closed)', [
 	], '2012.10.01 0:00', '2018.10.08 0:00', [
 	], 0, 0, true, {}, 'not last test');
 
-// input tolerance {{{
-test.addTest('Input tolerance: dot as time separator', [
+// error tolerance {{{
+test.addTest('Error tolerance: dot as time separator', [
 		'10:00-12:00', // reference value for prettify
 		'10.00-12.00',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -85,7 +85,7 @@ test.addTest('Input tolerance: dot as time separator', [
 		[ '2012.10.07 10:00', '2012.10.07 12:00' ],
 	], 1000 * 60 * 60 * 2 * 7, 0, true, {}, 'not last test');
 
-test.addTest('Input tolerance: dot as time separator', [
+test.addTest('Error tolerance: dot as time separator', [
 		'10:00-14:00; 12:00-14:00 off', // reference value for prettify
 		'10-14; 12-14 off', // '22-2', // Do not use. Returns warning.
 		'10.00-14.00; 12.00-14.00 off',
@@ -100,7 +100,7 @@ test.addTest('Input tolerance: dot as time separator', [
 		[ '2012.10.07 10:00', '2012.10.07 12:00' ],
 	], 1000 * 60 * 60 * 2 * 7, 0, true, {}, 'not last test');
 
-test.addTest('Input tolerance: short time (test prettify)', [
+test.addTest('Error tolerance: short time (test prettify)', [
 		'10:00-12:00,13:00-20:00',       // reference value for prettify
 		'10-12,13-20',                   // Do not use. Returns warning.
 		'10am-12am,1pm-8pm',             // Do not use. Returns warning.
@@ -119,6 +119,15 @@ test.addTest('Time intervals, short time', [
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 07:00', '2012.10.01 18:00' ],
 	], 1000 * 60 * 60 * 11, 0, true, {}, 'not last test');
+
+
+test.addTest('Full range', [
+		'Mo-Su',       // reference value for prettify
+		'7 days/week',
+		'7 days a week',
+	], '2012.10.01 0:00', '2012.10.08 0:00', [
+		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
+	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
 // }}}
 
 // time range spanning midnight {{{
@@ -1833,8 +1842,8 @@ test.addTest('Calculations based on month range', [
 	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'not only test');
 // }}}
 
-// input tolerance {{{
-test.addTest('Input tolerance: case and whitespace', [
+// error tolerance {{{
+test.addTest('Error tolerance: case and whitespace', [
 		'Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off', // reference value for prettify
 		'   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00	Off  ',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -1848,7 +1857,7 @@ test.addTest('Input tolerance: case and whitespace', [
 		[ '2012.10.04 16:00', '2012.10.04 20:00' ],
 	], 1000 * 60 * 60 * 6 * 4, 0, true, {}, 'not last test');
 
-test.addTest('Input tolerance: weekdays, months in different languages', [
+test.addTest('Error tolerance: weekdays, months in different languages', [
 		'Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off', // reference value for prettify
 		'mon, Dienstag, Mi, donnerstag 12:00-20:00; 14:00-16:00 off',
 		'mon, Tuesday, wed, Thursday 12:00-20:00; 14:00-16:00 off',
@@ -1930,8 +1939,6 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		// 'Mo-Sa 11:00-21:00 Su,PH off' + value_suffix, // http://www.openstreetmap.org/way/228339826
 		'25pm-26am' + value_suffix,
 		'10:00am-12:00am,1:00pm-8:00pm' + value_suffix,
-		'7 days/week' + value_suffix,
-		'7 days a week' + value_suffix,
 	], {}, 'not last test');
 // }}}
 

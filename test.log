@@ -22,28 +22,28 @@ With [1m[34mwarnings[39m[22m:
 "Time zero intervals (always closed)" for "off "always closed"": [1m[32mPASSED[39m[22m
 "Time zero intervals (always closed)" for "00:00-24:00 closed": [1m[32mPASSED[39m[22m
 "Time zero intervals (always closed)" for "24/7 closed": [1m[32mPASSED[39m[22m
-"Input tolerance: dot as time separator" for "10:00-12:00": [1m[32mPASSED[39m[22m
-"Input tolerance: dot as time separator" for "10.00-12.00": [1m[32mPASSED[39m[22m
+"Error tolerance: dot as time separator" for "10:00-12:00": [1m[32mPASSED[39m[22m
+"Error tolerance: dot as time separator" for "10.00-12.00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10. <--- (Please use ":" as hour/minute-separator)
 	*10.00-12. <--- (Please use ":" as hour/minute-separator)
-"Input tolerance: dot as time separator" for "10:00-14:00; 12:00-14:00 off": [1m[32mPASSED[39m[22m
-"Input tolerance: dot as time separator" for "10-14; 12-14 off": [1m[32mPASSED[39m[22m
+"Error tolerance: dot as time separator" for "10:00-14:00; 12:00-14:00 off": [1m[32mPASSED[39m[22m
+"Error tolerance: dot as time separator" for "10-14; 12-14 off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10-14 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
 	*10-14; 12-14  <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
-"Input tolerance: dot as time separator" for "10.00-14.00; 12.00-14.00 off": [1m[32mPASSED[39m[22m
+"Error tolerance: dot as time separator" for "10.00-14.00; 12.00-14.00 off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10. <--- (Please use ":" as hour/minute-separator)
 	*10.00-14. <--- (Please use ":" as hour/minute-separator)
 	*10.00-14.00; 12. <--- (Please use ":" as hour/minute-separator)
 	*10.00-14.00; 12.00-14. <--- (Please use ":" as hour/minute-separator)
-"Input tolerance: short time (test prettify)" for "10:00-12:00,13:00-20:00": [1m[32mPASSED[39m[22m
-"Input tolerance: short time (test prettify)" for "10-12,13-20": [1m[32mPASSED[39m[22m
+"Error tolerance: short time (test prettify)" for "10:00-12:00,13:00-20:00": [1m[32mPASSED[39m[22m
+"Error tolerance: short time (test prettify)" for "10-12,13-20": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10-12 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
 	*10-12,13-20 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
-"Input tolerance: short time (test prettify)" for "10am-12am,1pm-8pm": [1m[32mPASSED[39m[22m
+"Error tolerance: short time (test prettify)" for "10am-12am,1pm-8pm": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
 	*10am-12am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
@@ -51,13 +51,13 @@ With [1m[34mwarnings[39m[22m:
 	*10am-12am,1pm-8pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
 	*10am-12am <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
 	*10am-12am,1pm-8pm <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
-"Input tolerance: short time (test prettify)" for "10:00am-12:00am,1:00pm-8:00pm": [1m[32mPASSED[39m[22m
+"Error tolerance: short time (test prettify)" for "10:00am-12:00am,1:00pm-8:00pm": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
 	*10:00am-12:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
 	*10:00am-12:00am,1:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
 	*10:00am-12:00am,1:00pm-8:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-"Input tolerance: short time (test prettify)" for "10:00am-12:00am,1.00pm-8.00pm": [1m[32mPASSED[39m[22m
+"Error tolerance: short time (test prettify)" for "10:00am-12:00am,1.00pm-8.00pm": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
 	*10:00am-12:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
@@ -69,6 +69,13 @@ With [1m[34mwarnings[39m[22m:
 "Time intervals, short time" for "Mo 7-18": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo 7-18 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
+"Full range" for "Mo-Su": [1m[32mPASSED[39m[22m
+"Full range" for "7 days/week": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*7 days/week <--- (Please use notation "Mo-Su" for "7 days/week".)
+"Full range" for "7 days a week": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*7 days a week <--- (Please use notation "Mo-Su" for "7 days a week".)
 "Time ranges spanning midnight" for "22:00-02:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight" for "22:00-26:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight" for "22-2": [1m[32mPASSED[39m[22m
@@ -417,24 +424,24 @@ With [1m[34mwarnings[39m[22m:
 "Points in time, period times with variable times" for "Mo-Fr sunrise-(sunset-02:00)/120": [1m[32mPASSED[39m[22m
 "Points in time, period times (real world example)" for "Sa 08:00,09:00,10:00,11:00,12:00,13:00,14:00, Mo-Fr 15:00,16:00,17:00,18:00,19:00,20:00": [1m[32mPASSED[39m[22m
 "Points in time, period times (real world example)" for "Mo-Fr 15:00-20:00/60; Sa 08:00-14:00/60": [1m[32mPASSED[39m[22m
-"Input tolerance: case and whitespace" for "Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
-"Input tolerance: case and whitespace" for "   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00	Off  ": [1m[32mPASSED[39m[22m
+"Error tolerance: case and whitespace" for "Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
+"Error tolerance: case and whitespace" for "   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00	Off  ": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*   monday <--- (Please use the abbreviation "Mo" for "monday".)
-"Input tolerance: weekdays, months in different languages" for "Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
-"Input tolerance: weekdays, months in different languages" for "mon, Dienstag, Mi, donnerstag 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
+"Error tolerance: weekdays, months in different languages" for "Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
+"Error tolerance: weekdays, months in different languages" for "mon, Dienstag, Mi, donnerstag 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*mon <--- (Please use the abbreviation "Mo" for "mon".)
 	*mon, Dienstag <--- (Bitte benutze die englische Abkürzung "Tu" für "dienstag".)
 	*mon, Dienstag, Mi <--- (Bitte benutze die englische Abkürzung "We" für "mi".)
 	*mon, Dienstag, Mi, donnerstag <--- (Bitte benutze die englische Abkürzung "Th" für "donnerstag".)
-"Input tolerance: weekdays, months in different languages" for "mon, Tuesday, wed, Thursday 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
+"Error tolerance: weekdays, months in different languages" for "mon, Tuesday, wed, Thursday 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*mon <--- (Please use the abbreviation "Mo" for "mon".)
 	*mon, Tuesday <--- (Please use the abbreviation "Tu" for "tuesday".)
 	*mon, Tuesday, wed <--- (Please use the abbreviation "We" for "wed".)
 	*mon, Tuesday, wed, Thursday <--- (Please use the abbreviation "Th" for "thursday".)
-"Input tolerance: weekdays, months in different languages" for "mon., Tuesday, wed., Thursday. 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
+"Error tolerance: weekdays, months in different languages" for "mon., Tuesday, wed., Thursday. 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*mon <--- (Please use the abbreviation "Mo" for "mon".)
 	*mon., Tuesday <--- (Please use the abbreviation "Tu" for "tuesday".)
@@ -647,16 +654,6 @@ With [1m[34mwarnings[39m[22m:
 	*10:00am-12:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
 	*10:00am-12:00am,1:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
 	*10:00am-12:00am,1:00pm-8:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-With [1m[34mwarnings[39m[22m:
-	*7 days/week <--- (Please use notation "Mo-Su" for "7 days/week".)
-"Value not ideal (probably wrong). Should throw a warning." for "7 days/week; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*7 days/week <--- (Please use notation "Mo-Su" for "7 days/week".)
-With [1m[34mwarnings[39m[22m:
-	*7 days a week <--- (Please use notation "Mo-Su" for "7 days a week".)
-"Value not ideal (probably wrong). Should throw a warning." for "7 days a week; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*7 days a week <--- (Please use notation "Mo-Su" for "7 days a week".)
 "Incorrect syntax which should throw an error" for "sdasdlasdj a3reaw": [1m[32mPASSED[39m[22m
 sd <--- (Unexpected token: "s" This means that the syntax is not valid at that point or it is currently not supported.) sdasdlasdj a3reaw <--- (Assuming "We" for "w")
 
@@ -993,4 +990,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-505/512 tests passed
+506/513 tests passed
