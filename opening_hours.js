@@ -1456,6 +1456,7 @@
 				'7/7':             'Mo-Su', // I guess that it means that
 				'7 days':          'Mo-Su',
 				'7 days a week':   'Mo-Su',
+				'7 days/week':	   'Mo-Su',
 				'midnight':        '00:00',
 				'holiday':         'PH',
 				'holidays':        'PH',
@@ -2048,7 +2049,7 @@
 				} else if (tmp = value.match(/^days?/i)) {
 					curr_block_tokens.push([tmp[0].toLowerCase(), 'calcday', value.length ]);
 					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|25x7|7[ ]?days( a week|)|all days?|every day|-late|public holidays?|7j?\/7|every day|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|25x7|7[ ]?days(?: a |\/)week|all days?|every day|-late|public holidays?|7j?\/7|every day|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b)\.?/i)) {
 					// Handle all remaining words with error tolerance.
 					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
 					if (typeof correct_val == 'object') {

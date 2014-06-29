@@ -105,6 +105,7 @@ test.addTest('Input tolerance: short time (test prettify)', [
 		'10-12,13-20',                   // Do not use. Returns warning.
 		'10am-12am,1pm-8pm',             // Do not use. Returns warning.
 		'10:00am-12:00am,1:00pm-8:00pm', // Do not use. Returns warning.
+		'10:00am-12:00am,1.00pm-8.00pm', // Do not use. Returns warning.
 	], '2012.10.01 0:00', '2012.10.03 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 12:00' ],
 		[ '2012.10.01 13:00', '2012.10.01 20:00' ],
@@ -1929,6 +1930,8 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		// 'Mo-Sa 11:00-21:00 Su,PH off' + value_suffix, // http://www.openstreetmap.org/way/228339826
 		'25pm-26am' + value_suffix,
 		'10:00am-12:00am,1:00pm-8:00pm' + value_suffix,
+		'7 days/week' + value_suffix,
+		'7 days a week' + value_suffix,
 	], {}, 'not last test');
 // }}}
 

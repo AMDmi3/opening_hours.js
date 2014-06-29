@@ -57,6 +57,14 @@ With [1m[34mwarnings[39m[22m:
 	*10:00am-12:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
 	*10:00am-12:00am,1:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
 	*10:00am-12:00am,1:00pm-8:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+"Input tolerance: short time (test prettify)" for "10:00am-12:00am,1.00pm-8.00pm": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*10:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00am,1. <--- (Please use ":" as hour/minute-separator)
+	*10:00am-12:00am,1.00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00am,1.00pm-8. <--- (Please use ":" as hour/minute-separator)
+	*10:00am-12:00am,1.00pm-8.00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
 "Time intervals, short time" for "Mo 07:00-18:00": [1m[32mPASSED[39m[22m
 "Time intervals, short time" for "Mo 7-18": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -639,6 +647,16 @@ With [1m[34mwarnings[39m[22m:
 	*10:00am-12:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
 	*10:00am-12:00am,1:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
 	*10:00am-12:00am,1:00pm-8:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+With [1m[34mwarnings[39m[22m:
+	*7 days/week <--- (Please use notation "Mo-Su" for "7 days/week".)
+"Value not ideal (probably wrong). Should throw a warning." for "7 days/week; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*7 days/week <--- (Please use notation "Mo-Su" for "7 days/week".)
+With [1m[34mwarnings[39m[22m:
+	*7 days a week <--- (Please use notation "Mo-Su" for "7 days a week".)
+"Value not ideal (probably wrong). Should throw a warning." for "7 days a week; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*7 days a week <--- (Please use notation "Mo-Su" for "7 days a week".)
 "Incorrect syntax which should throw an error" for "sdasdlasdj a3reaw": [1m[32mPASSED[39m[22m
 sd <--- (Unexpected token: "s" This means that the syntax is not valid at that point or it is currently not supported.) sdasdlasdj a3reaw <--- (Assuming "We" for "w")
 
@@ -658,7 +676,7 @@ Value contains nothing meaningful which can be parsed
 || <--- (Rule before fallback rule does not contain anything useful)
 
 "Incorrect syntax which should throw an error" for "Mo[2] - 7 days; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Mo[2] -  <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) Mo[2] - 7 days <--- (Please use notation "Mo-Su" for "7 days".)
+Mo[2] - 7 days <--- (There should be no reason to differ more than 6 days from a constrained weekdays. If so tell us …)
 
 "Incorrect syntax which should throw an error" for ":week 2-54 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 : <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
@@ -975,4 +993,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-502/509 tests passed
+505/512 tests passed
