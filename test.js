@@ -176,6 +176,8 @@ test.addTest('Error tolerance: Time range', [
 		'Mo 12:00 through 14:00',
 		'Mo 12:00~14:00',
 		'Mo 12:00～14:00',
+		'Mo 12:00-14：00',
+		'Mo 12°°-14:00',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 12:00', '2012.10.01 14:00' ],
 	], 1000 * 60 * 60 * 2, 0, true, {}, 'not only test');
@@ -709,10 +711,11 @@ test.addTest('Full range', [
 		'Sa-Fr 00:00-24:00',
 		'Su-Sa 00:00-24:00',
 		'24/7',
-		'24/7; 24/7', // Use value above.
-		'0-24',	// Do not use. Returns warning.
+		'24/7; 24/7',     // Use value above.
+		'0-24',           // Do not use. Returns warning.
+		'midnight-24:00', // Do not use. Returns warning.
 		'open',
-		'12:00-13:00; 24/7', // '12:00-13:00' is always ignoed.
+		'12:00-13:00; 24/7', // '12:00-13:00' is always ignored.
 		'00:00-24:00,12:00-13:00', // '00:00-24:00' already matches entire day. '12:00-13:00' is pointless.
 		'Mo-Fr,Sa,Su',
 		ignored('PH,Mo-Fr,Sa,Su', 'check for week stable not implemented'),
@@ -1988,6 +1991,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		// 'Mo-Sa 11:00-21:00 Su,PH off' + value_suffix, // http://www.openstreetmap.org/way/228339826
 		'25pm-26am' + value_suffix,
 		'10:00am-12:00am,1:00pm-8:00pm' + value_suffix,
+		'12:00-14:00 оff' + value_suffix, // Russian o
 	], {}, 'not last test');
 // }}}
 

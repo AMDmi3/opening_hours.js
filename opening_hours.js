@@ -1397,16 +1397,16 @@
 				'vardagar': 'Mo-Fr',
 			}, 'Please use something like "Mo off" instead "<ko>".': {
 				'except': 'off',
-			}, 'Please ommit "<ko>" or use a colon instead: "12:00-14:00".': {
+			}, 'Please omit "<ko>" or use a colon instead: "12:00-14:00".': {
 				'h': '',
-			}, 'Please ommit "<ko>".': {
+			}, 'Please omit "<ko>".': {
 				'season': '',
 				'hs':     '',
 				'hrs':    '',
 				'hours':  '',
-			}, 'Please ommit "<ko>". The key must not be in the value.': {
+			}, 'Please omit "<ko>". The key must not be in the value.': {
 				'opening_hours=': '',
-			}, 'Please ommit "<ko>". You might want to express open end which can be specified as "12:00+" for example.': {
+			}, 'Please omit "<ko>". You might want to express open end which can be specified as "12:00+" for example.': {
 				'from': '',
 			}, 'You can use notation "<ok>" for "<ko>". You might want to express open end which can be specified as "12:00+" for example.': {
 				'-late': '+',
@@ -1473,6 +1473,7 @@
 				'weekend':         'Sa,Su',
 				'weekends':        'Sa,Su',
 				'daylight':        'sunrise-sunset',
+			}, 'Please use notation "<ok>" for "<ko>". Those characters look very similar but are not the same!': {
 				'оff':             'off', // Russian o
 			}, 'Please use time format in 24 hours notation ("<ko>"). If PM is used you might have to convert the hours to the 24 hours notation.': {
 				'pm': '',
@@ -1492,7 +1493,7 @@
 				'„': '"',
 				'“': '"',
 				'”': '"',
-			}, 'Please use notation "<ok>" for "<ko>". The used quote signs might be typographically correct but are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.': {
+			}, 'Please use notation "<ok>" for "<ko>". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.': {
 				'«': '"',
 				'»': '"',
 				'‚': '"',
@@ -1502,7 +1503,7 @@
 				'」': '"',
 				'『': '"',
 				'』': '"',
-			}, 'Please use notation "<ok>" for "<ko>". The used quote signs are not defined in the specication. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.': {
+			}, 'Please use notation "<ok>" for "<ko>". The used quote signs are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.': {
 				"'": '"',
 			}, 'Bitte benutze die Schreibweise "<ok>" als Ersatz für "und" bzw. "u.".': {
 				'und': ',',
