@@ -1977,6 +1977,7 @@
 				}
 			} while (continue_at)
 		}
+		// console.log(JSON.stringify(tokens, null, '    '));
 		// }}}
 
 		/* Format warning or error message for the user. {{{
@@ -2052,18 +2053,18 @@
 			while (value != '') {
 				// console.log("Parsing value: " + value);
 				var tmp;
-				if (tmp = value.match(/^(?:week\b|open\b|unknown\b)/i)) {
+				if (tmp = value.match(/^week\b/i)) {
 					// Reserved keywords.
 					curr_block_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase(), value.length ]);
+					value = value.substr(tmp[0].length);
+				} else if (tmp = value.match(/^(?:off\b|closed\b|open\b|unknown\b)/i)) {
+					// Reserved keywords.
+					curr_block_tokens.push([tmp[0].toLowerCase(), 'state', value.length ]);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^24\/7/i)) {
 					// Reserved keyword.
 					has_token[tmp[0]] = true;
 					curr_block_tokens.push([tmp[0], tmp[0], value.length ]);
-					value = value.substr(tmp[0].length);
-				} else if (tmp = value.match(/^(?:off|closed)/i)) {
-					// Reserved keywords.
-					curr_block_tokens.push([tmp[0].toLowerCase(), 'closed', value.length ]);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(?:PH|SH)/i)) {
 					// special day name (holidays)
@@ -2392,13 +2393,11 @@
 					at = parseTimeRange(tokens, at, selectors, false);
 
 					used_subparsers['time ranges'].push(at);
-				} else if (matchTokens(tokens, at, 'closed')
-						|| matchTokens(tokens, at, 'open')
-						|| matchTokens(tokens, at, 'unknown')) {
+				} else if (matchTokens(tokens, at, 'state')) {
 
-					if (matchTokens(tokens, at, 'open')) {
+					if (tokens[at][0] == 'open') {
 						selectors.meaning = true;
-					} else if (matchTokens(tokens, at, 'closed')) {
+						} else if (tokens[at][0] == 'closed' || tokens[at][0] == 'off') {
 						selectors.meaning = false;
 					} else {
 						selectors.meaning = false;
@@ -2416,8 +2415,10 @@
 				} else if (matchTokens(tokens, at, 'comment')) {
 					selectors.comment = tokens[at][0];
 					if (at > 0) {
-						if (!matchTokens(tokens, at - 1, 'open')
-							&& !matchTokens(tokens, at - 1, 'closed')) {
+						if (   tokens[at - 1][0] != 'open'
+							&& tokens[at - 1][0] != 'closed'
+							&& tokens[at - 1][0] != 'off') {
+
 							// Then it is unknown. Either with unknown explicitly
 							// specified or just a comment behind.
 							selectors.meaning = false;
@@ -2689,6 +2690,7 @@
 		 * :returns: Position at which the token does not belong to the selector anymore.
 		 */
 		function parseTimeRange(tokens, at, selectors, extended_open_end) {
+			tokens[at][3] = 'time';
 			for (; at < tokens.length; at++) {
 				var has_time_var_calc = [], has_normal_time = []; // element 0: start time, 1: end time
 				has_normal_time[0] = matchTokens(tokens, at, 'number', 'timesep', 'number');
@@ -3057,6 +3059,7 @@
 		 * :returns: Position at which the token does not belong to the selector anymore.
 		 */
 		function parseWeekdayRange(tokens, at, selectors) {
+			tokens[at][3] = 'weekday';
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'weekday', '[')) {
 					// Conditional weekday (Mo[3])
@@ -3265,6 +3268,7 @@
 		 * :returns: Position at which the token does not belong to the selector anymore.
 		 */
 		function parseHoliday(tokens, at, selectors, push_to_weekday) {
+			tokens[at][3] = 'weekday'; // Could also be holiday but this is not important here.
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'holiday')) {
 					if (tokens[at][0] == 'PH') {
@@ -3603,6 +3607,7 @@
 		 * :returns: Position at which the token does not belong to the selector anymore.
 		 */
 		function parseYearRange(tokens, at) {
+			tokens[at][3] = 'year';
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'year')) {
 					var is_range = false, has_period = false;
@@ -3692,6 +3697,7 @@
 		 * :returns: Position at which the token does not belong to the selector anymore.
 		 */
 		function parseWeekRange(tokens, at) {
+			tokens[at][3] = 'week';
 			for (; at < tokens.length; at++) {
 				if (matchTokens(tokens, at, 'number')) {
 					var is_range = matchTokens(tokens, at+1, '-', 'number'), has_period = false;
@@ -3790,6 +3796,7 @@
 		 * :returns: Position at which the token does not belong to the selector anymore.
 		 */
 		function parseMonthRange(tokens, at, push_to_monthday) {
+			tokens[at][3] = 'month';
 			for (; at < tokens.length; at++) {
 				// Use parseMonthdayRange if '<month> <daynum>' and not '<month> <hour>:<minute>'
 				if (matchTokens(tokens, at, 'month', 'number') && !matchTokens(tokens, at+2, 'timesep', 'number')) {
@@ -3871,6 +3878,7 @@
 		 * :returns: Position at which the token does not belong to the selector anymore.
 		 */
 		function parseMonthdayRange(tokens, at, nblock, push_to_month) {
+			tokens[at][3] = 'month';
 			for (; at < tokens.length; at++) {
 				var has_year = [], has_month = [], has_event = [], has_calc = [], has_constrained_weekday = [], has_calc = [];
 				has_year[0]  = matchTokens(tokens, at, 'year');
