@@ -2392,29 +2392,19 @@
 					at = parseTimeRange(tokens, at, selectors, false);
 
 					used_subparsers['time ranges'].push(at);
-				} else if (matchTokens(tokens, at, 'closed')) {
-					selectors.meaning = false;
-					at++;
-					if (matchTokens(tokens, at, ',')) // additional block
-						at = [ at + 1 ];
+				} else if (matchTokens(tokens, at, 'closed')
+						|| matchTokens(tokens, at, 'open')
+						|| matchTokens(tokens, at, 'unknown')) {
 
-					if (typeof used_subparsers['state keywords'] != 'object')
-						used_subparsers['state keywords'] = [ at ];
-					else
-						used_subparsers['state keywords'].push(at);
-				} else if (matchTokens(tokens, at, 'open')) {
-					selectors.meaning = true;
-					at++;
-					if (matchTokens(tokens, at, ',')) // additional block
-						at = [ at + 1 ];
+					if (matchTokens(tokens, at, 'open')) {
+						selectors.meaning = true;
+					} else if (matchTokens(tokens, at, 'closed')) {
+						selectors.meaning = false;
+					} else {
+						selectors.meaning = false;
+						selectors.unknown = true;
+					}
 
-					if (typeof used_subparsers['state keywords'] != 'object')
-						used_subparsers['state keywords'] = [ at ];
-					else
-						used_subparsers['state keywords'].push(at);
-				} else if (matchTokens(tokens, at, 'unknown')) {
-					selectors.meaning = false;
-					selectors.unknown = true;
 					at++;
 					if (matchTokens(tokens, at, ',')) // additional block
 						at = [ at + 1 ];

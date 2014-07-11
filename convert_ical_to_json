@@ -13,7 +13,6 @@ use feature qw(say);
 use utf8;
 use open qw(:std :utf8);
 binmode STDOUT, ':encoding(UTF-8)';
-
 # }}}
 
 # constant variables {{{
@@ -44,7 +43,7 @@ my $mech = WWW::Mechanize->new();
 # }}}
 
 # debugging stuff {{{
-#<<<  do not let perltidy touch this
+#<<< Don‘t allow perltidy to touch the following.
 my %ical_urls = (
     'Bremen' => [
         [

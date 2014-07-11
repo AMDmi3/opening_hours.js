@@ -1394,6 +1394,7 @@ test.addTest('Additional comments for unknown', [
 
 test.addTest('Date overwriting with additional comments for unknown ', [
 		'Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 "Maybe open. Call us."',
+		'Mo-Fr 10:00-20:00 unknown "Maybe"; "Maybe open. Call us." We 10:00-16:00',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 20:00', true, "Maybe" ],
 		[ '2012.10.02 10:00', '2012.10.02 20:00', true, "Maybe" ],
