@@ -428,8 +428,8 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * **EXT:** Supports multiple week ranges (```week 1,3-5,7-30/2 10:00-20:00```)
 
 ### States ###
-* A facility can be in two main states for a given point in time: open (true) or closed (false).
-  * But since the state can also depend on other information (e.g. weather depending, call us) than just the time, a third state can be expressed (```Mo unknown; Th-Fr 09:00-18:00 open```)
+* A facility can be in two main states for a given point in time: ```open``` (true) or ```closed``` (false).
+  * But since the state can also depend on other information (e.g. weather depending, call us) than just the time, a third state (called ```unknown```) can be expressed (```Mo unknown; Th-Fr 09:00-18:00 open```)
 
   In that case the main state is false and unknown is true for Monday.
 

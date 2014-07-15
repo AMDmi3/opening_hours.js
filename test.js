@@ -725,6 +725,7 @@ test.addTest('Full range', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
 	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
 
+// FIXME "use it" ...
 test.addTest('24/7 as time interval alias (don’t use it 24/7 as showen here)', [
 		'Mo,We 24/7', // throws a warning, use one of the next values instead
 		'Mo,We open', // preferred because more explicit
@@ -733,7 +734,7 @@ test.addTest('24/7 as time interval alias (don’t use it 24/7 as showen here)',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.02 0:00' ],
 		[ '2012.10.03 0:00', '2012.10.04 0:00' ],
-	], 1000 * 60 * 60 * 24 * 2, 0, true);
+	], 1000 * 60 * 60 * 24 * 2, 0, true, {}, 'not last test');
 // }}}
 
 // constrained weekdays {{{
@@ -871,7 +872,7 @@ test.addTest('Fallback group blocks (unknown)', [
 	], 1000 * 60 * 60 * 14 * 3, 1000 * 60 * 60 * (10 * 3 + 24 * (2 + 2)), true, {}, 'not last test');
 
 test.addTest('Fallback group blocks (unknown). Example for the tokenizer documentation.', [
-		'We-Fr 10:00-24:00 open "it is open" || 2012 "please call"; Jan 1 open "should never appear"',
+		'We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012 "please call"; Jan 1 open "should never appear"',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.03 10:00', true,  'please call' ],
 		[ '2012.10.03 10:00', '2012.10.04 00:00', false, 'it is open' ],
@@ -1075,6 +1076,16 @@ test.addTest('Monthday ranges', [
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
 	], 1000 * 60 * 60 * 24 * 21, 0, false);
+
+test.addTest('Monthday ranges', [
+		'Jan 31-Feb 1,Aug 00:00-24:00', // FIXME: Also fails in 9f323b9d06720b6efffc7420023e746ff8f1b309.
+		'Jan 31-Feb 1,Aug: 00:00-24:00',
+		'Aug,Jan 31-Feb 1',
+		'Jan 31-Feb 1; Aug',
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+		[ '2012.01.31 00:00', '2012.02.02 00:00' ],
+		[ '2012.08.01 00:00', '2012.09.01 00:00' ],
+	], 1000 * 60 * 60 * 24 * (2 + 31), 0, false, {}, 'not last test');
 
 test.addTest('Monthday ranges', [
 		ignored('Jan 23,25'), // must be expressed as Jan 23,Jan 25
@@ -1322,7 +1333,7 @@ test.addTest('Selector combination', [
 		'week 3 Jan 11',        // week + monthday
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.11 0:00', '2012.01.12 00:00' ],
-	], 1000 * 60 * 60 * 24, 0, false);
+	], 1000 * 60 * 60 * 24, 0, false, {}, 'not last test');
 
 test.addTest('Selector combination', [
 		'week 3 Jan',           // week + month
@@ -1371,7 +1382,7 @@ test.addTest('Selector order', [
 		'open week 7 Feb', // not preferred
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.02.06 0:00', '2012.02.13 00:00' ],
-	], 1000 * 60 * 60 * 24 * 7, 0, false);
+	], 1000 * 60 * 60 * 24 * 7, 0, false, {}, 'not last test');
 // }}}
 
 // comments {{{
@@ -1401,7 +1412,7 @@ test.addTest('Date overwriting with additional comments for unknown ', [
 		[ '2012.10.03 10:00', '2012.10.03 16:00', true, "Maybe open. Call us." ],
 		[ '2012.10.04 10:00', '2012.10.04 20:00', true, "Maybe" ],
 		[ '2012.10.05 10:00', '2012.10.05 20:00', true, "Maybe" ],
-	], 0, 1000 * 60 * 60 * (4 * 10 + 6), true);
+	], 0, 1000 * 60 * 60 * (4 * 10 + 6), true, {}, 'not last test');
 
 test.addTest('Additional comments with time ranges spanning midnight', [
 		'22:00-26:00; We 12:00-14:00 unknown "Maybe open. Call us."',
@@ -1787,6 +1798,7 @@ test.addTest('Points in time, mode 1', [
 test.addTest('Points in time with month, mode 1', [
 		'Apr 08:00',
 		'Apr: 08:00',
+		'Apr. 08:00', // FIXME: Dot is interpreted as colon.
 	], '2012.04.01 0:00', '2012.04.03 0:00', [
 		[ '2012.04.01 08:00', '2012.04.01 08:01' ],
 		[ '2012.04.02 08:00', '2012.04.02 08:01' ],
@@ -1864,6 +1876,7 @@ test.addTest('Points in time, period times with variable times', [
 		[ '2012.10.01 15:22', '2012.10.01 15:23' ],
 	], 1000 * 60 * 5, 0, false, nominatiomTestJSON, 'not last test', 1);
 
+// FIXME
 test.addTest('Points in time, period times (real world example)', [
 		'Sa 08:00,09:00,10:00,11:00,12:00,13:00,14:00, Mo-Fr 15:00,16:00,17:00,18:00,19:00,20:00',
 		'Mo-Fr 15:00-20:00/60; Sa 08:00-14:00/60', // Preferred because shorter and easier to read and maintain.
@@ -2022,10 +2035,10 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		// https://en.wikipedia.org/wiki/International_variation_in_quotation_marks
 		'"testing" "second comment"' + value_suffix, // ": valid in opening_hours syntax
 		'\'testing\'' + value_suffix,
-		'„testing"' + value_suffix, // Testing for development
-		'„testing“' + value_suffix, // valid German quote
-		'“testing”' + value_suffix, // valid English (and others) quote
-		'«testing»' + value_suffix, // https://en.wikipedia.org/wiki/Guillemet
+		'„testing"' + value_suffix,   // Testing for development
+		'„testing“' + value_suffix,   // valid German quote
+		'“testing”' + value_suffix,   // valid English (and others) quote
+		'«testing»' + value_suffix,   // https://en.wikipedia.org/wiki/Guillemet
 		'「testing」' + value_suffix, // valid Japanese quote
 		'『testing』' + value_suffix, // valid Japanese quote
 		'‚testing‘' + value_suffix,
@@ -2133,8 +2146,13 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'』testing『' + value_suffix, // Garbage, no valid quotes what so ever.
 		'』testing「' + value_suffix, // Garbage, no valid quotes what so ever.
 		'』testing«' + value_suffix,  // Garbage, no valid quotes what so ever.
-		'』testing"' + value_suffix,  // Garbage, no valid quotes what so ever. There is a second comment in the value so they get combined.
-		'"testing«' + value_suffix,  // Garbage, no valid quotes what so ever.
+		'』testing"' + value_suffix,  // Garbage, no valid quotes what so ever. There is a second comment in value_suffix so they get combined.
+		'"testing«' + value_suffix,   // Garbage, no valid quotes what so ever.
+		' || open' + value_suffix,
+		'|| open' + value_suffix,
+		' ; open' + value_suffix,
+		'; open' + value_suffix,
+		';;; open' + value_suffix,
 	], nominatiomTestJSON, 'not only test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
