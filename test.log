@@ -969,7 +969,16 @@ Mo[2] -  <--- (Unexpected token: "-" This means that the syntax is not valid at 
 : <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
 
 "Incorrect syntax which should throw an error" for "week :2-54 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-week  <--- (Unexpected token in week range: week)
+week : <--- (Unexpected token in week range: timesep)
+
+"Incorrect syntax which should throw an error" for "week week": [1m[32mPASSED[39m[22m
+week week <--- (Unexpected token in week range: week)
+
+"Incorrect syntax which should throw an error" for "week week 5": [1m[32mPASSED[39m[22m
+week week  <--- (Unexpected token in week range: week)
+
+"Incorrect syntax which should throw an error" for "week week 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+week week  <--- (Unexpected token in week range: week)
 
 "Incorrect syntax which should throw an error" for "week 2-54 00:00-24:00:; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 week 2-54 00:00-24:00: <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
@@ -1316,4 +1325,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-586/600 tests passed
+589/603 tests passed

@@ -3754,7 +3754,7 @@
 		 */
 		function parseWeekRange(tokens, at) {
 			for (; at < tokens.length; at++) {
-				if (matchTokens(tokens, at, 'week', 'number')) {
+				if (matchTokens(tokens, at, 'week')) {
 					at++;
 				}
 				if (matchTokens(tokens, at, 'number')) {

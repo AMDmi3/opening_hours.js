@@ -2077,6 +2077,9 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		':week 2-54 00:00-24:00' + value_suffix,
 		':::week 2-54 00:00-24:00' + value_suffix,
 		'week :2-54 00:00-24:00' + value_suffix,
+		'week week',
+		'week week 5',
+		'week week 00:00-24:00' + value_suffix,
 		'week 2-54 00:00-24:00:' + value_suffix,
 		'week 2-54 00:00-24:00:::' + value_suffix,
 		'week 2-54 00::00-24:00' + value_suffix,
@@ -2155,7 +2158,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		' ; open' + value_suffix,
 		'; open' + value_suffix,
 		';;; open' + value_suffix,
-	], nominatiomTestJSON, 'not only test');
+	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
 		'PH', // country is not specified
