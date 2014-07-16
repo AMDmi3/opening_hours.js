@@ -2338,8 +2338,6 @@
 					}
 				}
 
-				prettifyValue();
-
 				// Check if 24/7 is used and it does not mean 24/7 because there are other blocks.
 				var has_advanced = it.advance();
 
@@ -2350,6 +2348,8 @@
 							+ ' for this rule and then write your exceptions which should achieve the same goal and is more clear'
 							+ ' e.g. "open; Mo 12:00-14:00 off".']);
 				}
+
+				prettifyValue();
 			}
 
 			var warnings = [];

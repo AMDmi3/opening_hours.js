@@ -711,6 +711,11 @@ With [1m[34mwarnings[39m[22m:
 "Error tolerance: case and whitespace" for "   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00	Off  ": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*   monday <--- (Please use the abbreviation "Mo" for "monday".)
+"Error tolerance: case and whitespace" for "   monday,    Tu, wE,   TH    12:00 - 20:00  ; Off 14:00-16:00	": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*   monday <--- (Please use the abbreviation "Mo" for "monday".)
+	*   monday,    Tu, wE,   TH   <--- (The selector "state" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+	*   monday,    Tu, wE,   TH    12:00 - 20 <--- (The selector "time" was switched with the selector "state" for readablitity and compatibiltity reasons.)
 "Error tolerance: weekdays, months in different languages" for "Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 "Error tolerance: weekdays, months in different languages" for "mon, Dienstag, Mi, donnerstag 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1508,4 +1513,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-591/613 tests passed
+592/614 tests passed

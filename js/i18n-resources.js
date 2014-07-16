@@ -290,7 +290,7 @@ var resources = { // English is fallback language.
                 "more information": "Für weitere Informationen kannst dir das <a __href__>OSM wiki</a> anschauen.",
                 "this website": "Die Entwicklung dieser Webseite und der JavaScript Bibliothek zur Auswertung der Öffnungszeiten findet auf <a href=\"__url__\" target=\"_blank\">__hoster__</a> statt.",
                 "if PH is between Mo and Fr": "Nur wenn der Feiertag auf einen Wochentag (Mo-Fr) fällt",
-                "check out error correction, prettify": "Probiere die Fehlererkennung und den korrigierten opening_hours Wert",
+                "check out error correction, prettify": "Probiere die Fehlererkennung und schau dir den korrigierten opening_hours Wert an",
                 "SH,PH or PH,SH": "Dieser Wert unterscheidet sich insofern zum vorherigen als dass der Name für Schulferien den Namen von Feiertagen im Kommentar überschreibt, wenn sich diese überlagern",
                 "config POIs": "POIs konfigurieren",
                 "reload map": "Karte aktualisieren",

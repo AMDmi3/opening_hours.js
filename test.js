@@ -1923,6 +1923,7 @@ test.addTest('Calculations based on month range', [
 test.addTest('Error tolerance: case and whitespace', [
 		'Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off', // reference value for prettify
 		'   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00	Off  ',
+		'   monday,    Tu, wE,   TH    12:00 - 20:00  ; Off 14:00-16:00	', // Warnings point to the wrong position for selector reorder.
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 12:00', '2012.10.01 14:00' ],
 		[ '2012.10.01 16:00', '2012.10.01 20:00' ],
