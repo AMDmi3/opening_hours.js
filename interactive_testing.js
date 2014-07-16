@@ -45,7 +45,10 @@ function opening_hours_object(value) {
         } catch (err) {
             // This might throw an exception if there is no change.
         }
-        result.matching_rule = oh.getMatchingRule();
+        result.rule_index    = oh.getMatchingRule();
+        result.matching_rule = typeof result.rule_index == 'undefined'
+            ? undefined
+            : oh.prettifyValue(undefined, result.rule_index);
         result.prettified    = oh.prettifyValue();
         result.week_stable   = oh.isWeekStable();
     }

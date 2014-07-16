@@ -1906,7 +1906,7 @@
 					build_from_token_block: undefined,
 				};
 
-				selectors.build_from_token_block = [ nblock, continue_at ];
+				selectors.build_from_token_block = [ nblock, continue_at, new_tokens.length ];
 				continue_at = parseGroup(tokens[nblock][0], continue_at, selectors, nblock);
 				if (typeof continue_at == 'object') {
 					continue_at = continue_at[0];
@@ -2500,7 +2500,7 @@
 					at++;
 					if (typeof tokens[at] == 'object' && tokens[at][0] == ',') // additional block
 						at = [ at + 1 ];
-				} else if (at == 0 && matchTokens(tokens, at, 'rule separator')) {
+				} else if ((at == 0 || at == tokens.length - 1) && matchTokens(tokens, at, 'rule separator')) {
 					at++;
 					console.log("value: " + nblock);
 					// throw formatLibraryBugMessage('Not implemented yet.');
@@ -4509,40 +4509,11 @@
 					return state[3];
 				}
 
-				this.getMatchingRule = function(user_conf) {
+				this.getMatchingRule = function() {
 					if (typeof state[4] == 'undefined')
 						return undefined;
 
-					if (typeof user_conf != 'object')
-						var user_conf = {};
-					for (key in default_prettify_conf) {
-						if (typeof user_conf[key] == 'undefined')
-							user_conf[key] = default_prettify_conf[key];
-					}
-
-					var really_done_with_warnings = done_with_warnings; // getWarnings can be called later.
-					done_with_warnings = true;
-					prettified_value = '';
-					var selectors = { // Not really needed. This whole thing is only necessary because of the token used for additional blocks.
-						time: [], weekday: [], holiday: [], week: [], month: [], monthday: [], year: [], wraptime: [],
-
-						fallback: false, // does not matter
-						additional: false,
-						meaning: true,
-						unknown: false,
-						comment: undefined,
-					};
-
-					// token block index used to build the selectors for this block.
-					var token_block = blocks[state[4]].build_from_token_block;
-					parseGroup(tokens[token_block[0]][0], token_block[1], selectors, state[4], user_conf);
-
-					if (prettified_value[prettified_value.length - 1] == ',')
-						prettified_value = prettified_value.substr(0, prettified_value.length - 1);
-
-					done_with_warnings = really_done_with_warnings;
-
-					return prettified_value;
+					return blocks[state[4]].build_from_token_block[2];
 				}
 
 				this.advance = function(datelimit) {
@@ -4592,7 +4563,7 @@
 		}
 
 		// Get a nicely formated value.
-		this.prettifyValue = function(user_conf) {
+		this.prettifyValue = function(user_conf, rule_index) {
 			if (typeof user_conf != 'object')
 				var user_conf = {};
 
@@ -4607,25 +4578,30 @@
 				if (new_tokens[nblock][0].length == 0) continue;
 				// Block does contain nothing useful e.g. second block of '10:00-12:00;' (empty) which needs to be handled.
 
+				if (typeof rule_index == 'number') {
+					if (rule_index != nblock) continue;
+				} else {
+					if (nblock != 0)
+						prettified_value += (
+							new_tokens[nblock][1]
+								? user_conf.block_sep_string + '|| '
+								: (
+									new_tokens[nblock][0][0][1] == 'rule separator'
+									? ','
+									: (
+										user_conf.print_semicolon
+										? ';'
+										: ''
+									)
+								)
+							+ user_conf.block_sep_string);
+				}
+
 				var selector_start_end_type = [ 0, 0, undefined ]
 					prettified_group_value = [];
 				// console.log(new_tokens[nblock][0]);
 				var count = 0;
 
-				if (nblock != 0)
-					prettified_value += (
-						new_tokens[nblock][1]
-							? user_conf.block_sep_string + '|| '
-							: (
-								new_tokens[nblock][0][0][1] == 'rule separator'
-								? ','
-								: (
-									user_conf.print_semicolon
-									? ';'
-									: ''
-								)
-							)
-						+ user_conf.block_sep_string);
 
 				do {
 					var selector_start_end_type = getSelectorRange(new_tokens[nblock][0], selector_start_end_type[1]);

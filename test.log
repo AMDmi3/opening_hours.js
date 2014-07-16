@@ -1304,16 +1304,16 @@ Su 7:30,10 <--- (Missing time separator in time range after: "number")
 "Trying to trigger "Missing time separator in time range after" for mode == 2." for "Su 7:30,10i00,22:00": [1m[32mPASSED[39m[22m
 Su 7:30,10i <--- (Missing time separator in time range after: "number")
 
-"Compare result from getMatchingRule()" for "10:00-16:00": [1m[31mFAILED[39m[22m for time Sun Jan 01 2012 13:00:00 GMT+0100 (CET), bad matching rule: "", expected "10:00-16:00"
-"Compare result from getMatchingRule()" for "10:00-16:00;": [1m[31mFAILED[39m[22m for time Sun Jan 01 2012 13:00:00 GMT+0100 (CET), bad matching rule: "", expected "10:00-16:00"
-"Compare result from getMatchingRule()" for "08:00-10:00; 10:00-16:00;": [1m[31mFAILED[39m[22m for time Sun Jan 01 2012 13:00:00 GMT+0100 (CET), bad matching rule: "", expected "10:00-16:00"
-"Compare result from getMatchingRule()" for ""testing"; 10:00-16:00; 08:00-10:00;": [1m[31mFAILED[39m[22m for time Sun Jan 01 2012 13:00:00 GMT+0100 (CET), bad matching rule: "", expected "10:00-16:00"
-"Compare result from getMatchingRule()" for "Mo 11:00-14:30 "specific unknown for this time" || "general unknown"": [1m[31mFAILED[39m[22m for time Mon Oct 07 2013 13:00:00 GMT+0200 (CEST), bad matching rule: "", expected "Mo 11:00-14:30 "specific unknown for this time""
-"Compare result from getMatchingRule()" for "Mo 11:00-14:30 "specific unknown for this time"|| "general unknown"": [1m[31mFAILED[39m[22m for time Mon Oct 07 2013 13:00:00 GMT+0200 (CEST), bad matching rule: "", expected "Mo 11:00-14:30 "specific unknown for this time""
-"Compare result from getMatchingRule()" for "Mo 11:00-14:30 "specific unknown for this time" || "general unknown"": [1m[31mFAILED[39m[22m for time Sun Jan 01 2012 09:00:00 GMT+0100 (CET), bad matching rule: "", expected ""general unknown""
-"Compare result from getMatchingRule()" for "Mo 11:00-14:30 "specific unknown for this time" ||"general unknown" ": [1m[31mFAILED[39m[22m for time Sun Jan 01 2012 09:00:00 GMT+0100 (CET), bad matching rule: "", expected ""general unknown""
-"Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[35mCRASHED[39m[22m, reason: Fr 08:00-12:00,  <--- (Unexpected token: "rule separator" This means that the syntax is not valid at that point or it is currently not supported.) 
-"Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[31mFAILED[39m[22m for time Fri Dec 20 2013 09:00:00 GMT+0100 (CET), bad matching rule: "", expected "Fr 08:00-12:00"
-"Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[31mFAILED[39m[22m for time Fri Dec 20 2013 13:00:00 GMT+0100 (CET), bad matching rule: "", expected "Fr 12:00-16:00 open "Notfallsprechstunde""
-"Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[31mFAILED[39m[22m for time Fri Dec 20 2013 13:00:00 GMT+0100 (CET), bad matching rule: "", expected "Fr 12:00-16:00 open "Notfallsprechstunde""
-574/600 tests passed
+"Compare result from getMatchingRule()" for "10:00-16:00": [1m[32mPASSED[39m[22m
+"Compare result from getMatchingRule()" for "10:00-16:00;": [1m[32mPASSED[39m[22m
+"Compare result from getMatchingRule()" for "08:00-10:00; 10:00-16:00;": [1m[32mPASSED[39m[22m
+"Compare result from getMatchingRule()" for ""testing"; 10:00-16:00; 08:00-10:00;": [1m[32mPASSED[39m[22m
+"Compare result from getMatchingRule()" for "Mo 11:00-14:30 "specific unknown for this time" || "general unknown"": [1m[32mPASSED[39m[22m
+"Compare result from getMatchingRule()" for "Mo 11:00-14:30 "specific unknown for this time"|| "general unknown"": [1m[32mPASSED[39m[22m
+"Compare result from getMatchingRule()" for "Mo 11:00-14:30 "specific unknown for this time" || "general unknown"": [1m[32mPASSED[39m[22m
+"Compare result from getMatchingRule()" for "Mo 11:00-14:30 "specific unknown for this time" ||"general unknown" ": [1m[32mPASSED[39m[22m
+"Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
+"Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
+"Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
+"Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
+586/600 tests passed

@@ -2453,14 +2453,15 @@ function opening_hours_test() {
 		var name           = test_data_object[0],
 			value          = test_data_object[1],
 			point_in_time  = test_data_object[2],
-			matching_rule  = test_data_object[3],
+			expected_matching_rule  = test_data_object[3],
 			nominatiomJSON = test_data_object[4];
 		try {
 			// since they should fail anyway we can give them the nominatiomTestJSON
 			oh = new opening_hours(value, nominatiomJSON);
 			it = oh.getIterator(new Date(point_in_time));
 
-			var matching_rule_ok = it.getMatchingRule() == matching_rule;
+			var matching_rule = oh.prettifyValue(undefined, it.getMatchingRule());
+			var matching_rule_ok = matching_rule == expected_matching_rule;
 
 		var passed = false;
 
@@ -2481,7 +2482,7 @@ function opening_hours_test() {
 			console.error(str);
 		} else {
 			str += 'FAILED'.failed + ' for time ' + new Date(point_in_time);
-			str += ', bad matching rule: "' + it.getMatchingRule() + '", expected "' + matching_rule + '"';
+			str += ', bad matching rule: "' + matching_rule + '", expected "' + expected_matching_rule + '"';
 			console.warn(str);
 		}
 
