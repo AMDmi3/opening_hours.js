@@ -465,7 +465,7 @@ test.addTest('Variable times spanning midnight', [
 		'sunset-sunrise',
 		'Mo-Su sunset-sunrise',
 		// '19:00-07:22 Mo-Su', // also works but is week stable
-		'sunset-07:22 Mo-Su',
+		'Mo-Su sunset-07:22',
 		'Mo-Su 19:00-sunrise',
 	], '2012.10.01 0:00', '2012.10.02 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 07:22' ],
@@ -2059,6 +2059,18 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'10:00am-12:00am,1:00pm-8:00pm' + value_suffix,
 		'12:00-14:00 оff' + value_suffix, // Russian o
 		'Sa 2200' + value_suffix, // Year (currently very unlikely but following the syntax specification it is a year) or wrong time?
+		// Values are the test cases from 'selector order' tests. {{{
+		'Feb week 6',
+		'00:00-24:00 week 6 Feb',
+		'week 6 00:00-24:00 Feb',
+		'Mo-Su week 6 Feb 00:00-24:00',
+		'00:00-24:00 Mo-Su week 6 Feb',
+		'00:00-24:00 week 6 Mo-Su Feb',
+		'Mo-Su 00:00-24:00 week 6 Feb',
+		'2012 00:00-24:00 week 6 Feb',
+		'00:00-24:00 2012 week 6 Feb',
+		'week 6 Feb 2012-2014',
+		// }}}
 	], {}, 'not last test');
 // }}}
 
