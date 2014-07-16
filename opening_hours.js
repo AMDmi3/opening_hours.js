@@ -1862,6 +1862,7 @@
 		var parsing_warnings = []; // Elements are fed into function formatWarnErrorMessage(nblock, at, message)
 		var done_with_warnings = false; // The functions which throw warnings can be called multiple times.
 		var tokens = tokenize(value);
+		// console.log(JSON.stringify(tokens, null, '    '));
 		var prettified_value = '';
 		var used_subparsers = {}; // Used sub parsers for one block, will be reset for each block. Declared in global name space, because it is manipulation inside various sub parsers.
 		var week_stable = true;
@@ -1929,7 +1930,7 @@
 				);
 
 				if (next_rule_is_additional && new_tokens.length > 1) {
-					// Move 'rule seperator' from last token of last rule to first token of this rule.
+					// Move 'rule separator' from last token of last rule to first token of this rule.
 					new_tokens[new_tokens.length - 1][0].unshift(new_tokens[new_tokens.length - 2][0].pop());
 				}
 
@@ -1999,11 +2000,11 @@
 					console.warn('Bug in warning generation code which could not determine the exact position of the warning or error in string: '
 							+ '"' + value + '".');
 					pos = value.length;
-					if (typeof tokens[nblock][0][tokens[nblock][0].length-1] != 'undefined') {
+					if (typeof tokens[nblock][0][tokens[nblock][0].length - 1] != 'undefined') {
 						// Fallback: Point to last token in the block which caused the problem.
 						// Run real_test regularly to fix the problem before a user is confronted with it.
-						pos -= tokens[nblock][0][tokens[nblock][0].length-1][2];
-						console.warn('Last token for block: ' + tokens[nblock][0][tokens[nblock][0].length-1]);
+						pos -= tokens[nblock][0][tokens[nblock][0].length - 1][2];
+						console.warn('Last token for block: ' + tokens[nblock][0][tokens[nblock][0].length - 1]);
 						console.log(value.substring(0, pos) + ' <--- (' + message + ')');
 						console.log('\n');
 					}
@@ -2177,11 +2178,11 @@
 						throw formatWarnErrorMessage(-1, value.length - 2, 'Rule before fallback rule does not contain anything useful');
 
 					all_tokens.push([ curr_block_tokens, last_block_fallback_terminated, value.length ]);
+					curr_block_tokens = [];
+					// curr_block_tokens = [ [ '||', 'rule separator', value.length  ] ];
+					// FIXME: Use this. Unknown bug needs to be solved in the process.
 					value = value.substr(2);
 
-					curr_block_tokens = [];
-					// curr_block_tokens = [ '||', 'rule seperator', value.length ];
-					// FIXME use this.
 					last_block_fallback_terminated = true;
 				} else if (value.match(/^(?:␣|\s)/)) {
 					// Using "␣" as space is not expected to be a normal
@@ -2501,7 +2502,8 @@
 						at = [ at + 1 ];
 				} else if (at == 0 && matchTokens(tokens, at, 'rule separator')) {
 					at++;
-					throw formatLibraryBugMessage('Not implemented yet.');
+					console.log("value: " + nblock);
+					// throw formatLibraryBugMessage('Not implemented yet.');
 				} else {
 					var warnings = getWarnings();
 					throw formatWarnErrorMessage(nblock, at, 'Unexpected token: "' + tokens[at][1]
@@ -2510,7 +2512,7 @@
 				}
 
 				if (typeof at == 'object') { // additional block
-					tokens[at[0] - 1][1] = 'rule seperator';
+					tokens[at[0] - 1][1] = 'rule separator';
 					break;
 				}
 			}
@@ -4271,7 +4273,7 @@
 
 				if (matching_date_block) {
 					// The following lines implement date overwriting logic (e.g. for
-					// "Mo-Fr 10:00-20:00; We 10:00-16:00", We block overrides Mo-Fr block.
+					// "Mo-Fr 10:00-20:00; We 10:00-16:00", We block overrides Mo-Fr block partly (We).
 					//
 					// This is the only way to be consistent. I thought about ("22:00-02:00; Tu 12:00-14:00") letting Th override 22:00-02:00 partly:
 					// Like: Th 00:00-02:00,12:00-14:00 but this would result in including 22:00-00:00 for Th which is probably not what you want.
@@ -4395,7 +4397,7 @@
 					if (!conf.leave_weekday_sep_one_day_betw
 						&& at - selector_start > 1 && (matchTokens(tokens, at-1, ',') || matchTokens(tokens, at-1, '-'))
 						&& matchTokens(tokens, at-2, 'weekday')
-						&& tokens[at][0] == (tokens[at-2][0] + 1) % 7)  {
+						&& tokens[at][0] == (tokens[at-2][0] + 1) % 7) {
 							value = value.substring(0, value.length - 1) + conf.sep_one_day_between;
 					}
 					value += weekdays[tokens[at][0]];
@@ -4613,9 +4615,9 @@
 				if (nblock != 0)
 					prettified_value += (
 						new_tokens[nblock][1]
-							?  user_conf.block_sep_string + '|| '
+							? user_conf.block_sep_string + '|| '
 							: (
-								new_tokens[nblock][0][0][1] == 'rule seperator'
+								new_tokens[nblock][0][0][1] == 'rule separator'
 								? ','
 								: (
 									user_conf.print_semicolon
@@ -4634,7 +4636,7 @@
 						break;
 					}
 
-					if (selector_start_end_type[2] != 'rule seperator') {
+					if (selector_start_end_type[2] != 'rule separator') {
 						prettified_group_value.push(prettifySelector(
 							new_tokens[nblock][0],
 							selector_start_end_type[0],
@@ -4698,7 +4700,7 @@
 			} else if (tokens[at][1] == 'comment'
 					|| tokens[at][1] == 'state'
 					|| tokens[at][1] == '24/7'
-					|| tokens[at][1] == 'rule seperator'
+					|| tokens[at][1] == 'rule separator'
 					){
 				return 1;
 			} else {

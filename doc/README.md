@@ -5,7 +5,7 @@
     Mo-Fr 10:00-11:00;  Th 10:00-12:00
     \_____block_____/ \ \____block___/
                        \
-                        Rule seperator (could also be "," or "||")
+                        Rule separator (could also be "," or "||")
 
 The README refers to blocks as rules, which is more intuitive but less clear.
 Because of that only the README uses the term rule in that context.
@@ -96,7 +96,7 @@ The most inner array represents one token. The first element of this array is th
             ],
             [
                 ",",
-                "rule seperator",
+                "rule separator",
                 82
             ],
             [
