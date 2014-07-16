@@ -454,7 +454,7 @@ test.addTest('Variable times which moves over fix end time', [
 
 test.addTest('Variable times spanning midnight', [
 		'sunset-sunrise',
-		'sunset-sunrise Mo-Su',
+		'Mo-Su sunset-sunrise',
 	], '2012.10.01 0:00', '2012.10.03 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 07:22' ],
 		[ '2012.10.01 19:00', '2012.10.02 07:23' ],
@@ -463,10 +463,10 @@ test.addTest('Variable times spanning midnight', [
 
 test.addTest('Variable times spanning midnight', [
 		'sunset-sunrise',
-		'sunset-sunrise Mo-Su',
+		'Mo-Su sunset-sunrise',
 		// '19:00-07:22 Mo-Su', // also works but is week stable
 		'sunset-07:22 Mo-Su',
-		'19:00-sunrise Mo-Su',
+		'Mo-Su 19:00-sunrise',
 	], '2012.10.01 0:00', '2012.10.02 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 07:22' ],
 		[ '2012.10.01 19:00', '2012.10.02 00:00' ],
@@ -1104,7 +1104,7 @@ test.addTest('Monthday ranges', [
 	], 1000 * 60 * 60 * (4 * 2), 0, false, {}, 'not last test');
 
 test.addTest('Monthday ranges (with year)', [
-		'2012 Jan 23-31 00:00-24:00; Feb 1-12 00:00-24:00 2012',
+		'2012 Jan 23-31 00:00-24:00; 2012 Feb 1-12 00:00-24:00',
 	], '2012.01.01 0:00', '2015.01.01 0:00', [
 		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
 	], 1000 * 60 * 60 * 24 * 21, 0, false, {}, 'not last test');
@@ -1359,29 +1359,29 @@ test.addTest('Selector combination', [
 test.addTest('Selector order', [
 		// Result should not depend on selector order although there are some best practices:
 		// Use the selector types which can cover the biggest range first e.g. year before month.
-		'Feb week 6',
+		ignored('Feb week 6', 'prettifyValue'),
 		'week 6 Feb',
-		'00:00-24:00 week 6 Feb',
-		'week 6 00:00-24:00 Feb',
+		ignored('00:00-24:00 week 6 Feb', 'prettifyValue'),
+		ignored('week 6 00:00-24:00 Feb', 'prettifyValue'),
 		'week 6 Feb 00:00-24:00',
 		'week 6 Feb: 00:00-24:00',
 		'week 6 Feb Mo-Su 00:00-24:00',
-		'Mo-Su week 6 Feb 00:00-24:00',
-		'00:00-24:00 Mo-Su week 6 Feb',
-		'00:00-24:00 week 6 Mo-Su Feb',
-		'Mo-Su 00:00-24:00 week 6 Feb',
-		'2012 00:00-24:00 week 6 Feb',
-		'00:00-24:00 2012 week 6 Feb',
-		'week 6 Feb 2012-2014',
+		ignored('Mo-Su week 6 Feb 00:00-24:00', 'prettifyValue'),
+		ignored('00:00-24:00 Mo-Su week 6 Feb', 'prettifyValue'),
+		ignored('00:00-24:00 week 6 Mo-Su Feb', 'prettifyValue'),
+		ignored('Mo-Su 00:00-24:00 week 6 Feb', 'prettifyValue'),
+		ignored('2012 00:00-24:00 week 6 Feb', 'prettifyValue'),
+		ignored('00:00-24:00 2012 week 6 Feb', 'prettifyValue'),
+		ignored('week 6 Feb 2012-2014', 'prettifyValue'),
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.02.01 0:00', '2012.02.06 00:00' ],
-	], 1000 * 60 * 60 * 24 * 5, 0, false);
+	], 1000 * 60 * 60 * 24 * 5, 0, false, {}, 'not last test');
 
 test.addTest('Selector order', [
-		'Feb week 7',
+		ignored('Feb week 7', 'prettifyValue'),
 		'week 7 Feb',
 		'week 7 Feb open',
-		'open week 7 Feb', // not preferred
+		ignored('open week 7 Feb', 'prettifyValue'), // not preferred
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.02.06 0:00', '2012.02.13 00:00' ],
 	], 1000 * 60 * 60 * 24 * 7, 0, false, {}, 'not last test');
@@ -2413,21 +2413,30 @@ function opening_hours_test() {
 		var failed = false;
 		if (intervals_ok
 				&& duration_ok
-				&& prettify_ok
-				&& (weekstable_ok || ignored == 'check for week stable not implemented')) {
+				&& (prettify_ok   || ignored == 'prettifyValue')
+				&& (weekstable_ok || ignored == 'check for week stable not implemented')) { // replace 'check for week stable not implemented'.
 			str += 'PASSED'.passed;
 			if (ignored) {
 				if (ignored == 'check for week stable not implemented') {
 					str += ', ' + 'except'.ignored + ' weekstable which is ignored for now';
+				} else if (ignored == 'prettifyValue'){
+					str += ', ' + 'except'.ignored + ' prettifyValue';
+					if (prettify_ok)
+						str += ' Ignored bad passes!'
 				} else {
 					str += ', ' + 'also ignored, please unignore since the test passes!'.ignored;
+					if (weekstable_ok)
+						str += ' Ignored bad passes!'
 				}
 			}
 			passed = true;
 			console.log(str);
 			this.print_warnings(warnings);
-		} else if (ignored) {
+		} else if (ignored
+				&& ignored != 'prettifyValue'
+				&& ignored == 'check for week stable not implemented') {
 			str += 'IGNORED'.ignored + ', reason: ' + ignored;
+			console.warn(str);
 			passed = true;
 		} else if (crashed) {
 			str += 'CRASHED'.crashed + ', reason: ' + crashed;
@@ -2641,7 +2650,7 @@ function opening_hours_test() {
 	// }}}
 }
 
-// public helpers functions {{{
+// Public helper functions. {{{
 function ignored(value, reason) {
 	if (typeof reason === 'undefined')
 		reason = 'not implemented yet';

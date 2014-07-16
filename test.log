@@ -211,12 +211,20 @@ With [1m[34mwarnings[39m[22m:
 "Variable times which moves over fix end time" for "sunrise-06:00": [1m[32mPASSED[39m[22m
 "Variable times which moves over fix end time" for "sunrise-05:59": [1m[32mPASSED[39m[22m
 "Variable times which moves over fix end time" for "sunrise-06:00": [1m[32mPASSED[39m[22m
+"Variable times which moves over fix end time" for "sunrise-05:59": [1m[31mFAILED[39m[22m, bad duration(s): 517080000,0, expected 180000,0, bad intervals: 
+[ '2013.04.13 00:00', '2013.04.13 05:59', false, undefined ],
+[ '2013.04.13 06:09', '2013.04.14 05:59', false, undefined ],
+[ '2013.04.14 06:06', '2013.04.15 05:59', false, undefined ],
+[ '2013.04.15 06:03', '2013.04.16 05:59', false, undefined ],
+[ '2013.04.16 06:00', '2013.04.19 00:00', false, undefined ],
+expected:
+[ 'something else', '', false, undefined ],
 "Variable times spanning midnight" for "sunset-sunrise": [1m[32mPASSED[39m[22m
-"Variable times spanning midnight" for "sunset-sunrise Mo-Su": [1m[32mPASSED[39m[22m
+"Variable times spanning midnight" for "Mo-Su sunset-sunrise": [1m[32mPASSED[39m[22m
 "Variable times spanning midnight" for "sunset-sunrise": [1m[32mPASSED[39m[22m
-"Variable times spanning midnight" for "sunset-sunrise Mo-Su": [1m[32mPASSED[39m[22m
-"Variable times spanning midnight" for "sunset-07:22 Mo-Su": [1m[32mPASSED[39m[22m
-"Variable times spanning midnight" for "19:00-sunrise Mo-Su": [1m[32mPASSED[39m[22m
+"Variable times spanning midnight" for "Mo-Su sunset-sunrise": [1m[32mPASSED[39m[22m
+"Variable times spanning midnight" for "sunset-07:22 Mo-Su": [1m[31mFAILED[39m[22m, bad prettified value: "Mo-Su sunset-07:22", expected either value or "sunset-sunrise"
+"Variable times spanning midnight" for "Mo-Su 19:00-sunrise": [1m[32mPASSED[39m[22m
 "Variable days: public holidays" for "PH": [1m[32mPASSED[39m[22m
 "Variable days: public holidays" for "holiday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -307,9 +315,13 @@ With [1m[34mwarnings[39m[22m:
 "Full range" for "12:00-13:00; 24/7": [1m[32mPASSED[39m[22m
 "Full range" for "00:00-24:00,12:00-13:00": [1m[32mPASSED[39m[22m
 "Full range" for "Mo-Fr,Sa,Su": [1m[32mPASSED[39m[22m
+"Full range" for "PH,Mo-Fr,Sa,Su": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
+"Full range" for "PH,Mo-Fr,Sa,Su,SH": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
+"Full range" for "Mo-Fr,Sa,PH,Su,SH": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
 "Full range" for "Jan-Dec": [1m[32mPASSED[39m[22m
 "Full range" for "Feb-Jan": [1m[32mPASSED[39m[22m
 "Full range" for "Dec-Nov": [1m[32mPASSED[39m[22m
+"Full range" for "Jan 01-Dec 31": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
 "Full range" for "week 1-54": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m weekstable which is ignored for now
 "24/7 as time interval alias (don’t use it 24/7 as showen here)" for "Mo,We 24/7": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -423,10 +435,15 @@ expected:
 "Monthday ranges" for "Jan 31-Feb 1,Aug: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Aug,Jan 31-Feb 1": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Jan 31-Feb 1; Aug": [1m[32mPASSED[39m[22m
+"Monthday ranges" for "Jan 23,25": [1m[31mFAILED[39m[22m, bad duration(s): 172800000,0, expected 1814400000,0, bad intervals: 
+[ '2012.01.23 00:00', '2012.01.24 00:00', false, undefined ],
+[ '2012.01.25 00:00', '2012.01.26 00:00', false, undefined ],
+expected:
+(none)
 "Monthday ranges" for "Dec 24,Jan 2: 18:00-22:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Dec 24,Jan 2: 18:00-22:00; Jan 20: off": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Dec 24,Jan 2 18:00-22:00": [1m[32mPASSED[39m[22m
-"Monthday ranges (with year)" for "2012 Jan 23-31 00:00-24:00; Feb 1-12 00:00-24:00 2012": [1m[32mPASSED[39m[22m
+"Monthday ranges (with year)" for "2012 Jan 23-31 00:00-24:00; 2012 Feb 1-12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges spanning year boundary" for "Dec 31-Jan 1": [1m[32mPASSED[39m[22m
 "Full day (with year)" for "2013 Dec 31,2014 Jan 5": [1m[32mPASSED[39m[22m
 "Full day (with year)" for "2013 Dec 31; 2014 Jan 5": [1m[32mPASSED[39m[22m
@@ -440,6 +457,13 @@ expected:
 "Monthday ranges with constrained weekday" for "Jan Su[1] +2 days-Jan Su[3] -2 days": [1m[32mPASSED[39m[22m
 "Monthday ranges with constrained weekday spanning year" for "Dec 20-Dec Su[-1] +4 days": [1m[32mPASSED[39m[22m
 "Monthday ranges with constrained" for "Nov Su[-1]-Dec Su[1] -1 day": [1m[32mPASSED[39m[22m
+"Monthday ranges with constrained weekday spanning year" for "Jan Su[1] -5 days-Jan 10": [1m[31mFAILED[39m[22m, bad duration(s): 3456000000,0, expected 4147200000,0, bad intervals: 
+[ '2011.01.01 00:00', '2011.01.11 00:00', false, undefined ],
+[ '2012.01.01 00:00', '2012.01.11 00:00', false, undefined ],
+[ '2013.01.01 00:00', '2013.01.11 00:00', false, undefined ],
+[ '2014.01.01 00:00', '2014.01.11 00:00', false, undefined ],
+expected:
+(none)
 "Monthday ranges" for "Mar Su[-1]-Oct Su[-1] -1 day open; Oct Su[-1]-Mar Su[-1] -1 day off": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Mar Su[-1]-Oct Su[-1] -1 day open": [1m[32mPASSED[39m[22m
 "Month ranges with year" for "2012 Jan 10-15,Jan 11": [1m[32mPASSED[39m[22m
@@ -476,24 +500,24 @@ With [1m[34mwarnings[39m[22m:
 "Selector combination" for "Jan We": [1m[32mPASSED[39m[22m
 "Selector combination" for "Jan 2-27 We": [1m[32mPASSED[39m[22m
 "Selector combination" for "Dec 30-Jan 27 We": [1m[32mPASSED[39m[22m
-"Selector order" for "Feb week 6": [1m[32mPASSED[39m[22m
+"Selector order" for "Feb week 6": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 "Selector order" for "week 6 Feb": [1m[32mPASSED[39m[22m
-"Selector order" for "00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m
-"Selector order" for "week 6 00:00-24:00 Feb": [1m[32mPASSED[39m[22m
+"Selector order" for "00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+"Selector order" for "week 6 00:00-24:00 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 "Selector order" for "week 6 Feb 00:00-24:00": [1m[32mPASSED[39m[22m
 "Selector order" for "week 6 Feb: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Selector order" for "week 6 Feb Mo-Su 00:00-24:00": [1m[32mPASSED[39m[22m
-"Selector order" for "Mo-Su week 6 Feb 00:00-24:00": [1m[32mPASSED[39m[22m
-"Selector order" for "00:00-24:00 Mo-Su week 6 Feb": [1m[32mPASSED[39m[22m
-"Selector order" for "00:00-24:00 week 6 Mo-Su Feb": [1m[32mPASSED[39m[22m
-"Selector order" for "Mo-Su 00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m
-"Selector order" for "2012 00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m
-"Selector order" for "00:00-24:00 2012 week 6 Feb": [1m[32mPASSED[39m[22m
-"Selector order" for "week 6 Feb 2012-2014": [1m[32mPASSED[39m[22m
-"Selector order" for "Feb week 7": [1m[32mPASSED[39m[22m
+"Selector order" for "Mo-Su week 6 Feb 00:00-24:00": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+"Selector order" for "00:00-24:00 Mo-Su week 6 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+"Selector order" for "00:00-24:00 week 6 Mo-Su Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+"Selector order" for "Mo-Su 00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+"Selector order" for "2012 00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+"Selector order" for "00:00-24:00 2012 week 6 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+"Selector order" for "week 6 Feb 2012-2014": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+"Selector order" for "Feb week 7": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 "Selector order" for "week 7 Feb": [1m[32mPASSED[39m[22m
 "Selector order" for "week 7 Feb open": [1m[32mPASSED[39m[22m
-"Selector order" for "open week 7 Feb": [1m[32mPASSED[39m[22m
+"Selector order" for "open week 7 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 "Additional comments" for "Mo,Tu 10:00-16:00 open "no warranty"; We 12:00-18:00 open "female only"; Th closed "Not open because we are coding :)"; Fr 10:00-16:00 open "male only"; Sa 10:00-12:00 "Maybe open. Call us."": [1m[32mPASSED[39m[22m
 "Additional comments for unknown" for "Sa 10:00-12:00 "Maybe open. Call us. (testing special tokens in comment: ; ;; ' || | test end)"": [1m[32mPASSED[39m[22m
 "Additional comments for unknown" for "Sa 10:00-12:00 unknown "Maybe open. Call us. (testing special tokens in comment: ; ;; ' || | test end)"": [1m[32mPASSED[39m[22m
@@ -599,6 +623,8 @@ With [1m[34mwarnings[39m[22m:
 	*Fr 08:00-12:00, Fr  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*Fr 08:00-12:00, Fr 12:00-16:00  <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Additional blocks with comment" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
+"Interpetation of points im time" for "12:00": [1m[35mCRASHED[39m[22m, reason: 12:00 <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
+"Interpetation of points im time" for "Mo-Fr 12:00": [1m[35mCRASHED[39m[22m, reason: Mo-Fr 12:00 <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
 "Points in time, mode 1" for "Mo 12:00,15:00; Tu-Fr 14:00": [1m[32mPASSED[39m[22m
 "Points in time, mode 1" for "Mo sunrise,sunset": [1m[32mPASSED[39m[22m
 "Points in time with month, mode 1" for "Apr 08:00": [1m[32mPASSED[39m[22m
@@ -620,6 +646,12 @@ With [1m[34mwarnings[39m[22m:
 	*Sa 08:00,09:00,10:00,11:00,12:00,13:00,14:00, Mo-Fr  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*Sa 08:00,09:00,10:00,11:00,12:00,13:00,14:00, Mo-Fr 15:00,16:00,17:00,18:00,19:00,20:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Points in time, period times (real world example)" for "Mo-Fr 15:00-20:00/60; Sa 08:00-14:00/60": [1m[32mPASSED[39m[22m
+"Additional comments for unknown" for "Mo open "comment"; "I don’t know how to express easter": off": [1m[31mFAILED[39m[22m, bad duration(s): 0,604800000, expected 0,7200000, bad intervals: 
+[ '2012.10.01 00:00', '2012.10.08 00:00', true,  'I don’t know how to express easter' ],
+expected:
+(none), bad prettified value: "Mo open "comment"; off "I don’t know how to express easter":", expected either value or "Mo open "comment"; "I don’t know how to express easter": off,not implemented yet"
+"Calculations based on month range" for "Mar Su[-1] - Dec 25-Su-28 days: 12:00-13:00": [1m[35mCRASHED[39m[22m, reason: Mar Su[-1] - Dec 25- <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) 
+"Calculations based on month range" for "Mo-Fr 09:00-12:30; Sa 09:00-13:00; Dec 25-Su-28 days - Dec 24: Mo-Fr 09:00-16:00,Sa 09:00-16:00": [1m[35mCRASHED[39m[22m, reason: Mo-Fr 09:00-12:30; Sa 09:00-13:00; Dec 25- <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) 
 "Error tolerance: case and whitespace" for "Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 "Error tolerance: case and whitespace" for "   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00	Off  ": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1325,4 +1357,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-589/603 tests passed
+580/603 tests passed

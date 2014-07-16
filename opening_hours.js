@@ -3529,7 +3529,7 @@
 							matching_holiday = {}; // holidays in the country wide scope can be limited to certain states
 							for (var holiday_name in holidays[location_cc][type_of_holidays]) {
 								if (typeof holidays[location_cc][type_of_holidays][holiday_name][2] === 'object') {
-									if (-1 != indexOf.call(holidays[location_cc][type_of_holidays][holiday_name][2], location_state))
+									if (-1 != holidays[location_cc][type_of_holidays][holiday_name][2].indexOf(location_state))
 										matching_holiday[holiday_name] = holidays[location_cc][type_of_holidays][holiday_name];
 								} else {
 									matching_holiday[holiday_name] = holidays[location_cc][type_of_holidays][holiday_name];
@@ -4613,13 +4613,18 @@
 					}
 
 					if (selector_start_end_type[2] != 'rule separator') {
-						prettified_group_value.push(prettifySelector(
-							new_tokens[nblock][0],
-							selector_start_end_type[0],
-							selector_start_end_type[1],
-							selector_start_end_type[2],
-							user_conf
-							));
+						prettified_group_value.push(
+							[
+								selector_start_end_type[2],
+								prettifySelector(
+									new_tokens[nblock][0],
+									selector_start_end_type[0],
+									selector_start_end_type[1],
+									selector_start_end_type[2],
+									user_conf
+								),
+							]
+						);
 					}
 
 					selector_start_end_type[1]++;
@@ -4627,7 +4632,16 @@
 					// console.log(selector_start_end_type, new_tokens[nblock][0].length, count);
 				} while (selector_start_end_type[1] < new_tokens[nblock][0].length)
 				// console.log('Prettified value: ' + JSON.stringify(prettified_group_value, null, '    '));
-				prettified_value += prettified_group_value.join(' ');
+				prettified_value += prettified_group_value.sort(
+						function (a, b) {
+							selector_order = [ 'year', 'week', 'month', 'weekday', 'time', '24/7', 'state', 'comment'];
+							return selector_order.indexOf(a[0]) - selector_order.indexOf(b[0]);
+						}
+					).map(
+						function (array) {
+							return array[1]
+						}
+					).join(' ');
 
 			}
 
