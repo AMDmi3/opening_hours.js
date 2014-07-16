@@ -1855,7 +1855,7 @@
 		}
 		// }}}
 
-		// put tokenized blocks into list {{{
+		// Tokenize value and generate selector functions. {{{
 		if (value.match(/^(?:\s*;?\s*)+$/))
 			throw 'Value contains nothing meaningful which can be parsed';
 
@@ -1867,12 +1867,14 @@
 		var week_stable = true;
 
 		var blocks = [];
+		var new_tokens = new Array();
 
 		for (var nblock = 0; nblock < tokens.length; nblock++) {
 			if (tokens[nblock][0].length == 0) continue;
 			// Block does contain nothing useful e.g. second block of '10:00-12:00;' (empty) which needs to be handled.
 
 			var continue_at = 0;
+			var next_rule_is_additional = false;
 			do {
 				if (continue_at == tokens[nblock][0].length) break;
 				// Additional block does contain nothing useful e.g. second block of '10:00-12:00,' (empty) which needs to be handled.
@@ -1905,10 +1907,33 @@
 
 				selectors.build_from_token_block = [ nblock, continue_at ];
 				continue_at = parseGroup(tokens[nblock][0], continue_at, selectors, nblock);
-				if (typeof continue_at == 'object')
+				if (typeof continue_at == 'object') {
 					continue_at = continue_at[0];
-				else
+				} else {
 					continue_at = 0;
+				}
+
+				// console.log('Current tokens: ' + JSON.stringify(tokens[nblock], null, '    '));
+
+				new_tokens.push(
+					[
+						tokens[nblock][0].slice(
+							selectors.build_from_token_block[1],
+							continue_at == 0
+								? last_token_at = tokens[nblock][0].length
+								: continue_at
+						),
+						tokens[nblock][1],
+						tokens[nblock][2],
+					]
+				);
+
+				if (next_rule_is_additional && new_tokens.length > 1) {
+					// Move 'rule seperator' from last token of last rule to first token of this rule.
+					new_tokens[new_tokens.length - 1][0].unshift(new_tokens[new_tokens.length - 2][0].pop());
+				}
+
+				next_rule_is_additional = continue_at == 0 ? false : true;
 
 				if (selectors.year.length > 0)
 					selectors.date.push(selectors.year);
@@ -1954,6 +1979,7 @@
 			} while (continue_at)
 		}
 		// console.log(JSON.stringify(tokens, null, '    '));
+		// console.log(JSON.stringify(new_tokens, null, '    '));
 		// }}}
 
 		/* Format warning or error message for the user. {{{
@@ -2078,7 +2104,7 @@
 							}
 						}
 						correct_tokens = tokenize(correct_val)[0];
-						if (correct_tokens[1] != false) { // last_block_fallback_terminated
+						if (correct_tokens[1] == true) { // last_block_fallback_terminated
 							throw formatLibraryBugMessage();
 						}
 						for (var i = 0; i < correct_tokens[0].length; i++) {
@@ -2104,7 +2130,7 @@
 								+ ' This is probably not intended. Times can be specified as "12:00".'
 							]);
 					} else {
-						curr_block_tokens.push([+tmp[0], 'number', value.length ]);
+						curr_block_tokens.push([Number(tmp[0]), 'number', value.length ]);
 					}
 
 					value = value.substr(tmp[0].length);
@@ -2154,6 +2180,8 @@
 					value = value.substr(2);
 
 					curr_block_tokens = [];
+					// curr_block_tokens = [ '||', 'rule seperator', value.length ];
+					// FIXME use this.
 					last_block_fallback_terminated = true;
 				} else if (value.match(/^(?:␣|\s)/)) {
 					// Using "␣" as space is not expected to be a normal
@@ -2471,6 +2499,9 @@
 					at++;
 					if (typeof tokens[at] == 'object' && tokens[at][0] == ',') // additional block
 						at = [ at + 1 ];
+				} else if (at == 0 && matchTokens(tokens, at, 'rule separator')) {
+					at++;
+					throw formatLibraryBugMessage('Not implemented yet.');
 				} else {
 					var warnings = getWarnings();
 					throw formatWarnErrorMessage(nblock, at, 'Unexpected token: "' + tokens[at][1]
@@ -4570,51 +4601,55 @@
 
 			prettified_value = '';
 
-			for (var nblock = 0; nblock < tokens.length; nblock++) {
-				if (tokens[nblock][0].length == 0) continue;
+			for (var nblock = 0; nblock < new_tokens.length; nblock++) {
+				if (new_tokens[nblock][0].length == 0) continue;
 				// Block does contain nothing useful e.g. second block of '10:00-12:00;' (empty) which needs to be handled.
 
 				var selector_start_end_type = [ 0, 0, undefined ]
 					prettified_group_value = [];
-				// console.log(tokens[nblock][0]);
+				// console.log(new_tokens[nblock][0]);
 				var count = 0;
 
 				if (nblock != 0)
-					prettified_value += (tokens[nblock][1]
-						?  user_conf.block_sep_string + '|| '
-						: (user_conf.print_semicolon ? ';' : '') + user_conf.block_sep_string);
+					prettified_value += (
+						new_tokens[nblock][1]
+							?  user_conf.block_sep_string + '|| '
+							: (
+								new_tokens[nblock][0][0][1] == 'rule seperator'
+								? ','
+								: (
+									user_conf.print_semicolon
+									? ';'
+									: ''
+								)
+							)
+						+ user_conf.block_sep_string);
 
 				do {
-					var selector_start_end_type = getSelectorRange(tokens[nblock][0], selector_start_end_type[1]);
-					// console.log(selector_start_end_type, tokens[nblock][0].length, count);
+					var selector_start_end_type = getSelectorRange(new_tokens[nblock][0], selector_start_end_type[1]);
+					// console.log(selector_start_end_type, new_tokens[nblock][0].length, count);
 
 					if (count > 10) {
 						console.log("infinite loop");
 						break;
 					}
 
-					prettified_group_value.push(prettifySelector(
-						tokens[nblock][0],
-						selector_start_end_type[0],
-						selector_start_end_type[1],
-						selector_start_end_type[2],
-						user_conf
-						));
+					if (selector_start_end_type[2] != 'rule seperator') {
+						prettified_group_value.push(prettifySelector(
+							new_tokens[nblock][0],
+							selector_start_end_type[0],
+							selector_start_end_type[1],
+							selector_start_end_type[2],
+							user_conf
+							));
+					}
 
 					selector_start_end_type[1]++;
 					count++;
-					// console.log(selector_start_end_type, tokens[nblock][0].length, count);
-				} while (selector_start_end_type[1] < tokens[nblock][0].length)
+					// console.log(selector_start_end_type, new_tokens[nblock][0].length, count);
+				} while (selector_start_end_type[1] < new_tokens[nblock][0].length)
 				// console.log('Prettified value: ' + JSON.stringify(prettified_group_value, null, '    '));
-				// console.log(prettified_group_value.length);
-				for (var selector_index = 0; selector_index < prettified_group_value.length; selector_index++) {
-					prettified_value += prettified_group_value[selector_index];
-					if (
-							selector_index + 1 < prettified_group_value.length
-							&& prettified_group_value[selector_index + 1] != ','
-							)
-						prettified_value += ' ';
-				}
+				prettified_value += prettified_group_value.join(' ');
 
 			}
 
