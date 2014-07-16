@@ -160,6 +160,10 @@ With [1m[34mwarnings[39m[22m:
 "Time ranges spanning midnight" for "We 22:00-22:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight with date overwriting" for "22:00-02:00; Tu 12:00-14:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight with date overwriting (complex real world example)" for "Su-Tu 11:00-01:00, We-Th 11:00-03:00, Fr 11:00-06:00, Sa 11:00-07:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Su-Tu 11:00-01:00, We-Th 11:00-03:00, Fr 11:00-06:00, Sa  <--- (You have used 4 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Su-Tu 11:00-01:00, We-Th 11:00-03:00, Fr 11:00-06:00, Sa 11:00-07:00 <--- (You have used 4 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Su-Tu 11:00-01:00, We-Th 11:00-03:00, Fr 11:00-06:00,  <--- (You have used 3 not connected rule separator ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Time ranges spanning midnight (maximum supported)" for "Tu 23:59-48:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight with open ened (maximum supported)" for "Tu 23:59-40:00+": [1m[32mPASSED[39m[22m
 "Open end" for "07:00+ open "visit there website to know if they did already close"": [1m[32mPASSED[39m[22m
@@ -207,12 +211,20 @@ With [1m[34mwarnings[39m[22m:
 "Variable times which moves over fix end time" for "sunrise-06:00": [1m[32mPASSED[39m[22m
 "Variable times which moves over fix end time" for "sunrise-05:59": [1m[32mPASSED[39m[22m
 "Variable times which moves over fix end time" for "sunrise-06:00": [1m[32mPASSED[39m[22m
+"Variable times which moves over fix end time" for "sunrise-05:59": [1m[31mFAILED[39m[22m, bad duration(s): 517080000,0, expected 180000,0, bad intervals: 
+[ '2013.04.13 00:00', '2013.04.13 05:59', false, undefined ],
+[ '2013.04.13 06:09', '2013.04.14 05:59', false, undefined ],
+[ '2013.04.14 06:06', '2013.04.15 05:59', false, undefined ],
+[ '2013.04.15 06:03', '2013.04.16 05:59', false, undefined ],
+[ '2013.04.16 06:00', '2013.04.19 00:00', false, undefined ],
+expected:
+[ 'something else', '', false, undefined ],
 "Variable times spanning midnight" for "sunset-sunrise": [1m[32mPASSED[39m[22m
-"Variable times spanning midnight" for "sunset-sunrise Mo-Su": [1m[32mPASSED[39m[22m
+"Variable times spanning midnight" for "Mo-Su sunset-sunrise": [1m[32mPASSED[39m[22m
 "Variable times spanning midnight" for "sunset-sunrise": [1m[32mPASSED[39m[22m
-"Variable times spanning midnight" for "sunset-sunrise Mo-Su": [1m[32mPASSED[39m[22m
-"Variable times spanning midnight" for "sunset-07:22 Mo-Su": [1m[32mPASSED[39m[22m
-"Variable times spanning midnight" for "19:00-sunrise Mo-Su": [1m[32mPASSED[39m[22m
+"Variable times spanning midnight" for "Mo-Su sunset-sunrise": [1m[32mPASSED[39m[22m
+"Variable times spanning midnight" for "Mo-Su sunset-07:22": [1m[32mPASSED[39m[22m
+"Variable times spanning midnight" for "Mo-Su 19:00-sunrise": [1m[32mPASSED[39m[22m
 "Variable days: public holidays" for "PH": [1m[32mPASSED[39m[22m
 "Variable days: public holidays" for "holiday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -303,9 +315,13 @@ With [1m[34mwarnings[39m[22m:
 "Full range" for "12:00-13:00; 24/7": [1m[32mPASSED[39m[22m
 "Full range" for "00:00-24:00,12:00-13:00": [1m[32mPASSED[39m[22m
 "Full range" for "Mo-Fr,Sa,Su": [1m[32mPASSED[39m[22m
+"Full range" for "PH,Mo-Fr,Sa,Su": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
+"Full range" for "PH,Mo-Fr,Sa,Su,SH": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
+"Full range" for "Mo-Fr,Sa,PH,Su,SH": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
 "Full range" for "Jan-Dec": [1m[32mPASSED[39m[22m
 "Full range" for "Feb-Jan": [1m[32mPASSED[39m[22m
 "Full range" for "Dec-Nov": [1m[32mPASSED[39m[22m
+"Full range" for "Jan 01-Dec 31": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
 "Full range" for "week 1-54": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m weekstable which is ignored for now
 "24/7 as time interval alias (don’t use it 24/7 as showen here)" for "Mo,We 24/7": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -327,23 +343,52 @@ With [1m[34mwarnings[39m[22m:
 "Calculations based on constrained weekdays" for "Su[-1] -1 day": [1m[32mPASSED[39m[22m
 "Calculations based on constrained weekdays" for "Aug Su[-1] +1 day": [1m[32mPASSED[39m[22m
 "Calculations based on constrained weekdays" for "Aug Su[-1] +1 day": [1m[32mPASSED[39m[22m
-"Constrained weekday (complex real world example)" for "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug Su[-1]: 10:00-18:00": [1m[32mPASSED[39m[22m
-"Constrained weekday (complex real world example)" for "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug Su[-1]: 10:00-18:00": [1m[32mPASSED[39m[22m
+"Constrained weekday (complex real world example)" for "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug Su[-1]: 10:00-18:00": [1m[31mFAILED[39m[22m, bad prettified value: "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug Su[-1] 10:00-18:00", expected either value or "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug Su[-1]: 10:00-18:00"
+With [1m[34mwarnings[39m[22m:
+	*Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug  <--- (You have used 2 not connected months in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug Su[-1]:  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug Su[-1]: 10:00-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+"Constrained weekday (complex real world example)" for "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug Su[-1]: 10:00-18:00": [1m[31mFAILED[39m[22m, bad prettified value: "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug Su[-1] 10:00-18:00", expected either value or "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug Su[-1]: 10:00-18:00"
 "Additional blocks" for "Mo-Fr 10:00-16:00, We 12:00-18:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Fr 10:00-16:00, We  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo-Fr 10:00-16:00, We 12:00-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Additional blocks" for "Mo-Fr 10:00-16:00, We 12:00-18:00,": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Fr 10:00-16:00, We  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo-Fr 10:00-16:00, We 12:00-18:00, <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Additional blocks" for "Mo-Fr 08:00-12:00, We 14:00-18:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Fr 08:00-12:00, We  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo-Fr 08:00-12:00, We 14:00-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Additional blocks" for "Mo-Fr 08:00-12:00, We 14:00-18:00, Su off": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Fr 08:00-12:00, We 14:00-18:00, Su  <--- (You have used 3 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo-Fr 08:00-12:00, We 14:00-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo-Fr 08:00-12:00, We 14:00-18:00,  <--- (You have used 2 not connected rule separator ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Fallback group blocks (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call"": [1m[32mPASSED[39m[22m
 "Fallback group blocks (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || closed "should never appear"": [1m[32mPASSED[39m[22m
 "Fallback group blocks (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || unknown "should never appear"": [1m[32mPASSED[39m[22m
 "Fallback group blocks (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || open "should never appear"": [1m[32mPASSED[39m[22m
-"Fallback group blocks (unknown). Example for the tokenizer documentation." for "We-Fr 10:00-24:00 open "it is open" || 2012 "please call"; Jan 1 open "should never appear"": [1m[32mPASSED[39m[22m
+"Fallback group blocks (unknown). Example for the tokenizer documentation." for "We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012 "please call"; Jan 1 open "should never appear"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*We-Fr 10:00-24:00 open "it is open", Mo  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*We-Fr 10:00-24:00 open "it is open", Mo closed  <--- (You have used 2 state keywords in one rule. You may only use one in one rule. Rules can be separated by ";".)
+	*We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday."  <--- (You have used 2 comments in one rule. You may only use one in one rule. Rules can be separated by ";".)
 "Fallback group blocks" for "We-Fr 10:00-24:00 open "first" || We "please call" || open "we are open!!!"": [1m[32mPASSED[39m[22m
 "Fallback group blocks" for "Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00, PH off || Tu 06:00-06:00 open "Notdienst"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Fr 08:00-12:00,14:00-18:00, Sa  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00,  <--- (You have used 2 not connected rule separator ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Fallback group blocks" for "Mo-Fr 08:00-12:00,14:00-18:00; Sa 09:00-13:00; PH off || Tu 06:00-06:00 open "Notdienst"": [1m[32mPASSED[39m[22m
 "Fallback group blocks" for "Mo-Fr 08:00-11:00 || Th-Sa 12:00-13:00 open "Emergency only"": [1m[32mPASSED[39m[22m
 "Fallback group blocks" for "Mo-Fr 08:00-11:00, Th-Sa 12:00-13:00 open "Emergency only"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Fr 08:00-11:00, Th-Sa  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo-Fr 08:00-11:00, Th-Sa 12:00-13:00  <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Fallback group blocks, with some closed times" for "Mo,Tu,Th 09:00-12:00; Fr 14:00-17:30 || "Termine nach Vereinbarung"; We off": [1m[32mPASSED[39m[22m
+"Fallback group blocks, with some closed times" for "Mo-Th 09:00-12:00; Fr 14:00-17:30 || "Termine nach Vereinbarung"; We off": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 1,3 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 1,3 00:00-24:00 || closed "should not change the test result"": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 1,3: 00:00-24:00": [1m[32mPASSED[39m[22m
@@ -382,10 +427,23 @@ With [1m[34mwarnings[39m[22m:
 "Monthday ranges" for "Jan 23-Feb 12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Jan 23-Feb 12: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "2012 Jan 23-2012 Feb 12 00:00-24:00": [1m[32mPASSED[39m[22m
+"Monthday ranges" for "Jan 31-Feb 1,Aug 00:00-24:00": [1m[31mFAILED[39m[22m, bad duration(s): 0,0, expected 2851200000,0, bad intervals: 
+(none)
+expected:
+[ '2012.01.31 00:00', '2012.02.02 00:00', false, undefined ],
+[ '2012.08.01 00:00', '2012.09.01 00:00', false, undefined ],
+"Monthday ranges" for "Jan 31-Feb 1,Aug: 00:00-24:00": [1m[32mPASSED[39m[22m
+"Monthday ranges" for "Aug,Jan 31-Feb 1": [1m[32mPASSED[39m[22m
+"Monthday ranges" for "Jan 31-Feb 1; Aug": [1m[32mPASSED[39m[22m
+"Monthday ranges" for "Jan 23,25": [1m[31mFAILED[39m[22m, bad duration(s): 172800000,0, expected 1814400000,0, bad intervals: 
+[ '2012.01.23 00:00', '2012.01.24 00:00', false, undefined ],
+[ '2012.01.25 00:00', '2012.01.26 00:00', false, undefined ],
+expected:
+(none)
 "Monthday ranges" for "Dec 24,Jan 2: 18:00-22:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Dec 24,Jan 2: 18:00-22:00; Jan 20: off": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Dec 24,Jan 2 18:00-22:00": [1m[32mPASSED[39m[22m
-"Monthday ranges (with year)" for "2012 Jan 23-31 00:00-24:00; Feb 1-12 00:00-24:00 2012": [1m[32mPASSED[39m[22m
+"Monthday ranges (with year)" for "2012 Jan 23-31 00:00-24:00; 2012 Feb 1-12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges spanning year boundary" for "Dec 31-Jan 1": [1m[32mPASSED[39m[22m
 "Full day (with year)" for "2013 Dec 31,2014 Jan 5": [1m[32mPASSED[39m[22m
 "Full day (with year)" for "2013 Dec 31; 2014 Jan 5": [1m[32mPASSED[39m[22m
@@ -399,6 +457,13 @@ With [1m[34mwarnings[39m[22m:
 "Monthday ranges with constrained weekday" for "Jan Su[1] +2 days-Jan Su[3] -2 days": [1m[32mPASSED[39m[22m
 "Monthday ranges with constrained weekday spanning year" for "Dec 20-Dec Su[-1] +4 days": [1m[32mPASSED[39m[22m
 "Monthday ranges with constrained" for "Nov Su[-1]-Dec Su[1] -1 day": [1m[32mPASSED[39m[22m
+"Monthday ranges with constrained weekday spanning year" for "Jan Su[1] -5 days-Jan 10": [1m[31mFAILED[39m[22m, bad duration(s): 3456000000,0, expected 4147200000,0, bad intervals: 
+[ '2011.01.01 00:00', '2011.01.11 00:00', false, undefined ],
+[ '2012.01.01 00:00', '2012.01.11 00:00', false, undefined ],
+[ '2013.01.01 00:00', '2013.01.11 00:00', false, undefined ],
+[ '2014.01.01 00:00', '2014.01.11 00:00', false, undefined ],
+expected:
+(none)
 "Monthday ranges" for "Mar Su[-1]-Oct Su[-1] -1 day open; Oct Su[-1]-Mar Su[-1] -1 day off": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Mar Su[-1]-Oct Su[-1] -1 day open": [1m[32mPASSED[39m[22m
 "Month ranges with year" for "2012 Jan 10-15,Jan 11": [1m[32mPASSED[39m[22m
@@ -427,28 +492,80 @@ With [1m[34mwarnings[39m[22m:
 "Selector combination" for "week 3 Jan 11": [1m[32mPASSED[39m[22m
 "Selector combination" for "week 3 Jan": [1m[32mPASSED[39m[22m
 "Selector combination" for "Jan-Feb Jan 9-Jan 15": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Jan-Feb Jan 9-Jan 15 <--- (You have used 2 not connected months in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Selector combination" for "Jan-Feb Jan 9-15": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Jan-Feb Jan 9-15 <--- (You have used 2 not connected months in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Selector combination" for "Jan We": [1m[32mPASSED[39m[22m
 "Selector combination" for "Jan 2-27 We": [1m[32mPASSED[39m[22m
 "Selector combination" for "Dec 30-Jan 27 We": [1m[32mPASSED[39m[22m
-"Selector order" for "Feb week 6": [1m[32mPASSED[39m[22m
+"Selector order" for "Feb week 6": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*Feb week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 "Selector order" for "week 6 Feb": [1m[32mPASSED[39m[22m
-"Selector order" for "00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m
-"Selector order" for "week 6 00:00-24:00 Feb": [1m[32mPASSED[39m[22m
+"Selector order" for "00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*00:00-24:00 <--- (The selector "time" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+"Selector order" for "week 6 00:00-24:00 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*week 6 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*week 6 00:00-24:00 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
 "Selector order" for "week 6 Feb 00:00-24:00": [1m[32mPASSED[39m[22m
 "Selector order" for "week 6 Feb: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Selector order" for "week 6 Feb Mo-Su 00:00-24:00": [1m[32mPASSED[39m[22m
-"Selector order" for "Mo-Su week 6 Feb 00:00-24:00": [1m[32mPASSED[39m[22m
-"Selector order" for "00:00-24:00 Mo-Su week 6 Feb": [1m[32mPASSED[39m[22m
-"Selector order" for "00:00-24:00 week 6 Mo-Su Feb": [1m[32mPASSED[39m[22m
-"Selector order" for "Mo-Su 00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m
-"Selector order" for "2012 00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m
-"Selector order" for "00:00-24:00 2012 week 6 Feb": [1m[32mPASSED[39m[22m
-"Selector order" for "week 6 Feb 2012-2014": [1m[32mPASSED[39m[22m
-"Selector order" for "Feb week 7": [1m[32mPASSED[39m[22m
+"Selector order" for "Mo-Su week 6 Feb 00:00-24:00": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*Mo-Su <--- (The selector "weekday" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*Mo-Su week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*Mo-Su week 6 Feb <--- (The selector "month" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
+"Selector order" for "00:00-24:00 Mo-Su week 6 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*00:00-24:00 <--- (The selector "time" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 Mo-Su <--- (The selector "weekday" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 Mo-Su week 6 <--- (The selector "week" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 Mo-Su week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+"Selector order" for "00:00-24:00 week 6 Mo-Su Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*00:00-24:00 <--- (The selector "time" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 week 6 Mo-Su Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+"Selector order" for "Mo-Su 00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*Mo-Su <--- (The selector "weekday" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*Mo-Su 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*Mo-Su 00:00-24:00 week 6 <--- (The selector "week" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
+	*Mo-Su 00:00-24:00 week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+"Selector order" for "2012 00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*2012 00:00-24:00 <--- (The selector "time" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*2012 00:00-24:00 week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*2012 00:00-24:00 week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+"Selector order" for "00:00-24:00 2012 week 6 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*00:00-24:00 <--- (The selector "time" was switched with the selector "year" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 2012 <--- (The selector "year" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 2012 week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 2012 week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+"Selector order" for "week 6 Feb 2012-2014": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*week 6 <--- (The selector "week" was switched with the selector "year" for readablitity and compatibiltity reasons.)
+	*week 6 Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*week 6 Feb 2012-2014 <--- (The selector "year" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+"Selector order" for "Feb week 7": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*Feb week 7 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 "Selector order" for "week 7 Feb": [1m[32mPASSED[39m[22m
 "Selector order" for "week 7 Feb open": [1m[32mPASSED[39m[22m
-"Selector order" for "open week 7 Feb": [1m[32mPASSED[39m[22m
+"Selector order" for "open week 7 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*open <--- (The selector "state" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*open week 7 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*open week 7 Feb <--- (The selector "month" was switched with the selector "state" for readablitity and compatibiltity reasons.)
 "Additional comments" for "Mo,Tu 10:00-16:00 open "no warranty"; We 12:00-18:00 open "female only"; Th closed "Not open because we are coding :)"; Fr 10:00-16:00 open "male only"; Sa 10:00-12:00 "Maybe open. Call us."": [1m[32mPASSED[39m[22m
 "Additional comments for unknown" for "Sa 10:00-12:00 "Maybe open. Call us. (testing special tokens in comment: ; ;; ' || | test end)"": [1m[32mPASSED[39m[22m
 "Additional comments for unknown" for "Sa 10:00-12:00 unknown "Maybe open. Call us. (testing special tokens in comment: ; ;; ' || | test end)"": [1m[32mPASSED[39m[22m
@@ -465,10 +582,19 @@ expected:
 [ '2012.10.03 10:00', '2012.10.03 16:00', true,  'Maybe open. Call us.' ],
 [ '2012.10.04 10:00', '2012.10.04 20:00', true,  'Maybe' ],
 [ '2012.10.05 10:00', '2012.10.05 20:00', true,  'Maybe' ],
+With [1m[34mwarnings[39m[22m:
+	*Mo-Fr 10:00-20:00 unknown "Maybe"; "Maybe open. Call us." <--- (The selector "comment" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
+	*Mo-Fr 10:00-20:00 unknown "Maybe"; "Maybe open. Call us." We <--- (The selector "weekday" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+	*Mo-Fr 10:00-20:00 unknown "Maybe"; "Maybe open. Call us." We 10:00-16:00 <--- (The selector "time" was switched with the selector "comment" for readablitity and compatibiltity reasons.)
 "Additional comments with time ranges spanning midnight" for "22:00-26:00; We 12:00-14:00 unknown "Maybe open. Call us."": [1m[32mPASSED[39m[22m
 "Additional comments for closed with time ranges spanning midnight" for "22:00-26:00; We 12:00-14:00 off "Not open because we are too tired"": [1m[32mPASSED[39m[22m
 "Additional comments for closed with time ranges spanning midnight" for "22:00-26:00; We 12:00-14:00 closed "Not open because we are too tired"": [1m[32mPASSED[39m[22m
 "Additional comments combined with additional blocks" for "Mo 12:00-14:00 open "female only", Mo 14:00-16:00 open "male only"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00-14:00 open "female only", Mo  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo 12:00-14:00 open "female only", Mo 14:00-16:00  <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo 12:00-14:00 open "female only", Mo 14:00-16:00 open  <--- (You have used 2 state keywords in one rule. You may only use one in one rule. Rules can be separated by ";".)
+	*Mo 12:00-14:00 open "female only", Mo 14:00-16:00 open "male only" <--- (You have used 2 comments in one rule. You may only use one in one rule. Rules can be separated by ";".)
 "Additional comments combined with months" for "Apr-Sep; Oct-Dec "on request"": [1m[32mPASSED[39m[22m
 "Additional comments combined with months" for "Oct-Dec "on request"; Apr-Sep": [1m[32mPASSED[39m[22m
 "Complex example used in README" for "open; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off": [1m[32mPASSED[39m[22m
@@ -476,6 +602,9 @@ expected:
 "Complex example used in README and benchmark" for "Mo,Tu,Th,Fr 12:00-18:00; Sa 12:00-17:00; Th[3] off; Th[-1] off": [1m[32mPASSED[39m[22m
 "Complex example used in README and benchmark" for "Mo,Tu,Th,Fr 12:00-18:00; Sa 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 "Warnings corrected to additional block (real world example)" for "Mo-Fr 09:00-12:00, Mo,Tu,Th 15:00-18:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Fr 09:00-12:00, Mo,Tu,Th  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo-Fr 09:00-12:00, Mo,Tu,Th 15:00-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Warnings corrected to additional block (real world example)" for "Mo – Fr: 9 – 12 Uhr und Mo, Di, Do: 15 – 18 Uhr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo – <--- (Please use notation "-" for "–" (Although using "–" is typographical correct, the opening_hours syntax is defined with the normal hyphen. Correct typography should be done on application level …)
@@ -490,7 +619,13 @@ With [1m[34mwarnings[39m[22m:
 	*Mo – Fr: 9 – 12 Uhr  <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
 	*Mo – Fr: 9 – 12 Uhr und Mo, Di, Do:  <--- (Please don’t use ":" after weekday.)
 	*Mo – Fr: 9 – 12 Uhr und Mo, Di, Do: 15 – 18 Uhr <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
+	*Mo – Fr: 9 – 12 Uhr und Mo, Di, Do:  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo – Fr: 9 – 12 Uhr und Mo, Di, Do: 15 – 18 Uhr <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Real world example: Was not processed right." for "Mo off, Tu 14:00-18:00, We-Sa 10:00-18:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo off, Tu 14:00-18:00, We-Sa  <--- (You have used 3 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo off, Tu 14:00-18:00,  <--- (You have used 2 not connected rule separator ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo off, Tu 14:00-18:00, We-Sa 10:00-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Real world example: Was not processed right." for "Mo: geschlossen, Di: 14-18Uhr, Mi-Sa: 10-18Uhr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo: geschlossen <--- (Bitte benutze "off" für "geschlossen". Beispiel: "Mo-Fr 08:00-12:00; Tu off")
@@ -503,6 +638,9 @@ With [1m[34mwarnings[39m[22m:
 	*Mo: geschlossen, Di: 14-18Uhr <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
 	*Mo: geschlossen, Di: 14-18Uhr, Mi-Sa:  <--- (Please don’t use ":" after weekday.)
 	*Mo: geschlossen, Di: 14-18Uhr, Mi-Sa: 10-18Uhr <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
+	*Mo: geschlossen, Di: 14-18Uhr, Mi-Sa:  <--- (You have used 3 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo: geschlossen, Di: 14-18Uhr,  <--- (You have used 2 not connected rule separator ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo: geschlossen, Di: 14-18Uhr, Mi-Sa: 10-18Uhr <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Real world example: Was not processed right." for "Mo off; Tu 14:00-18:00; We-Sa 10:00-18:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right (month range/monthday range)" for "Aug,Dec 25-easter": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right (month range/monthday range)" for "Jun 15-Sep 15; Sep 16-Dec 31; Jan-Mar off; Dec 25-easter off": [1m[32mPASSED[39m[22m
@@ -515,7 +653,13 @@ With [1m[34mwarnings[39m[22m:
 "Real world example: Was not processed right." for "Jun 15-Sep 15: Th-Su 16:00-19:00; Sep 16-Dec 31: Sa,Su 16:00-19:00; Jan,Feb,Mar off; Dec 25,easter off": [1m[32mPASSED[39m[22m
 "Based on real world example: Is processed right." for "Nov-Dec Sa,Su 16:00-19:00; Dec 22 off": [1m[32mPASSED[39m[22m
 "Based on real world example: Is processed right." for "May-Sep: 00:00-24:00, Apr-Oct: Sa-Su 08:00-15:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*May-Sep: 00:00-24:00, Apr-Oct:  <--- (You have used 2 not connected months in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*May-Sep: 00:00-24:00, Apr-Oct: Sa-Su 08:00-15:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Based on real world example: Is processed right." for "Apr-Oct: Sa-Su 08:00-15:00, May-Sep: 00:00-24:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Apr-Oct: Sa-Su 08:00-15:00, May-Sep:  <--- (You have used 2 not connected months in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Apr-Oct: Sa-Su 08:00-15:00, May-Sep: 00:00-24:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Based on real world example: Is processed right." for "Apr-Oct: Sa-Su 08:00-15:00; May-Sep: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right." for "Mo-Fr 07:00-19:30; Sa-Su 08:00-19:30; 19:30-21:00 open "No new laundry loads in"; Nov Th[4] off; Dec 25 off": [1m[32mPASSED[39m[22m
 "Variable events" for "easter": [1m[32mPASSED[39m[22m
@@ -527,11 +671,17 @@ With [1m[34mwarnings[39m[22m:
 "Calculations based on variable events" for "easter -2 days-easter +2 days: open "Around easter"": [1m[32mPASSED[39m[22m
 "Calculations based on variable events" for "easter -2 days-easter +2 days open "Around easter"": [1m[32mPASSED[39m[22m
 "Additional blocks with comment" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Fr 08:00-12:00, Fr  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Fr 08:00-12:00, Fr 12:00-16:00  <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Additional blocks with comment" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
+"Interpetation of points im time" for "12:00": [1m[35mCRASHED[39m[22m, reason: 12:00 <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
+"Interpetation of points im time" for "Mo-Fr 12:00": [1m[35mCRASHED[39m[22m, reason: Mo-Fr 12:00 <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
 "Points in time, mode 1" for "Mo 12:00,15:00; Tu-Fr 14:00": [1m[32mPASSED[39m[22m
 "Points in time, mode 1" for "Mo sunrise,sunset": [1m[32mPASSED[39m[22m
 "Points in time with month, mode 1" for "Apr 08:00": [1m[32mPASSED[39m[22m
 "Points in time with month, mode 1" for "Apr: 08:00": [1m[32mPASSED[39m[22m
+"Points in time with month, mode 1" for "Apr. 08:00": [1m[32mPASSED[39m[22m
 "Points in time, mode 2" for "Mo sunrise,sunset": [1m[32mPASSED[39m[22m
 "Points in time, mode 2" for "Mo (sunrise+01:00)": [1m[32mPASSED[39m[22m
 "Points in time and times ranges, mode 2" for "Mo 12:00,13:00-14:00": [1m[32mPASSED[39m[22m
@@ -544,7 +694,19 @@ With [1m[34mwarnings[39m[22m:
 "Points in time, period times time wrap" for "Mo-Fr 22:00-03:00/01:00": [1m[32mPASSED[39m[22m
 "Points in time, period times with variable times" for "Mo-Fr sunrise-(sunset-02:00)/120": [1m[32mPASSED[39m[22m
 "Points in time, period times (real world example)" for "Sa 08:00,09:00,10:00,11:00,12:00,13:00,14:00, Mo-Fr 15:00,16:00,17:00,18:00,19:00,20:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Sa 08:00,09:00,10:00,11:00,12:00,13:00,14:00, Mo-Fr  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Sa 08:00,09:00,10:00,11:00,12:00,13:00,14:00, Mo-Fr 15:00,16:00,17:00,18:00,19:00,20:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Points in time, period times (real world example)" for "Mo-Fr 15:00-20:00/60; Sa 08:00-14:00/60": [1m[32mPASSED[39m[22m
+"Additional comments for unknown" for "Mo open "comment"; "I don’t know how to express easter": off": [1m[31mFAILED[39m[22m, bad duration(s): 0,604800000, expected 0,7200000, bad intervals: 
+[ '2012.10.01 00:00', '2012.10.08 00:00', true,  'I don’t know how to express easter' ],
+expected:
+(none), bad prettified value: "Mo open "comment"; off "I don’t know how to express easter":", expected either value or "Mo open "comment"; "I don’t know how to express easter": off,not implemented yet"
+With [1m[34mwarnings[39m[22m:
+	*Mo open "comment"; "I don’t know how to express easter": <--- (The selector "comment" was switched with the selector "state" for readablitity and compatibiltity reasons.)
+	*Mo open "comment"; "I don’t know how to express easter": off <--- (The selector "state" was switched with the selector "comment" for readablitity and compatibiltity reasons.)
+"Calculations based on month range" for "Mar Su[-1] - Dec 25-Su-28 days: 12:00-13:00": [1m[35mCRASHED[39m[22m, reason: Mar Su[-1] - Dec 25- <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) 
+"Calculations based on month range" for "Mo-Fr 09:00-12:30; Sa 09:00-13:00; Dec 25-Su-28 days - Dec 24: Mo-Fr 09:00-16:00,Sa 09:00-16:00": [1m[35mCRASHED[39m[22m, reason: Mo-Fr 09:00-12:30; Sa 09:00-13:00; Dec 25- <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) 
 "Error tolerance: case and whitespace" for "Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 "Error tolerance: case and whitespace" for "   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00	Off  ": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -703,13 +865,13 @@ With [1m[34mwarnings[39m[22m:
 	*Mo:  <--- (Please don’t use ":" after weekday.)
 With [1m[34mwarnings[39m[22m:
 	*Mo-Do <--- (Bitte benutze die englische Abkürzung "Th" für "do".)
-	*Mo-Do 8:30-20:00 Fr 8:29-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*Mo-Do 8:30-20:00 Fr  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo-Do 8:30-20:00 Fr 8:29-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-Do 8:30-20:00 Fr 8:29-18:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Do <--- (Bitte benutze die englische Abkürzung "Th" für "do".)
-	*Mo-Do 8:30-20:00 Fr 8:29-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*Mo-Do 8:30-20:00 Fr  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
+	*Mo-Do 8:30-20:00 Fr 8:29-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 With [1m[34mwarnings[39m[22m:
 	*Mo 12:00-14:00 16:00-18:00 20:00-22:00 <--- (You have used 3 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo 12:00-14:00 16:00-18:00 20:00-22:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
@@ -863,9 +1025,105 @@ With [1m[34mwarnings[39m[22m:
 	*12:00-14:00 оff <--- (Please use notation "off" for "оff". Those characters look very similar but are not the same!)
 With [1m[34mwarnings[39m[22m:
 	*Sa 2 <--- (The number 2200 will be interpreted as year. This is probably not intended. Times can be specified as "12:00".)
+	*Sa <--- (The selector "weekday" was switched with the selector "year" for readablitity and compatibiltity reasons.)
+	*Sa 2200 <--- (The selector "year" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
 "Value not ideal (probably wrong). Should throw a warning." for "Sa 2200; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Sa 2 <--- (The number 2200 will be interpreted as year. This is probably not intended. Times can be specified as "12:00".)
+	*Sa <--- (The selector "weekday" was switched with the selector "year" for readablitity and compatibiltity reasons.)
+	*Sa 2200 <--- (The selector "year" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
+With [1m[34mwarnings[39m[22m:
+	*Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*Feb week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+"Value not ideal (probably wrong). Should throw a warning." for "Feb week 6": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*Feb week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+With [1m[34mwarnings[39m[22m:
+	*00:00-24:00 <--- (The selector "time" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+"Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*00:00-24:00 <--- (The selector "time" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+With [1m[34mwarnings[39m[22m:
+	*week 6 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*week 6 00:00-24:00 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+"Value not ideal (probably wrong). Should throw a warning." for "week 6 00:00-24:00 Feb": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*week 6 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*week 6 00:00-24:00 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+With [1m[34mwarnings[39m[22m:
+	*Mo-Su <--- (The selector "weekday" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*Mo-Su week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*Mo-Su week 6 Feb <--- (The selector "month" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
+"Value not ideal (probably wrong). Should throw a warning." for "Mo-Su week 6 Feb 00:00-24:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Su <--- (The selector "weekday" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*Mo-Su week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*Mo-Su week 6 Feb <--- (The selector "month" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
+With [1m[34mwarnings[39m[22m:
+	*00:00-24:00 <--- (The selector "time" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 Mo-Su <--- (The selector "weekday" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 Mo-Su week 6 <--- (The selector "week" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 Mo-Su week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+"Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 Mo-Su week 6 Feb": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*00:00-24:00 <--- (The selector "time" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 Mo-Su <--- (The selector "weekday" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 Mo-Su week 6 <--- (The selector "week" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 Mo-Su week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+With [1m[34mwarnings[39m[22m:
+	*00:00-24:00 <--- (The selector "time" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 week 6 Mo-Su Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+"Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 week 6 Mo-Su Feb": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*00:00-24:00 <--- (The selector "time" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 week 6 Mo-Su Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+With [1m[34mwarnings[39m[22m:
+	*Mo-Su <--- (The selector "weekday" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*Mo-Su 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*Mo-Su 00:00-24:00 week 6 <--- (The selector "week" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
+	*Mo-Su 00:00-24:00 week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+"Value not ideal (probably wrong). Should throw a warning." for "Mo-Su 00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Su <--- (The selector "weekday" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*Mo-Su 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*Mo-Su 00:00-24:00 week 6 <--- (The selector "week" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
+	*Mo-Su 00:00-24:00 week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+With [1m[34mwarnings[39m[22m:
+	*2012 00:00-24:00 <--- (The selector "time" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*2012 00:00-24:00 week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*2012 00:00-24:00 week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+"Value not ideal (probably wrong). Should throw a warning." for "2012 00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*2012 00:00-24:00 <--- (The selector "time" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*2012 00:00-24:00 week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*2012 00:00-24:00 week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+With [1m[34mwarnings[39m[22m:
+	*00:00-24:00 <--- (The selector "time" was switched with the selector "year" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 2012 <--- (The selector "year" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 2012 week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 2012 week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+"Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 2012 week 6 Feb": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*00:00-24:00 <--- (The selector "time" was switched with the selector "year" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 2012 <--- (The selector "year" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 2012 week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+	*00:00-24:00 2012 week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+With [1m[34mwarnings[39m[22m:
+	*week 6 <--- (The selector "week" was switched with the selector "year" for readablitity and compatibiltity reasons.)
+	*week 6 Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*week 6 Feb 2012-2014 <--- (The selector "year" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+"Value not ideal (probably wrong). Should throw a warning." for "week 6 Feb 2012-2014": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*week 6 <--- (The selector "week" was switched with the selector "year" for readablitity and compatibiltity reasons.)
+	*week 6 Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
+	*week 6 Feb 2012-2014 <--- (The selector "year" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 "Incorrect syntax which should throw an error" for "sdasdlasdj a3reaw": [1m[32mPASSED[39m[22m
 sd <--- (Unexpected token: "s" This means that the syntax is not valid at that point or it is currently not supported.) sdasdlasdj a3reaw <--- (Assuming "We" for "w")
 
@@ -895,6 +1153,15 @@ Mo[2] -  <--- (Unexpected token: "-" This means that the syntax is not valid at 
 
 "Incorrect syntax which should throw an error" for "week :2-54 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 week : <--- (Unexpected token in week range: timesep)
+
+"Incorrect syntax which should throw an error" for "week week": [1m[32mPASSED[39m[22m
+week week <--- (Unexpected token in week range: week)
+
+"Incorrect syntax which should throw an error" for "week week 5": [1m[32mPASSED[39m[22m
+week week  <--- (Unexpected token in week range: week)
+
+"Incorrect syntax which should throw an error" for "week week 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+week week  <--- (Unexpected token in week range: week)
 
 "Incorrect syntax which should throw an error" for "week 2-54 00:00-24:00:; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 week 2-54 00:00-24:00: <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
@@ -1109,6 +1376,15 @@ Tu 23:59-48:00+ <--- (Time spanning more than two midnights not supported)
 "Incorrect syntax which should throw an error" for ""testing«; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 "testing«; 00:23-00:42 unknown "wa <--- (Unexpected token: "w" This means that the syntax is not valid at that point or it is currently not supported.) "testing«; 00:23-00:42 unknown "warning at correct position <--- (Please use the English abbreviation "Su" for "n".); "testing«; 00:23-00:42 unknown "warning at correct position? <--- (You can use notation "unknown "please add this if known"" for "?" temporally if the syntax will still be valid.)
 
+"Incorrect syntax which should throw an error" for " || open; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+ || <--- (Rule before fallback rule does not contain anything useful)
+
+"Incorrect syntax which should throw an error" for "|| open; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+|| <--- (Rule before fallback rule does not contain anything useful)
+
+"Incorrect syntax which should throw an error" for " ; open; 00:23-00:42 unknown "warning at correct position?"": [1m[31mFAILED[39m[22m
+"Incorrect syntax which should throw an error" for "; open; 00:23-00:42 unknown "warning at correct position?"": [1m[31mFAILED[39m[22m
+"Incorrect syntax which should throw an error" for ";;; open; 00:23-00:42 unknown "warning at correct position?"": [1m[31mFAILED[39m[22m
 "Missing information (e.g. country or holidays not defined in this lib)" for "PH": [1m[32mPASSED[39m[22m
 Country code missing which is needed to select the correct holidays (see README how to provide it)
 
@@ -1232,4 +1508,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-581/589 tests passed
+591/613 tests passed

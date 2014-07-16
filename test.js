@@ -454,7 +454,7 @@ test.addTest('Variable times which moves over fix end time', [
 
 test.addTest('Variable times spanning midnight', [
 		'sunset-sunrise',
-		'sunset-sunrise Mo-Su',
+		'Mo-Su sunset-sunrise',
 	], '2012.10.01 0:00', '2012.10.03 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 07:22' ],
 		[ '2012.10.01 19:00', '2012.10.02 07:23' ],
@@ -463,10 +463,10 @@ test.addTest('Variable times spanning midnight', [
 
 test.addTest('Variable times spanning midnight', [
 		'sunset-sunrise',
-		'sunset-sunrise Mo-Su',
+		'Mo-Su sunset-sunrise',
 		// '19:00-07:22 Mo-Su', // also works but is week stable
-		'sunset-07:22 Mo-Su',
-		'19:00-sunrise Mo-Su',
+		'Mo-Su sunset-07:22',
+		'Mo-Su 19:00-sunrise',
 	], '2012.10.01 0:00', '2012.10.02 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 07:22' ],
 		[ '2012.10.01 19:00', '2012.10.02 00:00' ],
@@ -725,6 +725,7 @@ test.addTest('Full range', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
 	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
 
+// FIXME "use it" ...
 test.addTest('24/7 as time interval alias (don’t use it 24/7 as showen here)', [
 		'Mo,We 24/7', // throws a warning, use one of the next values instead
 		'Mo,We open', // preferred because more explicit
@@ -733,7 +734,7 @@ test.addTest('24/7 as time interval alias (don’t use it 24/7 as showen here)',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.02 0:00' ],
 		[ '2012.10.03 0:00', '2012.10.04 0:00' ],
-	], 1000 * 60 * 60 * 24 * 2, 0, true);
+	], 1000 * 60 * 60 * 24 * 2, 0, true, {}, 'not last test');
 // }}}
 
 // constrained weekdays {{{
@@ -871,7 +872,7 @@ test.addTest('Fallback group blocks (unknown)', [
 	], 1000 * 60 * 60 * 14 * 3, 1000 * 60 * 60 * (10 * 3 + 24 * (2 + 2)), true, {}, 'not last test');
 
 test.addTest('Fallback group blocks (unknown). Example for the tokenizer documentation.', [
-		'We-Fr 10:00-24:00 open "it is open" || 2012 "please call"; Jan 1 open "should never appear"',
+		'We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012 "please call"; Jan 1 open "should never appear"',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.03 10:00', true,  'please call' ],
 		[ '2012.10.03 10:00', '2012.10.04 00:00', false, 'it is open' ],
@@ -934,16 +935,18 @@ test.addTest('Fallback group blocks', [
 
 test.addTest('Fallback group blocks, with some closed times', [
 		'Mo,Tu,Th 09:00-12:00; Fr 14:00-17:30 || "Termine nach Vereinbarung"; We off',
+		'Mo-Th 09:00-12:00; '+'Fr 14:00-17:30 || "Termine nach Vereinbarung"; We off',
 	], '2013.10.01 0:00', '2013.10.08 0:00', [
 		[ '2013.10.01 00:00', '2013.10.01 09:00', true,  'Termine nach Vereinbarung' ], // 9
-		[ '2013.10.01 09:00', '2013.10.01 12:00' ],
+		[ '2013.10.01 09:00', '2013.10.01 12:00' ], // Tu
 		[ '2013.10.01 12:00', '2013.10.02 00:00', true,  'Termine nach Vereinbarung' ], // 12
+		// We off
 		[ '2013.10.03 00:00', '2013.10.03 09:00', true,  'Termine nach Vereinbarung' ], // 9
 		[ '2013.10.03 09:00', '2013.10.03 12:00' ],
 		[ '2013.10.03 12:00', '2013.10.04 14:00', true,  'Termine nach Vereinbarung' ], // 12 + 14
-		[ '2013.10.04 14:00', '2013.10.04 17:30' ],
+		[ '2013.10.04 14:00', '2013.10.04 17:30' ], // Fr
 		[ '2013.10.04 17:30', '2013.10.07 09:00', true,  'Termine nach Vereinbarung' ], // 2.5 + 4 + 24 * 2 + 9
-		[ '2013.10.07 09:00', '2013.10.07 12:00' ],
+		[ '2013.10.07 09:00', '2013.10.07 12:00' ], // Mo
 		[ '2013.10.07 12:00', '2013.10.08 00:00', true,  'Termine nach Vereinbarung' ], // 12
 	], 1000 * 60 * 60 * (3 * 3 + 3.5), 1000 * 60 * 60 * (9 + 12 + 9 + (12 + 14) + (2.5 + 4 + 24 * 2 + 9) + 12), true, {}, 'not last test');
 // }}}
@@ -1077,6 +1080,16 @@ test.addTest('Monthday ranges', [
 	], 1000 * 60 * 60 * 24 * 21, 0, false);
 
 test.addTest('Monthday ranges', [
+		'Jan 31-Feb 1,Aug 00:00-24:00', // FIXME: Also fails in 9f323b9d06720b6efffc7420023e746ff8f1b309.
+		'Jan 31-Feb 1,Aug: 00:00-24:00',
+		'Aug,Jan 31-Feb 1',
+		'Jan 31-Feb 1; Aug',
+	], '2012.01.01 0:00', '2013.01.01 0:00', [
+		[ '2012.01.31 00:00', '2012.02.02 00:00' ],
+		[ '2012.08.01 00:00', '2012.09.01 00:00' ],
+	], 1000 * 60 * 60 * 24 * (2 + 31), 0, false, {}, 'not last test');
+
+test.addTest('Monthday ranges', [
 		ignored('Jan 23,25'), // must be expressed as Jan 23,Jan 25
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 	], 1000 * 60 * 60 * 24 * 21, 0, false, {}, 'not last test');
@@ -1091,7 +1104,7 @@ test.addTest('Monthday ranges', [
 	], 1000 * 60 * 60 * (4 * 2), 0, false, {}, 'not last test');
 
 test.addTest('Monthday ranges (with year)', [
-		'2012 Jan 23-31 00:00-24:00; Feb 1-12 00:00-24:00 2012',
+		'2012 Jan 23-31 00:00-24:00; 2012 Feb 1-12 00:00-24:00',
 	], '2012.01.01 0:00', '2015.01.01 0:00', [
 		[ '2012.01.23 0:00', '2012.02.13 00:00' ],
 	], 1000 * 60 * 60 * 24 * 21, 0, false, {}, 'not last test');
@@ -1322,7 +1335,7 @@ test.addTest('Selector combination', [
 		'week 3 Jan 11',        // week + monthday
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.11 0:00', '2012.01.12 00:00' ],
-	], 1000 * 60 * 60 * 24, 0, false);
+	], 1000 * 60 * 60 * 24, 0, false, {}, 'not last test');
 
 test.addTest('Selector combination', [
 		'week 3 Jan',           // week + month
@@ -1346,32 +1359,32 @@ test.addTest('Selector combination', [
 test.addTest('Selector order', [
 		// Result should not depend on selector order although there are some best practices:
 		// Use the selector types which can cover the biggest range first e.g. year before month.
-		'Feb week 6',
+		ignored('Feb week 6', 'prettifyValue'),
 		'week 6 Feb',
-		'00:00-24:00 week 6 Feb',
-		'week 6 00:00-24:00 Feb',
+		ignored('00:00-24:00 week 6 Feb', 'prettifyValue'),
+		ignored('week 6 00:00-24:00 Feb', 'prettifyValue'),
 		'week 6 Feb 00:00-24:00',
 		'week 6 Feb: 00:00-24:00',
 		'week 6 Feb Mo-Su 00:00-24:00',
-		'Mo-Su week 6 Feb 00:00-24:00',
-		'00:00-24:00 Mo-Su week 6 Feb',
-		'00:00-24:00 week 6 Mo-Su Feb',
-		'Mo-Su 00:00-24:00 week 6 Feb',
-		'2012 00:00-24:00 week 6 Feb',
-		'00:00-24:00 2012 week 6 Feb',
-		'week 6 Feb 2012-2014',
+		ignored('Mo-Su week 6 Feb 00:00-24:00', 'prettifyValue'),
+		ignored('00:00-24:00 Mo-Su week 6 Feb', 'prettifyValue'),
+		ignored('00:00-24:00 week 6 Mo-Su Feb', 'prettifyValue'),
+		ignored('Mo-Su 00:00-24:00 week 6 Feb', 'prettifyValue'),
+		ignored('2012 00:00-24:00 week 6 Feb', 'prettifyValue'),
+		ignored('00:00-24:00 2012 week 6 Feb', 'prettifyValue'),
+		ignored('week 6 Feb 2012-2014', 'prettifyValue'),
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.02.01 0:00', '2012.02.06 00:00' ],
-	], 1000 * 60 * 60 * 24 * 5, 0, false);
+	], 1000 * 60 * 60 * 24 * 5, 0, false, {}, 'not last test');
 
 test.addTest('Selector order', [
-		'Feb week 7',
+		ignored('Feb week 7', 'prettifyValue'),
 		'week 7 Feb',
 		'week 7 Feb open',
-		'open week 7 Feb', // not preferred
+		ignored('open week 7 Feb', 'prettifyValue'), // not preferred
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.02.06 0:00', '2012.02.13 00:00' ],
-	], 1000 * 60 * 60 * 24 * 7, 0, false);
+	], 1000 * 60 * 60 * 24 * 7, 0, false, {}, 'not last test');
 // }}}
 
 // comments {{{
@@ -1401,7 +1414,7 @@ test.addTest('Date overwriting with additional comments for unknown ', [
 		[ '2012.10.03 10:00', '2012.10.03 16:00', true, "Maybe open. Call us." ],
 		[ '2012.10.04 10:00', '2012.10.04 20:00', true, "Maybe" ],
 		[ '2012.10.05 10:00', '2012.10.05 20:00', true, "Maybe" ],
-	], 0, 1000 * 60 * 60 * (4 * 10 + 6), true);
+	], 0, 1000 * 60 * 60 * (4 * 10 + 6), true, {}, 'not last test');
 
 test.addTest('Additional comments with time ranges spanning midnight', [
 		'22:00-26:00; We 12:00-14:00 unknown "Maybe open. Call us."',
@@ -1787,6 +1800,7 @@ test.addTest('Points in time, mode 1', [
 test.addTest('Points in time with month, mode 1', [
 		'Apr 08:00',
 		'Apr: 08:00',
+		'Apr. 08:00', // FIXME: Dot is interpreted as colon.
 	], '2012.04.01 0:00', '2012.04.03 0:00', [
 		[ '2012.04.01 08:00', '2012.04.01 08:01' ],
 		[ '2012.04.02 08:00', '2012.04.02 08:01' ],
@@ -1864,6 +1878,7 @@ test.addTest('Points in time, period times with variable times', [
 		[ '2012.10.01 15:22', '2012.10.01 15:23' ],
 	], 1000 * 60 * 5, 0, false, nominatiomTestJSON, 'not last test', 1);
 
+// FIXME
 test.addTest('Points in time, period times (real world example)', [
 		'Sa 08:00,09:00,10:00,11:00,12:00,13:00,14:00, Mo-Fr 15:00,16:00,17:00,18:00,19:00,20:00',
 		'Mo-Fr 15:00-20:00/60; Sa 08:00-14:00/60', // Preferred because shorter and easier to read and maintain.
@@ -2022,10 +2037,10 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		// https://en.wikipedia.org/wiki/International_variation_in_quotation_marks
 		'"testing" "second comment"' + value_suffix, // ": valid in opening_hours syntax
 		'\'testing\'' + value_suffix,
-		'„testing"' + value_suffix, // Testing for development
-		'„testing“' + value_suffix, // valid German quote
-		'“testing”' + value_suffix, // valid English (and others) quote
-		'«testing»' + value_suffix, // https://en.wikipedia.org/wiki/Guillemet
+		'„testing"' + value_suffix,   // Testing for development
+		'„testing“' + value_suffix,   // valid German quote
+		'“testing”' + value_suffix,   // valid English (and others) quote
+		'«testing»' + value_suffix,   // https://en.wikipedia.org/wiki/Guillemet
 		'「testing」' + value_suffix, // valid Japanese quote
 		'『testing』' + value_suffix, // valid Japanese quote
 		'‚testing‘' + value_suffix,
@@ -2044,6 +2059,18 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'10:00am-12:00am,1:00pm-8:00pm' + value_suffix,
 		'12:00-14:00 оff' + value_suffix, // Russian o
 		'Sa 2200' + value_suffix, // Year (currently very unlikely but following the syntax specification it is a year) or wrong time?
+		// Values are the test cases from 'selector order' tests. {{{
+		'Feb week 6',
+		'00:00-24:00 week 6 Feb',
+		'week 6 00:00-24:00 Feb',
+		'Mo-Su week 6 Feb 00:00-24:00',
+		'00:00-24:00 Mo-Su week 6 Feb',
+		'00:00-24:00 week 6 Mo-Su Feb',
+		'Mo-Su 00:00-24:00 week 6 Feb',
+		'2012 00:00-24:00 week 6 Feb',
+		'00:00-24:00 2012 week 6 Feb',
+		'week 6 Feb 2012-2014',
+		// }}}
 	], {}, 'not last test');
 // }}}
 
@@ -2062,6 +2089,9 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		':week 2-54 00:00-24:00' + value_suffix,
 		':::week 2-54 00:00-24:00' + value_suffix,
 		'week :2-54 00:00-24:00' + value_suffix,
+		'week week',
+		'week week 5',
+		'week week 00:00-24:00' + value_suffix,
 		'week 2-54 00:00-24:00:' + value_suffix,
 		'week 2-54 00:00-24:00:::' + value_suffix,
 		'week 2-54 00::00-24:00' + value_suffix,
@@ -2133,9 +2163,14 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'』testing『' + value_suffix, // Garbage, no valid quotes what so ever.
 		'』testing「' + value_suffix, // Garbage, no valid quotes what so ever.
 		'』testing«' + value_suffix,  // Garbage, no valid quotes what so ever.
-		'』testing"' + value_suffix,  // Garbage, no valid quotes what so ever. There is a second comment in the value so they get combined.
-		'"testing«' + value_suffix,  // Garbage, no valid quotes what so ever.
-	], nominatiomTestJSON, 'not only test');
+		'』testing"' + value_suffix,  // Garbage, no valid quotes what so ever. There is a second comment in value_suffix so they get combined.
+		'"testing«' + value_suffix,   // Garbage, no valid quotes what so ever.
+		' || open' + value_suffix,
+		'|| open' + value_suffix,
+		' ; open' + value_suffix,
+		'; open' + value_suffix,
+		';;; open' + value_suffix,
+	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
 		'PH', // country is not specified
@@ -2390,21 +2425,30 @@ function opening_hours_test() {
 		var failed = false;
 		if (intervals_ok
 				&& duration_ok
-				&& prettify_ok
-				&& (weekstable_ok || ignored == 'check for week stable not implemented')) {
+				&& (prettify_ok   || ignored == 'prettifyValue')
+				&& (weekstable_ok || ignored == 'check for week stable not implemented')) { // replace 'check for week stable not implemented'.
 			str += 'PASSED'.passed;
 			if (ignored) {
 				if (ignored == 'check for week stable not implemented') {
 					str += ', ' + 'except'.ignored + ' weekstable which is ignored for now';
+				} else if (ignored == 'prettifyValue'){
+					str += ', ' + 'except'.ignored + ' prettifyValue';
+					if (prettify_ok)
+						str += ' Ignored bad passes!'
 				} else {
 					str += ', ' + 'also ignored, please unignore since the test passes!'.ignored;
+					if (weekstable_ok)
+						str += ' Ignored bad passes!'
 				}
 			}
 			passed = true;
 			console.log(str);
 			this.print_warnings(warnings);
-		} else if (ignored) {
+		} else if (ignored
+				&& ignored != 'prettifyValue'
+				&& ignored == 'check for week stable not implemented') {
 			str += 'IGNORED'.ignored + ', reason: ' + ignored;
+			console.warn(str);
 			passed = true;
 		} else if (crashed) {
 			str += 'CRASHED'.crashed + ', reason: ' + crashed;
@@ -2433,14 +2477,15 @@ function opening_hours_test() {
 		var name           = test_data_object[0],
 			value          = test_data_object[1],
 			point_in_time  = test_data_object[2],
-			matching_rule  = test_data_object[3],
+			expected_matching_rule  = test_data_object[3],
 			nominatiomJSON = test_data_object[4];
 		try {
 			// since they should fail anyway we can give them the nominatiomTestJSON
 			oh = new opening_hours(value, nominatiomJSON);
 			it = oh.getIterator(new Date(point_in_time));
 
-			var matching_rule_ok = it.getMatchingRule() == matching_rule;
+			var matching_rule = oh.prettifyValue(undefined, it.getMatchingRule());
+			var matching_rule_ok = matching_rule == expected_matching_rule;
 
 		var passed = false;
 
@@ -2461,7 +2506,7 @@ function opening_hours_test() {
 			console.error(str);
 		} else {
 			str += 'FAILED'.failed + ' for time ' + new Date(point_in_time);
-			str += ', bad matching rule: "' + it.getMatchingRule() + '", expected "' + matching_rule + '"';
+			str += ', bad matching rule: "' + matching_rule + '", expected "' + expected_matching_rule + '"';
 			console.warn(str);
 		}
 
@@ -2617,7 +2662,7 @@ function opening_hours_test() {
 	// }}}
 }
 
-// public helpers functions {{{
+// Public helper functions. {{{
 function ignored(value, reason) {
 	if (typeof reason === 'undefined')
 		reason = 'not implemented yet';
