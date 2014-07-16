@@ -1865,7 +1865,6 @@
 		var tokens = tokenize(value);
 		// console.log(JSON.stringify(tokens, null, '    '));
 		var prettified_value = '';
-		var used_subparsers = {}; // Used sub parsers for one block, will be reset for each block. Declared in global name space, because it is manipulation inside various sub parsers.
 		var week_stable = true;
 
 		var blocks = [];
@@ -2523,7 +2522,6 @@
 		 */
 		function parseGroup(tokens, at, selectors, nblock) {
 			var prettified_group_value = '';
-			used_subparsers = { 'time ranges': [ ] };
 
 			// console.log(tokens); // useful for debugging of tokenize
 			while (at < tokens.length) {
@@ -2579,7 +2577,6 @@
 						|| matchTokens(tokens, at, 'number', '-')) {
 					at = parseTimeRange(tokens, at, selectors, false);
 
-					used_subparsers['time ranges'].push(at);
 				} else if (matchTokens(tokens, at, 'state')) {
 
 					if (tokens[at][0] == 'open') {
@@ -2595,10 +2592,6 @@
 					if (typeof tokens[at] == 'object' && tokens[at][0] == ',') // additional block
 						at = [ at + 1 ];
 
-					if (typeof used_subparsers['state keywords'] != 'object')
-						used_subparsers['state keywords'] = [ at ];
-					else
-						used_subparsers['state keywords'].push(at);
 				} else if (matchTokens(tokens, at, 'comment')) {
 					selectors.comment = tokens[at][0];
 					if (at > 0) { // FIXME
@@ -3392,11 +3385,6 @@
 					break;
 			}
 
-			if (typeof used_subparsers['weekdays'] != 'object')
-				used_subparsers['weekdays'] = [ at ];
-			else
-				used_subparsers['weekdays'].push(at);
-
 			return at;
 		}
 		// }}}
@@ -3858,11 +3846,6 @@
 					break;
 			}
 
-			if (typeof used_subparsers['year ranges'] != 'object')
-				used_subparsers['year ranges'] = [ at ];
-			else
-				used_subparsers['year ranges'].push(at);
-
 			return at;
 		}
 		// }}}
@@ -3947,11 +3930,6 @@
 					// break;
 				// }
 			}
-
-			if (typeof used_subparsers['week ranges'] != 'object')
-				used_subparsers['week ranges'] = [ at ];
-			else
-				used_subparsers['week ranges'].push;
 
 			return at;
 		}
@@ -4039,11 +4017,6 @@
 				if (!matchTokens(tokens, at, ','))
 					break;
 			}
-
-			if (typeof used_subparsers['months'] != 'object')
-				used_subparsers['months'] = [ at ];
-			else
-				used_subparsers['months'].push(at);
 
 			return at;
 		}
@@ -4327,11 +4300,6 @@
 					break;
 			}
 
-			if (typeof used_subparsers['monthday ranges'] != 'object')
-				used_subparsers['monhday ranges'] = [ at ];
-			else
-				used_subparsers['monhday ranges'].push(at);
-
 			return at;
 		}
 		// }}}
@@ -4490,25 +4458,6 @@
 		 * :returns: Prettified value.
 		 */
 		function prettifySelector(tokens, selector_start, selector_end, selector_type, conf) {
-
-				// if (typeof conf != 'undefined') {
-					// // console.log('time ranges: ' + used_subparsers['time ranges']);
-					// // console.log('time: ' + used_subparsers['time']);
-
-					// // 'Mo: 12:00-13:00' -> 'Mo 12:00-13:00'
-					// if (selector_type == 'time' && old_at > 1 && tokens[old_at-1][0] == ':'
-							// && matchTokens(tokens, old_at - 2, 'weekday'))
-						// prettified_group_value = prettified_group_value.substring(0, prettified_group_value.length - 2) + ' ';
-
-					// // 'week 1, week 3' -> 'week 1,week 3'
-					// if (prettified_group_value.substr(prettified_group_value.length -2, 2) == ', '
-							// && matchTokens(tokens, old_at, 'week'))
-						// prettified_group_value = prettified_group_value.substring(0, prettified_group_value.length - 1);
-
-					// // prettified_group_value += prettifySelector(tokens, old_at, at, conf, sel);
-				// }
-
-			// prettified_value += prettified_group_value.replace(/\s+$/, '');
 
 			var value = '';
 			var at = selector_start;
