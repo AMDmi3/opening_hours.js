@@ -25,6 +25,7 @@ var resources = { // English is fallback language.
                 }
             },
             "texts": {
+                "title": "opening_hours evaluation tool",
                 "open always": "Facility is always open",
                 "unknown always": "Facility is always maybe open",
                 "closed always": "Facility is always closed in the (near) future",
@@ -266,6 +267,7 @@ var resources = { // English is fallback language.
                 }
             },
             "texts": {
+                "title": "opening_hours Auswertewerkzeug",
                 "open always": "Die Einrichtung hat immer geöffnet.",
                 "unknown always": "Die Öffnungszeit der Einrichtung ist immer unbekannt",
                 "closed always": "Die Einrichtung wird in (naher) Zukunft nicht wieder öffnen.",
