@@ -435,8 +435,8 @@
 					+ document.forms.check.elements['expression'].value + ']') + '\')">' + i18n.t('texts.load all with JOSM') + '</a><br />';
 				if (!crashed) {
 					var prettified = oh.prettifyValue();
-					var prettified_value_array = oh.prettifyValue(undefined, undefined, true);
-					var prettified_newline_sep = oh.prettifyValue({ rule_sep_string: '\n', print_semicolon: false });
+					var prettified_value_array = oh.prettifyValue({ get_all: true });
+					var prettified_newline_sep = oh.prettifyValue({ conf: { rule_sep_string: '\n', print_semicolon: false } });
 					show_results.innerHTML = '<p>' + i18n.t('words.status') + ':<br />'
 						+ '<input size="10" name="status" readonly="readonly" />'
 						+ '<input size="60" name="comment" readonly="readonly" />'
@@ -448,7 +448,7 @@
 					var value_explanation =
 						i18n.t('texts.prettified value for displaying') + ':<br />'
 						+ '<p class="value_explanation">';
-					// console.log(JSON.stringify(prettified_value_array, null, '    '));
+					console.log(JSON.stringify(prettified_value_array, null, '    '));
 					// console.log(JSON.stringify(prettified_value_array, null, '    '));
 					for (var nrule = 0; nrule < prettified_value_array[0].length; nrule++) {
 						if (nrule != 0) {
@@ -506,7 +506,7 @@
 						: (it.getUnknown() ? i18n.t('words.unknown') : i18n.t('words.closed')));
 					var rule_index    = it.getMatchingRule();
 					document.forms.check.elements['MatchingRule'].value = typeof rule_index == 'undefined'
-						? i18n.t('words.none') : oh.prettifyValue(undefined, rule_index);
+						? i18n.t('words.none') : oh.prettifyValue({ 'rule_index': rule_index });
 
 					if (prettified != value) {
 						show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.prettified value',

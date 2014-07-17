@@ -48,7 +48,7 @@ function opening_hours_object(value) {
         result.rule_index    = oh.getMatchingRule();
         result.matching_rule = typeof result.rule_index == 'undefined'
             ? undefined
-            : oh.prettifyValue(undefined, result.rule_index);
+            : oh.prettifyValue({ 'rule_index': result.rule_index });
         result.prettified    = oh.prettifyValue();
         result.week_stable   = oh.isWeekStable();
     }

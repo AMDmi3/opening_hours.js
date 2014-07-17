@@ -2488,7 +2488,7 @@ function opening_hours_test() {
 			oh = new opening_hours(value, nominatiomJSON);
 			it = oh.getIterator(new Date(point_in_time));
 
-			var matching_rule = oh.prettifyValue(undefined, it.getMatchingRule());
+			var matching_rule = oh.prettifyValue({ rule_index: it.getMatchingRule() });
 			var matching_rule_ok = matching_rule == expected_matching_rule;
 
 		var passed = false;
