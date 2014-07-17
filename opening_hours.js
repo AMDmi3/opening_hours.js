@@ -2413,9 +2413,8 @@
 					var selector_start_end_type = getSelectorRange(new_tokens[nrule][0], selector_start_end_type[1]);
 					// console.log(selector_start_end_type, new_tokens[nrule][0].length, count);
 
-					if (count > 10) {
-						console.log("infinite loop");
-						break;
+					if (count > 50) {
+						throw formatLibraryBugMessage('infinite loop');
 					}
 
 					if (selector_start_end_type[2] != 'rule separator') {
