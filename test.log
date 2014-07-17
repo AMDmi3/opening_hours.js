@@ -291,7 +291,7 @@ With [1m[34mwarnings[39m[22m:
 "Omitted time" for "Mo-We; Tu off": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight w/weekdays" for "We 22:00-02:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight w/weekdays" for "We 22:00-26:00": [1m[32mPASSED[39m[22m
-"Exception blocks" for "Mo-Fr 10:00-16:00; We 12:00-18:00": [1m[32mPASSED[39m[22m
+"Exception rules" for "Mo-Fr 10:00-16:00; We 12:00-18:00": [1m[32mPASSED[39m[22m
 "Full range" for "00:00-24:00": [1m[32mPASSED[39m[22m
 "Full range" for "Mo-Su 00:00-24:00": [1m[32mPASSED[39m[22m
 "Full range" for "Tu-Mo 00:00-24:00": [1m[32mPASSED[39m[22m
@@ -349,46 +349,46 @@ With [1m[34mwarnings[39m[22m:
 	*Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug Su[-1]:  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug Su[-1]: 10:00-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Constrained weekday (complex real world example)" for "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug Su[-1]: 10:00-18:00": [1m[31mFAILED[39m[22m, bad prettified value: "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug Su[-1] 10:00-18:00", expected either value or "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug Su[-1]: 10:00-18:00"
-"Additional blocks" for "Mo-Fr 10:00-16:00, We 12:00-18:00": [1m[32mPASSED[39m[22m
+"Additional rules" for "Mo-Fr 10:00-16:00, We 12:00-18:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Fr 10:00-16:00, We  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*Mo-Fr 10:00-16:00, We 12:00-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-"Additional blocks" for "Mo-Fr 10:00-16:00, We 12:00-18:00,": [1m[32mPASSED[39m[22m
+"Additional rules" for "Mo-Fr 10:00-16:00, We 12:00-18:00,": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Fr 10:00-16:00, We  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*Mo-Fr 10:00-16:00, We 12:00-18:00, <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-"Additional blocks" for "Mo-Fr 08:00-12:00, We 14:00-18:00": [1m[32mPASSED[39m[22m
+"Additional rules" for "Mo-Fr 08:00-12:00, We 14:00-18:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Fr 08:00-12:00, We  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*Mo-Fr 08:00-12:00, We 14:00-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-"Additional blocks" for "Mo-Fr 08:00-12:00, We 14:00-18:00, Su off": [1m[32mPASSED[39m[22m
+"Additional rules" for "Mo-Fr 08:00-12:00, We 14:00-18:00, Su off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Fr 08:00-12:00, We 14:00-18:00, Su  <--- (You have used 3 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*Mo-Fr 08:00-12:00, We 14:00-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*Mo-Fr 08:00-12:00, We 14:00-18:00,  <--- (You have used 2 not connected rule separator ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-"Fallback group blocks (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call"": [1m[32mPASSED[39m[22m
-"Fallback group blocks (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || closed "should never appear"": [1m[32mPASSED[39m[22m
-"Fallback group blocks (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || unknown "should never appear"": [1m[32mPASSED[39m[22m
-"Fallback group blocks (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || open "should never appear"": [1m[32mPASSED[39m[22m
-"Fallback group blocks (unknown). Example for the tokenizer documentation." for "We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012 "please call"; Jan 1 open "should never appear"": [1m[32mPASSED[39m[22m
+"Fallback group rules (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call"": [1m[32mPASSED[39m[22m
+"Fallback group rules (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || closed "should never appear"": [1m[32mPASSED[39m[22m
+"Fallback group rules (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || unknown "should never appear"": [1m[32mPASSED[39m[22m
+"Fallback group rules (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || open "should never appear"": [1m[32mPASSED[39m[22m
+"Fallback group rules (unknown). Example for the tokenizer documentation." for "We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012 "please call"; Jan 1 open "should never appear"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*We-Fr 10:00-24:00 open "it is open", Mo  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*We-Fr 10:00-24:00 open "it is open", Mo closed  <--- (You have used 2 state keywords in one rule. You may only use one in one rule. Rules can be separated by ";".)
 	*We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday."  <--- (You have used 2 comments in one rule. You may only use one in one rule. Rules can be separated by ";".)
-"Fallback group blocks" for "We-Fr 10:00-24:00 open "first" || We "please call" || open "we are open!!!"": [1m[32mPASSED[39m[22m
-"Fallback group blocks" for "Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00, PH off || Tu 06:00-06:00 open "Notdienst"": [1m[32mPASSED[39m[22m
+"Fallback group rules" for "We-Fr 10:00-24:00 open "first" || We "please call" || open "we are open!!!"": [1m[32mPASSED[39m[22m
+"Fallback group rules" for "Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00, PH off || Tu 06:00-06:00 open "Notdienst"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Fr 08:00-12:00,14:00-18:00, Sa  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00,  <--- (You have used 2 not connected rule separator ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-"Fallback group blocks" for "Mo-Fr 08:00-12:00,14:00-18:00; Sa 09:00-13:00; PH off || Tu 06:00-06:00 open "Notdienst"": [1m[32mPASSED[39m[22m
-"Fallback group blocks" for "Mo-Fr 08:00-11:00 || Th-Sa 12:00-13:00 open "Emergency only"": [1m[32mPASSED[39m[22m
-"Fallback group blocks" for "Mo-Fr 08:00-11:00, Th-Sa 12:00-13:00 open "Emergency only"": [1m[32mPASSED[39m[22m
+"Fallback group rules" for "Mo-Fr 08:00-12:00,14:00-18:00; Sa 09:00-13:00; PH off || Tu 06:00-06:00 open "Notdienst"": [1m[32mPASSED[39m[22m
+"Fallback group rules" for "Mo-Fr 08:00-11:00 || Th-Sa 12:00-13:00 open "Emergency only"": [1m[32mPASSED[39m[22m
+"Fallback group rules" for "Mo-Fr 08:00-11:00, Th-Sa 12:00-13:00 open "Emergency only"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Fr 08:00-11:00, Th-Sa  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*Mo-Fr 08:00-11:00, Th-Sa 12:00-13:00  <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-"Fallback group blocks, with some closed times" for "Mo,Tu,Th 09:00-12:00; Fr 14:00-17:30 || "Termine nach Vereinbarung"; We off": [1m[32mPASSED[39m[22m
-"Fallback group blocks, with some closed times" for "Mo-Th 09:00-12:00; Fr 14:00-17:30 || "Termine nach Vereinbarung"; We off": [1m[32mPASSED[39m[22m
+"Fallback group rules, with some closed times" for "Mo,Tu,Th 09:00-12:00; Fr 14:00-17:30 || "Termine nach Vereinbarung"; We off": [1m[32mPASSED[39m[22m
+"Fallback group rules, with some closed times" for "Mo-Th 09:00-12:00; Fr 14:00-17:30 || "Termine nach Vereinbarung"; We off": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 1,3 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 1,3 00:00-24:00 || closed "should not change the test result"": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 1,3: 00:00-24:00": [1m[32mPASSED[39m[22m
@@ -589,7 +589,7 @@ With [1m[34mwarnings[39m[22m:
 "Additional comments with time ranges spanning midnight" for "22:00-26:00; We 12:00-14:00 unknown "Maybe open. Call us."": [1m[32mPASSED[39m[22m
 "Additional comments for closed with time ranges spanning midnight" for "22:00-26:00; We 12:00-14:00 off "Not open because we are too tired"": [1m[32mPASSED[39m[22m
 "Additional comments for closed with time ranges spanning midnight" for "22:00-26:00; We 12:00-14:00 closed "Not open because we are too tired"": [1m[32mPASSED[39m[22m
-"Additional comments combined with additional blocks" for "Mo 12:00-14:00 open "female only", Mo 14:00-16:00 open "male only"": [1m[32mPASSED[39m[22m
+"Additional comments combined with additional rules" for "Mo 12:00-14:00 open "female only", Mo 14:00-16:00 open "male only"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo 12:00-14:00 open "female only", Mo  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*Mo 12:00-14:00 open "female only", Mo 14:00-16:00  <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
@@ -601,11 +601,11 @@ With [1m[34mwarnings[39m[22m:
 "Complex example used in README" for "00:00-24:00; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off": [1m[32mPASSED[39m[22m
 "Complex example used in README and benchmark" for "Mo,Tu,Th,Fr 12:00-18:00; Sa 12:00-17:00; Th[3] off; Th[-1] off": [1m[32mPASSED[39m[22m
 "Complex example used in README and benchmark" for "Mo,Tu,Th,Fr 12:00-18:00; Sa 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
-"Warnings corrected to additional block (real world example)" for "Mo-Fr 09:00-12:00, Mo,Tu,Th 15:00-18:00": [1m[32mPASSED[39m[22m
+"Warnings corrected to additional rule (real world example)" for "Mo-Fr 09:00-12:00, Mo,Tu,Th 15:00-18:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Fr 09:00-12:00, Mo,Tu,Th  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*Mo-Fr 09:00-12:00, Mo,Tu,Th 15:00-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-"Warnings corrected to additional block (real world example)" for "Mo – Fr: 9 – 12 Uhr und Mo, Di, Do: 15 – 18 Uhr": [1m[32mPASSED[39m[22m
+"Warnings corrected to additional rule (real world example)" for "Mo – Fr: 9 – 12 Uhr und Mo, Di, Do: 15 – 18 Uhr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo – <--- (Please use notation "-" for "–" (Although using "–" is typographical correct, the opening_hours syntax is defined with the normal hyphen. Correct typography should be done on application level …)
 	*Mo – Fr: 9 – <--- (Please use notation "-" for "–" (Although using "–" is typographical correct, the opening_hours syntax is defined with the normal hyphen. Correct typography should be done on application level …)
@@ -670,11 +670,11 @@ With [1m[34mwarnings[39m[22m:
 "Calculations based on variable events" for "2012 easter -2 days-2012 easter +2 days: open "Around easter"": [1m[32mPASSED[39m[22m
 "Calculations based on variable events" for "easter -2 days-easter +2 days: open "Around easter"": [1m[32mPASSED[39m[22m
 "Calculations based on variable events" for "easter -2 days-easter +2 days open "Around easter"": [1m[32mPASSED[39m[22m
-"Additional blocks with comment" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
+"Additional rules with comment" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Fr 08:00-12:00, Fr  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*Fr 08:00-12:00, Fr 12:00-16:00  <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-"Additional blocks with comment" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
+"Additional rules with comment" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Interpetation of points im time" for "12:00": [1m[35mCRASHED[39m[22m, reason: 12:00 <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
 "Interpetation of points im time" for "Mo-Fr 12:00": [1m[35mCRASHED[39m[22m, reason: Mo-Fr 12:00 <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
 "Points in time, mode 1" for "Mo 12:00,15:00; Tu-Fr 14:00": [1m[32mPASSED[39m[22m

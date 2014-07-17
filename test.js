@@ -682,7 +682,7 @@ test.addTest('Time ranges spanning midnight w/weekdays', [
 		[ '2012.10.03 22:00', '2012.10.04 02:00' ],
 	], 1000 * 60 * 60 * 4, 0, true);
 
-test.addTest('Exception blocks', [
+test.addTest('Exception rules', [
 		'Mo-Fr 10:00-16:00; We 12:00-18:00'
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 16:00' ],
@@ -830,8 +830,8 @@ test.addTest('Constrained weekday (complex real world example)', [
 	], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
 // }}}
 
-// additional blocks {{{
-test.addTest('Additional blocks', [
+// additional rules {{{
+test.addTest('Additional rules', [
 		'Mo-Fr 10:00-16:00, We 12:00-18:00',
 		'Mo-Fr 10:00-16:00, We 12:00-18:00,',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -842,7 +842,7 @@ test.addTest('Additional blocks', [
 		[ '2012.10.05 10:00', '2012.10.05 16:00' ],
 	], 1000 * 60 * 60 * (6 * 5 + 2), 0, true, {}, 'not last test');
 
-test.addTest('Additional blocks', [
+test.addTest('Additional rules', [
 		'Mo-Fr 08:00-12:00, We 14:00-18:00',
 		'Mo-Fr 08:00-12:00, We 14:00-18:00, Su off',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -855,8 +855,8 @@ test.addTest('Additional blocks', [
 	], 1000 * 60 * 60 * (5 * 4 + 4), 0, true, {}, 'not last test');
 // }}}
 
-// fallback blocks {{{
-test.addTest('Fallback group blocks (unknown)', [
+// fallback rules {{{
+test.addTest('Fallback group rules (unknown)', [
 		'We-Fr 10:00-24:00 open "it is open" || "please call"',
 		'We-Fr 10:00-24:00 open "it is open" || "please call" || closed "should never appear"',
 		'We-Fr 10:00-24:00 open "it is open" || "please call" || unknown "should never appear"',
@@ -871,7 +871,7 @@ test.addTest('Fallback group blocks (unknown)', [
 		[ '2012.10.06 00:00', '2012.10.08 00:00', true,  'please call' ],
 	], 1000 * 60 * 60 * 14 * 3, 1000 * 60 * 60 * (10 * 3 + 24 * (2 + 2)), true, {}, 'not last test');
 
-test.addTest('Fallback group blocks (unknown). Example for the tokenizer documentation.', [
+test.addTest('Fallback group rules (unknown). Example for the tokenizer documentation.', [
 		'We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012 "please call"; Jan 1 open "should never appear"',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.03 10:00', true,  'please call' ],
@@ -883,7 +883,7 @@ test.addTest('Fallback group blocks (unknown). Example for the tokenizer documen
 		[ '2012.10.06 00:00', '2012.10.08 00:00', true,  'please call' ],
 	], 1000 * 60 * 60 * 14 * 3, 1000 * 60 * 60 * (10 * 3 + 24 * (2 + 2)), false, {}, 'not only test');
 
-test.addTest('Fallback group blocks', [
+test.addTest('Fallback group rules', [
 		'We-Fr 10:00-24:00 open "first" || We "please call" || open "we are open!!!"',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.03 00:00', false, 'we are open!!!' ], // Mo,Tu
@@ -897,10 +897,10 @@ test.addTest('Fallback group blocks', [
 	], 1000 * 60 * 60 * (24 * 2 * 2 + 14 * 3 + 10 * 2), 1000 * 60 * 60 * 10, true, {}, 'not last test');
 
 // example from Netzwolf
-test.addTest('Fallback group blocks', [
+test.addTest('Fallback group rules', [
 		'Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00, PH off || Tu 06:00-06:00 open "Notdienst"', // Original value.
 		'Mo-Fr 08:00-12:00,14:00-18:00; Sa 09:00-13:00; PH off || Tu 06:00-06:00 open "Notdienst"', // Use this instead.
-		// Additional block is not needed.
+		// Additional rule is not needed.
 	], '2013.10.01 0:00', '2013.10.08 0:00', [
 		[ '2013.10.01 06:00', '2013.10.01 08:00', false, 'Notdienst' ], // Tu
 		[ '2013.10.01 08:00', '2013.10.01 12:00' ],
@@ -917,10 +917,10 @@ test.addTest('Fallback group blocks', [
 	], 1000 * 60 * 60 * ((4 * 8 + 4) + (2 + 2 + (6 + 6))), 0, false, nominatiomTestJSON, 'not last test');
 
 // example from Netzwolf
-test.addTest('Fallback group blocks', [
+test.addTest('Fallback group rules', [
 		'Mo-Fr 08:00-11:00 || Th-Sa 12:00-13:00 open "Emergency only"',
 		'Mo-Fr 08:00-11:00, Th-Sa 12:00-13:00 open "Emergency only"',
-		// Additional block does the same in this case because the second block (including the time range) does not overlap the first block.
+		// Additional rule does the same in this case because the second rule (including the time range) does not overlap the first rule.
 		// Both variants are valid.
 	], '2013.10.01 0:00', '2013.10.08 0:00', [
 		[ '2013.10.01 08:00', '2013.10.01 11:00' ],
@@ -933,7 +933,7 @@ test.addTest('Fallback group blocks', [
 		[ '2013.10.07 08:00', '2013.10.07 11:00' ],
 	], 1000 * 60 * 60 * (3 * 5 + 3 * 1), 0, true, nominatiomTestJSON, 'not last test');
 
-test.addTest('Fallback group blocks, with some closed times', [
+test.addTest('Fallback group rules, with some closed times', [
 		'Mo,Tu,Th 09:00-12:00; Fr 14:00-17:30 || "Termine nach Vereinbarung"; We off',
 		'Mo-Th 09:00-12:00; '+'Fr 14:00-17:30 || "Termine nach Vereinbarung"; We off',
 	], '2013.10.01 0:00', '2013.10.08 0:00', [
@@ -1444,7 +1444,7 @@ test.addTest('Additional comments for closed with time ranges spanning midnight'
 		[ '2012.10.07 22:00', '2012.10.08 00:00' ],
 	], 1000 * 60 * 60 * 4 * 7, 0, true, {}, 'not last test');
 
-test.addTest('Additional comments combined with additional blocks', [
+test.addTest('Additional comments combined with additional rules', [
 		'Mo 12:00-14:00 open "female only", Mo 14:00-16:00 open "male only"',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 12:00', '2012.10.01 14:00', false, 'female only' ],
@@ -1508,7 +1508,7 @@ test.addTest('Complex example used in README and benchmark', [
 		[ '2012.10.30 12:00', '2012.10.30 18:00' ],
 	], 1000 * 60 * 60 * (6 * 16 + 5 * 4), 0, false, {}, 'not last test');
 
-test.addTest('Warnings corrected to additional block (real world example)', [
+test.addTest('Warnings corrected to additional rule (real world example)', [
 		'Mo-Fr 09:00-12:00, Mo,Tu,Th 15:00-18:00', // reference value for prettify
 		'Mo – Fr: 9 – 12 Uhr und Mo, Di, Do: 15 – 18 Uhr',
 	], '2014.09.01 0:00', '2014.09.08 0:00', [
@@ -1752,10 +1752,10 @@ test.addTest('Calculations based on variable events', [
 	], 1000 * 60 * 60 * 24 * 4, 0, false, nominatiomTestJSON, 'not only test');
 // }}}
 
-// additional blocks {{{
+// additional rules {{{
 
 // for https://github.com/ypid/opening_hours.js/issues/16
-test.addTest('Additional blocks with comment', [
+test.addTest('Additional rules with comment', [
 		'Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"',
 		'Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"', // should mean the same
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -1903,7 +1903,7 @@ test.addTest('Points in time, period times (real world example)', [
 // currently not implemented {{{
 
 // proposed by Netzwolf: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#rule9
-// Currently not handled correctly. Could be interpreted as fallback block.
+// Currently not handled correctly. Could be interpreted as fallback rule.
 test.addTest('Additional comments for unknown', [
 		ignored('Mo open "comment"; "I don’t know how to express easter": off'),
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -2082,8 +2082,8 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'', // empty string
 		' ', // empty string
 		"\n", // newline
-		';', // only block delimiter
-		'||', // only block delimiter
+		';', // only rule delimiter
+		'||', // only rule delimiter
 		// '12:00-14:00 ||',
 		// }}}
 		'Mo[2] - 7 days' + value_suffix,

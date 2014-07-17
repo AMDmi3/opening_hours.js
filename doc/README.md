@@ -3,13 +3,9 @@
 ## Terminology
 
     Mo-Fr 10:00-11:00;  Th 10:00-12:00
-    \_____block_____/ \ \____block___/
+    \_____rule_____/  \ \____rule____/
                        \
-                        Rule separator (could also be "," or "||")
-
-The README refers to blocks as rules, which is more intuitive but less clear.
-Because of that only the README uses the term rule in that context.
-In all internal parts of this project, the term block is used.
+                        ";" Rule separator (could also be "," or "||")
 
     Jan Mo-Fr 10:00-11:00
     \_/ \___/ \_________/
@@ -17,8 +13,8 @@ In all internal parts of this project, the term block is used.
 
     Logic:
     - Tokenize
-    Foreach block:
-    - Run top-level (block) parser
+    Foreach rule:
+    - Run top-level (rule) parser
       - Which calls sub parser for specific selector types
         - Which produce selector functions
 
@@ -167,5 +163,4 @@ The most inner array represents one token. The first element of this array is th
 
 # ToDo
 
-* Replace word "block" with "rule" in documentation.
 * Make implementation of weekday and holiday interaction clearer.

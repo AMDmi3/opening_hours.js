@@ -14,6 +14,7 @@ test: opening_hours.js test.js
 diff-test: opening_hours.js test.js
 	git checkout HEAD -- test.log
 	# git checkout master -- test.log
+	# git checkout 9f323b9d06720b6efffc7420023e746ff8f1b309 -- test.log
 	-${NODE} test.js 1> test.log 2>&1
 	# git --no-pager diff --color-words test.log
 	git --no-pager diff test.log

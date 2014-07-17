@@ -1812,8 +1812,8 @@
 			'one_zero_if_hour_zero': false,  // only one zero "0" if hour is zero "0"
 			'leave_off_closed': true,        // leave keywords of and closed as is
 			'keyword_for_off_closed': 'off', // use given keyword instead of "off" or "closed"
-			'block_sep_string': ' ',         // separate blocks by string
-			'print_semicolon': true,         // print token which separates normal blocks
+			'rule_sep_string': ' ',          // separate rules by string
+			'print_semicolon': true,         // print token which separates normal rules
 			'leave_weekday_sep_one_day_betw': true, // use the separator (either "," or "-" which is used to separate days which follow to each other like Sa,Su or Su-Mo
 			'sep_one_day_between': ',' // separator which should be used
 		};
@@ -1859,7 +1859,7 @@
 		if (value.match(/^(?:\s*;?\s*)+$/))
 			throw 'Value contains nothing meaningful which can be parsed';
 
-		var parsing_warnings = []; // Elements are fed into function formatWarnErrorMessage(nblock, at, message)
+		var parsing_warnings = []; // Elements are fed into function formatWarnErrorMessage(nrule, at, message)
 		var done_with_warnings = false; // The functions which throw warnings can be called multiple times.
 		var done_with_selector_reordering = false;
 		var tokens = tokenize(value);
@@ -1867,18 +1867,18 @@
 		var prettified_value = '';
 		var week_stable = true;
 
-		var blocks = [];
+		var rules = [];
 		var new_tokens = new Array();
 
-		for (var nblock = 0; nblock < tokens.length; nblock++) {
-			if (tokens[nblock][0].length == 0) continue;
-			// Block does contain nothing useful e.g. second block of '10:00-12:00;' (empty) which needs to be handled.
+		for (var nrule = 0; nrule < tokens.length; nrule++) {
+			if (tokens[nrule][0].length == 0) continue;
+			// Rule does contain nothing useful e.g. second rule of '10:00-12:00;' (empty) which needs to be handled.
 
 			var continue_at = 0;
 			var next_rule_is_additional = false;
 			do {
-				if (continue_at == tokens[nblock][0].length) break;
-				// Additional block does contain nothing useful e.g. second block of '10:00-12:00,' (empty) which needs to be handled.
+				if (continue_at == tokens[nrule][0].length) break;
+				// Additional rule does contain nothing useful e.g. second rule of '10:00-12:00,' (empty) which needs to be handled.
 
 				var selectors = {
 					// Time selectors
@@ -1898,34 +1898,34 @@
 					// Array with non-empty date selector types, with most optimal ordering
 					date: [],
 
-					fallback: tokens[nblock][1],
+					fallback: tokens[nrule][1],
 					additional: continue_at ? true : false,
 					meaning: true,
 					unknown: false,
 					comment: undefined,
-					build_from_token_block: undefined,
+					build_from_token_rule: undefined,
 				};
 
-				selectors.build_from_token_block = [ nblock, continue_at, new_tokens.length ];
-				continue_at = parseGroup(tokens[nblock][0], continue_at, selectors, nblock);
+				selectors.build_from_token_rule = [ nrule, continue_at, new_tokens.length ];
+				continue_at = parseGroup(tokens[nrule][0], continue_at, selectors, nrule);
 				if (typeof continue_at == 'object') {
 					continue_at = continue_at[0];
 				} else {
 					continue_at = 0;
 				}
 
-				// console.log('Current tokens: ' + JSON.stringify(tokens[nblock], null, '    '));
+				// console.log('Current tokens: ' + JSON.stringify(tokens[nrule], null, '    '));
 
 				new_tokens.push(
 					[
-						tokens[nblock][0].slice(
-							selectors.build_from_token_block[1],
+						tokens[nrule][0].slice(
+							selectors.build_from_token_rule[1],
 							continue_at == 0
-								? last_token_at = tokens[nblock][0].length
+								? last_token_at = tokens[nrule][0].length
 								: continue_at
 						),
-						tokens[nblock][1],
-						tokens[nblock][2],
+						tokens[nrule][1],
+						tokens[nrule][2],
 					]
 				);
 
@@ -1950,10 +1950,10 @@
 					selectors.date.push(selectors.weekday);
 
 				// console.log('weekday: ' + JSON.stringify(selectors.weekday, null, '\t'));
-				blocks.push(selectors);
+				rules.push(selectors);
 
 				// This handles selectors with time ranges wrapping over midnight (e.g. 10:00-02:00)
-				// it generates wrappers for all selectors and creates a new block.
+				// it generates wrappers for all selectors and creates a new rule.
 				if (selectors.wraptime.length > 0) {
 					var wrapselectors = {
 						time: selectors.wraptime,
@@ -1975,7 +1975,7 @@
 						}
 					}
 
-					blocks.push(wrapselectors);
+					rules.push(wrapselectors);
 				}
 			} while (continue_at)
 		}
@@ -1985,37 +1985,37 @@
 
 		/* Format warning or error message for the user. {{{
 		 *
-		 * :param nblock: Block number starting with zero.
+		 * :param nrule: Rule number starting with zero.
 		 * :param at: Token position at which the issue occurred.
 		 * :param message: Human readable string with the message.
 		 * :returns: String with position of the warning or error marked for the user.
 		 */
-		function formatWarnErrorMessage(nblock, at, message) {
+		function formatWarnErrorMessage(nrule, at, message) {
 			var pos = 0;
-			if (nblock == -1) { // Usage of block index not required because we do have access to value.length.
+			if (nrule == -1) { // Usage of rule index not required because we do have access to value.length.
 				pos = value.length - at;
-			} else if (nblock == -2) {
+			} else if (nrule == -2) {
 				pos = at;
 			} else { // Issue accrued at a later time, position in string needs to be reconstructed.
-				if (typeof tokens[nblock][0][at] == 'undefined') {
+				if (typeof tokens[nrule][0][at] == 'undefined') {
 					// Given position is invalid.
 					console.warn('Bug in warning generation code which could not determine the exact position of the warning or error in string: '
 							+ '"' + value + '".');
 					pos = value.length;
-					if (typeof tokens[nblock][0][tokens[nblock][0].length - 1] != 'undefined') {
-						// Fallback: Point to last token in the block which caused the problem.
+					if (typeof tokens[nrule][0][tokens[nrule][0].length - 1] != 'undefined') {
+						// Fallback: Point to last token in the rule which caused the problem.
 						// Run real_test regularly to fix the problem before a user is confronted with it.
-						pos -= tokens[nblock][0][tokens[nblock][0].length - 1][2];
-						console.warn('Last token for block: ' + tokens[nblock][0][tokens[nblock][0].length - 1]);
+						pos -= tokens[nrule][0][tokens[nrule][0].length - 1][2];
+						console.warn('Last token for rule: ' + tokens[nrule][0][tokens[nrule][0].length - 1]);
 						console.log(value.substring(0, pos) + ' <--- (' + message + ')');
 						console.log('\n');
 					}
 				} else {
 					pos = value.length;
-					if (typeof tokens[nblock][0][at+1] != 'undefined') {
-						pos -= tokens[nblock][0][at+1][2];
-					} else if (typeof tokens[nblock][2] != 'undefined') {
-						pos -= tokens[nblock][2];
+					if (typeof tokens[nrule][0][at+1] != 'undefined') {
+						pos -= tokens[nrule][0][at+1][2];
+					} else if (typeof tokens[nrule][2] != 'undefined') {
+						pos -= tokens[nrule][2];
 					}
 				}
 			}
@@ -2050,28 +2050,28 @@
 		 */
 		function tokenize(value) {
 			var all_tokens        = new Array();
-			var curr_block_tokens = new Array();
+			var curr_rule_tokens = new Array();
 
-			var last_block_fallback_terminated = false;
+			var last_rule_fallback_terminated = false;
 
 			while (value != '') {
 				// console.log("Parsing value: " + value);
 				var tmp;
 				if (tmp = value.match(/^week\b/i)) {
 					// Reserved keywords.
-					curr_block_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase(), value.length ]);
+					curr_rule_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase(), value.length ]);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(?:off\b|closed\b|open\b|unknown\b)/i)) {
 					// Reserved keywords.
-					curr_block_tokens.push([tmp[0].toLowerCase(), 'state', value.length ]);
+					curr_rule_tokens.push([tmp[0].toLowerCase(), 'state', value.length ]);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^24\/7/i)) {
 					// Reserved keyword.
-					curr_block_tokens.push([tmp[0], tmp[0], value.length ]);
+					curr_rule_tokens.push([tmp[0], tmp[0], value.length ]);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(?:PH|SH)/i)) {
 					// special day name (holidays)
-					curr_block_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
+					curr_rule_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
 					value = value.substr(2);
 				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-late|(?:(?:one )?day before )?public holidays?|days?\b|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b|à|á)\.?/i)) {
 					// Handle all remaining words and specific other characters with error tolerance.
@@ -2082,36 +2082,36 @@
 					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
 					// console.log('Error tolerance for string "' + tmp[1] + '" returned "' + correct_val + '".');
 					if (typeof correct_val == 'object') {
-						curr_block_tokens.push([ correct_val[0], correct_val[1], value.length ]);
+						curr_rule_tokens.push([ correct_val[0], correct_val[1], value.length ]);
 						value = value.substr(tmp[0].length);
 					} else if (typeof correct_val == 'string') {
 						if (tmp[1].toLowerCase() == 'pm') {
-							var hours_token_at = curr_block_tokens.length - 1;
+							var hours_token_at = curr_rule_tokens.length - 1;
 							if (hours_token_at >= 0) {
 								if (hours_token_at -2 >= 0
 										&& matchTokens(
-											curr_block_tokens, hours_token_at - 2,
+											curr_rule_tokens, hours_token_at - 2,
 											'number', 'timesep', 'number'
 										)
 									) {
 									hours_token_at -= 2;
-									var hours_token = curr_block_tokens[hours_token_at];
-								} else if (matchTokens(curr_block_tokens, hours_token_at, 'number')) {
-									var hours_token = curr_block_tokens[hours_token_at];
+									var hours_token = curr_rule_tokens[hours_token_at];
+								} else if (matchTokens(curr_rule_tokens, hours_token_at, 'number')) {
+									var hours_token = curr_rule_tokens[hours_token_at];
 								}
 
 								if (typeof hours_token == 'object' && hours_token[0] <= 12) {
 									hours_token[0] += 12;
-									curr_block_tokens[hours_token_at] = hours_token;
+									curr_rule_tokens[hours_token_at] = hours_token;
 								}
 							}
 						}
 						correct_tokens = tokenize(correct_val)[0];
-						if (correct_tokens[1] == true) { // last_block_fallback_terminated
+						if (correct_tokens[1] == true) { // last_rule_fallback_terminated
 							throw formatLibraryBugMessage();
 						}
 						for (var i = 0; i < correct_tokens[0].length; i++) {
-							curr_block_tokens.push([correct_tokens[0][i][0], correct_tokens[0][i][1], value.length]);
+							curr_rule_tokens.push([correct_tokens[0][i][0], correct_tokens[0][i][1], value.length]);
 							// value.length - tmp[0].length does not have the desired effect for all test cases.
 						}
 
@@ -2120,27 +2120,27 @@
 						// Does not work because it would generate the wrong length for formatWarnErrorMessage.
 					} else {
 						// other single-character tokens
-						curr_block_tokens.push([value[0].toLowerCase(), value[0].toLowerCase(), value.length - 1 ]);
+						curr_rule_tokens.push([value[0].toLowerCase(), value[0].toLowerCase(), value.length - 1 ]);
 						value = value.substr(1);
 					}
 				} else if (tmp = value.match(/^\d+/)) {
 					// number
 					if (Number(tmp[0]) > 1900) { // Assumed to be a year number.
-						curr_block_tokens.push([tmp[0], 'year', value.length ]);
+						curr_rule_tokens.push([tmp[0], 'year', value.length ]);
 						if (Number(tmp[0]) >= 2100) // Probably an error
 							parsing_warnings.push([ -1, value.length - 1,
 								'The number ' + Number(tmp[0]) + ' will be interpreted as year.'
 								+ ' This is probably not intended. Times can be specified as "12:00".'
 							]);
 					} else {
-						curr_block_tokens.push([Number(tmp[0]), 'number', value.length ]);
+						curr_rule_tokens.push([Number(tmp[0]), 'number', value.length ]);
 					}
 
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^"([^"]+)"/)) {
 					// Comment following the specification.
 					// Any character is allowed inside the comment except " itself.
-					curr_block_tokens.push([tmp[1], 'comment', value.length ]);
+					curr_rule_tokens.push([tmp[1], 'comment', value.length ]);
 					value = value.substr(tmp[0].length);
 				} else if (tmp = value.match(/^(["'„“‚‘’«「『])([^"'“”‘’»」』;|]*)(["'”“‘’»」』])/)) {
 					// Comments with error tolerance.
@@ -2163,29 +2163,29 @@
 							);
 						}
 					}
-					curr_block_tokens.push([tmp[2], 'comment', value.length ]);
+					curr_rule_tokens.push([tmp[2], 'comment', value.length ]);
 					value = value.substr(tmp[0].length);
 				} else if (value.match(/^;/)) {
-					// semicolon terminates block
-					// next tokens belong to a new block
-					all_tokens.push([ curr_block_tokens, last_block_fallback_terminated, value.length ]);
+					// semicolon terminates rule
+					// next tokens belong to a new rule
+					all_tokens.push([ curr_rule_tokens, last_rule_fallback_terminated, value.length ]);
 					value = value.substr(1);
 
-					curr_block_tokens = [];
-					last_block_fallback_terminated = false;
+					curr_rule_tokens = [];
+					last_rule_fallback_terminated = false;
 				} else if (value.match(/^\|\|/)) {
-					// || terminates block
-					// Next tokens belong to a fallback block.
-					if (curr_block_tokens.length == 0)
+					// || terminates rule
+					// Next tokens belong to a fallback rule.
+					if (curr_rule_tokens.length == 0)
 						throw formatWarnErrorMessage(-1, value.length - 2, 'Rule before fallback rule does not contain anything useful');
 
-					all_tokens.push([ curr_block_tokens, last_block_fallback_terminated, value.length ]);
-					curr_block_tokens = [];
-					// curr_block_tokens = [ [ '||', 'rule separator', value.length  ] ];
+					all_tokens.push([ curr_rule_tokens, last_rule_fallback_terminated, value.length ]);
+					curr_rule_tokens = [];
+					// curr_rule_tokens = [ [ '||', 'rule separator', value.length  ] ];
 					// FIXME: Use this. Unknown bug needs to be solved in the process.
 					value = value.substr(2);
 
-					last_block_fallback_terminated = true;
+					last_rule_fallback_terminated = true;
 				} else if (value.match(/^(?:␣|\s)/)) {
 					// Using "␣" as space is not expected to be a normal
 					// mistake. Just ignore it to make using taginfo easier.
@@ -2197,16 +2197,16 @@
 					// time separator
 					if (value[0] == '.' && !done_with_warnings)
 						parsing_warnings.push([ -1, value.length - 1, 'Please use ":" as hour/minute-separator' ]);
-					curr_block_tokens.push([ ':', 'timesep', value.length ]);
+					curr_rule_tokens.push([ ':', 'timesep', value.length ]);
 					value = value.substr(1);
 				} else {
 					// other single-character tokens
-					curr_block_tokens.push([value[0].toLowerCase(), value[0].toLowerCase(), value.length ]);
+					curr_rule_tokens.push([value[0].toLowerCase(), value[0].toLowerCase(), value.length ]);
 					value = value.substr(1);
 				}
 			}
 
-			all_tokens.push([ curr_block_tokens, last_block_fallback_terminated ]);
+			all_tokens.push([ curr_rule_tokens, last_rule_fallback_terminated ]);
 
 			return all_tokens;
 		}
@@ -2279,44 +2279,44 @@
 				var used_selectors = [];
 				var has_token = {};
 
-				for (var nblock = 0; nblock < tokens.length; nblock++) {
-					if (tokens[nblock][0].length == 0) continue;
-					// Block does contain nothing useful e.g. second block of '10:00-12:00;' (empty) which needs to be handled.
+				for (var nrule = 0; nrule < tokens.length; nrule++) {
+					if (tokens[nrule][0].length == 0) continue;
+					// Rule does contain nothing useful e.g. second rule of '10:00-12:00;' (empty) which needs to be handled.
 
 					var selector_start_end_type = [ 0, 0, undefined ]
 						prettified_group_value = [];
-					// console.log(tokens[nblock][0]);
+					// console.log(tokens[nrule][0]);
 
-					used_selectors[nblock] = {};
+					used_selectors[nrule] = {};
 
 					do {
-						var selector_start_end_type = getSelectorRange(tokens[nblock][0], selector_start_end_type[1]);
-						// console.log(selector_start_end_type, tokens[nblock][0].length);
+						var selector_start_end_type = getSelectorRange(tokens[nrule][0], selector_start_end_type[1]);
+						// console.log(selector_start_end_type, tokens[nrule][0].length);
 
 						if (selector_start_end_type[0] == selector_start_end_type[1]
-							&& tokens[nblock][0][selector_start_end_type[0]][0] == '24/7'
+							&& tokens[nrule][0][selector_start_end_type[0]][0] == '24/7'
 								) {
 									has_token['24/7'] = true;
 						}
 
-						if (typeof used_selectors[nblock][selector_start_end_type[2]] != 'object') {
-							used_selectors[nblock][selector_start_end_type[2]] = [ selector_start_end_type[1] ];
+						if (typeof used_selectors[nrule][selector_start_end_type[2]] != 'object') {
+							used_selectors[nrule][selector_start_end_type[2]] = [ selector_start_end_type[1] ];
 						} else {
-							used_selectors[nblock][selector_start_end_type[2]].push(selector_start_end_type[1]);
+							used_selectors[nrule][selector_start_end_type[2]].push(selector_start_end_type[1]);
 						}
 
 						selector_start_end_type[1]++;
-					} while (selector_start_end_type[1] < tokens[nblock][0].length)
+					} while (selector_start_end_type[1] < tokens[nrule][0].length)
 				}
 				// console.log('used_selectors: ' + JSON.stringify(used_selectors, null, '    '));
 				// }}}
 
-				for (var nblock = 0; nblock < used_selectors.length; nblock++) {
-					for (var selector_type in used_selectors[nblock]) {
-						// console.log(selector_type + ' use at: ' + used_selectors[nblock][selector_type].length);
-						if (used_selectors[nblock][selector_type].length > 1) {
-							parsing_warnings.push([nblock, used_selectors[nblock][selector_type][used_selectors[nblock][selector_type].length - 1],
-									'You have used ' + used_selectors[nblock][selector_type].length
+				for (var nrule = 0; nrule < used_selectors.length; nrule++) {
+					for (var selector_type in used_selectors[nrule]) {
+						// console.log(selector_type + ' use at: ' + used_selectors[nrule][selector_type].length);
+						if (used_selectors[nrule][selector_type].length > 1) {
+							parsing_warnings.push([nrule, used_selectors[nrule][selector_type][used_selectors[nrule][selector_type].length - 1],
+									'You have used ' + used_selectors[nrule][selector_type].length
 									+ (selector_type.match(/^(?:comment|state)/) ?
 										' ' + selector_type
 										+ (selector_type == 'state' ? ' keywords' : 's')
@@ -2338,7 +2338,7 @@
 					}
 				}
 
-				// Check if 24/7 is used and it does not mean 24/7 because there are other blocks.
+				// Check if 24/7 is used and it does not mean 24/7 because there are other rules.
 				var has_advanced = it.advance();
 
 				if (has_advanced === true && has_token['24/7'] && !done_with_warnings) {
@@ -2378,19 +2378,19 @@
 
 			prettified_value = '';
 
-			for (var nblock = 0; nblock < new_tokens.length; nblock++) {
-				if (new_tokens[nblock][0].length == 0) continue;
-				// Block does contain nothing useful e.g. second block of '10:00-12:00;' (empty) which needs to be handled.
+			for (var nrule = 0; nrule < new_tokens.length; nrule++) {
+				if (new_tokens[nrule][0].length == 0) continue;
+				// Rule does contain nothing useful e.g. second rule of '10:00-12:00;' (empty) which needs to be handled.
 
 				if (typeof rule_index == 'number') {
-					if (rule_index != nblock) continue;
+					if (rule_index != nrule) continue;
 				} else {
-					if (nblock != 0)
+					if (nrule != 0)
 						prettified_value += (
-							new_tokens[nblock][1]
-								? user_conf.block_sep_string + '|| '
+							new_tokens[nrule][1]
+								? user_conf.rule_sep_string + '|| '
 								: (
-									new_tokens[nblock][0][0][1] == 'rule separator'
+									new_tokens[nrule][0][0][1] == 'rule separator'
 									? ','
 									: (
 										user_conf.print_semicolon
@@ -2398,18 +2398,18 @@
 										: ''
 									)
 								)
-							+ user_conf.block_sep_string);
+							+ user_conf.rule_sep_string);
 				}
 
 				var selector_start_end_type = [ 0, 0, undefined ]
 					prettified_group_value = [];
-				// console.log(new_tokens[nblock][0]);
+				// console.log(new_tokens[nrule][0]);
 				var count = 0;
 
 
 				do {
-					var selector_start_end_type = getSelectorRange(new_tokens[nblock][0], selector_start_end_type[1]);
-					// console.log(selector_start_end_type, new_tokens[nblock][0].length, count);
+					var selector_start_end_type = getSelectorRange(new_tokens[nrule][0], selector_start_end_type[1]);
+					// console.log(selector_start_end_type, new_tokens[nrule][0].length, count);
 
 					if (count > 10) {
 						console.log("infinite loop");
@@ -2421,7 +2421,7 @@
 							[
 								selector_start_end_type,
 								prettifySelector(
-									new_tokens[nblock][0],
+									new_tokens[nrule][0],
 									selector_start_end_type[0],
 									selector_start_end_type[1],
 									selector_start_end_type[2],
@@ -2433,8 +2433,8 @@
 
 					selector_start_end_type[1]++;
 					count++;
-					// console.log(selector_start_end_type, new_tokens[nblock][0].length, count);
-				} while (selector_start_end_type[1] < new_tokens[nblock][0].length)
+					// console.log(selector_start_end_type, new_tokens[nrule][0].length, count);
+				} while (selector_start_end_type[1] < new_tokens[nrule][0].length)
 				// console.log('Prettified value: ' + JSON.stringify(prettified_group_value, null, '    '));
 				var not_sorted_prettified_group_value = prettified_group_value.slice();
 
@@ -2517,10 +2517,10 @@
 		 * :param tokens: List of token objects.
 		 * :param at: Position where to start.
 		 * :param selectors: Reference to selector object.
-		 * :param nblock: Block number starting with 0.
+		 * :param nrule: Rule number starting with 0.
 		 * :returns: See selector code.
 		 */
-		function parseGroup(tokens, at, selectors, nblock) {
+		function parseGroup(tokens, at, selectors, nrule) {
 			var prettified_group_value = '';
 
 			// console.log(tokens); // useful for debugging of tokenize
@@ -2545,7 +2545,7 @@
 						|| matchTokens(tokens, at, 'year', 'month', 'number')
 						|| matchTokens(tokens, at, 'year', 'event')
 						|| matchTokens(tokens, at, 'event')) {
-					at = parseMonthdayRange(tokens, at, nblock);
+					at = parseMonthdayRange(tokens, at, nrule);
 					week_stable = false;
 				} else if (matchTokens(tokens, at, 'year')) {
 					at = parseYearRange(tokens, at);
@@ -2566,7 +2566,7 @@
 					// This provides compatibility with the syntax proposed by Netzwolf:
 					// http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification
 					if (!done_with_warnings && (matchTokens(tokens, at-1, 'weekday') || matchTokens(tokens, at-1, 'holiday')))
-						parsing_warnings.push([nblock, at, 'Please don’t use ":" after ' + tokens[at-1][1] + '.']);
+						parsing_warnings.push([nrule, at, 'Please don’t use ":" after ' + tokens[at-1][1] + '.']);
 
 					if (prettified_group_value[-1] != ' ')
 						prettified_group_value = prettified_group_value.substring(0, prettified_group_value.length - 1);
@@ -2589,7 +2589,7 @@
 					}
 
 					at++;
-					if (typeof tokens[at] == 'object' && tokens[at][0] == ',') // additional block
+					if (typeof tokens[at] == 'object' && tokens[at][0] == ',') // additional rule
 						at = [ at + 1 ];
 
 				} else if (matchTokens(tokens, at, 'comment')) {
@@ -2604,7 +2604,7 @@
 							selectors.meaning = false;
 							selectors.unknown = true;
 						}
-					} else { // block starts with comment
+					} else { // rule starts with comment
 						selectors.time.push(function(date) { return [true]; });
 						// Not needed. If there is no selector it automatically matches everything.
 						// WRONG: This only works if there is no other selector in this selector group ...
@@ -2612,20 +2612,20 @@
 						selectors.unknown = true;
 					}
 					at++;
-					if (typeof tokens[at] == 'object' && tokens[at][0] == ',') // additional block
+					if (typeof tokens[at] == 'object' && tokens[at][0] == ',') // additional rule
 						at = [ at + 1 ];
 				} else if ((at == 0 || at == tokens.length - 1) && matchTokens(tokens, at, 'rule separator')) {
 					at++;
-					console.log("value: " + nblock);
+					console.log("value: " + nrule);
 					// throw formatLibraryBugMessage('Not implemented yet.');
 				} else {
 					var warnings = getWarnings();
-					throw formatWarnErrorMessage(nblock, at, 'Unexpected token: "' + tokens[at][1]
+					throw formatWarnErrorMessage(nrule, at, 'Unexpected token: "' + tokens[at][1]
 						+ '" This means that the syntax is not valid at that point or it is currently not supported.')
 						+ (warnings ? ' ' + warnings.join('; ') : '');
 				}
 
-				if (typeof at == 'object') { // additional block
+				if (typeof at == 'object') { // additional rule
 					tokens[at[0] - 1][1] = 'rule separator';
 					break;
 				}
@@ -2723,7 +2723,7 @@
 					func(tokens[at][0], tokens[at][0], at);
 					at++;
 				} else {
-					throw formatWarnErrorMessage(nblock, at + matchTokens(tokens, at, '-'),
+					throw formatWarnErrorMessage(nrule, at + matchTokens(tokens, at, '-'),
 						'Unexpected token in number range: ' + tokens[at][1]);
 				}
 
@@ -2750,22 +2750,22 @@
 
 				// bad number
 				if (from == 0 || from < -5 || from > 5)
-					throw formatWarnErrorMessage(nblock, at,
+					throw formatWarnErrorMessage(nrule, at,
 						'Number between -5 and 5 (except 0) expected');
 
 				if (from == to) {
 					if (number != 0)
-						throw formatWarnErrorMessage(nblock, at,
+						throw formatWarnErrorMessage(nrule, at,
 							'You can not use more than one constrained weekday in a month range');
 					number = from;
 				} else {
-					throw formatWarnErrorMessage(nblock, at+2,
+					throw formatWarnErrorMessage(nrule, at+2,
 						'You can not use a range of constrained weekdays in a month range');
 				}
 			});
 
 			if (!matchTokens(tokens, endat, ']'))
-				throw formatWarnErrorMessage(nblock, endat, '"]" expected.');
+				throw formatWarnErrorMessage(nrule, endat, '"]" expected.');
 
 			return [ number, endat + 1 ];
 		}
@@ -2777,15 +2777,15 @@
 				return;
 
 			if (period === 0) {
-				throw formatWarnErrorMessage(nblock, at,
+				throw formatWarnErrorMessage(nrule, at,
 					'You can not use '+ period_type +' ranges with period equals zero.');
 			} else if (period === 1) {
 				if (typeof parm_string == 'string' && parm_string == 'no_end_year')
-					parsing_warnings.push([nblock, at,
+					parsing_warnings.push([nrule, at,
 						'Please don’t use '+ period_type +' ranges with period equals one.'
 						+ ' If you want to express that a facility is open starting from a year without limit use "<year>+".']);
 				else
-					parsing_warnings.push([nblock, at,
+					parsing_warnings.push([nrule, at,
 						'Please don’t use '+ period_type +' ranges with period equals one.']);
 			}
 		}
@@ -2818,7 +2818,7 @@
 		 * :param date: Day of month as integer.
 		 * :returns: undefined. There is no real return value. This function just throws an exception if something is wrong.
 		 */
-		function isValidDate(month, day, nblock, at) {
+		function isValidDate(month, day, nrule, at) {
 			// May use this instead. The problem is that this does not give feedback as precise as the code which is used in this function.
 			// var testDate = new Date(year, month, day);
 			// if (testDate.getDate() != day || testDate.getMonth() != month || testDate.getFullYear() != year) {
@@ -2827,11 +2827,11 @@
 
 			// https://en.wikipedia.org/wiki/Month#Julian_and_Gregorian_calendars
 			if (day < 1 || day > 31)
-				throw formatWarnErrorMessage(nblock, at, 'Day must be between 1 and 31.');
+				throw formatWarnErrorMessage(nrule, at, 'Day must be between 1 and 31.');
 			if ((month==3 || month==5 || month==8 || month==10) && day==31)
-				throw formatWarnErrorMessage(nblock, at, 'Month ' + months[month] + " doesn't have 31 days.!");
+				throw formatWarnErrorMessage(nrule, at, 'Month ' + months[month] + " doesn't have 31 days.!");
 			if (month == 1 && day == 30)
-				throw formatWarnErrorMessage(nblock, at, 'Month ' + months[1]+ " either has 28 or 29 days (leap years).");
+				throw formatWarnErrorMessage(nrule, at, 'Month ' + months[1]+ " either has 28 or 29 days (leap years).");
 		}
 		// }}}
 		// }}}
@@ -2864,7 +2864,7 @@
 
 					// minutes_from
 					if (has_normal_time[0]) {
-						var minutes_from = getMinutesByHoursMinutes(tokens, nblock, at+has_time_var_calc[0]);
+						var minutes_from = getMinutesByHoursMinutes(tokens, nrule, at+has_time_var_calc[0]);
 					} else {
 						timevar_string[0] = tokens[at+has_time_var_calc[0]][0];
 						var minutes_from = word_value_replacement[timevar_string[0]];
@@ -2881,7 +2881,7 @@
 							has_open_end = true;
 						} else {
 							if (oh_mode == 0) {
-								throw formatWarnErrorMessage(nblock, at+(
+								throw formatWarnErrorMessage(nrule, at+(
 										has_normal_time[0] ? (
 												typeof tokens[at+3] == 'object' ? 3 : 2
 											) : (
@@ -2913,10 +2913,10 @@
 						has_normal_time[1] = matchTokens(tokens, at_end_time, 'number', 'timesep', 'number');
 						has_time_var_calc[1]      = matchTokens(tokens, at_end_time, '(', 'timevar');
 						if (!has_normal_time[1] && !matchTokens(tokens, at_end_time, 'timevar') && !has_time_var_calc[1]) {
-							throw formatWarnErrorMessage(nblock, at_end_time - (typeof tokens[at_end_time] != 'undefined' ? 0 : 1), 'Time range does not continue as expected');
+							throw formatWarnErrorMessage(nrule, at_end_time - (typeof tokens[at_end_time] != 'undefined' ? 0 : 1), 'Time range does not continue as expected');
 						} else {
 							if (has_normal_time[1]) {
-								var minutes_to = getMinutesByHoursMinutes(tokens, nblock, at_end_time);
+								var minutes_to = getMinutesByHoursMinutes(tokens, nrule, at_end_time);
 							} else {
 								timevar_string[1] = tokens[at_end_time+has_time_var_calc[1]][0]
 								var minutes_to = word_value_replacement[timevar_string[1]];
@@ -2935,18 +2935,18 @@
 
 					if (matchTokens(tokens, at, '/', 'number')) {
 						if (matchTokens(tokens, at + 2, 'timesep', 'number')) { // /hours:minutes
-							var point_in_time_period = getMinutesByHoursMinutes(tokens, nblock, at + 1);
+							var point_in_time_period = getMinutesByHoursMinutes(tokens, nrule, at + 1);
 							at += 4;
 						} else { // /minutes
 							var point_in_time_period = tokens[at + 1][0];
 							at += 2;
 							if (matchTokens(tokens, at, 'timesep'))
-								throw formatWarnErrorMessage(nblock, at,
+								throw formatWarnErrorMessage(nrule, at,
 									'Time period does not continue as expected. Exampe "/01:30".');
 						}
 
 						if (oh_mode == 0)
-							throw formatWarnErrorMessage(nblock, at - 1,
+							throw formatWarnErrorMessage(nrule, at - 1,
 								'opening_hours is running in "time range mode". Found point in time.');
 
 						is_point_in_time = true;
@@ -2954,7 +2954,7 @@
 						parseTimeRange(tokens, at_end_time, selectors, true);
 						at++;
 					} else if (oh_mode == 1 && !is_point_in_time) {
-						throw formatWarnErrorMessage(nblock, at_end_time,
+						throw formatWarnErrorMessage(nrule, at_end_time,
 							'opening_hours is running in "points in time mode". Found time range.');
 					}
 
@@ -2967,12 +2967,12 @@
 
 					// normalize minutes into range
 					if (!extended_open_end && minutes_from >= minutes_in_day)
-						throw formatWarnErrorMessage(nblock, at_end_time - 2,
+						throw formatWarnErrorMessage(nrule, at_end_time - 2,
 							'Time range starts outside of the current day');
 					if (minutes_to < minutes_from || ((has_normal_time[0] && has_normal_time[1]) && minutes_from == minutes_to))
 						minutes_to += minutes_in_day;
 					if (minutes_to > minutes_in_day * 2)
-						throw formatWarnErrorMessage(nblock, at_end_time + (has_normal_time[1] ? 4 : (has_time_var_calc[1] ? 7 : 1)) - 2,
+						throw formatWarnErrorMessage(nrule, at_end_time + (has_normal_time[1] ? 4 : (has_time_var_calc[1] ? 7 : 1)) - 2,
 							'Time spanning more than two midnights not supported');
 
 					// this shortcut makes always-open range check faster
@@ -3096,16 +3096,16 @@
 					var minutes_from = tokens[at][0]   * 60;
 					var minutes_to   = tokens[at+2][0] * 60;
 					if (!done_with_warnings)
-						parsing_warnings.push([nblock, at + 2,
+						parsing_warnings.push([nrule, at + 2,
 							'Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".']);
 
 					if (minutes_from >= minutes_in_day)
-						throw formatWarnErrorMessage(nblock, at,
+						throw formatWarnErrorMessage(nrule, at,
 							'Time range starts outside of the current day');
 					if (minutes_to < minutes_from)
 						minutes_to += minutes_in_day;
 					if (minutes_to > minutes_in_day * 2)
-						throw formatWarnErrorMessage(nblock, at + 2,
+						throw formatWarnErrorMessage(nrule, at + 2,
 							'Time spanning more than two midnights not supported');
 
 					if (minutes_to > minutes_in_day) {
@@ -3140,13 +3140,13 @@
 					}
 
 					at += 3;
-				} else { // additional block
+				} else { // additional rule
 					if (matchTokens(tokens, at, '('))
-						throw formatWarnErrorMessage(nblock, at, 'Missing variable time (e.g. sunrise) after: "' + tokens[at][1] + '"');
+						throw formatWarnErrorMessage(nrule, at, 'Missing variable time (e.g. sunrise) after: "' + tokens[at][1] + '"');
 					if (matchTokens(tokens, at, 'number', 'timesep'))
-						throw formatWarnErrorMessage(nblock, at+1, 'Missing minutes in time range after: "' + tokens[at+1][1] + '"');
+						throw formatWarnErrorMessage(nrule, at+1, 'Missing minutes in time range after: "' + tokens[at+1][1] + '"');
 					if (matchTokens(tokens, at, 'number'))
-						throw formatWarnErrorMessage(nblock, at + (typeof tokens[at+1] != 'undefined' ? 1 : 0),
+						throw formatWarnErrorMessage(nrule, at + (typeof tokens[at+1] != 'undefined' ? 1 : 0),
 								'Missing time separator in time range after: "' + tokens[at][1] + '"');
 					return [ at ];
 				}
@@ -3163,13 +3163,13 @@
 		 * Only used if throwing an error is wanted.
 		 *
 		 * :param tokens: List of token objects.
-		 * :param nblock: Block number starting with 0.
+		 * :param nrule: Rule number starting with 0.
 		 * :param at: Position at which the time begins.
 		 * :returns: Time in minutes.
 		 */
-		function getMinutesByHoursMinutes(tokens, nblock, at) {
+		function getMinutesByHoursMinutes(tokens, nrule, at) {
 			if (tokens[at+2][0] > 59)
-				throw formatWarnErrorMessage(nblock, at+2,
+				throw formatWarnErrorMessage(nrule, at+2,
 						'Minutes are greater than 59.');
 			return tokens[at][0] * 60 + tokens[at+2][0];
 		}
@@ -3188,9 +3188,9 @@
 				if (matchTokens(tokens, at+3, 'number', 'timesep', 'number')) {
 					if (matchTokens(tokens, at+6, ')')) {
 						var add_or_subtract = tokens[at+2][0] == '+' ? '1' : '-1';
-						var minutes = getMinutesByHoursMinutes(tokens, nblock, at+3) * add_or_subtract;
+						var minutes = getMinutesByHoursMinutes(tokens, nrule, at+3) * add_or_subtract;
 						if (minutes == 0)
-							parsing_warnings.push([ nblock, at+5, 'Adding zero in a variable time calculation does not change the variable time.'
+							parsing_warnings.push([ nrule, at+5, 'Adding zero in a variable time calculation does not change the variable time.'
 									+ ' Please omit the calculation (example: "sunrise-(sunset-00:00)").' ]
 								);
 						return minutes;
@@ -3205,7 +3205,7 @@
 			}
 
 			if (error)
-				throw formatWarnErrorMessage(nblock, error[0],
+				throw formatWarnErrorMessage(nrule, error[0],
 					'Calculcation with variable time is not in the right syntax' + error[1]);
 		}
 		// }}}
@@ -3233,7 +3233,7 @@
 
 						// bad number
 						if (from == 0 || from < -5 || from > 5)
-							throw formatWarnErrorMessage(nblock, at,
+							throw formatWarnErrorMessage(nrule, at,
 								'Number between -5 and 5 (except 0) expected');
 
 						if (from == to) {
@@ -3242,19 +3242,19 @@
 							for (var i = from; i <= to; i++) {
 								// bad number
 								if (i == 0 || i < -5 || i > 5)
-									throw formatWarnErrorMessage(nblock, at+2,
+									throw formatWarnErrorMessage(nrule, at+2,
 										'Number between -5 and 5 (except 0) expected.');
 
 								numbers.push(i);
 							}
 						} else {
-							throw formatWarnErrorMessage(nblock, at+2,
+							throw formatWarnErrorMessage(nrule, at+2,
 								'Bad range: ' + from + '-' + to);
 						}
 					});
 
 					if (!matchTokens(tokens, endat, ']'))
-						throw formatWarnErrorMessage(nblock, endat, '"]" or more numbers expected.');
+						throw formatWarnErrorMessage(nrule, endat, '"]" or more numbers expected.');
 
 					var add_days = getMoveDays(tokens, endat+1, 6, 'constrained weekdays');
 					week_stable = false;
@@ -3378,7 +3378,7 @@
 					week_stable = false;
 					return parseHoliday(tokens, at, selectors, true, in_holiday_selector);
 				} else {
-					throw formatWarnErrorMessage(nblock, at, 'Unexpected token in weekday range: ' + tokens[at][1]);
+					throw formatWarnErrorMessage(nrule, at, 'Unexpected token in weekday range: ' + tokens[at][1]);
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -3404,11 +3404,11 @@
 			if (add_days[0] != 0 && matchTokens(tokens, at+1, 'number', 'calcday')) {
 				// continues with '+ 5 days' or something like that
 				if (tokens[at+1][0] > max_differ)
-					throw formatWarnErrorMessage(nblock, at+2,
+					throw formatWarnErrorMessage(nrule, at+2,
 						'There should be no reason to differ more than ' + max_differ + ' days from a ' + name + '. If so tell us …');
 				add_days[0] *= tokens[at+1][0];
 				if (add_days[0] == 0 && !done_with_warnings)
-					parsing_warnings.push([ nblock, at+2, 'Adding 0 does not change the date. Please omit this.' ]);
+					parsing_warnings.push([ nrule, at+2, 'Adding 0 does not change the date. Please omit this.' ]);
 				add_days[1] = 3;
 			} else {
 				add_days[0] = 0;
@@ -3572,7 +3572,7 @@
 				} else if (matchTokens(tokens, at, 'weekday')) {
 					return parseWeekdayRange(tokens, at, selectors, true);
 				} else {
-					throw formatWarnErrorMessage(nblock, at, 'Unexpected token (school holiday parser): ' + tokens[at][1]);
+					throw formatWarnErrorMessage(nrule, at, 'Unexpected token (school holiday parser): ' + tokens[at][1]);
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -3798,11 +3798,11 @@
 						if (is_range && tokens[at+2][0] <= year_from) {
 						// handle reversed range
 						if (tokens[at+2][0] == year_from)
-							throw formatWarnErrorMessage(nblock, at,
+							throw formatWarnErrorMessage(nrule, at,
 								'A year range in which the start year is equal to the end year does not make sense.'
 								+ ' Please remove the end year. E.g. "' + year_from + ' May 23"');
 						else
-							throw formatWarnErrorMessage(nblock, at,
+							throw formatWarnErrorMessage(nrule, at,
 								'A year range in which the start year is greater than the end year does not make sense.'
 								+ ' Please turn it over.');
 						}
@@ -3839,7 +3839,7 @@
 
 					at += 1 + (is_range ? 2 : 0) + (has_period ? (has_period == 2 ? 1 : 2) : 0);
 				} else {
-					throw formatWarnErrorMessage(nblock, at, 'Unexpected token in year range: ' + tokens[at][1]);
+					throw formatWarnErrorMessage(nrule, at, 'Unexpected token in year range: ' + tokens[at][1]);
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -3916,7 +3916,7 @@
 
 					at += 1 + (is_range ? 2 : 0) + (has_period ? 2 : 0);
 				} else {
-					throw formatWarnErrorMessage(nblock, at, 'Unexpected token in week range: ' + tokens[at][1]);
+					throw formatWarnErrorMessage(nrule, at, 'Unexpected token in week range: ' + tokens[at][1]);
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -3962,7 +3962,7 @@
 			for (; at < tokens.length; at++) {
 				// Use parseMonthdayRange if '<month> <daynum>' and not '<month> <hour>:<minute>'
 				if (matchTokens(tokens, at, 'month', 'number') && !matchTokens(tokens, at+2, 'timesep', 'number')) {
-					return parseMonthdayRange(tokens, at, nblock, true);
+					return parseMonthdayRange(tokens, at, nrule, true);
 				} else if (matchTokens(tokens, at, 'month')) {
 					// Single month (Jan) or month range (Feb-Mar)
 					var is_range = matchTokens(tokens, at+1, '-', 'month');
@@ -4011,7 +4011,7 @@
 
 					at += is_range ? 3 : 1;
 				} else {
-					throw formatWarnErrorMessage(nblock, at, 'Unexpected token in month range: ' + tokens[at][1]);
+					throw formatWarnErrorMessage(nrule, at, 'Unexpected token in month range: ' + tokens[at][1]);
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -4030,11 +4030,11 @@
 		 *
 		 * :param tokens: List of token objects.
 		 * :param at: Position where to start.
-		 * :param nblock: Block number starting with 0.
+		 * :param nrule: Rule number starting with 0.
 		 * :param push_to_month: Will push the selector into the month selector array which has the desired side effect of working in conjunction with the month selectors (either the month match or the monthday).
 		 * :returns: Position at which the token does not belong to the selector anymore.
 		 */
-		function parseMonthdayRange(tokens, at, nblock, push_to_month) {
+		function parseMonthdayRange(tokens, at, nrule, push_to_month) {
 			if (!push_to_month)
 				tokens[at][3] = 'month';
 
@@ -4076,11 +4076,11 @@
 				if (has_year[0] == has_year[1] && (has_month[1] || has_event[1] || has_constrained_weekday[1])) {
 
 					if (has_month[0])
-						isValidDate(tokens[at+has_year[0]][0], tokens[at+has_year[0]+1][0], nblock, at+has_year[0]+1);
+						isValidDate(tokens[at+has_year[0]][0], tokens[at+has_year[0]+1][0], nrule, at+has_year[0]+1);
 					if (has_month[1])
-						isValidDate(tokens[at_sec_event_or_month][0], tokens[at_sec_event_or_month+1][0], nblock, at+has_year[0]+1);
+						isValidDate(tokens[at_sec_event_or_month][0], tokens[at_sec_event_or_month+1][0], nrule, at+has_year[0]+1);
 
-					var selector = function(tokens, at, nblock, has_year, has_event, has_calc, at_sec_event_or_month, has_constrained_weekday) { return function(date) {
+					var selector = function(tokens, at, nrule, has_year, has_event, has_calc, at_sec_event_or_month, has_constrained_weekday) { return function(date) {
 						var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
 
 						if (has_event[0]) {
@@ -4091,7 +4091,7 @@
 								var from_year_before_calc = from_date.getFullYear();
 								from_date.setDate(from_date.getDate() + has_calc[0][0]);
 								if (from_year_before_calc != from_date.getFullYear())
-									throw formatWarnErrorMessage(nblock, at+has_year[0]+has_calc[0][1]*3,
+									throw formatWarnErrorMessage(nrule, at+has_year[0]+has_calc[0][1]*3,
 										'The movable day ' + tokens[at+has_year[0]][0] + ' plus ' + has_calc[0][0]
 										+ ' days is not in the year of the movable day anymore. Currently not supported.');
 							}
@@ -4116,7 +4116,7 @@
 								var to_year_before_calc = to_date.getFullYear();
 								to_date.setDate(to_date.getDate() + has_calc[1][0]);
 								if (to_year_before_calc != to_date.getFullYear())
-									throw formatWarnErrorMessage(nblock, at_sec_event_or_month+has_calc[1][1],
+									throw formatWarnErrorMessage(nrule, at_sec_event_or_month+has_calc[1][1],
 										'The movable day ' + tokens[at_sec_event_or_month][0] + ' plus ' + has_calc[1][0]
 										+ ' days is not in the year of the movable day anymore. Currently not supported.');
 							}
@@ -4151,7 +4151,7 @@
 								return [!inside, start_of_next_year];
 							}
 						}
-					}}(tokens, at, nblock, has_year, has_event, has_calc, at_sec_event_or_month, has_constrained_weekday);
+					}}(tokens, at, nrule, has_year, has_event, has_calc, at_sec_event_or_month, has_constrained_weekday);
 
 					if (push_to_month === true)
 						selectors.month.push(selector);
@@ -4199,11 +4199,11 @@
 
 						// error checking {{{
 						if (range_to < range_from)
-							throw formatWarnErrorMessage(nblock, at+has_year+3,
+							throw formatWarnErrorMessage(nrule, at+has_year+3,
 									'Range in wrong order. From day is greater than to day.');
-						isValidDate(month, range_from, nblock, at+1 + has_year);
+						isValidDate(month, range_from, nrule, at+1 + has_year);
 						isValidDate(month, range_to - 1 /* added previously */,
-								nblock, at+has_year+(is_range ? 3 : 1));
+								nrule, at+has_year+(is_range ? 3 : 1));
 						// }}}
 
 						var selector = function(year, has_year, month, range_from, range_to, period) { return function(date) {
@@ -4253,7 +4253,7 @@
 					// Only event like easter {{{
 				} else if (has_event[0]) {
 
-					var selector = function(tokens, at, nblock, has_year, add_days) { return function(date) {
+					var selector = function(tokens, at, nrule, has_year, add_days) { return function(date) {
 
 						// console.log('enter selector with date: ' + date);
 						var movableDays = getMovableEventsForYear((has_year ? tokens[at][0] : date.getFullYear()));
@@ -4265,7 +4265,7 @@
 						if (add_days[0]) {
 							event_date.setDate(event_date.getDate() + add_days[0]);
 							if (date.getFullYear() != event_date.getFullYear())
-								throw formatWarnErrorMessage(nblock, at+has_year+add_days[1], 'The movable day ' + tokens[at+has_year][0] + ' plus '
+								throw formatWarnErrorMessage(nrule, at+has_year+add_days[1], 'The movable day ' + tokens[at+has_year][0] + ' plus '
 									+ add_days[0]
 									+ ' days is not in the year of the movable day anymore. Currently not supported.');
 						}
@@ -4278,7 +4278,7 @@
 						else
 							return [false, new Date(date.getFullYear() + 1, 0, 1)];
 
-					}}(tokens, at, nblock, has_year[0], has_calc[0]);
+					}}(tokens, at, nrule, has_year[0], has_calc[0]);
 
 					if (push_to_month === true)
 						selectors.month.push(selector);
@@ -4305,7 +4305,7 @@
 		// }}}
 
 		/* Main selector traversal function (return state array for date). {{{
-		 * Checks for given date which block and those which state and comment applies.
+		 * Checks for given date which rule and those which state and comment applies.
 		 *
 		 * :param date: Date object.
 		 * :returns: Array:
@@ -4313,25 +4313,25 @@
 		 *			1. changedate: Next change as date object.
 		 *			2. unknown: true if state open is not sure.
 		 *			3. comment: Comment which applies for this time range (from date to changedate).
-		 *			4. match_block: Block number starting with 0 (nblock).
+		 *			4. match_rule: Rule number starting with 0 (nrule).
 		 */
 		this.getStatePair = function(date) {
 			var resultstate = false;
 			var changedate;
 			var unknown = false;
 			var comment;
-			var match_block;
+			var match_rule;
 
-			var date_matching_blocks = [];
+			var date_matching_rules = [];
 
-			for (var nblock = 0; nblock < blocks.length; nblock++) {
-				var matching_date_block = true;
-				// console.log(nblock, 'length',  blocks[nblock].date.length);
+			for (var nrule = 0; nrule < rules.length; nrule++) {
+				var matching_date_rule = true;
+				// console.log(nrule, 'length',  rules[nrule].date.length);
 
 				// Try each date selector type
-				for (var ndateselector = 0; ndateselector < blocks[nblock].date.length; ndateselector++) {
-					var dateselectors = blocks[nblock].date[ndateselector];
-					// console.log(nblock, ndateselector);
+				for (var ndateselector = 0; ndateselector < rules[nrule].date.length; ndateselector++) {
+					var dateselectors = rules[nrule].date[ndateselector];
+					// console.log(nrule, ndateselector);
 
 					var has_matching_selector = false;
 					for (var datesel = 0; datesel < dateselectors.length; datesel++) {
@@ -4349,7 +4349,7 @@
 					}
 
 					if (!has_matching_selector) {
-						matching_date_block = false;
+						matching_date_rule = false;
 						// We can ignore other date selectors, as the state won't change
 						// anyway until THIS selector matches (due to conjunction of date
 						// selectors of different types).
@@ -4360,66 +4360,66 @@
 
 				}
 
-				if (matching_date_block) {
+				if (matching_date_rule) {
 					// The following lines implement date overwriting logic (e.g. for
-					// "Mo-Fr 10:00-20:00; We 10:00-16:00", We block overrides Mo-Fr block partly (We).
+					// "Mo-Fr 10:00-20:00; We 10:00-16:00", We rule overrides Mo-Fr rule partly (We).
 					//
 					// This is the only way to be consistent. I thought about ("22:00-02:00; Tu 12:00-14:00") letting Th override 22:00-02:00 partly:
 					// Like: Th 00:00-02:00,12:00-14:00 but this would result in including 22:00-00:00 for Th which is probably not what you want.
-					if (blocks[nblock].date.length > 0 && (blocks[nblock].meaning || blocks[nblock].unknown)
-							&& !blocks[nblock].wrapped && !blocks[nblock].additional && !blocks[nblock].fallback) {
-						// var old_date_matching_blocks = date_matching_blocks;
-						date_matching_blocks = [];
-						// for (var nblock = 0; nblock < old_date_matching_blocks.length; nblock++) {
-						// 	if (!blocks[old_date_matching_blocks[nblock]].wrapped)
-						// 		date_matching_blocks.push(nblock);
+					if (rules[nrule].date.length > 0 && (rules[nrule].meaning || rules[nrule].unknown)
+							&& !rules[nrule].wrapped && !rules[nrule].additional && !rules[nrule].fallback) {
+						// var old_date_matching_rules = date_matching_rules;
+						date_matching_rules = [];
+						// for (var nrule = 0; nrule < old_date_matching_rules.length; nrule++) {
+						// 	if (!rules[old_date_matching_rules[nrule]].wrapped)
+						// 		date_matching_rules.push(nrule);
 						// }
 					}
-					date_matching_blocks.push(nblock);
+					date_matching_rules.push(nrule);
 				}
 			}
 
-			block:
-			for (var nblock = 0; nblock < date_matching_blocks.length; nblock++) {
-				var block = date_matching_blocks[nblock];
+			rule:
+			for (var nrule = 0; nrule < date_matching_rules.length; nrule++) {
+				var rule = date_matching_rules[nrule];
 
-				// console.log('Processing block ' + block + ':\t' + blocks[block].comment + '    with date', date,
-				// 	'and', blocks[block].time.length, 'time selectors');
+				// console.log('Processing rule ' + rule + ':\t' + rules[rule].comment + '    with date', date,
+				// 	'and', rules[rule].time.length, 'time selectors');
 
 				// there is no time specified, state applies to the whole day
-				if (blocks[block].time.length == 0) {
+				if (rules[rule].time.length == 0) {
 					// console.log('there is no time', date);
-					if (!blocks[block].fallback || (blocks[block].fallback && !(resultstate || unknown))) {
-						resultstate = blocks[block].meaning;
-						unknown     = blocks[block].unknown;
-						match_block = block;
+					if (!rules[rule].fallback || (rules[rule].fallback && !(resultstate || unknown))) {
+						resultstate = rules[rule].meaning;
+						unknown     = rules[rule].unknown;
+						match_rule = rule;
 
-						if (typeof blocks[block].comment != 'undefined')
-							comment     = blocks[block].comment;
+						if (typeof rules[rule].comment != 'undefined')
+							comment     = rules[rule].comment;
 						else if (typeof comment == 'object') // holiday name
 							comment = comment[0];
 
-						if (blocks[block].fallback)
-							break block; // fallback block matched, no need for checking the rest
+						if (rules[rule].fallback)
+							break rule; // fallback rule matched, no need for checking the rest
 					}
 				}
 
-				for (var timesel = 0; timesel < blocks[block].time.length; timesel++) {
-					var res = blocks[block].time[timesel](date);
+				for (var timesel = 0; timesel < rules[rule].time.length; timesel++) {
+					var res = rules[rule].time[timesel](date);
 
 					// console.log('res:', res);
 					if (res[0]) {
-						if (!blocks[block].fallback || (blocks[block].fallback && !(resultstate || unknown))) {
-							resultstate = blocks[block].meaning;
-							unknown     = blocks[block].unknown;
-							match_block = block;
+						if (!rules[rule].fallback || (rules[rule].fallback && !(resultstate || unknown))) {
+							resultstate = rules[rule].meaning;
+							unknown     = rules[rule].unknown;
+							match_rule = rule;
 
-							if (typeof blocks[block].comment == 'string') // only use comment if one is specified
-								comment     = blocks[block].comment;
+							if (typeof rules[rule].comment == 'string') // only use comment if one is specified
+								comment     = rules[rule].comment;
 							else if (typeof comment == 'object') // holiday name
 								comment = comment[0];
 							else if (comment === 'Specified as open end. Closing time was guessed.')
-								comment = blocks[block].comment;
+								comment = rules[rule].comment;
 
 							// open end
 							if (typeof res[2] == 'boolean' && res[2] && (resultstate || unknown)) {
@@ -4429,12 +4429,12 @@
 								unknown     = true;
 							}
 
-							if (blocks[block].fallback) {
+							if (rules[rule].fallback) {
 								if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate))
 									changedate = res[1];
 
-								// break block; // Fallback block matched, no need for checking the rest.
-								// WRONG: What if 'off' is used after fallback block.
+								// break rule; // Fallback rule matched, no need for checking the rest.
+								// WRONG: What if 'off' is used after fallback rule.
 							}
 						}
 					}
@@ -4443,8 +4443,8 @@
 				}
 			}
 
-			// console.log('changedate', changedate, resultstate, comment, match_block);
-			return [ resultstate, changedate, unknown, comment, match_block ];
+			// console.log('changedate', changedate, resultstate, comment, match_rule);
+			return [ resultstate, changedate, unknown, comment, match_rule ];
 		}
 		// }}}
 
@@ -4583,7 +4583,7 @@
 					if (typeof state[4] == 'undefined')
 						return undefined;
 
-					return blocks[state[4]].build_from_token_block[2];
+					return rules[state[4]].build_from_token_rule[2];
 				}
 
 				this.advance = function(datelimit) {
@@ -4731,7 +4731,7 @@
 			return it.getComment();
 		}
 
-		// Return the block which matched thus deterrents the current state.
+		// Return the rule which matched thus deterrents the current state.
 		this.getMatchingRule = function(date) {
 			var it = this.getIterator(date);
 			return it.getMatchingRule();
