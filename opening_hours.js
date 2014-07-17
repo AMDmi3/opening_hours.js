@@ -4675,7 +4675,6 @@
 		 *			0. Index of first token in selector array of tokens.
 		 *			1. Index of last token in selector array of tokens.
 		 *			2. Selector type.
-		 *			FIXME use hash
 		 */
 		function getSelectorRange(tokens, at) {
 			var selector_start = at,

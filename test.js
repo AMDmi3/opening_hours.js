@@ -41,6 +41,7 @@ test.addTest('Time intervals', [
 		'10:00-12:00,',
 		'10:00-12:00;',
 		'10:00-11:00; 11:00-12:00', // FIXME: Not quite following the specification.
+		// Happens because there is no date selector.
 		'10-12', // Do not use. Returns warning.
 		'10:00-11:00,11:00-12:00',
 		'10:00-11:00; 11:00-12:00',
@@ -725,8 +726,7 @@ test.addTest('Full range', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
 	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
 
-// FIXME "use it" ...
-test.addTest('24/7 as time interval alias (don’t use it 24/7 as showen here)', [
+test.addTest('24/7 as time interval alias (don’t use 24/7 as showen here)', [
 		'Mo,We 24/7', // throws a warning, use one of the next values instead
 		'Mo,We open', // preferred because more explicit
 		'Mo,We 00:00-24:00', // preferred because more explicit
