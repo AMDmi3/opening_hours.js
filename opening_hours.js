@@ -2281,22 +2281,22 @@
 				var used_selectors = [];
 				var has_token = {};
 
-				for (var nrule = 0; nrule < tokens.length; nrule++) {
-					if (tokens[nrule][0].length == 0) continue;
+				for (var nrule = 0; nrule < new_tokens.length; nrule++) {
+					if (new_tokens[nrule][0].length == 0) continue;
 					// Rule does contain nothing useful e.g. second rule of '10:00-12:00;' (empty) which needs to be handled.
 
 					var selector_start_end_type = [ 0, 0, undefined ]
 						prettified_group_value = [];
-					// console.log(tokens[nrule][0]);
+					// console.log(new_tokens[nrule][0]);
 
 					used_selectors[nrule] = {};
 
 					do {
-						var selector_start_end_type = getSelectorRange(tokens[nrule][0], selector_start_end_type[1]);
-						// console.log(selector_start_end_type, tokens[nrule][0].length);
+						var selector_start_end_type = getSelectorRange(new_tokens[nrule][0], selector_start_end_type[1]);
+						// console.log(selector_start_end_type, new_tokens[nrule][0].length);
 
 						if (selector_start_end_type[0] == selector_start_end_type[1]
-							&& tokens[nrule][0][selector_start_end_type[0]][0] == '24/7'
+							&& new_tokens[nrule][0][selector_start_end_type[0]][0] == '24/7'
 								) {
 									has_token['24/7'] = true;
 						}
@@ -2308,7 +2308,7 @@
 						}
 
 						selector_start_end_type[1]++;
-					} while (selector_start_end_type[1] < tokens[nrule][0].length)
+					} while (selector_start_end_type[1] < new_tokens[nrule][0].length)
 				}
 				// console.log('used_selectors: ' + JSON.stringify(used_selectors, null, '    '));
 				// }}}
