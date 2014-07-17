@@ -1991,35 +1991,37 @@
 		 * :returns: String with position of the warning or error marked for the user.
 		 */
 		function formatWarnErrorMessage(nrule, at, message) {
-			var pos = 0;
-			if (nrule == -1) { // Usage of rule index not required because we do have access to value.length.
-				pos = value.length - at;
-			} else if (nrule == -2) {
-				pos = at;
-			} else { // Issue accrued at a later time, position in string needs to be reconstructed.
-				if (typeof tokens[nrule][0][at] == 'undefined') {
-					// Given position is invalid.
-					console.warn('Bug in warning generation code which could not determine the exact position of the warning or error in string: '
-							+ '"' + value + '".');
-					pos = value.length;
-					if (typeof tokens[nrule][0][tokens[nrule][0].length - 1] != 'undefined') {
-						// Fallback: Point to last token in the rule which caused the problem.
-						// Run real_test regularly to fix the problem before a user is confronted with it.
-						pos -= tokens[nrule][0][tokens[nrule][0].length - 1][2];
-						console.warn('Last token for rule: ' + tokens[nrule][0][tokens[nrule][0].length - 1]);
-						console.log(value.substring(0, pos) + ' <--- (' + message + ')');
-						console.log('\n');
-					}
-				} else {
-					pos = value.length;
-					if (typeof tokens[nrule][0][at+1] != 'undefined') {
-						pos -= tokens[nrule][0][at+1][2];
-					} else if (typeof tokens[nrule][2] != 'undefined') {
-						pos -= tokens[nrule][2];
+			if (typeof nrule == 'number') {
+				var pos = 0;
+				if (nrule == -1) { // Usage of rule index not required because we do have access to value.length.
+					pos = value.length - at;
+				} else { // Issue accrued at a later time, position in string needs to be reconstructed.
+					if (typeof tokens[nrule][0][at] == 'undefined') {
+						// Given position is invalid.
+						console.warn('Bug in warning generation code which could not determine the exact position of the warning or error in string: '
+								+ '"' + value + '".');
+						pos = value.length;
+						if (typeof tokens[nrule][0][tokens[nrule][0].length - 1] != 'undefined') {
+							// Fallback: Point to last token in the rule which caused the problem.
+							// Run real_test regularly to fix the problem before a user is confronted with it.
+							pos -= tokens[nrule][0][tokens[nrule][0].length - 1][2];
+							console.warn('Last token for rule: ' + tokens[nrule][0][tokens[nrule][0].length - 1]);
+							console.log(value.substring(0, pos) + ' <--- (' + message + ')');
+							console.log('\n');
+						}
+					} else {
+						pos = value.length;
+						if (typeof tokens[nrule][0][at+1] != 'undefined') {
+							pos -= tokens[nrule][0][at+1][2];
+						} else if (typeof tokens[nrule][2] != 'undefined') {
+							pos -= tokens[nrule][2];
+						}
 					}
 				}
+				return value.substring(0, pos) + ' <--- (' + message + ')';
+			} else if (typeof nrule == 'string') {
+				return nrule.substring(0, at) + ' <--- (' + message + ')';
 			}
-			return value.substring(0, pos) + ' <--- (' + message + ')';
 		}
 		// }}}
 
@@ -2444,30 +2446,32 @@
 						return selector_order.indexOf(a[0][2]) - selector_order.indexOf(b[0][2]);
 					}
 				);
-
-				if (!done_with_selector_reordering) {
-					for (var i = 0, l = not_sorted_prettified_group_value.length; i < l; i++) {
-						if (not_sorted_prettified_group_value[i] != prettified_group_value[i]) {
-							// console.log(i + ': ' + not_sorted_prettified_group_value[i][0][2]);
-							var length = i + prettified_value.length; // i: Number of spaces in string.
-							for (var x = 0; x <= i; x++) {
-								length += not_sorted_prettified_group_value[x][1].length;
-								// console.log('Length: ' + length + ' ' + not_sorted_prettified_group_value[x][1]);
-							}
-							parsing_warnings.push([ -2, length,
-								'The selector "' + not_sorted_prettified_group_value[i][0][2] + '" was switched with'
-								+ ' the selector "' + prettified_group_value[i][0][2] + '"'
-								+ ' for readablitity and compatibiltity reasons.'
-							]);
-						}
-					}
-				}
+				var old_prettified_value_length = prettified_value.length;
 
 				prettified_value += prettified_group_value.map(
 					function (array) {
 						return array[1]
 					}
 				).join(' ');
+
+				if (!done_with_selector_reordering) {
+					for (var i = 0, l = not_sorted_prettified_group_value.length; i < l; i++) {
+						if (not_sorted_prettified_group_value[i] != prettified_group_value[i]) {
+							// console.log(i + ': ' + prettified_group_value[i][0][2]);
+							var length = i + old_prettified_value_length; // i: Number of spaces in string.
+							for (var x = 0; x <= i; x++) {
+								length += prettified_group_value[x][1].length;
+								// console.log('Length: ' + length + ' ' + prettified_group_value[x][1]);
+							}
+							// console.log(length);
+							parsing_warnings.push([ prettified_value, length,
+								'The selector "' + prettified_group_value[i][0][2] + '" was switched with'
+								+ ' the selector "' + not_sorted_prettified_group_value[i][0][2] + '"'
+								+ ' for readablitity and compatibiltity reasons.'
+							]);
+						}
+					}
+				}
 			}
 
 			done_with_selector_reordering = true;
