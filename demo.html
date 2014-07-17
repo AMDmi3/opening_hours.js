@@ -476,7 +476,12 @@
 							value_explanation += '<span title="'
 								+ i18n.t('words.' + (selector_type.match(/(?:state|comment)/) ? 'modifier' : 'selector'), { name: selector_type }) + '"'
 								+ ' class="' + selector_type + '"><a target="_blank" class="specification" href="'
-								+ specification_url + '#' + (selector_type.match(/(?:state|comment)/) ? 'modifier' : selector_type)
+								+ specification_url + '#'
+								+ (
+									selector_type.match(/(?:state|comment)/)
+										? 'modifier'
+										: selector_type
+										)
 								+ '">' + selector_value + '</a></span>';
 							if (nselector + 1 < sl)
 								value_explanation += ' ';

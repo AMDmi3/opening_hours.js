@@ -1389,6 +1389,8 @@
 				'from': '',
 			}, 'You can use notation "<ok>" for "<ko>". You might want to express open end which can be specified as "12:00+" for example.': {
 				'-late': '+',
+				'-open end': '+',
+				'-openend': '+',
 			}, 'Please use notation "<ok>" for "<ko>". If the times are unsure or vary consider a comment e.g. 12:00-14:00 "only on sunshine".': {
 				'~':  '-',
 				'～': '-',
@@ -2075,7 +2077,7 @@
 					// special day name (holidays)
 					curr_rule_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
 					value = value.substr(2);
-				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-late|(?:(?:one )?day before )?public holidays?|days?\b|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b|à|á)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-(?:late|open[ ]?end)|(?:(?:one )?day before )?public holidays?|days?\b|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b|à|á)\.?/i)) {
 					// Handle all remaining words and specific other characters with error tolerance.
 					//
 					// à|á: Word boundary does not work with unicode chars: 'test à test'.match(/\bà\b/i)
