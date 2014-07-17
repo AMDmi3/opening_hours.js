@@ -2369,7 +2369,7 @@
 		 * :param rule_index: If rule_index is a number only this rule is prettified.
 		 * :returns: Prettified value string.
 		 */
-		function prettifyValue(user_conf, rule_index) {
+		function prettifyValue(user_conf, rule_index, verbose) {
 			if (typeof user_conf != 'object')
 				var user_conf = {};
 
@@ -2379,6 +2379,7 @@
 			}
 
 			prettified_value = '';
+			var prettified_value_array = [];
 
 			for (var nrule = 0; nrule < new_tokens.length; nrule++) {
 				if (new_tokens[nrule][0].length == 0) continue;
@@ -2403,7 +2404,7 @@
 							+ user_conf.rule_sep_string);
 				}
 
-				var selector_start_end_type = [ 0, 0, undefined ]
+				var selector_start_end_type = [ 0, 0, undefined ],
 					prettified_group_value = [];
 				// console.log(new_tokens[nrule][0]);
 				var count = 0;
@@ -2453,6 +2454,8 @@
 					}
 				).join(' ');
 
+				prettified_value_array.push( prettified_group_value );
+
 				if (!done_with_selector_reordering) {
 					for (var i = 0, l = not_sorted_prettified_group_value.length; i < l; i++) {
 						if (not_sorted_prettified_group_value[i] != prettified_group_value[i]) {
@@ -2474,8 +2477,13 @@
 			}
 
 			done_with_selector_reordering = true;
+			// console.log(JSON.stringify(prettified_value_array, null, '    '));
 
-			return prettified_value;
+			if (verbose) {
+				return [ prettified_value_array, new_tokens ];
+			} else {
+				return prettified_value;
+			}
 		}
 
 		/* Check selector array of tokens for specific token name pattern. {{{
@@ -4636,8 +4644,8 @@
 		}
 
 		// Get a nicely formated value.
-		this.prettifyValue = function(user_conf, rule_index) {
-			return prettifyValue(user_conf, rule_index);
+		this.prettifyValue = function(user_conf, rule_index, verbose) {
+			return prettifyValue(user_conf, rule_index, verbose);
 		}
 
 		/* Check if token is the begin of a selector and why. {{{

@@ -3,10 +3,6 @@
 <html>
 	<head><!-- {{{ -->
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<title></title>
-		<script type="text/javascript">
-			document.write('<title>' + i18n.t('texts.title') + '</title>');
-		</script>
 		<!-- Some CSS {{{ -->
 		<style>
 			body { font-family: sans-serif }
@@ -17,11 +13,27 @@
 				position: absolute;
 				right: 1em;
 			}
+			p.value_explanation {
+				background-color: #F8F8F8;
+				border: 1px solid #DDD;
+				line-height: 19px;
+				overflow: auto;
+				padding: 6px 10px;
+				border-radius: 5px;
+			}
+			span.year    { background: #88ff88 }
+			span.month   { background: #88ff88 }
+			span.week    { background: #88ff88 }
+			span.weekday { background: #ff9999 }
+			span.time    { background: #88ccff }
+			span.rule_separator    { background: #ffccff }
+			// span.one_rule { text-decoration: underline }
+			a.specification { color: black; text-decoration:none }
+			}
 		</style>
 		<link rel="stylesheet" href="css/table.css"/>
 		<!-- }}} -->
 		<!-- Javascript {{{ -->
-		<!-- <script type="text/javascript" src="js/jquery&#45;1.10.2.min.js"></script> -->
 		<script type="text/javascript" src="node_modules/suncalc/suncalc.js"></script>
 		<script type="text/javascript" src="opening_hours.js"></script>
 		<script type="text/javascript" src="node_modules/i18next/lib/dep/i18next.min.js"></script>
@@ -42,10 +54,15 @@
 			}
 			// }}}
 
+			document.write('<title>' + i18n.t('texts.title') + '</title>');
+
 			// default values {{{
 			var def_lat = 48.7769;
 			var def_lon = 9.1844;
 			var repo_url = 'https://github.com/ypid/opening_hours.js';
+			var specification_url = 'http://wiki.openstreetmap.org/wiki/'
+				+ (i18n.lng() == 'de' ? 'DE:' : '')
+				+ 'Key:opening_hours:specification';
 			// }}}
 		</script>
 		<!-- }}} -->
@@ -418,6 +435,7 @@
 					+ document.forms.check.elements['expression'].value + ']') + '\')">' + i18n.t('texts.load all with JOSM') + '</a><br />';
 				if (!crashed) {
 					var prettified = oh.prettifyValue();
+					var prettified_value_array = oh.prettifyValue(undefined, undefined, true);
 					var prettified_newline_sep = oh.prettifyValue({ rule_sep_string: '\n', print_semicolon: false });
 					show_results.innerHTML = '<p>' + i18n.t('words.status') + ':<br />'
 						+ '<input size="10" name="status" readonly="readonly" />'
@@ -426,12 +444,55 @@
 						+ i18n.t('texts.MatchingRule') + ':<br />'
 						+ '<input style="width: 100%" name="MatchingRule" readonly="readonly" />'
 						+ '</p>';
+					var used_selectors = { };
+					var value_explanation =
+						i18n.t('texts.prettified value for displaying') + ':<br />'
+						+ '<p class="value_explanation">';
+					// console.log(JSON.stringify(prettified_value_array, null, '    '));
+					// console.log(JSON.stringify(prettified_value_array, null, '    '));
+					for (var nrule = 0; nrule < prettified_value_array[0].length; nrule++) {
+						if (nrule != 0) {
+							var rule_separator = (
+								prettified_value_array[1][nrule][1]
+									? ' ||'
+									: (
+										prettified_value_array[1][nrule][0][0][1] == 'rule separator'
+										? ','
+										: ';'
+									)
+							);
+							value_explanation +=
+								'<span title="'
+								+ i18n.t('texts.rule separator ' + rule_separator) + '"'
+								+ ' class="rule_separator"><a target="_blank" class="specification" href="'
+								+ specification_url
+								+ (rule_separator == ' ||' ? '#rule1' : '')
+								+ '">' + rule_separator + '</a></span><br>';
+						}
+						value_explanation += '<span class="one_rule">';
+						for (var nselector = 0, sl = prettified_value_array[0][nrule].length; nselector < sl; nselector++) {
+							var selector_type  = prettified_value_array[0][nrule][nselector][0][2];
+							var selector_value = prettified_value_array[0][nrule][nselector][1];
+							value_explanation += '<span title="'
+								+ i18n.t('words.' + (selector_type.match(/(?:state|comment)/) ? 'modifier' : 'selector'), { name: selector_type }) + '"'
+								+ ' class="' + selector_type + '"><a target="_blank" class="specification" href="'
+								+ specification_url + '#' + (selector_type.match(/(?:state|comment)/) ? 'modifier' : selector_type)
+								+ '">' + selector_value + '</a></span>';
+							if (nselector + 1 < sl)
+								value_explanation += ' ';
+							used_selectors[selector_type] = true;
+						}
+						// console.log(value_explanation);
+						value_explanation += '</span>';
+					}
+					value_explanation += '</p></div>';
+					show_warnings_or_errors.innerHTML = value_explanation;
 
-					if (prettified_newline_sep.split('\n').length > 1)
-						show_results.innerHTML += '<p>' + i18n.t('texts.prettified value for displaying') + ':<br />'
-							+ '<textarea rows="' + prettified_newline_sep.split('\n').length
-							+ '" style="width: 100%" name="prettifiedValueNewlineSep" readonly="readonly">'
-							+ prettified_newline_sep + '</textarea></p>';
+					// if (prettified_newline_sep.split('\n').length > 1)
+						// show_results.innerHTML += '<p>' + i18n.t('texts.prettified value for displaying') + ':<br />'
+							// + '<textarea rows="' + prettified_newline_sep.split('\n').length
+							// + '" style="width: 100%" name="prettifiedValueNewlineSep" readonly="readonly">'
+							// + prettified_newline_sep + '</textarea></p>';
 
 
 					document.forms.check.elements['comment'].value = typeof it.getComment() != 'undefined'

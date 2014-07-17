@@ -323,12 +323,12 @@ With [1m[34mwarnings[39m[22m:
 "Full range" for "Dec-Nov": [1m[32mPASSED[39m[22m
 "Full range" for "Jan 01-Dec 31": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
 "Full range" for "week 1-54": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m weekstable which is ignored for now
-"24/7 as time interval alias (don’t use it 24/7 as showen here)" for "Mo,We 24/7": [1m[32mPASSED[39m[22m
+"24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We 24/7": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo,We 24/7 <--- (You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week". For correctness you might want to use "open" or "closed" for this rule and then write your exceptions which should achieve the same goal and is more clear e.g. "open; Mo 12:00-14:00 off".)
-"24/7 as time interval alias (don’t use it 24/7 as showen here)" for "Mo,We open": [1m[32mPASSED[39m[22m
-"24/7 as time interval alias (don’t use it 24/7 as showen here)" for "Mo,We 00:00-24:00": [1m[32mPASSED[39m[22m
-"24/7 as time interval alias (don’t use it 24/7 as showen here)" for "Mo,We": [1m[32mPASSED[39m[22m
+"24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We open": [1m[32mPASSED[39m[22m
+"24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We 00:00-24:00": [1m[32mPASSED[39m[22m
+"24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We": [1m[32mPASSED[39m[22m
 "Constrained weekdays" for "We[4,5] 10:00-12:00": [1m[32mPASSED[39m[22m
 "Constrained weekdays" for "We[4-5] 10:00-12:00": [1m[32mPASSED[39m[22m
 "Constrained weekdays" for "We[4],We[5] 10:00-12:00": [1m[32mPASSED[39m[22m
