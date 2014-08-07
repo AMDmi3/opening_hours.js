@@ -562,6 +562,31 @@ test.addTest('Variable days: public holidays', [
 	], 1000 * 60 * 60 * 24 * (3 + 2), 0, false, nominatiomTestJSON, 'not last test');
 
 test.addTest('Variable days: public holidays', [
+		'PH -1 day Mo-We',
+		'Mo-We PH -1 day',
+		'day before public holiday Mo-We',
+		'one day before public holiday Mo-We',
+	], '2014.10.25 0:00', '2015.01.15 0:00', [
+		// [ '2014.10.31 00:00', '2014.11.01 00:00', false, 'Day before Allerheiligen' ],       // 31: Fr
+		[ '2014.12.24 00:00', '2014.12.25 00:00', false, 'Day before 1. Weihnachtstag' ],    // 24: We
+		// [ '2014.12.25 00:00', '2014.12.26 00:00', false, 'Day before 2. Weihnachtstag' ],    // 25: Th
+		[ '2014.12.31 00:00', '2015.01.01 00:00', false, 'Day before Neujahrstag' ],         // 31: We
+		[ '2015.01.05 00:00', '2015.01.06 00:00', false, 'Day before Heilige Drei Könige' ], // 05: Mo
+	], 1000 * 60 * 60 * 24 * 3, 0, false, nominatiomTestJSON, 'not last test');
+
+// FIXME
+test.addTest('Variable days: public holidays', [
+		'SH PH -1 day Mo-We',
+		'PH -1 day SH Mo-We',
+	], '2014.10.25 0:00', '2015.01.15 0:00', [
+		// [ '2014.10.31 00:00', '2014.11.01 00:00', false, 'Day before Allerheiligen' ],       // 31: Fr
+		[ '2014.12.24 00:00', '2014.12.25 00:00', false, 'Day before 1. Weihnachtstag' ],    // 24: We
+		// [ '2014.12.25 00:00', '2014.12.26 00:00', false, 'Day before 2. Weihnachtstag' ],    // 25: Th
+		[ '2014.12.31 00:00', '2015.01.01 00:00', false, 'Day before Neujahrstag' ],         // 31: We
+		[ '2015.01.05 00:00', '2015.01.06 00:00', false, 'Day before Heilige Drei Könige' ], // 05: Mo
+	], 1000 * 60 * 60 * 24 * 3, 0, false, nominatiomTestJSON, 'not last test');
+
+test.addTest('Variable days: public holidays', [
 		'PH -1 day',
 		'day before public holiday',
 		'one day before public holiday',

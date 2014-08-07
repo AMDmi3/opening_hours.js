@@ -21,14 +21,17 @@
 				padding: 6px 10px;
 				border-radius: 5px;
 			}
-			span.year    { background: #88ff88 }
+			/* See http://clrs.cc/ */
+			span.year    { background: #ff851b } /* Orange */
+			span.week    { background: #ffdc00 } /* Yellow */
 			span.month   { background: #88ff88 }
-			span.week    { background: #88ff88 }
 			span.weekday { background: #ff9999 }
 			span.time    { background: #88ccff }
-			span.rule_separator    { background: #ffccff }
+			span.rule_separator    { background: #3d9970 } /* Olive */
 			// span.one_rule { text-decoration: underline }
 			a.specification { color: black; text-decoration:none }
+			span.state   { background: #ffccff }
+			span.comment { background: #dddddd } /* Silver */
 			}
 		</style>
 		<link rel="stylesheet" href="css/table.css"/>
@@ -448,7 +451,7 @@
 					var value_explanation =
 						i18n.t('texts.prettified value for displaying') + ':<br />'
 						+ '<p class="value_explanation">';
-					console.log(JSON.stringify(prettified_value_array, null, '    '));
+					// console.log(JSON.stringify(prettified_value_array, null, '    '));
 					// console.log(JSON.stringify(prettified_value_array, null, '    '));
 					for (var nrule = 0; nrule < prettified_value_array[0].length; nrule++) {
 						if (nrule != 0) {
@@ -465,23 +468,31 @@
 								'<span title="'
 								+ i18n.t('texts.rule separator ' + rule_separator) + '"'
 								+ ' class="rule_separator"><a target="_blank" class="specification" href="'
-								+ specification_url
-								+ (rule_separator == ' ||' ? '#rule1' : '')
+								+ specification_url + '#section:rule_separators'
 								+ '">' + rule_separator + '</a></span><br>';
 						}
 						value_explanation += '<span class="one_rule">';
 						for (var nselector = 0, sl = prettified_value_array[0][nrule].length; nselector < sl; nselector++) {
 							var selector_type  = prettified_value_array[0][nrule][nselector][0][2];
 							var selector_value = prettified_value_array[0][nrule][nselector][1];
+							var fragment_identifier;
+							switch(selector_type) {
+								case '24/7':
+									fragment_identifier = 'selector_sequence';
+									break;
+								case 'state':
+									fragment_identifier = 'section:rule_modifier';
+									break;
+								case 'comment':
+									fragment_identifier = 'comment';
+									break;
+								default:
+									fragment_identifier = 'selector:' + selector_type;
+							}
 							value_explanation += '<span title="'
 								+ i18n.t('words.' + (selector_type.match(/(?:state|comment)/) ? 'modifier' : 'selector'), { name: selector_type }) + '"'
 								+ ' class="' + selector_type + '"><a target="_blank" class="specification" href="'
-								+ specification_url + '#'
-								+ (
-									selector_type.match(/(?:state|comment)/)
-										? 'modifier'
-										: selector_type
-										)
+								+ specification_url + '#' + fragment_identifier
 								+ '">' + selector_value + '</a></span>';
 							if (nselector + 1 < sl)
 								value_explanation += ' ';

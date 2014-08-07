@@ -323,8 +323,8 @@ var resources = { // English is fallback language.
                 "rule separator ,": 'Begrenzungszeichen für Regeln (es folgt eine additive Regel deren Zeiten vorherige Regeln erweitern und nicht überschreiben wie bei normalen Regeln)',
             },
             "words": {
-                "modifier": "__name__ Regel Veränderer",
-                "selector": "__name__ Auswähler",
+                "modifier": "__name__ Regeleigenschaft",
+                "selector": "__name__ Bereichsdefinition",
                 "mode": "Auswerte Modus",
                 "green": "Grün",
                 "yellow": "Gelb",

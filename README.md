@@ -399,16 +399,6 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * To evaluate the correct holidays, the country code and the state (could be omitted but this will probably result in less exactitude) are required which are included in the JSON returned by [Nominatim] \(see in the [Library API][ohlib.library-api] how to provide it\).
 * If your country or state is missing or wrong you can add it or open an [issue][issue-report] (and point to a definition of the holidays).
 
-### Year ranges ###
-
-* **EXT:** Supports year ranges (```2013,2015,2050-2053,2055/2,2020-2029/3 10:00-20:00```)
-* **EXT:** Supports periodic year (either limited by range or unlimited starting with given year) (```2020-2029/3,2055/2 10:00-20:00```)
-
-  There is one exception. It is not necessary to use a year range with a period of one (```2055-2066/1 10:00-20:00```) because this means the same as just the year range without the period (```2055-2066 10:00-20:00```) and should be expressed like this …
-
- The *oh.getWarnings()* function will give you a warning if you use this anyway.
-* **EXT:** Supports way to say that a facility is open (or closed) from a specified year without limit in the future (```2055+ 10:00-20:00```)
-
 ### Month ranges ###
 
 * Supports set of months and month ranges (```Jan,Mar-Apr```)
@@ -433,6 +423,16 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Supports week ranges (```week 04-07 10:00-20:00```)
 * Supports periodic weeks (```week 2-53/2 10:00-20:00```)
 * **EXT:** Supports multiple week ranges (```week 1,3-5,7-30/2 10:00-20:00```)
+
+### Year ranges ###
+
+* **EXT:** Supports year ranges (```2013,2015,2050-2053,2055/2,2020-2029/3 10:00-20:00```)
+* **EXT:** Supports periodic year (either limited by range or unlimited starting with given year) (```2020-2029/3,2055/2 10:00-20:00```)
+
+  There is one exception. It is not necessary to use a year range with a period of one (```2055-2066/1 10:00-20:00```) because this means the same as just the year range without the period (```2055-2066 10:00-20:00```) and should be expressed like this …
+
+ The *oh.getWarnings()* function will give you a warning if you use this anyway.
+* **EXT:** Supports way to say that a facility is open (or closed) from a specified year without limit in the future (```2055+ 10:00-20:00```)
 
 ### States ###
 * A facility can be in two main states for a given point in time: ```open``` (true) or ```closed``` (false).
