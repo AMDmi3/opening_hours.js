@@ -553,6 +553,7 @@ test.addTest('PH: Only if PH is Wednesday', [
 
 test.addTest('PH: Only if SH is Wednesday', [
 		'SH Mo-Fr',
+		'Schulferien Mo-Fr',
 		'SH: Mo-Fr', // Please don’t use ":" after holiday.
 	], '2012.12.22 0:00', '2013.01.08 0:00', [
 		[ '2012.12.24 00:00', '2012.12.29 00:00', false, 'Weihnachtsferien' ],
@@ -1560,6 +1561,7 @@ test.addTest('Warnings corrected to additional rule (real world example)', [
 
 test.addTest('Real world example: Was not processed right.', [
 		'Mo off, Tu 14:00-18:00, We-Sa 10:00-18:00', // Reference value for prettify. Not perfect but still …
+		'Mo geschl., Tu 14:00-18:00, We-Sa 10:00-18:00', // Reference value for prettify. Not perfect but still …
 		'Mo: geschlossen, Di: 14-18Uhr, Mi-Sa: 10-18Uhr', // value as found in OSM
 		'Mo off; Tu 14:00-18:00; We-Sa 10:00-18:00', // Please use this value instead. Mostly automatically corrected.
 	], '2014.01.06 0:00', '2014.01.13 0:00', [

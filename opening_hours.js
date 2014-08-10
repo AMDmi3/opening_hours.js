@@ -1363,6 +1363,7 @@
 				'ruhetag':     'off',
 				'ruhetage':    'off',
 				'geschlossen': 'off',
+				'geschl':      'off',
 				// 'ausser':      'off',
 				// 'außer':       'off',
 			}, 'Neem de engelse afkorting "<ok>" voor "<ko>" alstublieft.': {
@@ -1474,8 +1475,9 @@
 				'ab':  '',
 				'von': '',
 			}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>".': {
-				'bis':     '-',
-				'täglich': 'Mo-Su',
+				'bis':         '-',
+				'täglich':     'Mo-Su',
+				'schulferien': 'SH',
 			}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.': {
 				'„': '"',
 				'“': '"',
