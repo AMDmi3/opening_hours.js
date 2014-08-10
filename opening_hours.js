@@ -1363,8 +1363,8 @@
 				'ruhetag':     'off',
 				'ruhetage':    'off',
 				'geschlossen': 'off',
-				'ausser':      'off',
-				'außer':       'off',
+				// 'ausser':      'off',
+				// 'außer':       'off',
 			}, 'Neem de engelse afkorting "<ok>" voor "<ko>" alstublieft.': {
 				'gesloten':  'off',
 				'feestdag':  'PH',
@@ -1469,6 +1469,7 @@
 			}, 'Bitte verzichte auf "<ko>".': {
 				'uhr': '',
 				'geöffnet': '',
+				'zwischen': '',
 			}, 'Bitte verzichte auf "<ko>". Sie möchten eventuell eine Öffnungszeit ohne vorgegebenes Ende angeben. Beispiel: "12:00+"': {
 				'ab':  '',
 				'von': '',
@@ -2501,6 +2502,7 @@
 				return prettified_value;
 			}
 		}
+		// }}}
 
 		/* Check selector array of tokens for specific token name pattern. {{{
 		 *
@@ -2930,6 +2932,8 @@
 
 					// minutes_to
 					if (has_open_end) {
+						if (extended_open_end === 1)
+							minutes_from += minutes_in_day;
 						if (minutes_from >= 22 * 60)
 							var minutes_to = minutes_from +  8 * 60;
 						else if (minutes_from >= 17 * 60)
@@ -2972,13 +2976,14 @@
 									'Time period does not continue as expected. Exampe "/01:30".');
 						}
 
+						// Check at this later state in the if condition to get the correct position.
 						if (oh_mode == 0)
 							throw formatWarnErrorMessage(nrule, at - 1,
 								'opening_hours is running in "time range mode". Found point in time.');
 
 						is_point_in_time = true;
 					} else if (matchTokens(tokens, at, '+')) {
-						parseTimeRange(tokens, at_end_time, selectors, true);
+						parseTimeRange(tokens, at_end_time, selectors, minutes_to < minutes_from ? 1 : true);
 						at++;
 					} else if (oh_mode == 1 && !is_point_in_time) {
 						throw formatWarnErrorMessage(nrule, at_end_time,
@@ -2992,7 +2997,7 @@
 						timevar_string = [];
 					}
 
-					// normalize minutes into range
+					// Normalize minutes into range.
 					if (!extended_open_end && minutes_from >= minutes_in_day)
 						throw formatWarnErrorMessage(nrule, at_end_time - 2,
 							'Time range starts outside of the current day');
@@ -3002,8 +3007,10 @@
 						throw formatWarnErrorMessage(nrule, at_end_time + (has_normal_time[1] ? 4 : (has_time_var_calc[1] ? 7 : 1)) - 2,
 							'Time spanning more than two midnights not supported');
 
-					// this shortcut makes always-open range check faster
-					if (!(minutes_from == 0 && minutes_to == minutes_in_day)) {
+					// This shortcut makes always-open range check faster.
+					if (minutes_from == 0 && minutes_to == minutes_in_day) {
+						selectors.time.push(function(date) { return [true]; });
+					} else {
 						if (minutes_to > minutes_in_day) { // has_normal_time[1] must be true
 							selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period) { return function(date) {
 								var ourminutes = date.getHours() * 60 + date.getMinutes();
@@ -3115,8 +3122,6 @@
 								}
 							}}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period));
 						}
-					} else {
-						selectors.time.push(function(date) { return [true]; });
 					}
 
 				} else if (matchTokens(tokens, at, 'number', '-', 'number')) { // "Mo 09-18" (Please don’t use this) -> "Mo 09:00-18:00".

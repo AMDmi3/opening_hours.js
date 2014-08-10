@@ -182,12 +182,7 @@ With [1m[34mwarnings[39m[22m:
 "Open end" for "17:00-19:00 off": [1m[32mPASSED[39m[22m
 "Open end" for "07:00+,12:00-16:00; 16:00-24:00 closed "needed because of open end"": [1m[32mPASSED[39m[22m
 "Fixed time followed by open end" for "14:00-17:00+": [1m[32mPASSED[39m[22m
-"Fixed time followed by open end, wrapping over midnight" for "Mo 22:00-04:00+": [1m[31mFAILED[39m[22m, bad duration(s): 21600000,64800000, expected 21600000,28800000, bad intervals: 
-[ '2012.10.01 04:00', '2012.10.01 22:00', true,  'Specified as open end. Closing time was guessed.' ],
-[ '2012.10.01 22:00', '2012.10.02 04:00', false, undefined ],
-expected:
-[ '2012.10.01 22:00', '2012.10.02 04:00', false, undefined ],
-[ '2012.10.02 04:00', '2012.10.02 12:00', true,  'Specified as open end. Closing time was guessed.' ],
+"Fixed time followed by open end, wrapping over midnight" for "Mo 22:00-04:00+": [1m[32mPASSED[39m[22m
 "Fixed time followed by open end, wrapping over midnight" for "Mo 22:00-28:00+": [1m[32mPASSED[39m[22m
 "variable time range followed by open end" for "14:00-sunset+": [1m[32mPASSED[39m[22m
 "variable time range followed by open end" for "sunrise-14:00+": [1m[32mPASSED[39m[22m
@@ -1503,4 +1498,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-600/625 tests passed
+601/625 tests passed
