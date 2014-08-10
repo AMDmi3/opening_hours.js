@@ -590,8 +590,8 @@ The opening brackets ```{{{``` (and the corresponding closing onces) are used to
 [Nominatim]: http://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding_.2F_Address_lookup
 [issue-report]: https://github.com/ypid/opening_hours.js/issues
 [formal specification]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification
-[fallback rules]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#rule1
-[additional rules]: http://wiki.openstreetmap.org/wiki/Key:opening_hours#Examples
+[fallback rules]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#fallback_rule_separator
+[additional rules]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#additional_rule_separator
 
 <!-- References to other parts of this documentation. Can not use short links only referring to the section inside the README.md any more because this will not work on other pages like https://www.npmjs.org/package/opening_hours. Edit: This does also work on npmjs in this short version … -->
 [ohlib.time-ranges]: #time-ranges

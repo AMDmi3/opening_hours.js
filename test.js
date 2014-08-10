@@ -303,6 +303,14 @@ test.addTest('Fixed time followed by open end', [
 		[ '2012.10.01 17:00', '2012.10.02 00:00', true,  'Specified as open end. Closing time was guessed.' ],
 	], 1000 * 60 * 60 * 3, 1000 * 60 * 60 * (3 + 7), true, {}, 'not last test');
 
+test.addTest('Fixed time followed by open end, wrapping over midnight', [
+		'Mo 22:00-04:00+',
+		'Mo 22:00-28:00+',
+	], '2012.10.01 0:00', '2012.10.03 0:00', [
+		[ '2012.10.01 22:00', '2012.10.02 04:00' ],
+		[ '2012.10.02 04:00', '2012.10.02 12:00', true,  'Specified as open end. Closing time was guessed.' ],
+	], 1000 * 60 * 60 * 6, 1000 * 60 * 60 * 8, true, {}, 'not last test');
+
 test.addTest('variable time range followed by open end', [
 		'14:00-sunset+',
 	], '2012.10.01 0:00', '2012.10.02 0:00', [
