@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 
 // preamble {{{
-var opening_hours = require('./opening_hours.js');
+var opening_hours_lib = process.argv[2];
+if (typeof opening_hours_lib !== 'string')
+	opening_hours_lib = './opening_hours.js';
+
+var opening_hours = require(opening_hours_lib);
 var colors        = require('colors');
 
 colors.setTheme({

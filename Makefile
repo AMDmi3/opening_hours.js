@@ -3,19 +3,34 @@ SEARCH?= opening_hours
 
 default: check
 
-all: test real_test
+build: opening_hours.min.js
 
-check: test
+test: check real_test benchmark
+
+check: diff-test diff-test-min
 
 test: opening_hours.js test.js
-	${NODE} test.js
+	${NODE} test.js "./$<"
+
+test-min: opening_hours.min.js test.js
+	${NODE} test.js "./$<"
+
+opening_hours.min.js: opening_hours.js
+	uglifyjs opening_hours.js --output opening_hours.min.js --comments '/ypid\/opening_hours\.js/'  --lint
 
 .SILENT: diff-test
 diff-test: opening_hours.js test.js
 	git checkout HEAD -- test.log
 	# git checkout master -- test.log
 	# git checkout 9f323b9d06720b6efffc7420023e746ff8f1b309 -- test.log
-	-${NODE} test.js 1> test.log 2>&1
+	${NODE} test.js 1> test.log 2>&1 || echo "Test results for $< are exactly the same as on developemt system. So far, so good ;)"
+	# git --no-pager diff --color-words test.log
+	git --no-pager diff test.log
+
+.SILENT: diff-test-min
+diff-test-min: opening_hours.min.js test.js
+	git checkout HEAD -- test.log
+	${NODE} test.js "./$<" 1> test.log 2>&1 || echo "Test results for $< are exactly the same as on developemt system. So far, so good ;)"
 	# git --no-pager diff --color-words test.log
 	git --no-pager diff test.log
 
@@ -33,7 +48,8 @@ interactive_testing: interactive_testing.js
 	${NODE} interactive_testing.js
 
 clean:
-	rm export.*.json
+	rm -f export.*.json
+	rm -f opening_hours.min.js
 
 all-osm-tags: export.opening_hours.json export.lit.json export.opening_hours\:kitchen.json export.opening_hours\:warm_kitchen.json export.smoking_hours.json export.collection_times.json export.service_times.json export.fee.json
 
