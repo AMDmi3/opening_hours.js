@@ -54,6 +54,16 @@ http://openingh.openstreetmap.de/evaluation_tool/node_modules/suncalc/suncalc.js
 
 This library is packaged with npm and is available under the name [opening_hours](https://www.npmjs.org/package/opening_hours) so you should have no problems using it.
 
+## Versions ##
+
+The version number consists of a major release, minor release and patch level (separated by a dot).
+
+For version 2.2.0 and all following, the following applies:
+
+* The major release is only increased if the release breaks backward compatibility.
+* The minor release is increased if new features are added.
+* The patch level is increased to bundle a bunch of commits (minor changes like bug fixes and improvements) into a new tested version.
+
 ## Synopsis ##
 
 ```javascript
@@ -558,8 +568,9 @@ The documentation looks like this:
  */
 function getConstrainedWeekday(tokens, at) {
 ```
+<!-- }}} -->
 
-The opening brackets ```{{{``` (and the corresponding closing onces) are used to fold the source code. See [Vim folds](http://vim.wikia.com/wiki/Folding).
+The opening brackets `\{\{\{` (and the corresponding closing onces) are used to fold the source code. See [Vim folds](http://vim.wikia.com/wiki/Folding).
 
 ## Author ##
 
