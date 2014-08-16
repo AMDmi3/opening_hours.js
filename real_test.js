@@ -15,10 +15,10 @@ var nominatiomTestJSON = {"place_id":"44651229","licence":"Data \u00a9 OpenStree
 
 var test = new opening_hours_test();
 
-console.log('For holidays the ' + nominatiomTestJSON.address.country_code + ' definition is used so the result will probably a bit worser if run in reality but you can change that by providing the definition of the holidays.\n');
+console.log('For holidays defintions for the country ' + nominatiomTestJSON.address.country_code + ' are used so the result will probably be a bit worse in reality but you can change that by providing the definition of the holidays.\n');
 
 // Add as much as you like. Just make sure that the export is
-// pressed by added it as dependence in the make file.
+// present by added it as dependence to the make file.
 // Tests will not be executed in order listed here due to non-blocking aspect
 // of JS and node.js.
 
@@ -63,7 +63,7 @@ function opening_hours_test() {
 			if (typeof options !== 'undefined' && typeof options.mode == 'number')
 				mode = options.mode;
 
-			console.log('Parsing ' + tagname.blue.bold + (ignored_values.length != 0 ? ' (ignoring: ' + ignored_values.join(', ') + ')': '') + ' …');
+			console.log('Parsing ' + tagname.blue.bold + (ignored_values.length !== 0 ? ' (ignoring: ' + ignored_values.join(', ') + ')': '') + ' …');
 
 			var success_differ  = 0; // increment only by one despite that the value might appears more than one time
 			var success         = 0; // increment by number of appearances
@@ -73,7 +73,7 @@ function opening_hours_test() {
 			var warnings_differ = 0; // number of values which throw warnings (only one warning is counted for each value if more appear)
 			var important_and_failed = [];
 
-			var data = JSON.parse(data);
+			data = JSON.parse(data);
 
 			for (var i = 0; i < data.data.length; i++) {
 				if (indexOf.call(ignored_values, data.data[i].value) == -1) {
@@ -99,17 +99,17 @@ function opening_hours_test() {
 					}
 					parsed_values += data.data[i].count;
 
-					if (i != 0 && i % how_often_print_stats == 0) {
+					if (i !== 0 && i % how_often_print_stats === 0) {
 						var delta = (new Date()).getTime() - before.getTime();
 						var success_procent = Math.round(success / parsed_values * 100) + ' %';
 						var warnings_procent = Math.round(warnings / success  * 100) + ' %';
 						var success_differ_procent = Math.round(success_differ / i * 100) + ' %';
-						console.log(success + '/' + total + '\t (' + success_procent.result
-							+ ', with warnings: ' + warnings_procent.result + '),'
-							+ ' only different values: '+ success_differ +'/'+ total_differ
-							+' (' + success_differ_procent.result + ')'
-							+ ' tests passed.\t'
-							+ (total_differ - i) + ' left …\t'+ i + ' values, ' + delta + ' ms (' + (i/delta*1000).toFixed(2) + ' n/sec).');
+						console.log(success + '/' + total + '\t (' + success_procent.result +
+							', with warnings: ' + warnings_procent.result + '),' +
+							' only different values: '+ success_differ +'/'+ total_differ +
+							' (' + success_differ_procent.result + ')' +
+							' tests passed.\t' +
+							(total_differ - i) + ' left …\t'+ i + ' values, ' + delta + ' ms (' + (i/delta*1000).toFixed(2) + ' n/sec).');
 					}
 				}
 			}
@@ -121,11 +121,11 @@ function opening_hours_test() {
 			var success_procent = Math.round(success / parsed_values * 100) + ' %';
 			var warnings_procent = Math.round(warnings / success  * 100) + ' %';
 			var success_differ_procent = Math.round(success_differ / i * 100) + ' %';
-			console.log(success + '/' + total + ' (' + success_procent.result
-					+ ', with warnings: ' + warnings_procent.result + '),'
-				+ ' only different values: '+ success_differ +'/'+ total_differ
-				+' (' + success_differ_procent.result + ')'
-				+ ' tests passed.');
+			console.log(success + '/' + total + ' (' + success_procent.result +
+					', with warnings: ' + warnings_procent.result + '),' +
+				' only different values: '+ success_differ +'/'+ total_differ +
+				' (' + success_differ_procent.result + ')' +
+				' tests passed.');
 			var delta = (new Date()).getTime() - before.getTime();
 			console.log(total + ' values, ' + delta + ' ms (' + (total/delta*1000).toFixed(2) + ' n/sec).\n');
 
@@ -139,7 +139,7 @@ function opening_hours_test() {
 			}
 			console.log();
 		});
-	}
+	};
 
 	function test_value(value, mode) {
 		var crashed = true, warnings = [];
