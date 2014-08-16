@@ -570,7 +570,8 @@ function getConstrainedWeekday(tokens, at) {
 ```
 <!-- }}} -->
 
-The opening brackets `\{\{\{` (and the corresponding closing onces) are used to fold the source code. See [Vim folds](http://vim.wikia.com/wiki/Folding).
+The opening brackets `{{{` (and the corresponding closing onces) are used to fold the source code. See [Vim folds](http://vim.wikia.com/wiki/Folding).
+<!-- }}} -->
 
 ## Author ##
 
