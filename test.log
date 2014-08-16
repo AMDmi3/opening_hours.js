@@ -256,6 +256,12 @@ With [1m[34mwarnings[39m[22m:
 "PH: Only if SH is Wednesday" for "Schulferien Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Schulferien <--- (Bitte benutze die Schreibweise "SH" für "schulferien".)
+"PH: Only if SH is Wednesday" for "school holiday Mo-Fr": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*school holiday <--- (Please use notation "SH" for "school holiday".)
+"PH: Only if SH is Wednesday" for "school holidays Mo-Fr": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*school holidays <--- (Please use notation "SH" for "school holidays".)
 "PH: Only if SH is Wednesday" for "SH: Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH:  <--- (Please don’t use ":" after holiday.)
@@ -680,6 +686,20 @@ With [1m[34mwarnings[39m[22m:
 "Points in time, mode 2" for "Mo (sunrise+01:00)": [1m[32mPASSED[39m[22m
 "Points in time and times ranges, mode 2" for "Mo 12:00,13:00-14:00": [1m[32mPASSED[39m[22m
 "Points in time and times ranges, mode 2" for "Mo 13:00-14:00,12:00": [1m[32mPASSED[39m[22m
+"Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th,Fr 05:45; Mo[1] 07:30; SH Mo-Fr (sunrise+03:00); PH off": [1m[32mPASSED[39m[22m
+"Points in time, extrem example useful for ComplexAlarm" for "Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday[1] 07:30; school holidays Monday-Friday (sunrise+03:00); public holidays off": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Monday <--- (Please use the abbreviation "Mo" for "monday".)
+	*Monday-Wednesday <--- (Please use the abbreviation "We" for "wednesday".)
+	*Monday-Wednesday 07:00; Thursday <--- (Please use the abbreviation "Th" for "thursday".)
+	*Monday-Wednesday 07:00; Thursday,Friday <--- (Please use the abbreviation "Fr" for "friday".)
+	*Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday <--- (Please use the abbreviation "Mo" for "monday".)
+	*Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday[1] 07:30; school holidays <--- (Please use notation "SH" for "school holidays".)
+	*Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday[1] 07:30; school holidays Monday <--- (Please use the abbreviation "Mo" for "monday".)
+	*Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday[1] 07:30; school holidays Monday-Friday <--- (Please use the abbreviation "Fr" for "friday".)
+	*Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday[1] 07:30; school holidays Monday-Friday (sunrise+03:00); public holidays <--- (Please use notation "PH" for "public holidays".)
+"Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th,Fr 05:45; Mo[1] 07:30; SH Mo-Fr (sunrise+03:00); PH off": [1m[32mPASSED[39m[22m
+"Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th 05:45; week 1-56/2 Fr 05:45; week 2-56/2 Fr 05:45; SH Mo-Fr (sunrise+03:00); PH off": [1m[35mCRASHED[39m[22m, reason: Fatal: infinite loop in nextChange
 "Points in time, period times" for "Mo-Fr 10:00-16:00/01:30": [1m[32mPASSED[39m[22m
 "Points in time, period times" for "Mo-Fr 10:00-16:00/90": [1m[32mPASSED[39m[22m
 "Points in time, period times" for "Mo-Fr 10:00-16:00/90; Sa off "testing at end for parser"": [1m[32mPASSED[39m[22m
@@ -1504,4 +1524,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-603/627 tests passed
+608/633 tests passed

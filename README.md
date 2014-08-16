@@ -308,12 +308,12 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 **WARN** indicates that the syntax element is evaluated correctly, but there is a better way to express this. A warning will be shown.
 
-* See the [formal specification][]
+* See the [formal specification][oh:specification]
 * Opening hours consist of multiple rules separated by semicolon (```Mo 10:00-20:00; Tu 12:00-18:00```) or by other separated mentioned by the next to points.
-* Supports [fallback rules][] (```We-Fr 10:00-24:00 open "it is open" || "please call"```).
+* Supports [fallback rules][oh:specification:fallback rule] (```We-Fr 10:00-24:00 open "it is open" || "please call"```).
 
   Note that only the rule which starts with ```||``` is a fallback rule. Other rules which might follow are considered as normal rules.
-* Supports [additional rules][] or cooperative values (```Mo-Fr 08:00-12:00, We 14:00-18:00```). A additional rule is treated exactly the same as a normal rule, except that a additional rule does not overwrite the day for which it applies. Note that a additional rule does not use any data from previous or from following rules.
+* Supports [additional rules][oh:specification:additional rule] or cooperative values (```Mo-Fr 08:00-12:00, We 14:00-18:00```). A additional rule is treated exactly the same as a normal rule, except that a additional rule does not overwrite the day for which it applies. Note that a additional rule does not use any data from previous or from following rules.
 
   A rule does only count as additional rule if the previous rule ends with a time range (```12:00-14:00, We 16:00-18:00```, but does not continue with a time range of course), a comment (```12:00-14:00 "call us", We 16:00-18:00```) or the keywords 'open', 'unknown' or 'closed' (```12:00-14:00 unknown, We 16:00-18:00```)
 
@@ -323,7 +323,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
   This also applies for time ranges spanning midnight.	This is the only way to be consistent. Example: ```22:00-02:00; Th 12:00-14:00```. By not overriding specifically for midnight ranges, we could get either ```22:00-02:00; Th 00:00-02:00,12:00-14:00,22:00-02:00``` or ```22:00-02:00; Th 00:00-02:00,12:00-14:00``` and deciding which interpretation was really intended cannot always be guessed.
 
-* Date ranges (calendar ranges) can be separated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][formal specification].
+* Date ranges (calendar ranges) can be separated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][oh:specification].
 
 ### Time ranges ###
 
@@ -589,9 +589,9 @@ The opening brackets ```{{{``` (and the corresponding closing onces) are used to
 
 [Nominatim]: http://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding_.2F_Address_lookup
 [issue-report]: https://github.com/ypid/opening_hours.js/issues
-[formal specification]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification
-[fallback rules]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#fallback_rule_separator
-[additional rules]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#additional_rule_separator
+[oh:specification]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification
+[oh:specification:fallback rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#fallback_rule_separator
+[oh:specification:additional rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#additional_rule_separator
 
 <!-- References to other parts of this documentation. Can not use short links only referring to the section inside the README.md any more because this will not work on other pages like https://www.npmjs.org/package/opening_hours. Edit: This does also work on npmjs in this short version … -->
 [ohlib.time-ranges]: #time-ranges

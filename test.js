@@ -554,6 +554,8 @@ test.addTest('PH: Only if PH is Wednesday', [
 test.addTest('PH: Only if SH is Wednesday', [
 		'SH Mo-Fr',
 		'Schulferien Mo-Fr',
+		'school holiday Mo-Fr',
+		'school holidays Mo-Fr',
 		'SH: Mo-Fr', // Please don’t use ":" after holiday.
 	], '2012.12.22 0:00', '2013.01.08 0:00', [
 		[ '2012.12.24 00:00', '2012.12.29 00:00', false, 'Weihnachtsferien' ],
@@ -1864,6 +1866,42 @@ test.addTest('Points in time and times ranges, mode 2', [
 		[ '2012.10.01 12:00', '2012.10.01 12:01' ],
 		[ '2012.10.01 13:00', '2012.10.01 14:00' ],
 	], 1000 * 60 * (1 + 60), 0, true, nominatiomTestJSON, 'not last test', 2);
+
+// https://github.com/ypid/ComplexAlarm
+test.addTest('Points in time, extrem example useful for ComplexAlarm', [
+		'Mo-We 07:00; Th,Fr 05:45; Mo[1] 07:30; SH Mo-Fr (sunrise+03:00); PH off',
+		'Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday[1] 07:30; school holidays Monday-Friday (sunrise+03:00); public holidays off',
+	], '2014.07.21 0:00', '2014.08.08 0:00', [
+		[ '2014.07.21 07:00', '2014.07.21 07:01' ],
+		[ '2014.07.22 07:00', '2014.07.22 07:01' ],
+		[ '2014.07.23 07:00', '2014.07.23 07:01' ],
+		[ '2014.07.24 05:45', '2014.07.24 05:46' ],
+		[ '2014.07.25 05:45', '2014.07.25 05:46' ],
+		[ '2014.07.28 07:00', '2014.07.28 07:01' ],
+		[ '2014.07.29 07:00', '2014.07.29 07:01' ],
+		[ '2014.07.30 07:00', '2014.07.30 07:01' ],
+		[ '2014.07.31 08:51', '2014.07.31 08:52', false, 'Sommerferien' ],
+		[ '2014.08.01 08:52', '2014.08.01 08:53', false, 'Sommerferien' ],
+		[ '2014.08.04 08:56', '2014.08.04 08:57', false, 'Sommerferien' ],
+		[ '2014.08.05 08:58', '2014.08.05 08:59', false, 'Sommerferien' ],
+		[ '2014.08.06 08:59', '2014.08.06 09:00', false, 'Sommerferien' ],
+		[ '2014.08.07 09:01', '2014.08.07 09:02', false, 'Sommerferien' ],
+	], 1000 * 60 * 14, 0, false, nominatiomTestJSON, 'not only test', 1);
+
+test.addTest('Points in time, extrem example useful for ComplexAlarm', [
+		'Mo-We 07:00; Th,Fr 05:45; Mo[1] 07:30; SH Mo-Fr (sunrise+03:00); PH off',
+	], '2014.05.25 0:00', '2014.06.01 0:00', [
+		[ '2014.05.26 07:00', '2014.05.26 07:01' ],
+		[ '2014.05.27 07:00', '2014.05.27 07:01' ],
+		[ '2014.05.28 07:00', '2014.05.28 07:01' ],
+		// 29: Christi Himmelfahrt
+		[ '2014.05.30 05:45', '2014.05.30 05:46' ],
+	], 1000 * 60 * 4, 0, false, nominatiomTestJSON, 'not only test', 1);
+
+test.addTest('Points in time, extrem example useful for ComplexAlarm', [
+		'Mo-We 07:00; Th 05:45; week 1-56/2 Fr 05:45; week 2-56/2 Fr 05:45; SH Mo-Fr (sunrise+03:00); PH off',
+	], '2012.10.01 0:00', '2012.10.03 0:00', [
+	], 1000 * 60 * 5 * 2, 0, true, nominatiomTestJSON, 'not only test', 1);
 
 // period times {{{
 test.addTest('Points in time, period times', [

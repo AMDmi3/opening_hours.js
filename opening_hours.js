@@ -1453,6 +1453,8 @@
 				'holidays':        'PH',
 				'public holidays': 'PH',
 				'public holiday':  'PH',
+				'school holiday':  'SH',
+				'school holidays': 'SH',
 				'day before public holiday':  'PH -1 day',
 				'one day before public holiday':  'PH -1 day',
 				// summerholiday:  'SH',
@@ -2080,7 +2082,7 @@
 					// special day name (holidays)
 					curr_rule_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
 					value = value.substr(2);
-				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-(?:late|open[ ]?end)|(?:(?:one )?day before )?public holidays?|days?\b|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b|à|á)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|→|–|−|=|opening_hours=|ー|\?|~|～|：|°°|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-(?:late|open[ ]?end)|(?:(?:one )?day before )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b|à|á)\.?/i)) {
 					// Handle all remaining words and specific other characters with error tolerance.
 					//
 					// à|á: Word boundary does not work with unicode chars: 'test à test'.match(/\bà\b/i)
