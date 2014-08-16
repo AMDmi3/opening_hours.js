@@ -1,9 +1,17 @@
 NODE?=	node
 SEARCH?= opening_hours
 
+.PHONY : default check build clean test test-min diff-test diff-test-min download-dependencies
 default: check
 
 build: opening_hours.min.js
+
+download-dependencies:
+	npm install
+
+clean:
+	rm -f *.min.js
+	rm -f export.*.json
 
 test: check real_test benchmark
 
@@ -15,8 +23,8 @@ test: opening_hours.js test.js
 test-min: opening_hours.min.js test.js
 	${NODE} test.js "./$<"
 
-opening_hours.min.js: opening_hours.js
-	uglifyjs opening_hours.js --output opening_hours.min.js --comments '/ypid\/opening_hours\.js/'  --lint
+%.min.js: %.js
+	uglifyjs "$<" --output "$@" --comments '/ypid\/opening_hours\.js/' --lint
 
 .SILENT: diff-test
 diff-test: opening_hours.js test.js
@@ -46,10 +54,6 @@ regex_search: export.$(SEARCH).json interactive_testing.js
 
 interactive_testing: interactive_testing.js
 	${NODE} interactive_testing.js
-
-clean:
-	rm -f export.*.json
-	rm -f opening_hours.min.js
 
 all-osm-tags: export.opening_hours.json export.lit.json export.opening_hours\:kitchen.json export.opening_hours\:warm_kitchen.json export.smoking_hours.json export.collection_times.json export.service_times.json export.fee.json
 
