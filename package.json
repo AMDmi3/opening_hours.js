@@ -35,8 +35,10 @@
         "build"              : "make clean && make build",
         "interactive_testing": "make interactive_testing"
     },
+    "dependencies": {
+        "suncalc": ">=1.2.1"
+    },
     "optionalDependencies": {
-        "suncalc": ">=1.2.1",
         "i18next": ">=1.6.3",
         "moment" : ">=2.4.0"
     },
