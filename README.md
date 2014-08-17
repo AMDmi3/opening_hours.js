@@ -496,14 +496,16 @@ On author's Intel Core i5-2540M CPU @ 2.60GHz library allows ~8k/sec constructor
 ## Used by other projects ##
 This library is used by the following projects:
 
-* [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours) (old version of this library)
-* [gdzie.bl.ee](http://gdzie.bl.ee) (old version of this library)
+* [osm24.eu](https://github.com/dotevo/osm24)
 * [JOSM](http://josm.openstreetmap.de/) ([ticket for integration](http://josm.openstreetmap.de/ticket/9157))
 * [opening\_hours\_map][]
+* [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours) (old version of this library)
 * [pyopening\_hours][] (python module for opening_hours.js)
 
 [opening\_hours\_map]: https://github.com/ypid/opening_hours_map
 [pyopening\_hours]: https://github.com/ypid/pyopening_hours
+
+If you use this libary please let me know …
 
 ## Related links ##
 
