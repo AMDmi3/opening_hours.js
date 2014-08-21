@@ -266,6 +266,12 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*SH:  <--- (Please don’t use ":" after holiday.)
 "Variable days: public holidays" for "PH +1 day": [1m[32mPASSED[39m[22m
+"Variable days: public holidays" for "day after public holiday": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*day after public holiday <--- (Please use notation "PH +1 day" for "day after public holiday".)
+"Variable days: public holidays" for "one day after public holiday": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*one day after public holiday <--- (Please use notation "PH +1 day" for "one day after public holiday".)
 "Variable days: public holidays" for "PH -1 day Mo-We": [1m[32mPASSED[39m[22m
 "Variable days: public holidays" for "Mo-We PH -1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1537,4 +1543,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-613/639 tests passed
+615/641 tests passed

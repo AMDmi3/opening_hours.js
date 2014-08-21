@@ -568,6 +568,8 @@ test.addTest('PH: Only if SH is Wednesday', [
 
 test.addTest('Variable days: public holidays', [
 		'PH +1 day',
+		'day after public holiday',
+		'one day after public holiday',
 	], '2014.10.22 0:00', '2015.01.15 0:00', [
 		[ '2014.11.02 00:00', '2014.11.03 00:00', false, 'Day after Allerheiligen' ],
 		[ '2014.12.26 00:00', '2014.12.27 00:00', false, 'Day after 1. Weihnachtstag' ],
