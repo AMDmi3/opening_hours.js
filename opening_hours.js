@@ -2478,7 +2478,7 @@
 
 				prettified_group_value.sort(
 					function (a, b) {
-						selector_order = [ 'year', 'week', 'month', 'weekday', 'time', '24/7', 'state', 'comment'];
+						selector_order = [ 'year', 'week', 'month', 'holiday', 'weekday', 'time', '24/7', 'state', 'comment'];
 						return selector_order.indexOf(a[0][2]) - selector_order.indexOf(b[0][2]);
 					}
 				);

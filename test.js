@@ -652,6 +652,7 @@ test.addTest('Variable days: school holidays', [
 
 test.addTest('SH: Only if SH is Wednesday', [
 		'SH We',
+		'2014 SH We',
 	], '2014.01.01 0:00', '2014.05.10 0:00', [
 		[ '2014.01.01 00:00', '2014.01.02 00:00', false, 'Weihnachtsferien' ],
 		[ '2014.04.16 00:00', '2014.04.17 00:00', false, 'Osterferien' ],
@@ -660,6 +661,8 @@ test.addTest('SH: Only if SH is Wednesday', [
 
 test.addTest('Variable days: school holidays', [
 		'SH,PH',
+		'2014 SH,PH',
+		'Jan-Feb SH,PH',
 		// 'PH,SH', // Note that later holidays override the comment for the first holidays.
 	], '2014.01.01 0:00', '2014.02.15 0:00', [
 		[ '2014.01.01 00:00', '2014.01.02 00:00', false, 'Neujahrstag' ],
