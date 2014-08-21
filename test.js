@@ -1600,6 +1600,11 @@ test.addTest('Real world example: Was not processed right (month range/monthday 
 		[ '2015.06.15 00:00', '2015.12.25 00:00' ],
 	], 33357600000, 0, false, {}, 'not last test');
 
+test.addTest('Real world example: Was not processed right', [
+		'Mo, Tu, We, Th, Fr, Su 11:00-01:00; Sa 11:00-02:00',
+	], '2014.01.01 0:00', '2016.01.01 0:00', [
+	], 0, 0, false, {}, 'not last test');
+
 // problem with combined monthday and month selector {{{
 test.addTest('Real world example: Was not processed right.', [
 		'Jan Su[-2]-Jan Su[-1]: Fr-Su 12:00+;'
