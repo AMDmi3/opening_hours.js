@@ -1350,7 +1350,13 @@
 	// Key to word_error_correction is the token name except wrong_words
 	var word_error_correction = {
 		wrong_words: { /* {{{ */
-			'Assuming "<ok>" for "<ko>"': {
+			'Assuming "<ok>" for "<ko>".': {
+				'Frühling':  'Mar-May',
+				'Frühjahr':  'Mar-May',
+				'Sommer':  'Jun-Aug',
+				'Herbst':  'Sep-Nov',
+				// 'winter':  'Dec-Feb', // Same as in English.
+			}, '"<ko>" wird als "<ok>" interpertiert.': {
 				'spring':  'Mar-May',
 				'summer':  'Jun-Aug',
 				'autumn':  'Sep-Nov',
@@ -1363,7 +1369,7 @@
 				'sommer':   'summer',
 				'werktag':  'Mo-Fr',
 				'werktags': 'Mo-Fr',
-			}, 'Bitte benutze "<ok>" für "<ko>". Beispiel: "Mo-Fr 08:00-12:00; Tu off"': {
+			}, 'Bitte benutze "<ok>" für "<ko>". Beispiel: "Mo-Fr 08:00-12:00; Tu off".': {
 				'ruhetag':     'off',
 				'ruhetage':    'off',
 				'geschlossen': 'off',
@@ -1404,7 +1410,7 @@
 				'otherwise':  '||',
 			}, 'You can use notation "<ok>" for "<ko>" temporally if the syntax will still be valid.': {
 				'?':  'unknown "please add this if known"',
-			}, 'Please use notation "<ok>" for "<ko>" (Although using "–" is typographical correct, the opening_hours syntax is defined with the normal hyphen. Correct typography should be done on application level …': {
+			}, 'Please use notation "<ok>" for "<ko>". Although using "–" is typographical correct, the opening_hours syntax is defined with the normal hyphen. Correct typography should be done on application level …': {
 				'–':  '-',
 			}, 'Please use notation "<ok>" for "<ko>".': {
 				'→':               '-',
@@ -1485,7 +1491,7 @@
 				'uhr': '',
 				'geöffnet': '',
 				'zwischen': '',
-			}, 'Bitte verzichte auf "<ko>". Sie möchten eventuell eine Öffnungszeit ohne vorgegebenes Ende angeben. Beispiel: "12:00+"': {
+			}, 'Bitte verzichte auf "<ko>". Sie möchten eventuell eine Öffnungszeit ohne vorgegebenes Ende (Open End) angeben. Beispiel: "12:00+"': {
 				'ab':  '',
 				'von': '',
 			}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>".': {
@@ -1508,7 +1514,7 @@
 				'』': '"',
 			}, 'Please use notation "<ok>" for "<ko>". The used quote signs are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.': {
 				"'": '"',
-			}, 'You might want to use comments istead of brackets (which are not valid in this context). If your do, replace "<ok>" with "<ko>".': {
+			}, 'You might want to use comments instead of brackets (which are not valid in this context). If you do, replace "<ok>" with "<ko>".': {
 				// '（': '"',
 				// '）': '"',
 			}, 'Bitte benutze die Schreibweise "<ok>" als Ersatz für "und" bzw. "u.".': {
