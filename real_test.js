@@ -105,15 +105,15 @@ function opening_hours_test() {
 
 					if (i !== 0 && i % how_often_print_stats === 0) {
 						var delta = (new Date()).getTime() - before.getTime();
-						var success_procent = sprintf('%2.1f %%', success / parsed_values * 100);
-						var warnings_procent = Math.round(warnings / success  * 100) + ' %';
-						var not_pretty_procent = Math.round(not_pretty / success  * 100) + ' %';
-						var success_differ_procent = Math.round(success_differ / i * 100) + ' %';
-						console.log(success + '/' + total + '\t (' + success_procent.result +
-							', not pretty: ' + not_pretty_procent.result +
-							', with warnings: ' + warnings_procent.result + ')' +
+						var success_percent = sprintf('%2.1f %%', success / parsed_values * 100);
+						var warnings_percent = Math.round(warnings / success  * 100) + ' %';
+						var not_pretty_percent = Math.round(not_pretty / success  * 100) + ' %';
+						var success_differ_percent = Math.round(success_differ / i * 100) + ' %';
+						console.log(success + '/' + total + '\t (' + success_percent.result +
+							', not pretty: ' + not_pretty_percent.result +
+							', with warnings: ' + warnings_percent.result + ')' +
 							', only different values: '+ success_differ +'/'+ total_differ +
-							' (' + success_differ_procent.result + ')' +
+							' (' + success_differ_percent.result + ')' +
 							' tests passed.\t' +
 							(total_differ - i) + ' left …\t'+ i + ' values, ' + delta + ' ms (' + (i/delta*1000).toFixed(2) + ' n/sec).');
 					}
@@ -124,16 +124,16 @@ function opening_hours_test() {
 				console.log();
 
 			console.log('Done :)');
-			var success_procent        = Math.round(success / parsed_values * 100) + ' %';
-			var warnings_procent       = Math.round(warnings / success * 100) + ' %';
-			var success_differ_procent = Math.round(success_differ / i * 100) + ' %';
-			var warnings_procent       = Math.round(warnings / success * 100) + ' %';
-			var not_pretty_procent     = Math.round(not_pretty / success * 100) + ' %';
-			console.log(success + '/' + total + ' (' + success_procent.result +
-				', not pretty: ' + not_pretty_procent.result +
-				', with warnings: ' + warnings_procent.result + '),' +
+			var success_percent        = Math.round(success / parsed_values * 100) + ' %';
+			var warnings_percent       = Math.round(warnings / success * 100) + ' %';
+			var success_differ_percent = Math.round(success_differ / i * 100) + ' %';
+			var warnings_percent       = Math.round(warnings / success * 100) + ' %';
+			var not_pretty_percent     = Math.round(not_pretty / success * 100) + ' %';
+			console.log(success + '/' + total + ' (' + success_percent.result +
+				', not pretty: ' + not_pretty_percent.result +
+				', with warnings: ' + warnings_percent.result + '),' +
 				' only different values: '+ success_differ +'/'+ total_differ +
-				' (' + success_differ_procent.result + ')' +
+				' (' + success_differ_percent.result + ')' +
 				' tests passed.');
 			var delta = (new Date()).getTime() - before.getTime();
 			console.log(total + ' values, ' + delta + ' ms (' + (total/delta*1000).toFixed(2) + ' n/sec).\n');
