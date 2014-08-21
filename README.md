@@ -20,8 +20,6 @@ around-the-clock shop with some breaks.
 
 Please have a look at the [evaluation tool][] which can give you an impression how this library can be used and what it is capable of.
 
-[evaluation tool]: http://openingh.openstreetmap.de/evaluation_tool/
-
 <!-- {{{ Install -->
 ## Install ##
 
@@ -53,7 +51,8 @@ http://openingh.openstreetmap.de/evaluation_tool/node_modules/suncalc/suncalc.js
 
 ### NodeJS developer ###
 
-This library is packaged with npm and is available under the name [opening_hours](https://www.npmjs.org/package/opening_hours) so you should have no problems using it.
+This library is packaged with npm and is available under the name [opening_hours][ohlib.npmjs] so you should have no problems using it.
+
 <!-- }}} -->
 
 <!-- {{{ Versions -->
@@ -66,6 +65,7 @@ For version 2.2.0 and all following, the following applies:
 * The major release is only increased if the release breaks backward compatibility.
 * The minor release is increased if new features are added.
 * The patch level is increased to bundle a bunch of commits (minor changes like bug fixes and improvements) into a new tested version.
+
 <!-- }}} -->
 
 <!-- {{{ Synopsis -->
@@ -316,6 +316,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   Advances an iterator to the next position, but not further than *limit* (which is current position + ~5 years if omitted and is used to prevent infinite loop on non-periodic opening_hours, e.g. ```24/7```), returns whether the iterator was moved.
 
   For instance, returns false if the iterator would go beyond *limit* or if there's no next position (```24/7``` case).
+
 <!-- }}} -->
 
 <!-- {{{ Features -->
@@ -396,7 +397,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 * Support for school holidays (```SH 10:00-14:00```).
   * Currently only Germany is supported (based on ical files from [schulferien.org][]).
-  * To update the school holiday definition or add definitions for other countries the script [convert\_ical\_to\_json][convert-ical-to-json] can be used (probably includes a little bit of adjustment of the script) to generate JSON definition based on ical calendar files, which can then be added to the library.
+  * To update the school holiday definition or add definitions for other countries the script [convert\_ical\_to\_json][ohlib.convert-ical-to-json] can be used (probably includes a little bit of adjustment of the script) to generate JSON definition based on ical calendar files, which can then be added to the library.
 
 * There can be two cases which need to be separated (this applies for PH and SH):
   1. ```Mo-Fr,PH```: The facility is open Mo-Fr and PH. If PH is a Sunday for example the facility is also open. This is the default case.
@@ -452,6 +453,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
   * instead of "closed" "off" will also work
   * unknown can be omitted (just a comment (without [state][ohlib.states]) will also result in unknown)
   * value can also be just a double-quoted string (```"on appointment"```) which will result in unknown for any given time.
+
 <!-- }}} -->
 
 <!-- {{{ Testing -->
@@ -490,6 +492,7 @@ Testing is much easier by now. Have a look at the [evaluation tool][ohlib.evalua
 Simple node.js based benchmark is bundled. You can run it with ```node benchmark.js``` or with ```make benchmark```.
 
 On author's Intel Core i5-2540M CPU @ 2.60GHz library allows ~8k/sec constructor calls and ~2.5k/sec openIntervals() calls with one week period. This may further improve in future.
+
 <!-- }}} -->
 
 <!-- {{{ Used by other projects -->
@@ -507,6 +510,7 @@ This library is used by the following projects:
 [pyopening\_hours]: https://github.com/ypid/pyopening_hours
 
 If you use this libary please let me know …
+
 <!-- }}} -->
 
 <!-- {{{ Related links -->
@@ -514,7 +518,6 @@ If you use this libary please let me know …
 
 * [fossgis project page on the OSM wiki][fossgis-project]
 
-[fossgis-project]: http://wiki.openstreetmap.org/wiki/FOSSGIS/Server/Projects/opening_hours.js
 <!-- }}} -->
 
 <!-- {{{ ToDo -->
@@ -536,6 +539,7 @@ List of features which can make writing easier:
   Feb 29 open "last day in month (Feb, leap year)";
   2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)"
   ```
+
 <!-- }}} -->
 
 <!-- {{{ How to contribute -->
@@ -591,6 +595,7 @@ The opening brackets `{{{` (and the corresponding closing onces) are used to fol
 
 * [Dmitry Marakasov](https://github.com/AMDmi3) <amdmi3@amdmi3.ru> (initial coding and design and all basic features like time ranges, week ranges, month ranges and week ranges)
 * [Robin Schneider](https://github.com/ypid)   (Current maintainer. Added support for years, holidays, unknown, comments, open end, fallback/additional rules (and more), wrote getWarnings, prettifyValue, translated [demo page][ohlib.evaluation-tooldemohtml] to English and German and extended it to enter values yourself.)
+
 <!-- }}} -->
 
 <!-- {{{ Contributors -->
@@ -605,39 +610,49 @@ The opening brackets `{{{` (and the corresponding closing onces) are used to fol
 * [James Badger](https://github.com/openfirmware)  (add Canadian national, provincial public holidays and fixed Russian localization)
 * [Zgarbul Andrey](https://github.com/burrbull)    (Ukrainian localization and public holidays for Ukraine)
 * [Blaž Lorger](https://github.com/blorger)        (public holidays for Slovenian)
+
 <!-- }}} -->
 
 <!-- {{{ Credits -->
 ## Credits ##
 
 * [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favor of opening_hours.js but a few parts where reused (mainly the input tolerance and the online evaluation for the [demo page][ohlib.evaluation-tooldemohtml]). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
+
 <!-- }}} -->
 
 <!-- {{{ License -->
 ## License ##
 
 opening_hours.js is published under the New (2-clause) BSD license.
+
 <!-- }}} -->
 
 
 <!-- {{{ Link definitions -->
 [Nominatim]: http://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding_.2F_Address_lookup
+[fossgis-project]: http://wiki.openstreetmap.org/wiki/FOSSGIS/Server/Projects/opening_hours.js
 [issue-report]: https://github.com/ypid/opening_hours.js/issues
 [oh:specification]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification
 [oh:specification:fallback rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#fallback_rule_separator
 [oh:specification:additional rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#additional_rule_separator
 
-<!-- References to other parts of this documentation. Can not use short links only referring to the section inside the README.md any more because this will not work on other pages like https://www.npmjs.org/package/opening_hours. Edit: This does also work on npmjs in this short version … -->
+<!-- {{{ References to other parts of this documentation.
+Can not use short links only referring to the section inside the README.md any more because this will not work on other pages like https://www.npmjs.org/package/opening_hours.
+Edit: This does also work on npmjs in this short version … -->
 [ohlib.time-ranges]: #time-ranges
 [ohlib.states]: #states
 [ohlib.holidays]: #holidays
 [ohlib.evaluation-tooldemohtml]: #evaluation-tooldemohtml
 [ohlib.library-api]: #library-api
+
 [ohlib.opening_hours.js]: /opening_hours.js
 [ohlib.js/i18n-resources.js]: /js/i18n-resources.js
+[ohlib.npmjs]: https://www.npmjs.org/package/opening_hours
+[ohlib.convert-ical-to-json]: /convert_ical_to_json
+
+[evaluation tool]: http://openingh.openstreetmap.de/evaluation_tool/
 
 [schulferien.org]: http://www.schulferien.org/iCal/
-[convert-ical-to-json]: /convert_ical_to_json
 
 [PH-de]: http://de.wikipedia.org/wiki/Feiertage_in_Deutschland
 [PH-at]: http://de.wikipedia.org/wiki/Feiertage_in_%C3%96sterreich
@@ -645,4 +660,5 @@ opening_hours.js is published under the New (2-clause) BSD license.
 [PH-ca]: https://en.wikipedia.org/wiki/Public_holidays_in_Canada
 [PH-ua]: http://uk.wikipedia.org/wiki/%D0%A1%D0%B2%D1%8F%D1%82%D0%B0_%D1%82%D0%B0_%D0%BF%D0%B0%D0%BC%27%D1%8F%D1%82%D0%BD%D1%96_%D0%B4%D0%BD%D1%96_%D0%B2_%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%96
 [PH-si]: http://www.vlada.si/o_sloveniji/politicni_sistem/prazniki/
+
 <!-- }}} -->
