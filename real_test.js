@@ -1,26 +1,24 @@
 #!/usr/bin/env node
 
+/* Required modules {{{ */
 var opening_hours = require('./opening_hours.js');
 var fs = require('fs');
 var colors = require('colors');
 var sprintf = require('sprintf-js').sprintf;
+/* }}} */
 
 colors.setTheme({
 	result: [ 'green', 'bold' ],
 });
 
-console.log("value".error);
-
-var nominatiomTestJSON = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
-
+/* Run tests {{{ */
 var test = new opening_hours_test();
 
-console.log('For holidays defintions for the country ' + nominatiomTestJSON.address.country_code + ' are used so the result will probably be a bit worse in reality but you can change that by providing the definition of the holidays.\n');
-
-// Add as much as you like. Just make sure that the export is
-// present by added it as dependence to the make file.
-// Tests will not be executed in order listed here due to non-blocking aspect
-// of JS and node.js.
+/* Add as much tests (for different tags) as you like. Just make sure that the
+ * export is present by added it as dependence to the make file. Tests will not
+ * be executed in order listed here due to non-blocking aspect of JS and
+ * node.js.
+ */
 
 test.exported_json('opening_hours');
 
@@ -39,11 +37,22 @@ test.exported_json('service_times', { oh_mode: 2, ignore: [ 'automatic' ] });
 // Mostly points in time are used. But there are 244 values which use time ranges. Both seems useful.
 
 test.exported_json('fee', { ignore: [ 'yes', 'no', 'interval', 'unknown' ]});
+/* }}} */
 
-//======================================================================
-// Test framework
-//======================================================================
+/* Test framework {{{ */
 function opening_hours_test() {
+	// var percent_number_format     = '%04.1f %%';
+	// Looks kind of unusual.
+	var percent_number_format            = '%.1f %%';
+	var total_value_number_format        = '%7d';
+	var total_differ_value_number_format = '%5d';
+	var ms_runtime_number_format         = '%5d';
+
+	var nominatiomTestJSON = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
+
+	console.log('The holiday defintions for the country ' + nominatiomTestJSON.address.country_code + ' are used so the result will probably be a bit worse in reality but you can change that by providing the definition of the holidays.\n');
+
+
 	this.exported_json = function (tagname /* file exported by the taginfo API */, options) {
 		var how_often_print_stats = 15000;
 		var importance_threshold  = 30;
@@ -84,7 +93,7 @@ function opening_hours_test() {
 				}
 			}
 
-			var before = new Date();
+			var time_at_test_begin = new Date();
 
 			var parsed_values = 0; // total number of values which are "parsed" (if one value appears more than one, it counts more than one)
 			for (var i = 0; i < total_differ; i++) {
@@ -104,51 +113,66 @@ function opening_hours_test() {
 					parsed_values += data.data[i].count;
 
 					if (i !== 0 && i % how_often_print_stats === 0) {
-						var delta = (new Date()).getTime() - before.getTime();
-						var success_percent = sprintf('%2.1f %%', success / parsed_values * 100);
-						var warnings_percent = Math.round(warnings / success  * 100) + ' %';
-						var not_pretty_percent = Math.round(not_pretty / success  * 100) + ' %';
-						var success_differ_percent = Math.round(success_differ / i * 100) + ' %';
-						console.log(success + '/' + total + '\t (' + success_percent.result +
-							', not pretty: ' + not_pretty_percent.result +
-							', with warnings: ' + warnings_percent.result + ')' +
-							', only different values: '+ success_differ +'/'+ total_differ +
-							' (' + success_differ_percent.result + ')' +
-							' tests passed.\t' +
-							(total_differ - i) + ' left …\t'+ i + ' values, ' + delta + ' ms (' + (i/delta*1000).toFixed(2) + ' n/sec).');
+						log_to_user(false, total, i, i, parsed_values,
+							success, success_differ, warnings, warnings_differ, not_pretty, not_pretty_differ,
+							time_at_test_begin);
 					}
 				}
 			}
-
 			if (total_differ >= how_often_print_stats)
 				console.log();
 
-			console.log('Done :)');
-			var success_percent        = Math.round(success / parsed_values * 100) + ' %';
-			var warnings_percent       = Math.round(warnings / success * 100) + ' %';
-			var success_differ_percent = Math.round(success_differ / i * 100) + ' %';
-			var warnings_percent       = Math.round(warnings / success * 100) + ' %';
-			var not_pretty_percent     = Math.round(not_pretty / success * 100) + ' %';
-			console.log(success + '/' + total + ' (' + success_percent.result +
-				', not pretty: ' + not_pretty_percent.result +
-				', with warnings: ' + warnings_percent.result + '),' +
-				' only different values: '+ success_differ +'/'+ total_differ +
-				' (' + success_differ_percent.result + ')' +
-				' tests passed.');
-			var delta = (new Date()).getTime() - before.getTime();
-			console.log(total + ' values, ' + delta + ' ms (' + (total/delta*1000).toFixed(2) + ' n/sec).\n');
+			log_to_user(true, total, total_differ, undefined, parsed_values,
+				success, success_differ, warnings, warnings_differ, not_pretty, not_pretty_differ,
+				time_at_test_begin);
 
 			if (important_and_failed.length > 0) {
 				important_and_failed = important_and_failed.sort(Comparator);
 				for (var i = 0; i < important_and_failed.length; i++) {
 					var value = important_and_failed[i][0];
 					var count = important_and_failed[i][1];
-					console.log('Failed with value which appears ' + count + ' times:\t' + value);
+					console.log('Failed with value which appears ' + sprintf(total_differ_value_number_format, count) + ' times: ' + value);
 				}
 			}
 			console.log();
 		});
 	};
+
+	function log_to_user(tests_done, total, total_differ, currently_parsed_value, parsed_values,
+		success, success_differ, warnings, warnings_differ, not_pretty, not_pretty_differ, time_at_test_begin) {
+
+		var delta = (new Date()).getTime() - time_at_test_begin.getTime();
+
+		// if (tests_done)
+			// console.log('Done:');
+
+		console.log(
+			sprintf(total_value_number_format, success) + '/' + sprintf(total_value_number_format, total) +
+			' (' + get_percent(success, parsed_values) +
+				( tests_done ?
+					', not pretty: ' + get_percent(not_pretty, parsed_values)
+				  :
+					'' /* Need the space to fit one line on the screen … */
+				) +
+			', with warnings: ' + get_percent(warnings , parsed_values) + ')' +
+			', only different values: '+ sprintf(total_differ_value_number_format, success_differ) +'/'+ sprintf(total_differ_value_number_format, total_differ) +
+			' (' + get_percent(success_differ, total_differ) + ')' +
+			' tests passed. ' +
+				( tests_done ?
+					sprintf(total_value_number_format, total) + ' values' +
+					' in ' + sprintf(ms_runtime_number_format, delta) + ' ms (' + sprintf('%0.1f', total/delta*1000) + ' n/sec).\n'
+				:
+					// sprintf(total_value_number_format, total_differ - currently_parsed_value) + ' left … ' +
+					sprintf(total_value_number_format, currently_parsed_value) + ' values' +
+					' in ' + sprintf(ms_runtime_number_format, delta) + ' ms (' + sprintf('%0.1f', currently_parsed_value/delta*1000) + ' n/sec).'
+				)
+		);
+	}
+
+	function get_percent(passing_values, parsed_values) {
+		return sprintf('%6s', sprintf(percent_number_format, passing_values / parsed_values * 100)).result;
+        /* "100.0 %" would be 7 characters long, but that does not happen to often. */
+	}
 
 	function test_value(value, oh_mode) {
 		var crashed = true, warnings = [], prettified;
@@ -170,7 +194,7 @@ function opening_hours_test() {
 		return [ !crashed, warnings, prettified == value ];
 	}
 
-	// helper functions
+	/* Helper functions {{{ */
 	function Comparator(a,b){
 		if (a[1] > b[1]) return -1;
 		if (a[1] < b[1]) return 1;
@@ -196,5 +220,6 @@ function opening_hours_test() {
 		}
 
 		return indexOf.call(this, needle);
-	}
+	} /* }}} */
 }
+/* }}} */

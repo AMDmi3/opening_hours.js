@@ -20,7 +20,7 @@ around-the-clock shop with some breaks.
 
 Please have a look at the [evaluation tool][] which can give you an impression how this library can be used and what it is capable of.
 
-<!-- {{{ Install -->
+<!-- Install {{{ -->
 ## Install ##
 
 ### For Developer ###
@@ -55,7 +55,7 @@ This library is packaged with npm and is available under the name [opening_hours
 
 <!-- }}} -->
 
-<!-- {{{ Versions -->
+<!-- Versions {{{ -->
 ## Versions ##
 
 The version number consists of a major release, minor release and patch level (separated by a dot).
@@ -68,7 +68,7 @@ For version 2.2.0 and all following, the following applies:
 
 <!-- }}} -->
 
-<!-- {{{ Synopsis -->
+<!-- Synopsis {{{ -->
 ## Synopsis ##
 
 ```javascript
@@ -319,7 +319,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
 
 <!-- }}} -->
 
-<!-- {{{ Features -->
+<!-- Features {{{ -->
 ## Features ##
 
 Almost everything from opening_hours definition is supported, as well as some extensions (indicated as **EXT:** below).
@@ -456,7 +456,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 <!-- }}} -->
 
-<!-- {{{ Testing -->
+<!-- Testing {{{ -->
 ## Testing ##
 
 Simple node.js based test framework is bundled. You can run it with ```node test.js``` or with ```make test```.
@@ -495,7 +495,7 @@ On author's Intel Core i5-2540M CPU @ 2.60GHz library allows ~8k/sec constructor
 
 <!-- }}} -->
 
-<!-- {{{ Used by other projects -->
+<!-- Used by other projects {{{ -->
 ## Used by other projects ##
 
 This library is used by the following projects:
@@ -513,14 +513,14 @@ If you use this libary please let me know …
 
 <!-- }}} -->
 
-<!-- {{{ Related links -->
+<!-- Related links {{{ -->
 ## Related links ##
 
 * [fossgis project page on the OSM wiki][fossgis-project]
 
 <!-- }}} -->
 
-<!-- {{{ ToDo -->
+<!-- ToDo {{{ -->
 ## ToDo ##
 List of missing features which can currently not be expressing in any other way without much pain.
 Please share your opinion on the [talk page](http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours) (or the discussion page to the proposal if that does exist) if you have any idea how to express this (better).
@@ -542,7 +542,7 @@ List of features which can make writing easier:
 
 <!-- }}} -->
 
-<!-- {{{ How to contribute -->
+<!-- How to contribute {{{ -->
 ## How to contribute ##
 
 You can contribute in the usual manner as known from git (and GitHub). Just fork, change and make a pull request.
@@ -590,7 +590,7 @@ The opening brackets `{{{` (and the corresponding closing onces) are used to fol
 
 <!-- }}} -->
 
-<!-- {{{ Authors -->
+<!-- Authors {{{ -->
 ## Authors ##
 
 * [Dmitry Marakasov](https://github.com/AMDmi3) <amdmi3@amdmi3.ru> (initial coding and design and all basic features like time ranges, week ranges, month ranges and week ranges)
@@ -598,7 +598,7 @@ The opening brackets `{{{` (and the corresponding closing onces) are used to fol
 
 <!-- }}} -->
 
-<!-- {{{ Contributors -->
+<!-- Contributors {{{ -->
 ## Contributors ##
 
 * [Sergey Leschina](https://github.com/putnik)     ([demo][ohlib.evaluation-tooldemohtml] improvements)
@@ -613,14 +613,14 @@ The opening brackets `{{{` (and the corresponding closing onces) are used to fol
 
 <!-- }}} -->
 
-<!-- {{{ Credits -->
+<!-- Credits {{{ -->
 ## Credits ##
 
 * [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favor of opening_hours.js but a few parts where reused (mainly the input tolerance and the online evaluation for the [demo page][ohlib.evaluation-tooldemohtml]). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
 
 <!-- }}} -->
 
-<!-- {{{ License -->
+<!-- License {{{ -->
 ## License ##
 
 opening_hours.js is published under the New (2-clause) BSD license.
@@ -628,7 +628,7 @@ opening_hours.js is published under the New (2-clause) BSD license.
 <!-- }}} -->
 
 
-<!-- {{{ Link definitions -->
+<!-- Link definitions {{{ -->
 [Nominatim]: http://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding_.2F_Address_lookup
 [fossgis-project]: http://wiki.openstreetmap.org/wiki/FOSSGIS/Server/Projects/opening_hours.js
 [issue-report]: https://github.com/ypid/opening_hours.js/issues
@@ -636,7 +636,7 @@ opening_hours.js is published under the New (2-clause) BSD license.
 [oh:specification:fallback rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#fallback_rule_separator
 [oh:specification:additional rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#additional_rule_separator
 
-<!-- {{{ References to other parts of this documentation.
+<!-- References to other parts of this documentation. {{{
 Can not use short links only referring to the section inside the README.md any more because this will not work on other pages like https://www.npmjs.org/package/opening_hours.
 Edit: This does also work on npmjs in this short version … -->
 [ohlib.time-ranges]: #time-ranges
