@@ -32,10 +32,10 @@ test.exported_json('opening_hours:warm_kitchen', { ignore: [ 'opening_hours' ]})
 
 test.exported_json('smoking_hours', { ignore: [ 'yes' ]});
 
-test.exported_json('collection_times', { mode: 2 });
-// mode 2: "including the hyphen because there are post boxes which are emptied several (undefined) times or one (undefined) time in a certain time frame. This shall be covered also.". Ref: http://wiki.openstreetmap.org/wiki/Key:collection_times
+test.exported_json('collection_times', { oh_mode: 2 });
+// oh_mode 2: "including the hyphen because there are post boxes which are emptied several (undefined) times or one (undefined) time in a certain time frame. This shall be covered also.". Ref: http://wiki.openstreetmap.org/wiki/Key:collection_times
 
-test.exported_json('service_times', { mode: 2, ignore: [ 'automatic' ] });
+test.exported_json('service_times', { oh_mode: 2, ignore: [ 'automatic' ] });
 // Mostly points in time are used. But there are 244 values which use time ranges. Both seems useful.
 
 test.exported_json('fee', { ignore: [ 'yes', 'no', 'interval', 'unknown' ]});
@@ -51,7 +51,7 @@ function opening_hours_test() {
 
 		fs.readFile(__dirname + '/export.' + tagname + '.json', 'utf8', function (err, data) {
 			if (err) {
-				console.log('Error: ' + err);
+				console.log('Error for tag "' + tagname + '": ' + err);
 				return;
 			}
 
@@ -59,9 +59,9 @@ function opening_hours_test() {
 			if (typeof options !== 'undefined' && typeof options.ignore !== 'undefined')
 				ignored_values.push.apply(ignored_values, options.ignore);
 
-			var mode = 0;
-			if (typeof options !== 'undefined' && typeof options.mode == 'number')
-				mode = options.mode;
+			var oh_mode = 0;
+			if (typeof options !== 'undefined' && typeof options.oh_mode == 'number')
+				oh_mode = options.oh_mode;
 
 			console.log('Parsing ' + tagname.blue.bold + (ignored_values.length !== 0 ? ' (ignoring: ' + ignored_values.join(', ') + ')': '') + ' …');
 
@@ -89,7 +89,7 @@ function opening_hours_test() {
 			var parsed_values = 0; // total number of values which are "parsed" (if one value appears more than one, it counts more than one)
 			for (var i = 0; i < total_differ; i++) {
 				if (indexOf.call(ignored_values, data.data[i].value) == -1) {
-					var result = test_value(data.data[i].value, mode);
+					var result = test_value(data.data[i].value, oh_mode);
 					if (result[0]) {
 						success_differ++;
 						success += data.data[i].count;
@@ -150,10 +150,10 @@ function opening_hours_test() {
 		});
 	};
 
-	function test_value(value, mode) {
+	function test_value(value, oh_mode) {
 		var crashed = true, warnings = [], prettified;
 		try {
-			oh = new opening_hours(value, nominatiomTestJSON, mode);
+			oh = new opening_hours(value, nominatiomTestJSON, oh_mode);
 			warnings = oh.getWarnings();
             prettified = oh.prettifyValue();
 
