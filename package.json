@@ -8,6 +8,17 @@
     "maintainers": [
         "Robin Schneider <ypid@riseup.net>"
     ],
+    "repository": {
+        "type": "git",
+        "url" : "git://github.com/ypid/opening_hours.js"
+    },
+    "bugs": "https://github.com/ypid/opening_hours.js/issues?state=open",
+    "keywords": [
+        "openstreetmap",
+        "OSM",
+        "opening_hours"
+    ],
+    "license": "BSD",
     "files": [
         "LICENSE",
         "README.md",
@@ -23,11 +34,6 @@
     "directories": {
         "doc": "./doc"
     },
-    "repository": {
-        "type": "git",
-        "url" : "git://github.com/ypid/opening_hours.js"
-    },
-    "bugs": "https://github.com/ypid/opening_hours.js/issues?state=open",
     "scripts": {
         "test"               : "make test",
         "real_test"          : "make real_test",
@@ -43,15 +49,10 @@
         "moment" : ">=2.4.0"
     },
     "devDependencies": {
-        "colors"   : ">=0.6.2",
-        "uglify-js": ">=2.0.0"
+        "colors"    : ">=0.6.2",
+        "uglify-js" : ">=2.0.0",
+        "sprintf-js": ">=0.0.7"
     },
-    "keywords": [
-        "openstreetmap",
-        "OSM",
-        "opening_hours"
-    ],
-    "license": "BSD",
     "engines": {
         "node": ">=0.8"
     }

@@ -3,10 +3,10 @@
 var opening_hours = require('./opening_hours.js');
 var fs = require('fs');
 var colors = require('colors');
-// var sprintf = require('sprintf').sprintf;
+var sprintf = require('sprintf-js').sprintf;
 
 colors.setTheme({
-  result: [ 'green', 'bold' ],
+	result: [ 'green', 'bold' ],
 });
 
 console.log("value".error);
@@ -65,12 +65,14 @@ function opening_hours_test() {
 
 			console.log('Parsing ' + tagname.blue.bold + (ignored_values.length !== 0 ? ' (ignoring: ' + ignored_values.join(', ') + ')': '') + ' …');
 
-			var success_differ  = 0; // increment only by one despite that the value might appears more than one time
-			var success         = 0; // increment by number of appearances
-			var total_differ    = 0; // number of different values
-			var total           = 0; // total number of values (if one value appears more than one, it counts more than one)
-			var warnings        = 0; // number of values which throw warnings (only one warning is counted for each value if more appear)
-			var warnings_differ = 0; // number of values which throw warnings (only one warning is counted for each value if more appear)
+			var success_differ       = 0; // increment only by one despite that the value might appears more than one time
+			var success              = 0; // increment by number of appearances
+			var total_differ         = 0; // number of different values
+			var total                = 0; // total number of values (if one value appears more than one, it counts more than one)
+			var warnings             = 0; // number of values which throw warnings
+			var warnings_differ      = 0; // number of values which throw warnings (only one warning is counted for each value if more appear)
+			var not_pretty           = 0; // number of values which are not the same as the value returned by oh.prettifyValue()
+			var not_pretty_differ    = 0; // number of values which are not pretty (only one warning is counted for each value if more appear)
 			var important_and_failed = [];
 
 			data = JSON.parse(data);
@@ -93,6 +95,8 @@ function opening_hours_test() {
 						success += data.data[i].count;
 						warnings_differ = !!result[1];
 						warnings += data.data[i].count * !!result[1];
+						not_pretty += result[2];
+						not_pretty_differ += data.data[i].count * result[2];
 						// console.log('passed', data.data[i].value);
 					} else if (data.data[i].count > importance_threshold) {
 						important_and_failed.push([data.data[i].value, data.data[i].count]);
@@ -101,12 +105,14 @@ function opening_hours_test() {
 
 					if (i !== 0 && i % how_often_print_stats === 0) {
 						var delta = (new Date()).getTime() - before.getTime();
-						var success_procent = Math.round(success / parsed_values * 100) + ' %';
+						var success_procent = sprintf('%2.1f %%', success / parsed_values * 100);
 						var warnings_procent = Math.round(warnings / success  * 100) + ' %';
+						var not_pretty_procent = Math.round(not_pretty / success  * 100) + ' %';
 						var success_differ_procent = Math.round(success_differ / i * 100) + ' %';
 						console.log(success + '/' + total + '\t (' + success_procent.result +
-							', with warnings: ' + warnings_procent.result + '),' +
-							' only different values: '+ success_differ +'/'+ total_differ +
+							', not pretty: ' + not_pretty_procent.result +
+							', with warnings: ' + warnings_procent.result + ')' +
+							', only different values: '+ success_differ +'/'+ total_differ +
 							' (' + success_differ_procent.result + ')' +
 							' tests passed.\t' +
 							(total_differ - i) + ' left …\t'+ i + ' values, ' + delta + ' ms (' + (i/delta*1000).toFixed(2) + ' n/sec).');
@@ -118,11 +124,14 @@ function opening_hours_test() {
 				console.log();
 
 			console.log('Done :)');
-			var success_procent = Math.round(success / parsed_values * 100) + ' %';
-			var warnings_procent = Math.round(warnings / success  * 100) + ' %';
+			var success_procent        = Math.round(success / parsed_values * 100) + ' %';
+			var warnings_procent       = Math.round(warnings / success * 100) + ' %';
 			var success_differ_procent = Math.round(success_differ / i * 100) + ' %';
+			var warnings_procent       = Math.round(warnings / success * 100) + ' %';
+			var not_pretty_procent     = Math.round(not_pretty / success * 100) + ' %';
 			console.log(success + '/' + total + ' (' + success_procent.result +
-					', with warnings: ' + warnings_procent.result + '),' +
+				', not pretty: ' + not_pretty_procent.result +
+				', with warnings: ' + warnings_procent.result + '),' +
 				' only different values: '+ success_differ +'/'+ total_differ +
 				' (' + success_differ_procent.result + ')' +
 				' tests passed.');
@@ -142,10 +151,11 @@ function opening_hours_test() {
 	};
 
 	function test_value(value, mode) {
-		var crashed = true, warnings = [];
+		var crashed = true, warnings = [], prettified;
 		try {
 			oh = new opening_hours(value, nominatiomTestJSON, mode);
 			warnings = oh.getWarnings();
+            prettified = oh.prettifyValue();
 
 			crashed = false;
 		} catch (err) {
@@ -157,7 +167,7 @@ function opening_hours_test() {
 		else
 			warnings = warnings.length;
 
-		return [ !crashed, warnings ];
+		return [ !crashed, warnings, prettified == value ];
 	}
 
 	// helper functions
