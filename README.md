@@ -22,7 +22,7 @@ Please have a look at the [evaluation tool][] which can give you an impression h
 
 [evaluation tool]: http://openingh.openstreetmap.de/evaluation_tool/
 
-## Install ##
+## Install ## <!-- {{{ -->
 
 ### For Developer ###
 Just clone the repository:
@@ -53,6 +53,7 @@ http://openingh.openstreetmap.de/evaluation_tool/node_modules/suncalc/suncalc.js
 ### NodeJS developer ###
 
 This library is packaged with npm and is available under the name [opening_hours](https://www.npmjs.org/package/opening_hours) so you should have no problems using it.
+<!-- }}} -->
 
 ## Versions ##
 
@@ -64,7 +65,7 @@ For version 2.2.0 and all following, the following applies:
 * The minor release is increased if new features are added.
 * The patch level is increased to bundle a bunch of commits (minor changes like bug fixes and improvements) into a new tested version.
 
-## Synopsis ##
+## Synopsis ##<!-- {{{ -->
 
 ```javascript
 var oh = new opening_hours('We 12:00-14:00');
@@ -311,8 +312,9 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   Advances an iterator to the next position, but not further than *limit* (which is current position + ~5 years if omitted and is used to prevent infinite loop on non-periodic opening_hours, e.g. ```24/7```), returns whether the iterator was moved.
 
   For instance, returns false if the iterator would go beyond *limit* or if there's no next position (```24/7``` case).
+<!-- }}} -->
 
-## Features ##
+## Features ##<!-- {{{ -->
 
 Almost everything from opening_hours definition is supported, as well as some extensions (indicated as **EXT:** below).
 
@@ -456,8 +458,9 @@ Almost everything from opening_hours definition is supported, as well as some ex
   * instead of "closed" "off" will also work
   * unknown can be omitted (just a comment (without [state][ohlib.states]) will also result in unknown)
   * value can also be just a double-quoted string (```"on appointment"```) which will result in unknown for any given time.
+<!-- }}} -->
 
-## Test ##
+## Test ##<!-- {{{ -->
 
 Simple node.js based test framework is bundled. You can run it with ```node test.js``` or with ```make test```.
 
@@ -492,8 +495,10 @@ Testing is much easier by now. Have a look at the [evaluation tool][ohlib.evalua
 Simple node.js based benchmark is bundled. You can run it with ```node benchmark.js``` or with ```make benchmark```.
 
 On author's Intel Core i5-2540M CPU @ 2.60GHz library allows ~8k/sec constructor calls and ~2.5k/sec openIntervals() calls with one week period. This may further improve in future.
+<!-- }}} -->
 
-## Used by other projects ##
+## Used by other projects ##<!-- {{{ -->
+
 This library is used by the following projects:
 
 * [osm24.eu](https://github.com/dotevo/osm24)
@@ -506,14 +511,16 @@ This library is used by the following projects:
 [pyopening\_hours]: https://github.com/ypid/pyopening_hours
 
 If you use this libary please let me know …
+<!-- }}} -->
 
-## Related links ##
+## Related links ##<!-- {{{ -->
 
 * [fossgis project page on the OSM wiki][fossgis-project]
 
 [fossgis-project]: http://wiki.openstreetmap.org/wiki/FOSSGIS/Server/Projects/opening_hours.js
+<!-- }}} -->
 
-## ToDo ##
+## ToDo ##<!-- {{{ -->
 List of missing features which can currently not be expressing in any other way without much pain.
 Please share your opinion on the [talk page](http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours) (or the discussion page to the proposal if that does exist) if you have any idea how to express this (better).
 
@@ -531,8 +538,9 @@ List of features which can make writing easier:
   Feb 29 open "last day in month (Feb, leap year)";
   2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)"
   ```
+<!-- }}} -->
 
-## How to contribute ##
+## How to contribute ##<!-- {{{ -->
 
 You can contribute in the usual manner as known from git (and GitHub). Just fork, change and make a pull request.
 
@@ -550,10 +558,12 @@ Holidays can be added to the file [opening_hours.js][ohlib.opening_hours.js] as 
 
 ### Core code ###
 
+#### Commit hooks ####
 Note that there is a git pre-commit hook used to run and compare the test framework before each commit. To activate the hook, run:
 
     ./hooks/link_hooks
 
+#### Documentation ####
 All functions are documented, which should help contributers to get started.
 
 The documentation looks like this:
@@ -573,6 +583,8 @@ function getConstrainedWeekday(tokens, at) {
 <!-- }}} -->
 
 The opening brackets `{{{` (and the corresponding closing onces) are used to fold the source code. See [Vim folds](http://vim.wikia.com/wiki/Folding).
+<!-- }}} -->
+
 <!-- }}} -->
 
 ## Author ##
