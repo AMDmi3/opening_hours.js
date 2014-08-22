@@ -857,72 +857,44 @@ With [1m[34mwarnings[39m[22m:
 "Time intervals (not specified/documented use of colon, please avoid this)" for "00:00-24:00; Mo: 15:00-16:00 off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*00:00-24:00; Mo:  <--- (Please don’t use ":" after weekday.)
-With [1m[34mwarnings[39m[22m:
-	*Mo[2] - 0 days <--- (Adding 0 does not change the date. Please omit this.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo[2] - 0 days; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo[2] - 0 days <--- (Adding 0 does not change the date. Please omit this.)
-With [1m[34mwarnings[39m[22m:
-	*Mo& <--- (Please use notation "," for "&".)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo&Th; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo& <--- (Please use notation "," for "&".)
-With [1m[34mwarnings[39m[22m:
-	*Mon <--- (Please use the abbreviation "Mo" for "mon".)
 "Value not ideal (probably wrong). Should throw a warning." for "Mon; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mon <--- (Please use the abbreviation "Mo" for "mon".)
-With [1m[34mwarnings[39m[22m:
-	*8-18 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
 "Value not ideal (probably wrong). Should throw a warning." for "8-18; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*8-18 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
-With [1m[34mwarnings[39m[22m:
-	*12. <--- (Please use ":" as hour/minute-separator)
 "Value not ideal (probably wrong). Should throw a warning." for "12.00-14:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*12. <--- (Please use ":" as hour/minute-separator)
-With [1m[34mwarnings[39m[22m:
-	*24/7; 12:00-14:00 off; 00:23-00:42 unknown "warning at correct position?" <--- (You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week". For correctness you might want to use "open" or "closed" for this rule and then write your exceptions which should achieve the same goal and is more clear e.g. "open; Mo 12:00-14:00 off".)
 "Value not ideal (probably wrong). Should throw a warning." for "24/7; 12:00-14:00 off; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*24/7; 12:00-14:00 off; 00:23-00:42 unknown "warning at correct position?" <--- (You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week". For correctness you might want to use "open" or "closed" for this rule and then write your exceptions which should achieve the same goal and is more clear e.g. "open; Mo 12:00-14:00 off".)
-With [1m[34mwarnings[39m[22m:
-	*2013-2015/1 <--- (Please don’t use year ranges with period equals one.)
 "Value not ideal (probably wrong). Should throw a warning." for "2013-2015/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013-2015/1 <--- (Please don’t use year ranges with period equals one.)
-With [1m[34mwarnings[39m[22m:
-	*2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1  <--- (Please don’t use year ranges with period equals one.)
 "Value not ideal (probably wrong). Should throw a warning." for "2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1  <--- (Please don’t use year ranges with period equals one.)
-With [1m[34mwarnings[39m[22m:
-	*Mo:  <--- (Please don’t use ":" after weekday.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo: 15:00-16:00 off; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo:  <--- (Please don’t use ":" after weekday.)
-With [1m[34mwarnings[39m[22m:
-	*Mo-Do <--- (Bitte benutze die englische Abkürzung "Th" für "do".)
-	*Mo-Do 8:30-20:00 Fr  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-	*Mo-Do 8:30-20:00 Fr 8:29-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-Do 8:30-20:00 Fr 8:29-18:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Do <--- (Bitte benutze die englische Abkürzung "Th" für "do".)
 	*Mo-Do 8:30-20:00 Fr  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*Mo-Do 8:30-20:00 Fr 8:29-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-With [1m[34mwarnings[39m[22m:
-	*Mo 12:00-14:00 16:00-18:00 20:00-22:00 <--- (You have used 3 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo 12:00-14:00 16:00-18:00 20:00-22:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo 12:00-14:00 16:00-18:00 20:00-22:00 <--- (You have used 3 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-With [1m[34mwarnings[39m[22m:
-	*Mo-So <--- (Bitte benutze die englische Abkürzung "Su" für "so". Could also mean Saturday in Polish …)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-So 08:00-22:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-So <--- (Bitte benutze die englische Abkürzung "Su" für "so". Could also mean Saturday in Polish …)
-With [1m[34mwarnings[39m[22m:
-	*Mo Tu Fr <--- (You have used 3 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo Tu Fr; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo Tu Fr <--- (You have used 3 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
@@ -930,203 +902,117 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "Mo,Sa,Mo": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Value not ideal (probably wrong). Should throw a warning." for "Jan,Jan": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Value not ideal (probably wrong). Should throw a warning." for "Jan,Sep,Jan": [1m[33mIGNORED[39m[22m, reason: not implemented yet
-With [1m[34mwarnings[39m[22m:
-	*Jan Dec <--- (You have used 2 not connected months in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Value not ideal (probably wrong). Should throw a warning." for "Jan Dec; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan Dec <--- (You have used 2 not connected months in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-With [1m[34mwarnings[39m[22m:
-	*Jan 1-22/1 <--- (Please don’t use day ranges with period equals one.)
 "Value not ideal (probably wrong). Should throw a warning." for "Jan 1-22/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan 1-22/1 <--- (Please don’t use day ranges with period equals one.)
-With [1m[34mwarnings[39m[22m:
-	*"testing" "second comment" <--- (You have used 2 comments in one rule. You may only use one in one rule. Rules can be separated by ";".)
 "Value not ideal (probably wrong). Should throw a warning." for ""testing" "second comment"; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*"testing" "second comment" <--- (You have used 2 comments in one rule. You may only use one in one rule. Rules can be separated by ";".)
-With [1m[34mwarnings[39m[22m:
-	*' <--- (Please use notation """ for "'". The used quote signs are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
-	*'testing' <--- (Please use notation """ for "'". The used quote signs are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
 "Value not ideal (probably wrong). Should throw a warning." for "'testing'; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*' <--- (Please use notation """ for "'". The used quote signs are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
 	*'testing' <--- (Please use notation """ for "'". The used quote signs are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
-With [1m[34mwarnings[39m[22m:
-	*„ <--- (Bitte benutze die Schreibweise """ für "„". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
 "Value not ideal (probably wrong). Should throw a warning." for "„testing"; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*„ <--- (Bitte benutze die Schreibweise """ für "„". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
-With [1m[34mwarnings[39m[22m:
-	*„ <--- (Bitte benutze die Schreibweise """ für "„". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
-	*„testing“ <--- (Bitte benutze die Schreibweise """ für "“". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
 "Value not ideal (probably wrong). Should throw a warning." for "„testing“; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*„ <--- (Bitte benutze die Schreibweise """ für "„". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
 	*„testing“ <--- (Bitte benutze die Schreibweise """ für "“". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
-With [1m[34mwarnings[39m[22m:
-	*“ <--- (Bitte benutze die Schreibweise """ für "“". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
-	*“testing” <--- (Bitte benutze die Schreibweise """ für "”". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
 "Value not ideal (probably wrong). Should throw a warning." for "“testing”; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*“ <--- (Bitte benutze die Schreibweise """ für "“". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
 	*“testing” <--- (Bitte benutze die Schreibweise """ für "”". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.)
-With [1m[34mwarnings[39m[22m:
-	*« <--- (Please use notation """ for "«". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
-	*«testing» <--- (Please use notation """ for "»". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
 "Value not ideal (probably wrong). Should throw a warning." for "«testing»; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*« <--- (Please use notation """ for "«". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
 	*«testing» <--- (Please use notation """ for "»". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
-With [1m[34mwarnings[39m[22m:
-	*「 <--- (Please use notation """ for "「". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
-	*「testing」 <--- (Please use notation """ for "」". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
 "Value not ideal (probably wrong). Should throw a warning." for "「testing」; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*「 <--- (Please use notation """ for "「". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
 	*「testing」 <--- (Please use notation """ for "」". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
-With [1m[34mwarnings[39m[22m:
-	*『 <--- (Please use notation """ for "『". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
-	*『testing』 <--- (Please use notation """ for "』". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
 "Value not ideal (probably wrong). Should throw a warning." for "『testing』; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*『 <--- (Please use notation """ for "『". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
 	*『testing』 <--- (Please use notation """ for "』". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
-With [1m[34mwarnings[39m[22m:
-	*‚ <--- (Please use notation """ for "‚". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
-	*‚testing‘ <--- (Please use notation """ for "‘". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
 "Value not ideal (probably wrong). Should throw a warning." for "‚testing‘; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*‚ <--- (Please use notation """ for "‚". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
 	*‚testing‘ <--- (Please use notation """ for "‘". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
-With [1m[34mwarnings[39m[22m:
-	*‘ <--- (Please use notation """ for "‘". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
-	*‘testing‘ <--- (Please use notation """ for "‘". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
 "Value not ideal (probably wrong). Should throw a warning." for "‘testing‘; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*‘ <--- (Please use notation """ for "‘". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
 	*‘testing‘ <--- (Please use notation """ for "‘". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
-With [1m[34mwarnings[39m[22m:
-	*’ <--- (Please use notation """ for "’". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
-	*’testing’ <--- (Please use notation """ for "’". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
 "Value not ideal (probably wrong). Should throw a warning." for "’testing’; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*’ <--- (Please use notation """ for "’". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
 	*’testing’ <--- (Please use notation """ for "’". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.)
-With [1m[34mwarnings[39m[22m:
-	*Jan 12:00-13:00 Mo 15:00-16:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Value not ideal (probably wrong). Should throw a warning." for "Jan 12:00-13:00 Mo 15:00-16:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan 12:00-13:00 Mo 15:00-16:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-With [1m[34mwarnings[39m[22m:
-	*sunrise-(sunset-00:00 <--- (Adding zero in a variable time calculation does not change the variable time. Please omit the calculation (example: "sunrise-(sunset-00:00)").)
 "Value not ideal (probably wrong). Should throw a warning." for "sunrise-(sunset-00:00); 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*sunrise-(sunset-00:00 <--- (Adding zero in a variable time calculation does not change the variable time. Please omit the calculation (example: "sunrise-(sunset-00:00)").)
-With [1m[34mwarnings[39m[22m:
-	*Jun 2-20/1 <--- (Please don’t use day ranges with period equals one.)
 "Value not ideal (probably wrong). Should throw a warning." for "Jun 2-20/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jun 2-20/1 <--- (Please don’t use day ranges with period equals one.)
-With [1m[34mwarnings[39m[22m:
-	*2014-2020/1 <--- (Please don’t use year ranges with period equals one.)
 "Value not ideal (probably wrong). Should throw a warning." for "2014-2020/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2014-2020/1 <--- (Please don’t use year ranges with period equals one.)
-With [1m[34mwarnings[39m[22m:
-	*2014/1 <--- (Please don’t use year ranges with period equals one. If you want to express that a facility is open starting from a year without limit use "<year>+".)
 "Value not ideal (probably wrong). Should throw a warning." for "2014/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2014/1 <--- (Please don’t use year ranges with period equals one. If you want to express that a facility is open starting from a year without limit use "<year>+".)
-With [1m[34mwarnings[39m[22m:
-	*Mo-Sa 11:00-21:00 Su  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-Sa 11:00-21:00 Su off; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Sa 11:00-21:00 Su  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Value not ideal (probably wrong). Should throw a warning." for "25pm-26am; 00:23-00:42 unknown "warning at correct position?"": [1m[31mFAILED[39m[22m
 25pm <--- (Time range starts outside of the current day)
 
-With [1m[34mwarnings[39m[22m:
-	*10:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10:00am-12:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10:00am-12:00am,1:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10:00am-12:00am,1:00pm-8:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
 "Value not ideal (probably wrong). Should throw a warning." for "10:00am-12:00am,1:00pm-8:00pm; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
 	*10:00am-12:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
 	*10:00am-12:00am,1:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
 	*10:00am-12:00am,1:00pm-8:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-With [1m[34mwarnings[39m[22m:
-	*12:00-14:00 оff <--- (Please use notation "off" for "оff". Those characters look very similar but are not the same!)
 "Value not ideal (probably wrong). Should throw a warning." for "12:00-14:00 оff; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*12:00-14:00 оff <--- (Please use notation "off" for "оff". Those characters look very similar but are not the same!)
-With [1m[34mwarnings[39m[22m:
-	*Sa 2 <--- (The number 2200 will be interpreted as year. This is probably not intended. Times can be specified as "12:00".)
-	*2200 <--- (The selector "year" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
-	*2200 Sa <--- (The selector "weekday" was switched with the selector "year" for readablitity and compatibiltity reasons.)
 "Value not ideal (probably wrong). Should throw a warning." for "Sa 2200; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Sa 2 <--- (The number 2200 will be interpreted as year. This is probably not intended. Times can be specified as "12:00".)
 	*2200 <--- (The selector "year" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
 	*2200 Sa <--- (The selector "weekday" was switched with the selector "year" for readablitity and compatibiltity reasons.)
-With [1m[34mwarnings[39m[22m:
-	*week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
-	*week 6 Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
 "Value not ideal (probably wrong). Should throw a warning." for "Feb week 6": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 	*week 6 Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
-With [1m[34mwarnings[39m[22m:
-	*week 6 <--- (The selector "week" was switched with the selector "time" for readablitity and compatibiltity reasons.)
-	*week 6 Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
-	*week 6 Feb 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 "Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*week 6 <--- (The selector "week" was switched with the selector "time" for readablitity and compatibiltity reasons.)
 	*week 6 Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
 	*week 6 Feb 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
-With [1m[34mwarnings[39m[22m:
-	*week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
-	*week 6 Feb 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 "Value not ideal (probably wrong). Should throw a warning." for "week 6 00:00-24:00 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
 	*week 6 Feb 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
-With [1m[34mwarnings[39m[22m:
-	*week 6 <--- (The selector "week" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
-	*week 6 Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
-	*week 6 Feb Mo-Su <--- (The selector "weekday" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-Su week 6 Feb 00:00-24:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*week 6 <--- (The selector "week" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
 	*week 6 Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
 	*week 6 Feb Mo-Su <--- (The selector "weekday" was switched with the selector "month" for readablitity and compatibiltity reasons.)
-With [1m[34mwarnings[39m[22m:
-	*week 6 <--- (The selector "week" was switched with the selector "time" for readablitity and compatibiltity reasons.)
-	*week 6 Feb <--- (The selector "month" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
-	*week 6 Feb Mo-Su <--- (The selector "weekday" was switched with the selector "week" for readablitity and compatibiltity reasons.)
-	*week 6 Feb Mo-Su 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 "Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 Mo-Su week 6 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*week 6 <--- (The selector "week" was switched with the selector "time" for readablitity and compatibiltity reasons.)
 	*week 6 Feb <--- (The selector "month" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
 	*week 6 Feb Mo-Su <--- (The selector "weekday" was switched with the selector "week" for readablitity and compatibiltity reasons.)
 	*week 6 Feb Mo-Su 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
-With [1m[34mwarnings[39m[22m:
-	*week 6 <--- (The selector "week" was switched with the selector "time" for readablitity and compatibiltity reasons.)
-	*week 6 Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
-	*week 6 Feb Mo-Su 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 "Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 week 6 Mo-Su Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*week 6 <--- (The selector "week" was switched with the selector "time" for readablitity and compatibiltity reasons.)
 	*week 6 Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
-	*week 6 Feb Mo-Su 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
-With [1m[34mwarnings[39m[22m:
-	*week 6 <--- (The selector "week" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
-	*week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
-	*week 6 Feb Mo-Su <--- (The selector "weekday" was switched with the selector "week" for readablitity and compatibiltity reasons.)
 	*week 6 Feb Mo-Su 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-Su 00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1134,18 +1020,9 @@ With [1m[34mwarnings[39m[22m:
 	*week 6 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
 	*week 6 Feb Mo-Su <--- (The selector "weekday" was switched with the selector "week" for readablitity and compatibiltity reasons.)
 	*week 6 Feb Mo-Su 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
-With [1m[34mwarnings[39m[22m:
-	*2012 week 6 <--- (The selector "week" was switched with the selector "time" for readablitity and compatibiltity reasons.)
-	*2012 week 6 Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
-	*2012 week 6 Feb 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 "Value not ideal (probably wrong). Should throw a warning." for "2012 00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2012 week 6 <--- (The selector "week" was switched with the selector "time" for readablitity and compatibiltity reasons.)
-	*2012 week 6 Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
-	*2012 week 6 Feb 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
-With [1m[34mwarnings[39m[22m:
-	*2012 <--- (The selector "year" was switched with the selector "time" for readablitity and compatibiltity reasons.)
-	*2012 week 6 <--- (The selector "week" was switched with the selector "year" for readablitity and compatibiltity reasons.)
 	*2012 week 6 Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
 	*2012 week 6 Feb 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 "Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 2012 week 6 Feb": [1m[32mPASSED[39m[22m
@@ -1154,10 +1031,6 @@ With [1m[34mwarnings[39m[22m:
 	*2012 week 6 <--- (The selector "week" was switched with the selector "year" for readablitity and compatibiltity reasons.)
 	*2012 week 6 Feb <--- (The selector "month" was switched with the selector "week" for readablitity and compatibiltity reasons.)
 	*2012 week 6 Feb 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
-With [1m[34mwarnings[39m[22m:
-	*2012-2014 <--- (The selector "year" was switched with the selector "week" for readablitity and compatibiltity reasons.)
-	*2012-2014 week 6 <--- (The selector "week" was switched with the selector "month" for readablitity and compatibiltity reasons.)
-	*2012-2014 week 6 Feb <--- (The selector "month" was switched with the selector "year" for readablitity and compatibiltity reasons.)
 "Value not ideal (probably wrong). Should throw a warning." for "week 6 Feb 2012-2014": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2012-2014 <--- (The selector "year" was switched with the selector "week" for readablitity and compatibiltity reasons.)

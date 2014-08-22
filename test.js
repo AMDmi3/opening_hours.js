@@ -2418,6 +2418,12 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'00:00-24:00 2012 week 6 Feb',
 		'week 6 Feb 2012-2014',
 		// }}}
+		/* No time selector used. {{{ */
+		/* This test is currently only made for rules which evaluate to open.
+		 */
+		// '2012 Jan-Feb' + value_suffix,
+		// '2012 Jan-Feb open "test"' + value_suffix,
+		/* }}} */
 	], {}, 'not last test');
 // }}}
 
@@ -2467,7 +2473,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Sa[1,3-6]' + value_suffix,
 		'Sa[1,3-.]' + value_suffix,
 		'Sa[1,3,.]' + value_suffix,
-		'PH + 2 day' + value_suffix, // Normally moving PH one day is everything needed. Handling more than one move day would be harder to implement correctly.
+		'PH + 2 day' + value_suffix, // Normally moving PH one day is everything you will need. Handling more than one move day would be harder to implement correctly.
 		'Su-PH' + value_suffix,      // not accepted syntax
 		'2012, Jan' + value_suffix,
 		'easter + 370 days' + value_suffix,
@@ -2687,18 +2693,19 @@ function opening_hours_test() {
 
 		var passed = false;
 		var str = '"' + name + '" for "' + value.replace('\n', '*newline*') + '": ';
-		this.print_warnings(warnings);
 		if (!crashed && warnings.length > 0) {
 			str += 'PASSED'.passed;
 			passed = true;
-			if (this.show_passing_tests)
+			if (this.show_passing_tests) {
 				console.log(str);
-			this.print_warnings(warnings);
+				this.print_warnings(warnings);
+			}
 			return true;
 		} else if (ignored) {
 			str += 'IGNORED'.ignored + ', reason: ' + ignored;
 			passed = true;
 			console.log(str);
+			this.print_warnings(warnings);
 		} else {
 			str += 'FAILED'.failed;
 			console.warn(str);
@@ -2707,7 +2714,7 @@ function opening_hours_test() {
 				console.error(crashed + '\n');
 		}
 		return false;
-	}
+	};
 	// }}}
 
 	this.runSingleTest = function(test_data_object) { // {{{
