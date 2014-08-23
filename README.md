@@ -1,6 +1,6 @@
 # opening_hours.js #
 
-[opening_hours](http://wiki.openstreetmap.org/wiki/Key:opening_hours) tag is used in [OpenStreetMap](http://openstreetmap.org) project to describe time ranges when a specific facility (for example, a café) is open. As it has pretty complex syntax which requires special parsing and additional processing to extract some useful information (e.g. whether a facility is open at specific time, next time it's going to open/close, or a readable set of working hours), this library was written.
+[opening_hours][Key:opening_hours] tag is used in [OpenStreetMap](http://openstreetmap.org) project to describe time ranges when a specific facility (for example, a café) is open. As it has pretty complex syntax which requires special parsing and additional processing to extract some useful information (e.g. whether a facility is open at specific time, next time it's going to open/close, or a readable set of working hours), this library was written.
 
 Examples of some complex real-life opening_hours values:
 
@@ -505,9 +505,11 @@ This library is used by the following projects:
 * [opening\_hours\_map][]
 * [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours) (old version of this library)
 * [pyopening\_hours][] (python module for opening_hours.js)
+* [opening_hours_server.js][] (A little server answering query‘s for opening_hours and check if they can be evaluated)
 
 [opening\_hours\_map]: https://github.com/ypid/opening_hours_map
 [pyopening\_hours]: https://github.com/ypid/pyopening_hours
+[opening_hours_server.js]: https://github.com/ypid/opening_hours_server.js
 
 If you use this libary please let me know …
 
@@ -523,7 +525,7 @@ If you use this libary please let me know …
 <!-- ToDo {{{ -->
 ## ToDo ##
 List of missing features which can currently not be expressing in any other way without much pain.
-Please share your opinion on the [talk page](http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours) (or the discussion page to the proposal if that does exist) if you have any idea how to express this (better).
+Please share your opinion on the [talk page](http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours) (or the discussion page of the proposal if that does exist) if you have any idea how to express this (better).
 
 * Select single (or more, comma separated) (school|public) holidays. [Proposed syntax](http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_holiday_select): ```SH(Sommerferien)```
 * Depending on moon position like ```"low tide only"```. Suncalc lib does support moon position. Syntax needed.
@@ -632,6 +634,7 @@ opening_hours.js is published under the New (2-clause) BSD license.
 [Nominatim]: http://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding_.2F_Address_lookup
 [fossgis-project]: http://wiki.openstreetmap.org/wiki/FOSSGIS/Server/Projects/opening_hours.js
 [issue-report]: https://github.com/ypid/opening_hours.js/issues
+[Key:opening_hours]: http://wiki.openstreetmap.org/wiki/Key:opening_hours
 [oh:specification]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification
 [oh:specification:fallback rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#fallback_rule_separator
 [oh:specification:additional rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#additional_rule_separator
