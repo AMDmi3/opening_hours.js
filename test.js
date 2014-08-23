@@ -2433,6 +2433,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'2012 Jan-Feb' + value_suffix,
 		'2012 Jan-Feb open "test"' + value_suffix,
 		/* }}} */
+		'12:00-14:00 ""' + value_suffix, // Empty comment.
 	], {}, 'not last test');
 // }}}
 

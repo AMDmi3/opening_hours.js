@@ -2300,6 +2300,8 @@
 		function getWarnings(it) {
 			if (typeof it == 'object') { // getWarnings was called in a state without critical errors. We can do extended tests.
 
+				/* FIXME: Move as much tests in this function as possible so that the tests are only executed if needed. */
+
 				// How many times was a selector_type used per rule? {{{
 				var used_selectors = [];
 				var has_token = {};
@@ -2393,6 +2395,18 @@
 								+ " Please add a time selector to this rule."
 							]);
 						}
+					}
+					/* }}} */
+
+					/* Check if empty comment was given {{{ */
+					if (typeof used_selectors[nrule].comment === 'object'
+						&& new_tokens[nrule][0][used_selectors[nrule].comment[0]][0].length === 0
+					) {
+
+						parsing_warnings.push([nrule, used_selectors[nrule].comment[0],
+							"You have used an empty comment."
+							+ " Please either write something in the comment or use the keyword unknown instead."
+						]);
 					}
 					/* }}} */
 				}
