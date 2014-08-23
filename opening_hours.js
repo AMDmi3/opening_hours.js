@@ -4732,9 +4732,7 @@
 		// All functions below are considered public.
 		//======================================================================
 
-		//======================================================================
 		// Iterator interface {{{
-		//======================================================================
 		this.getIterator = function(date) {
 			return new function(oh) {
 				if (typeof date === 'undefined')
@@ -4743,10 +4741,13 @@
 				var prevstate = [ undefined, date, undefined, undefined, undefined ];
 				var state = oh.getStatePair(date);
 
+				/* getDate {{{ */
 				this.getDate = function() {
 					return prevstate[1];
 				};
+				/* }}} */
 
+				/* setDate {{{ */
 				this.setDate = function(date) {
 					if (typeof date != 'object')
 						throw 'Date parameter needed.';
@@ -4754,30 +4755,42 @@
 					prevstate = [ undefined, date, undefined, undefined, undefined ];
 					state     = oh.getStatePair(date);
 				};
+				/* }}} */
 
+				/* getState: Check whether facility is `open' {{{ */
 				this.getState = function() {
 					return state[0];
 				};
+				/* }}} */
 
+				/* getUnknown: Checks whether the opening state is conditional or unknown {{{ */
 				this.getUnknown = function() {
 					return state[2];
 				};
+				/* }}} */
 
+				/* getStateString: Get state string. Either 'open', 'unknown' or 'closed' {{{ */
 				this.getStateString = function(past) {
 					return (state[0] ? 'open' : (state[2] ? 'unknown' : (past ? 'closed' : 'close')));
 				};
+				/* }}} */
 
+				/* getComment: Get the comment, undefined in none {{{ */
 				this.getComment = function() {
 					return state[3];
 				};
+				/* }}} */
 
+				/* getMatchingRule: Get the rule which matched thus deterrents the current state {{{ */
 				this.getMatchingRule = function() {
 					if (typeof state[4] == 'undefined')
 						return undefined;
 
 					return rules[state[4]].build_from_token_rule[2];
 				};
+				/* }}} */
 
+				/* advance: Advances to the next position {{{ */
 				this.advance = function(datelimit) {
 					if (typeof datelimit === 'undefined')
 						datelimit = new Date(prevstate[1].getTime() + msec_in_day * 366 * 5);
@@ -4811,52 +4824,51 @@
 					} while (state[0] === prevstate[0] && state[2] === prevstate[2] && state[3] === prevstate[3]);
 					return true;
 				};
+				/* }}} */
 			}(this);
 		};
 		// }}}
 
 		// Simple API {{{
 
-		/* getWarnings: Get warnings, empty list if none {{{ */
-		this.getWarnings = function() {
-			var it = this.getIterator();
-			return getWarnings(it);
-		};
-
-		/* prettifyValue: Get a nicely formated value {{{ */
-		this.prettifyValue = function(argument_hash) {
-			return prettifyValue(argument_hash);
-		};
-
-		/* getState: Check whether facility is `open' {{{ */
 		this.getState = function(date) {
 			var it = this.getIterator(date);
 			return it.getState();
 		};
 
-		/* getUnknown: Checks whether the opening state is conditional or unknown {{{ */
 		this.getUnknown = function(date) {
 			var it = this.getIterator(date);
 			return it.getUnknown();
 		};
 
-		/* getStateString: Get state string. Either 'open', 'unknown' or 'closed' {{{ */
 		this.getStateString = function(date, past) {
 			var it = this.getIterator(date);
 			return it.getStateString(past);
 		};
 
-		/* getComment: Get the comment, undefined in none {{{ */
 		this.getComment = function(date) {
 			var it = this.getIterator(date);
 			return it.getComment();
 		};
 
-		/* getMatchingRule: Get the rule which matched thus deterrents the current state {{{ */
 		this.getMatchingRule = function(date) {
 			var it = this.getIterator(date);
 			return it.getMatchingRule();
 		};
+
+		/* Simple API only {{{ */
+		/* getWarnings: Get warnings, empty list if none {{{ */
+		this.getWarnings = function() {
+			var it = this.getIterator();
+			return getWarnings(it);
+		};
+		/* }}} */
+
+		/* prettifyValue: Get a nicely formated value {{{ */
+		this.prettifyValue = function(argument_hash) {
+			return prettifyValue(argument_hash);
+		};
+		/* }}} */
 
 		/* getNextChange: Get time of next status change {{{ */
 		this.getNextChange = function(date, maxdate) {
@@ -4865,11 +4877,14 @@
 				return undefined;
 			return it.getDate();
 		};
+		/* }}} */
 
 		/* isWeekStable: Checks whether open intervals are same for every week. {{{ */
 		this.isWeekStable = function() {
 			return week_stable;
 		};
+		/* }}} */
+		/* }}} */
 		/* }}} */
 
 		// High-level API {{{
