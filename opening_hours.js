@@ -2378,7 +2378,7 @@
 							]);
 						}
 					/* }}} */
-					/* Check if a rule (with a state other than closed) has no time selector. {{{ */
+					/* Check if a rule (with state open) has no time selector {{{ */
 					} else if (typeof used_selectors[nrule].time === 'undefined') {
 						if (	(	   typeof used_selectors[nrule].state === 'object'
 									&& new_tokens[nrule][0][used_selectors[nrule].state[0]][0] === 'open'
