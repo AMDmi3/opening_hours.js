@@ -920,6 +920,7 @@ With [1m[34mwarnings[39m[22m:
 "Real world example: Was not processed right (test over a full year)" for "Jan off; Feb off; Mar off; Apr Tu-Su 10:00-14:30, May Tu-Su 10:00-14:30; Jun Tu-Su 09:00-16:00; Jul Tu-Su 10:00-17:00; Aug Tu-Su 10:00-17:00; Sep Tu-Su 10:00-14:30; Oct Tu-Su 10:00-14:30; Nov off; Dec off": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right (test over a full year)" for "Nov-Mar off; Apr,May,Sep,Oct Tu-Su 10:00-14:30; Jun Tu-Su 09:00-16:00; Jul,Aug Tu-Su 10:00-17:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right (test over a full year)" for "Nov-Mar off; Apr,May,Sep,Oct 10:00-14:30; Jun 09:00-16:00; Jul,Aug 10:00-17:00; Mo off": [1m[32mPASSED[39m[22m
+"Real world example: Was not processed right" for "Tu 10:00-12:00, Fr 16:00-18:00; unknown": [1m[35mCRASHED[39m[22m, reason: TypeError: Cannot read property '0' of undefined
 "Variable events" for "easter": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*easter <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
@@ -1703,4 +1704,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-619/647 tests passed
+619/648 tests passed

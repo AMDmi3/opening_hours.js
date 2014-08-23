@@ -2020,6 +2020,10 @@ test.addTest('Real world example: Was not processed right (test over a full year
 // }}}
 // }}}
 
+test.addTest('Real world example: Was not processed right', [
+		'Tu 10:00-12:00, Fr 16:00-18:00; unknown',
+	], '2014.01.01 0:00', '2016.01.01 0:00', [
+	], 0, 0, false, {}, 'not last test');
 // }}}
 
 // variable events e.g. easter {{{
