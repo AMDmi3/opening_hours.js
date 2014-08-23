@@ -2692,7 +2692,6 @@
 
 			// console.log(tokens); // useful for debugging of tokenize
 			while (at < tokens.length) {
-				var old_at = at;
 				// console.log('Parsing at position', at +':', tokens[at]);
 				if (matchTokens(tokens, at, 'weekday')) {
 					at = parseWeekdayRange(tokens, at, selectors);
