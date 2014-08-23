@@ -307,7 +307,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   var matching_rule = iterator.getMatchingRule();
   ```
 
-  Returns the matching rule.
+  Returns the index of the matching rule starting with zero.
 
 * ```javascript
   var had_advanced = iterator.advance(limit);
