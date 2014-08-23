@@ -57,6 +57,7 @@ function opening_hours_test() {
 		var how_often_print_stats = 15000;
 		var importance_threshold  = 30;
 		var global_ignore = [ 'fixme', 'FIXME' ];
+		var write_verbose_logfile = true;
 
 		fs.readFile(__dirname + '/export.' + tagname + '.json', 'utf8', function (err, data) {
 			if (err) {
@@ -84,6 +85,8 @@ function opening_hours_test() {
 			var not_pretty_differ    = 0; // number of values which are not pretty (only one warning is counted for each value if more appear)
 			var important_and_failed = [];
 
+			var logfile_out_string = '';
+
 			data = JSON.parse(data);
 
 			for (var i = 0; i < data.data.length; i++) {
@@ -99,6 +102,7 @@ function opening_hours_test() {
 			for (var i = 0; i < total_differ; i++) {
 				if (indexOf.call(ignored_values, data.data[i].value) == -1) {
 					var result = test_value(data.data[i].value, oh_mode);
+					logfile_out_string += (+result[0]) + ' ' + data.data[i].value + '\n';
 					if (result[0]) {
 						success_differ++;
 						success += data.data[i].count;
@@ -135,6 +139,18 @@ function opening_hours_test() {
 				}
 			}
 			console.log();
+
+			if (write_verbose_logfile) {
+				try {
+					fs.renameSync('real_test.' + tagname + '.log', 'real_test.last.' + tagname + '.log');
+				} catch (err) {
+					/* Ignore */
+				}
+				fs.writeFile('real_test.' + tagname + '.log', logfile_out_string, function(err) {
+					if (err)
+					throw(err);
+				});
+			}
 		});
 	};
 
@@ -179,11 +195,11 @@ function opening_hours_test() {
 		try {
 			oh = new opening_hours(value, nominatiomTestJSON, oh_mode);
 			warnings = oh.getWarnings();
-            prettified = oh.prettifyValue();
+			prettified = oh.prettifyValue();
 
 			crashed = false;
 		} catch (err) {
-			// ignore
+			crashed = true;
 		}
 
 		if (typeof warnings != 'object')
