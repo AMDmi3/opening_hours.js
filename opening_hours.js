@@ -1820,23 +1820,23 @@
 }(this, function (SunCalc, holidays, word_error_correction) {
 	return function(value, nominatiomJSON, oh_mode) {
 		// short constants {{{
-		var word_value_replacement = { // if the correct values can not be calculated
+		var word_value_replacement = { // If the correct values can not be calculated.
 			dawn    : 60 * 5 + 30,
 			sunrise : 60 * 6,
 			sunset  : 60 * 18,
 			dusk    : 60 * 18 + 30,
 		};
-		var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+		var months   = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 		var weekdays = ['Su','Mo','Tu','We','Th','Fr','Sa'];
 		var default_prettify_conf = {
 			'leading_zero_hour': true,       // enforce leading zero
 			'one_zero_if_hour_zero': false,  // only one zero "0" if hour is zero "0"
-			'leave_off_closed': true,        // leave keywords of and closed as is
+			'leave_off_closed': true,        // leave keywords "off" and "closed" as is
 			'keyword_for_off_closed': 'off', // use given keyword instead of "off" or "closed"
 			'rule_sep_string': ' ',          // separate rules by string
 			'print_semicolon': true,         // print token which separates normal rules
 			'leave_weekday_sep_one_day_betw': true, // use the separator (either "," or "-" which is used to separate days which follow to each other like Sa,Su or Su-Mo
-			'sep_one_day_between': ',' // separator which should be used
+			'sep_one_day_between': ','       // separator which should be used
 		};
 
 		var minutes_in_day = 60 * 24;
@@ -2012,6 +2012,7 @@
 		 * :returns: String with position of the warning or error marked for the user.
 		 */
 		function formatWarnErrorMessage(nrule, at, message) {
+			// FIXME: Change to new_tokens.
 			if (typeof nrule == 'number') {
 				var pos = 0;
 				if (nrule == -1) { // Usage of rule index not required because we do have access to value.length.
@@ -2336,33 +2337,67 @@
 				// }}}
 
 				for (var nrule = 0; nrule < used_selectors.length; nrule++) {
+					/* Check if more than one not connected selector of the same type is used in one rule {{{ */
 					for (var selector_type in used_selectors[nrule]) {
 						// console.log(selector_type + ' use at: ' + used_selectors[nrule][selector_type].length);
 						if (used_selectors[nrule][selector_type].length > 1) {
 							parsing_warnings.push([nrule, used_selectors[nrule][selector_type][used_selectors[nrule][selector_type].length - 1],
-									'You have used ' + used_selectors[nrule][selector_type].length
-									+ (selector_type.match(/^(?:comment|state)/) ?
-										' ' + selector_type
-										+ (selector_type == 'state' ? ' keywords' : 's')
-										+ ' in one rule.'
-										+ ' You may only use one in one rule.'
-										:
-										' not connected ' + selector_type
-										+ (selector_type.match(/^(?:month|weekday)$/) ? 's' : ' ranges')
-										+ ' in one rule.'
-										+ ' This is probably an error.'
-										+ ' Equal selector types can (and should) always be written in conjunction separated by comma or something.'
-										+ ' Example for time ranges "12:00-13:00,15:00-18:00".'
-										+ ' Example for weekdays "Mo-We,Fr".'
-									  )
-									+ ' Rules can be separated by ";".' ]
-									);
+								'You have used ' + used_selectors[nrule][selector_type].length
+								+ (selector_type.match(/^(?:comment|state)/) ?
+									' ' + selector_type
+									+ (selector_type == 'state' ? ' keywords' : 's')
+									+ ' in one rule.'
+									+ ' You may only use one in one rule.'
+									:
+									' not connected ' + selector_type
+									+ (selector_type.match(/^(?:month|weekday)$/) ? 's' : ' ranges')
+									+ ' in one rule.'
+									+ ' This is probably an error.'
+									+ ' Equal selector types can (and should) always be written in conjunction separated by comma or something.'
+									+ ' Example for time ranges "12:00-13:00,15:00-18:00".'
+									+ ' Example for weekdays "Mo-We,Fr".'
+								  )
+								+ ' Rules can be separated by ";".' ]
+							);
 							done_with_selector_reordering = true; // Correcting the selector order makes no sense if this kind of issue exists.
 						}
 					}
+					/* }}} */
+
+					/* Check if change default state rule is not the first rule {{{ */
+					if (   typeof used_selectors[nrule].state === 'object'
+						&& Object.keys(used_selectors[nrule]).length === 1
+					) {
+
+						if (nrule !== 0) {
+							parsing_warnings.push([nrule, new_tokens[nrule][0].length - 1,
+								"This rule which changes the default state (which is closed) for all following rules is not the first rule."
+								+ " The rule will overwrite all previous rules."
+								+ " It can be legitimate to change the default state to open for example"
+								+ " and then only specify for which times the facility is closed."
+							]);
+						}
+					/* }}} */
+					/* Check if a rule (with a state other than closed) has no time selector. {{{ */
+					} else if (typeof used_selectors[nrule].time === 'undefined') {
+						if (	(	   typeof used_selectors[nrule].state === 'object'
+									&& new_tokens[nrule][0][used_selectors[nrule].state[0]][0] === 'open'
+								) || ( typeof used_selectors[nrule].comment === 'undefined'
+									&& typeof used_selectors[nrule].state === 'undefined'
+								) &&
+								typeof used_selectors[nrule]['24/7'] === 'undefined'
+						) {
+
+							parsing_warnings.push([nrule, new_tokens[nrule][0].length - 1,
+								"This rule is not very explicit because there is no time selector being used."
+								+ " Please add a time selector to this rule."
+							]);
+						}
+					}
+					/* }}} */
 				}
 
-				// Check if 24/7 is used and it does not mean 24/7 because there are other rules.
+				/* Check if 24/7 is used and it does not mean 24/7 because there are other rules {{{ */
 				var has_advanced = it.advance();
 
 				if (has_advanced === true && has_token['24/7'] && !done_with_warnings) {
@@ -2372,6 +2407,7 @@
 							+ ' for this rule and then write your exceptions which should achieve the same goal and is more clear'
 							+ ' e.g. "open; Mo 12:00-14:00 off".']);
 				}
+				/* }}} */
 
 				prettifyValue();
 			}

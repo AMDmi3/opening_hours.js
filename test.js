@@ -37,6 +37,11 @@ var sane_value_suffix = '; 00:23-00:42 closed "warning at correct position?"';
 // easier without changing there meaning (in most cases).
 var value_suffix = '; 00:23-00:42 unknown "warning at correct position?"';
 // This suffix value is there to test if the warning marks the correct position of the problem.
+var value_suffix_to_disable_time_not_used = ' 12:00-15:00'
+/* Avoid the warning that no time selector was used in a rule. Use this if you
+ * are checking for currently ignored tests which should return another
+ * warning.
+ */
 
 
 // time ranges {{{
@@ -2373,11 +2378,11 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'Mo 12:00-14:00 16:00-18:00 20:00-22:00' + value_suffix,
 		'Mo-So 08:00-22:00' + value_suffix,
 		'Mo Tu Fr' + value_suffix,
-		// selector used more than one time {{{
-		ignored('Mo,Mo'),
-		ignored('Mo,Sa,Mo'),
-		ignored('Jan,Jan'),
-		ignored('Jan,Sep,Jan'),
+		// Same selector used more than one time {{{
+		ignored('Mo,Mo' + value_suffix_to_disable_time_not_used),
+		ignored('Mo,Sa,Mo' + value_suffix_to_disable_time_not_used),
+		ignored('Jan,Jan' + value_suffix_to_disable_time_not_used),
+		ignored('Jan,Sep,Jan' + value_suffix_to_disable_time_not_used),
 		// }}}
 		'Jan Dec' + value_suffix,
 		'Jan 1-22/1' + value_suffix, // period
@@ -2421,8 +2426,8 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		/* No time selector used. {{{ */
 		/* This test is currently only made for rules which evaluate to open.
 		 */
-		// '2012 Jan-Feb' + value_suffix,
-		// '2012 Jan-Feb open "test"' + value_suffix,
+		'2012 Jan-Feb' + value_suffix,
+		'2012 Jan-Feb open "test"' + value_suffix,
 		/* }}} */
 	], {}, 'not last test');
 // }}}
