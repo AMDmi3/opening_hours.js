@@ -1942,7 +1942,7 @@
 						tokens[nrule][0].slice(
 							selectors.build_from_token_rule[1],
 							continue_at === 0
-								? last_token_at = tokens[nrule][0].length
+								? tokens[nrule][0].length
 								: continue_at
 						),
 						tokens[nrule][1],
@@ -2131,7 +2131,7 @@
 								}
 							}
 						}
-						correct_tokens = tokenize(correct_val)[0];
+						var correct_tokens = tokenize(correct_val)[0];
 						if (correct_tokens[1] === true) { // last_rule_fallback_terminated
 							throw formatLibraryBugMessage();
 						}
@@ -2597,7 +2597,7 @@
 
 				prettified_group_value.sort(
 					function (a, b) {
-						selector_order = [ 'year', 'week', 'month', 'holiday', 'weekday', 'time', '24/7', 'state', 'comment'];
+						var selector_order = [ 'year', 'week', 'month', 'holiday', 'weekday', 'time', '24/7', 'state', 'comment'];
 						return selector_order.indexOf(a[0][2]) - selector_order.indexOf(b[0][2]);
 					}
 				);
@@ -3361,6 +3361,7 @@
 		 * :returns: Time in minutes on suggest, throws an exception otherwise.
 		*/
 		function parseTimevarCalc(tokens, at) {
+			var error;
 			if (matchTokens(tokens, at+2, '+') || matchTokens(tokens, at+2, '-')) {
 				if (matchTokens(tokens, at+3, 'number', 'timesep', 'number')) {
 					if (matchTokens(tokens, at+6, ')')) {
@@ -3813,7 +3814,7 @@
 							return holidays[location_cc][location_state][type_of_holidays];
 						} else if (holidays[location_cc][type_of_holidays]) {
 							// holidays are only defined country wide
-							matching_holiday = {}; // holidays in the country wide scope can be limited to certain states
+							var matching_holiday = {}; // holidays in the country wide scope can be limited to certain states
 							for (var holiday_name in holidays[location_cc][type_of_holidays]) {
 								if (typeof holidays[location_cc][type_of_holidays][holiday_name][2] === 'object') {
 									if (-1 != holidays[location_cc][type_of_holidays][holiday_name][2].indexOf(location_state))
@@ -3863,6 +3864,7 @@
 			var oE = (2*oA+4*oB - oD + 34) % 7;
 			var oF = oD+oE;
 
+			var oDate;
 			if (oF < 9) {
 				oDate = new Date(Y, 4-1, oF+4);
 			} else {
