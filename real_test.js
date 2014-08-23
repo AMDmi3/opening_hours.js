@@ -57,7 +57,6 @@ function opening_hours_test() {
 		var how_often_print_stats = 15000;
 		var importance_threshold  = 30;
 		var global_ignore = [ 'fixme', 'FIXME' ];
-		var write_verbose_logfile = true;
 
 		fs.readFile(__dirname + '/export.' + tagname + '.json', 'utf8', function (err, data) {
 			if (err) {
@@ -140,7 +139,8 @@ function opening_hours_test() {
 			}
 			console.log();
 
-			if (write_verbose_logfile) {
+			/* Just `touch` the file that you want logs for. */
+			if (fs.existsSync('real_test.' + tagname + '.log')) {
 				try {
 					fs.renameSync('real_test.' + tagname + '.log', 'real_test.last.' + tagname + '.log');
 				} catch (err) {
