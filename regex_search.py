@@ -9,11 +9,9 @@ import json
 import re
 import codecs
 from termcolor import colored
-import subprocess
 import urllib
 import readline
-sys.path.append('pyopening_hours/')
-from osm_time.OpeningHours import OpeningHours, ParseException
+import pyopening_hours
 # }}}
 
 class OpeningHoursRegexSearch: # {{{
@@ -107,10 +105,10 @@ class OpeningHoursRegexSearch: # {{{
                     total_in_use += taginfo_hash['count']
                     if do_parse_all_values_before:
                         try:
-                            oh_result = OpeningHours(taginfo_hash['value'])
+                            oh_result = pyopening_hours.OpeningHours(taginfo_hash['value'])
                         except ImportError as e:
                             raise e
-                        except ParseException:
+                        except pyopening_hours.ParseException:
                             continue
                         passed_diff_values += 1
                         total_passed += taginfo_hash['count']
@@ -152,21 +150,21 @@ class OpeningHoursRegexSearch: # {{{
 
                         oh_ok = True
                         try:
-                            oh_result = OpeningHours(taginfo_hash['value'])
+                            oh_result = pyopening_hours.OpeningHours(taginfo_hash['value'])
                         except ImportError as e:
                             raise e
-                        except ParseException as e:
+                        except pyopening_hours.ParseException as e:
                             oh_ok = False
 
-                        oh_loc_needed = ', loc needed' if oh_result._neededNominatiomJson() else ''
-                        oh_warnings   = ', warnings'   if oh_result.getWarnings() else ''
                         if oh_ok:
+                            oh_loc_needed = ', loc needed' if oh_result._neededNominatiomJson() else ''
+                            oh_warnings   = ', warnings'   if oh_result.getWarnings() else ''
                             passed_failed = {
                                     'open'    : colored('Passed', 'green'),
                                     'unknown' : colored('Passed', 'magenta'),
                                     'close'   : colored('Passed', 'blue'),
                                 }[oh_result.getStateString()]
-                        else                  :
+                        else:
                             passed_failed = colored('Failed', 'red')
                             oh_loc_needed = ''
                             oh_warnings   = ''
