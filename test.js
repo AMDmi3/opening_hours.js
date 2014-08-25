@@ -78,6 +78,9 @@ test.addTest('Time intervals', [
 
 test.addTest('Time zero intervals (always closed)', [
 		'off',
+		'·off',
+		'off·',
+		'·off·',
 		'closed',
 		'off; closed',
 		'24/7 closed "always closed"', // Used on the demo page.
@@ -2434,6 +2437,8 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'2012 Jan-Feb open "test"' + value_suffix,
 		/* }}} */
 		'12:00-14:00 ""' + value_suffix, // Empty comment.
+		'· 12:00-14:00' + value_suffix, // Empty comment.
+		'12:00-14:00·' + value_suffix, // Empty comment.
 	], {}, 'not last test');
 // }}}
 
