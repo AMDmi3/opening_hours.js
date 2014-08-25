@@ -270,6 +270,8 @@ test.addTest('Open end', [
 test.addTest('Open end', [
 		'17:00+',
 		'17:00-late',
+		'17:00 til late',
+		'17:00 till late',
 		'17:00-open end',
 		'17:00-openend',
 		'17:00+; 15:00-16:00 off',

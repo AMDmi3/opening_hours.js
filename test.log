@@ -180,6 +180,12 @@ With [1m[34mwarnings[39m[22m:
 "Open end" for "17:00-late": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*17:00-late <--- (You can use notation "+" for "-late" in the case that you want to express open end times. Example: "12:00+".)
+"Open end" for "17:00 til late": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*17:00 til late <--- (You can use notation "+" for "til late" in the case that you want to express open end times. Example: "12:00+".)
+"Open end" for "17:00 till late": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*17:00 till late <--- (You can use notation "+" for "till late" in the case that you want to express open end times. Example: "12:00+".)
 "Open end" for "17:00-open end": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*17:00-open end <--- (You can use notation "+" for "-open end" in the case that you want to express open end times. Example: "12:00+".)
@@ -1738,4 +1744,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-630/658 tests passed
+632/660 tests passed

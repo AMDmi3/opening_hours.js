@@ -1401,6 +1401,8 @@
 			}, 'Please omit "<ko>". You might want to express open end which can be specified as "12:00+" for example.': {
 				'from': '',
 			}, 'You can use notation "<ok>" for "<ko>" in the case that you want to express open end times. Example: "12:00+".': {
+				'til late': '+',
+				'till late': '+',
 				'-late': '+',
 				'-open end': '+',
 				'-openend': '+',
@@ -2103,7 +2105,7 @@
 					// special day name (holidays)
 					curr_rule_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
 					value = value.substr(2);
-				} else if (tmp = value.match(/^(&|_|→|–|−|=|·|opening_hours=|ー|\?|~|～|：|°°|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-(?:late|open[ ]?end)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b|à|á)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|→|–|−|=|·|opening_hours=|ー|\?|~|～|：|°°|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-?(?:(?:till? )?late|open[ ]?end)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b|à|á)\.?/i)) {
 					// Handle all remaining words and specific other characters with error tolerance.
 					//
 					// à|á: Word boundary does not work with unicode chars: 'test à test'.match(/\bà\b/i)
@@ -4886,7 +4888,8 @@
 			/* getWarnings has to be run before prettifyValue because some
 			 * decisions if a certain aspect makes sense to prettify or not
 			 * are based on the warnings.
-			 * See done_with_selector_reordering
+			 * Basically, both functions depend on each other in some way :(
+			 * See done_with_selector_reordering.
 			 */
 			return prettifyValue(argument_hash);
 		};
