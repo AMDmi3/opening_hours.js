@@ -1353,14 +1353,14 @@
 			'Assuming "<ok>" for "<ko>".': {
 				'Frühling':  'Mar-May',
 				'Frühjahr':  'Mar-May',
-				'Sommer':  'Jun-Aug',
-				'Herbst':  'Sep-Nov',
-				// 'winter':  'Dec-Feb', // Same as in English.
+				'Sommer':    'Jun-Aug',
+				'Herbst':    'Sep-Nov',
+				'winter':    'Dec-Feb',
 			}, '"<ko>" wird als "<ok>" interpertiert.': {
 				'spring':  'Mar-May',
 				'summer':  'Jun-Aug',
 				'autumn':  'Sep-Nov',
-				'winter':  'Dec-Feb',
+				// 'winter':  'Dec-Feb', // Same as in English.
 				// morning: '08:00-12:00',
 				// evening: '13:00-18:00',
 				'_':  '-',
