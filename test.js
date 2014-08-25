@@ -2027,6 +2027,28 @@ test.addTest('Real world example: Was not processed right', [
 		'Tu 10:00-12:00, Fr 16:00-18:00; unknown',
 	], '2014.01.01 0:00', '2016.01.01 0:00', [
 	], 0, 0, false, {}, 'not last test');
+
+/* {{{ http://www.openstreetmap.org/node/3010451545 */
+test.addShouldFail('Incorrect syntax which should throw an error', [
+		'MON-FRI 5PM-12AM | SAT-SUN 12PM-12AM',  // Website.
+		'MON-FRI 5PM-12AM; SAT-SUN 12PM-12AM',   // Website, using valid <normal_rule_separator>.
+		'Mo-Fr 17:00-12:00; Sa-Su 24:00-12:00',  // Website, after cleanup and am/pm to normal time conversion.
+	], nominatiomTestJSON, 'not last test');
+test.addTest('Real world example: Was not processed right', [
+		'Mo-Fr 17:00-12:00, Su-Mo 00:00-12:00', // Rewritten and fixed.
+	], '2014.08.25 0:00', '2014.09.02 0:00', [
+		[ '2014.08.25 00:00', '2014.08.25 12:00' ], // Mo
+		[ '2014.08.25 17:00', '2014.08.26 12:00' ], // Mo to Tu
+		[ '2014.08.26 17:00', '2014.08.27 12:00' ], // Tu to We
+		[ '2014.08.27 17:00', '2014.08.28 12:00' ], // We to Th
+		[ '2014.08.28 17:00', '2014.08.29 12:00' ], // Th to Fr
+		[ '2014.08.29 17:00', '2014.08.30 12:00' ], // Fr to Sa
+		[ '2014.08.31 00:00', '2014.08.31 12:00' ], // (Sa to) Su
+		[ '2014.09.01 00:00', '2014.09.01 12:00' ], // (Su to) Mo
+		[ '2014.09.01 17:00', '2014.09.02 00:00' ], // Mo to Tu
+	], 1000 * 60 * 60 * (12 + 5 * (7 + 12) + 2 * 12 + 7), 0, true, {}, 'not last test');
+// }}}
+
 // }}}
 
 // variable events e.g. easter {{{
