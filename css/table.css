@@ -16,3 +16,4 @@ div.closed {}
 p.open { color: #44AA00 }
 p.unknown { color: #94d7b3 }
 p.closed { color: #AA4400 }
+span.oh-times { background: #88ccff }

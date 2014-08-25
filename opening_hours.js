@@ -2111,6 +2111,7 @@
 					 * à|á: Word boundary does not work with unicode chars: 'test à test'.match(/\bà\b/i)
 					 * https://stackoverflow.com/questions/10590098/javascript-regexp-word-boundaries-unicode-characters
 					 * Order in the regular expression capturing group is important in some cases.
+					 *
 					 * mo|tu|we|th|fr|sa|su|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec: Prefer defended keywords
 					 * if used in cases like 'mo12:00-14:00' (when keyword is followed by number).
 					 */
