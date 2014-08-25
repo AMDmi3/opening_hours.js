@@ -1459,6 +1459,7 @@
 				'7 days/week':	   'Mo-Su',
 				'24 hours 7 days a week':   '24/7',
 				'24 hours':		   '00:00-24:00',
+				'midday':          '12:00',
 				'midnight':        '00:00',
 				'holiday':         'PH',
 				'holidays':        'PH',
