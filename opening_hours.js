@@ -1400,7 +1400,7 @@
 				'opening_hours=': '',
 			}, 'Please omit "<ko>". You might want to express open end which can be specified as "12:00+" for example.': {
 				'from': '',
-			}, 'You can use notation "<ok>" for "<ko>". You might want to express open end which can be specified as "12:00+" for example.': {
+			}, 'You can use notation "<ok>" for "<ko>" in the case that you want to express open end times. Example: "12:00+".': {
 				'-late': '+',
 				'-open end': '+',
 				'-openend': '+',
