@@ -1888,6 +1888,7 @@
 		var parsing_warnings = []; // Elements are fed into function formatWarnErrorMessage(nrule, at, message)
 		var done_with_warnings = false; // The functions which throw warnings can be called multiple times.
 		var done_with_selector_reordering = false;
+		var done_with_selector_reordering_warnings = false;
 		var tokens = tokenize(value);
 		// console.log(JSON.stringify(tokens, null, '    '));
 		var prettified_value = '';
@@ -2303,9 +2304,15 @@
 		 * :returns: Warnings as list with one warning per element.
 		 */
 		function getWarnings(it) {
-			if (typeof it == 'object') { // getWarnings was called in a state without critical errors. We can do extended tests.
+			if (!done_with_warnings && typeof it == 'object') {
+				/* getWarnings was called in a state without critical errors.
+				 * We can do extended tests.
+				 */
 
-				/* FIXME: Move as much tests in this function as possible so that the tests are only executed if needed. */
+				/* FIXME: Move tests in this function if this does not require
+				 * to rewrite big parts of (sub) selector parsers and/or if an
+				 * additional (high level) test is added.
+				 */
 
 				// How many times was a selector_type used per rule? {{{
 				var used_selectors = [];
@@ -2430,6 +2437,7 @@
 
 				prettifyValue();
 			}
+			done_with_warnings = true;
 
 			var warnings = [];
 			for (var i = 0; i < parsing_warnings.length; i++) {
@@ -2600,12 +2608,14 @@
 				// console.log('Prettified value: ' + JSON.stringify(prettified_group_value, null, '    '));
 				var not_sorted_prettified_group_value = prettified_group_value.slice();
 
-				prettified_group_value.sort(
-					function (a, b) {
-						var selector_order = [ 'year', 'week', 'month', 'holiday', 'weekday', 'time', '24/7', 'state', 'comment'];
-						return selector_order.indexOf(a[0][2]) - selector_order.indexOf(b[0][2]);
-					}
-				);
+				if (!done_with_selector_reordering) {
+					prettified_group_value.sort(
+						function (a, b) {
+							var selector_order = [ 'year', 'week', 'month', 'holiday', 'weekday', 'time', '24/7', 'state', 'comment'];
+							return selector_order.indexOf(a[0][2]) - selector_order.indexOf(b[0][2]);
+						}
+					);
+				}
 				var old_prettified_value_length = prettified_value.length;
 
 				prettified_value += prettified_group_value.map(
@@ -2616,7 +2626,7 @@
 
 				prettified_value_array.push( prettified_group_value );
 
-				if (!done_with_selector_reordering) {
+				if (!done_with_selector_reordering_warnings) {
 					for (var i = 0, l = not_sorted_prettified_group_value.length; i < l; i++) {
 						if (not_sorted_prettified_group_value[i] != prettified_group_value[i]) {
 							// console.log(i + ': ' + prettified_group_value[i][0][2]);
@@ -2636,7 +2646,7 @@
 				}
 			}
 
-			done_with_selector_reordering = true;
+			done_with_selector_reordering_warnings = true;
 			// console.log(JSON.stringify(prettified_value_array, null, '    '));
 
 			if (get_all) {
@@ -4872,6 +4882,12 @@
 
 		/* prettifyValue: Get a nicely formated value {{{ */
 		this.prettifyValue = function(argument_hash) {
+			this.getWarnings();
+			/* getWarnings has to be run before prettifyValue because some
+			 * decisions if a certain aspect makes sense to prettify or not
+			 * are based on the warnings.
+			 * See done_with_selector_reordering
+			 */
 			return prettifyValue(argument_hash);
 		};
 		/* }}} */
