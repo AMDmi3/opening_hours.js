@@ -97,6 +97,7 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*Mo 7-18 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
 "Error tolerance: Time range" for "Mo 12:00-14:00": [1m[32mPASSED[39m[22m
+"Error tolerance: Time range" for "Mo12:00-14:00": [1m[32mPASSED[39m[22m
 "Error tolerance: Time range" for "Mo 12:00→14:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo 12:00→ <--- (Please use notation "-" for "→".)
@@ -170,8 +171,11 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*22-26 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
 "Time ranges spanning midnight" for "We 22:00-22:00": [1m[32mPASSED[39m[22m
+"Time ranges spanning midnight" for "We22:00-22:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight with date overwriting" for "22:00-02:00; Tu 12:00-14:00": [1m[32mPASSED[39m[22m
+"Time ranges spanning midnight with date overwriting" for "22:00-02:00; Tu12:00-14:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight with date overwriting (complex real world example)" for "Su-Tu 11:00-01:00, We-Th 11:00-03:00, Fr 11:00-06:00, Sa 11:00-07:00": [1m[32mPASSED[39m[22m
+"Time ranges spanning midnight with date overwriting (complex real world example)" for "Su-Tu 11:00-01:00, We-Th11:00-03:00, Fr 11:00-06:00, Sa 11:00-07:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight (maximum supported)" for "Tu 23:59-48:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight with open ened (maximum supported)" for "Tu 23:59-40:00+": [1m[32mPASSED[39m[22m
 "Open end" for "07:00+ open "visit there website to know if they did already close"": [1m[32mPASSED[39m[22m
@@ -197,6 +201,7 @@ With [1m[34mwarnings[39m[22m:
 "Open end, variable time" for "sunrise+": [1m[32mPASSED[39m[22m
 "Open end, variable time" for "(sunrise+01:00)+": [1m[32mPASSED[39m[22m
 "Open end" for "17:00+ off": [1m[32mPASSED[39m[22m
+"Open end" for "17:00+off": [1m[32mPASSED[39m[22m
 "Open end" for "17:00-19:00 off": [1m[32mPASSED[39m[22m
 "Open end" for "07:00+,12:00-16:00; 16:00-24:00 closed "needed because of open end"": [1m[32mPASSED[39m[22m
 "Fixed time followed by open end" for "14:00-17:00+": [1m[32mPASSED[39m[22m
@@ -207,6 +212,10 @@ With [1m[34mwarnings[39m[22m:
 "variable time range followed by open end" for "sunrise-(sunset+01:00)+": [1m[32mPASSED[39m[22m
 "variable time range followed by open end" for "sunrise-(sunset+01:00)+; Su off": [1m[32mPASSED[39m[22m
 "variable time range followed by open end, day wrap and different states" for "Fr 11:00-24:00+ open "geöffnet täglich von 11:00 Uhr bis tief in die Nacht"": [1m[32mPASSED[39m[22m
+"variable time range followed by open end, day wrap and different states" for "Fr 11:00-24:00+ open"geöffnet täglich von 11:00 Uhr bis tief in die Nacht"": [1m[32mPASSED[39m[22m
+"variable time range followed by open end, day wrap and different states" for "Fr 11:00-24:00+open "geöffnet täglich von 11:00 Uhr bis tief in die Nacht"": [1m[32mPASSED[39m[22m
+"variable time range followed by open end, day wrap and different states" for "Fr 11:00-24:00+open"geöffnet täglich von 11:00 Uhr bis tief in die Nacht"": [1m[32mPASSED[39m[22m
+"variable time range followed by open end, day wrap and different states" for "Fr11:00-24:00+open"geöffnet täglich von 11:00 Uhr bis tief in die Nacht"": [1m[32mPASSED[39m[22m
 "Variable times e.g. dawn, dusk" for "Mo dawn-dusk": [1m[32mPASSED[39m[22m
 "Variable times e.g. dawn, dusk" for "dawn-dusk": [1m[32mPASSED[39m[22m
 "Variable times e.g. sunrise, sunset" for "Mo sunrise-sunset": [1m[32mPASSED[39m[22m
@@ -354,6 +363,9 @@ With [1m[34mwarnings[39m[22m:
 "Variable days: public holidays" for "PH -1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH -1 day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
+"Variable days: public holidays" for "PH-1day": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH-1day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 "Variable days: public holidays" for "day before public holiday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*day before public holiday <--- (Please use notation "PH -1 day" for "day before public holiday".)
@@ -372,6 +384,9 @@ With [1m[34mwarnings[39m[22m:
 "SH: Only if SH is Wednesday" for "SH We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
+"SH: Only if SH is Wednesday" for "SHWe": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*SHWe <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 "SH: Only if SH is Wednesday" for "2014 SH We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2014 SH We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
@@ -552,6 +567,7 @@ With [1m[34mwarnings[39m[22m:
 "Only in one month of the year" for "Apr 08:00-12:00": [1m[32mPASSED[39m[22m
 "Only in one month of the year" for "Apr: 08:00-12:00": [1m[32mPASSED[39m[22m
 "Month ranges" for "Nov-Feb 00:00-24:00": [1m[32mPASSED[39m[22m
+"Month ranges" for "Nov-Feb00:00-24:00": [1m[32mPASSED[39m[22m
 "Month ranges" for "Nov-Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Nov-Feb <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
@@ -860,6 +876,9 @@ With [1m[34mwarnings[39m[22m:
 "Additional comments for closed with time ranges spanning midnight" for "22:00-26:00; We 12:00-14:00 closed "Not open because we are too tired"": [1m[32mPASSED[39m[22m
 "Additional comments combined with additional rules" for "Mo 12:00-14:00 open "female only", Mo 14:00-16:00 open "male only"": [1m[32mPASSED[39m[22m
 "Additional comments combined with months" for "Apr-Sep; Oct-Dec "on request"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Apr-Sep <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
+"Additional comments combined with months" for "Apr-Sep; Oct-Dec"on request"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Apr-Sep <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 "Additional comments combined with months" for "Oct-Dec "on request"; Apr-Sep": [1m[32mPASSED[39m[22m
@@ -1744,4 +1763,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-632/660 tests passed
+645/673 tests passed

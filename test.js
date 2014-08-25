@@ -154,6 +154,7 @@ test.addTest('Error tolerance: Time intervals, short time', [
 
 test.addTest('Error tolerance: Time range', [
 		'Mo 12:00-14:00', // reference value for prettify
+		'Mo12:00-14:00',
 		'Mo 12:00→14:00',
 		'Mo 12:00−14:00',
 		'Mo 12:00=14:00',
@@ -212,12 +213,14 @@ test.addTest('Time ranges spanning midnight', [
 
 test.addTest('Time ranges spanning midnight', [
 		'We 22:00-22:00',
+		'We22:00-22:00',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.03 22:00', '2012.10.04 22:00' ],
 	], 1000 * 60 * 60 * 24, 0, true, {}, 'not last test');
 
 test.addTest('Time ranges spanning midnight with date overwriting', [
 		'22:00-02:00; Tu 12:00-14:00',
+		'22:00-02:00; Tu12:00-14:00',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 02:00' ],
 		[ '2012.10.01 22:00', '2012.10.02 00:00' ],
@@ -232,6 +235,7 @@ test.addTest('Time ranges spanning midnight with date overwriting', [
 
 test.addTest('Time ranges spanning midnight with date overwriting (complex real world example)', [
 		'Su-Tu 11:00-01:00, We-Th 11:00-03:00, Fr 11:00-06:00, Sa 11:00-07:00',
+		'Su-Tu 11:00-01:00, We-Th11:00-03:00, Fr 11:00-06:00, Sa 11:00-07:00',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 01:00', ], // Mo: Su-Tu 11:00-01:00
 		[ '2012.10.01 11:00', '2012.10.02 01:00', ], // Mo: Su-Tu 11:00-01:00
@@ -295,6 +299,7 @@ test.addTest('Open end, variable time', [
 
 test.addTest('Open end', [
 		'17:00+ off',
+		'17:00+off',
 		'17:00-19:00 off',
 	], '2012.10.01 0:00', '2012.10.02 0:00', [
 	], 0, 0, true, {}, 'not last test');
@@ -351,6 +356,10 @@ test.addTest('variable time range followed by open end', [
 
 test.addTest('variable time range followed by open end, day wrap and different states', [
 	'Fr 11:00-24:00+ open "geöffnet täglich von 11:00 Uhr bis tief in die Nacht"',
+	'Fr 11:00-24:00+ open"geöffnet täglich von 11:00 Uhr bis tief in die Nacht"',
+	'Fr 11:00-24:00+open "geöffnet täglich von 11:00 Uhr bis tief in die Nacht"',
+	'Fr 11:00-24:00+open"geöffnet täglich von 11:00 Uhr bis tief in die Nacht"',
+	'Fr11:00-24:00+open"geöffnet täglich von 11:00 Uhr bis tief in die Nacht"',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.05 11:00', '2012.10.06 00:00', false, 'geöffnet täglich von 11:00 Uhr bis tief in die Nacht' ],
 		[ '2012.10.06 00:00', '2012.10.06 08:00', true,  'geöffnet täglich von 11:00 Uhr bis tief in die Nacht' ],
@@ -615,6 +624,7 @@ test.addTest('Variable days: public holidays', [
 
 test.addTest('Variable days: public holidays', [
 		'PH -1 day',
+		'PH-1day',
 		'day before public holiday',
 		'one day before public holiday',
 	], '2014.10.25 0:00', '2015.01.15 0:00', [
@@ -662,6 +672,7 @@ test.addTest('Variable days: school holidays', [
 
 test.addTest('SH: Only if SH is Wednesday', [
 		'SH We',
+		'SHWe',
 		'2014 SH We',
 	], '2014.01.01 0:00', '2014.05.10 0:00', [
 		[ '2014.01.01 00:00', '2014.01.02 00:00', false, 'Weihnachtsferien' ],
@@ -1085,6 +1096,7 @@ test.addTest('Only in one month of the year', [
 
 test.addTest('Month ranges', [
 		'Nov-Feb 00:00-24:00',
+		'Nov-Feb00:00-24:00',
 		'Nov-Feb',
 		'Nov-Feb 0-24', // Do not use. Returns warning and corrected value.
 		'Nov-Feb: 00:00-24:00',
@@ -1512,6 +1524,7 @@ test.addTest('Additional comments combined with additional rules', [
 // did only not work in browser: drawTable
 test.addTest('Additional comments combined with months', [
 		'Apr-Sep; Oct-Dec "on request"',
+		'Apr-Sep; Oct-Dec"on request"',
 		'Oct-Dec "on request"; Apr-Sep',
 	], '2012.07.01 0:00', '2012.11.01 0:00', [
 		[ '2012.07.01 00:00', '2012.10.01 00:00' ],

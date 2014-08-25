@@ -2105,12 +2105,15 @@
 					// special day name (holidays)
 					curr_rule_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
 					value = value.substr(2);
-				} else if (tmp = value.match(/^(&|_|→|–|−|=|·|opening_hours=|ー|\?|~|～|：|°°|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-?(?:(?:till? )?late|open[ ]?end)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b|à|á)\.?/i)) {
-					// Handle all remaining words and specific other characters with error tolerance.
-					//
-					// à|á: Word boundary does not work with unicode chars: 'test à test'.match(/\bà\b/i)
-					// https://stackoverflow.com/questions/10590098/javascript-regexp-word-boundaries-unicode-characters
-					// Order in the regular expression capturing group is important in some cases.
+				} else if (tmp = value.match(/^(&|_|→|–|−|=|·|opening_hours=|ー|\?|~|～|：|°°|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-?(?:(?:till? )?late|open[ ]?end)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|sonn-|[a-zäößàáéøčěíúýřПнВсо]+\b|à|á|mo|tu|we|th|fr|sa|su|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\.?/i)) {
+					/* Handle all remaining words and specific other characters with error tolerance.
+					 *
+					 * à|á: Word boundary does not work with unicode chars: 'test à test'.match(/\bà\b/i)
+					 * https://stackoverflow.com/questions/10590098/javascript-regexp-word-boundaries-unicode-characters
+					 * Order in the regular expression capturing group is important in some cases.
+					 * mo|tu|we|th|fr|sa|su|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec: Prefer defended keywords
+					 * if used in cases like 'mo12:00-14:00' (when keyword is followed by number).
+					 */
 					var correct_val = returnCorrectWordOrToken(tmp[1].toLowerCase(), value.length);
 					// console.log('Error tolerance for string "' + tmp[1] + '" returned "' + correct_val + '".');
 					if (typeof correct_val == 'object') {
