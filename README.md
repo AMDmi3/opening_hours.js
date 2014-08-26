@@ -619,6 +619,7 @@ The opening brackets `{{{` (and the corresponding closing onces) are used to fol
 ## Credits ##
 
 * [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favor of opening_hours.js but a few parts where reused (mainly the input tolerance and the online evaluation for the [demo page][ohlib.evaluation-tooldemohtml]). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
+* Also thanks to FOSSGIS for hosting a public instance of this service. See the [wiki][fossgis-project].
 
 <!-- }}} -->
 
