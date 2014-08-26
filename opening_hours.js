@@ -2315,9 +2315,11 @@
 				 * We can do extended tests.
 				 */
 
-				/* FIXME: Move tests in this function if this does not require
-				 * to rewrite big parts of (sub) selector parsers and/or if an
-				 * additional (high level) test is added.
+				/* Place all tests in this function if an additional (high
+				 * level) test is added and this does not require to rewrite
+				 * big parts of (sub) selector parsers only to get the
+				 * position. If that is the case, then rather place the test
+				 * code in the (sub) selector parser function directly.
 				 */
 
 				// How many times was a selector_type used per rule? {{{
@@ -2453,6 +2455,7 @@
 		}
 
 		/* Helpers for getWarnings {{{ */
+
 		/* Check if token is the begin of a selector and why. {{{
 		 *
 		 * :param tokens: List of token objects. // FIXME: What token object?
