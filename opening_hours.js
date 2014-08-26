@@ -4583,8 +4583,11 @@
 					//
 					// This is the only way to be consistent. I thought about ("22:00-02:00; Tu 12:00-14:00") letting Th override 22:00-02:00 partly:
 					// Like: Th 00:00-02:00,12:00-14:00 but this would result in including 22:00-00:00 for Th which is probably not what you want.
-					if (rules[nrule].date.length > 0 && (rules[nrule].meaning || rules[nrule].unknown)
-							&& !rules[nrule].wrapped && !rules[nrule].additional && !rules[nrule].fallback) {
+					if ((rules[nrule].date.length > 0 || nrule > 0 && rules[nrule].meaning && rules[nrule-1].date.length === 0)
+							&& (rules[nrule].meaning || rules[nrule].unknown)
+							&& !rules[nrule].wrapped && !rules[nrule].additional && !rules[nrule].fallback
+						) {
+
 						// var old_date_matching_rules = date_matching_rules;
 						date_matching_rules = [];
 						// for (var nrule = 0; nrule < old_date_matching_rules.length; nrule++) {

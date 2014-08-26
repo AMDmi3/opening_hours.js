@@ -1,14 +1,13 @@
 "Time intervals" for "10:00-12:00": [1m[32mPASSED[39m[22m
+"Time intervals" for "08:00-09:00; 10:00-12:00": [1m[32mPASSED[39m[22m
 "Time intervals" for "10:00-12:00,": [1m[32mPASSED[39m[22m
 "Time intervals" for "10:00-12:00;": [1m[32mPASSED[39m[22m
-"Time intervals" for "10:00-11:00; 11:00-12:00": [1m[32mPASSED[39m[22m
 "Time intervals" for "10-12": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10-12 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
 "Time intervals" for "10:00-11:00,11:00-12:00": [1m[32mPASSED[39m[22m
-"Time intervals" for "10:00-11:00; 11:00-12:00": [1m[32mPASSED[39m[22m
+"Time intervals" for "10:00-12:00,10:30-11:30": [1m[32mPASSED[39m[22m
 "Time intervals" for "10:00-14:00; 12:00-14:00 off": [1m[32mPASSED[39m[22m
-"Time intervals" for "10:00-12:00; 10:30-11:30": [1m[32mPASSED[39m[22m
 "Time intervals" for "24/7; Mo 15:00-16:00 off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*24/7; Mo 15:00-16:00 off <--- (You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week". For correctness you might want to use "open" or "closed" for this rule and then write your exceptions which should achieve the same goal and is more clear e.g. "open; Mo 12:00-14:00 off".)
@@ -1754,7 +1753,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "10:00-16:00": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "10:00-16:00;": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "08:00-10:00; 10:00-16:00;": [1m[32mPASSED[39m[22m
-"Compare result from getMatchingRule()" for ""testing"; 10:00-16:00; 08:00-10:00;": [1m[32mPASSED[39m[22m
+"Compare result from getMatchingRule()" for ""testing"; 08:00-10:00 open, 10:00-16:00; Mo 10:00-16:00": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Mo 11:00-14:30 "specific unknown for this time" || "general unknown"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Mo 11:00-14:30 "specific unknown for this time"|| "general unknown"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Mo 11:00-14:30 "specific unknown for this time" || "general unknown"": [1m[32mPASSED[39m[22m
@@ -1763,4 +1762,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-645/673 tests passed
+644/672 tests passed
