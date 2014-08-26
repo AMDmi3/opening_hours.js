@@ -5,7 +5,6 @@
 /* jshint laxbreak: true */
 /* jshint boss: true */
 /* jshint loopfunc: true */
-// FIXME: Use closures for this?
 
 (function (root, factory) {
 	// constants (holidays, error correction) {{{
