@@ -2619,6 +2619,7 @@
 				if (!done_with_selector_reordering) {
 					prettified_group_value.sort(
 						function (a, b) {
+							// FIXME: week comes after month: https://en.wikipedia.org/wiki/ISO_8601#General_principles
 							var selector_order = [ 'year', 'week', 'month', 'holiday', 'weekday', 'time', '24/7', 'state', 'comment'];
 							return selector_order.indexOf(a[0][2]) - selector_order.indexOf(b[0][2]);
 						}
@@ -4077,7 +4078,7 @@
 					if (is_range) {
 						has_period = matchTokens(tokens, at+3, '/', 'number');
 						// if (week_stable) {
-						// 	if (tokens[at][0] == 1 && tokens[at+2][0] >) // Maximum?
+						// 	if (tokens[at][0] == 1 && tokens[at+2][0] >) // Maximum? 53
 						// 		week_stable = true;
 						// 	else
 						// 		week_stable = false;
@@ -4087,25 +4088,22 @@
 					}
 
 					selectors.week.push(function(tokens, at, is_range, has_period) { return function(date) {
-						var ourweek = Math.floor((date - dateAtWeek(date, 0)) / msec_in_week);
+						var ourweek = date.getWeekNumber();
 
-						var week_from = tokens[at][0] - 1;
-						var week_to   = is_range ? tokens[at+2][0] - 1 : week_from;
-
-						var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
+						var week_from = tokens[at][0];
+						var week_to   = is_range ? tokens[at+2][0] : week_from;
+						// console.log("week_from %s, week_to %s", week_from, week_to);
 
 						// before range
 						if (ourweek < week_from) {
-							// console.log('Start of date', start_of_next_year);
-							// console.log('dateAtWeek(date, week_from)', dateAtWeek(date, week_from));
-							// console.log(getMinDate(dateAtWeek(date, week_from), start_of_next_year));
-							return [false, getMinDate(dateAtWeek(date, week_from), start_of_next_year)];
+							// console.log("Before: " + getDateOfISOWeek(week_from, date.getFullYear()));
+							return [false, getNextDateOfISOWeek(week_from, date)];
 						}
 
 						// we're after range, set check date to next year
 						if (ourweek > week_to) {
 							// console.log("After");
-							return [false, start_of_next_year];
+							return [false, getNextDateOfISOWeek(week_from, date)];
 						}
 
 						// we're in range
@@ -4114,14 +4112,14 @@
 							if (period > 1) {
 								var in_period = (ourweek - week_from) % period === 0;
 								if (in_period)
-									return [true, getMinDate(dateAtWeek(date, ourweek + 1), start_of_next_year)];
+									return [true, getNextDateOfISOWeek(ourweek + 1, date)];
 								else
-									return [false, getMinDate(dateAtWeek(date, ourweek + period - 1), start_of_next_year)];
+									return [false, getNextDateOfISOWeek(ourweek + period - 1, date)];
 							}
 						}
 
-						// console.log("return with: " + getMinDate(dateAtWeek(date, week_to + 1)));
-						return [true, getMinDate(dateAtWeek(date, week_to + 1), start_of_next_year)];
+						// console.log("Match");
+						return [true, getNextDateOfISOWeek(week_to + 1, date)];
 					}}(tokens, at, is_range, has_period));
 
 					at += 1 + (is_range ? 2 : 0) + (has_period ? 2 : 0);
@@ -4144,17 +4142,30 @@
 			return at;
 		}
 
-		function dateAtWeek(date, week) {
-			var tmpdate = new Date(date.getFullYear(), 0, 1);
-			tmpdate.setDate(1 - (tmpdate.getDay() + 6) % 7 + week * 7); // start of week n where week starts on Monday
-			return tmpdate;
+		// http://stackoverflow.com/a/6117889
+		Date.prototype.getWeekNumber = function(){
+			var d = new Date(+this);
+			d.setHours(0,0,0);
+			d.setDate(d.getDate()+4-(d.getDay()||7));
+			return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
+		};
+		function getDateOfISOWeek(w, y) {
+			var simple = new Date(y, 0, 1 + (w - 1) * 7);
+			var dow = simple.getDay();
+			var ISOweekStart = simple;
+			if (dow <= 4)
+				ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+			else
+				ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+			return ISOweekStart;
 		}
-
-		function getMinDate(date /*, ...*/) {
-			for (var i = 1; i < arguments.length; i++)
-				if (arguments[i].getTime() < date.getTime())
-					date = arguments[i];
-			return date;
+		function getNextDateOfISOWeek(week, date) {
+			var next_date = getDateOfISOWeek(week, date.getFullYear());
+			if (next_date.getTime () > date.getTime()) {
+				return next_date;
+			} else {
+				return getDateOfISOWeek(week, date.getFullYear() + 1);
+			}
 		}
 		// }}}
 
