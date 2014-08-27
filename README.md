@@ -470,7 +470,7 @@ The current results of this test are also tracked in the repository and can be v
 ### Testing with real data ###
 
 #### Large scale ####
-To see how this library performance in the real OpenStreetMap world you can run ```make real_test``` or ```node real_test.js``` (data needs to be exported first) to try to process every value which uses the opening_hours syntax from [taginfo][] with this library.
+To see how this library performances in the real OpenStreetMap world you can run ```make real_test``` or ```node real_test.js``` (data needs to be exported first) to try to process every value which uses the opening_hours syntax from [taginfo][] with this library.
 
 Currently (March 2014) this library can parse 97 % (245639/253588) of all opening_hours values in OSM. If identical values appear multiple times then each value counts.
 
@@ -479,7 +479,7 @@ Python script to search with regular expressions over OSM opening_hours style ta
 
 This script not only shows you if the found value can be processed with this library or not, it also indicates using different colors if the facility is currently open (open: green, unknown: magenta, closed: blue).
 
-It also offers filter options (e.g. only errors) and additional things like links to [taginfo][].
+It also offers filter options (e.g. only errors) and additional things like a link to [taginfo][].
 
 Hint: If you want to do quality assurance on tags like opening_hours you can also use this script and enter a regex for values you would like to check and correct (if you have no particular case just enter a dot which matches any character which results in every value being selected). Now you see how many values match your search pattern. As you do QA you probably only want to see values which can not be evaluated. To do this enter the filter "failed".
 To improve the speed of fixing errors, a [feature](https://github.com/ypid/opening_hours.js/issues/29) was added to load those failed values in JOSM. To enable this, append " josm" to the input line. So you will have something like "failed josm" as argument. Now you can hit enter and go through the values.
