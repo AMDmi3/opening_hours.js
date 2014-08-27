@@ -2428,6 +2428,26 @@
 						]);
 					}
 					/* }}} */
+
+					/* Check if rule with closed|off modifier is additional {{{ */
+					/* FIXME: Enable this test. */
+					if (typeof new_tokens[nrule][0][0] === 'object'
+							&& new_tokens[nrule][0][0][0] === ','
+							&& new_tokens[nrule][0][0][1] === 'rule separator'
+							&& typeof used_selectors[nrule].state === 'object'
+							&& (
+								   new_tokens[nrule][0][used_selectors[nrule].state[0]][0] === 'closed'
+								|| new_tokens[nrule][0][used_selectors[nrule].state[0]][0] === 'off'
+							   )
+					) {
+
+						// parsing_warnings.push([nrule, new_tokens[nrule][0].length - 1,
+							// "This rule will be evaluated as closed but it was specified as additional rule."
+							// + " It is enough to specify this rule as normal rule using the \";\" character."
+							// + " See https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#explain:rule_modifier:closed."
+						// ]);
+					}
+					/* }}} */
 				}
 
 				/* Check if 24/7 is used and it does not mean 24/7 because there are other rules {{{ */
