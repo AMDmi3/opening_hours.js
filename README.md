@@ -459,18 +459,22 @@ Almost everything from opening_hours definition is supported, as well as some ex
 <!-- Testing {{{ -->
 ## Testing ##
 
+This project has become so complex that development without extensive testing would be madness.
+
+### Regression testing ###
+
 Simple node.js based test framework is bundled. You can run it with ```node test.js``` or with ```make test```.
 
-The current results of this test are also tracked in the repository and can be viewed [here](/test.log). Note that this file uses [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code) which can be interpreted by cat in the terminal.
+The current results of this test are also tracked in the repository and can be viewed [here](/test.log). Run ```make test-dev``` to compare the test results with the results from the last commit. Note that this file uses [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code) which can be interpreted by cat in the terminal.
 
-## Testing with real data ##
+### Testing with real data ###
 
-### Large scale ###
+#### Large scale ####
 To see how this library performance in the real OpenStreetMap world you can run ```make real_test``` or ```node real_test.js``` (data needs to be exported first) to try to process every value which uses the opening_hours syntax from [taginfo][] with this library.
 
 Currently (March 2014) this library can parse 97 % (245639/253588) of all opening_hours values in OSM. If identical values appear multiple times then each value counts.
 
-### Small scale ###
+#### Small scale ####
 Python script to search with regular expressions over OSM opening_hours style tags is bundled. You can run it with ```make regex_search``` or ```./regex_search.py``` which will search on the opening_hours tag. To search over different tags either use ```make regex_search SEARCH=$tagname``` (this also makes sure that the tag you would like to search on will be downloaded if necessary) or run ```./regex_search.py $path_to_downloaded_taginfo_json_file```.
 
 This script not only shows you if the found value can be processed with this library or not, it also indicates using different colors if the facility is currently open (open: green, unknown: magenta, closed: blue).
@@ -482,7 +486,7 @@ To improve the speed of fixing errors, a [feature](https://github.com/ypid/openi
 
 [taginfo]: http://taginfo.openstreetmap.org/
 
-## Test it yourself (the geeky way) ##
+### Test it yourself (the geeky way) ###
 You want to try some opening_hours yourself? Just run ```make interactive_testing``` or ```node interactive_testing.js``` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message). The answer is JSON encoded.
 
 Testing is much easier by now. Have a look at the [evaluation tool][ohlib.evaluation-tooldemohtml]. The reason why this peace of code was written is to have an interface which can be accessed from other programming languages. It is used by the python module [pyopening\_hours][].
@@ -559,9 +563,15 @@ Note that this resource file does also provide the localization for the [opening
 
 ### Holidays ###
 
-Holidays can be added to the file [opening_hours.js][ohlib.opening_hours.js] as JavaScript Object notation. Have a look at the current definitions for [other holidays][ohlib.holidays] . Please add the source for this information (in form of an URL) as comment.
+Holidays can be added to the file [opening_hours.js][ohlib.opening_hours.js] as JavaScript Object notation. Have a look at the current definitions for [other holidays][ohlib.holidays]. Please add the source for this information (in form of an URL) as comment.
+
+Please consider adding a test (with a time range of one year for example) to see if everything works as expected and to ensure that it will stay that way.
+See under [testing][ohlib.testing].
 
 ### Core code ###
+
+Be sure to add one or more tests if you add new features or enhance error tolerance or the like.
+See under [testing][ohlib.testing].
 
 #### Commit hooks ####
 Note that there is a git pre-commit hook used to run and compare the test framework before each commit. To activate the hook, run:
@@ -648,6 +658,7 @@ Edit: This does also work on npmjs in this short version … -->
 [ohlib.holidays]: #holidays
 [ohlib.evaluation-tooldemohtml]: #evaluation-tooldemohtml
 [ohlib.library-api]: #library-api
+[ohlib.testing]: #testing
 
 [ohlib.opening_hours.js]: /opening_hours.js
 [ohlib.js/i18n-resources.js]: /js/i18n-resources.js

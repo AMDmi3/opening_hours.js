@@ -2,7 +2,7 @@ NODE?=	node
 SEARCH?= opening_hours
 
 .PHONY : default check build clean test test-normal test-min diff-test diff-test-min download-dependencies
-default: check
+default: test
 
 build: opening_hours.min.js
 
@@ -13,11 +13,11 @@ clean:
 	rm -f *.min.js
 	rm -f export.*.json
 
-test: check real_test benchmark
+test-dev: diff-test
 
-check: diff-test diff-test-min
+fulltest: real_test test-dev diff-test-min benchmark
 
-test-normal: opening_hours.js test.js
+test: opening_hours.js test.js
 	${NODE} test.js "./$<"
 
 test-min: opening_hours.min.js test.js
