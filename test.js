@@ -763,6 +763,8 @@ test.addTest('Exception rules', [
 // full range {{{
 test.addTest('Full range', [
 		'00:00-24:00',
+		'00:00-00:00',
+		'12:00-12:00',
 		'Mo-Su 00:00-24:00',
 		'Tu-Mo 00:00-24:00',
 		'We-Tu 00:00-24:00',
@@ -787,7 +789,7 @@ test.addTest('Full range', [
 		'Feb-Jan',
 		'Dec-Nov',
 		ignored('Jan 01-Dec 31', 'check for week stable not implemented'),
-		ignored('week 1-54', 'check for week stable not implemented'),
+		'week 1-53',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
 	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
@@ -1042,13 +1044,26 @@ test.addTest('Week ranges', [
 	], 1000 * 60 * 60 * 24 * (7 + 7), 0, false);
 
 test.addTest('Week range limit', [
+		'week 2-53',
 		'week 2-53 00:00-24:00',
-		'week 2-54 00:00-24:00',
-		'week 2-54: 00:00-24:00',
-		'week 2-57',
 	], '2012.01.01 0:00', '2014.01.01 0:00', [
 		[ '2012.01.01 00:00', '2014.01.01 00:00' ],
-	], 1000 * 60 * 60 * 24 * (365 * 2 + /* 2012 is leap year */ 1), 0, false, {}, 'not last test');
+	], 1000 * 60 * 60 * 24 * (365 * 2 + /* 2012 is leap year */ 1), 0, false, {}, 'not only test');
+
+
+test.addTest('Week range full range', [
+		'week 1-53',
+		'week 1-53 00:00-24:00',
+	], '2012.01.01 0:00', '2014.01.01 0:00', [
+		[ '2012.01.01 00:00', '2014.01.01 00:00' ],
+	], 1000 * 60 * 60 * 24 * (365 * 2 + /* 2012 is leap year */ 1), 0, true, {}, 'not last test');
+
+test.addTest('Week range second week', [
+		'week 2 00:00-24:00',
+	], '2012.01.01 0:00', '2014.01.01 0:00', [
+		[ '2012.01.09 00:00', '2012.01.16 00:00' ],
+		[ '2013.01.07 00:00', '2013.01.14 00:00' ],
+	], 1000 * 60 * 60 * 24 * 7 * 2, 0, false, {}, 'not only test');
 
 test.addTest('Week range', [
 		'week 2-53/2 We; week 1-53/2 Sa 00:00-24:00',
@@ -1161,7 +1176,6 @@ test.addTest('Week range', [
 		/* }}} */
 	], 1000 * 60 * 60 * 24 * 104, 0, false);
 
-/* Week range {{{ */
 (function() {
 var week_range_result = [
 	[
@@ -2641,6 +2655,7 @@ test.addTest('Error tolerance: Full range', [
 		'7 days a week',
 		'7 days/week',
 		'täglich',
+		'week 1-53',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
 	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
@@ -2777,10 +2792,14 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'week :2-54 00:00-24:00' + value_suffix,
 		'week week',
 		'week week 5',
+		'week 0',
+		'week 54',
+		'week 1-54',
+		'week 0-54',
 		'week week 00:00-24:00' + value_suffix,
-		'week 2-54 00:00-24:00:' + value_suffix,
-		'week 2-54 00:00-24:00:::' + value_suffix,
-		'week 2-54 00::00-24:00' + value_suffix,
+		'week 2-53 00:00-24:00:' + value_suffix,
+		'week 2-53 00:00-24:00:::' + value_suffix,
+		'week 2-53 00::00-24:00' + value_suffix,
 		'week 2-52/2 We, week 1-53/2 Sa 0:00-24:00' + value_suffix, // See definition of fallback rules in the README.md: *additional rules*
 		'(sunrise+01:00-sunset' + value_suffix,
 		'(sunrise+01::)-sunset' + value_suffix,

@@ -2767,7 +2767,6 @@
 				} else if (matchTokens(tokens, at, 'week')) {
 					tokens[at][3] = 'week';
 					at = parseWeekRange(tokens, at);
-					week_stable = false;
 
 					// if (prettified_group_value[-1] != ' ')
 					// 	prettified_group_value = prettified_group_value.substring(0, prettified_group_value.length - 1);
@@ -4095,16 +4094,31 @@
 				}
 				if (matchTokens(tokens, at, 'number')) {
 					var is_range = matchTokens(tokens, at+1, '-', 'number'), has_period = false;
+					if (tokens[at][0] < 1) {
+						throw formatWarnErrorMessage(nrule, at, 'You have specified a week date less then one. A valid week date range is 1-53.');
+					}
+					if ((is_range && tokens[at+2][0] > 53) || tokens[at][0] > 53) {
+						throw formatWarnErrorMessage(nrule, at+2, 'You have specified a week date greater then 53. A valid week date range is 1-53.');
+					}
 					if (is_range) {
 						has_period = matchTokens(tokens, at+3, '/', 'number');
-						// if (week_stable) {
-						// 	if (tokens[at][0] == 1 && tokens[at+2][0] >) // Maximum? 53
-						// 		week_stable = true;
-						// 	else
-						// 		week_stable = false;
-						// } else {
-						// 	week_stable = false;
-						// }
+						if (tokens[at+2][0] > 53) {
+							throw formatWarnErrorMessage(nrule, at+2, 'You have specified a week date greater then 53. A valid week date range is 1-53.');
+						}
+					}
+
+					if (week_stable) {
+						if (tokens[at][0] <= 1
+								&& typeof tokens[at+2] === 'object'
+								&& tokens[at+2][0] >= 53
+							) {
+
+							week_stable = true;
+						} else {
+							week_stable = false;
+						}
+					} else {
+						week_stable = false;
 					}
 
 					selectors.week.push(function(tokens, at, is_range, has_period) { return function(date) {
@@ -4112,15 +4126,18 @@
 
 						var week_from = tokens[at][0];
 						var week_to   = is_range ? tokens[at+2][0] : week_from;
-						// console.log("week_from %s, week_to %s", week_from, week_to);
+						// console.log("week_from: %s, week_to: %s", week_from, week_to);
+						// console.log("ourweek: %s, date: %s", ourweek, date);
 
 						// before range
 						if (ourweek < week_from) {
+							// console.log("Before: " + getDateOfISOWeek(week_from, date.getFullYear()));
 							return [false, getNextDateOfISOWeek(week_from, date)];
 						}
 
 						// we're after range, set check date to next year
 						if (ourweek > week_to) {
+							// console.log("After");
 							return [false, getNextDateOfISOWeek(week_from, date)];
 						}
 
@@ -4136,6 +4153,7 @@
 							}
 						}
 
+						// console.log("Match");
 						return [true, getNextDateOfISOWeek(week_to + 1, date)];
 					}}(tokens, at, is_range, has_period));
 

@@ -445,6 +445,8 @@ With [1m[34mwarnings[39m[22m:
 "Time ranges spanning midnight w/weekdays" for "We 22:00-26:00": [1m[32mPASSED[39m[22m
 "Exception rules" for "Mo-Fr 10:00-16:00; We 12:00-18:00": [1m[32mPASSED[39m[22m
 "Full range" for "00:00-24:00": [1m[32mPASSED[39m[22m
+"Full range" for "00:00-00:00": [1m[32mPASSED[39m[22m
+"Full range" for "12:00-12:00": [1m[32mPASSED[39m[22m
 "Full range" for "Mo-Su 00:00-24:00": [1m[32mPASSED[39m[22m
 "Full range" for "Tu-Mo 00:00-24:00": [1m[32mPASSED[39m[22m
 "Full range" for "We-Tu 00:00-24:00": [1m[32mPASSED[39m[22m
@@ -482,9 +484,9 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*Dec-Nov <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 "Full range" for "Jan 01-Dec 31": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
-"Full range" for "week 1-54": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m weekstable which is ignored for now
+"Full range" for "week 1-53": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 1-54 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
+	*week 1-53 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 "24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We 24/7": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo,We 24/7 <--- (You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week". For correctness you might want to use "open" or "closed" for this rule and then write your exceptions which should achieve the same goal and is more clear e.g. "open; Mo 12:00-14:00 off".)
@@ -553,12 +555,15 @@ With [1m[34mwarnings[39m[22m:
 "Week ranges" for "week 1-3/2 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 2,4 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 2-4/2 00:00-24:00": [1m[32mPASSED[39m[22m
-"Week range limit" for "week 2-53 00:00-24:00": [1m[32mPASSED[39m[22m
-"Week range limit" for "week 2-54 00:00-24:00": [1m[32mPASSED[39m[22m
-"Week range limit" for "week 2-54: 00:00-24:00": [1m[32mPASSED[39m[22m
-"Week range limit" for "week 2-57": [1m[32mPASSED[39m[22m
+"Week range limit" for "week 2-53": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 2-57 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
+	*week 2-53 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
+"Week range limit" for "week 2-53 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week range full range" for "week 1-53": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*week 1-53 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
+"Week range full range" for "week 1-53 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week range second week" for "week 2 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range" for "week 2-53/2 We; week 1-53/2 Sa 00:00-24:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*week 2-53/2 We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
@@ -1126,6 +1131,9 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*täglich <--- (Bitte benutze die Schreibweise "Mo-Su" für "täglich".)
 	*täglich <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
+"Error tolerance: Full range" for "week 1-53": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*week 1-53 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 "Error tolerance: Full range" for "24/7": [1m[32mPASSED[39m[22m
 "Error tolerance: Full range" for "always": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1430,17 +1438,34 @@ week week <--- (Unexpected token in week range: week)
 "Incorrect syntax which should throw an error" for "week week 5": [1m[32mPASSED[39m[22m
 week week  <--- (Unexpected token in week range: week)
 
+"Incorrect syntax which should throw an error" for "week 0": [1m[32mPASSED[39m[22m
+week 0 <--- (You have specified a week date less then one. A valid week date range is 1-53.)
+
+Bug in warning generation code which could not determine the exact position of the warning or error in string: "week 54".
+Last token for rule: 54,number,2
+week  <--- (You have specified a week date greater then 53. A valid week date range is 1-53.)
+
+
+"Incorrect syntax which should throw an error" for "week 54": [1m[32mPASSED[39m[22m
+week  <--- (You have specified a week date greater then 53. A valid week date range is 1-53.)
+
+"Incorrect syntax which should throw an error" for "week 1-54": [1m[32mPASSED[39m[22m
+week 1-54 <--- (You have specified a week date greater then 53. A valid week date range is 1-53.)
+
+"Incorrect syntax which should throw an error" for "week 0-54": [1m[32mPASSED[39m[22m
+week 0 <--- (You have specified a week date less then one. A valid week date range is 1-53.)
+
 "Incorrect syntax which should throw an error" for "week week 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 week week  <--- (Unexpected token in week range: week)
 
-"Incorrect syntax which should throw an error" for "week 2-54 00:00-24:00:; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-week 2-54 00:00-24:00: <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
+"Incorrect syntax which should throw an error" for "week 2-53 00:00-24:00:; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+week 2-53 00:00-24:00: <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
 
-"Incorrect syntax which should throw an error" for "week 2-54 00:00-24:00:::; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-week 2-54 00:00-24:00::: <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
+"Incorrect syntax which should throw an error" for "week 2-53 00:00-24:00:::; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+week 2-53 00:00-24:00::: <--- (Unexpected token: "timesep" This means that the syntax is not valid at that point or it is currently not supported.) 
 
-"Incorrect syntax which should throw an error" for "week 2-54 00::00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-week 2-54 00: <--- (Missing minutes in time range after: "timesep")
+"Incorrect syntax which should throw an error" for "week 2-53 00::00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+week 2-53 00: <--- (Missing minutes in time range after: "timesep")
 
 "Incorrect syntax which should throw an error" for "week 2-52/2 We, week 1-53/2 Sa 0:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 week 2-52/2 We, week  <--- (Unexpected token in weekday range: week)
@@ -1778,4 +1803,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-653/678 tests passed
+661/686 tests passed
