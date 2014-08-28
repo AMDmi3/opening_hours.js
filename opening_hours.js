@@ -2403,6 +2403,7 @@
 					} else if (typeof used_selectors[nrule].time === 'undefined') {
 						if (	(	   typeof used_selectors[nrule].state === 'object'
 									&& new_tokens[nrule][0][used_selectors[nrule].state[0]][0] === 'open'
+									&& typeof used_selectors[nrule].comment === 'undefined'
 								) || ( typeof used_selectors[nrule].comment === 'undefined'
 									&& typeof used_selectors[nrule].state === 'undefined'
 								) &&

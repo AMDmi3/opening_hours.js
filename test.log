@@ -531,12 +531,8 @@ With [1m[34mwarnings[39m[22m:
 "Fallback group rules (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || closed "should never appear"": [1m[32mPASSED[39m[22m
 "Fallback group rules (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || unknown "should never appear"": [1m[32mPASSED[39m[22m
 "Fallback group rules (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || open "should never appear"": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*We-Fr 10:00-24:00 open "it is open" || "please call" || open "should never appear" <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
-"Fallback group rules (unknown). Example for the tokenizer documentation." for "We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012 "please call"; Jan 1 open "should never appear"": [1m[35mCRASHED[39m[22m, reason: TypeError: Cannot read property '0' of undefined
+"Fallback group rules (unknown). Example for the tokenizer documentation." for "We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012 "please call"; Jan 1 open "should never appear"": [1m[32mPASSED[39m[22m
 "Fallback group rules" for "We-Fr 10:00-24:00 open "first" || We "please call" || open "we are open!!!"": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*We-Fr 10:00-24:00 open "first" || We "please call" || open "we are open!!!" <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 "Fallback group rules" for "Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00, PH off || Tu 06:00-06:00 open "Notdienst"": [1m[32mPASSED[39m[22m
 "Fallback group rules" for "Mo-Fr 08:00-12:00,14:00-18:00; Sa 09:00-13:00; PH off || Tu 06:00-06:00 open "Notdienst"": [1m[32mPASSED[39m[22m
 "Fallback group rules" for "Mo-Fr 08:00-11:00 || Th-Sa 12:00-13:00 open "Emergency only"": [1m[32mPASSED[39m[22m
@@ -718,15 +714,7 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*2015 Feb 29 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 "Last day in month" for "Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)"": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month" <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
-	*Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; Feb 29 open "last day in month (Feb, leap year)" <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
-	*Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)" <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 "Last day in month" for "Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; 2008/4 Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)"": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month" <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
-	*Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; 2008/4 Feb 29 open "last day in month (Feb, leap year)" <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
-	*Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; 2008/4 Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)" <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 "Periodical monthdays" for "Jan 1-31/8 00:00-24:00": [1m[32mPASSED[39m[22m
 "Periodical monthdays" for "Jan 1-31/8: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Periodical monthdays" for "Jan 1-31/8": [1m[32mPASSED[39m[22m
@@ -976,26 +964,12 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*easter <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 "Calculations based on variable events" for "easter +1 day open "Easter Monday"": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*easter +1 day open "Easter Monday" <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 "Calculations based on variable events" for "Apr 5-easter -1 day: open "Before easter"": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*Apr 5-easter -1 day: open "Before easter" <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 "Calculations based on variable events" for "easter-Apr 20: open "Around easter"": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*easter-Apr 20: open "Around easter" <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 "Calculations based on variable events" for "easter-Apr 2: open "Around easter"": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*easter-Apr 2: open "Around easter" <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 "Calculations based on variable events" for "2012 easter -2 days-2012 easter +2 days: open "Around easter"": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*2012 easter -2 days-2012 easter +2 days: open "Around easter" <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 "Calculations based on variable events" for "easter -2 days-easter +2 days: open "Around easter"": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*easter -2 days-easter +2 days: open "Around easter" <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 "Calculations based on variable events" for "easter -2 days-easter +2 days open "Around easter"": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*easter -2 days-easter +2 days open "Around easter" <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 "Additional rules with comment" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Additional rules with comment" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Interpetation of points im time" for "12:00": [1m[35mCRASHED[39m[22m, reason: 12:00 <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
@@ -1038,7 +1012,6 @@ With [1m[34mwarnings[39m[22m:
 expected:
 (none), bad prettified value: "Mo open "comment"; off "I don’t know how to express easter":", expected either value or "Mo open "comment"; "I don’t know how to express easter": off,not implemented yet"
 With [1m[34mwarnings[39m[22m:
-	*Mo open "comment" <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
 	*Mo open "comment"; off <--- (The selector "state" was switched with the selector "comment" for readablitity and compatibiltity reasons.)
 	*Mo open "comment"; off "I don’t know how to express easter": <--- (The selector "comment" was switched with the selector "state" for readablitity and compatibiltity reasons.)
 "Calculations based on month range" for "Mar Su[-1] - Dec 25-Su-28 days: 12:00-13:00": [1m[35mCRASHED[39m[22m, reason: Mar Su[-1] - Dec 25- <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) 
@@ -1365,9 +1338,9 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "2012 Jan-Feb; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2012 Jan-Feb <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
-"Value not ideal (probably wrong). Should throw a warning." for "2012 Jan-Feb open "test"; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*2012 Jan-Feb open "test" <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule.)
+"Value not ideal (probably wrong). Should throw a warning." for "2012 Jan-Feb open "test"; 00:23-00:42 unknown "warning at correct position?"": [1m[31mFAILED[39m[22m
+false
+
 "Value not ideal (probably wrong). Should throw a warning." for "12:00-14:00 ""; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*12:00-14:00 "" <--- (You have used an empty comment. Please either write something in the comment or use the keyword unknown instead.)
