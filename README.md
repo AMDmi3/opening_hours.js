@@ -630,6 +630,7 @@ The opening brackets `{{{` (and the corresponding closing onces) are used to fol
 
 * [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favor of opening_hours.js but a few parts where reused (mainly the input tolerance and the online evaluation for the [demo page][ohlib.evaluation-tooldemohtml]). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
 * Also thanks to FOSSGIS for hosting a public instance of this service. See the [wiki][fossgis-project].
+* The [favicon.png](/favicon.png) is based on the file ic_action_add_alarm.png from the [Android Design Icons](https://developer.android.com/downloads/design/Android_Design_Icons_20131106.zip) which is licensed under [Creative Commons Attribution 2.5](https://creativecommons.org/licenses/by/2.5/). It represents a clock next to the most common opening_hours (by far) value and a check mark.
 
 <!-- }}} -->
 
@@ -649,6 +650,7 @@ opening_hours.js is published under the New (2-clause) BSD license.
 [oh:specification]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification
 [oh:specification:fallback rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#fallback_rule_separator
 [oh:specification:additional rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#additional_rule_separator
+[oh:spec:any_rule_separator]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#any_rule_separator
 
 <!-- References to other parts of this documentation. {{{
 Can not use short links only referring to the section inside the README.md any more because this will not work on other pages like https://www.npmjs.org/package/opening_hours.
