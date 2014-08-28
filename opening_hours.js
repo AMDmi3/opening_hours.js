@@ -4209,30 +4209,28 @@
 					// Single month (Jan) or month range (Feb-Mar)
 					var is_range = matchTokens(tokens, at+1, '-', 'month');
 
-					// FIXME: Rework … define month_* here.
+					var month_from = tokens[at][0];
+					var month_to = is_range ? tokens[at+2][0] : month_from;
+
 					if (is_range && week_stable) {
-						var month_from = tokens[at][0];
-						var month_to   = tokens[at+2][0];
 						if (month_from !== (month_to + 1) % 12)
 							week_stable = false;
 					} else {
 						week_stable = false;
 					}
 
-					var selector = function(tokens, at, is_range) { return function(date) {
+					var inside = true;
+
+					// handle reversed range
+					if (month_to < month_from) {
+						var tmp = month_to;
+						month_to = month_from - 1;
+						month_from = tmp + 1;
+						inside = false;
+					}
+
+					var selector = function(tokens, at, month_from, month_to, is_range, inside) { return function(date) {
 						var ourmonth = date.getMonth();
-						var month_from = tokens[at][0];
-						var month_to = is_range ? tokens[at+2][0] : month_from;
-
-						var inside = true;
-
-						// handle reversed range
-						if (month_to < month_from) {
-							var tmp = month_to;
-							month_to = month_from - 1;
-							month_from = tmp + 1;
-							inside = false;
-						}
 
 						// handle full range
 						if (month_to < month_from)
@@ -4243,7 +4241,7 @@
 						} else {
 							return [inside, dateAtNextMonth(date, month_to + 1)];
 						}
-					}}(tokens, at, is_range);
+					}}(tokens, at, month_from, month_to, is_range, inside);
 
 					if (push_to_monthday === true)
 						selectors.monthday.push(selector);
