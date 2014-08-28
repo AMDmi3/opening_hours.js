@@ -2763,7 +2763,7 @@
 					week_stable = false;
 				} else if (matchTokens(tokens, at, 'month')) {
 					at = parseMonthRange(tokens, at);
-					// week_stable = false; // Decided based on actual values.
+					// week_stable = false; // Decided based on the following tokens.
 				} else if (matchTokens(tokens, at, 'week')) {
 					tokens[at][3] = 'week';
 					at = parseWeekRange(tokens, at);
@@ -4109,14 +4109,8 @@
 					}
 
 					if (week_stable) {
-						if (week_from <= 1
-								&& week_to >= 53
-							) {
-
-							week_stable = true;
-						} else {
+						if (!(week_from <= 1 && week_to >= 53))
 							week_stable = false;
-						}
 					}
 
 					selectors.week.push(function(tokens, at, week_from, week_to, is_range, has_period) { return function(date) {
@@ -4215,9 +4209,7 @@
 					if (is_range && week_stable) {
 						var month_from = tokens[at][0];
 						var month_to   = tokens[at+2][0];
-						if (month_from == (month_to + 1) % 12)
-							week_stable = true;
-						else
+						if (month_from !== (month_to + 1) % 12)
 							week_stable = false;
 					} else {
 						week_stable = false;
