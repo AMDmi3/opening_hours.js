@@ -1033,6 +1033,7 @@ With [1m[34mwarnings[39m[22m:
 	*Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday[1] 07:30; school holidays Monday-Friday (sunrise+03:00); public holidays <--- (Please use notation "PH" for "public holidays".)
 "Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th,Fr 05:45; Mo[1] 07:30; SH Mo-Fr (sunrise+03:00); PH off": [1m[32mPASSED[39m[22m
 "Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th 05:45; week 1-53/2 Fr 07:05; week 2-53/2 Fr 05:45; SH Mo-Fr (sunrise+03:00); PH off": [1m[32mPASSED[39m[22m
+"Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th 05:45; week 1-53/2 Fr 07:05; week 2-53/2 Fr 05:45; SH Mo-Fr (sunrise+03:00); PH off; easter -2 days-easter +2 days off "My little break from work every year."; 2014 Sep 1-2014 Sep 7 off "My vacations …"": [1m[32mPASSED[39m[22m
 "Points in time, period times" for "Mo-Fr 10:00-16:00/01:30": [1m[32mPASSED[39m[22m
 "Points in time, period times" for "Mo-Fr 10:00-16:00/90": [1m[32mPASSED[39m[22m
 "Points in time, period times" for "Mo-Fr 10:00-16:00/90; Sa off "testing at end for parser"": [1m[32mPASSED[39m[22m
@@ -1455,6 +1456,9 @@ week 1-54 <--- (You have specified a week date greater then 53. A valid week dat
 "Incorrect syntax which should throw an error" for "week 0-54": [1m[32mPASSED[39m[22m
 week 0 <--- (You have specified a week date less then one. A valid week date range is 1-53.)
 
+"Incorrect syntax which should throw an error" for "week 40-30": [1m[32mPASSED[39m[22m
+week 40-30 <--- (You have specified a week range in reverse order or leaping over a year. This is (currently) not supported.)
+
 "Incorrect syntax which should throw an error" for "week week 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 week week  <--- (Unexpected token in week range: week)
 
@@ -1803,4 +1807,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-661/686 tests passed
+663/688 tests passed

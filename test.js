@@ -1190,17 +1190,11 @@ var week_range_result = [
 
 test.addTest('Week range (beginning in last year)', [
 		'week 4-16',
-		// 'week 4-16 We',
-		// 'week 38-42 Sa 0:00-24:00',
-		// 'week 4-16 We; week 38-42 Sa 0:00-24:00',
 	], '2011.12.30 0:00', '2018.01.01 0:00', week_range_result[0],
 	week_range_result[1], week_range_result[2], false, {}, 'not only test');
 
 test.addTest('Week range (beginning in matching year)', [
 		'week 4-16',
-		// 'week 4-16 We',
-		// 'week 38-42 Sa 0:00-24:00',
-		// 'week 4-16 We; week 38-42 Sa 0:00-24:00',
 	], '2012.01.01 0:00', '2018.01.01 0:00', week_range_result[0],
 	week_range_result[1], week_range_result[2], false, {}, 'not last test');
 })();
@@ -2517,6 +2511,61 @@ test.addTest('Points in time, extrem example useful for ComplexAlarm', [
 		/* }}} */
 	], 1000 * 60 * 49, 0, false, nominatiomTestJSON, 'not only test', 1);
 
+test.addTest('Points in time, extrem example useful for ComplexAlarm', [
+		'Mo-We 07:00; Th 05:45; week 1-53/2 Fr 07:05; week 2-53/2 Fr 05:45; SH Mo-Fr (sunrise+03:00); PH off; easter -2 days-easter +2 days off "My little break from work every year."; 2014 Sep 1-2014 Sep 7 off "My vacations …"',
+	], '2014.08.25 0:00', '2014.11.01 0:00', [
+		/* Long test on per day base {{{ */
+		[ '2014.08.25 09:27', '2014.08.25 09:28', false, 'Sommerferien' ],
+		[ '2014.08.26 09:28', '2014.08.26 09:29', false, 'Sommerferien' ],
+		[ '2014.08.27 09:30', '2014.08.27 09:31', false, 'Sommerferien' ],
+		[ '2014.08.28 09:31', '2014.08.28 09:32', false, 'Sommerferien' ],
+		[ '2014.08.29 09:33', '2014.08.29 09:34', false, 'Sommerferien' ],
+		// vacations
+		[ '2014.09.08 09:47', '2014.09.08 09:48', false, 'Sommerferien' ],
+		[ '2014.09.09 09:49', '2014.09.09 09:50', false, 'Sommerferien' ],
+		[ '2014.09.10 09:50', '2014.09.10 09:51', false, 'Sommerferien' ],
+		[ '2014.09.11 09:52', '2014.09.11 09:53', false, 'Sommerferien' ],
+		[ '2014.09.12 09:53', '2014.09.12 09:54', false, 'Sommerferien' ],
+		[ '2014.09.15 07:00', '2014.09.15 07:01' ], // Mo
+		[ '2014.09.16 07:00', '2014.09.16 07:01' ], // Tu
+		[ '2014.09.17 07:00', '2014.09.17 07:01' ], // We
+		[ '2014.09.18 05:45', '2014.09.18 05:46' ], // Th
+		[ '2014.09.19 05:45', '2014.09.19 05:46' ], // Fr, KW38
+		[ '2014.09.22 07:00', '2014.09.22 07:01' ], // Mo
+		[ '2014.09.23 07:00', '2014.09.23 07:01' ], // Th
+		[ '2014.09.24 07:00', '2014.09.24 07:01' ], // We
+		[ '2014.09.25 05:45', '2014.09.25 05:46' ], // Th
+		[ '2014.09.26 07:05', '2014.09.26 07:06' ], // Fr, KW39
+		[ '2014.09.29 07:00', '2014.09.29 07:01' ], // Mo
+		[ '2014.09.30 07:00', '2014.09.30 07:01' ], // Tu
+		[ '2014.10.01 07:00', '2014.10.01 07:01' ], // We
+		[ '2014.10.02 05:45', '2014.10.02 05:46' ], // Th
+		// PH
+		[ '2014.10.06 07:00', '2014.10.06 07:01' ], // Mo
+		[ '2014.10.07 07:00', '2014.10.07 07:01' ], // Tu
+		[ '2014.10.08 07:00', '2014.10.08 07:01' ], // We
+		[ '2014.10.09 05:45', '2014.10.09 05:46' ], // Th
+		[ '2014.10.10 07:05', '2014.10.10 07:06' ], // Fr, KW41
+		[ '2014.10.13 07:00', '2014.10.13 07:01' ], // Mo
+		[ '2014.10.14 07:00', '2014.10.14 07:01' ], // Tu
+		[ '2014.10.15 07:00', '2014.10.15 07:01' ], // We
+		[ '2014.10.16 05:45', '2014.10.16 05:46' ], // Th
+		[ '2014.10.17 05:45', '2014.10.17 05:46' ], // Fr, KW42
+		[ '2014.10.20 07:00', '2014.10.20 07:01' ], // Mo
+		[ '2014.10.21 07:00', '2014.10.21 07:01' ], // Tu
+		[ '2014.10.22 07:00', '2014.10.22 07:01' ], // We
+		[ '2014.10.23 05:45', '2014.10.23 05:46' ], // Th
+		[ '2014.10.24 07:05', '2014.10.24 07:06' ], // Fr, KW43
+		[ '2014.10.27 10:02', '2014.10.27 10:03', false, 'Herbstferien' ], // Mo
+		[ '2014.10.28 10:03', '2014.10.28 10:04', false, 'Herbstferien' ], // Tu
+		[ '2014.10.29 10:05', '2014.10.29 10:06', false, 'Herbstferien' ], // We
+		[ '2014.10.30 10:06', '2014.10.30 10:07', false, 'Herbstferien' ], // Th
+		[ '2014.10.31 05:45', '2014.10.31 05:46' ], // Fr, KW44
+		// FIXME: Fr: There is no school holiday this day but you will not have to go to school because of "Reformationstag".
+		/* }}} */
+	], 1000 * 60 * (49 - 5), 0, false, nominatiomTestJSON, 'not only test', 1);
+
+
 // period times {{{
 test.addTest('Points in time, period times', [
 		'Mo-Fr 10:00-16:00/01:30',
@@ -2796,6 +2845,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'week 54',
 		'week 1-54',
 		'week 0-54',
+		'week 40-30',
 		'week week 00:00-24:00' + value_suffix,
 		'week 2-53 00:00-24:00:' + value_suffix,
 		'week 2-53 00:00-24:00:::' + value_suffix,

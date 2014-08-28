@@ -4096,6 +4096,10 @@
 					var is_range = matchTokens(tokens, at+1, '-', 'number'), has_period = false;
 					var week_from = tokens[at][0];
 					var week_to   = is_range ? tokens[at+2][0] : week_from;
+					if (week_from > week_to) {
+						throw formatWarnErrorMessage(nrule, at+2,
+							'You have specified a week range in reverse order or leaping over a year. This is (currently) not supported.');
+					}
 					if (week_from < 1) {
 						throw formatWarnErrorMessage(nrule, at,
 							'You have specified a week date less then one. A valid week date range is 1-53.');
@@ -4206,6 +4210,7 @@
 					// Single month (Jan) or month range (Feb-Mar)
 					var is_range = matchTokens(tokens, at+1, '-', 'month');
 
+					// FIXME: Rework … define month_* here.
 					if (is_range && week_stable) {
 						var month_from = tokens[at][0];
 						var month_to   = tokens[at+2][0];
