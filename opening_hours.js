@@ -2639,8 +2639,7 @@
 				if (!done_with_selector_reordering) {
 					prettified_group_value.sort(
 						function (a, b) {
-							// FIXME: week comes after month: https://en.wikipedia.org/wiki/ISO_8601#General_principles
-							var selector_order = [ 'year', 'week', 'month', 'holiday', 'weekday', 'time', '24/7', 'state', 'comment'];
+							var selector_order = [ 'year', 'month', 'week', 'holiday', 'weekday', 'time', '24/7', 'state', 'comment'];
 							return selector_order.indexOf(a[0][2]) - selector_order.indexOf(b[0][2]);
 						}
 					);

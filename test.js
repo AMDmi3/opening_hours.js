@@ -1637,14 +1637,14 @@ test.addTest('Date range which only applies for specific year', [
 // selector combination and order {{{
 test.addTest('Selector combination', [
 		'week 2 We',            // week + weekday
-		'week 2 Jan 11-Jan 11', // week + monthday
-		'week 2 Jan 11',        // week + monthday
+		'Jan 11-Jan 11 week 2', // week + monthday
+		'Jan 11 week 2',        // week + monthday
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.11 0:00', '2012.01.12 00:00' ],
 	], 1000 * 60 * 60 * 24, 0, false, {}, 'not last test');
 
 test.addTest('Selector combination', [
-		'week 2 Jan',           // week + month
+		'Jan week 2',           // week + month
 		'Jan-Feb Jan 9-Jan 15', // month + monthday
 		'Jan-Feb Jan 9-15',     // month + monthday
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
@@ -1666,12 +1666,12 @@ test.addTest('Selector order', [
 		// Result should not depend on selector order although there are some best practices:
 		// Use the selector types which can cover the biggest range first e.g. year before month.
 		ignored('Feb week 5', 'prettifyValue'),
-		'week 5 Feb',
+		'Feb week 5',
 		ignored('00:00-24:00 week 5 Feb', 'prettifyValue'),
 		ignored('week 5 00:00-24:00 Feb', 'prettifyValue'),
-		'week 5 Feb 00:00-24:00',
-		'week 5 Feb: 00:00-24:00',
-		'week 5 Feb Mo-Su 00:00-24:00',
+		'Feb week 5 00:00-24:00',
+		'Feb week 5: 00:00-24:00',
+		'Feb week 5 Mo-Su 00:00-24:00',
 		ignored('Mo-Su week 5 Feb 00:00-24:00', 'prettifyValue'),
 		ignored('00:00-24:00 Mo-Su week 5 Feb', 'prettifyValue'),
 		ignored('00:00-24:00 week 5 Mo-Su Feb', 'prettifyValue'),
@@ -1685,8 +1685,8 @@ test.addTest('Selector order', [
 
 test.addTest('Selector order', [
 		ignored('Feb week 6', 'prettifyValue'),
-		'week 6 Feb',
-		'week 6 Feb open',
+		'Feb week 6',
+		'Feb week 6 open',
 		ignored('open week 6 Feb', 'prettifyValue'), // not preferred
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.02.06 0:00', '2012.02.13 00:00' ],
