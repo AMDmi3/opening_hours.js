@@ -4116,13 +4116,11 @@
 
 						// before range
 						if (ourweek < week_from) {
-							// console.log("Before: " + getDateOfISOWeek(week_from, date.getFullYear()));
 							return [false, getNextDateOfISOWeek(week_from, date)];
 						}
 
 						// we're after range, set check date to next year
 						if (ourweek > week_to) {
-							// console.log("After");
 							return [false, getNextDateOfISOWeek(week_from, date)];
 						}
 
@@ -4138,7 +4136,6 @@
 							}
 						}
 
-						// console.log("Match");
 						return [true, getNextDateOfISOWeek(week_to + 1, date)];
 					}}(tokens, at, is_range, has_period));
 
@@ -4149,14 +4146,6 @@
 
 				if (!matchTokens(tokens, at, ','))
 					break;
-
-				// if (!matchTokens(tokens, at+1, 'number')) {
-					// FIXME: Done: parse selector functions should handle the
-					// whole selector including keywords which go to this
-					// selector mode.
-					// at++; // we don‘t need the comma in parseGroup
-					// break;
-				// }
 			}
 
 			return at;
