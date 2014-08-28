@@ -4094,38 +4094,34 @@
 				}
 				if (matchTokens(tokens, at, 'number')) {
 					var is_range = matchTokens(tokens, at+1, '-', 'number'), has_period = false;
-					if (tokens[at][0] < 1) {
-						throw formatWarnErrorMessage(nrule, at, 'You have specified a week date less then one. A valid week date range is 1-53.');
+					var week_from = tokens[at][0];
+					var week_to   = is_range ? tokens[at+2][0] : week_from;
+					if (week_from < 1) {
+						throw formatWarnErrorMessage(nrule, at,
+							'You have specified a week date less then one. A valid week date range is 1-53.');
 					}
-					if ((is_range && tokens[at+2][0] > 53) || tokens[at][0] > 53) {
-						throw formatWarnErrorMessage(nrule, at+2, 'You have specified a week date greater then 53. A valid week date range is 1-53.');
+					if (week_to > 53) {
+						throw formatWarnErrorMessage(nrule, at+2,
+							'You have specified a week date greater then 53. A valid week date range is 1-53.');
 					}
 					if (is_range) {
 						has_period = matchTokens(tokens, at+3, '/', 'number');
-						if (tokens[at+2][0] > 53) {
-							throw formatWarnErrorMessage(nrule, at+2, 'You have specified a week date greater then 53. A valid week date range is 1-53.');
-						}
 					}
 
 					if (week_stable) {
-						if (tokens[at][0] <= 1
-								&& typeof tokens[at+2] === 'object'
-								&& tokens[at+2][0] >= 53
+						if (week_from <= 1
+								&& week_to >= 53
 							) {
 
 							week_stable = true;
 						} else {
 							week_stable = false;
 						}
-					} else {
-						week_stable = false;
 					}
 
-					selectors.week.push(function(tokens, at, is_range, has_period) { return function(date) {
+					selectors.week.push(function(tokens, at, week_from, week_to, is_range, has_period) { return function(date) {
 						var ourweek = date.getWeekNumber();
 
-						var week_from = tokens[at][0];
-						var week_to   = is_range ? tokens[at+2][0] : week_from;
 						// console.log("week_from: %s, week_to: %s", week_from, week_to);
 						// console.log("ourweek: %s, date: %s", ourweek, date);
 
@@ -4155,7 +4151,7 @@
 
 						// console.log("Match");
 						return [true, getNextDateOfISOWeek(week_to + 1, date)];
-					}}(tokens, at, is_range, has_period));
+					}}(tokens, at, week_from, week_to, is_range, has_period));
 
 					at += 1 + (is_range ? 2 : 0) + (has_period ? 2 : 0);
 				} else {
