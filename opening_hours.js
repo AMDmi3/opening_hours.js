@@ -2412,7 +2412,7 @@
 
 							parsing_warnings.push([nrule, new_tokens[nrule][0].length - 1,
 								"This rule is not very explicit because there is no time selector being used."
-								+ " Please add a time selector to this rule."
+								+ " Please add a time selector to this rule or use a comment to make it more explicit."
 							]);
 						}
 					}
