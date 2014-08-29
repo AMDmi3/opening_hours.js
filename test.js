@@ -1219,7 +1219,6 @@ test.addTest('Week range (beginning in matching year)', [
 	week_range_result[1], week_range_result[2], false, {}, 'not last test');
 })();
 
-// FIXME: Move up, before period week.
 test.addTest('Week range first week', [
 		'week 1',
 	], '2014.12.01 0:00', '2015.02.01 0:00', [

@@ -3030,7 +3030,7 @@
 		 * :param date: Day of month as integer.
 		 * :returns: undefined. There is no real return value. This function just throws an exception if something is wrong.
 		 */
-		function isValidDate(month, day, nrule, at) {
+		function checkIfDateIsValid(month, day, nrule, at) {
 			// May use this instead. The problem is that this does not give feedback as precise as the code which is used in this function.
 			// var testDate = new Date(year, month, day);
 			// if (testDate.getDate() != day || testDate.getMonth() != month || testDate.getFullYear() != year) {
@@ -4337,9 +4337,9 @@
 				if (has_year[0] == has_year[1] && (has_month[1] || has_event[1] || has_constrained_weekday[1])) {
 
 					if (has_month[0])
-						isValidDate(tokens[at+has_year[0]][0], tokens[at+has_year[0]+1][0], nrule, at+has_year[0]+1);
+						checkIfDateIsValid(tokens[at+has_year[0]][0], tokens[at+has_year[0]+1][0], nrule, at+has_year[0]+1);
 					if (has_month[1])
-						isValidDate(tokens[at_sec_event_or_month][0], tokens[at_sec_event_or_month+1][0], nrule, at+has_year[0]+1);
+						checkIfDateIsValid(tokens[at_sec_event_or_month][0], tokens[at_sec_event_or_month+1][0], nrule, at+has_year[0]+1);
 
 					var selector = function(tokens, at, nrule, has_year, has_event, has_calc, at_sec_event_or_month, has_constrained_weekday) { return function(date) {
 						var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
@@ -4465,9 +4465,10 @@
 						if (range_to < range_from)
 							throw formatWarnErrorMessage(nrule, at+has_year+3,
 									'Range in wrong order. From day is greater than to day.');
-						isValidDate(month, range_from, nrule, at+1 + has_year);
-						isValidDate(month, range_to - 1 /* added previously */,
-								nrule, at+has_year+(is_range ? 3 : 1));
+
+						checkIfDateIsValid(month, range_from, nrule, at+1 + has_year);
+						checkIfDateIsValid(month, range_to - 1 /* added previously */,
+							nrule, at+has_year+(is_range ? 3 : 1));
 						// }}}
 
 						var selector = function(year, has_year, month, range_from, range_to, period) { return function(date) {
