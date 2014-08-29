@@ -2815,7 +2815,6 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'2014/1' + value_suffix,      // period is one
 		'Mo-Sa 11:00-21:00 Su off' + value_suffix, // http://www.openstreetmap.org/way/228339826
 		// 'Mo-Sa 11:00-21:00 Su,PH off' + value_suffix, // http://www.openstreetmap.org/way/228339826
-		'25pm-26am' + value_suffix,
 		'10:00am-12:00am,1:00pm-8:00pm' + value_suffix,
 		'12:00-14:00 оff' + value_suffix, // Russian o
 		'Sa 2200' + value_suffix, // Year (currently very unlikely but following the syntax specification it is a year) or wrong time?
@@ -2930,6 +2929,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'24am-26pm' + value_suffix,
 		'23am-49pm' + value_suffix,
 		'10:am - 8:pm' + value_suffix,
+		'25pm-26am' + value_suffix,
 		'Tu 23:59-48:00+' + value_suffix, // Does not make much sense. Should be written in another way.
 		'12:00' + value_suffix,
 		'„testing„' + value_suffix,   // Garbage, no valid quotes what so ever.

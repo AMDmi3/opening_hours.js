@@ -1269,9 +1269,6 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-Sa 11:00-21:00 Su off; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Sa 11:00-21:00 Su  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma or something. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-"Value not ideal (probably wrong). Should throw a warning." for "25pm-26am; 00:23-00:42 unknown "warning at correct position?"": [1m[31mFAILED[39m[22m
-25pm <--- (Time range starts outside of the current day)
-
 "Value not ideal (probably wrong). Should throw a warning." for "10:00am-12:00am,1:00pm-8:00pm; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
@@ -1602,6 +1599,9 @@ Jun 2-20/0 <--- (You can not use day ranges with period equals zero.)
 "Incorrect syntax which should throw an error" for "10:am - 8:pm; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 10:am  <--- (Missing minutes in time range after: "timesep")
 
+"Incorrect syntax which should throw an error" for "25pm-26am; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+25pm <--- (Time range starts outside of the current day)
+
 "Incorrect syntax which should throw an error" for "Tu 23:59-48:00+; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Tu 23:59-48:00+ <--- (Time spanning more than two midnights not supported)
 
@@ -1767,4 +1767,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-668/692 tests passed
+669/692 tests passed
