@@ -516,8 +516,8 @@ With [1m[34mwarnings[39m[22m:
 "Calculations based on constrained weekdays" for "Aug Su[-1] +1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Aug Su[-1] +1 day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-"Constrained weekday (complex real world example)" for "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug Su[-1]: 10:00-18:00": [1m[31mFAILED[39m[22m, bad prettified value: "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug Su[-1] 10:00-18:00", expected either value or "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug Su[-1]: 10:00-18:00"
-"Constrained weekday (complex real world example)" for "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug Su[-1]: 10:00-18:00": [1m[31mFAILED[39m[22m, bad prettified value: "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug Su[-1] 10:00-18:00", expected either value or "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug Su[-1]: 10:00-18:00"
+"Constrained weekday (complex real world example)" for "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug: Su[-1] 10:00-18:00": [1m[32mPASSED[39m[22m
+"Constrained weekday (complex real world example)" for "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug: Su[-1] 10:00-18:00": [1m[32mPASSED[39m[22m
 "Additional rules" for "Mo-Fr 10:00-16:00, We 12:00-18:00": [1m[32mPASSED[39m[22m
 "Additional rules" for "Mo-Fr 10:00-16:00, We 12:00-18:00,": [1m[32mPASSED[39m[22m
 "Additional rules" for "Mo-Fr 08:00-12:00, We 14:00-18:00": [1m[32mPASSED[39m[22m
@@ -1748,4 +1748,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-679/690 tests passed
+681/690 tests passed

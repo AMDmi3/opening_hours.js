@@ -888,8 +888,8 @@ test.addTest('Calculations based on constrained weekdays', [
 	], 1000 * 60 * 60 * 16, 0, false, {}, 'not last test');
 
 test.addTest('Constrained weekday (complex real world example)', [
-		'Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug Su[-1]: 10:00-18:00',
-		'Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug Su[-1]: 10:00-18:00', // better use this instead
+		'Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug: Su[-1] 10:00-18:00',
+		'Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug: Su[-1] 10:00-18:00', // better use this instead
 	], '2013.08.01 0:00', '2013.10.08 0:00', [
 		[ '2013.08.11 14:00', '2013.08.11 18:00' ],
 		[ '2013.08.24 10:00', '2013.08.24 18:00' ],
