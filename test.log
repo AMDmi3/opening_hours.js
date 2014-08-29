@@ -2,6 +2,8 @@
 "Time intervals" for "08:00-09:00; 10:00-12:00": [1m[32mPASSED[39m[22m
 "Time intervals" for "10:00-12:00,": [1m[32mPASSED[39m[22m
 "Time intervals" for "10:00-12:00;": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*10:00-12:00; <--- (This rule does not contain anything useful. Please remove this empty rule.)
 "Time intervals" for "10-12": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10-12 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
@@ -1345,6 +1347,17 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "12:00-14:00·; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*12:00-14:00· <--- (Please omit "·".)
+"Value not ideal (probably wrong). Should throw a warning." for " ; open; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	* ; open <--- (This rule does not contain anything useful. Please remove this empty rule.)
+"Value not ideal (probably wrong). Should throw a warning." for "; open; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*; open <--- (This rule does not contain anything useful. Please remove this empty rule.)
+"Value not ideal (probably wrong). Should throw a warning." for ";;; open; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*; <--- (This rule does not contain anything useful. Please remove this empty rule.)
+	*;; <--- (This rule does not contain anything useful. Please remove this empty rule.)
+	*;;; open <--- (This rule does not contain anything useful. Please remove this empty rule.)
 "Incorrect syntax which should throw an error" for "MON-FRI 5PM-12AM | SAT-SUN 12PM-12AM": [1m[32mPASSED[39m[22m
 MON-FRI 5PM-12AM |  <--- (Unexpected token: "|" This means that the syntax is not valid at that point or it is currently not supported.) MON <--- (Please use the abbreviation "Mo" for "mon".); MON-FRI <--- (Please use the abbreviation "Fr" for "fri".); MON-FRI 5PM <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM | SAT <--- (Please use the abbreviation "Sa" for "sat".); MON-FRI 5PM-12AM | SAT-SUN <--- (Please use the abbreviation "Su" for "sun".); MON-FRI 5PM-12AM | SAT-SUN 12PM <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM | SAT-SUN 12PM-12AM <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM  <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".)
 
@@ -1641,9 +1654,6 @@ Tu 23:59-48:00+ <--- (Time spanning more than two midnights not supported)
 "Incorrect syntax which should throw an error" for "|| open; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 || <--- (Rule before fallback rule does not contain anything useful)
 
-"Incorrect syntax which should throw an error" for " ; open; 00:23-00:42 unknown "warning at correct position?"": [1m[31mFAILED[39m[22m
-"Incorrect syntax which should throw an error" for "; open; 00:23-00:42 unknown "warning at correct position?"": [1m[31mFAILED[39m[22m
-"Incorrect syntax which should throw an error" for ";;; open; 00:23-00:42 unknown "warning at correct position?"": [1m[31mFAILED[39m[22m
 "Missing information (e.g. country or holidays not defined in this lib)" for "PH": [1m[32mPASSED[39m[22m
 Country code missing which is needed to select the correct holidays (see README how to provide it)
 
@@ -1767,4 +1777,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-669/692 tests passed
+672/692 tests passed

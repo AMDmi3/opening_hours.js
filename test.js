@@ -2839,6 +2839,9 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		'12:00-14:00 ""' + value_suffix, // Empty comment.
 		'· 12:00-14:00' + value_suffix, // Empty comment.
 		'12:00-14:00·' + value_suffix, // Empty comment.
+		' ; open' + value_suffix,
+		'; open' + value_suffix,
+		';;; open' + value_suffix,
 	], {}, 'not last test');
 // }}}
 
@@ -2943,9 +2946,6 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'"testing«' + value_suffix,   // Garbage, no valid quotes what so ever.
 		' || open' + value_suffix,
 		'|| open' + value_suffix,
-		' ; open' + value_suffix,
-		'; open' + value_suffix,
-		';;; open' + value_suffix,
 	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [

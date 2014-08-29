@@ -1899,8 +1899,11 @@
 		var new_tokens = [];
 
 		for (var nrule = 0; nrule < tokens.length; nrule++) {
-			if (tokens[nrule][0].length === 0) continue;
-			// Rule does contain nothing useful e.g. second rule of '10:00-12:00;' (empty) which needs to be handled.
+			if (tokens[nrule][0].length === 0) {
+				// Rule does contain nothing useful e.g. second rule of '10:00-12:00;' (empty) which needs to be handled.
+				parsing_warnings.push([nrule, -1, 'This rule does not contain anything useful. Please remove this empty rule.']);
+				continue;
+			}
 
 			var continue_at = 0;
 			var next_rule_is_additional = false;
@@ -2026,17 +2029,26 @@
 					pos = value.length - at;
 				} else { // Issue accrued at a later time, position in string needs to be reconstructed.
 					if (typeof tokens[nrule][0][at] == 'undefined') {
-						// Given position is invalid.
-						console.warn('Bug in warning generation code which could not determine the exact position of the warning or error in string: ' +
-								'"' + value + '".');
-						pos = value.length;
-						if (typeof tokens[nrule][0][tokens[nrule][0].length - 1] != 'undefined') {
-							// Fallback: Point to last token in the rule which caused the problem.
-							// Run real_test regularly to fix the problem before a user is confronted with it.
-							pos -= tokens[nrule][0][tokens[nrule][0].length - 1][2];
-							console.warn('Last token for rule: ' + tokens[nrule][0][tokens[nrule][0].length - 1]);
-							console.log(value.substring(0, pos) + ' <--- (' + message + ')');
-							console.log('\n');
+						if (typeof tokens[nrule][0] && at == -1) {
+							pos = value.length;
+							if (typeof tokens[nrule+1] == 'object' && typeof tokens[nrule+1][2] == 'number') {
+								pos -= tokens[nrule+1][2];
+							} else if (typeof tokens[nrule][2] == 'number') {
+								pos -= tokens[nrule][2];
+							}
+						} else {
+							// Given position is invalid.
+							console.warn('Bug in warning generation code which could not determine the exact position of the warning or error in string: ' +
+									'"' + value + '".');
+							pos = value.length;
+							if (typeof tokens[nrule][0][tokens[nrule][0].length - 1] != 'undefined') {
+								// Fallback: Point to last token in the rule which caused the problem.
+								// Run real_test regularly to fix the problem before a user is confronted with it.
+								pos -= tokens[nrule][0][tokens[nrule][0].length - 1][2];
+								console.warn('Last token for rule: ' + tokens[nrule][0][tokens[nrule][0].length - 1]);
+								console.log(value.substring(0, pos) + ' <--- (' + message + ')');
+								console.log('\n');
+							}
 						}
 					} else {
 						pos = value.length;
