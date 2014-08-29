@@ -246,14 +246,7 @@ With [1m[34mwarnings[39m[22m:
 "Variable times which moves over fix end time" for "sunrise-06:00": [1m[32mPASSED[39m[22m
 "Variable times which moves over fix end time" for "sunrise-05:59": [1m[32mPASSED[39m[22m
 "Variable times which moves over fix end time" for "sunrise-06:00": [1m[32mPASSED[39m[22m
-"Variable times which moves over fix end time" for "sunrise-05:59": [1m[31mFAILED[39m[22m, bad duration(s): 517080000,0, expected 180000,0, bad intervals: 
-[ '2013.04.13 00:00', '2013.04.13 05:59', false, undefined ],
-[ '2013.04.13 06:09', '2013.04.14 05:59', false, undefined ],
-[ '2013.04.14 06:06', '2013.04.15 05:59', false, undefined ],
-[ '2013.04.15 06:03', '2013.04.16 05:59', false, undefined ],
-[ '2013.04.16 06:00', '2013.04.19 00:00', false, undefined ],
-expected:
-[ 'something else', '', false, undefined ],
+"Variable times which moves over fix end time" for "sunrise-05:59": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Variable times spanning midnight" for "sunset-sunrise": [1m[32mPASSED[39m[22m
 "Variable times spanning midnight" for "Mo-Su sunset-sunrise": [1m[32mPASSED[39m[22m
 "Variable times spanning midnight" for "sunset-sunrise": [1m[32mPASSED[39m[22m
@@ -636,13 +629,7 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*Jan 31-Feb 1 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 	*Jan 31-Feb 1; Aug <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-"Monthday ranges" for "Jan 23,25": [1m[31mFAILED[39m[22m, bad duration(s): 172800000,0, expected 1814400000,0, bad intervals: 
-[ '2012.01.23 00:00', '2012.01.24 00:00', false, undefined ],
-[ '2012.01.25 00:00', '2012.01.26 00:00', false, undefined ],
-expected:
-(none)
-With [1m[34mwarnings[39m[22m:
-	*Jan 23,25 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Monthday ranges" for "Jan 23,25": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Monthday ranges" for "Dec 24,Jan 2: 18:00-22:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Dec 24,Jan 2: 18:00-22:00; Jan 20: off": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Dec 24,Jan 2 18:00-22:00": [1m[32mPASSED[39m[22m
@@ -687,15 +674,7 @@ With [1m[34mwarnings[39m[22m:
 "Monthday ranges with constrained" for "Nov Su[-1]-Dec Su[1] -1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Nov Su[-1]-Dec Su[1] -1 day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-"Monthday ranges with constrained weekday spanning year" for "Jan Su[1] -5 days-Jan 10": [1m[31mFAILED[39m[22m, bad duration(s): 3456000000,0, expected 4147200000,0, bad intervals: 
-[ '2011.01.01 00:00', '2011.01.11 00:00', false, undefined ],
-[ '2012.01.01 00:00', '2012.01.11 00:00', false, undefined ],
-[ '2013.01.01 00:00', '2013.01.11 00:00', false, undefined ],
-[ '2014.01.01 00:00', '2014.01.11 00:00', false, undefined ],
-expected:
-(none)
-With [1m[34mwarnings[39m[22m:
-	*Jan Su[1] -5 days-Jan 10 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Monthday ranges with constrained weekday spanning year" for "Jan Su[1] -5 days-Jan 10": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Monthday ranges" for "Mar Su[-1]-Oct Su[-1] -1 day open; Oct Su[-1]-Mar Su[-1] -1 day off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mar Su[-1]-Oct Su[-1] -1 day open <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
@@ -783,7 +762,7 @@ With [1m[34mwarnings[39m[22m:
 "Selector combination" for "Dec 30-Jan 27 We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Dec 30-Jan 27 We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-"Selector order" for "Feb week 5": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue Ignored bad passes!
+"Selector order" for "Feb week 5": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue Ignored but passes!
 With [1m[34mwarnings[39m[22m:
 	*Feb week 5 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Selector order" for "Feb week 5": [1m[32mPASSED[39m[22m
@@ -835,7 +814,7 @@ With [1m[34mwarnings[39m[22m:
 	*week 5 Feb 2012-2014 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 	*2012-2014 <--- (The selector "year" was switched with the selector "week" for readablitity and compatibiltity reasons.)
 	*2012-2014 Feb week 5 <--- (The selector "week" was switched with the selector "year" for readablitity and compatibiltity reasons.)
-"Selector order" for "Feb week 6": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue Ignored bad passes!
+"Selector order" for "Feb week 6": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue Ignored but passes!
 With [1m[34mwarnings[39m[22m:
 	*Feb week 6 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Selector order" for "Feb week 6": [1m[32mPASSED[39m[22m
@@ -972,8 +951,6 @@ With [1m[34mwarnings[39m[22m:
 "Calculations based on variable events" for "easter -2 days-easter +2 days open "Around easter"": [1m[32mPASSED[39m[22m
 "Additional rules with comment" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Additional rules with comment" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-"Interpetation of points im time" for "12:00": [1m[35mCRASHED[39m[22m, reason: 12:00 <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
-"Interpetation of points im time" for "Mo-Fr 12:00": [1m[35mCRASHED[39m[22m, reason: Mo-Fr 12:00 <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
 "Points in time, mode 1" for "Mo 12:00,15:00; Tu-Fr 14:00": [1m[32mPASSED[39m[22m
 "Points in time, mode 1" for "Mo sunrise,sunset": [1m[32mPASSED[39m[22m
 "Points in time with month, mode 1" for "Apr 08:00": [1m[32mPASSED[39m[22m
@@ -1007,15 +984,9 @@ With [1m[34mwarnings[39m[22m:
 "Points in time, period times with variable times" for "Mo-Fr sunrise-(sunset-02:00)/120": [1m[32mPASSED[39m[22m
 "Points in time, period times (real world example)" for "Sa 08:00,09:00,10:00,11:00,12:00,13:00,14:00, Mo-Fr 15:00,16:00,17:00,18:00,19:00,20:00": [1m[32mPASSED[39m[22m
 "Points in time, period times (real world example)" for "Mo-Fr 15:00-20:00/60; Sa 08:00-14:00/60": [1m[32mPASSED[39m[22m
-"Additional comments for unknown" for "Mo open "comment"; "I don’t know how to express easter": off": [1m[31mFAILED[39m[22m, bad duration(s): 0,604800000, expected 0,7200000, bad intervals: 
-[ '2012.10.01 00:00', '2012.10.08 00:00', true,  'I don’t know how to express easter' ],
-expected:
-(none), bad prettified value: "Mo open "comment"; off "I don’t know how to express easter":", expected either value or "Mo open "comment"; "I don’t know how to express easter": off,not implemented yet"
-With [1m[34mwarnings[39m[22m:
-	*Mo open "comment"; off <--- (The selector "state" was switched with the selector "comment" for readablitity and compatibiltity reasons.)
-	*Mo open "comment"; off "I don’t know how to express easter": <--- (The selector "comment" was switched with the selector "state" for readablitity and compatibiltity reasons.)
-"Calculations based on month range" for "Mar Su[-1] - Dec 25-Su-28 days: 12:00-13:00": [1m[35mCRASHED[39m[22m, reason: Mar Su[-1] - Dec 25- <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) 
-"Calculations based on month range" for "Mo-Fr 09:00-12:30; Sa 09:00-13:00; Dec 25-Su-28 days - Dec 24: Mo-Fr 09:00-16:00,Sa 09:00-16:00": [1m[35mCRASHED[39m[22m, reason: Mo-Fr 09:00-12:30; Sa 09:00-13:00; Dec 25- <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) 
+"Additional comments for unknown" for "Mo open "comment"; "I don’t know how to express easter": off": [1m[33mIGNORED[39m[22m, reason: not implemented yet
+"Calculations based on month range" for "Mar Su[-1] - Dec 25-Su-28 days: 12:00-13:00": [1m[33mIGNORED[39m[22m, reason: not implemented yet
+"Calculations based on month range" for "Mo-Fr 09:00-12:30; Sa 09:00-13:00; Dec 25-Su-28 days - Dec 24: Mo-Fr 09:00-16:00,Sa 09:00-16:00": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Error tolerance: case and whitespace" for "Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 "Error tolerance: case and whitespace" for "   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00	Off  ": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1335,9 +1306,9 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "2012 Jan-Feb; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2012 Jan-Feb <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-"Value not ideal (probably wrong). Should throw a warning." for "2012 Jan-Feb open "test"; 00:23-00:42 unknown "warning at correct position?"": [1m[31mFAILED[39m[22m
-false
-
+"Value not ideal (probably wrong). Should throw a warning." for "2012 Jan-Feb open; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*2012 Jan-Feb open <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "12:00-14:00 ""; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*12:00-14:00 "" <--- (You have used an empty comment. Please either write something in the comment or use the keyword unknown instead.)
@@ -1777,4 +1748,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-672/692 tests passed
+679/690 tests passed

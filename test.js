@@ -2379,18 +2379,8 @@ test.addTest('Additional rules with comment', [
 // }}}
 
 // points in time {{{
-
-// Not sure if this was intended, but this is how the code handles it.
-// And it is not bad actually.
 // See https://github.com/AMDmi3/opening_hours.js/issues/12
-test.addTest('Interpetation of points im time', [
-		ignored('12:00'),
-		ignored('Mo-Fr 12:00'),
-	], '2012.10.01 0:00', '2012.10.04 0:00', [
-		[ '2012.10.01 12:00', '2012.10.01 12:01' ],
-		[ '2012.10.02 12:00', '2012.10.02 12:01' ],
-		[ '2012.10.03 12:00', '2012.10.03 12:01' ],
-	], 1000 * 60 * 3, 0, true, {}, 'not last test');
+
 test.addTest('Points in time, mode 1', [
 		'Mo 12:00,15:00; Tu-Fr 14:00',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
@@ -2665,7 +2655,7 @@ test.addTest('Points in time, period times (real world example)', [
 test.addTest('Additional comments for unknown', [
 		ignored('Mo open "comment"; "I don’t know how to express easter": off'),
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
-	], 0, 1000 * 60 * 60 * 2, true, {}, 'not last test');
+	], 0, 1000 * 60 * 60 * 2, true, {}, 'not only test');
 
 // The hard stuff. Proposed by Netzwolf. Was only implemented by his implementation. Might follow in opening_hours.js.
 // Currently used around 6 times: /\d\s*-\s*(mo|tu|we|th|fr|sa|su)\b/
@@ -2834,7 +2824,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		/* This test is currently only made for rules which evaluate to open.
 		 */
 		'2012 Jan-Feb' + value_suffix,
-		'2012 Jan-Feb open "test"' + value_suffix,
+		'2012 Jan-Feb open' + value_suffix,
 		/* }}} */
 		'12:00-14:00 ""' + value_suffix, // Empty comment.
 		'· 12:00-14:00' + value_suffix, // Empty comment.
@@ -2842,7 +2832,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		' ; open' + value_suffix,
 		'; open' + value_suffix,
 		';;; open' + value_suffix,
-	], {}, 'not last test');
+	], {}, 'not only test');
 // }}}
 
 // values which should fail during parsing {{{
@@ -3211,19 +3201,22 @@ function opening_hours_test() {
 				} else if (ignored == 'prettifyValue'){
 					str += ', ' + 'except'.ignored + ' prettifyValue';
 					if (prettify_ok)
-						str += ' Ignored bad passes!'
+						str += ' Ignored but passes!'
 				} else {
 					str += ', ' + 'also ignored, please unignore since the test passes!'.ignored;
 					if (weekstable_ok)
-						str += ' Ignored bad passes!'
+						str += ' Ignored but passes!'
 				}
 			}
 			passed = true;
 			console.log(str);
 			this.print_warnings(warnings);
-		} else if (ignored
-				&& ignored != 'prettifyValue'
-				&& ignored == 'check for week stable not implemented') {
+		} else if (ignored && (
+					ignored != 'prettifyValue'
+				||  ignored == 'check for week stable not implemented'
+				)
+			) {
+
 			str += 'IGNORED'.ignored + ', reason: ' + ignored;
 			console.warn(str);
 			passed = true;
