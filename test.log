@@ -1742,4 +1742,8 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-684/692 tests passed
+688/692 tests passed.
+26 tests where (partly) ignored, sorted by commonness:
+* 12: prettifyValue (most of the cases this is used to test if values with selectors in wrong order are evaluated correctly)
+* 10: not implemented yet
+*  4: check for week stable not implemented

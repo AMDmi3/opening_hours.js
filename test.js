@@ -1,12 +1,15 @@
 #!/usr/bin/env node
 
 // preamble {{{
+/* Required modules {{{ */
 var opening_hours_lib = process.argv[2];
 if (typeof opening_hours_lib !== 'string')
 	opening_hours_lib = './opening_hours.js';
 
 var opening_hours = require(opening_hours_lib);
 var colors        = require('colors');
+var sprintf = require('sprintf-js').sprintf;
+/* }}} */
 
 colors.setTheme({
 	passed:  [ 'green'  , 'bold' ] , // printed with console.log
@@ -39,7 +42,7 @@ var value_suffix = '; 00:23-00:42 unknown "warning at correct position?"';
 // This suffix value is there to test if the warning marks the correct position of the problem.
 var value_suffix_to_disable_time_not_used = ' 12:00-15:00'
 /* Avoid the warning that no time selector was used in a rule. Use this if you
- * are checking for currently ignored tests which should return another
+ * are checking for values which should return another warning.
  * warning.
  */
 
@@ -3092,6 +3095,7 @@ function opening_hours_test() {
 			oh_mode        = test_data_object[3];
 		var ignored = typeof value !== 'string';
 		if (ignored) {
+			this.ignored.push(value);
 			ignored = value[1];
 			value   = value[0];
 		}
@@ -3115,7 +3119,7 @@ function opening_hours_test() {
 				console.log(str);
 				this.print_warnings(warnings);
 			}
-			return true;
+			passed = true;
 		} else if (ignored) {
 			str += 'IGNORED'.ignored + ', reason: ' + ignored;
 			passed = true;
@@ -3128,7 +3132,7 @@ function opening_hours_test() {
 			if (this.show_error_warnings)
 				console.error(crashed + '\n');
 		}
-		return false;
+		return passed;
 	};
 	// }}}
 
@@ -3145,6 +3149,7 @@ function opening_hours_test() {
 			oh_mode             = test_data_object[9];
 		var ignored = typeof value !== 'string';
 		if (ignored) {
+			this.ignored.push(value);
 			ignored = value[1];
 			value   = value[0];
 		}
@@ -3292,7 +3297,8 @@ function opening_hours_test() {
 			+ this.tests_should_fail.length
 			+ this.tests_should_warn.length
 			+ this.tests_comp_matching_rule.length;
-		var success = 0;
+		var success   = 0;
+		this.ignored  = [];
 		for (var test = 0; test < this.tests.length; test++) {
 			if (this.runSingleTest(this.tests[test]))
 				success++;
@@ -3310,7 +3316,37 @@ function opening_hours_test() {
 				success++;
 		}
 
-		console.warn(success + '/' + tests_length + ' tests passed');
+		console.warn(success + '/' + tests_length + ' tests passed.');
+		if (this.ignored.length) {
+			console.warn(this.ignored.length + ' test' + (this.ignored.length == 1 ? ' was' : 's where') + ' (partly) ignored, sorted by commonness:');
+			var ignored_categories = [];
+			for (var i = 0; i < this.ignored.length; i++) {
+				var value   = this.ignored[i][0];
+				var reason  = this.ignored[i][1];
+				if (typeof ignored_categories[reason] !== 'number')
+					ignored_categories[reason] = 1;
+				else
+					ignored_categories[reason]++;
+			}
+
+			var sorted_ignores = [];
+			for (var key in ignored_categories)
+				sorted_ignores.push([key, ignored_categories[key]]);
+
+			sorted_ignores.sort(function(a, b) {
+				return a[1] > b[1] ? -1 : (a[1] < b[1] ? 1 : 0);
+			});
+			for (var i = 0; i < sorted_ignores.length; i++) {
+				var reason = sorted_ignores[i][0];
+				var count  = sorted_ignores[i][1];
+				switch (reason) {
+					case 'prettifyValue':
+						reason += " (most of the cases this is used to test if values with selectors in wrong order are evaluated correctly)"
+						break;
+				}
+				console.warn(sprintf('* %2s: %s', count, reason));
+			}
+		}
 
 		return success == tests_length;
 	}
