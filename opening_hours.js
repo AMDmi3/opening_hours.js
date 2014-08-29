@@ -1842,7 +1842,8 @@
 			'rule_sep_string': ' ',          // separate rules by string
 			'print_semicolon': true,         // print token which separates normal rules
 			'leave_weekday_sep_one_day_betw': true, // use the separator (either "," or "-" which is used to separate days which follow to each other like Sa,Su or Su-Mo
-			'sep_one_day_between': ','       // separator which should be used
+			'sep_one_day_between': ',',      // separator which should be used
+			'zero_pad_month_and_week_numbers': false, // Format week (e.g. `week 01`) and month day numbers (e.g. `Jan 01`) with "%02d".
 		};
 
 		var minutes_in_day = 60 * 24;
@@ -4738,7 +4739,6 @@
 		 * :returns: Prettified value.
 		 */
 		function prettifySelector(tokens, selector_start, selector_end, selector_type, conf) {
-			// FIXME: "Jan 1" -> "Jan 01". https://en.wikipedia.org/wiki/ISO_8601
 
 			var value = '';
 			var at = selector_start;
@@ -4784,10 +4784,12 @@
 				} else if (matchTokens(tokens, at, 'closed')) {
 					value += (conf.leave_off_closed ? tokens[at][0] : conf.keyword_for_off_closed);
 				} else if (at - selector_start > 0 && matchTokens(tokens, at, 'number')
-						&& (matchTokens(tokens, at-1, 'month')
-						||  matchTokens(tokens, at-1, 'week')
+						&& (matchTokens(tokens, at-1, 'month') && selector_type == 'month'
+						||  matchTokens(tokens, at-1, 'week')  && selector_type == 'week'
 						)) {
-					value += ' ' + tokens[at][0];
+					value += ' '
+						+ (conf.zero_pad_month_and_week_numbers && tokens[at][0] < 10 ? '0' : '')
+						+ tokens[at][0];
 				} else if (at - selector_start > 0 && matchTokens(tokens, at, 'month')
 						&& matchTokens(tokens, at-1, 'year')) {
 					value += ' ' + months[[tokens[at][0]]];
