@@ -1004,6 +1004,7 @@ test.addTest('Fallback group rules', [
 test.addTest('Fallback group rules, with some closed times', [
 		'Mo,Tu,Th 09:00-12:00; Fr 14:00-17:30 || "Termine nach Vereinbarung"; We off',
 		'Mo-Th 09:00-12:00; '+'Fr 14:00-17:30 || "Termine nach Vereinbarung"; We off',
+		'Mo-Th 09:00-12:00; '+'Fr 14:00-17:30 || unknown "Termine nach Vereinbarung"; We off',
 	], '2013.10.01 0:00', '2013.10.08 0:00', [
 		[ '2013.10.01 00:00', '2013.10.01 09:00', true,  'Termine nach Vereinbarung' ], // 9
 		[ '2013.10.01 09:00', '2013.10.01 12:00' ], // Tu
@@ -1732,6 +1733,7 @@ test.addTest('Additional comments for unknown', [
 
 test.addTest('Date overwriting with additional comments for unknown ', [
 		'Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 "Maybe open. Call us."',
+		'Mo-Fr 10:00-20:00 unknown "Maybe"; We "Maybe open. Call us." 10:00-16:00',
 		'Mo-Fr 10:00-20:00 unknown "Maybe"; "Maybe open. Call us." We 10:00-16:00',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 20:00', true, "Maybe" ],
@@ -1739,7 +1741,7 @@ test.addTest('Date overwriting with additional comments for unknown ', [
 		[ '2012.10.03 10:00', '2012.10.03 16:00', true, "Maybe open. Call us." ],
 		[ '2012.10.04 10:00', '2012.10.04 20:00', true, "Maybe" ],
 		[ '2012.10.05 10:00', '2012.10.05 20:00', true, "Maybe" ],
-	], 0, 1000 * 60 * 60 * (4 * 10 + 6), true, {}, 'not last test');
+	], 0, 1000 * 60 * 60 * (4 * 10 + 6), true, {}, 'not only test');
 
 test.addTest('Additional comments with time ranges spanning midnight', [
 		'22:00-26:00; We 12:00-14:00 unknown "Maybe open. Call us."',

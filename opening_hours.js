@@ -2746,6 +2746,7 @@
 		 */
 		function parseGroup(tokens, at, selectors, nrule) {
 			var prettified_group_value = '';
+			var rule_modifier_specified = false;
 
 			// console.log(tokens); // useful for debugging of tokenize
 			while (at < tokens.length) {
@@ -2805,36 +2806,28 @@
 
 					if (tokens[at][0] == 'open') {
 						selectors.meaning = true;
-						} else if (tokens[at][0] == 'closed' || tokens[at][0] == 'off') {
+					} else if (tokens[at][0] == 'closed' || tokens[at][0] == 'off') {
 						selectors.meaning = false;
 					} else {
 						selectors.meaning = false;
 						selectors.unknown = true;
 					}
 
+					rule_modifier_specified = true;
 					at++;
 					if (typeof tokens[at] == 'object' && tokens[at][0] == ',') // additional rule
 						at = [ at + 1 ];
 
 				} else if (matchTokens(tokens, at, 'comment')) {
 					selectors.comment = tokens[at][0];
-					if (at > 0) { // FIXME
-						if (   tokens[at - 1][0] != 'open'
-							&& tokens[at - 1][0] != 'closed'
-							&& tokens[at - 1][0] != 'off') {
-
-							// Then it is unknown. Either with unknown explicitly
-							// specified or just a comment behind.
-							selectors.meaning = false;
-							selectors.unknown = true;
-						}
-					} else { // rule starts with comment
-						selectors.time.push(function(date) { return [true]; });
-						// Not needed. If there is no selector it automatically matches everything.
-						// WRONG: This only works if there is no other selector in this selector group ...
+					if (!rule_modifier_specified) {
+						// Then it is unknown. Either with unknown explicitly
+						// specified or just a comment.
 						selectors.meaning = false;
 						selectors.unknown = true;
 					}
+
+					rule_modifier_specified = true;
 					at++;
 					if (typeof tokens[at] == 'object' && tokens[at][0] == ',') // additional rule
 						at = [ at + 1 ];
@@ -4664,8 +4657,8 @@
 			for (var nrule = 0; nrule < date_matching_rules.length; nrule++) {
 				var rule = date_matching_rules[nrule];
 
-				// console.log('Processing rule ' + rule + ':\t' + rules[rule].comment + '    with date', date,
-				// 	'and', rules[rule].time.length, 'time selectors');
+				// console.log('Processing rule ' + rule + ': with date ' + date
+					// + ' and ' + rules[rule].time.length + ' time selectors (comment: "' + rules[rule].comment + '").');
 
 				// there is no time specified, state applies to the whole day
 				if (rules[rule].time.length === 0) {
@@ -4680,8 +4673,9 @@
 						else if (typeof comment == 'object') // holiday name
 							comment = comment[0];
 
-						if (rules[rule].fallback)
-							break rule; // fallback rule matched, no need for checking the rest
+						// if (rules[rule].fallback)
+							// break rule; // fallback rule matched, no need for checking the rest
+						// WRONG: What if closing rules follow?
 					}
 				}
 

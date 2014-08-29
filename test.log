@@ -534,6 +534,7 @@ With [1m[34mwarnings[39m[22m:
 "Fallback group rules" for "Mo-Fr 08:00-11:00, Th-Sa 12:00-13:00 open "Emergency only"": [1m[32mPASSED[39m[22m
 "Fallback group rules, with some closed times" for "Mo,Tu,Th 09:00-12:00; Fr 14:00-17:30 || "Termine nach Vereinbarung"; We off": [1m[32mPASSED[39m[22m
 "Fallback group rules, with some closed times" for "Mo-Th 09:00-12:00; Fr 14:00-17:30 || "Termine nach Vereinbarung"; We off": [1m[32mPASSED[39m[22m
+"Fallback group rules, with some closed times" for "Mo-Th 09:00-12:00; Fr 14:00-17:30 || unknown "Termine nach Vereinbarung"; We off": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 1,3 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 1,3 00:00-24:00 || closed "should not change the test result"": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 1,3: 00:00-24:00": [1m[32mPASSED[39m[22m
@@ -832,18 +833,11 @@ With [1m[34mwarnings[39m[22m:
 "Additional comments for unknown" for "Sa 10:00-12:00 "Maybe open. Call us. (testing special tokens in comment: ; ;; ' || | test end)"": [1m[32mPASSED[39m[22m
 "Additional comments for unknown" for "Sa 10:00-12:00 unknown "Maybe open. Call us. (testing special tokens in comment: ; ;; ' || | test end)"": [1m[32mPASSED[39m[22m
 "Date overwriting with additional comments for unknown " for "Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 "Maybe open. Call us."": [1m[32mPASSED[39m[22m
-"Date overwriting with additional comments for unknown " for "Mo-Fr 10:00-20:00 unknown "Maybe"; "Maybe open. Call us." We 10:00-16:00": [1m[31mFAILED[39m[22m, bad duration(s): 0,230400000, expected 0,165600000, bad intervals: 
-[ '2012.10.01 10:00', '2012.10.01 20:00', true,  'Maybe' ],
-[ '2012.10.02 10:00', '2012.10.02 20:00', true,  'Maybe' ],
-[ '2012.10.03 00:00', '2012.10.04 00:00', true,  'Maybe open. Call us.' ],
-[ '2012.10.04 10:00', '2012.10.04 20:00', true,  'Maybe' ],
-[ '2012.10.05 10:00', '2012.10.05 20:00', true,  'Maybe' ],
-expected:
-[ '2012.10.01 10:00', '2012.10.01 20:00', true,  'Maybe' ],
-[ '2012.10.02 10:00', '2012.10.02 20:00', true,  'Maybe' ],
-[ '2012.10.03 10:00', '2012.10.03 16:00', true,  'Maybe open. Call us.' ],
-[ '2012.10.04 10:00', '2012.10.04 20:00', true,  'Maybe' ],
-[ '2012.10.05 10:00', '2012.10.05 20:00', true,  'Maybe' ],
+"Date overwriting with additional comments for unknown " for "Mo-Fr 10:00-20:00 unknown "Maybe"; We "Maybe open. Call us." 10:00-16:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 <--- (The selector "time" was switched with the selector "comment" for readablitity and compatibiltity reasons.)
+	*Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 "Maybe open. Call us." <--- (The selector "comment" was switched with the selector "time" for readablitity and compatibiltity reasons.)
+"Date overwriting with additional comments for unknown " for "Mo-Fr 10:00-20:00 unknown "Maybe"; "Maybe open. Call us." We 10:00-16:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Fr 10:00-20:00 unknown "Maybe"; We <--- (The selector "weekday" was switched with the selector "comment" for readablitity and compatibiltity reasons.)
 	*Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 <--- (The selector "time" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
@@ -1748,4 +1742,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-681/690 tests passed
+684/692 tests passed
