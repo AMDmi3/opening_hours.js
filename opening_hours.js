@@ -4093,7 +4093,7 @@
 					at++;
 				}
 				if (matchTokens(tokens, at, 'number')) {
-					var is_range = matchTokens(tokens, at+1, '-', 'number'), has_period = false;
+					var is_range = matchTokens(tokens, at+1, '-', 'number'), period = 0;
 					var week_from = tokens[at][0];
 					var week_to   = is_range ? tokens[at+2][0] : week_from;
 					if (week_from > week_to) {
@@ -4109,19 +4109,32 @@
 							'You have specified a week date greater then 53. A valid week date range is 1-53.');
 					}
 					if (is_range) {
-						has_period = matchTokens(tokens, at+3, '/', 'number');
+						period = matchTokens(tokens, at+3, '/', 'number');
+						if (period) {
+							period = tokens[at+4][0];
+							if (period < 2) {
+								throw formatWarnErrorMessage(nrule, at+4,
+									'You have specified a week period which is less than two.'
+									+ ' If you want to select the whole range from week ' + week_from + ' to week ' + week_to + ' then just omit the "/' + period + '".');
+							} else if (period > 26) {
+								throw formatWarnErrorMessage(nrule, at+4,
+									'You have specified a week period which is greater than 26.'
+									+ ' 26.5 is the half of the maximum 53 week dates per year so a week date period greater than 26 would only apply once per year.'
+									+ ' Please specify the week selector as "week ' + week_from + '" if that is what you want to express.');
+							}
+						}
 					}
 
-					if (week_stable && (!(week_from <= 1 && week_to >= 53) || has_period)) {
+					if (week_stable && (!(week_from <= 1 && week_to >= 53) || period)) {
 						week_stable = false;
 					}
 
-					if (!has_period && week_from == 1 && week_to == 53) {
+					if (!period && week_from == 1 && week_to == 53) {
 						/* Shortcut and work around bug. */
 						selectors.week.push(function(date) { return [true]; });
 					} else {
 
-						selectors.week.push(function(tokens, at, week_from, week_to, is_range, has_period) { return function(date) {
+						selectors.week.push(function(week_from, week_to, is_range, period) { return function(date) {
 							var ourweek = date.getWeekNumber();
 
 							// console.log("week_from: %s, week_to: %s", week_from, week_to);
@@ -4140,26 +4153,21 @@
 							}
 
 							// we're in range
-							if (has_period) {
-								var period = tokens[at+4][0]; // FIXME: Rework.
-								if (period > 1) {
-									var in_period = (ourweek - week_from) % period === 0;
-									if (in_period) {
-										return [true, getNextDateOfISOWeek(ourweek + 1, date)];
-									} else {
-										return [false, getNextDateOfISOWeek(ourweek + period - 1, date)];
-									}
+							if (period) {
+								var in_period = (ourweek - week_from) % period === 0;
+								if (in_period) {
+									return [true, getNextDateOfISOWeek(ourweek + 1, date)];
+								} else {
+									return [false, getNextDateOfISOWeek(ourweek + period - 1, date)];
 								}
 							}
 
 							// console.log("Match");
 							return [true, getNextDateOfISOWeek(week_to == 53 ? 1 : week_to + 1, date)];
-							// return [true, getNextDateOfISOWeek(week_to == 53 ? 1 : week_to + 1, week_to == 53 ? new Date(date.getFullYear() + 1, 00, 01) : date)];
-							// This breaks: week 1-53 intervals.
-						}}(tokens, at, week_from, week_to, is_range, has_period));
+						}}(week_from, week_to, is_range, period));
 					}
 
-					at += 1 + (is_range ? 2 : 0) + (has_period ? 2 : 0);
+					at += 1 + (is_range ? 2 : 0) + (period ? 2 : 0);
 				} else {
 					throw formatWarnErrorMessage(nrule, at, 'Unexpected token in week range: ' + tokens[at][1]);
 				}
@@ -4189,25 +4197,10 @@
 				ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
 			return ISOweekStart;
 		}
-		function getDateOfRealISOWeek(week, year) {
-			// var week_date;
-			// console.log("Calling with: year: %d, week %d", year, week);
-			// do {
-				// if (typeof week_date !== 'undefined') {
-					// week--;
-					// console.log("Week now: %d", week);
-				// }
-				// week_date = getDateOfISOWeek(week, year);
-				// console.log("Calculated %s", week_date);
-			// } while (week !== week_date.getWeekNumber());
-			// console.log("Returing %s", week_date);
-			// return week_date;
-			return getDateOfISOWeek(week, year);
-		}
 		function getNextDateOfISOWeek(week, date) {
 			var next_date;
 			for (var i = -1; i <= 1; i++) {
-				next_date = getDateOfRealISOWeek(week, date.getFullYear() + i);
+				next_date = getDateOfISOWeek(week, date.getFullYear() + i);
 				if (next_date.getTime() > date.getTime()) {
 					return next_date;
 				}

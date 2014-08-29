@@ -1417,6 +1417,12 @@ week 0 <--- (You have specified a week date less then one. A valid week date ran
 "Incorrect syntax which should throw an error" for "week 40-30": [1m[32mPASSED[39m[22m
 week 40-30 <--- (You have specified a week range in reverse order or leaping over a year. This is (currently) not supported.)
 
+"Incorrect syntax which should throw an error" for "week 30-40/1": [1m[32mPASSED[39m[22m
+week 30-40/1 <--- (You have specified a week period which is less than two. If you want to select the whole range from week 30 to week 40 then just omit the "/1".)
+
+"Incorrect syntax which should throw an error" for "week 30-40/27": [1m[32mPASSED[39m[22m
+week 30-40/27 <--- (You have specified a week period which is greater than 26. 26.5 is the half of the maximum 53 week dates per year so a week date period greater than 26 would only apply once per year. Please specify the week selector as "week 30" if that is what you want to express.)
+
 "Incorrect syntax which should throw an error" for "week week 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 week week  <--- (Unexpected token in week range: week)
 
@@ -1765,4 +1771,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-665/690 tests passed
+667/692 tests passed

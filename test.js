@@ -2866,6 +2866,8 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'week 1-54',
 		'week 0-54',
 		'week 40-30',
+		'week 30-40/1',
+		'week 30-40/27',
 		'week week 00:00-24:00' + value_suffix,
 		'week 2-53 00:00-24:00:' + value_suffix,
 		'week 2-53 00:00-24:00:::' + value_suffix,
