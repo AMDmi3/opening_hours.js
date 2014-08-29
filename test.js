@@ -1047,9 +1047,10 @@ test.addTest('Week range limit', [
 		'week 2-53',
 		'week 2-53 00:00-24:00',
 	], '2012.01.01 0:00', '2014.01.01 0:00', [
-		[ '2012.01.01 00:00', '2014.01.01 00:00' ],
-	], 1000 * 60 * 60 * 24 * (365 * 2 + /* 2012 is leap year */ 1), 0, false, {}, 'not only test');
-
+		[ '2012.01.01 00:00', '2012.01.02 00:00' ], // Checked against http://www.schulferien.org/kalenderwoche/kalenderwochen_2012.html
+		[ '2012.01.09 00:00', '2012.12.31 00:00' ],
+		[ '2013.01.07 00:00', '2013.12.30 00:00' ],
+	], 1000 * 60 * 60 * 24 * (365 * 2 - 2 * 7 - 2/* FIXME: ??? */ + /* 2012 is leap year */ 1), 0, false, {}, 'not only test');
 
 test.addTest('Week range full range', [
 		'week 1-53',
@@ -1064,6 +1065,25 @@ test.addTest('Week range second week', [
 		[ '2012.01.09 00:00', '2012.01.16 00:00' ],
 		[ '2013.01.07 00:00', '2013.01.14 00:00' ],
 	], 1000 * 60 * 60 * 24 * 7 * 2, 0, false, {}, 'not only test');
+
+(function() {
+var week_range_result = [
+	[
+		[ '2012.01.02 00:00', '2012.01.09 00:00' ],
+		[ '2012.01.16 00:00', '2012.01.23 00:00' ],
+		[ '2012.01.30 00:00', '2012.02.06 00:00' ],
+		[ '2012.02.13 00:00', '2012.02.20 00:00' ],
+	], 1000 * 60 * 60 * 24 * 7 * 4, 0 ];
+test.addTest('Week range', [
+		'week 1-53/2 00:00-24:00',
+	], '2011.12.30 0:00', '2012.02.22 0:00', week_range_result[0],
+	week_range_result[1], week_range_result[2], false);
+
+test.addTest('Week range', [
+		'week 1-53/2 00:00-24:00',
+	], '2012.01.01 0:00', '2012.02.22 0:00', week_range_result[0],
+	week_range_result[1], week_range_result[2], false, {}, 'not only test');
+})();
 
 test.addTest('Week range', [
 		'week 2-53/2 We; week 1-53/2 Sa 00:00-24:00',

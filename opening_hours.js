@@ -4047,7 +4047,7 @@
 							return [false, new Date(year_from, 0, 1)];
 						} else if (has_period) {
 							if (year_from <= ouryear) {
-								if (is_range && year_to < ouryear)
+								if (is_range && ouryear > year_to)
 									return [false];
 								if (period > 0) {
 									if ((ouryear - year_from) % period === 0) {
@@ -4112,44 +4112,52 @@
 						has_period = matchTokens(tokens, at+3, '/', 'number');
 					}
 
-					if (week_stable) {
-						if (!(week_from <= 1 && week_to >= 53))
-							week_stable = false;
+					if (week_stable && (!(week_from <= 1 && week_to >= 53) || has_period)) {
+						week_stable = false;
 					}
 
-					selectors.week.push(function(tokens, at, week_from, week_to, is_range, has_period) { return function(date) {
-						var ourweek = date.getWeekNumber();
+					if (!has_period && week_from == 1 && week_to == 53) {
+						/* Shortcut and work around bug. */
+						selectors.week.push(function(date) { return [true]; });
+					} else {
 
-						// console.log("week_from: %s, week_to: %s", week_from, week_to);
-						// console.log("ourweek: %s, date: %s", ourweek, date);
+						selectors.week.push(function(tokens, at, week_from, week_to, is_range, has_period) { return function(date) {
+							var ourweek = date.getWeekNumber();
 
-						// before range
-						if (ourweek < week_from) {
-							// console.log("Before: " + getDateOfISOWeek(week_from, date.getFullYear()));
-							return [false, getNextDateOfISOWeek(week_from, date)];
-						}
+							// console.log("week_from: %s, week_to: %s", week_from, week_to);
+							// console.log("ourweek: %s, date: %s", ourweek, date);
 
-						// we're after range, set check date to next year
-						if (ourweek > week_to) {
-							// console.log("After");
-							return [false, getNextDateOfISOWeek(week_from, date)];
-						}
-
-						// we're in range
-						if (has_period) {
-							var period = tokens[at+4][0];
-							if (period > 1) {
-								var in_period = (ourweek - week_from) % period === 0;
-								if (in_period)
-									return [true, getNextDateOfISOWeek(ourweek + 1, date)];
-								else
-									return [false, getNextDateOfISOWeek(ourweek + period - 1, date)];
+							// before range
+							if (ourweek < week_from) {
+								// console.log("Before: " + getNextDateOfISOWeek(week_from, date));
+								return [false, getNextDateOfISOWeek(week_from, date)];
 							}
-						}
 
-						// console.log("Match");
-						return [true, getNextDateOfISOWeek(week_to + 1, date)];
-					}}(tokens, at, week_from, week_to, is_range, has_period));
+							// we're after range, set check date to next year
+							if (ourweek > week_to) {
+								// console.log("After");
+								return [false, getNextDateOfISOWeek(week_from, date)];
+							}
+
+							// we're in range
+							if (has_period) {
+								var period = tokens[at+4][0]; // FIXME: Rework.
+								if (period > 1) {
+									var in_period = (ourweek - week_from) % period === 0;
+									if (in_period) {
+										return [true, getNextDateOfISOWeek(ourweek + 1, date)];
+									} else {
+										return [false, getNextDateOfISOWeek(ourweek + period - 1, date)];
+									}
+								}
+							}
+
+							// console.log("Match");
+							return [true, getNextDateOfISOWeek(week_to == 53 ? 1 : week_to + 1, date)];
+							// return [true, getNextDateOfISOWeek(week_to == 53 ? 1 : week_to + 1, week_to == 53 ? new Date(date.getFullYear() + 1, 00, 01) : date)];
+							// This breaks: week 1-53 intervals.
+						}}(tokens, at, week_from, week_to, is_range, has_period));
+					}
 
 					at += 1 + (is_range ? 2 : 0) + (has_period ? 2 : 0);
 				} else {
@@ -4181,13 +4189,30 @@
 				ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
 			return ISOweekStart;
 		}
+		function getDateOfRealISOWeek(week, year) {
+			// var week_date;
+			// console.log("Calling with: year: %d, week %d", year, week);
+			// do {
+				// if (typeof week_date !== 'undefined') {
+					// week--;
+					// console.log("Week now: %d", week);
+				// }
+				// week_date = getDateOfISOWeek(week, year);
+				// console.log("Calculated %s", week_date);
+			// } while (week !== week_date.getWeekNumber());
+			// console.log("Returing %s", week_date);
+			// return week_date;
+			return getDateOfISOWeek(week, year);
+		}
 		function getNextDateOfISOWeek(week, date) {
-			var next_date = getDateOfISOWeek(week, date.getFullYear());
-			if (next_date.getTime () > date.getTime()) {
-				return next_date;
-			} else {
-				return getDateOfISOWeek(week, date.getFullYear() + 1);
+			var next_date;
+			for (var i = -1; i <= 1; i++) {
+				next_date = getDateOfRealISOWeek(week, date.getFullYear() + i);
+				if (next_date.getTime() > date.getTime()) {
+					return next_date;
+				}
 			}
+			throw formatLibraryBugMessage();
 		}
 		// }}}
 
@@ -4707,6 +4732,7 @@
 		 * :returns: Prettified value.
 		 */
 		function prettifySelector(tokens, selector_start, selector_end, selector_type, conf) {
+			// FIXME: "Jan 1" -> "Jan 01". https://en.wikipedia.org/wiki/ISO_8601
 
 			var value = '';
 			var at = selector_start;

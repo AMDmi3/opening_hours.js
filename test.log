@@ -560,6 +560,8 @@ With [1m[34mwarnings[39m[22m:
 	*week 1-53 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Week range full range" for "week 1-53 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range second week" for "week 2 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week range" for "week 1-53/2 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week range" for "week 1-53/2 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range" for "week 2-53/2 We; week 1-53/2 Sa 00:00-24:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*week 2-53/2 We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
@@ -1763,4 +1765,4 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-663/688 tests passed
+665/690 tests passed
