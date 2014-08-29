@@ -2763,7 +2763,7 @@
 					week_stable = false;
 				} else if (matchTokens(tokens, at, 'month')) {
 					at = parseMonthRange(tokens, at);
-					// week_stable = false; // Decided based on the following tokens.
+					// week_stable = false; // Decided based on the actual value/tokens.
 				} else if (matchTokens(tokens, at, 'week')) {
 					tokens[at][3] = 'week';
 					at = parseWeekRange(tokens, at);
@@ -4457,7 +4457,7 @@
 									&& (matchTokens(tokens, at_timesep_if_monthRange+2, '+')
 										|| matchTokens(tokens, at_timesep_if_monthRange+2, '-')
 										|| oh_mode !== 0)) {
-											return parseMonthRange(tokens, at, false, true);
+											return parseMonthRange(tokens, at, true, true);
 							}
 						}
 
