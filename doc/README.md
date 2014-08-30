@@ -20,7 +20,7 @@
 
 ## Tokens
 
-The tokens are strong in the array `tokens` which has the following structure. The example results from the value `We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012 "please call"; Jan 1 open "should never appear"` which is in the test framework.
+The tokens are stored in the array `tokens` which has the following structure. The example results from the value `We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012 "please call"; Jan 1 open "should never appear"` which is in the test framework.
 
 The most inner array represents one token. The first element of this array is the [lexeme](https://en.wikipedia.org/wiki/Lexeme) (an internal representation of the token value). The second element is the token name and the third one is the start position of the token in the input stream (which is used for generation warnings and let the user know the position where the problem occurred). The fourth element is optional and specifies to which selector the token belongs to.
 

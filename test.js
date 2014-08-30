@@ -2837,6 +2837,11 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		' ; open' + value_suffix,
 		'; open' + value_suffix,
 		';;; open' + value_suffix,
+		'open' + value_suffix + ';',
+		'open' + value_suffix + ' ||',
+		// 'open' + value_suffix + ',', // Might be possible that there is
+		// something missing. "," is not only used as
+		// <additional_rule_separator>  …
 	], {}, 'not only test');
 // }}}
 

@@ -1902,7 +1902,13 @@
 		for (var nrule = 0; nrule < tokens.length; nrule++) {
 			if (tokens[nrule][0].length === 0) {
 				// Rule does contain nothing useful e.g. second rule of '10:00-12:00;' (empty) which needs to be handled.
-				parsing_warnings.push([nrule, -1, 'This rule does not contain anything useful. Please remove this empty rule.']);
+				parsing_warnings.push([nrule, -1,
+					'This rule does not contain anything useful. Please remove this empty rule.'
+					+ (nrule == tokens.length - 1 && nrule > 0 && !tokens[nrule][1] ?
+						' Might it be possible that you are a programmer and adding a semicolon after each statement is hardwired in your muscle memory ;) ?'
+						+ ' The thing is that the semicolon in the opening_hours syntax is defined as rule separator.'
+						+ ' So for compatibility reasons you should omit this last semicolon.': '')
+					]);
 				continue;
 			}
 
