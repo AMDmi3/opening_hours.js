@@ -1518,10 +1518,10 @@ Jun 0 <--- (Day must be between 1 and 31.)
 Feb 30 <--- (Month Feb either has 28 or 29 days (leap years).)
 
 "Incorrect syntax which should throw an error" for "Jun 2-Aug 42; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 2 <--- (Day must be between 1 and 31.)
+Jun 2-Aug 42 <--- (Day must be between 1 and 31.)
 
 "Incorrect syntax which should throw an error" for "Jun 2-Aug 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 2 <--- (Day must be between 1 and 31.)
+Jun 2-Aug 32 <--- (Day must be between 1 and 31.)
 
 "Incorrect syntax which should throw an error" for "Jun 2-32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Jun 2-32 <--- (Day must be between 1 and 31.)
