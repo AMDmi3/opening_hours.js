@@ -3332,7 +3332,10 @@
 					minutes_to   = tokens[at+2][0] * 60;
 					if (!done_with_warnings)
 						parsing_warnings.push([nrule, at + 2,
-							'Time range without minutes specified. Not very explicit! Please use this syntax instead e.g. "12:00-14:00".']);
+							'Time range without minutes specified. Not very explicit!'
+							+ ' Please use this syntax instead "'
+							+ (tokens[at][0]   < 10 ? '0' : '') + tokens[at][0]   + ':00-'
+							+ (tokens[at+2][0] < 10 ? '0' : '') + tokens[at+2][0] + ':00".']);
 
 					if (minutes_from >= minutes_in_day)
 						throw formatWarnErrorMessage(nrule, at,
