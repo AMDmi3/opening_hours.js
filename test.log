@@ -402,6 +402,47 @@ With [1m[34mwarnings[39m[22m:
 "Variable days: school holidays" for "SH,PH,Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH,PH,Su <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: school holidays" for "PH,Su,SH": [1m[31mFAILED[39m[22m, bad intervals: 
+[ '2014.01.01 00:00', '2014.01.05 00:00', false, 'Weihnachtsferien' ],
+[ '2014.01.05 00:00', '2014.01.06 00:00', false, undefined ],
+[ '2014.01.06 00:00', '2014.01.07 00:00', false, 'Heilige Drei Könige' ],
+[ '2014.01.12 00:00', '2014.01.13 00:00', false, undefined ],
+[ '2014.01.19 00:00', '2014.01.20 00:00', false, undefined ],
+[ '2014.01.26 00:00', '2014.01.27 00:00', false, undefined ],
+[ '2014.02.02 00:00', '2014.02.03 00:00', false, undefined ],
+[ '2014.02.09 00:00', '2014.02.10 00:00', false, undefined ],
+expected:
+[ '2014.01.01 00:00', '2014.01.02 00:00', false, 'Neujahrstag' ],
+[ '2014.01.02 00:00', '2014.01.05 00:00', false, 'Weihnachtsferien' ],
+[ '2014.01.05 00:00', '2014.01.06 00:00', false, undefined ],
+[ '2014.01.06 00:00', '2014.01.07 00:00', false, 'Heilige Drei Könige' ],
+[ '2014.01.12 00:00', '2014.01.13 00:00', false, undefined ],
+[ '2014.01.19 00:00', '2014.01.20 00:00', false, undefined ],
+[ '2014.01.26 00:00', '2014.01.27 00:00', false, undefined ],
+[ '2014.02.02 00:00', '2014.02.03 00:00', false, undefined ],
+[ '2014.02.09 00:00', '2014.02.10 00:00', false, undefined ],
+With [1m[34mwarnings[39m[22m:
+	*PH,Su,SH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: school holidays" for "SH,Sonn-/Feiertag": [1m[35mCRASHED[39m[22m, reason: SH,Sonn-/ <--- (Unexpected token: "/" This means that the syntax is not valid at that point or it is currently not supported.) SH,Sonn- <--- (Bitte benutze die englische Abkürzung "Su" für "sonn-".); SH,Sonn-/Feiertag <--- (Bitte benutze die englische Abkürzung "PH" für "feiertag".)
+"Variable days: school holidays" for "SH,Sonn-/Feiertags": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*SH,Sonn-/Feiertags <--- (Bitte benutze die Schreibweise "PH,Su" für "sonn-/feiertags".)
+	*SH,Sonn-/Feiertags <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: school holidays" for "SH und nur Sonn-/Feiertags": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*SH und <--- (Bitte benutze die Schreibweise "," als Ersatz für "und" bzw. "u.".)
+	*SH und nur Sonn-/Feiertags <--- (Bitte benutze die Schreibweise "PH,Su" für "nur sonn-/feiertags".)
+	*SH und nur Sonn-/Feiertags <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: school holidays" for "SH und Sonn-/Feiertags": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*SH und <--- (Bitte benutze die Schreibweise "," als Ersatz für "und" bzw. "u.".)
+	*SH und Sonn-/Feiertags <--- (Bitte benutze die Schreibweise "PH,Su" für "sonn-/feiertags".)
+	*SH und Sonn-/Feiertags <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: school holidays" for "SH und an Sonn- und Feiertagen": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*SH und <--- (Bitte benutze die Schreibweise "," als Ersatz für "und" bzw. "u.".)
+	*SH und an Sonn- und Feiertagen <--- (Bitte benutze die Schreibweise "PH,Su" für "an sonn- und feiertagen".)
+	*SH und an Sonn- und Feiertagen <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Everyday including public holidays" for "Mo-Su,PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Su,PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
@@ -981,6 +1022,7 @@ With [1m[34mwarnings[39m[22m:
 "Additional comments for unknown" for "Mo open "comment"; "I don’t know how to express easter": off": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Calculations based on month range" for "Mar Su[-1] - Dec 25-Su-28 days: 12:00-13:00": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Calculations based on month range" for "Mo-Fr 09:00-12:30; Sa 09:00-13:00; Dec 25-Su-28 days - Dec 24: Mo-Fr 09:00-16:00,Sa 09:00-16:00": [1m[33mIGNORED[39m[22m, reason: not implemented yet
+"Calculations based on month range" for "Mo-Su 10:00-01:00; Sep 15+Sa-Oct Su[1],Oct 1-3: Mo-Su 07:30-03:00": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Error tolerance: case and whitespace" for "Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 "Error tolerance: case and whitespace" for "   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00	Off  ": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1748,8 +1790,8 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-690/694 tests passed.
-26 tests where (partly) ignored, sorted by commonness:
-* 12: prettifyValue (most of the cases this is used to test if values with selectors in wrong order are evaluated correctly)
-* 10: not implemented yet
+695/701 tests passed.
+32 tests where (partly) ignored, sorted by commonness:
+* 17: prettifyValue (most of the cases this is used to test if values with selectors in wrong order are evaluated correctly)
+* 11: not implemented yet
 *  4: check for week stable not implemented

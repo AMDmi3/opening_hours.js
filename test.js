@@ -695,6 +695,12 @@ test.addTest('Variable days: school holidays', [
 		'Su,SH,PH',
 		'SH,Su,PH',
 		'SH,PH,Su',
+		'PH,Su,SH',
+		ignored('SH,Sonn-/Feiertag',  'prettifyValue'),
+		ignored('SH,Sonn-/Feiertags', 'prettifyValue'),
+		ignored('SH und nur Sonn-/Feiertags', 'prettifyValue'),
+		ignored('SH und Sonn-/Feiertags', 'prettifyValue'),
+		ignored('SH und an Sonn- und Feiertagen', 'prettifyValue'),
 	], '2014.01.01 0:00', '2014.02.15 0:00', [
 		[ '2014.01.01 00:00', '2014.01.02 00:00', false, 'Neujahrstag' ],
 		[ '2014.01.02 00:00', '2014.01.05 00:00', false, 'Weihnachtsferien' ],
@@ -705,7 +711,7 @@ test.addTest('Variable days: school holidays', [
 		[ '2014.01.26 00:00', '2014.01.27 00:00' ],
 		[ '2014.02.02 00:00', '2014.02.03 00:00' ],
 		[ '2014.02.09 00:00', '2014.02.10 00:00' ],
-	], 1000 * 60 * 60 * 24 * (4 + 1 + 6), 0, false, nominatiomTestJSON, 'not last test');
+	], 1000 * 60 * 60 * 24 * (4 + 1 + 6), 0, false, nominatiomTestJSON, 'not only test');
 
 test.addTest('Variable days: Everyday including public holidays', [
 		'Mo-Su,PH',
@@ -2668,6 +2674,12 @@ test.addTest('Calculations based on month range', [
 		ignored('Mar Su[-1] - Dec 25-Su-28 days: 12:00-13:00'),
 		ignored('Mo-Fr 09:00-12:30; Sa 09:00-13:00; Dec 25-Su-28 days - Dec 24: Mo-Fr 09:00-16:00,Sa 09:00-16:00'),
 		// http://www.openstreetmap.org/node/542882513
+	], '2012.01.01 0:00', '2012.10.08 0:00', [
+	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'not only test');
+
+// https://www.openstreetmap.org/node/844696052/history
+test.addTest('Calculations based on month range', [
+		ignored('Mo-Su 10:00-01:00; Sep 15+Sa-Oct Su[1],Oct 1-3: Mo-Su 07:30-03:00'),
 	], '2012.01.01 0:00', '2012.10.08 0:00', [
 	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON, 'not only test');
 // }}}
