@@ -77,6 +77,7 @@ var resources = { // English is fallback language.
                 "rule separator ;": 'rule separator (the next rule will be a normal rule)',
                 "rule separator  ||": 'rule separator (the next rule will be a fallback rule which applies for any time not handled by previous rules)',
                 "rule separator ,": 'rule separator (the next rule will be a additional rule which extends the times of previous rules and does not override them like normal rules would do)',
+                "JOSM remote conn error": 'Could not connect to JOSM. Please make sure that JOSM is running and is configured for remote control on the default tcp port 8111.',
             },
             "words": {
                 "modifier": "__name__ modifier",
@@ -330,6 +331,7 @@ var resources = { // English is fallback language.
                 "rule separator ;": 'Begrenzungszeichen für Regeln (es folgt eine normale Regel)',
                 "rule separator  ||": 'Begrenzungszeichen für Regeln (es folgt eine Oder-Verknüpfte Regel die nur auf Zeiten zutrifft, die nicht bereits von vorherigen Regeln behandelt werden)',
                 "rule separator ,": 'Begrenzungszeichen für Regeln (es folgt eine additive Regel deren Zeiten vorherige Regeln erweitern und nicht überschreiben wie bei normalen Regeln)',
+                "JOSM remote conn error": 'Es konnte keine Verbindung zu JOSM aufgebaut werden. Bitte prüfe, ob JOSM ausgeführt wird und Fernsteuerung auf dem Standard tcp Port 8111 erlaubt ist.',
             },
             "words": {
                 "modifier": "__name__ Regeleigenschaft",
