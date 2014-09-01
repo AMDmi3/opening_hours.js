@@ -580,6 +580,8 @@ test.addTest('PH: Only if SH is Wednesday', [
 		'school holiday Mo-Fr',
 		'school holidays Mo-Fr',
 		'SH: Mo-Fr', // Please don’t use ":" after holiday.
+		'SH on work day',
+		'SH on work days',
 	], '2012.12.22 0:00', '2013.01.08 0:00', [
 		[ '2012.12.24 00:00', '2012.12.29 00:00', false, 'Weihnachtsferien' ],
 		[ '2012.12.31 00:00', '2013.01.05 00:00', false, 'Weihnachtsferien' ],

@@ -1381,10 +1381,12 @@
 				'feestdagen': 'PH',
 			}, 'Assuming "<ok>" for "<ko>". Please avoid using "workday": http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays': {
 				// Used around 260 times but the problem is, that work day might be different in other countries.
-				'wd':       'Mo-Fr',
-				'weekday':  'Mo-Fr',
-				'weekdays': 'Mo-Fr',
-				'vardagar': 'Mo-Fr',
+				'wd':           'Mo-Fr',
+				'on work day':  'Mo-Fr',
+				'on work days': 'Mo-Fr',
+				'weekday':      'Mo-Fr',
+				'weekdays':     'Mo-Fr',
+				'vardagar':     'Mo-Fr',
 			}, 'Please use something like "Mo off" instead "<ko>".': {
 				'except': 'off',
 			}, 'Please omit "<ko>" or use a colon instead: "12:00-14:00".': {
@@ -2127,7 +2129,7 @@
 					// special day name (holidays)
 					curr_rule_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
 					value = value.substr(2);
-				} else if (tmp = value.match(/^(&|_|→|–|−|=|·|opening_hours=|ー|\?|~|～|：|°°|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-?(?:(?:till? )?late|open[ ]?end)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|(?:nur |an )?sonn-(?:(?: und |\/)feiertag(?:s|en))?|[a-zäößàáéøčěíúýřПнВсо]+\b|à|á|mo|tu|we|th|fr|sa|su|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|→|–|−|=|·|opening_hours=|ー|\?|~|～|：|°°|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-?(?:(?:till? )?late|open[ ]?end)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|on work days?|(?:nur |an )?sonn-(?:(?: und |\/)feiertag(?:s|en))?|[a-zäößàáéøčěíúýřПнВсо]+\b|à|á|mo|tu|we|th|fr|sa|su|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\.?/i)) {
 					/* Handle all remaining words and specific other characters with error tolerance.
 					 *
 					 * à|á: Word boundary does not work with unicode chars: 'test à test'.match(/\bà\b/i)

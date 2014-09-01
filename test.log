@@ -301,6 +301,14 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*SH:  <--- (Please don’t use ":" after holiday.)
 	*SH: Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"PH: Only if SH is Wednesday" for "SH on work day": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*SH on work day <--- (Assuming "Mo-Fr" for "on work day". Please avoid using "workday": http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays)
+	*SH on work day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"PH: Only if SH is Wednesday" for "SH on work days": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*SH on work days <--- (Assuming "Mo-Fr" for "on work days". Please avoid using "workday": http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays)
+	*SH on work days <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "PH +1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH +1 day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
@@ -1790,7 +1798,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-695/701 tests passed.
+697/703 tests passed.
 32 tests where (partly) ignored, sorted by commonness:
 * 17: prettifyValue (most of the cases this is used to test if values with selectors in wrong order are evaluated correctly)
 * 11: not implemented yet
