@@ -2424,11 +2424,12 @@ test.addTest('Points in time, mode 1', [
 test.addTest('Points in time with month, mode 1', [
 		'Apr 08:00',
 		'Apr: 08:00',
-		'Apr. 08:00', // FIXME: Dot is interpreted as colon.
+		'Apr. 08:00',
+		ignored('Apr.: 08:00', 'prettifyValue'),
 	], '2012.04.01 0:00', '2012.04.03 0:00', [
 		[ '2012.04.01 08:00', '2012.04.01 08:01' ],
 		[ '2012.04.02 08:00', '2012.04.02 08:01' ],
-	], 1000 * 60 * 2, 0, false, {}, 'not last test', 1);
+	], 1000 * 60 * 2, 0, false, {}, 'not only test', 1);
 
 test.addTest('Points in time, mode 2', [
 		'Mo sunrise,sunset',

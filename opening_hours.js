@@ -2523,7 +2523,7 @@
 			done_with_warnings = true;
 
 			var warnings = [];
-			// FIXME: Sort based on parsing_warnings[1]
+			// FIXME: Sort based on parsing_warnings[1], tricky …
 			for (var i = 0; i < parsing_warnings.length; i++) {
 				warnings.push( formatWarnErrorMessage(parsing_warnings[i][0], parsing_warnings[i][1], parsing_warnings[i][2]) );
 			}
