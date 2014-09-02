@@ -806,10 +806,11 @@ test.addTest('Full range', [
 	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
 
 test.addTest('24/7 as time interval alias (don’t use 24/7 as showen here)', [
-		'Mo,We 24/7', // throws a warning, use one of the next values instead
-		'Mo,We open', // preferred because more explicit
 		'Mo,We 00:00-24:00', // preferred because more explicit
-		'Mo,We',
+		'Mo,We 24/7', // throws a warning
+		'Mo,We open', // throws a warning
+		ignored('Mo,We: open', 'prettifyValue'), // throws a warning
+		'Mo,We', // throws a warning
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.02 0:00' ],
 		[ '2012.10.03 0:00', '2012.10.04 0:00' ],
@@ -1669,10 +1670,11 @@ test.addTest('Date range which only applies for specific year', [
 test.addTest('Selector combination', [
 		'week 2 We',            // week + weekday
 		'Jan 11-Jan 11 week 2', // week + monthday
+		'Jan 11-Jan 11: week 2: 00:00-24:00', // week + monthday
 		'Jan 11 week 2',        // week + monthday
 	], '2012.01.01 0:00', '2013.01.01 0:00', [
 		[ '2012.01.11 0:00', '2012.01.12 00:00' ],
-	], 1000 * 60 * 60 * 24, 0, false, {}, 'not last test');
+	], 1000 * 60 * 60 * 24, 0, false, {}, 'not only test');
 
 test.addTest('Selector combination', [
 		'Jan week 2',           // week + month
@@ -1865,6 +1867,7 @@ test.addTest('Real world example: Was not processed right.', [
 		'Mo off, Tu 14:00-18:00, We-Sa 10:00-18:00', // Reference value for prettify. Not perfect but still …
 		'Mo geschl., Tu 14:00-18:00, We-Sa 10:00-18:00', // Reference value for prettify. Not perfect but still …
 		'Mo: geschlossen, Di: 14-18Uhr, Mi-Sa: 10-18Uhr', // value as found in OSM
+		// FIXME: See issue #50.
 		'Mo off; Tu 14:00-18:00; We-Sa 10:00-18:00', // Please use this value instead. Mostly automatically corrected.
 	], '2014.01.06 0:00', '2014.01.13 0:00', [
 		[ '2014.01.07 14:00', '2014.01.07 18:00' ],
@@ -3360,7 +3363,7 @@ function opening_hours_test() {
 				var count  = sorted_ignores[i][1];
 				switch (reason) {
 					case 'prettifyValue':
-						reason += " (most of the cases this is used to test if values with selectors in wrong order are evaluated correctly)"
+						reason += " (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)"
 						break;
 				}
 				console.warn(sprintf('* %2s: %s', count, reason));

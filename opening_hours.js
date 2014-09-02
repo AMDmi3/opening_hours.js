@@ -2091,7 +2091,7 @@
 				message = ' ' + message;
 
 			message = 'An error occurred during evaluation of the value "' + value + '".'
-				+ ' Please file a bug report on ' + issues_url + '.'
+				+ ' Please file a bug report here: ' + issues_url + '.'
 				+ message;
 			console.log(message);
 			return message;
@@ -2346,8 +2346,12 @@
 				 * code in the (sub) selector parser function directly.
 				 */
 
+				var wide_range_selectors = [ 'year', 'month', 'week', 'holiday' ];
+				var small_range_selectors = [ 'weekday', 'time', 'state', 'comment']; // FIXME: 24/7 check colon
+
 				// How many times was a selector_type used per rule? {{{
 				var used_selectors = [];
+				var used_selectors_types_array = [];
 				var has_token = {};
 
 				for (var nrule = 0; nrule < new_tokens.length; nrule++) {
@@ -2359,6 +2363,7 @@
 					// console.log(new_tokens[nrule][0]);
 
 					used_selectors[nrule] = {};
+					used_selectors_types_array[nrule] = [];
 
 					do {
 						selector_start_end_type = getSelectorRange(new_tokens[nrule][0], selector_start_end_type[1]);
@@ -2375,6 +2380,7 @@
 						} else {
 							used_selectors[nrule][selector_start_end_type[2]].push(selector_start_end_type[1]);
 						}
+						used_selectors_types_array[nrule].push(selector_start_end_type[2]);
 
 						selector_start_end_type[1]++;
 					} while (selector_start_end_type[1] < new_tokens[nrule][0].length);
@@ -2383,6 +2389,7 @@
 				// }}}
 
 				for (var nrule = 0; nrule < used_selectors.length; nrule++) {
+
 					/* Check if more than one not connected selector of the same type is used in one rule {{{ */
 					for (var selector_type in used_selectors[nrule]) {
 						// console.log(selector_type + ' use at: ' + used_selectors[nrule][selector_type].length);
@@ -2474,6 +2481,27 @@
 						// ]);
 					}
 					/* }}} */
+
+					/* Check for valid use of <separator_for_readability> {{{ */
+					for (var i = 0; i < used_selectors_types_array[nrule].length - 1; i++) {
+						var selector_type = used_selectors_types_array[nrule][i];
+						var next_selector_type = used_selectors_types_array[nrule][i+1];
+						if (   (   wide_range_selectors.indexOf(selector_type)       != -1
+								&& wide_range_selectors.indexOf(next_selector_type)  != -1
+							) || ( small_range_selectors.indexOf(selector_type)      != -1
+								&& small_range_selectors.indexOf(next_selector_type) != -1)
+							) {
+
+							if (new_tokens[nrule][0][used_selectors[nrule][selector_type][0]][0] == ':') {
+								parsing_warnings.push([nrule, used_selectors[nrule][selector_type][0],
+									"You have used the optional symbol <separator_for_readability> in the wrong place."
+									+ " Please check the syntax specification to see where it could be used or remove it."
+								]);
+							}
+						}
+					}
+					/* }}} */
+
 				}
 
 				/* Check if 24/7 is used and it does not mean 24/7 because there are other rules {{{ */
@@ -2493,6 +2521,7 @@
 			done_with_warnings = true;
 
 			var warnings = [];
+			// FIXME: Sort based on parsing_warnings[1]
 			for (var i = 0; i < parsing_warnings.length; i++) {
 				warnings.push( formatWarnErrorMessage(parsing_warnings[i][0], parsing_warnings[i][1], parsing_warnings[i][2]) );
 			}
@@ -2757,7 +2786,7 @@
 		 * :returns: See selector code.
 		 */
 		function parseGroup(tokens, at, selectors, nrule) {
-			var prettified_group_value = '';
+			var prettified_group_value = ''; // FIXME: Remove
 			var rule_modifier_specified = false;
 
 			// console.log(tokens); // useful for debugging of tokenize
@@ -2797,11 +2826,14 @@
 					// if (prettified_group_value[-1] != ' ')
 					// 	prettified_group_value = prettified_group_value.substring(0, prettified_group_value.length - 1);
 				} else if (at !== 0 && at != tokens.length - 1 && tokens[at][0] == ':') {
-					// Ignore colon if they appear somewhere else than as time separator.
-					// Except the start or end of the value.
-					// This provides compatibility with the syntax proposed by Netzwolf:
-					// http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification
-					if (!done_with_warnings && (matchTokens(tokens, at-1, 'weekday') || matchTokens(tokens, at-1, 'holiday')))
+					/* Ignore colon if they appear somewhere else than as time separator.
+					 * Except the start or end of the value.
+					 * This provides compatibility with the syntax proposed by Netzwolf:
+					 * http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#separator_for_readability
+					 * Check for valid use of <separator_for_readability> is implemented in function getWarnings().
+					 */
+
+					if (!done_with_warnings && matchTokens(tokens, at-1, 'holiday'))
 						parsing_warnings.push([nrule, at, 'Please don’t use ":" after ' + tokens[at-1][1] + '.']);
 
 					if (prettified_group_value[-1] != ' ')
@@ -4126,7 +4158,7 @@
 							'You have specified a week date less then one. A valid week date range is 1-53.');
 					}
 					if (week_to > 53) {
-						throw formatWarnErrorMessage(nrule, at+2,
+						throw formatWarnErrorMessage(nrule, is_range ? at+2 : at,
 							'You have specified a week date greater then 53. A valid week date range is 1-53.');
 					}
 					if (is_range) {

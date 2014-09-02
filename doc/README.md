@@ -113,7 +113,7 @@ The most inner array represents one token. The first element of this array is th
             ]
         ],
         false,
-        55
+        55 // Last character in value of this rule (excluding <any_rule_separator>).
     ],
     [
         [
