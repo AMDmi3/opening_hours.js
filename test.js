@@ -84,6 +84,9 @@ test.addTest('Time zero intervals (always closed)', [
 		'closed',
 		'off; closed',
 		'24/7 closed "always closed"', // Used on the demo page.
+		'24/7: closed "always closed"',
+		'24/7 closed: "always closed"',
+		'24/7: closed: "always closed"',
 		'closed "always closed"',
 		'off "always closed"',
 		'00:00-24:00 closed',
@@ -568,6 +571,7 @@ test.addTest('Variable days: public holidays (with time range)', [
 test.addTest('PH: Only if PH is Wednesday', [
 		'PH We,Fr',
 		'PH: We,Fr', // Please don’t use ":" after holiday.
+		' We,Fr: PH', // Please don’t use ":" after holiday.
 	], '2012.01.01 0:00', '2012.10.08 0:00', [
 		[ '2012.01.06 00:00', '2012.01.07 00:00', false, 'Heilige Drei Könige' ],       // Fr
 		[ '2012.04.06 00:00', '2012.04.07 00:00', false, 'Karfreitag' ],                // Fr

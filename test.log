@@ -31,6 +31,16 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*off; closed <--- (This rule which changes the default state (which is closed) for all following rules is not the first rule. The rule will overwrite all previous rules. It can be legitimate to change the default state to open for example and then only specify for which times the facility is closed.)
 "Time zero intervals (always closed)" for "24/7 closed "always closed"": [1m[32mPASSED[39m[22m
+"Time zero intervals (always closed)" for "24/7: closed "always closed"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*24/7:  <--- (You have used the optional symbol <separator_for_readability> in the wrong place. Please check the syntax specification to see where it could be used or remove it.)
+"Time zero intervals (always closed)" for "24/7 closed: "always closed"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*24/7 closed:  <--- (You have used the optional symbol <separator_for_readability> in the wrong place. Please check the syntax specification to see where it could be used or remove it.)
+"Time zero intervals (always closed)" for "24/7: closed: "always closed"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*24/7:  <--- (You have used the optional symbol <separator_for_readability> in the wrong place. Please check the syntax specification to see where it could be used or remove it.)
+	*24/7: closed:  <--- (You have used the optional symbol <separator_for_readability> in the wrong place. Please check the syntax specification to see where it could be used or remove it.)
 "Time zero intervals (always closed)" for "closed "always closed"": [1m[32mPASSED[39m[22m
 "Time zero intervals (always closed)" for "off "always closed"": [1m[32mPASSED[39m[22m
 "Time zero intervals (always closed)" for "00:00-24:00 closed": [1m[32mPASSED[39m[22m
@@ -282,6 +292,11 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*PH:  <--- (Please don’t use ":" after holiday.)
 	*PH: We,Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"PH: Only if PH is Wednesday" for " We,Fr: PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	* We,Fr: PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (The selector "holiday" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
+	*PH We,Fr <--- (The selector "weekday" was switched with the selector "holiday" for readablitity and compatibiltity reasons.)
 "PH: Only if SH is Wednesday" for "SH Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
@@ -1770,7 +1785,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-697/705 tests passed.
+701/709 tests passed.
 33 tests where (partly) ignored, sorted by commonness:
 * 18: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

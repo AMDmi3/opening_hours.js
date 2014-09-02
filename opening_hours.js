@@ -2349,7 +2349,7 @@
 				 */
 
 				var wide_range_selectors = [ 'year', 'month', 'week', 'holiday' ];
-				var small_range_selectors = [ 'weekday', 'time', 'state', 'comment']; // FIXME: 24/7 check colon
+				var small_range_selectors = [ 'weekday', 'time', '24/7', 'state', 'comment'];
 
 				// How many times was a selector_type used per rule? {{{
 				var used_selectors = [];
@@ -2534,7 +2534,7 @@
 
 		/* Check if token is the begin of a selector and why. {{{
 		 *
-		 * :param tokens: List of token objects. // FIXME: What token object?
+		 * :param tokens: List of token objects.
 		 * :param at: Position where to start.
 		 * :returns:
 		 *		* false the current token is not the begin of a selector.
@@ -2548,7 +2548,8 @@
 					|| tokens[at][1] == 'state'
 					|| tokens[at][1] == '24/7'
 					|| tokens[at][1] == 'rule separator'
-					){
+				){
+
 				return 1;
 			} else {
 				return false;
