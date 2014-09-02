@@ -2051,16 +2051,18 @@
 							}
 						} else {
 							// Given position is invalid.
-							console.warn('Bug in warning generation code which could not determine the exact position of the warning or error in string: ' +
-									'"' + value + '".');
+							//
+							formatLibraryBugMessage('Bug in warning generation code which could not determine the exact position of the warning or error in value.');
 							pos = value.length;
-							if (typeof tokens[nrule][0][tokens[nrule][0].length - 1] != 'undefined') {
+							if (typeof tokens[nrule][2] != 'undefined') {
 								// Fallback: Point to last token in the rule which caused the problem.
 								// Run real_test regularly to fix the problem before a user is confronted with it.
-								pos -= tokens[nrule][0][tokens[nrule][0].length - 1][2];
-								console.warn('Last token for rule: ' + tokens[nrule][0][tokens[nrule][0].length - 1]);
+								pos -= tokens[nrule][2];
+								console.warn('Last token for rule: ' + tokens[nrule]);
 								console.log(value.substring(0, pos) + ' <--- (' + message + ')');
 								console.log('\n');
+							} {
+								console.warn('tokens[nrule][2] is undefined. This is ok if nrule is the last rule.');
 							}
 						}
 					} else {
