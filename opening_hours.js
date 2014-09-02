@@ -2789,7 +2789,6 @@
 		 * :returns: See selector code.
 		 */
 		function parseGroup(tokens, at, selectors, nrule) {
-			var prettified_group_value = ''; // FIXME: Remove
 			var rule_modifier_specified = false;
 
 			// console.log(tokens); // useful for debugging of tokenize
@@ -2826,8 +2825,6 @@
 					tokens[at][3] = 'week';
 					at = parseWeekRange(tokens, at);
 
-					// if (prettified_group_value[-1] != ' ')
-					// 	prettified_group_value = prettified_group_value.substring(0, prettified_group_value.length - 1);
 				} else if (at !== 0 && at != tokens.length - 1 && tokens[at][0] == ':') {
 					/* Ignore colon if they appear somewhere else than as time separator.
 					 * Except the start or end of the value.
@@ -2839,8 +2836,6 @@
 					if (!done_with_warnings && matchTokens(tokens, at-1, 'holiday'))
 						parsing_warnings.push([nrule, at, 'Please don’t use ":" after ' + tokens[at-1][1] + '.']);
 
-					if (prettified_group_value[-1] != ' ')
-						prettified_group_value = prettified_group_value.substring(0, prettified_group_value.length - 1);
 					at++;
 				} else if (matchTokens(tokens, at, 'number', 'timesep')
 						|| matchTokens(tokens, at, 'timevar')
