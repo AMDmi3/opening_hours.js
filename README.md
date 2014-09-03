@@ -364,11 +364,14 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 * Support calculation with variable times (e.g. ```sunrise-(sunset-00:30)```: meaning that the time range ends 30 minutes before sunset; ```(sunrise+01:02)-(sunset-00:30)```).
 
-* Supports open end (```10:00+```). It is interpreted as state unknown and the comment "Specified as open end. Closing time was guessed." if there is no comment specified. You might need to limit open end times in cases like: ```07:00+,12:00-16:00; 16:00-24:00 closed "needed because of open end"```.
+* Supports open end (```10:00+```). It is interpreted as state unknown and the comment "Specified as open end. Closing time was guessed." if there is no comment specified.
 
   If a facility is open for a fix time followed by open end the shortcut ```14:00-17:00+``` can be used (see also [proposal page](http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_end_fixed_time_extension)).
 
   Open end applies until the end of the day if the opening time is before 17:00. If the opening time is between 17:00 and 21:59 the open end time ends 10 hours after the opening. And if the opening time is after 22:00 (including 22:00) the closing time will be interpreted as 8 hours after the opening time.
+
+* **EXT:** ```07:00+,12:00-16:00```: If an open end time is used in a way that the frist time range includes the second one (```07:00+``` is interpreted as ```07:00-24:00``` and thus includes the complete ```12:00-16:00``` time selector), the second time selector cuts of the part which would follow after 16:00.
+
 * **WARN:** Supports dot as time separator (```12.00-16.00```)
 
 [suncalc]: https://github.com/mourner/suncalc

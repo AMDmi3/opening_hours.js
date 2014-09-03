@@ -214,12 +214,30 @@ With [1m[34mwarnings[39m[22m:
 "Open end" for "17:00+ off": [1m[32mPASSED[39m[22m
 "Open end" for "17:00+off": [1m[32mPASSED[39m[22m
 "Open end" for "17:00-19:00 off": [1m[32mPASSED[39m[22m
+"Open end" for "07:00+,12:00-16:00": [1m[32mPASSED[39m[22m
+"Open end" for "07:00+,12:00-13:00,13:00-16:00": [1m[32mPASSED[39m[22m
 "Open end" for "07:00+,12:00-16:00; 16:00-24:00 closed "needed because of open end"": [1m[32mPASSED[39m[22m
+"Open end" for "05:00-06:00,06:45-07:00+,13:00-16:00": [1m[32mPASSED[39m[22m
+"Open end" for "06:45-07:00+,05:00-06:00,13:00-16:00": [1m[32mPASSED[39m[22m
+"Open end" for "06:45-07:00+,05:00-06:00,13:00-14:00,14:00-16:00": [1m[32mPASSED[39m[22m
+"Open end" for "05:00-06:00,17:00+,13:00-02:00": [1m[31mFAILED[39m[22m, bad duration(s): 57600000,7200000, expected 57600000,21600000, bad intervals: 
+[ '2012.10.01 00:00', '2012.10.01 02:00', false, undefined ],
+[ '2012.10.01 02:00', '2012.10.01 03:00', true,  'Specified as open end. Closing time was guessed.' ],
+[ '2012.10.01 05:00', '2012.10.01 06:00', false, undefined ],
+[ '2012.10.01 13:00', '2012.10.02 02:00', false, undefined ],
+[ '2012.10.02 02:00', '2012.10.02 03:00', true,  'Specified as open end. Closing time was guessed.' ],
+expected:
+[ '2012.10.01 00:00', '2012.10.01 02:00', false, undefined ],
+[ '2012.10.01 02:00', '2012.10.01 03:00', true,  'Specified as open end. Closing time was guessed.' ],
+[ '2012.10.01 05:00', '2012.10.01 06:00', false, undefined ],
+[ '2012.10.01 13:00', '2012.10.02 02:00', false, undefined ],
 "Fixed time followed by open end" for "14:00-17:00+": [1m[32mPASSED[39m[22m
 "Fixed time followed by open end, wrapping over midnight" for "Mo 22:00-04:00+": [1m[32mPASSED[39m[22m
 "Fixed time followed by open end, wrapping over midnight" for "Mo 22:00-28:00+": [1m[32mPASSED[39m[22m
 "variable time range followed by open end" for "14:00-sunset+": [1m[32mPASSED[39m[22m
 "variable time range followed by open end" for "sunrise-14:00+": [1m[32mPASSED[39m[22m
+"variable time range followed by open end" for "sunrise-14:00,14:00+": [1m[32mPASSED[39m[22m
+"variable time range followed by open end" for "sunrise-14:00 open, 14:00+": [1m[32mPASSED[39m[22m
 "variable time range followed by open end" for "sunrise-(sunset+01:00)+": [1m[32mPASSED[39m[22m
 "variable time range followed by open end" for "sunrise-(sunset+01:00)+; Su off": [1m[32mPASSED[39m[22m
 "variable time range followed by open end, day wrap and different states" for "Fr 11:00-24:00+ open "geöffnet täglich von 11:00 Uhr bis tief in die Nacht"": [1m[32mPASSED[39m[22m
@@ -1786,7 +1804,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-702/710 tests passed.
+709/718 tests passed.
 34 tests where (partly) ignored, sorted by commonness:
 * 19: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

@@ -3429,6 +3429,8 @@
 		}
 		// }}}
 
+		/* Helpers for time range parser {{{ */
+
 		/* Get time in minutes from <hour>:<minute> (tokens). {{{
 		 * Only used if throwing an error is wanted.
 		 *
@@ -3479,7 +3481,8 @@
 				throw formatWarnErrorMessage(nrule, error[0],
 					'Calculcation with variable time is not in the right syntax' + error[1]);
 		}
-		// }}}
+		/* }}} */
+		/* }}} */
 
 		/* Weekday range parser (Mo,We-Fr,Sa[1-2,-1],PH). {{{
 		 *
@@ -4732,7 +4735,7 @@
 						if (!rules[rule].fallback || (rules[rule].fallback && !(resultstate || unknown))) {
 							resultstate = rules[rule].meaning;
 							unknown     = rules[rule].unknown;
-							match_rule = rule;
+							match_rule  = rule;
 
 							if (typeof rules[rule].comment == 'string') // only use comment if one is specified
 								comment     = rules[rule].comment;
@@ -4742,11 +4745,34 @@
 								comment = rules[rule].comment;
 
 							// open end
-							if (typeof res[2] == 'boolean' && res[2] && (resultstate || unknown)) {
+							if (res[2] === true && (resultstate || unknown)) {
 								if (typeof comment == 'undefined')
 									comment = 'Specified as open end. Closing time was guessed.';
+
 								resultstate = false;
 								unknown     = true;
+
+								/* Hack to make second rule in '07:00+,12:00-16:00; 16:00-24:00 closed "needed because of open end"' obsolete {{{ */
+								if (typeof rules[rule].time[timesel+1] == 'function') {
+
+									var next_res = rules[rule].time[timesel+1](date);
+									if (  !next_res[0]
+										// && next_res[2]
+										&& typeof next_res[1] == 'object'
+										&& getValueForDate(next_res[1], true) != getValueForDate(date, true) // Just to be sure.
+										&& rules[rule].time[timesel](new Date(date.getTime() - 1))[0]
+										/* To keep the following two apart:
+											'sunrise-14:00,14:00+',
+											'12:00-16:00,07:00+',
+											*/
+										) {
+
+										resultstate = false;
+										unknown     = false;
+									}
+
+								}
+								/* }}} */
 							}
 
 							if (rules[rule].fallback) {
@@ -4774,7 +4800,6 @@
 		 * :param at: Position where to start.
 		 * :param last_at: Position where to stop.
 		 * :param conf: Configuration options.
-		 * :param used_parseTimeRange: Boolean: True if time range parser was used for at till last_at.
 		 * :returns: Prettified value.
 		 */
 		function prettifySelector(tokens, selector_start, selector_end, selector_type, conf) {

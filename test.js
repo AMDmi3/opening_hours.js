@@ -308,11 +308,37 @@ test.addTest('Open end', [
 	], 0, 0, true, {}, 'not last test');
 
 test.addTest('Open end', [
-		'07:00+,12:00-16:00; 16:00-24:00 closed "needed because of open end"',
-	], '2012.10.01 0:00', '2012.10.02 0:00', [
+		// '12:00-16:00,07:00+', // Fails. This is ok. Just put your time selectors in the correct order.
+		'07:00+,12:00-16:00',
+		'07:00+,12:00-13:00,13:00-16:00',
+		'07:00+,12:00-16:00; 16:00-24:00 closed "needed because of open end"', // Now obsolete: https://github.com/ypid/opening_hours.js/issues/48
+	], '2012.10.01 0:00', '2012.10.02 5:00', [
 		[ '2012.10.01 07:00', '2012.10.01 12:00', true,  'Specified as open end. Closing time was guessed.' ],
 		[ '2012.10.01 12:00', '2012.10.01 16:00' ],
-	], 1000 * 60 * 60 * 4, 1000 * 60 * 60 * 5, true, {}, 'not last test');
+	], 1000 * 60 * 60 * 4, 1000 * 60 * 60 * 5, true, {}, 'not only test');
+
+test.addTest('Open end', [
+		'05:00-06:00,06:45-07:00+,13:00-16:00',
+		'06:45-07:00+,05:00-06:00,13:00-16:00',
+		'06:45-07:00+,05:00-06:00,13:00-14:00,14:00-16:00',
+	], '2012.10.01 0:00', '2012.10.02 5:00', [
+		[ '2012.10.01 05:00', '2012.10.01 06:00' ],
+		[ '2012.10.01 06:45', '2012.10.01 07:00' ],
+		[ '2012.10.01 07:00', '2012.10.01 13:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2012.10.01 13:00', '2012.10.01 16:00' ],
+	], 1000 * 60 * 60 * (4 + 0.25), 1000 * 60 * 60 * 6, true, {}, 'not only test');
+
+test.addTest('Open end', [
+		'05:00-06:00,17:00+,13:00-02:00',
+		// FIXME: Harder to recognize because the time wrapping over
+		// midnight is stored in the next internal rule.
+	], '2012.10.01 0:00', '2012.10.02 5:00', [
+		[ '2012.10.01 00:00', '2012.10.01 02:00' ],
+		[ '2012.10.01 02:00', '2012.10.01 03:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2012.10.01 05:00', '2012.10.01 06:00' ],
+		[ '2012.10.01 13:00', '2012.10.02 02:00' ],
+		// [ '2012.10.02 02:00', '2012.10.02 03:00', true,  'Specified as open end. Closing time was guessed.' ],
+	], 1000 * 60 * 60 * (2 + 1 + (24 - 13 + 2)), 1000 * 60 * 60 * 6, true, {}, 'not only test');
 
 // proposal: opening hours open end fixed time extension {{{
 // http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_end_fixed_time_extension
@@ -343,10 +369,12 @@ test.addTest('variable time range followed by open end', [
 
 test.addTest('variable time range followed by open end', [
 		'sunrise-14:00+',
-	], '2012.10.01 0:00', '2012.10.02 0:00', [
+		'sunrise-14:00,14:00+', // Internally represented as two time selectors.
+		'sunrise-14:00 open, 14:00+',
+	], '2012.10.01 0:00', '2012.10.02 5:00', [
 		[ '2012.10.01 07:22', '2012.10.01 14:00' ],
 		[ '2012.10.01 14:00', '2012.10.02 00:00', true,  'Specified as open end. Closing time was guessed.' ],
-	], 1000 * 60 * (38 + 60 * 6), 1000 * 60 * 60 * 10, false, nominatiomTestJSON, 'not last test');
+	], 1000 * 60 * (38 + 60 * 6), 1000 * 60 * 60 * 10, false, nominatiomTestJSON, 'not only test');
 
 test.addTest('variable time range followed by open end', [
 		'sunrise-(sunset+01:00)+',
