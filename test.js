@@ -341,6 +341,7 @@ test.addTest('Open end', [
 	], 1000 * 60 * 60 * (2 + 24 - 13 + 2), 0, true, {}, 'not only test');
 
 test.addTest('Open end', [
+		'13:00-17:00+', // Use this.
 		'13:00-17:00,17:00+',
 		'13:00-02:00,17:00+', // Do not use.
 		'13:00-17:00 open, 17:00+'

@@ -222,6 +222,7 @@ With [1m[34mwarnings[39m[22m:
 "Open end" for "06:45-07:00+,05:00-06:00,13:00-14:00,14:00-16:00": [1m[32mPASSED[39m[22m
 "Open end" for "17:00+,13:00-02:00; 02:00-03:00 closed "needed because of open end"": [1m[32mPASSED[39m[22m
 "Open end" for "17:00+,13:00-02:00; 02:00-03:00 closed "needed because of open end"": [1m[32mPASSED[39m[22m
+"Open end" for "13:00-17:00+": [1m[32mPASSED[39m[22m
 "Open end" for "13:00-17:00,17:00+": [1m[32mPASSED[39m[22m
 "Open end" for "13:00-02:00,17:00+": [1m[32mPASSED[39m[22m
 "Open end" for "13:00-17:00 open, 17:00+": [1m[32mPASSED[39m[22m
@@ -1798,7 +1799,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-714/722 tests passed.
+715/723 tests passed.
 34 tests where (partly) ignored, sorted by commonness:
 * 19: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

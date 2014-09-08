@@ -148,7 +148,7 @@ function getReadableState(startString, endString, oh, past) {
 
   Throws an error string if the expression is malformed or unsupported.
 
-  * nominatiomJSON (optional): In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges][ohlib.time-ranges]) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim][] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=5&addressdetails=1) and you are good to go. Note that this second parameter is optional. The data returned by Nominatim should be in the local language (the language of the country for which the opening hours apply). If not *accept-language* can be used as parameter in the request URL.
+  * nominatiomJSON (optional): In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges][ohlib.time-ranges]) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim][] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=5&addressdetails=1) and you are good to go. Note that this second parameter is optional. The data returned by Nominatim should be in the local language (the language of the country for which the opening hours apply). If not, *accept-language* can be used as parameter in the request URL.
 
   * mode (optional): In OSM, the syntax originally designed to describe opening hours is now used to describe a few other things as well. Some of those other tags work with points in time instead of time ranges. To support this the mode can be specified. If there is no mode specified, opening_hours.js will only operate with time ranges and will throw an error message when points in times are used in the value.
 
@@ -160,7 +160,7 @@ function getReadableState(startString, endString, oh, past) {
   var warnings = oh.getWarnings();
   ```
 
-  Get warnings which appeared during parsing as human readable string array. Every violation is described in one element of the array. Almost all warnings can be auto corrected and are probably interpreted as indented by the mapper. However, this is not a granite of course. The appearance of  warning means that the value has not been tested by the mapper.
+  Get warnings which appeared during parsing as human readable string array. Every violation is described in one element of the array. Almost all warnings can be auto corrected and are probably interpreted as indented by the mapper. However, this is not a granite of course.
 
   This function does also some additional testing and because of that it theoretically possible that this function throws an error like all other functions which go through time.
 
@@ -173,11 +173,33 @@ function getReadableState(startString, endString, oh, past) {
 
   The function excepts one optional hash.
 
-  The key 'conf' can hold another hash with configuration options. One example: ```{ rule_sep_string: '\n', print_semicolon: false }```. Look in the source code if you need more.
+  The key 'conf' can hold another hash with configuration options. One example:
+
+  ```javascript
+  {
+      rule_sep_string: '\n',
+      print_semicolon: false
+  }
+
+  /* Default values */
+  {
+      'zero_pad_hour': true,           // enforce ("%02d", hour)
+      'one_zero_if_hour_zero': false,  // only one zero "0" if hour is zero "0"
+      'leave_off_closed': true,        // leave keywords "off" and "closed" as is
+      'keyword_for_off_closed': 'off', // use given keyword instead of "off" or "closed"
+      'rule_sep_string': ' ',          // separate rules by string
+      'print_semicolon': true,         // print token which separates normal rules
+      'leave_weekday_sep_one_day_betw': true, // use the separator (either "," or "-" which is used to separate days which follow to each other like Sa,Su or Su-Mo
+      'sep_one_day_between': ',',      // separator which should be used
+      'zero_pad_month_and_week_numbers': false, // Format week (e.g. `week 01`) and month day numbers (e.g. `Jan 01`) with "%02d".
+  }
+  ```
+
+  Look in the source code if you need more. *FIXME*
 
   If the key 'rule_index' is a number then only the corresponding rule will be prettified.
 
-  If the key 'get_all' is true then an object containing internal stuff will be returned instead.
+  If the key 'get_internals' is true then an object containing internal stuff will be returned instead. The format of this internal object may change in minor release.
 
 * ```javascript
   var every_week_is_same = oh.isWeekStable();
@@ -205,7 +227,7 @@ Here and below, unless noted otherwise, all arguments are expected to be and all
 
 ### Simple API ###
 
-This API is useful for one-shot checks, but for iteration over intervals you should use the more efficient **Iterator API**.
+This API is useful for one-shot checks, but for iteration over intervals you should use the more efficient [iterator API][ohlib.iterator-api].
 
 * ```javascript
   var is_open = oh.getState(date);
@@ -248,12 +270,16 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
 
 * ```javascript
   var rule_index    = oh.getMatchingRule(date);
-  var matching_rule = oh.prettifyValue(conf, rule_index);
   ```
 
   Returns the internal rule number of the matching rule. You may omit *date* to use current date.
-  A opening_hours string can consist of multiple rules from which one of them is used for a given point in time. If no rule applies, the state will be closed and this function returns undefined.
+  A opening_hours string can consist of multiple rules from which one of them is used to evaluate the state for a given point in time. If no rule applies, the state will be closed and this function returns undefined.
 
+  To prettify this rule, you can specify `rule_index` as parameter for `oh.prettifyValue` like this:
+
+  ```javascript
+  var matching_rule = oh.prettifyValue({ 'rule_index': rule_index });
+  ```
 
 ### Iterator API ###
 
@@ -279,13 +305,13 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   var is_open = iterator.getState();
   ```
 
-  Returns whether the facility is open at the current iterator position in time.
+  Returns whether the facility is open at the current iterator position.
 
 * ```javascript
   var unknown = iterator.getUnknown();
   ```
 
-  Checks whether the opening state is conditional or unknown at the current iterator position in time.
+  Checks whether the opening state is conditional or unknown at the current iterator position.
 
 * ```javascript
   var state_string = iterator.getStateString(past);
@@ -322,7 +348,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
 <!-- Features {{{ -->
 ## Features ##
 
-Almost everything from opening_hours definition is supported, as well as some extensions (indicated as **EXT:** below).
+Almost everything from opening_hours definition is supported, as well as some extensions (indicated as **EXT** below).
 
 **WARN** indicates that the syntax element is evaluated correctly, but there is a better way to express this. A warning will be shown.
 
@@ -341,7 +367,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
   This also applies for time ranges spanning midnight.	This is the only way to be consistent. Example: ```22:00-02:00; Th 12:00-14:00```. By not overriding specifically for midnight ranges, we could get either ```22:00-02:00; Th 00:00-02:00,12:00-14:00,22:00-02:00``` or ```22:00-02:00; Th 00:00-02:00,12:00-14:00``` and deciding which interpretation was really intended cannot always be guessed.
 
-* Date ranges (calendar ranges) can be separated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][oh:specification].
+* Date ranges (calendar ranges) can be separated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][oh:spec:separator_for_readability].
 
 ### Time ranges ###
 
@@ -352,8 +378,12 @@ Almost everything from opening_hours definition is supported, as well as some ex
   * **WARN:** 24/7 is handled as a synonym for ```00:00-24:00```, so ```Mo-Fr 24/7``` (though not really correct, because of that you should avoid it or replace it with "open". A warning will be given if you use it anyway for that purpose) will be handled correctly
 
     *The use of 24/7 as synonym is never needed and should be avoided in cases where it does not mean 24/7.* In cases where a facility is really open 24 hours 7 days a week thats where this value is for.
-* **EXT:** Supports omitting time range (```Mo-Fr; Tu off```)
-* **EXT:** Supports space as time interval separator, i.e. ```Mo 12:00-14:00,16:00-20:00``` and ```Mo 12:00-14:00 16:00-20:00``` are the same thing
+* **WARN:** Supports omitting time range (```Mo-Fr; Tu off```)
+
+  *A warning will be given as this is not very explcit. See [issue 49](https://github.com/ypid/opening_hours.js/issues/49).*
+
+* **WARN:** Supports space as time interval separator, i.e. ```Mo 12:00-14:00,16:00-20:00``` and ```Mo 12:00-14:00 16:00-20:00``` are the same thing
+* **WARN:** Supports dot as time separator (```12.00-16.00```)
 * Complete support for dawn/sunrise/sunset/dusk (variable times) keywords (```10:00-sunset```, ```dawn-dusk```). To calculate the correct values, the latitude and longitude are required which are included in the JSON returned by [Nominatim] \(see in the [Library API][ohlib.library-api] how to provide it\). The calculation is done by [suncalc][].
 
   If the coordinates are missing, constant times will be used (dawn: '05:30', sunrise: '06:00', sunset: '18:00', dusk: '18:30').
@@ -370,16 +400,14 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
   Open end applies until the end of the day if the opening time is before 17:00. If the opening time is between 17:00 and 21:59 the open end time ends 10 hours after the opening. And if the opening time is after 22:00 (including 22:00) the closing time will be interpreted as 8 hours after the opening time.
 
-* **EXT:** ```07:00+,12:00-16:00```: If an open end time is used in a way that the frist time range includes the second one (```07:00+``` is interpreted as ```07:00-24:00``` and thus includes the complete ```12:00-16:00``` time selector), the second time selector cuts of the part which would follow after 16:00.
-
-* **WARN:** Supports dot as time separator (```12.00-16.00```)
+* ```07:00+,12:00-16:00```: If an open end time is used in a way that the frist time range includes the second one (```07:00+``` is interpreted as ```07:00-24:00``` and thus includes the complete ```12:00-16:00``` time selector), the second time selector cuts of the part which would follow after 16:00.
 
 [suncalc]: https://github.com/mourner/suncalc
 
 ### Points in time ###
 
 * In mode 1 or 2, points in time are evaluated. Example: ```Mo-Fr 12:00,15:00,18:00; Su (sunrise+01:00)```. Currently a point in time is interpreted as an interval of one minute. It was the easiest thing to implement and has some advantages. See [here](https://github.com/AMDmi3/opening_hours.js/issues/12) for discussion.
-* To express regular points in time, like each hour, a abbreviation can be used to express the above example ```Mo-Fr 12:00-18:00/03:00``` which means from 12:00 to 18:00 every three hours.
+* To express regular points in time, like each hour, a abbreviation can be used to express the previous example ```Mo-Fr 12:00-18:00/03:00``` which means from 12:00 to 18:00 every three hours.
 
 ### Weekday ranges ###
 
@@ -407,7 +435,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
   2. **EXT:** ```PH Mo-Fr```: The facility is only open if a PH falls on Mo-Fr. For example if a PH is on the weekday Wednesday then the facility will be open, if PH is Saturday it will be closed.
 * If there is no comment specified by the rule, the name of the holiday is used as comment.
 * To evaluate the correct holidays, the country code and the state (could be omitted but this will probably result in less exactitude) are required which are included in the JSON returned by [Nominatim] \(see in the [Library API][ohlib.library-api] how to provide it\).
-* If your country or state is missing or wrong you can add it or open an [issue][issue-report] (and point to a definition of the holidays).
+* If your country or state is missing or wrong you can [add it][ohlib.contribute.holidays] or open an [issue][issue-report] (and point to a definition of the holidays).
 
 ### Month ranges ###
 
@@ -425,14 +453,14 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
   Note that if easter would be after the 20th of April for one year, this will be interpreted as spanning into the next year currently.
 * Supports calculations based on movable events (```2012 easter - 2 days - 2012 easter + 2 days: open "Around easter"```)
-* **EXT:** Supports multiple monthday ranges separated by a comma (```Jan 23-31/3,Feb 1-12,Mar 1```)
+* Supports multiple monthday ranges separated by a comma (```Jan 23-31/3,Feb 1-12,Mar 1```)
 
 ### Week ranges ###
 
 * [The ISO 8601 definition for week 01 is the week with the year's first Thursday in it.](https://en.wikipedia.org/wiki/ISO_week_date#First_week)
 * Supports week ranges (```week 04-07 10:00-20:00```)
 * Supports periodic weeks (```week 2-53/2 10:00-20:00```)
-* **EXT:** Supports multiple week ranges (```week 1,3-5,7-30/2 10:00-20:00```)
+* Supports multiple week ranges (```week 1,3-5,7-30/2 10:00-20:00```)
 
 ### Year ranges ###
 
@@ -445,15 +473,15 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * **EXT:** Supports way to say that a facility is open (or closed) from a specified year without limit in the future (```2055+ 10:00-20:00```)
 
 ### States ###
-* A facility can be in two main states for a given point in time: ```open``` (true) or ```closed``` (false).
-  * But since the state can also depend on other information (e.g. weather depending, call us) than just the time, a third state (called ```unknown```) can be expressed (```Mo unknown; Th-Fr 09:00-18:00 open```)
+* A facility can be in two main states for a given point in time: `open` (true) or `closed` (false).
+  * But since the state can also depend on other information (e.g. weather depending, call us) than just the time, a third state (called `unknown`) can be expressed (`Mo unknown; Th-Fr 09:00-18:00 open`)
 
   In that case the main state is false and unknown is true for Monday.
+  * instead of `closed` `off` will also work
 
 ### Comments ###
 * Supports (additional) comments (```Mo unknown "on appointment"; Th-Fr 09:00-18:00 open "female only"; Su closed "really"```)
   * The string which is delimited by double-quotes can contain any character (except a double-quote sign)
-  * instead of "closed" "off" will also work
   * unknown can be omitted (just a comment (without [state][ohlib.states]) will also result in unknown)
   * value can also be just a double-quoted string (```"on appointment"```) which will result in unknown for any given time.
 
@@ -634,7 +662,7 @@ The opening brackets `{{{` (and the corresponding closing onces) are used to fol
 
 * [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favor of opening_hours.js but a few parts where reused (mainly the input tolerance and the online evaluation for the [demo page][ohlib.evaluation-tooldemohtml]). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
 * Also thanks to FOSSGIS for hosting a public instance of this service. See the [wiki][fossgis-project].
-* The [favicon.png](/favicon.png) is based on the file ic_action_add_alarm.png from the [Android Design Icons](https://developer.android.com/downloads/design/Android_Design_Icons_20131106.zip) which is licensed under [Creative Commons Attribution 2.5](https://creativecommons.org/licenses/by/2.5/). It represents a clock next to the most common opening_hours value by far and a check mark.
+* The [favicon.png](/favicon.png) is based on the file ic_action_add_alarm.png from the [Android Design Icons](https://developer.android.com/downloads/design/Android_Design_Icons_20131106.zip) which is licensed under [Creative Commons Attribution 2.5](https://creativecommons.org/licenses/by/2.5/). It represents a clock next to the most common opening_hours value (by far) and a check mark.
 
 <!-- }}} -->
 
@@ -655,13 +683,16 @@ opening_hours.js is published under the New (2-clause) BSD license.
 [oh:specification:fallback rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#fallback_rule_separator
 [oh:specification:additional rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#additional_rule_separator
 [oh:spec:any_rule_separator]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#any_rule_separator
+[oh:spec:separator_for_readability]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#separator_for_readability
 
 <!-- References to other parts of this documentation. {{{
 Can not use short links only referring to the section inside the README.md any more because this will not work on other pages like https://www.npmjs.org/package/opening_hours.
 Edit: This does also work on npmjs in this short version … -->
+[ohlib.iterator-api]: #iterator-api
 [ohlib.time-ranges]: #time-ranges
 [ohlib.states]: #states
 [ohlib.holidays]: #holidays
+[ohlib.contribute.holidays]: #holidays-1
 [ohlib.evaluation-tooldemohtml]: #evaluation-tooldemohtml
 [ohlib.library-api]: #library-api
 [ohlib.testing]: #testing

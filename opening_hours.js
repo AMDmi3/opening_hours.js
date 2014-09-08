@@ -1841,7 +1841,8 @@
 		var months   = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 		var weekdays = ['Su','Mo','Tu','We','Th','Fr','Sa'];
 		var default_prettify_conf = {
-			'leading_zero_hour': true,       // enforce leading zero
+			// Update README.md if changed.
+			'zero_pad_hour': true,           // enforce ("%02d", hour)
 			'one_zero_if_hour_zero': false,  // only one zero "0" if hour is zero "0"
 			'leave_off_closed': true,        // leave keywords "off" and "closed" as is
 			'keyword_for_off_closed': 'off', // use given keyword instead of "off" or "closed"
@@ -2609,13 +2610,13 @@
 		 *
 		 * :param argument_hash: Hash which can contain:
 		 *		'conf': Configuration hash.
-		 *		'get_all: If true export internal data structures.
+		 *		'get_internals: If true export internal data structures.
 		 *		'rule_index: Only prettify the rule with this index.
-		 * :returns: Prettified value string or object if get_all is true.
+		 * :returns: Prettified value string or object if get_internals is true.
 		 */
 		function prettifyValue(argument_hash) {
 			var user_conf = {},
-				get_all   = false,
+				get_internals   = false,
 				rule_index;
 			if (typeof argument_hash != 'undefined') {
 
@@ -2625,8 +2626,8 @@
 				if (typeof argument_hash.rule_index === 'number')
 					rule_index = argument_hash.rule_index;
 
-				if (argument_hash.get_all === true)
-					get_all = true;
+				if (argument_hash.get_internals === true)
+					get_internals = true;
 			}
 
 			for (var key in default_prettify_conf) {
@@ -2737,7 +2738,7 @@
 			done_with_selector_reordering_warnings = true;
 			// console.log(JSON.stringify(prettified_value_array, null, '    '));
 
-			if (get_all) {
+			if (get_internals) {
 				return [ prettified_value_array, new_tokens ];
 			} else {
 				return prettified_value;
@@ -4863,7 +4864,7 @@
 						&& matchTokens(tokens, at, 'number')) {
 					value += (tokens[at][0] < 10 ? '0' : '') + tokens[at][0].toString();
 				} else if (selector_type == 'time' // e.g. '9:00' -> ' 09:00'
-						&& conf.leading_zero_hour
+						&& conf.zero_pad_hour
 						&& at != tokens.length
 						&& matchTokens(tokens, at, 'number')
 						&& matchTokens(tokens, at+1, 'timesep')) {
@@ -5052,7 +5053,7 @@
 			return it.getMatchingRule();
 		};
 
-		/* Simple API only {{{ */
+		/* Not available for iterator API {{{ */
 		/* getWarnings: Get warnings, empty list if none {{{ */
 		this.getWarnings = function() {
 			var it = this.getIterator();

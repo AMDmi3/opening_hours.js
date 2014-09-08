@@ -439,7 +439,7 @@
 					+ document.forms.check.elements['expression'].value + ']') + '\')">' + i18n.t('texts.load all with JOSM') + '</a><br />';
 				if (!crashed) {
 					var prettified = oh.prettifyValue();
-					var prettified_value_array = oh.prettifyValue({ get_all: true });
+					var prettified_value_array = oh.prettifyValue({ get_internals: true });
 					var prettified_newline_sep = oh.prettifyValue({ conf: { rule_sep_string: '\n', print_semicolon: false } });
 					show_results.innerHTML = '<p>' + i18n.t('words.status') + ':<br />'
 						+ '<input size="10" name="status" readonly="readonly" />'

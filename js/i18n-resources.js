@@ -49,7 +49,7 @@ var resources = { // English is fallback language.
                 "week stable": "Schedule is valid in any given week.",
                 "not week stable": "Attention! This schedule might change for other weeks.",
                 "value for": "value for",
-                "MatchingRule": "Substring used by applied rule",
+                "MatchingRule": "Applied rule",
                 "prettified value": 'prettified opening_hours value (this value can be safely used in OSM, after all warnings have been <a href="__copyFunc__">solved</a>)',
                 "prettified value for displaying": "prettified opening_hours value for displaying (including newlines, do not use this as value for OSM)",
                 "more information": "For more information you can check out the <a __href__>OSM wiki</a>.",
