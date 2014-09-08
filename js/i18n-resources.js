@@ -586,7 +586,7 @@ var resources = { // English is fallback language.
         },
     }, // }}}
 
-    // Italian localization {{{
+    // Italian (it) localization {{{
     it: { translation: {
             "lang": {
                 "en": "Inglese",

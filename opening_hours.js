@@ -2008,6 +2008,8 @@
 						comment: selectors.comment,
 
 						wrapped: true,
+						// build_from_token_rule: selectors.build_from_token_rule,
+						// Not (yet) needed.
 					};
 
 					for (var dselg = 0; dselg < selectors.date.length; dselg++) {
@@ -3144,15 +3146,16 @@
 							has_open_end = true;
 						} else {
 							if (oh_mode === 0) {
-								throw formatWarnErrorMessage(nrule, at+(
+								throw formatWarnErrorMessage(nrule,
+									at+(
 										has_normal_time[0] ? (
-												typeof tokens[at+3] == 'object' ? 3 : 2
-											) : (
-												has_time_var_calc[0] ? 2 : (
-														typeof tokens[at+1] != 'undefined' ? 1 : 0
-													)
-											)
-										),
+											typeof tokens[at+3] == 'object' ? 3 : 2
+										) : (
+											has_time_var_calc[0] ? 2 : (
+													typeof tokens[at+1] != 'undefined' ? 1 : 0
+												)
+										)
+									),
 									'hyphen (-) or open end (+) in time range '
 									+ (has_time_var_calc[0] ? 'calculation ' : '') + 'expected.'
 									+ ' For working with points in time, the mode for ' + library_name + ' has to be altered.'
@@ -3247,7 +3250,7 @@
 						selectors.time.push(function(date) { return [true]; });
 					} else {
 						if (minutes_to > minutes_in_day) { // has_normal_time[1] must be true
-							selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period) { return function(date) {
+							selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period, extended_open_end) { return function(date) {
 								var ourminutes = date.getHours() * 60 + date.getMinutes();
 
 								if (timevar_string[0]) {
@@ -3282,11 +3285,11 @@
 									if (ourminutes < minutes_from)
 										return [false, dateAtDayMinutes(date, minutes_from)];
 									else
-										return [true, dateAtDayMinutes(date, minutes_to), has_open_end];
+										return [true, dateAtDayMinutes(date, minutes_to), has_open_end, extended_open_end];
 								}
-							}}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period));
+							}}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period, extended_open_end));
 
-							selectors.wraptime.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period) { return function(date) {
+							selectors.wraptime.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period, extended_open_end) { return function(date) {
 								var ourminutes = date.getHours() * 60 + date.getMinutes();
 
 								if (timevar_string[0]) {
@@ -3315,12 +3318,12 @@
 									}
 								} else {
 									if (ourminutes < minutes_to)
-										return [true, dateAtDayMinutes(date, minutes_to), has_open_end];
+										return [true, dateAtDayMinutes(date, minutes_to), has_open_end, extended_open_end];
 								}
 								return [false, undefined];
-							}}(minutes_from, minutes_to - minutes_in_day, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period));
+							}}(minutes_from, minutes_to - minutes_in_day, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period, extended_open_end));
 						} else {
-							selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period) { return function(date) {
+							selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period, extended_open_end) { return function(date) {
 								var ourminutes = date.getHours() * 60 + date.getMinutes();
 
 								if (timevar_string[0]) {
@@ -3355,7 +3358,7 @@
 									else
 										return [false, dateAtDayMinutes(date, minutes_from + minutes_in_day)];
 								}
-							}}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period));
+							}}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period, extended_open_end));
 						}
 					}
 
@@ -4759,18 +4762,56 @@
 									if (  !next_res[0]
 										// && next_res[2]
 										&& typeof next_res[1] == 'object'
-										&& getValueForDate(next_res[1], true) != getValueForDate(date, true) // Just to be sure.
+										// && getValueForDate(next_res[1], true) != getValueForDate(date, true) // Just to be sure.
 										&& rules[rule].time[timesel](new Date(date.getTime() - 1))[0]
 										/* To keep the following two apart:
-											'sunrise-14:00,14:00+',
-											'12:00-16:00,07:00+',
-											*/
+										 *	 'sunrise-14:00,14:00+',
+										 *   '07:00+,12:00-16:00',
+										 */
 										) {
+
+										// console.log("07:00+,12:00-16:00 matched.");
 
 										resultstate = false;
 										unknown     = false;
 									}
+								}
 
+								/* Hack to handle '17:00+,13:00-02:00' {{{ */
+								/* Not enabled. To complicated, just don‘t use them …
+								 * It gets even crazier …
+								 * Time wrapping over midnight is
+								 * stored in the next internal rule:
+								 * '17:00-00:00 unknown "Specified as open end. Closing time was guessed.", 13:00-00:00 open' // First internal rule.
+								 * + ', ' overwritten part: 00:00-03:00 open + '00:00-02:00 open', // Second internal rule.
+								 */
+								if (	false
+										&& typeof rules[rule-1] == 'object'
+										&& rules[rule].build_from_token_rule.toString() == rules[rule-1].build_from_token_rule.toString()
+										&& typeof rules[rule] == 'object'
+										&& rules[rule].build_from_token_rule.toString() == rules[rule].build_from_token_rule.toString()
+										) {
+
+									var last_wrapping_time_selector = rules[rule].time[rules[rule].time.length - 1];
+									var last_w_res = last_wrapping_time_selector(new Date(date.getTime() - 1));
+									// console.log(last_w_res);
+
+									if (    last_w_res[0]
+											&& typeof last_w_res[2] == 'undefined'
+											&& (typeof last_w_res[2] == 'undefined' || last_w_res[2] === false) // Not match for 'Tu 23:59-40:00+'
+											&&  typeof last_w_res[1] == 'object'
+											&& date.getTime() == last_w_res[1].getTime()
+										) {
+
+										// '05:00-06:00,17:00+,13:00-02:00',
+
+										// console.log("17:00+,13:00-02:00 matched.");
+										// console.log(JSON.stringify(rules, null, '    '));
+
+										resultstate = false;
+										unknown     = false;
+									}
+								/* }}} */
 								}
 								/* }}} */
 							}

@@ -258,10 +258,11 @@ test.addTest('Time ranges spanning midnight (maximum supported)', [
 
 test.addTest('Time ranges spanning midnight with open ened (maximum supported)', [
 		'Tu 23:59-40:00+',
+		// 'Tu 23:59-00:00 open, 24:00-40:00 open, 40:00+ open, 40:00+',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.02 23:59', '2012.10.03 16:00' ],
 		[ '2012.10.03 16:00', '2012.10.04 00:00', true,  'Specified as open end. Closing time was guessed.' ],
-	], 1000 * 60 * (16 * 60 + 1), 1000 * 60 * 60 * 8, true, {}, 'not last test');
+	], 1000 * 60 * (16 * 60 + 1), 1000 * 60 * 60 * 8, true, {}, 'not only test');
 // }}}
 
 // }}}
@@ -328,17 +329,36 @@ test.addTest('Open end', [
 		[ '2012.10.01 13:00', '2012.10.01 16:00' ],
 	], 1000 * 60 * 60 * (4 + 0.25), 1000 * 60 * 60 * 6, true, {}, 'not only test');
 
+/* To complicated, just don‘t use them … {{{ */
 test.addTest('Open end', [
-		'05:00-06:00,17:00+,13:00-02:00',
-		// FIXME: Harder to recognize because the time wrapping over
-		// midnight is stored in the next internal rule.
+		'17:00+,13:00-02:00; 02:00-03:00 closed "needed because of open end"',
+		'17:00+,13:00-02:00; 02:00-03:00 closed "needed because of open end"',
+		// '17:00-00:00 unknown "Specified as open end. Closing time was guessed.", 13:00-00:00 open' // First internal rule.
+		// + ', ' [> overwritten part: 00:00-03:00 open' <] + '00:00-02:00 open', // Second internal rule.
 	], '2012.10.01 0:00', '2012.10.02 5:00', [
 		[ '2012.10.01 00:00', '2012.10.01 02:00' ],
-		[ '2012.10.01 02:00', '2012.10.01 03:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2012.10.01 13:00', '2012.10.02 02:00' ],
+	], 1000 * 60 * 60 * (2 + 24 - 13 + 2), 0, true, {}, 'not only test');
+
+test.addTest('Open end', [
+		'13:00-17:00,17:00+',
+		'13:00-02:00,17:00+', // Do not use.
+		'13:00-17:00 open, 17:00+'
+	], '2012.10.01 0:00', '2012.10.02 5:00', [
+		[ '2012.10.01 00:00', '2012.10.01 03:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2012.10.01 13:00', '2012.10.01 17:00' ],
+		[ '2012.10.01 17:00', '2012.10.02 03:00', true,  'Specified as open end. Closing time was guessed.' ],
+	], 1000 * 60 * 60 * 4, 1000 * 60 * 60 * (3 + (3+4+3)), true, {}, 'not only test');
+
+test.addTest('Open end', [
+		// '05:00-06:00,17:00+,13:00-02:00',
+		// '05:00-06:00,13:00-02:00,17:00+',
+	], '2012.10.01 0:00', '2012.10.02 5:00', [
+		[ '2012.10.01 00:00', '2012.10.01 02:00' ],
 		[ '2012.10.01 05:00', '2012.10.01 06:00' ],
 		[ '2012.10.01 13:00', '2012.10.02 02:00' ],
-		// [ '2012.10.02 02:00', '2012.10.02 03:00', true,  'Specified as open end. Closing time was guessed.' ],
-	], 1000 * 60 * 60 * (2 + 1 + (24 - 13 + 2)), 1000 * 60 * 60 * 6, true, {}, 'not only test');
+	], 1000 * 60 * 60 * (2 + 1 + (24 - 13 + 2)), 0, true, {}, 'not only test');
+/* }}} */
 
 // proposal: opening hours open end fixed time extension {{{
 // http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_end_fixed_time_extension
