@@ -751,6 +751,8 @@ test.addTest('Variable days: school holidays', [
 		'SH,Su,PH',
 		'SH,PH,Su',
 		'PH,Su,SH',
+		ignored('SH,Sonn und Feiertag',  'prettifyValue'),
+		ignored('SH,Sonn und Feiertags',  'prettifyValue'),
 		ignored('SH,Sonn-/Feiertag',  'prettifyValue'),
 		ignored('SH,Sonn-/Feiertags', 'prettifyValue'),
 		ignored('SH und nur Sonn-/Feiertags', 'prettifyValue'),
