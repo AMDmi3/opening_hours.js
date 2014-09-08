@@ -1499,6 +1499,9 @@
 			}, 'Bitte verzichte auf "<ko>". Sie möchten eventuell eine Öffnungszeit ohne vorgegebenes Ende (Open End) angeben. Beispiel: "12:00+"': {
 				'ab':  '',
 				'von': '',
+			}, 'Es sieht so aus also möchten Sie zusätzliche Einschränkungen für eine Öffnungszeit geben. Falls sich dies nicht mit der Syntax ausdrücken lässt können Kommentare verwendet werden. Zusätzlich sollte eventuell das Schlüsselwort `open` benutzt werden. Bitte probiere "<ok>" für "<ko>".': {
+				'damen':  'open "Damen"',
+				'herren': 'open "Herren"',
 			}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>".': {
 				'bis':         '-',
 				'täglich':     'Mo-Su',
@@ -2315,7 +2318,7 @@
 								}
 								if (token_name != 'timevar') {
 									// Everything else than timevar:
-									// E.g. 'Mo' are start with a upper case letter.
+									// E.g. 'Mo' start with a upper case letter.
 									// It just looks better.
 									correct_abbr = correct_abbr.charAt(0).toUpperCase()
 										+ correct_abbr.slice(1);
