@@ -48,6 +48,9 @@ benchmark: opening_hours.js benchmark.js
 real_test: opening_hours.js real_test.js all-osm-tags
 	${NODE} real_test.js
 
+## See real_test.js
+real_test-stats: clean real_test real_test.opening_hours.stats.csv
+
 .PHONY : regex_search
 regex_search: export.$(SEARCH).json interactive_testing.js
 	./regex_search.py $<

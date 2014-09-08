@@ -30,6 +30,7 @@
         "real_test.js",
         "test.js",
         "test.log"
+        ".gitignore"
     ],
     "directories": {
         "doc": "./doc"
