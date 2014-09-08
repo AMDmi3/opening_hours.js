@@ -2015,8 +2015,7 @@
 						comment: selectors.comment,
 
 						wrapped: true,
-						// build_from_token_rule: selectors.build_from_token_rule,
-						// Not (yet) needed.
+						build_from_token_rule: selectors.build_from_token_rule,
 					};
 
 					for (var dselg = 0; dselg < selectors.date.length; dselg++) {
