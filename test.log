@@ -578,8 +578,34 @@ With [1m[34mwarnings[39m[22m:
 "Constrained weekdays" for "We[4],We[5] 10:00-12:00": [1m[32mPASSED[39m[22m
 "Constrained weekdays" for "We[4] 10:00-12:00; We[-1] 10:00-12:00": [1m[32mPASSED[39m[22m
 "Constrained weekdays" for "We[-1,-2] 10:00-12:00": [1m[32mPASSED[39m[22m
-"Calculations based on constrained weekdays" for "Sa[-1] +3 days 10:00-12:00": [1m[32mPASSED[39m[22m
-"Calculations based on constrained weekdays" for "Sa[-1] +3 day 10:00-12:00": [1m[32mPASSED[39m[22m
+"Calculations based on constrained weekdays" for "Sa[-1] +3 days 10:00-12:00": [1m[31mFAILED[39m[22m, bad intervals: 
+[ '2013.09.01 10:00', '2013.09.01 12:00', false, undefined ],
+[ '2013.10.01 10:00', '2013.10.01 12:00', false, undefined ],
+[ '2013.10.29 10:00', '2013.10.29 12:00', false, undefined ],
+[ '2013.12.03 10:00', '2013.12.03 12:00', false, undefined ],
+[ '2013.12.31 10:00', '2013.12.31 12:00', false, undefined ],
+[ '2014.01.28 10:00', '2014.01.28 12:00', false, undefined ],
+expected:
+[ '2013.09.03 10:00', '2013.09.03 12:00', false, undefined ],
+[ '2013.10.01 10:00', '2013.10.01 12:00', false, undefined ],
+[ '2013.10.29 10:00', '2013.10.29 12:00', false, undefined ],
+[ '2013.12.03 10:00', '2013.12.03 12:00', false, undefined ],
+[ '2013.12.31 10:00', '2013.12.31 12:00', false, undefined ],
+[ '2014.01.28 10:00', '2014.01.28 12:00', false, undefined ],
+"Calculations based on constrained weekdays" for "Sa[-1] +3 day 10:00-12:00": [1m[31mFAILED[39m[22m, bad intervals: 
+[ '2013.09.01 10:00', '2013.09.01 12:00', false, undefined ],
+[ '2013.10.01 10:00', '2013.10.01 12:00', false, undefined ],
+[ '2013.10.29 10:00', '2013.10.29 12:00', false, undefined ],
+[ '2013.12.03 10:00', '2013.12.03 12:00', false, undefined ],
+[ '2013.12.31 10:00', '2013.12.31 12:00', false, undefined ],
+[ '2014.01.28 10:00', '2014.01.28 12:00', false, undefined ],
+expected:
+[ '2013.09.03 10:00', '2013.09.03 12:00', false, undefined ],
+[ '2013.10.01 10:00', '2013.10.01 12:00', false, undefined ],
+[ '2013.10.29 10:00', '2013.10.29 12:00', false, undefined ],
+[ '2013.12.03 10:00', '2013.12.03 12:00', false, undefined ],
+[ '2013.12.31 10:00', '2013.12.31 12:00', false, undefined ],
+[ '2014.01.28 10:00', '2014.01.28 12:00', false, undefined ],
 "Calculations based on constrained weekdays: last weekend in month" for "Sa[-1],Sa[-1] +1 day 10:00-12:00": [1m[32mPASSED[39m[22m
 "Calculations based on constrained weekdays: last weekend in month" for "Sa[-1],Sa[-1] +1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1799,7 +1825,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-715/723 tests passed.
+713/723 tests passed.
 34 tests where (partly) ignored, sorted by commonness:
 * 19: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

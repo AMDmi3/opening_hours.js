@@ -883,16 +883,17 @@ test.addTest('Constrained weekdays', [
 	], 1000 * 60 * 60 * 2 * 2, 0, false);
 
 test.addTest('Calculations based on constrained weekdays', [
+		// FIXME
 		'Sa[-1] +3 days 10:00-12:00',
-		'Sa[-1] +3 day 10:00-12:00', // 3 day is bad English but our library does tread them as synonym
+		'Sa[-1] +3 day 10:00-12:00', // 3 day is bad English but our library does tread them as synonym, but oh.prettifyValue fixes this of course ;)
 	], '2013.08.21 0:00', '2014.02.01 0:00', [
-		[ '2013.09.01 10:00', '2013.09.01 12:00' ],
+		[ '2013.09.03 10:00', '2013.09.03 12:00' ],
 		[ '2013.10.01 10:00', '2013.10.01 12:00' ],
 		[ '2013.10.29 10:00', '2013.10.29 12:00' ],
 		[ '2013.12.03 10:00', '2013.12.03 12:00' ],
 		[ '2013.12.31 10:00', '2013.12.31 12:00' ],
 		[ '2014.01.28 10:00', '2014.01.28 12:00' ],
-	], 1000 * 60 * 60 * 2 * 6, 0, false, {}, 'not last test');
+	], 1000 * 60 * 60 * 2 * 6, 0, false, {}, 'not only test');
 
 test.addTest('Calculations based on constrained weekdays: last weekend in month', [
 		'Sa[-1],Sa[-1] +1 day 10:00-12:00',
