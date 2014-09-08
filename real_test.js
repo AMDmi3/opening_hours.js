@@ -1,5 +1,19 @@
 #!/usr/bin/env node
 
+/*
+ * Additional features:
+ *   * Can log all values and if they could be evaluated or not to a log file
+ *   to compare versions.  Just `touch real_test.opening_hours.log` to generate
+ *   this for the tag opening_hours.
+ *
+ *   * Can write out statistics to compare the number of values and how many
+ *   could be parsed.  Just `touch real_test.opening_hours.stats.csv` to
+ *   generate this for the tag opening_hours.
+ *
+ *   * You can restrict the tags which should be parsed. Just specify them as
+ *   parameter.
+ */
+
 /* Required modules {{{ */
 var opening_hours = require('./opening_hours.js');
 var fs = require('fs');
@@ -41,6 +55,8 @@ test.exported_json('fee', { ignore: [ 'yes', 'no', 'interval', 'unknown' ]});
 
 /* Test framework {{{ */
 function opening_hours_test() {
+	var args = process.argv.splice(2);
+
 	// var percent_number_format     = '%04.1f %%';
 	// Looks kind of unusual.
 	var percent_number_format            = '%.1f %%';
@@ -54,6 +70,11 @@ function opening_hours_test() {
 
 
 	this.exported_json = function (tagname /* file exported by the taginfo API */, options) {
+		if (args.length > 0) {
+			if (args.indexOf(tagname) === -1)
+				return;
+		}
+
 		var how_often_print_stats = 15000;
 		var importance_threshold  = 30;
 		var global_ignore = [ 'fixme', 'FIXME' ];
@@ -105,7 +126,7 @@ function opening_hours_test() {
 					if (result[0]) {
 						success_differ++;
 						success += data.data[i].count;
-						warnings_differ = !!result[1];
+						warnings_differ += !!result[1];
 						warnings += data.data[i].count * !!result[1];
 						not_pretty += result[2];
 						not_pretty_differ += data.data[i].count * result[2];
@@ -147,9 +168,41 @@ function opening_hours_test() {
 					/* Ignore */
 				}
 				fs.writeFile('real_test.' + tagname + '.log', logfile_out_string, function(err) {
-					if (err)
-					throw(err);
-				});
+						if (err)
+							throw(err);
+					}
+				);
+			}
+			if (fs.existsSync('real_test.' + tagname + '.stats.csv')) {
+				if (fs.statSync('real_test.' + tagname + '.stats.csv').size === 0) {
+					fs.appendFile(
+						'real_test.' + tagname + '.stats.csv',
+						[
+							"Time",
+							"Number of values", "Number of different values",
+							"Number of values which could be parsed", "Number of different values which could be parsed",
+							"Number of values which returned a warning", "Number of different values which returned a warning",
+							"Number of values which are not prettified", "Number of different values which are not prettified",
+						].join(', ') + '\n',
+						function(err) {
+							if (err)
+								throw(err);
+						}
+					);
+				}
+				fs.appendFile(
+					'real_test.' + tagname + '.stats.csv',
+					new Date().toISOString() + ', ' + [
+						total, total_differ,
+						success, success_differ,
+						warnings, warnings_differ,
+						not_pretty, not_pretty_differ
+					].join(', ') + '\n',
+					function(err) {
+						if (err)
+							throw(err);
+					}
+				);
 			}
 		});
 	};
@@ -187,7 +240,7 @@ function opening_hours_test() {
 
 	function get_percent(passing_values, parsed_values) {
 		return sprintf('%6s', sprintf(percent_number_format, passing_values / parsed_values * 100)).result;
-        /* "100.0 %" would be 7 characters long, but that does not happen to often. */
+		/* "100.0 %" would be 7 characters long, but that does not happen to often. */
 	}
 
 	function test_value(value, oh_mode) {
