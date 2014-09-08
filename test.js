@@ -753,6 +753,7 @@ test.addTest('Variable days: school holidays', [
 		'PH,Su,SH',
 		ignored('SH,Sonn und Feiertag',  'prettifyValue'),
 		ignored('SH,Sonn und Feiertags',  'prettifyValue'),
+		ignored('SH,Sonn- und Feiertage',  'prettifyValue'),
 		ignored('SH,Sonn-/Feiertag',  'prettifyValue'),
 		ignored('SH,Sonn-/Feiertags', 'prettifyValue'),
 		ignored('SH und nur Sonn-/Feiertags', 'prettifyValue'),
@@ -1953,6 +1954,16 @@ test.addTest('Real world example: Was not processed right (month range/monthday 
 // http://www.openstreetmap.org/node/305737670
 test.addTest('Real world example: Was not processed right (month range/monthday range)', [
 		// 'Tu-Th 12:00-14:00; SH off; Mo-Sa 18:00+'
+	], '2014.01.01 0:00', '2015.01.01 0:00', [
+		[ '2014.01.01 00:00', '2014.04.20 00:00' ],
+		[ '2014.08.01 00:00', '2014.09.01 00:00' ],
+		[ '2014.12.25 00:00', '2015.01.01 00:00' ],
+	], 1000 * 60 * 60 * (24 * ((31 + 28 + 31 + 19) + 31 + 7)  -1), 0, false, {}, 'not last test');
+
+// http://www.openstreetmap.org/node/863426086
+// Could be tricky because of overwriting and wrapping over midnight.
+test.addTest('Real world example: Was not processed right (month range/monthday range)', [
+		// 'Mo-Sa 17:15-01:00, PH,Su 17:15-24:00'
 	], '2014.01.01 0:00', '2015.01.01 0:00', [
 		[ '2014.01.01 00:00', '2014.04.20 00:00' ],
 		[ '2014.08.01 00:00', '2014.09.01 00:00' ],
