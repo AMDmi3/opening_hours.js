@@ -1950,6 +1950,15 @@ test.addTest('Real world example: Was not processed right (month range/monthday 
 		[ '2014.12.25 00:00', '2015.01.01 00:00' ],
 	], 1000 * 60 * 60 * (24 * ((31 + 28 + 31 + 19) + 31 + 7)  -1), 0, false, {}, 'not last test');
 
+// http://www.openstreetmap.org/node/305737670
+test.addTest('Real world example: Was not processed right (month range/monthday range)', [
+		// 'Tu-Th 12:00-14:00; SH off; Mo-Sa 18:00+'
+	], '2014.01.01 0:00', '2015.01.01 0:00', [
+		[ '2014.01.01 00:00', '2014.04.20 00:00' ],
+		[ '2014.08.01 00:00', '2014.09.01 00:00' ],
+		[ '2014.12.25 00:00', '2015.01.01 00:00' ],
+	], 1000 * 60 * 60 * (24 * ((31 + 28 + 31 + 19) + 31 + 7)  -1), 0, false, {}, 'not last test');
+
 // http://www.openstreetmap.org/node/1754337209/history
 test.addTest('Real world example: Was not processed right (month range/monthday range)', [
 		// 'Jun 15-Sep 15: Th-Su 16:00-19:00; Sep 16-Dec 31: Sa,Su 16:00-19:00; Jan-Mar off; Dec 25-easter off'
@@ -2789,6 +2798,8 @@ test.addTest('Error tolerance: weekdays, months in different languages', [
 
 test.addTest('Error tolerance: Full range', [
 		'Mo-Su',       // reference value for prettify
+		'Montag-Sonntag',
+		'monday-sunday',
 		'daily',
 		'everyday',
 		'every day',

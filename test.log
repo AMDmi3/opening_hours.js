@@ -1105,6 +1105,16 @@ With [1m[34mwarnings[39m[22m:
 "Error tolerance: Full range" for "Mo-Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Su <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Error tolerance: Full range" for "Montag-Sonntag": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Montag <--- (Bitte benutze die englische Abkürzung "Mo" für "montag".)
+	*Montag-Sonntag <--- (Bitte benutze die englische Abkürzung "Su" für "sonntag".)
+	*Montag-Sonntag <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Error tolerance: Full range" for "monday-sunday": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*monday <--- (Please use the abbreviation "Mo" for "monday".)
+	*monday-sunday <--- (Please use the abbreviation "Su" for "sunday".)
+	*monday-sunday <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "daily": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*daily <--- (Please use notation "Mo-Su" for "daily".)
@@ -1836,7 +1846,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-716/725 tests passed.
+718/727 tests passed.
 36 tests where (partly) ignored, sorted by commonness:
 * 21: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
