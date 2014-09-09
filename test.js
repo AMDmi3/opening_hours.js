@@ -1943,32 +1943,56 @@ test.addTest('Real world example: Was not processed right (month range/monthday 
 	], 1000 * 60 * 60 * (24 * ((31 + 28 + 31 + 19) + 31 + 7)  -1), 0, false, {}, 'not last test');
 
 // http://www.openstreetmap.org/node/2554317486
-test.addTest('Real world example: Was not processed right (month range/monthday range)', [
-		// 'Nov-Mar Mo-Fr 11:30-17:00, Mo-Su 17:00-01:00'
-	], '2014.01.01 0:00', '2015.01.01 0:00', [
-		[ '2014.01.01 00:00', '2014.04.20 00:00' ],
-		[ '2014.08.01 00:00', '2014.09.01 00:00' ],
-		[ '2014.12.25 00:00', '2015.01.01 00:00' ],
-	], 1000 * 60 * 60 * (24 * ((31 + 28 + 31 + 19) + 31 + 7)  -1), 0, false, {}, 'not last test');
+test.addTest('Real world example: Was processed right (month range/monthday range with additional rule)', [
+		'Nov-Mar Mo-Fr 11:30-17:00, Mo-Su 17:00-01:00'
+	], '2015.03.20 0:00', '2015.04.10 0:00', [
+		[ '2015.03.20 00:00', '2015.03.20 01:00' ], // Fr
+		[ '2015.03.20 11:30', '2015.03.21 01:00' ], // Fr
+		[ '2015.03.21 17:00', '2015.03.22 01:00' ], // Sa
+		[ '2015.03.22 17:00', '2015.03.23 01:00' ], // Su
+		[ '2015.03.23 11:30', '2015.03.24 01:00' ], // Mo
+		[ '2015.03.24 11:30', '2015.03.25 01:00' ],
+		[ '2015.03.25 11:30', '2015.03.26 01:00' ],
+		[ '2015.03.26 11:30', '2015.03.27 01:00' ],
+		[ '2015.03.27 11:30', '2015.03.28 01:00' ],
+		[ '2015.03.28 17:00', '2015.03.29 01:00' ], // Sa
+		[ '2015.03.29 17:00', '2015.03.30 01:00' ], // Su
+		[ '2015.03.30 11:30', '2015.03.31 01:00' ], // Mo
+		[ '2015.03.31 11:30', '2015.04.01 01:00' ], // Tu
+		[ '2015.04.01 17:00', '2015.04.02 01:00' ], // We
+		[ '2015.04.02 17:00', '2015.04.03 01:00' ], // Th
+		[ '2015.04.03 17:00', '2015.04.04 01:00' ], // Fr
+		[ '2015.04.04 17:00', '2015.04.05 01:00' ], // Sa
+		[ '2015.04.05 17:00', '2015.04.06 01:00' ], // Su
+		[ '2015.04.06 17:00', '2015.04.07 01:00' ],
+		[ '2015.04.07 17:00', '2015.04.08 01:00' ],
+		[ '2015.04.08 17:00', '2015.04.09 01:00' ],
+		[ '2015.04.09 17:00', '2015.04.10 00:00' ], // Th
+	], 1000 * 60 * 60 * (1 + (24 - 11.5 + 1) * 8 + (24 - 17 + 1) * 13 - 1), 0, false, {}, 'not only test');
 
 // http://www.openstreetmap.org/node/305737670
 test.addTest('Real world example: Was not processed right (month range/monthday range)', [
-		// 'Tu-Th 12:00-14:00; SH off; Mo-Sa 18:00+'
-	], '2014.01.01 0:00', '2015.01.01 0:00', [
-		[ '2014.01.01 00:00', '2014.04.20 00:00' ],
-		[ '2014.08.01 00:00', '2014.09.01 00:00' ],
-		[ '2014.12.25 00:00', '2015.01.01 00:00' ],
-	], 1000 * 60 * 60 * (24 * ((31 + 28 + 31 + 19) + 31 + 7)  -1), 0, false, {}, 'not last test');
+		'Tu-Th 12:00-14:00; SH off; Mo-Sa 18:00+',
+		// 'SH off; Mo-Sa 18:00+',
+	], '2014.09.01 0:00', '2014.09.21 0:00', [
+	], 1000 * 60 * 60 * (24 * ((31 + 28 + 31 + 19) + 31 + 7)  -1), 0, false, nominatiomTestJSON, 'not only test');
 
 // http://www.openstreetmap.org/node/863426086
 // Could be tricky because of overwriting and wrapping over midnight.
-test.addTest('Real world example: Was not processed right (month range/monthday range)', [
-		// 'Mo-Sa 17:15-01:00, PH,Su 17:15-24:00'
-	], '2014.01.01 0:00', '2015.01.01 0:00', [
-		[ '2014.01.01 00:00', '2014.04.20 00:00' ],
-		[ '2014.08.01 00:00', '2014.09.01 00:00' ],
-		[ '2014.12.25 00:00', '2015.01.01 00:00' ],
-	], 1000 * 60 * 60 * (24 * ((31 + 28 + 31 + 19) + 31 + 7)  -1), 0, false, {}, 'not last test');
+test.addTest('Real world example: Was processed right (month range/monthday range)', [
+		'Mo-Sa 17:15-01:00, PH,Su 17:15-24:00'
+	], '2014.10.01 0:00', '2014.10.05 0:00', [
+		[ '2014.10.01 00:00', '2014.10.01 01:00' ], // We
+		[ '2014.10.01 17:15', '2014.10.02 01:00' ], // We
+		[ '2014.10.02 17:15', '2014.10.03 00:00' ], // Th
+		[ '2014.10.03 00:00', '2014.10.03 01:00', false, 'Tag der Deutschen Einheit' ], // Fr
+		/* Fr is public holiday, but 00:00-01:00 is not covered by the second
+		 * rule. The way this is evaluated is acceptable.
+		 */
+		[ '2014.10.03 17:15', '2014.10.04 00:00', false, 'Tag der Deutschen Einheit' ], // Fr
+		[ '2014.10.04 00:00', '2014.10.04 01:00' ], // Sa
+		[ '2014.10.04 17:15', '2014.10.05 00:00' ], // Sa
+	], 1000 * 60 * 60 * (1 + (24 - 17.25 + 1) * 4  - 1), 0, false, nominatiomTestJSON, 'not only test');
 
 // http://www.openstreetmap.org/node/1754337209/history
 test.addTest('Real world example: Was not processed right (month range/monthday range)', [
