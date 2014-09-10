@@ -542,11 +542,13 @@ This library is used by the following projects:
 * [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours) (old version of this library)
 * [pyopening\_hours][] (python module for opening_hours.js)
 * [opening_hours_server.js][] (A little server answering query‘s for opening_hours and check if they can be evaluated)
+* [opening_hours-statistics][] (Visualization of the data quality and grow over time)
 * [www.openstreetmap.hu](http://www.openstreetmap.hu/) (old version of this library, see also https://github.com/AMDmi3/opening_hours.js/issues/19)
 
 [opening\_hours\_map]: https://github.com/ypid/opening_hours_map
 [pyopening\_hours]: https://github.com/ypid/pyopening_hours
 [opening_hours_server.js]: https://github.com/ypid/opening_hours_server.js
+[opening_hours-statistics]: https://github.com/ypid/opening_hours-statistics
 
 If you use this libary please let me know …
 
