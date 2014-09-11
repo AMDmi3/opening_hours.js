@@ -190,9 +190,13 @@ function opening_hours_test() {
 						}
 					);
 				}
+				var current_dump_creation_time = get_dump_creation_time_from_file('taginfo_sources.json');
+				if (typeof current_dump_creation_time != 'object') {
+				    throw('dump creation time is unknown.');
+				}
 				fs.appendFile(
 					'real_test.' + tagname + '.stats.csv',
-					new Date().toISOString() + ', ' + [
+					current_dump_creation_time.toISOString() + ', ' + [
 						total, total_differ,
 						success, success_differ,
 						warnings, warnings_differ,
@@ -289,6 +293,20 @@ function opening_hours_test() {
 		}
 
 		return indexOf.call(this, needle);
-	} /* }}} */
+	}
+
+	function get_dump_creation_time_from_file(file) {
+		try {
+			var data = JSON.parse(fs.readFileSync(file, 'utf8'));
+			for (var i = 0; i < data.length; i++) {
+				if (data[i].name == 'Database') {
+					return new Date(data[i].data_until);
+				}
+			}
+		} catch (err) {
+			return;
+		}
+	}
+	/* }}} */
 }
 /* }}} */

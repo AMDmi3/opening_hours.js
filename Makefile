@@ -49,7 +49,10 @@ real_test: opening_hours.js real_test.js all-osm-tags
 	${NODE} real_test.js
 
 ## See real_test.js
-real_test-stats: clean real_test real_test.opening_hours.stats.csv
+real_test-stats: real_test.opening_hours.stats.csv
+	${NODE} check_for_new_taginfo_data.js
+	make clean
+	make real_test
 
 .PHONY : regex_search
 regex_search: export.$(SEARCH).json interactive_testing.js
