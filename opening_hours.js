@@ -2418,7 +2418,7 @@
 									+ (selector_type.match(/^(?:month|weekday)$/) ? 's' : ' ranges')
 									+ ' in one rule.'
 									+ ' This is probably an error.'
-									+ ' Equal selector types can (and should) always be written in conjunction separated by comma or something.'
+									+ ' Equal selector types can (and should) always be written in conjunction separated by comma.'
 									+ ' Example for time ranges "12:00-13:00,15:00-18:00".'
 									+ ' Example for weekdays "Mo-We,Fr".'
 								  )
