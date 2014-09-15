@@ -1404,6 +1404,7 @@
 			}, 'You can use notation "<ok>" for "<ko>" in the case that you want to express open end times. Example: "12:00+".': {
 				'til late': '+',
 				'till late': '+',
+				'bis open end': '+',
 				'-late': '+',
 				'-open end': '+',
 				'-openend': '+',
@@ -2140,7 +2141,7 @@
 					// special day name (holidays)
 					curr_rule_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
 					value = value.substr(2);
-				} else if (tmp = value.match(/^(&|_|→|–|−|=|·|opening_hours=|ー|\?|~|～|：|°°|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|-?(?:(?:till? )?late|open[ ]?end)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|on work days?|sonntag?|(?:nur |an )?sonn-?(?:(?: und |\/)feiertag(?:s|en?)?)?|[a-zäößàáéøčěíúýřПнВсо]+\b|à|á|mo|tu|we|th|fr|sa|su|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|→|–|−|=|·|opening_hours=|ー|\?|~|～|：|°°|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|(?:|-|till? |bis )?(?:late|open[ ]?end)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|on work days?|sonntag?|(?:nur |an )?sonn-?(?:(?: und |\/)feiertag(?:s|en?)?)?|[a-zäößàáéøčěíúýřПнВсо]+\b|à|á|mo|tu|we|th|fr|sa|su|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\.?/i)) {
 					/* Handle all remaining words and specific other characters with error tolerance.
 					 *
 					 * à|á: Word boundary does not work with unicode chars: 'test à test'.match(/\bà\b/i)

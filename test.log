@@ -201,6 +201,9 @@ With [1m[34mwarnings[39m[22m:
 "Open end" for "17:00 till late": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*17:00 till late <--- (You can use notation "+" for "till late" in the case that you want to express open end times. Example: "12:00+".)
+"Open end" for "17:00 bis Open End": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*17:00 bis Open End <--- (You can use notation "+" for "bis open end" in the case that you want to express open end times. Example: "12:00+".)
 "Open end" for "17:00-open end": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*17:00-open end <--- (You can use notation "+" for "-open end" in the case that you want to express open end times. Example: "12:00+".)
@@ -1874,7 +1877,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-721/731 tests passed.
+722/732 tests passed.
 37 tests where (partly) ignored, sorted by commonness:
 * 22: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

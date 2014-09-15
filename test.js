@@ -280,6 +280,7 @@ test.addTest('Open end', [
 		'17:00-late',
 		'17:00 til late',
 		'17:00 till late',
+		'17:00 bis Open End',
 		'17:00-open end',
 		'17:00-openend',
 		'17:00+; 15:00-16:00 off',
@@ -1974,6 +1975,7 @@ test.addTest('Real world example: Was processed right (month range/monthday rang
 test.addTest('Real world example: Was not processed right (month range/monthday range)', [
 		'Tu-Th 12:00-14:00; SH off; Mo-Sa 18:00+',
 		// 'SH off; Mo-Sa 18:00+',
+		// 'SH off'
 	], '2014.09.01 0:00', '2014.09.21 0:00', [
 	], 1000 * 60 * 60 * (24 * ((31 + 28 + 31 + 19) + 31 + 7)  -1), 0, false, nominatiomTestJSON, 'not only test');
 
