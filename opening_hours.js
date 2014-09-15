@@ -1510,6 +1510,7 @@
 				'schulferien': 'SH',
 				'sonn und feiertag':   'PH,Su',
 				'sonn und feiertags':  'PH,Su',
+				'sonn- und feiertags': 'PH,Su',
 				'sonn-/feiertag':      'PH,Su',
 				'sonn-/feiertags':     'PH,Su',
 				'an sonn- und feiertagen': 'PH,Su',
