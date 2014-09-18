@@ -592,7 +592,7 @@ You can contribute in the usual manner as known from git (and GitHub). Just fork
 
 This project uses http://i18next.com/ for translation.
 
-Translations can be made in the file [js/i18n-resources.js][ohlib.js/i18n-resources.js]. Just copy the whole English block, change the language code to the one you are adding and make your translation. You can open the [demo.html](/demo.html) to see the result of your work. To complete your localization add the translated language name to the other languages.
+Translations can be made in the file [js/i18n-resources.js][ohlib.js/i18n-resources.js]. Just copy the whole English block, change the language code to the one you are adding and make your translation. You can open the [demo.html](/demo.html) to see the result of your work. To complete your localization add the translated language name to the other languages. Week and month names are translatated by [moment.js][moment-lib].
 
 Note that this resource file does also provide the localization for the [opening\_hours\_map][]. This can also be tested by cloning the project and linking your modified opening_hours.js working copy to the opening_hours.js directory (after renaming it) inside the opening_hours_map project. Or just follow the installation instructions from the [opening\_hours\_map][].
 
@@ -704,6 +704,8 @@ Edit: This does also work on npmjs in this short version … -->
 [ohlib.js/i18n-resources.js]: /js/i18n-resources.js
 [ohlib.npmjs]: https://www.npmjs.org/package/opening_hours
 [ohlib.convert-ical-to-json]: /convert_ical_to_json
+
+[moment-lib]: http://momentjs.com/
 
 [evaluation tool]: http://openingh.openstreetmap.de/evaluation_tool/
 
