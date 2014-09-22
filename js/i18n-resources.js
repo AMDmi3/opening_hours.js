@@ -735,7 +735,7 @@ var resources = { // English is fallback language.
             },
             "texts": {
                 "filter": {
-                    "none": "Do not apply any filters",
+                    "none": "не використовувати фільтрів",
                     "error": "про помилки і зауваження",
                     "warnOnly": "Тільки попередження",
                     "errorOnly": "Тільки помилки",
