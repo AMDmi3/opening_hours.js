@@ -1498,6 +1498,7 @@
 				'geöffnet': '',
 				'zwischen': '',
 				'ist': '',
+				'durchgehend': '',
 			}, 'Bitte verzichte auf "<ko>". Sie möchten eventuell eine Öffnungszeit ohne vorgegebenes Ende (Open End) angeben. Beispiel: "12:00+"': {
 				'ab':  '',
 				'von': '',

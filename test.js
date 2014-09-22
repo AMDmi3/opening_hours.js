@@ -2974,6 +2974,8 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		// 'open' + value_suffix + ',', // Might be possible that there is
 		// something missing. "," is not only used as
 		// <additional_rule_separator>  …
+		// 'Mo 12:00-14:00 und nach Vereinbarung' // Not easily correctable
+		// because of the way error tolerance is implemented.
 	], {}, 'not only test');
 // }}}
 
