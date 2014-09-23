@@ -36,6 +36,8 @@ var test = new opening_hours_test();
 
 test.exported_json('opening_hours');
 
+test.exported_json('happy_hours');
+
 test.exported_json('lit', { ignore: [ 'yes', 'no', 'on', 'automatic', 'interval', 'limited' ]});
 
 test.exported_json('opening_hours:kitchen', { ignore: [ 'opening_hours' ]});
