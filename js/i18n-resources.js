@@ -424,6 +424,10 @@ var resources = { // English is fallback language.
                 "warn error": "об ошибках и предупреждения",
             },
             "words": {
+                "green": "зелёный",
+                "yellow": "жёлтый",
+                "red": "красный",
+                "violet" "фиолетовый",
                 "to": "до",
                 "and": "и",
                 "no": "Нет",
