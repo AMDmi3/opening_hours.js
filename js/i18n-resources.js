@@ -427,7 +427,7 @@ var resources = { // English is fallback language.
                 "green": "зелёный",
                 "yellow": "жёлтый",
                 "red": "красный",
-                "violet" "фиолетовый",
+                "violet": "фиолетовый",
                 "to": "до",
                 "and": "и",
                 "no": "Нет",
