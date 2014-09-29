@@ -3124,7 +3124,7 @@
 
 			for (; at < tokens.length; at++) {
 				var has_time_var_calc = [], has_normal_time = []; // element 0: start time, 1: end time
-					has_normal_time[0] = matchTokens(tokens, at, 'number', 'timesep', 'number');
+					has_normal_time[0]   = matchTokens(tokens, at, 'number', 'timesep', 'number');
 					has_time_var_calc[0] = matchTokens(tokens, at, '(', 'timevar');
 				var minutes_from,
 					minutes_to;
@@ -4678,11 +4678,14 @@
 
 			var date_matching_rules = [];
 
+			/* Go though all date selectors and check if they return something
+			 * else than closed for the given date.
+			 */
 			for (var nrule = 0; nrule < rules.length; nrule++) {
 				var matching_date_rule = true;
 				// console.log(nrule, 'length',  rules[nrule].date.length);
 
-				// Try each date selector type
+				/* Try each date selector type. */
 				for (var ndateselector = 0; ndateselector < rules[nrule].date.length; ndateselector++) {
 					var dateselectors = rules[nrule].date[ndateselector];
 					// console.log(nrule, ndateselector);
@@ -4694,7 +4697,7 @@
 							has_matching_selector = true;
 
 							if (typeof res[2] == 'string') { // holiday name
-								comment = [ res[2] ];
+								comment = [ res[2], nrule ];
 							}
 
 						}
@@ -4711,15 +4714,15 @@
 						// are checked first.
 						break;
 					}
-
 				}
 
 				if (matching_date_rule) {
-					// The following lines implement date overwriting logic (e.g. for
-					// "Mo-Fr 10:00-20:00; We 10:00-16:00", We rule overrides Mo-Fr rule partly (We).
-					//
-					// This is the only way to be consistent. I thought about ("22:00-02:00; Tu 12:00-14:00") letting Th override 22:00-02:00 partly:
-					// Like: Th 00:00-02:00,12:00-14:00 but this would result in including 22:00-00:00 for Th which is probably not what you want.
+					/* The following lines implement date overwriting logic (e.g. for
+					 * "Mo-Fr 10:00-20:00; We 10:00-16:00", We rule overrides Mo-Fr rule partly (We).
+					 *
+					 * This is the only way to be consistent. I thought about ("22:00-02:00; Tu 12:00-14:00") letting Th override 22:00-02:00 partly:
+					 * Like: Th 00:00-02:00,12:00-14:00 but this would result in including 22:00-00:00 for Th which is probably not what you want.
+					 */
 					if ((rules[nrule].date.length > 0 || nrule > 0 && rules[nrule].meaning && rules[nrule-1].date.length === 0)
 							&& (rules[nrule].meaning || rules[nrule].unknown)
 							&& !rules[nrule].wrapped && !rules[nrule].additional && !rules[nrule].fallback
@@ -4736,6 +4739,7 @@
 				}
 			}
 
+			// console.log(date_matching_rules);
 			rule:
 			for (var nrule = 0; nrule < date_matching_rules.length; nrule++) {
 				var rule = date_matching_rules[nrule];
@@ -4743,18 +4747,13 @@
 				// console.log('Processing rule ' + rule + ': with date ' + date
 					// + ' and ' + rules[rule].time.length + ' time selectors (comment: "' + rules[rule].comment + '").');
 
-				// there is no time specified, state applies to the whole day
+				/* There is no time specified, state applies to the whole day. */
 				if (rules[rule].time.length === 0) {
 					// console.log('there is no time', date);
 					if (!rules[rule].fallback || (rules[rule].fallback && !(resultstate || unknown))) {
 						resultstate = rules[rule].meaning;
 						unknown     = rules[rule].unknown;
-						match_rule = rule;
-
-						if (typeof rules[rule].comment != 'undefined')
-							comment     = rules[rule].comment;
-						else if (typeof comment == 'object') // holiday name
-							comment = comment[0];
+						match_rule  = rule;
 
 						// if (rules[rule].fallback)
 							// break rule; // fallback rule matched, no need for checking the rest
@@ -4772,17 +4771,13 @@
 							unknown     = rules[rule].unknown;
 							match_rule  = rule;
 
-							if (typeof rules[rule].comment == 'string') // only use comment if one is specified
-								comment     = rules[rule].comment;
-							else if (typeof comment == 'object') // holiday name
-								comment = comment[0];
-							else if (comment === 'Specified as open end. Closing time was guessed.')
-								comment = rules[rule].comment;
+							/* Reset open end comment */
+							if (typeof comment == 'object' && comment[0] === 'Specified as open end. Closing time was guessed.')
+								comment = undefined;
 
 							// open end
 							if (res[2] === true && (resultstate || unknown)) {
-								if (typeof comment == 'undefined')
-									comment = 'Specified as open end. Closing time was guessed.';
+								comment = [ 'Specified as open end. Closing time was guessed.', match_rule ];
 
 								resultstate = false;
 								unknown     = true;
@@ -4796,7 +4791,7 @@
 										&& typeof next_res[1] == 'object'
 										// && getValueForDate(next_res[1], true) != getValueForDate(date, true) // Just to be sure.
 										&& rules[rule].time[timesel](new Date(date.getTime() - 1))[0]
-										/* To keep the following two apart:
+										/* To distinguish the following two values:
 										 *	 'sunrise-14:00,14:00+',
 										 *   '07:00+,12:00-16:00',
 										 */
@@ -4829,8 +4824,8 @@
 									// console.log(last_w_res);
 
 									if (    last_w_res[0]
-											&& typeof last_w_res[2] == 'undefined'
-											&& (typeof last_w_res[2] == 'undefined' || last_w_res[2] === false) // Not match for 'Tu 23:59-40:00+'
+											&&  typeof last_w_res[2] == 'undefined'
+											&& (typeof last_w_res[2] == 'undefined' || last_w_res[2] === false) // Do not match for 'Tu 23:59-40:00+'
 											&&  typeof last_w_res[1] == 'object'
 											&& date.getTime() == last_w_res[1].getTime()
 										) {
@@ -4859,6 +4854,17 @@
 					}
 					if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate))
 						changedate = res[1];
+				}
+			}
+
+			if (typeof rules[match_rule] == 'object' && typeof rules[match_rule].comment == 'string') {
+				/* Only use comment if one is explicitly specified. */
+				comment = rules[match_rule].comment;
+			} else if (typeof comment == 'object') {
+				if (comment[1] === match_rule) {
+					comment = comment[0];
+				} else {
+					comment = undefined;
 				}
 			}
 

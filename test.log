@@ -1003,28 +1003,8 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*Aug,Dec 25-easter <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Real world example: Was processed right (month range/monthday range with additional rule)" for "Nov-Mar Mo-Fr 11:30-17:00, Mo-Su 17:00-01:00": [1m[32mPASSED[39m[22m
-"Real world example: Was not processed right (month range/monthday range)" for "Tu-Th 12:00-14:00; SH off; Mo-Sa 18:00+": [1m[31mFAILED[39m[22m, bad duration(s): 0,633600000, expected 12697200000,0, bad intervals: 
-[ '2014.09.01 18:00', '2014.09.02 04:00', true,  'Sommerferien' ],
-[ '2014.09.02 18:00', '2014.09.03 04:00', true,  'Sommerferien' ],
-[ '2014.09.03 18:00', '2014.09.04 04:00', true,  'Sommerferien' ],
-[ '2014.09.04 18:00', '2014.09.05 04:00', true,  'Sommerferien' ],
-[ '2014.09.05 18:00', '2014.09.06 04:00', true,  'Sommerferien' ],
-[ '2014.09.06 18:00', '2014.09.07 04:00', true,  'Sommerferien' ],
-[ '2014.09.08 18:00', '2014.09.09 04:00', true,  'Sommerferien' ],
-[ '2014.09.09 18:00', '2014.09.10 04:00', true,  'Sommerferien' ],
-[ '2014.09.10 18:00', '2014.09.11 04:00', true,  'Sommerferien' ],
-[ '2014.09.11 18:00', '2014.09.12 04:00', true,  'Sommerferien' ],
-[ '2014.09.12 18:00', '2014.09.13 04:00', true,  'Sommerferien' ],
-[ '2014.09.13 18:00', '2014.09.14 00:00', true,  'Sommerferien' ],
-[ '2014.09.14 00:00', '2014.09.14 04:00', true,  'Specified as open end. Closing time was guessed.' ],
-[ '2014.09.15 18:00', '2014.09.16 04:00', true,  'Specified as open end. Closing time was guessed.' ],
-[ '2014.09.16 18:00', '2014.09.17 04:00', true,  'Specified as open end. Closing time was guessed.' ],
-[ '2014.09.17 18:00', '2014.09.18 04:00', true,  'Specified as open end. Closing time was guessed.' ],
-[ '2014.09.18 18:00', '2014.09.19 04:00', true,  'Specified as open end. Closing time was guessed.' ],
-[ '2014.09.19 18:00', '2014.09.20 04:00', true,  'Specified as open end. Closing time was guessed.' ],
-[ '2014.09.20 18:00', '2014.09.21 00:00', true,  'Specified as open end. Closing time was guessed.' ],
-expected:
-(none)
+"Real world example: Was not processed right (month range/monthday range)" for "Mo-Sa 18:00+; SH off": [1m[32mPASSED[39m[22m
+"Real world example: Was not processed right (month range/monthday range)" for "SH off; Mo-Sa 18:00+": [1m[32mPASSED[39m[22m
 "Real world example: Was processed right (month range/monthday range)" for "Mo-Sa 17:15-01:00, PH,Su 17:15-24:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right (month range/monthday range)" for "Jun 15-Sep 15; Sep 16-Dec 31; Jan-Mar off; Dec 25-easter off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1881,7 +1861,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-723/733 tests passed.
+725/734 tests passed.
 38 tests where (partly) ignored, sorted by commonness:
 * 23: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

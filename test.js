@@ -593,7 +593,7 @@ test.addTest('Variable days: public holidays', [
 		[ '2014.11.01 00:00', '2014.11.02 00:00', false, 'Allerheiligen' ],
 		[ '2014.12.25 00:00', '2014.12.26 00:00', false, '1. Weihnachtstag' ],
 		[ '2014.12.26 00:00', '2014.12.27 00:00', false, '2. Weihnachtstag' ],
-	], 1000 * 60 * 60 * 24 * (20 + 2 * 2), 0, false, nominatiomTestJSON, 'not last test');
+	], 1000 * 60 * 60 * 24 * (20 + 2 * 2), 0, false, nominatiomTestJSON, 'not only test');
 
 test.addTest('Variable days: public holidays', [
 		'open; PH off',
@@ -1972,29 +1972,58 @@ test.addTest('Real world example: Was processed right (month range/monthday rang
 		[ '2015.04.09 17:00', '2015.04.10 00:00' ], // Th
 	], 1000 * 60 * 60 * (1 + (24 - 11.5 + 1) * 8 + (24 - 17 + 1) * 13 - 1), 0, false, {}, 'not only test');
 
-// http://www.openstreetmap.org/node/305737670
-test.addTest('Real world example: Was not processed right (month range/monthday range)', [
-		'Tu-Th 12:00-14:00; SH off; Mo-Sa 18:00+',
-		// 'SH off; Mo-Sa 18:00+',
-		// 'SH off'
+// http://www.openstreetmap.org/node/305737670 {{{
+test.addTest('Real world example: Was not processed right (month range/monthday range)', [ // FIXME -> SH
+		  'Mo-Sa 18:00+; SH off',
 	], '2014.09.01 0:00', '2014.09.21 0:00', [
-	], 1000 * 60 * 60 * (24 * ((31 + 28 + 31 + 19) + 31 + 7)  -1), 0, false, nominatiomTestJSON, 'not only test');
+		[ '2014.09.14 00:00', '2014.09.14 04:00', true,  'Specified as open end. Closing time was guessed.' ], // FIXME
+		[ '2014.09.15 18:00', '2014.09.16 04:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.16 18:00', '2014.09.17 04:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.17 18:00', '2014.09.18 04:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.18 18:00', '2014.09.19 04:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.19 18:00', '2014.09.20 04:00', true,  'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.20 18:00', '2014.09.21 00:00', true,  'Specified as open end. Closing time was guessed.' ],
+	], 0, 1000 * 60 * 60 * (4 + (6 + 4) * 5 + 6), false, nominatiomTestJSON, 'not only test');
+
+test.addTest('Real world example: Was not processed right (month range/monthday range)', [
+		// 'Tu-Th 12:00-14:00; SH off; Mo-Sa 18:00+',
+		'SH off; Mo-Sa 18:00+',
+		// 'SH off; Mo-Sa 18:00-19:00',
+		// 'PH off; Mo-Sa 18:00-19:00',
+		// 'Sep 1-14 "Sommerferien"; Mo-Sa 18:00+',
+	], '2014.09.01 0:00', '2014.09.21 0:00', [
+		[ '2014.09.01 18:00', '2014.09.02 04:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.02 18:00', '2014.09.03 04:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.03 18:00', '2014.09.04 04:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.04 18:00', '2014.09.05 04:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.05 18:00', '2014.09.06 04:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.06 18:00', '2014.09.07 04:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.08 18:00', '2014.09.09 04:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.09 18:00', '2014.09.10 04:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.10 18:00', '2014.09.11 04:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.11 18:00', '2014.09.12 04:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.12 18:00', '2014.09.13 04:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.13 18:00', '2014.09.14 04:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.15 18:00', '2014.09.16 04:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.16 18:00', '2014.09.17 04:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.17 18:00', '2014.09.18 04:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.18 18:00', '2014.09.19 04:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.19 18:00', '2014.09.20 04:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2014.09.20 18:00', '2014.09.21 00:00', true, 'Specified as open end. Closing time was guessed.' ],
+	], 0, 1000 * 60 * 60 * (17 * (6 + 4) + 6), false, nominatiomTestJSON, 'not only test');
+/* }}} */
 
 // http://www.openstreetmap.org/node/863426086
 // Could be tricky because of overwriting and wrapping over midnight.
 test.addTest('Real world example: Was processed right (month range/monthday range)', [
 		'Mo-Sa 17:15-01:00, PH,Su 17:15-24:00'
 	], '2014.10.01 0:00', '2014.10.05 0:00', [
-		[ '2014.10.01 00:00', '2014.10.01 01:00' ], // We
-		[ '2014.10.01 17:15', '2014.10.02 01:00' ], // We
-		[ '2014.10.02 17:15', '2014.10.03 00:00' ], // Th
-		[ '2014.10.03 00:00', '2014.10.03 01:00', false, 'Tag der Deutschen Einheit' ], // Fr
-		/* Fr is public holiday, but 00:00-01:00 is not covered by the second
-		 * rule. The way this is evaluated is acceptable.
-		 */
-		[ '2014.10.03 17:15', '2014.10.04 00:00', false, 'Tag der Deutschen Einheit' ], // Fr
-		[ '2014.10.04 00:00', '2014.10.04 01:00' ], // Sa
-		[ '2014.10.04 17:15', '2014.10.05 00:00' ], // Sa
+		[ '2014.10.01 00:00', '2014.10.01 01:00' ],
+		[ '2014.10.01 17:15', '2014.10.02 01:00' ],
+		[ '2014.10.02 17:15', '2014.10.03 01:00' ],
+		[ '2014.10.03 17:15', '2014.10.04 00:00', false, 'Tag der Deutschen Einheit' ],
+		[ '2014.10.04 00:00', '2014.10.04 01:00' ],
+		[ '2014.10.04 17:15', '2014.10.05 00:00' ],
 	], 1000 * 60 * 60 * (1 + (24 - 17.25 + 1) * 4  - 1), 0, false, nominatiomTestJSON, 'not only test');
 
 // http://www.openstreetmap.org/node/1754337209/history
@@ -3568,7 +3597,7 @@ function opening_hours_test() {
 			if (interval != 0)
 				res += '\n';
 
-			res += '[ \'' + from + '\', \'' + to + '\', ' + item[2]  + ', ' + (item[2] ? ' ' : '')+ comment + ' ],';
+			res += '[ \'' + from + '\', \'' + to + '\', ' + item[2] + ', ' + comment + ' ],';
 		}
 
 		return res;
