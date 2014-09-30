@@ -537,6 +537,7 @@ On author's Intel Core i5-2540M CPU @ 2.60GHz library allows ~8k/sec constructor
 This library is used by the following projects:
 
 * [osm24.eu](https://github.com/dotevo/osm24)
+* [OpenBeerMap](https://openbeermap.github.io) ([issue for integration](https://github.com/OpenBeerMap/OpenBeerMap.github.io/issues/25))
 * [JOSM](http://josm.openstreetmap.de/) ([ticket for integration](http://josm.openstreetmap.de/ticket/9157))
 * [opening\_hours\_map][]
 * [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours) (old version of this library)
