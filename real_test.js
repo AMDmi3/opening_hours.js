@@ -38,6 +38,10 @@ test.exported_json('opening_hours');
 
 test.exported_json('happy_hours');
 
+test.exported_json('delivery_hours');
+
+test.exported_json('opening_hours:delivery');
+
 test.exported_json('lit', { ignore: [ 'yes', 'no', 'on', 'automatic', 'interval', 'limited' ]});
 
 test.exported_json('opening_hours:kitchen', { ignore: [ 'opening_hours' ]});
