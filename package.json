@@ -29,7 +29,7 @@
         "interactive_testing.js",
         "real_test.js",
         "test.js",
-        "test.log"
+        "test.log",
         ".gitignore"
     ],
     "directories": {
