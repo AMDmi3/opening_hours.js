@@ -3384,7 +3384,9 @@ function opening_hours_test() {
 				}
 			}
 			passed = true;
-			console.log(str);
+			if (this.show_passing_tests) {
+				console.log(str);
+			}
 			this.print_warnings(warnings);
 		} else if (ignored && (
 					ignored != 'prettifyValue'
