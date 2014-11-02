@@ -31,6 +31,47 @@ var nominatiomTestJSON_sunrise_below_default = {"place_id":"71977948","licence":
 
 // http://nominatim.openstreetmap.org/reverse?format=json&lat=53.1208&lon=8.8780&zoom=18&addressdetails=1&accept-language=de
 var nominatiomTestJSON_bremen = {"place_id":"39182271","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"28200369","lat":"53.1249048","lon":"8.8755814","display_name":"Am Lehester Deich, Lehesterdeich, Horn-Lehe, Stadtbezirk Bremen-Ost, Bremen, 28357, Deutschland, Europ\u00e4ischen Union","address":{"road":"Am Lehester Deich","neighbourhood":"Lehesterdeich","suburb":"Horn-Lehe","city_district":"Stadtbezirk Bremen-Ost","city":"Bremen","county":"Bremen","state":"Bremen","postcode":"28357","country":"Deutschland","country_code":"de","continent":"Europ\u00e4ischen Union"}};
+
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=59.9179&lon=30.3058&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_sanktpeterburg = {"place_id":"158850652","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"relation","osm_id":"1122295","lat":"59.9180615","lon":"30.3059528150966","display_name":"126, Fontanka River Embankment, Kolomna, Saint Petersburg, \u0410\u0434\u043c\u0438\u0440\u0430\u043b\u0442\u0435\u0439\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d, Saint Petersburg, Northwestern Federal District, 190000, Russian Federation","address":{"house_number":"126","road":"Fontanka River Embankment","suburb":"Kolomna","city":"Saint Petersburg","state_district":"\u0410\u0434\u043c\u0438\u0440\u0430\u043b\u0442\u0435\u0439\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d","state":"Saint Petersburg","postcode":"190000","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=55.7780&lon=49.1303&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_tatarstan = {"place_id":"33377476","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"node","osm_id":"2783648099","lat":"55.7779748","lon":"49.1296892","display_name":"Cinema Cafe, 6, Spartakovskaya Street, \u041a\u0430\u043b\u0443\u0433\u0430, \u0412\u0430\u0445\u0438\u0442\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d, \u041a\u0430\u0437\u0430\u043d\u044c, \u0433\u043e\u0440\u043e\u0434\u0441\u043a\u043e\u0439 \u043e\u043a\u0440\u0443\u0433 \u041a\u0430\u0437\u0430\u043d\u044c, Tatarstan, Volga Federal District, 420106, Russian Federation","address":{"cafe":"Cinema Cafe","house_number":"6","road":"Spartakovskaya Street","suburb":"\u041a\u0430\u043b\u0443\u0433\u0430","city_district":"\u0412\u0430\u0445\u0438\u0442\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d","city":"\u041a\u0430\u0437\u0430\u043d\u044c","county":"\u0433\u043e\u0440\u043e\u0434\u0441\u043a\u043e\u0439 \u043e\u043a\u0440\u0443\u0433 \u041a\u0430\u0437\u0430\u043d\u044c","state":"Tatarstan","postcode":"420106","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=54.1264&lon=56.5797&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_bashkortostan = {"place_id":"4367634","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"node","osm_id":"489344251","lat":"54.190107","lon":"56.5377028","display_name":"\u041d\u043e\u0432\u043e\u0437\u0438\u0440\u0438\u043a\u043e\u0432\u043e, \u0413\u0430\u0444\u0443\u0440\u0438\u0439\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d, Bashkortostan, Volga Federal District, Russian Federation","address":{"hamlet":"\u041d\u043e\u0432\u043e\u0437\u0438\u0440\u0438\u043a\u043e\u0432\u043e","county":"\u0413\u0430\u0444\u0443\u0440\u0438\u0439\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d","state":"Bashkortostan","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=55.4871&lon=47.1659&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_chuvash = {"place_id":"92041184","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"115006808","lat":"55.5013946","lon":"47.165831","display_name":"97\u041a-021, \u0410\u0447\u0430\u043a\u0430\u0441\u044b, \u041a\u0430\u043d\u0430\u0448\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d, Chuvashia, Volga Federal District, Russian Federation","address":{"road":"97\u041a-021","village":"\u0410\u0447\u0430\u043a\u0430\u0441\u044b","county":"\u041a\u0430\u043d\u0430\u0448\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d","state":"Chuvashia","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=62.1010&lon=129.7176&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_sakha = {"place_id":"157409650","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"297831427","lat":"62.10115345","lon":"129.71764735","display_name":"17, \u0426\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u044b\u0439 \u043f\u0435\u0440\u0435\u0443\u043b\u043e\u043a, \u0440\u0430\u0439\u043e\u043d \u041f\u043b\u0435\u043c\u043e\u0431\u044a\u0435\u0434\u0438\u043d\u0435\u043d\u0438\u0435, Yakutsk, \u0433\u043e\u0440\u043e\u0434\u0441\u043a\u043e\u0439 \u043e\u043a\u0440\u0443\u0433 \u042f\u043a\u0443\u0442\u0441\u043a, Sakha Republic, Far Eastern Federal District, 677901, Russian Federation","address":{"house_number":"17","road":"\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u044b\u0439 \u043f\u0435\u0440\u0435\u0443\u043b\u043e\u043a","suburb":"\u0440\u0430\u0439\u043e\u043d \u041f\u043b\u0435\u043c\u043e\u0431\u044a\u0435\u0434\u0438\u043d\u0435\u043d\u0438\u0435","city":"Yakutsk","county":"\u0433\u043e\u0440\u043e\u0434\u0441\u043a\u043e\u0439 \u043e\u043a\u0440\u0443\u0433 \u042f\u043a\u0443\u0442\u0441\u043a","state":"Sakha Republic","postcode":"677901","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=46.524&lon=44.731&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_kalmykia = {"place_id":"155691118","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"292575902","lat":"46.58413215","lon":"44.778536225","display_name":"\u041c\u0430\u0439\u0441\u043a\u0438\u0439, \u0426\u0435\u043b\u0438\u043d\u043d\u044b\u0439 \u0440\u0430\u0439\u043e\u043d, Republic of Kalmykia, South federal district, Russian Federation","address":{"hamlet":"\u041c\u0430\u0439\u0441\u043a\u0438\u0439","county":"\u0426\u0435\u043b\u0438\u043d\u043d\u044b\u0439 \u0440\u0430\u0439\u043e\u043d","state":"Republic of Kalmykia","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=52.014&lon=109.366&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_buryatia = {"place_id":"158771291","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"relation","osm_id":"195223","lat":"52.4290635","lon":"109.517969733203","display_name":"Khorinsky Rayon, Buryatia, Siberian Federal District, Russian Federation","address":{"county":"Khorinsky Rayon","state":"Buryatia","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=63.832&lon=33.626&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_karelia = {"place_id":"158846852","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"relation","osm_id":"1020571","lat":"63.94629385","lon":"33.5193580207717","display_name":"\u0427\u0435\u0440\u043d\u043e\u043f\u043e\u0440\u043e\u0436\u0441\u043a\u043e\u0435 \u0441\u0435\u043b\u044c\u0441\u043a\u043e\u0435 \u043f\u043e\u0441\u0435\u043b\u0435\u043d\u0438\u0435, \u0421\u0435\u0433\u0435\u0436\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d, Republic of Karelia, Northwestern Federal District, Russian Federation","address":{"city":"\u0427\u0435\u0440\u043d\u043e\u043f\u043e\u0440\u043e\u0436\u0441\u043a\u043e\u0435 \u0441\u0435\u043b\u044c\u0441\u043a\u043e\u0435 \u043f\u043e\u0441\u0435\u043b\u0435\u043d\u0438\u0435","county":"\u0421\u0435\u0433\u0435\u0436\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d","state":"Republic of Karelia","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=56.8642&lon=53.2054&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_udmurtia = {"place_id":"74363539","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"59171598","lat":"56.86426315","lon":"53.2058149501383","display_name":"390, \u0443\u043b\u0438\u0446\u0430 \u041a\u0430\u0440\u043b\u0430 \u041c\u0430\u0440\u043a\u0441\u0430, \u041e\u043a\u0442\u044f\u0431\u0440\u044c\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d, Izhevsk, \u0433\u043e\u0440\u043e\u0434\u0441\u043a\u043e\u0439 \u043e\u043a\u0440\u0443\u0433 \u0418\u0436\u0435\u0432\u0441\u043a, \u0423\u0434\u043c\u0443\u0440\u0442\u0441\u043a\u0430\u044f \u0440\u0435\u0441\u043f\u0443\u0431\u043b\u0438\u043a\u0430, Volga Federal District, 426008, Russian Federation","address":{"house_number":"390","road":"\u0443\u043b\u0438\u0446\u0430 \u041a\u0430\u0440\u043b\u0430 \u041c\u0430\u0440\u043a\u0441\u0430","city_district":"\u041e\u043a\u0442\u044f\u0431\u0440\u044c\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d","city":"Izhevsk","county":"\u0433\u043e\u0440\u043e\u0434\u0441\u043a\u043e\u0439 \u043e\u043a\u0440\u0443\u0433 \u0418\u0436\u0435\u0432\u0441\u043a","state":"\u0423\u0434\u043c\u0443\u0440\u0442\u0441\u043a\u0430\u044f \u0440\u0435\u0441\u043f\u0443\u0431\u043b\u0438\u043a\u0430","postcode":"426008","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=44.60627&lon=40.10432&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_adygea = {"place_id":"117083297","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"178119466","lat":"44.60635535","lon":"40.103552511385","display_name":"\u0410\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044f \u0433.\u041c\u0430\u0439\u043a\u043e\u043f\u0430, 21, \u041a\u0440\u0430\u0441\u043d\u043e\u043e\u043a\u0442\u044f\u0431\u0440\u044c\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430, Maykop, \u0433\u043e\u0440\u043e\u0434\u0441\u043a\u043e\u0439 \u043e\u043a\u0440\u0443\u0433 \u041c\u0430\u0439\u043a\u043e\u043f, Adygea, South federal district, 385006, Russian Federation","address":{"townhall":"\u0410\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044f \u0433.\u041c\u0430\u0439\u043a\u043e\u043f\u0430","house_number":"21","road":"\u041a\u0440\u0430\u0441\u043d\u043e\u043e\u043a\u0442\u044f\u0431\u0440\u044c\u0441\u043a\u0430\u044f \u0443\u043b\u0438\u0446\u0430","city":"Maykop","county":"\u0433\u043e\u0440\u043e\u0434\u0441\u043a\u043e\u0439 \u043e\u043a\u0440\u0443\u0433 \u041c\u0430\u0439\u043a\u043e\u043f","state":"Adygea","postcode":"385006","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=43.118&lon=46.959&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_dagestan = {"place_id":"8585510","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"node","osm_id":"915341178","lat":"43.1134014","lon":"47.0808948","display_name":"\u0423\u0447\u043a\u0435\u043d\u0442, \u041a\u0443\u043c\u0442\u043e\u0440\u043a\u0430\u043b\u0438\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d, Republic of Dagestan, North Caucasus federal district, Russian Federation","address":{"village":"\u0423\u0447\u043a\u0435\u043d\u0442","county":"\u041a\u0443\u043c\u0442\u043e\u0440\u043a\u0430\u043b\u0438\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d","state":"Republic of Dagestan","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=43.1171&lon=44.8626&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_ingushetia = {"place_id":"156030007","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"293569945","lat":"43.1456795","lon":"44.8365875","display_name":"P 721, \u0441\u0435\u043b\u044c\u0441\u043a\u043e\u0435 \u043f\u043e\u0441\u0435\u043b\u0435\u043d\u0438\u0435 \u0410\u043b\u0438-\u042e\u0440\u0442, \u041d\u0430\u0437\u0440\u0430\u043d\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d, Ingushetia, North Caucasus federal district, 386125, Russian Federation","address":{"road":"P 721","city":"\u0441\u0435\u043b\u044c\u0441\u043a\u043e\u0435 \u043f\u043e\u0441\u0435\u043b\u0435\u043d\u0438\u0435 \u0410\u043b\u0438-\u042e\u0440\u0442","county":"\u041d\u0430\u0437\u0440\u0430\u043d\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d","state":"Ingushetia","postcode":"386125","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=43.7916&lon=41.7268&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_karachayCherkess = {"place_id":"82077979","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"85989954","lat":"43.8052673","lon":"41.7291051","display_name":"\u041a\u0440\u0430\u0441\u043d\u044b\u0439 \u041e\u043a\u0442\u044f\u0431\u0440\u044c-\u0425\u0430\u0441\u0430\u0443\u0442 \u0413\u0440\u0435\u0447\u0435\u0441\u043a\u043e\u0435, \u0417\u0435\u043b\u0435\u043d\u0447\u0443\u043a\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d, \u041a\u0430\u0440\u0430\u0447\u0430\u0435\u0432\u043e-\u0427\u0435\u0440\u043a\u0435\u0441\u0441\u043a\u0430\u044f \u0440\u0435\u0441\u043f\u0443\u0431\u043b\u0438\u043a\u0430, North Caucasus federal district, Russian Federation","address":{"road":"\u041a\u0440\u0430\u0441\u043d\u044b\u0439 \u041e\u043a\u0442\u044f\u0431\u0440\u044c-\u0425\u0430\u0441\u0430\u0443\u0442 \u0413\u0440\u0435\u0447\u0435\u0441\u043a\u043e\u0435","county":"\u0417\u0435\u043b\u0435\u043d\u0447\u0443\u043a\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d","state":"\u041a\u0430\u0440\u0430\u0447\u0430\u0435\u0432\u043e-\u0427\u0435\u0440\u043a\u0435\u0441\u0441\u043a\u0430\u044f \u0440\u0435\u0441\u043f\u0443\u0431\u043b\u0438\u043a\u0430","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=43.451&lon=45.700&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_chechnya = {"place_id":"159190811","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"relation","osm_id":"3888369","lat":"43.35498065","lon":"45.7216713693354","display_name":"\u041b\u0435\u043d\u0438\u043d\u0441\u043a\u0438\u0439, Grozny, \u0433\u043e\u0440\u043e\u0434\u0441\u043a\u043e\u0439 \u043e\u043a\u0440\u0443\u0433 \u0413\u0440\u043e\u0437\u043d\u044b\u0439, Chechen Republic, North Caucasus federal district, Russian Federation","address":{"city_district":"\u041b\u0435\u043d\u0438\u043d\u0441\u043a\u0438\u0439","city":"Grozny","county":"\u0433\u043e\u0440\u043e\u0434\u0441\u043a\u043e\u0439 \u043e\u043a\u0440\u0443\u0433 \u0413\u0440\u043e\u0437\u043d\u044b\u0439","state":"Chechen Republic","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=43.497&lon=43.423&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_kabardinoBalkaria = {"place_id":"12000590","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"node","osm_id":"1176698285","lat":"43.5613295","lon":"43.4302516","display_name":"\u041b\u0435\u0447\u0438\u043d\u043a\u0430\u0439, \u0427\u0435\u0433\u0435\u043c\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d, \u041a\u0430\u0431\u0430\u0440\u0434\u0438\u043d\u043e-\u0411\u0430\u043b\u043a\u0430\u0440\u0441\u043a\u0430\u044f \u0440\u0435\u0441\u043f\u0443\u0431\u043b\u0438\u043a\u0430, North Caucasus federal district, Russian Federation","address":{"village":"\u041b\u0435\u0447\u0438\u043d\u043a\u0430\u0439","county":"\u0427\u0435\u0433\u0435\u043c\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d","state":"\u041a\u0430\u0431\u0430\u0440\u0434\u0438\u043d\u043e-\u0411\u0430\u043b\u043a\u0430\u0440\u0441\u043a\u0430\u044f \u0440\u0435\u0441\u043f\u0443\u0431\u043b\u0438\u043a\u0430","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=50.900&lon=86.899&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_altai = {"place_id":"158766852","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"relation","osm_id":"192546","lat":"50.74112365","lon":"86.3687137822935","display_name":"Ongudaysky Rayon, Altai Republic, Siberian Federal District, Russian Federation","address":{"county":"Ongudaysky Rayon","state":"Altai Republic","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=51.781&lon=94.033&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_tyva = {"place_id":"158765550","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"relation","osm_id":"190766","lat":"52.31183635","lon":"94.1400217560473","display_name":"Piy-Khemsky Kozhuun, Tuva, Siberian Federal District, Russian Federation","address":{"county":"Piy-Khemsky Kozhuun","state":"Tuva","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=51.335&lon=46.668&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_saratov = {"place_id":"63722839","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"31715230","lat":"51.2934885","lon":"46.6636942","display_name":"E 38, \u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d, Saratov Oblast, Volga Federal District, Russian Federation","address":{"road":"E 38","county":"\u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d","state":"Saratov Oblast","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=52.952&lon=33.283&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_bryansk = {"place_id":"121844937","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"190394567","lat":"52.9876239","lon":"33.2285656","display_name":"\u00ab\u0411\u0440\u044f\u043d\u0441\u043a \u2014 \u041d\u043e\u0432\u043e\u0437\u044b\u0431\u043a\u043e\u0432\u00bb \u2014 \u041c\u0433\u043b\u0438\u043d, \u0411\u0435\u0440\u0451\u0437\u043e\u0432\u043a\u0430, \u041f\u043e\u0447\u0435\u043f\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d, Bryansk Oblast, Central Federal District, Russian Federation","address":{"road":"\u00ab\u0411\u0440\u044f\u043d\u0441\u043a \u2014 \u041d\u043e\u0432\u043e\u0437\u044b\u0431\u043a\u043e\u0432\u00bb \u2014 \u041c\u0433\u043b\u0438\u043d","hamlet":"\u0411\u0435\u0440\u0451\u0437\u043e\u0432\u043a\u0430","county":"\u041f\u043e\u0447\u0435\u043f\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d","state":"Bryansk Oblast","country":"Russian Federation","country_code":"ru"}};
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=64.191&lon=55.826&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_russia_komi = {"place_id":"158847082","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"relation","osm_id":"1082933","lat":"65.0204625","lon":"57.3740830196108","display_name":"\u0440\u0430\u0439\u043e\u043d \u041f\u0435\u0447\u043e\u0440\u0430, Komi Republic, Northwestern Federal District, Russian Federation","address":{"county":"\u0440\u0430\u0439\u043e\u043d \u041f\u0435\u0447\u043e\u0440\u0430","state":"Komi Republic","country":"Russian Federation","country_code":"ru"}};
 // }}}
 
 // }}}
@@ -3147,6 +3188,436 @@ test.addShouldFail('Time range does not continue as expected for mode == 1.', [
 		'sunrise-(' + value_suffix,
 		'sunrise-sunset,(' + value_suffix,
 	], nominatiomTestJSON, 'not last test', 2);
+
+test.addTest('Variable days: Russian common public holidays', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+], 1000 * 60 * 60 * 24 * (14 + 0), 0, false, nominatiomTestJSON_russia_sanktpeterburg, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Republic of Tatarstan', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.07.28 00:00', '2014.07.29 00:00', false, 'Ураза-байрам' ],
+	[ '2014.08.30 00:00', '2014.08.31 00:00', false, 'День Республики Татарстан' ],
+	[ '2014.10.04 00:00', '2014.10.05 00:00', false, 'Курбан-байрам' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+	[ '2014.11.06 00:00', '2014.11.07 00:00', false, 'День Конституции Республики Татарстан' ],
+], 1000 * 60 * 60 * 24 * (14 + 4), 0, false, nominatiomTestJSON_russia_tatarstan, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Republic of Bashkortostan', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.07.28 00:00', '2014.07.29 00:00', false, 'Ураза-байрам' ],
+	[ '2014.10.04 00:00', '2014.10.05 00:00', false, 'Курбан-байрам' ],
+	[ '2014.10.11 00:00', '2014.10.12 00:00', false, 'День Республики Башкирии' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+	[ '2014.12.24 00:00', '2014.12.25 00:00', false, 'День Конституции Башкортостана' ],
+], 1000 * 60 * 60 * 24 * (14 + 4), 0, false, nominatiomTestJSON_russia_bashkortostan, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Chuvash Republic', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.06.24 00:00', '2014.06.25 00:00', false, 'День Чувашской республики' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+], 1000 * 60 * 60 * 24 * (14 + 1), 0, false, nominatiomTestJSON_russia_chuvash, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Sakha Republic', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.04.27 00:00', '2014.04.28 00:00', false, 'День Республики Саха' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.06.23 00:00', '2014.06.24 00:00', false, 'Ысыах' ],
+	[ '2014.09.27 00:00', '2014.09.28 00:00', false, 'День государственности Республики Саха' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+], 1000 * 60 * 60 * 24 * (14 + 3), 0, false, nominatiomTestJSON_russia_sakha, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Republic of Kalmykia', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.01.14 00:00', '2014.01.15 00:00', false, 'Цаган Сар' ],
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.04.05 00:00', '2014.04.06 00:00', false, 'День принятия Степного Уложения (Конституции) Республики Калмыкия' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.06.06 00:00', '2014.06.07 00:00', false, 'День рождения Будды Шакьямун' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+	[ '2014.12.15 00:00', '2014.12.16 00:00', false, 'Зул' ],
+	[ '2014.12.28 00:00', '2014.12.29 00:00', false, 'День памяти жертв депортации калмыцкого народа' ],
+], 1000 * 60 * 60 * 24 * (14 + 5), 0, false, nominatiomTestJSON_russia_kalmykia, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Republic of Buryatia', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.01.14 00:00', '2014.01.15 00:00', false, 'Сагаалган' ], // Цаган сар
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+], 1000 * 60 * 60 * 24 * (14 + 1), 0, false, nominatiomTestJSON_russia_buryatia, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Republic of Karelia', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.06.08 00:00', '2014.06.09 00:00', false, 'День Республики Карелия' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.09.30 00:00', '2014.10.01 00:00', false, 'День освобождения Карелии от фашистских захватчиков' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+], 1000 * 60 * 60 * 24 * (14 + 2), 0, false, nominatiomTestJSON_russia_karelia, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Republic of Udmurtia', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.05.31 00:00', '2014.06.01 00:00', false, 'День Государственности Удмуртской Республики' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+], 1000 * 60 * 60 * 24 * (14 + 1), 0, false, nominatiomTestJSON_russia_udmurtia, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Republic of Adygea', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.07.28 00:00', '2014.07.29 00:00', false, 'Ураза-байрам' ],
+	[ '2014.10.04 00:00', '2014.10.05 00:00', false, 'Курбан-байрам' ],
+	[ '2014.10.05 00:00', '2014.10.06 00:00', false, 'День образования Республики Адыгея' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+], 1000 * 60 * 60 * 24 * (14 + 3), 0, false, nominatiomTestJSON_russia_adygea, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Republic of Dagestan', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.07.26 00:00', '2014.07.27 00:00', false, 'День Конституции Республики Дагестан' ],
+	[ '2014.07.28 00:00', '2014.07.29 00:00', false, 'Ураза-байрам' ],
+	[ '2014.09.15 00:00', '2014.09.16 00:00', false, 'День единства народов Дагестана' ],
+	[ '2014.10.04 00:00', '2014.10.05 00:00', false, 'Курбан-байрам' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+], 1000 * 60 * 60 * 24 * (14 + 4), 0, false, nominatiomTestJSON_russia_dagestan, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Republic of Ingushetia', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.06.04 00:00', '2014.06.05 00:00', false, 'День образования Республики Ингушетия' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.07.28 00:00', '2014.07.29 00:00', false, 'Ураза-байрам' ],
+	[ '2014.10.04 00:00', '2014.10.05 00:00', false, 'Курбан-байрам' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+	// local
+], 1000 * 60 * 60 * 24 * (14 + 3), 0, false, nominatiomTestJSON_russia_ingushetia, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Karachay-Cherkess Republic', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.03 00:00', '2014.05.04 00:00', false, 'День возрождения карачаевского народа' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.07.28 00:00', '2014.07.29 00:00', false, 'Ураза-байрам' ],
+	[ '2014.10.04 00:00', '2014.10.05 00:00', false, 'Курбан-байрам' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+], 1000 * 60 * 60 * 24 * (14 + 3), 0, false, nominatiomTestJSON_russia_karachayCherkess, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Chechen Republic', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.04.16 00:00', '2014.04.17 00:00', false, 'День мира в Чеченской Республике' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.07.28 00:00', '2014.07.29 00:00', false, 'Ураза-байрам' ],
+	[ '2014.10.04 00:00', '2014.10.05 00:00', false, 'Курбан-байрам' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+], 1000 * 60 * 60 * 24 * (14 + 3), 0, false, nominatiomTestJSON_russia_chechnya, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Kabardino-Balkar Republic', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.03.28 00:00', '2014.03.29 00:00', false, 'День возрождения балкарского народа' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.05.21 00:00', '2014.05.22 00:00', false, 'Черкесский день траура' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.07.28 00:00', '2014.07.29 00:00', false, 'Ураза-байрам' ],
+	[ '2014.09.01 00:00', '2014.09.02 00:00', false, 'День государственности Кабардино-Балкарской Республики' ],
+	[ '2014.10.04 00:00', '2014.10.05 00:00', false, 'Курбан-байрам' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+], 1000 * 60 * 60 * 24 * (14 + 5), 0, false, nominatiomTestJSON_russia_kabardinoBalkaria, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Altai Republic', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.01.14 00:00', '2014.01.15 00:00', false, 'Чага-Байрам' ], // Цаган Сар
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+], 1000 * 60 * 60 * 24 * (14 + 1), 0, false, nominatiomTestJSON_russia_altai, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Tyva Republic', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.01.14 00:00', '2014.01.15 00:00', false, 'Народный праздник Шагаа' ], // Цаган Сар
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.08.15 00:00', '2014.08.16 00:00', false, 'День Республики Тыва' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+], 1000 * 60 * 60 * 24 * (14 + 2), 0, false, nominatiomTestJSON_russia_tyva, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Saratov Oblast', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.04.29 00:00', '2014.04.30 00:00', false, 'Радоница' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+], 1000 * 60 * 60 * 24 * (14 + 1), 0, false, nominatiomTestJSON_russia_saratov, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Bryansk Oblast', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.04.29 00:00', '2014.04.30 00:00', false, 'Радоница' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.09.17 00:00', '2014.09.18 00:00', false, 'День освобождения города Брянска' ],
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+], 1000 * 60 * 60 * 24 * (14 + 2), 0, false, nominatiomTestJSON_russia_bryansk, 'not last test');
+
+test.addTest('Variable days: Russian public holidays. Komi Republic', [
+	'PH',
+], '2014.01.01 0:00', '2014.12.31 23:59', [
+	[ '2014.01.01 00:00', '2014.01.02 00:00', false, '1. Новогодние каникулы' ],
+	[ '2014.01.02 00:00', '2014.01.03 00:00', false, '2. Новогодние каникулы' ],
+	[ '2014.01.03 00:00', '2014.01.04 00:00', false, '3. Новогодние каникулы' ],
+	[ '2014.01.04 00:00', '2014.01.05 00:00', false, '4. Новогодние каникулы' ],
+	[ '2014.01.05 00:00', '2014.01.06 00:00', false, '5. Новогодние каникулы' ],
+	[ '2014.01.06 00:00', '2014.01.07 00:00', false, '6. Новогодние каникулы' ],
+	[ '2014.01.07 00:00', '2014.01.08 00:00', false, 'Рождество Христово' ],
+	[ '2014.01.08 00:00', '2014.01.09 00:00', false, '8. Новогодние каникулы' ], // 7
+	[ '2014.02.23 00:00', '2014.02.24 00:00', false, 'День защитника Отечества' ],
+	[ '2014.03.08 00:00', '2014.03.09 00:00', false, 'Международный женский день' ],
+	[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Праздник Весны и Труда' ],
+	[ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
+	[ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
+	[ '2014.08.22 00:00', '2014.08.23 00:00', false, 'День Республики Коми' ], // local
+	[ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
+], 1000 * 60 * 60 * 24 * (14 + 1), 0, false, nominatiomTestJSON_russia_komi, 'not last test');
 
 // Appeared in real_test … {{{
 for (var i = 0; i <= 2; i++) {
