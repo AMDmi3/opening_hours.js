@@ -507,6 +507,66 @@ With [1m[34mwarnings[39m[22m:
 "Variable days: Everyday including public holidays" for "PH,Mo-Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH,Mo-Su <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian common public holidays" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Republic of Tatarstan" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Republic of Bashkortostan" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Chuvash Republic" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Sakha Republic" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Republic of Kalmykia" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Republic of Buryatia" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Republic of Karelia" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Republic of Udmurtia" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Republic of Adygea" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Republic of Dagestan" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Republic of Ingushetia" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Karachay-Cherkess Republic" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Chechen Republic" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Kabardino-Balkar Republic" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Altai Republic" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Tyva Republic" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Saratov Oblast" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Bryansk Oblast" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Russian public holidays. Komi Republic" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Weekdays" for "Mo,Th,Sa,Su 10:00-12:00": [1m[32mPASSED[39m[22m
 "Weekdays" for "Mo,Th,weekend 10:00-12:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1861,7 +1921,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-725/734 tests passed.
+745/754 tests passed.
 38 tests where (partly) ignored, sorted by commonness:
 * 23: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
