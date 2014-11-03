@@ -40,7 +40,7 @@ var sane_value_suffix = '; 00:23-00:42 closed "warning at correct position?"';
 // easier without changing there meaning (in most cases).
 var value_suffix = '; 00:23-00:42 unknown "warning at correct position?"';
 // This suffix value is there to test if the warning marks the correct position of the problem.
-var value_suffix_to_disable_time_not_used = ' 12:00-15:00'
+var value_suffix_to_disable_time_not_used = ' 12:00-15:00';
 /* Avoid the warning that no time selector was used in a rule. Use this if you
  * are checking for values which should return another warning.
  * warning.
@@ -3253,7 +3253,7 @@ function opening_hours_test() {
 		}
 
 		return crashed;
-	}
+	};
 	// }}}
 
 	this.runSingleTestShouldThrowWarning = function(test_data_object) { // {{{
@@ -3376,17 +3376,17 @@ function opening_hours_test() {
 				} else if (ignored == 'prettifyValue'){
 					str += ', ' + 'except'.ignored + ' prettifyValue';
 					if (prettify_ok)
-						str += ' Ignored but passes!'
+						str += ' Ignored but passes!';
 				} else {
 					str += ', ' + 'also ignored, please unignore since the test passes!'.ignored;
 					if (weekstable_ok)
-						str += ' Ignored but passes!'
+						str += ' Ignored but passes!';
 				}
 			}
 			passed = true;
-			if (this.show_passing_tests) {
+			// if (this.show_passing_tests) {
 				console.log(str);
-			}
+			// }
 			this.print_warnings(warnings);
 		} else if (ignored && (
 					ignored != 'prettifyValue'
@@ -3417,7 +3417,7 @@ function opening_hours_test() {
 		}
 
 		return passed;
-	}
+	};
 	// }}}
 
 	this.runSingleTestCompMatchingRule = function(test_data_object) { // {{{
@@ -3426,13 +3426,14 @@ function opening_hours_test() {
 			point_in_time  = test_data_object[2],
 			expected_matching_rule  = test_data_object[3],
 			nominatiomJSON = test_data_object[4];
+		var matching_rule, matching_rule_ok;
 		try {
 			// since they should fail anyway we can give them the nominatiomTestJSON
 			oh = new opening_hours(value, nominatiomJSON);
 			it = oh.getIterator(new Date(point_in_time));
 
-			var matching_rule = oh.prettifyValue({ rule_index: it.getMatchingRule() });
-			var matching_rule_ok = matching_rule == expected_matching_rule;
+			matching_rule = oh.prettifyValue({ rule_index: it.getMatchingRule() });
+			matching_rule_ok = matching_rule == expected_matching_rule;
 
 		var passed = false;
 
@@ -3458,15 +3459,15 @@ function opening_hours_test() {
 		}
 
 		return passed;
-	}
+	};
 	// }}}
 
 	// run all tests (public function) {{{
 	this.run = function() {
-		var tests_length = this.tests.length
-			+ this.tests_should_fail.length
-			+ this.tests_should_warn.length
-			+ this.tests_comp_matching_rule.length;
+		var tests_length = this.tests.length +
+			this.tests_should_fail.length +
+			this.tests_should_warn.length +
+			this.tests_comp_matching_rule.length;
 		var success   = 0;
 		this.ignored  = [];
 		for (var test = 0; test < this.tests.length; test++) {
@@ -3511,7 +3512,7 @@ function opening_hours_test() {
 				var count  = sorted_ignores[i][1];
 				switch (reason) {
 					case 'prettifyValue':
-						reason += " (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)"
+						reason += " (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)";
 						break;
 				}
 				console.warn(sprintf('* %2s: %s', count, reason));
@@ -3519,13 +3520,13 @@ function opening_hours_test() {
 		}
 
 		return success == tests_length;
-	}
+	};
 	// }}}
 
 	// add normal test queue {{{
 	this.addTest = function(name, values, from, to, expected_intervals, expected_duration, expected_unknown_duration, expected_weekstable, nominatiomJSON, last, oh_mode) {
 
-		if (this.last == true) return;
+		if (this.last === true) return;
 		this.handle_only_test(last);
 
 		for (var expected_interval = 0; expected_interval < expected_intervals.length; expected_interval++) {
@@ -3541,12 +3542,12 @@ function opening_hours_test() {
 			for (var value = 0; value < values.length; value++)
 				this.tests.push([name, values[value], values[0], from, to, expected_intervals,
 					[ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON, oh_mode]);
-	}
+	};
 	// }}}
 
 	// add test which should fail {{{
 	this.addShouldFail = function(name, values, nominatiomJSON, last, oh_mode) {
-		if (this.last == true) return;
+		if (this.last === true) return;
 		this.handle_only_test(last);
 
 		if (typeof values === 'string')
@@ -3554,12 +3555,12 @@ function opening_hours_test() {
 		else
 			for (var value = 0; value < values.length; value++)
 				this.tests_should_fail.push([name, values[value], nominatiomJSON, oh_mode]);
-	}
+	};
 	// }}}
 
 	// add test which should give a warning {{{
 	this.addShouldWarn = function(name, values, nominatiomJSON, last, oh_mode) {
-		if (this.last == true) return;
+		if (this.last === true) return;
 		this.handle_only_test(last);
 
 		if (typeof values == 'string')
@@ -3567,12 +3568,12 @@ function opening_hours_test() {
 		else
 			for (var value = 0; value < values.length; value++)
 				this.tests_should_warn.push([name, values[value], nominatiomJSON, oh_mode]);
-	}
+	};
 	// }}}
 
 	// add test to check if the matiching rule is evaluated correctly {{{
 	this.addCompMatchingRule = function(name, values, date, matching_rule, nominatiomJSON, last) {
-		if (this.last == true) return;
+		if (this.last === true) return;
 		this.handle_only_test(last);
 
 		if (typeof values == 'string')
@@ -3580,14 +3581,14 @@ function opening_hours_test() {
 		else
 			for (var value = 0; value < values.length; value++)
 				this.tests_comp_matching_rule.push([name, values[value], date, matching_rule, nominatiomJSON]);
-	}
+	};
 	// }}}
 
 	// helpers {{{
 	function intervalsToString(intervals) { // {{{
 		var res = '';
 
-		if (intervals.length == 0)
+		if (intervals.length === 0)
 			return '(none)';
 
 		for (var interval = 0; interval < intervals.length; interval++) {
@@ -3596,7 +3597,7 @@ function opening_hours_test() {
 			var to   = formatDate(item[1]);
 			var comment = typeof item[3] !== 'undefined' ? '\'' + item[3] + '\'' : item[3];
 
-			if (interval != 0)
+			if (interval !== 0)
 				res += '\n';
 
 			res += '[ \'' + from + '\', \'' + to + '\', ' + item[2] + ', ' + comment + ' ],';
@@ -3628,14 +3629,14 @@ function opening_hours_test() {
 			this.tests_comp_matching_rule = [];
 		}
 		if (last === 'only test' || last === 'last test') this.last = true;
-	}
+	};
 	// }}}
 
 	this.print_warnings = function(warnings) { // {{{
 		if (this.show_error_warnings && typeof warnings == 'object' && warnings.length > 0) {
 			console.info('With ' + 'warnings'.warn + ':\n\t*' + warnings.join('\n\t*'));
 		}
-	}
+	};
 	// }}}
 	// }}}
 }
