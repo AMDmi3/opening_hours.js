@@ -425,6 +425,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
     * [Canada][PH-ca]
     * [Ukraine][PH-ua]
     * [Slovenian][PH-si]
+    * [Russian][PH-ru]
   * **EXT:** Supports limited calculations based on public holidays (e.g. ```Sa,PH -1 day open```). The only two possibilities are currently +1 and -1. All other cases are not handled. This seems to be enough because the only thing which is really used is -1.
 
 * Support for school holidays (```SH 10:00-14:00```).
@@ -658,6 +659,7 @@ The opening brackets `{{{` (and the corresponding closing onces) are used to fol
 * [James Badger](https://github.com/openfirmware)  (add Canadian national, provincial public holidays and fixed Russian localization)
 * [Zgarbul Andrey](https://github.com/burrbull)    (Ukrainian localization and public holidays for Ukraine)
 * [Blaž Lorger](https://github.com/blorger)        (public holidays for Slovenian)
+* [dmromanov](https://github.com/dmromanov)        (public holidays and tests for Russian, small fixes)
 
 <!-- }}} -->
 
@@ -718,5 +720,6 @@ Edit: This does also work on npmjs in this short version … -->
 [PH-ca]: https://en.wikipedia.org/wiki/Public_holidays_in_Canada
 [PH-ua]: http://uk.wikipedia.org/wiki/%D0%A1%D0%B2%D1%8F%D1%82%D0%B0_%D1%82%D0%B0_%D0%BF%D0%B0%D0%BC%27%D1%8F%D1%82%D0%BD%D1%96_%D0%B4%D0%BD%D1%96_%D0%B2_%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%96
 [PH-si]: http://www.vlada.si/o_sloveniji/politicni_sistem/prazniki/
+[PH-ru]: https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%D0%B8_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8
 
 <!-- }}} -->
