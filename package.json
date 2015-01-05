@@ -47,7 +47,7 @@
     },
     "optionalDependencies": {
         "i18next": ">=1.6.3",
-        "moment" : ">=2.4.0"
+        "moment" : "2.7.x"
     },
     "devDependencies": {
         "colors"    : ">=0.6.2",
