@@ -1,4 +1,4 @@
-# opening_hours.js #
+# opening_hours.js
 
 [opening_hours][Key:opening_hours] tag is used in [OpenStreetMap](http://openstreetmap.org) project to describe time ranges when a specific facility (for example, a café) is open. As it has pretty complex syntax which requires special parsing and additional processing to extract some useful information (e.g. whether a facility is open at specific time, next time it's going to open/close, or a readable set of working hours), this library was written.
 
@@ -16,7 +16,7 @@ a library which works from 12:00 to 18:00 on workdays except Wednesday, and from
 
 around-the-clock shop with some breaks.
 
-## evaluation tool/demo.html ##
+## evaluation tool/demo.html
 
 Please have a look at the [evaluation tool][] which can give you an impression how this library can be used and what it is capable of.
 
@@ -24,9 +24,9 @@ A mirror is setup up under: http://ypid.de/~osm/evaluation_tool/
 
 <!-- Install {{{ -->
 
-## Install ##
+## Install
 
-### For Developer ###
+### For Developer
 Just clone the repository:
 
 ```Shell
@@ -38,7 +38,7 @@ and install it’s dependencies (execute inside the repository):
 npm install
 ```
 
-### Web developer ###
+### Web developer
 
 If you are a web developer and want to use this library you can do so by including the current version from here:
 
@@ -52,14 +52,14 @@ However, before you load opening_hours.js you have to load its dependencies (eit
 http://openingh.openstreetmap.de/evaluation_tool/node_modules/suncalc/suncalc.js
 ```
 
-### NodeJS developer ###
+### NodeJS developer
 
 This library is packaged with npm and is available under the name [opening_hours][ohlib.npmjs] so you should have no problems using it.
 
 <!-- }}} -->
 
 <!-- Versions {{{ -->
-## Versions ##
+## Versions
 
 The version number consists of a major release, minor release and patch level (separated by a dot).
 
@@ -72,7 +72,7 @@ For version 2.2.0 and all following, the following applies:
 <!-- }}} -->
 
 <!-- Synopsis {{{ -->
-## Synopsis ##
+## Synopsis
 
 ```javascript
 var oh = new opening_hours('We 12:00-14:00');
@@ -141,7 +141,7 @@ function getReadableState(startString, endString, oh, past) {
 }
 ```
 
-## Library API ##
+## Library API
 
 * ```javascript
   var oh = new opening_hours('We 12:00-14:00', nominatiomJSON, mode);
@@ -210,7 +210,7 @@ function getReadableState(startString, endString, oh, past) {
 
   Checks whether open intervals are same for every week. Useful for giving a user hint whether time table may change for another week.
 
-### High-level API ###
+### High-level API
 
 Here and below, unless noted otherwise, all arguments are expected to be and all output will be in the form of Date objects.
 
@@ -228,7 +228,7 @@ Here and below, unless noted otherwise, all arguments are expected to be and all
 
   Returns an array with two durations for a given date range, in milliseconds. The first element is the duration for which the facility is open and the second is the duration for which the facility is maybe open (unknown is used).
 
-### Simple API ###
+### Simple API
 
 This API is useful for one-shot checks, but for iteration over intervals you should use the more efficient [iterator API][ohlib.iterator-api].
 
@@ -284,7 +284,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
   var matching_rule = oh.prettifyValue({ 'rule_index': rule_index });
   ```
 
-### Iterator API ###
+### Iterator API
 
 * ```javascript
   var iterator = oh.getIterator(date);
@@ -349,7 +349,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
 <!-- }}} -->
 
 <!-- Features {{{ -->
-## Features ##
+## Features
 
 Almost everything from opening_hours definition is supported, as well as some extensions (indicated as **EXT** below).
 
@@ -372,7 +372,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 * Date ranges (calendar ranges) can be separated from the time range by a colon (```Jan 10-Feb 10: 07:30-12:00```) but this is not required. This was implemented to also parse the syntax proposed by [Netzwolf][oh:spec:separator_for_readability].
 
-### Time ranges ###
+### Time ranges
 
 * Supports sets of time ranges (```10:00-12:00,14:00-16:00```)
   * **WARN:** Accept ```10-12,14-16``` as abbreviation for the previous example. Please don’t use this as this is not very explicit.
@@ -403,23 +403,35 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
   Open end applies until the end of the day if the opening time is before 17:00. If the opening time is between 17:00 and 21:59 the open end time ends 10 hours after the opening. And if the opening time is after 22:00 (including 22:00) the closing time will be interpreted as 8 hours after the opening time.
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 * ```07:00+,12:00-16:00```: If an open end time is used in a way that the frist time range includes the second one (```07:00+``` is interpreted as ```07:00-24:00``` and thus includes the complete ```12:00-16:00``` time selector), the second time selector cuts of the part which would follow after 16:00.
+=======
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+* **EXT:** ```07:00+,12:00-16:00```: If an open end time is used in a way that the frist time range includes the second one (```07:00+``` is interpreted as ```07:00-24:00``` and thus includes the complete ```12:00-16:00``` time selector), the second time selector cuts of the part which would follow after 16:00.
+
+* **WARN:** Supports dot as time separator (```12.00-16.00```)
+>>>>>>> Stashed changes
 
 [suncalc]: https://github.com/mourner/suncalc
 
-### Points in time ###
+### Points in time
 
 * In mode 1 or 2, points in time are evaluated. Example: ```Mo-Fr 12:00,15:00,18:00; Su (sunrise+01:00)```. Currently a point in time is interpreted as an interval of one minute. It was the easiest thing to implement and has some advantages. See [here](https://github.com/AMDmi3/opening_hours.js/issues/12) for discussion.
 * To express regular points in time, like each hour, a abbreviation can be used to express the previous example ```Mo-Fr 12:00-18:00/03:00``` which means from 12:00 to 18:00 every three hours.
 
-### Weekday ranges ###
+### Weekday ranges
 
 * Supports set of weekdays and weekday ranges (```Mo-We,Fr```)
 * Supports weekdays which wrap to the next week (```Fr-Mo```)
 * Supports constrained weekdays (```Th[1,2-3]```, ```Fr[-1]```)
 * Supports calculations based on constrained weekdays (```Sa[-1],Sa[-1] +1 day``` e.g. last weekend in the month, this also works if Sunday is in the next month)
 
-### Holidays ###
+### Holidays
 
 * Supports public holidays (```open; PH off```, ```PH 12:00-13:00```).
   * Currently Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored. The same applies for [Austria][PH-at]. Also supported:
@@ -441,12 +453,12 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * To evaluate the correct holidays, the country code and the state (could be omitted but this will probably result in less exactitude) are required which are included in the JSON returned by [Nominatim] \(see in the [Library API][ohlib.library-api] how to provide it\).
 * If your country or state is missing or wrong you can [add it][ohlib.contribute.holidays] or open an [issue][issue-report] (and point to a definition of the holidays).
 
-### Month ranges ###
+### Month ranges
 
 * Supports set of months and month ranges (```Jan,Mar-Apr```)
 * Supports months which wrap to the next year (```Dec-Jan```)
 
-### Monthday ranges ###
+### Monthday ranges
 
 * Supports monthday ranges across multiple months (```Jan 01-Feb 03 10:00-20:00```)
 * Supports monthday ranges within single month (```Jan 01-26 10:00-20:00```), with periods as well ```Jan 01-29/7 10:00-20:00```, period equals 1 should be avoided)
@@ -459,14 +471,14 @@ Almost everything from opening_hours definition is supported, as well as some ex
 * Supports calculations based on movable events (```2012 easter - 2 days - 2012 easter + 2 days: open "Around easter"```)
 * Supports multiple monthday ranges separated by a comma (```Jan 23-31/3,Feb 1-12,Mar 1```)
 
-### Week ranges ###
+### Week ranges
 
 * [The ISO 8601 definition for week 01 is the week with the year's first Thursday in it.](https://en.wikipedia.org/wiki/ISO_week_date#First_week)
 * Supports week ranges (```week 04-07 10:00-20:00```)
 * Supports periodic weeks (```week 2-53/2 10:00-20:00```)
 * Supports multiple week ranges (```week 1,3-5,7-30/2 10:00-20:00```)
 
-### Year ranges ###
+### Year ranges
 
 * **EXT:** Supports year ranges (```2013,2015,2050-2053,2055/2,2020-2029/3 10:00-20:00```)
 * **EXT:** Supports periodic year (either limited by range or unlimited starting with given year) (```2020-2029/3,2055/2 10:00-20:00```)
@@ -476,14 +488,14 @@ Almost everything from opening_hours definition is supported, as well as some ex
  The *oh.getWarnings()* function will give you a warning if you use this anyway.
 * **EXT:** Supports way to say that a facility is open (or closed) from a specified year without limit in the future (```2055+ 10:00-20:00```)
 
-### States ###
+### States
 * A facility can be in two main states for a given point in time: `open` (true) or `closed` (false).
   * But since the state can also depend on other information (e.g. weather depending, call us) than just the time, a third state (called `unknown`) can be expressed (`Mo unknown; Th-Fr 09:00-18:00 open`)
 
   In that case the main state is false and unknown is true for Monday.
   * instead of `closed` `off` will also work
 
-### Comments ###
+### Comments
 * Supports (additional) comments (```Mo unknown "on appointment"; Th-Fr 09:00-18:00 open "female only"; Su closed "really"```)
   * The string which is delimited by double-quotes can contain any character (except a double-quote sign)
   * unknown can be omitted (just a comment (without [state][ohlib.states]) will also result in unknown)
@@ -492,24 +504,24 @@ Almost everything from opening_hours definition is supported, as well as some ex
 <!-- }}} -->
 
 <!-- Testing {{{ -->
-## Testing ##
+## Testing
 
 This project has become so complex that development without extensive testing would be madness.
 
-### Regression testing ###
+### Regression testing
 
 Simple node.js based test framework is bundled. You can run it with ```node test.js``` or with ```make test```.
 
 The current results of this test are also tracked in the repository and can be viewed [here](/test.log). Run ```make test-dev``` to compare the test results with the results from the last commit. Note that this file uses [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code) which can be interpreted by cat in the terminal.
 
-### Testing with real data ###
+### Testing with real data
 
-#### Large scale ####
+#### Large scale
 To see how this library performances in the real OpenStreetMap world you can run ```make real_test``` or ```node real_test.js``` (data needs to be exported first) to try to process every value which uses the opening_hours syntax from [taginfo][] with this library.
 
 Currently (March 2014) this library can parse 97 % (245639/253588) of all opening_hours values in OSM. If identical values appear multiple times then each value counts.
 
-#### Small scale ####
+#### Small scale
 Python script to search with regular expressions over OSM opening_hours style tags is bundled. You can run it with ```make regex_search``` or ```./regex_search.py``` which will search on the opening_hours tag. To search over different tags either use ```make regex_search SEARCH=$tagname``` (this also makes sure that the tag you would like to search on will be downloaded if necessary) or run ```./regex_search.py $path_to_downloaded_taginfo_json_file```.
 
 This script not only shows you if the found value can be processed with this library or not, it also indicates using different colors if the facility is currently open (open: green, unknown: magenta, closed: blue).
@@ -521,12 +533,12 @@ To improve the speed of fixing errors, a [feature](https://github.com/ypid/openi
 
 [taginfo]: http://taginfo.openstreetmap.org/
 
-### Test it yourself (the geeky way) ###
+### Test it yourself (the geeky way)
 You want to try some opening_hours yourself? Just run ```make interactive_testing``` or ```node interactive_testing.js``` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message). The answer is JSON encoded.
 
 Testing is much easier by now. Have a look at the [evaluation tool][ohlib.evaluation-tooldemohtml]. The reason why this peace of code was written is to have an interface which can be accessed from other programming languages. It is used by the python module [pyopening\_hours][].
 
-## Performance ##
+## Performance
 
 Simple node.js based benchmark is bundled. You can run it with ```node benchmark.js``` or with ```make benchmark```.
 
@@ -535,7 +547,7 @@ On author's Intel Core i5-2540M CPU @ 2.60GHz library allows ~8k/sec constructor
 <!-- }}} -->
 
 <!-- Used by other projects {{{ -->
-## Used by other projects ##
+## Used by other projects
 
 This library is used by the following projects:
 
@@ -559,14 +571,14 @@ If you use this libary please let me know …
 <!-- }}} -->
 
 <!-- Related links {{{ -->
-## Related links ##
+## Related links
 
 * [fossgis project page on the OSM wiki][fossgis-project]
 
 <!-- }}} -->
 
 <!-- ToDo {{{ -->
-## ToDo ##
+## ToDo
 List of missing features which can currently not be expressing in any other way without much pain.
 Please share your opinion on the [talk page](http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours) (or the discussion page of the proposal if that does exist) if you have any idea how to express this (better).
 
@@ -588,11 +600,11 @@ List of features which can make writing easier:
 <!-- }}} -->
 
 <!-- How to contribute {{{ -->
-## How to contribute ##
+## How to contribute
 
 You can contribute in the usual manner as known from git (and GitHub). Just fork, change and make a pull request.
 
-### Translating ###
+### Translating
 
 This project uses http://i18next.com/ for translation.
 
@@ -600,24 +612,24 @@ Translations can be made in the file [js/i18n-resources.js][ohlib.js/i18n-resour
 
 Note that this resource file does also provide the localization for the [opening\_hours\_map][]. This can also be tested by cloning the project and linking your modified opening_hours.js working copy to the opening_hours.js directory (after renaming it) inside the opening_hours_map project. Or just follow the installation instructions from the [opening\_hours\_map][].
 
-### Holidays ###
+### Holidays
 
 Holidays can be added to the file [opening_hours.js][ohlib.opening_hours.js] as JavaScript Object notation. Have a look at the current definitions for [other holidays][ohlib.holidays]. Please add the source for this information (in form of an URL) as comment.
 
 Please consider adding a test (with a time range of one year for example) to see if everything works as expected and to ensure that it will stay that way.
 See under [testing][ohlib.testing].
 
-### Core code ###
+### Core code
 
 Be sure to add one or more tests if you add new features or enhance error tolerance or the like.
 See under [testing][ohlib.testing].
 
-#### Commit hooks ####
+#### Commit hooks
 Note that there is a git pre-commit hook used to run and compare the test framework before each commit. To activate the hook, run:
 
     ./hooks/link_hooks
 
-#### Documentation ####
+#### Documentation
 All functions are documented, which should help contributers to get started.
 
 The documentation looks like this:
@@ -642,7 +654,7 @@ The opening brackets `{{{` (and the corresponding closing onces) are used to fol
 <!-- }}} -->
 
 <!-- Authors {{{ -->
-## Authors ##
+## Authors
 
 * [Dmitry Marakasov](https://github.com/AMDmi3) <amdmi3@amdmi3.ru> (initial coding and design and all basic features like time ranges, week ranges, month ranges and week ranges)
 * [Robin Schneider](https://github.com/ypid)   (Current maintainer. Added support for years, holidays, unknown, comments, open end, fallback/additional rules (and more), wrote getWarnings, prettifyValue, translated [demo page][ohlib.evaluation-tooldemohtml] to English and German and extended it to enter values yourself.)
@@ -650,7 +662,7 @@ The opening brackets `{{{` (and the corresponding closing onces) are used to fol
 <!-- }}} -->
 
 <!-- Contributors {{{ -->
-## Contributors ##
+## Contributors
 
 * [Sergey Leschina](https://github.com/putnik)     ([demo][ohlib.evaluation-tooldemohtml] improvements)
 * [don-vip](https://github.com/don-vip)            (French localization and public holidays for France)
@@ -666,7 +678,7 @@ The opening brackets `{{{` (and the corresponding closing onces) are used to fol
 <!-- }}} -->
 
 <!-- Credits {{{ -->
-## Credits ##
+## Credits
 
 * [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favor of opening_hours.js but a few parts where reused (mainly the input tolerance and the online evaluation for the [demo page][ohlib.evaluation-tooldemohtml]). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
 * Also thanks to FOSSGIS for hosting a public instance of this service. See the [wiki][fossgis-project].
@@ -675,7 +687,7 @@ The opening brackets `{{{` (and the corresponding closing onces) are used to fol
 <!-- }}} -->
 
 <!-- License {{{ -->
-## License ##
+## License
 
 opening_hours.js is published under the New (2-clause) BSD license.
 

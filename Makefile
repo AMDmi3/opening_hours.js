@@ -65,3 +65,9 @@ all-osm-tags: export.opening_hours.json export.lit.json export.opening_hours\:ki
 
 export.%.json:
 	wget -O "$(shell echo "$@" | sed 's/\\//g' )" "http://taginfo.openstreetmap.org/api/4/key/values?key=$(shell echo "$@" | sed 's/^export\.\(.*\)\.json/\1/;s/\\//g' )"
+
+
+README.html: README.md
+
+%.html: %.md
+	pandoc --from markdown_github --to html --standalone $< --output $@
