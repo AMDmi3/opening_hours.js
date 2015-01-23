@@ -22,7 +22,6 @@ Please have a look at the [evaluation tool][] which can give you an impression h
 
 A mirror is setup up under: http://ypid.de/~osm/evaluation_tool/
 
-<!-- Install {{{ -->
 
 ## Install
 
@@ -56,9 +55,7 @@ http://openingh.openstreetmap.de/evaluation_tool/node_modules/suncalc/suncalc.js
 
 This library is packaged with npm and is available under the name [opening_hours][ohlib.npmjs] so you should have no problems using it.
 
-<!-- }}} -->
 
-<!-- Versions {{{ -->
 ## Versions
 
 The version number consists of a major release, minor release and patch level (separated by a dot).
@@ -69,9 +66,7 @@ For version 2.2.0 and all following, the following applies:
 * The minor release is increased if new features are added.
 * The patch level is increased to bundle a bunch of commits (minor changes like bug fixes and improvements) into a new tested version.
 
-<!-- }}} -->
 
-<!-- Synopsis {{{ -->
 ## Synopsis
 
 ```javascript
@@ -346,9 +341,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
 
   For instance, returns false if the iterator would go beyond *limit* or if there's no next position (```24/7``` case).
 
-<!-- }}} -->
 
-<!-- Features {{{ -->
 ## Features
 
 Almost everything from opening_hours definition is supported, as well as some extensions (indicated as **EXT** below).
@@ -489,9 +482,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
   * unknown can be omitted (just a comment (without [state][ohlib.states]) will also result in unknown)
   * value can also be just a double-quoted string (```"on appointment"```) which will result in unknown for any given time.
 
-<!-- }}} -->
 
-<!-- Testing {{{ -->
 ## Testing
 
 This project has become so complex that development without extensive testing would be madness.
@@ -532,9 +523,7 @@ Simple node.js based benchmark is bundled. You can run it with ```node benchmark
 
 On author's Intel Core i5-2540M CPU @ 2.60GHz library allows ~8k/sec constructor calls and ~2.5k/sec openIntervals() calls with one week period. This may further improve in future.
 
-<!-- }}} -->
 
-<!-- Used by other projects {{{ -->
 ## Used by other projects
 
 This library is used by the following projects:
@@ -556,16 +545,12 @@ This library is used by the following projects:
 
 If you use this libary please let me know …
 
-<!-- }}} -->
 
-<!-- Related links {{{ -->
 ## Related links
 
 * [fossgis project page on the OSM wiki][fossgis-project]
 
-<!-- }}} -->
 
-<!-- ToDo {{{ -->
 ## ToDo
 List of missing features which can currently not be expressing in any other way without much pain.
 Please share your opinion on the [talk page](http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours) (or the discussion page of the proposal if that does exist) if you have any idea how to express this (better).
@@ -585,9 +570,7 @@ List of features which can make writing easier:
   2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)"
   ```
 
-<!-- }}} -->
 
-<!-- How to contribute {{{ -->
 ## How to contribute
 
 You can contribute in the usual manner as known from git (and GitHub). Just fork, change and make a pull request.
@@ -634,22 +617,16 @@ The documentation looks like this:
  */
 function getConstrainedWeekday(tokens, at) {
 ```
-<!-- }}} -->
 
 The opening brackets `{{{` (and the corresponding closing onces) are used to fold the source code. See [Vim folds](http://vim.wikia.com/wiki/Folding).
-<!-- }}} -->
 
-<!-- }}} -->
 
-<!-- Authors {{{ -->
 ## Authors
 
 * [Dmitry Marakasov](https://github.com/AMDmi3) <amdmi3@amdmi3.ru> (initial coding and design and all basic features like time ranges, week ranges, month ranges and week ranges)
 * [Robin Schneider](https://github.com/ypid)   (Current maintainer. Added support for years, holidays, unknown, comments, open end, fallback/additional rules (and more), wrote getWarnings, prettifyValue, translated [demo page][ohlib.evaluation-tooldemohtml] to English and German and extended it to enter values yourself.)
 
-<!-- }}} -->
 
-<!-- Contributors {{{ -->
 ## Contributors
 
 * [Sergey Leschina](https://github.com/putnik)     ([demo][ohlib.evaluation-tooldemohtml] improvements)
@@ -663,26 +640,21 @@ The opening brackets `{{{` (and the corresponding closing onces) are used to fol
 * [Blaž Lorger](https://github.com/blorger)        (public holidays for Slovenian)
 * [dmromanov](https://github.com/dmromanov)        (public holidays and tests for Russian, small fixes)
 
-<!-- }}} -->
 
-<!-- Credits {{{ -->
 ## Credits
 
 * [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favor of opening_hours.js but a few parts where reused (mainly the input tolerance and the online evaluation for the [demo page][ohlib.evaluation-tooldemohtml]). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
 * Also thanks to FOSSGIS for hosting a public instance of this service. See the [wiki][fossgis-project].
 * The [favicon.png](/favicon.png) is based on the file ic_action_add_alarm.png from the [Android Design Icons](https://developer.android.com/downloads/design/Android_Design_Icons_20131106.zip) which is licensed under [Creative Commons Attribution 2.5](https://creativecommons.org/licenses/by/2.5/). It represents a clock next to the most common opening_hours value (by far) and a check mark.
 
-<!-- }}} -->
 
-<!-- License {{{ -->
 ## License
 
 opening_hours.js is published under the New (2-clause) BSD license.
 
-<!-- }}} -->
 
 
-<!-- Link definitions {{{ -->
+
 [Nominatim]: http://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding_.2F_Address_lookup
 [fossgis-project]: http://wiki.openstreetmap.org/wiki/FOSSGIS/Server/Projects/opening_hours.js
 [issue-report]: https://github.com/ypid/opening_hours.js/issues
@@ -693,7 +665,6 @@ opening_hours.js is published under the New (2-clause) BSD license.
 [oh:spec:any_rule_separator]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#any_rule_separator
 [oh:spec:separator_for_readability]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#separator_for_readability
 
-<!-- References to other parts of this documentation. {{{
 Can not use short links only referring to the section inside the README.md any more because this will not work on other pages like https://www.npmjs.org/package/opening_hours.
 Edit: This does also work on npmjs in this short version … -->
 [ohlib.iterator-api]: #iterator-api
@@ -724,4 +695,3 @@ Edit: This does also work on npmjs in this short version … -->
 [PH-si]: http://www.vlada.si/o_sloveniji/politicni_sistem/prazniki/
 [PH-ru]: https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%D0%B8_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8
 
-<!-- }}} -->
