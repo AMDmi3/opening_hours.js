@@ -403,19 +403,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
   Open end applies until the end of the day if the opening time is before 17:00. If the opening time is between 17:00 and 21:59 the open end time ends 10 hours after the opening. And if the opening time is after 22:00 (including 22:00) the closing time will be interpreted as 8 hours after the opening time.
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 * ```07:00+,12:00-16:00```: If an open end time is used in a way that the frist time range includes the second one (```07:00+``` is interpreted as ```07:00-24:00``` and thus includes the complete ```12:00-16:00``` time selector), the second time selector cuts of the part which would follow after 16:00.
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-* **EXT:** ```07:00+,12:00-16:00```: If an open end time is used in a way that the frist time range includes the second one (```07:00+``` is interpreted as ```07:00-24:00``` and thus includes the complete ```12:00-16:00``` time selector), the second time selector cuts of the part which would follow after 16:00.
-
-* **WARN:** Supports dot as time separator (```12.00-16.00```)
->>>>>>> Stashed changes
 
 [suncalc]: https://github.com/mourner/suncalc
 
