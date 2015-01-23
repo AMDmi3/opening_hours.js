@@ -510,15 +510,17 @@ On author's Intel Core i5-2540M CPU @ 2.60GHz library allows ~8k/sec constructor
 
 This library is used by the following projects:
 
-* [osm24.eu](https://github.com/dotevo/osm24)
-* [OpenBeerMap](https://openbeermap.github.io) ([issue for integration](https://github.com/OpenBeerMap/OpenBeerMap.github.io/issues/25))
-* [JOSM](http://josm.openstreetmap.de/) ([ticket for integration](http://josm.openstreetmap.de/ticket/9157))
-* [opening\_hours\_map][]
-* [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours) (old version of this library)
-* [pyopening\_hours][] (python module for opening_hours.js)
-* [opening_hours_server.js][] (A little server answering query‘s for opening_hours and check if they can be evaluated)
-* [opening_hours-statistics][] (Visualization of the data quality and grow over time)
-* [www.openstreetmap.hu](http://www.openstreetmap.hu/) (old version of this library, see also https://github.com/AMDmi3/opening_hours.js/issues/19)
+Project                                                          | Additional Information
+-------------                                                    | -------------
+[osm24.eu](https://github.com/dotevo/osm24)                      |
+[OpenBeerMap](https://openbeermap.github.io)                     | [issue for integration](https://github.com/OpenBeerMap/OpenBeerMap.github.io/issues/25)
+[JOSM](http://josm.openstreetmap.de/)                            | [ticket for integration](http://josm.openstreetmap.de/ticket/9157)
+[opening\_hours\_map][]                                          |
+[ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours) |
+[pyopening\_hours][]                                             | python module for opening_hours.js
+[opening_hours_server.js][]                                      | A little server answering query‘s for opening_hours and check if they can be evaluated.
+[opening_hours-statistics][]                                     | Visualization of the data quality and grow over time.
+[www.openstreetmap.hu](http://www.openstreetmap.hu/)             | old version of this library, see also https://github.com/AMDmi3/opening_hours.js/issues/19
 
 [opening\_hours\_map]: https://github.com/ypid/opening_hours_map
 [pyopening\_hours]: https://github.com/ypid/pyopening_hours
@@ -638,17 +640,19 @@ Contributor                                     | Contribution
 
 opening_hours.js is published under the New (2-clause) BSD license.
 
+
+<!-- Links {{{ -->
 [Nominatim]: http://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding_.2F_Address_lookup
 [fossgis-project]: http://wiki.openstreetmap.org/wiki/FOSSGIS/Server/Projects/opening_hours.js
 [issue-report]: https://github.com/ypid/opening_hours.js/issues
 [Key:opening_hours]: http://wiki.openstreetmap.org/wiki/Key:opening_hours
-[oh:specification]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification
-[oh:specification:fallback rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#fallback_rule_separator
-[oh:specification:additional rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#additional_rule_separator
-[oh:spec:any_rule_separator]: https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#any_rule_separator
-[oh:spec:separator_for_readability]: http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#separator_for_readability
+[oh:specification]: http://wiki.openstreetmap.org/wiki/Key:opening_hours/specification
+[oh:specification:fallback rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#fallback_rule_separator
+[oh:specification:additional rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#additional_rule_separator
+[oh:spec:any_rule_separator]: https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#any_rule_separator
+[oh:spec:separator_for_readability]: http://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#separator_for_readability
 
-Can not use short links only referring to the section inside the README.md any more because this will not work on other pages like https://www.npmjs.org/package/opening_hours.
+<!-- Can not use short links only referring to the section inside the README.md any more because this will not work on other pages like https://www.npmjs.org/package/opening_hours.
 Edit: This does also work on npmjs in this short version … -->
 [ohlib.iterator-api]: #iterator-api
 [ohlib.time-ranges]: #time-ranges
@@ -677,4 +681,4 @@ Edit: This does also work on npmjs in this short version … -->
 [PH-ua]: http://uk.wikipedia.org/wiki/%D0%A1%D0%B2%D1%8F%D1%82%D0%B0_%D1%82%D0%B0_%D0%BF%D0%B0%D0%BC%27%D1%8F%D1%82%D0%BD%D1%96_%D0%B4%D0%BD%D1%96_%D0%B2_%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%96
 [PH-si]: http://www.vlada.si/o_sloveniji/politicni_sistem/prazniki/
 [PH-ru]: https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%D0%B8_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8
-
+<!-- }}} -->
