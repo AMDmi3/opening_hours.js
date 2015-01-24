@@ -17,7 +17,7 @@ dependencies-get:
 build: opening_hours.min.js
 
 .PHONY : check
-check: check-diff-all
+check: check-diff-all check-package.json
 
 .PHONY : benchmark
 benchmark: benchmark-opening_hours.js
@@ -25,10 +25,12 @@ benchmark: benchmark-opening_hours.js
 README.html: README.md
 
 .PHONY : release
-release: check-all
+release: check
+	git status
+	read continue
 	editor package.json
-	$(MAKE) test-package.json
-	git commit --all
+	git commit --all --message="Released version `json -f package.json version`."
+	git tag --sign --local-user=EE88E1F0 "v`json -f package.json version`"
 	git tag --sign --local-user=EE88E1F0 "v`json -f package.json version`"
 	git push --tags
 	npm publish
