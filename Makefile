@@ -1,7 +1,7 @@
 NODE?=	node
 SEARCH?= opening_hours
 
-.PHONY : default check build clean test test-normal test-min diff-test diff-test-min download-dependencies
+.PHONY : default check build clean test test-normal test-min diff-test diff-test-min download-dependencies release
 default: test
 
 build: opening_hours.min.js
@@ -66,6 +66,12 @@ all-osm-tags: export.opening_hours.json export.lit.json export.opening_hours\:ki
 export.%.json:
 	wget -O "$(shell echo "$@" | sed 's/\\//g' )" "http://taginfo.openstreetmap.org/api/4/key/values?key=$(shell echo "$@" | sed 's/^export\.\(.*\)\.json/\1/;s/\\//g' )"
 
+release: clean fulltest
+	editor package.json
+	git commit --all
+	git tag --sign --local-user=EE88E1F0 "v`npm view opening_hours version |head --lines 1`"
+	git push --tags
+	npm publish
 
 README.html: README.md
 
