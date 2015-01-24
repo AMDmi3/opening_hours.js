@@ -12,6 +12,7 @@ download-dependencies:
 clean:
 	rm -f *.min.js
 	rm -f export.*.json
+	rm -f README.html
 
 test-dev: diff-test
 
