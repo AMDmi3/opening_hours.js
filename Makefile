@@ -31,8 +31,7 @@ release: check
 	editor package.json
 	git commit --all --message="Released version `json -f package.json version`."
 	git tag --sign --local-user=EE88E1F0 "v`json -f package.json version`"
-	git tag --sign --local-user=EE88E1F0 "v`json -f package.json version`"
-	git push --tags
+	git push --follow-tags
 	npm publish
 	$(MAKE) publish-website-on-all-servers
 
