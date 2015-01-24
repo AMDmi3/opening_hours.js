@@ -470,21 +470,21 @@ This project has become so complex that development without extensive testing wo
 
 ### Regression testing
 
-Simple node.js based test framework is bundled. You can run it with `node test.js` or with `make test`.
+Simple node.js based test framework is bundled. You can run it with `node test.js` or with `make check`.
 
-The current results of this test are also tracked in the repository and can be viewed [here](/test.log). Run `make test-dev` to compare the test results with the results from the last commit. Note that this file uses [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code) which can be interpreted by cat in the terminal.
+The current results of this test are also tracked in the repository and can be viewed [here](/test.log). Run `make check-test` to compare the test results with the results from the last commit. Note that this file uses [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code) which can be interpreted by cat in the terminal.
 
 ### Testing with real data
 
 #### Large scale
 
-To see how this library performances in the real OpenStreetMap world you can run `make real_test` or `node real_test.js` (data needs to be exported first) to try to process every value which uses the opening_hours syntax from [taginfo][] with this library.
+To see how this library performances in the real OpenStreetMap world you can run `make osm-tag-data-check` or `node real_test.js` (data needs to be exported first) to try to process every value which uses the opening_hours syntax from [taginfo][] with this library.
 
 Currently (March 2014) this library can parse 97 % (245639/253588) of all opening_hours values in OSM. If identical values appear multiple times then each value counts.
 
 #### Small scale
 
-Python script to search with regular expressions over OSM opening_hours style tags is bundled. You can run it with `make regex_search` or `./regex_search.py` which will search on the opening_hours tag. To search over different tags either use `make regex_search SEARCH=$tagname` (this also makes sure that the tag you would like to search on will be downloaded if necessary) or run `./regex_search.py $path_to_downloaded_taginfo_json_file`.
+Python script to search with regular expressions over OSM opening_hours style tags is bundled. You can run it with `make run-regex_search` or `./regex_search.py` which will search on the opening_hours tag. To search over different tags either use `make run-regex_search "SEARCH=$tagname"` (this also makes sure that the tag you would like to search on will be downloaded if necessary) or run `./regex_search.py $path_to_downloaded_taginfo_json_file`.
 
 This script not only shows you if the found value can be processed with this library or not, it also indicates using different colors if the facility is currently open (open: green, unknown: magenta, closed: blue).
 
@@ -497,7 +497,7 @@ To improve the speed of fixing errors, a [feature](https://github.com/ypid/openi
 
 ### Test it yourself (the geeky way)
 
-You want to try some opening_hours yourself? Just run `make interactive_testing` or `node interactive_testing.js` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message). The answer is JSON encoded.
+You want to try some opening_hours yourself? Just run `make run-interactive_testing` or `node interactive_testing.js` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message). The answer is JSON encoded.
 
 Testing is much easier by now. Have a look at the [evaluation tool][ohlib.evaluation-tooldemohtml]. The reason why this peace of code was written is to have an interface which can be accessed from other programming languages. It is used by the python module [pyopening\_hours][].
 

@@ -36,23 +36,26 @@
         "doc": "./doc"
     },
     "scripts": {
-        "test"               : "make test",
-        "real_test"          : "make real_test",
-        "benchmark"          : "make benchmark",
-        "build"              : "make clean && make build",
-        "interactive_testing": "make interactive_testing"
+        "build"               : "make build",
+        "test"                : "make check",
+        "osm-tag-data-check"  : "make osm-tag-data-check",
+        "benchmark"           : "make benchmark",
+        "interactive_testing" : "make run-interactive_testing",
+        "regex_search"        : "make run-regex_search"
     },
     "dependencies": {
-        "suncalc": ">=1.2.1"
+        "suncalc": "1.2.1"
     },
     "optionalDependencies": {
         "i18next": ">=1.6.3",
         "moment" : "2.7.x"
     },
     "devDependencies": {
-        "colors"    : ">=0.6.2",
-        "uglify-js" : ">=2.0.0",
-        "sprintf-js": ">=0.0.7"
+        "colors"     : "0.6.*",
+        "uglify-js"  : ">=2.0.0",
+        "sprintf-js" : ">=0.0.7",
+        "json"       : ">=9.0.3",
+        "package-json-validator" : ">=0.1.8"
     },
     "engines": {
         "node": ">=0.8"

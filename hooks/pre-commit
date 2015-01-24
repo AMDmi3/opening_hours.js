@@ -12,7 +12,7 @@ git stash -q --keep-index
 # # Redirect output to stderr.
 # exec 1>&2
 
-make diff-test NODE=nodejs
+make check-diff-all
 git add test.log
 
 git stash pop -q

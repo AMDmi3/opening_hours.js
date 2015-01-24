@@ -1,4 +1,12 @@
+#!/usr/bin/env node
+
+/* Required modules {{{ */
 var opening_hours = require('./opening_hours.js');
+var opening_hours_lib = process.argv[2];
+if (typeof opening_hours_lib !== 'string')
+	opening_hours_lib = './opening_hours.js';
+var opening_hours = require(opening_hours_lib);
+/* }}} */
 
 var tests = 3;
 var iterations = 40000;

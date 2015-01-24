@@ -24,12 +24,13 @@ function get_dump_creation_time_from_file(file) {
 }
 /* }}} */
 
-var previous_dump_creation_time = get_dump_creation_time_from_file('taginfo_sources.json');
+var local_dump_creation_time = get_dump_creation_time_from_file('taginfo_sources.json');
 
 /* Download source file and compare {{{ */
-console.log('Loading file ' + taginfo_api_url + 'site/sources');
+var taginfo_api_url_source = taginfo_api_url + 'site/sources';
+console.log('Loading file ' + taginfo_api_url_source + ' to check if new data is availale.');
 var file = fs.createWriteStream('taginfo_sources.json');
-var request = http.get(taginfo_api_url + 'site/sources', function(response) {
+var request = http.get(taginfo_api_url_source, function(response) {
 	response.pipe(file);
 
 	response.on('error', function(err) {
@@ -37,19 +38,19 @@ var request = http.get(taginfo_api_url + 'site/sources', function(response) {
 	});
 
 	response.on('end', function() {
-		var current_dump_creation_time = get_dump_creation_time_from_file('taginfo_sources.json');
+		var upstream_dump_creation_time = get_dump_creation_time_from_file('taginfo_sources.json');
 
-		if (typeof previous_dump_creation_time == 'object')
-			console.log("Previous creation time: " + previous_dump_creation_time);
+		if (typeof local_dump_creation_time == 'object')
+			console.log("Local taginfo data was generated on: " + local_dump_creation_time);
 
-		if (typeof previous_dump_creation_time == 'object'
-				&& previous_dump_creation_time.getTime() == current_dump_creation_time.getTime()) {
+		if (typeof local_dump_creation_time == 'object'
+				&& local_dump_creation_time.getTime() == upstream_dump_creation_time.getTime()) {
 
-				console.log("Nothing new.");
+				console.log("Not newer then local data.");
 				process.exit(1);
 			} else {
-				console.log("New data available.");
-				console.log("Current creation time: " + current_dump_creation_time.toISOString());
+				console.log("New data available …");
+				console.log("Taginfo data was generated on: " + upstream_dump_creation_time.toISOString());
 				process.exit(0);
 			}
 	});
