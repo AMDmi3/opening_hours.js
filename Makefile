@@ -6,25 +6,25 @@ SEARCH ?= opening_hours
 WGET_OPTIONS ?= --no-verbose
 ## }}}
 
-.PHONY : default
+.PHONY: default
 default: check
 
-.PHONY : dependencies-get
+.PHONY: dependencies-get
 dependencies-get:
 	npm install
 
-.PHONY : build
+.PHONY: build
 build: opening_hours.min.js
 
-.PHONY : check
+.PHONY: check
 check: check-diff-all check-package.json
 
-.PHONY : benchmark
+.PHONY: benchmark
 benchmark: benchmark-opening_hours.js
 
 README.html: README.md
 
-.PHONY : release
+.PHONY: release
 release: check
 	git status
 	read continue
@@ -35,7 +35,7 @@ release: check
 	npm publish
 	$(MAKE) publish-website-on-all-servers
 
-.PHONY : clean
+.PHONY: clean
 clean: osm-tag-data-rm
 	rm -f *.min.js
 	rm -f README.html
@@ -43,44 +43,44 @@ clean: osm-tag-data-rm
 
 ## Publish {{{
 
-.PHONY : publish-website-on-all-servers
+.PHONY: publish-website-on-all-servers
 publish-website-on-all-servers: publish-website-on-ypid.de publish-website-on-openingh.openstreetmap.de
 
-.PHONY : publish-website-on-openingh.openstreetmap.de
+.PHONY: publish-website-on-openingh.openstreetmap.de
 publish-website-on-openingh.openstreetmap.de:
 	ssh gauss.osm.de './update'
 
-.PHONY : publish-website-on-ypid.de
+.PHONY: publish-website-on-ypid.de
 publish-website-on-ypid.de:
 	ssh osm@ypid.de './update'
 
 ## }}}
 
 ## command line programs {{{
-.PHONY : run-regex_search
+.PHONY: run-regex_search
 run-regex_search: export.$(SEARCH).json interactive_testing.js regex_search.py
 	$(NODE) ./regex_search.py "$<"
 
-.PHONY : run-interactive_testing
+.PHONY: run-interactive_testing
 run-interactive_testing: interactive_testing.js
 	$(NODE) "$<"
 ## }}}
 
 ## software testing {{{
 
-.PHONY : check-all
+.PHONY: check-all
 check-all: check-package.json check-test check-diff-all osm-tag-data-update-check
 
-.PHONY : check-diff-all
+.PHONY: check-diff-all
 check-diff-all: check-diff check-diff-opening_hours.min.js
 
-.PHONY : check-diff
+.PHONY: check-diff
 check-diff: check-diff-opening_hours.js
 
-.PHONY : check-test
+.PHONY: check-test
 check-test: check-opening_hours.js
 
-# .PHONY : check-opening_hours.js
+# .PHONY: check-opening_hours.js
 ## Does not work
 check-%.js: %.js test.js
 	-$(NODE) test.js "./$<"
@@ -94,21 +94,21 @@ check-diff-%.js: %.js test.js
 	# git --no-pager diff --color-words test.log
 	git --no-pager diff test.log
 
-.PHONY : osm-tag-data-check
+.PHONY: osm-tag-data-check
 osm-tag-data-check: real_test.js opening_hours.js osm-tag-data-get-all
 	$(NODE) "$<"
 
-.PHONY : osm-tag-data-update-check
+.PHONY: osm-tag-data-update-check
 .SILENT : osm-tag-data-update-check
 osm-tag-data-update-check:
 	-$(MAKE) --quiet osm-tag-data-update-all 2>/dev/null
 	$(MAKE) --quiet osm-tag-data-check
 
-# .PHONY : benchmark
+# .PHONY: benchmark
 benchmark-%.js: %.js benchmark.js
 	$(NODE) ./benchmark.js "$<"
 
-.PHONY : check-package.json
+.PHONY: check-package.json
 check-package.json: package.json
 	pjv --warnings --recommendations --filename "$<"
 
@@ -117,20 +117,20 @@ check-package.json: package.json
 ## OSM data from taginfo {{{
 
 ## See real_test.js
-.PHONY : osm-tag-data-gen-stats
+.PHONY: osm-tag-data-gen-stats
 osm-tag-data-gen-stats: real_test.opening_hours.stats.csv osm-tag-data-update-check
 
-.PHONY : osm-tag-data-rm
+.PHONY: osm-tag-data-rm
 osm-tag-data-rm:
 	rm -f export.*.json
 
-.PHONY : osm-tag-data-update-all
+.PHONY: osm-tag-data-update-all
 osm-tag-data-update-all:
 	$(NODE) ./check_for_new_taginfo_data.js
 	$(MAKE) osm-tag-data-rm
 	$(MAKE) osm-tag-data-get-all
 
-.PHONY : osm-tag-data-get-all
+.PHONY: osm-tag-data-get-all
 osm-tag-data-get-all: export.opening_hours.json export.lit.json export.opening_hours\:kitchen.json export.opening_hours\:warm_kitchen.json export.smoking_hours.json export.collection_times.json export.service_times.json export.fee.json export.happy_hours.json export.delivery_hours.json export.opening_hours\:delivery.json
 
 export.%.json:
@@ -141,4 +141,4 @@ export.%.json:
 	uglifyjs "$<" --output "$@" --comments '/ypid\/opening_hours\.js/' --lint
 
 %.html: %.md
-	pandoc --from markdown_github --to html --standalone $< --output $@
+	pandoc --from markdown_github --to html --standalone "$<" --output "$@"

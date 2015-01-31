@@ -66,7 +66,7 @@ For version 2.2.0 and all following, the following applies:
 * The minor release is increased if new features are added.
 * The patch level is increased to bundle a bunch of commits (minor changes like bug fixes and improvements) into a new tested version.
 
-Check [releases on GitHub] for a list of the releases and there changelog.
+Check [releases on GitHub] for a list of the releases and their changelog.
 
 ## Synopsis
 
@@ -645,8 +645,8 @@ opening_hours.js is published under the New (2-clause) BSD license.
 <!-- Links {{{ -->
 [Nominatim]: http://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding_.2F_Address_lookup
 [fossgis-project]: http://wiki.openstreetmap.org/wiki/FOSSGIS/Server/Projects/opening_hours.js
-[issue-report]: /issues
-[releases on github]: /releases
+[issue-report]: /../../issues
+[releases on github]: /../../releases
 [Key:opening_hours]: http://wiki.openstreetmap.org/wiki/Key:opening_hours
 [oh:specification]: http://wiki.openstreetmap.org/wiki/Key:opening_hours/specification
 [oh:specification:fallback rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#fallback_rule_separator
