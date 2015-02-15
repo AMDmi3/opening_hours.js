@@ -567,6 +567,168 @@ With [1m[34mwarnings[39m[22m:
 "Variable days: Russian public holidays. Komi Republic" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States common public holidays" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Alabama" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Alaska" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Arizona" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Arkansas" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. California" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Colorado" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Connecticut" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Delaware" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. District of Columbia" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Florida" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Georgia" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Guam" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Hawaii" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Idaho" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Illinois" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Indiana" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Iowa" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Kansas" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Kentucky" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Louisiana" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Maine" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Maryland" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Massachusetts" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Michigan" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Minnesota" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Mississippi" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Missouri" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Montana" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Nebraska" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Nevada" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. New Hampshire" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. New Jersey" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. New Mexico" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. New York" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. North Carolina" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Ohio" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Oklahoma" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Oregon" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Pennsylvania" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Puerto Rico" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Rhode Island" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. South Carolina" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. South Dakota" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Tennessee" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Texas" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. United States Virgin Islands" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Utah" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Vermont" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Virginia" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Washington" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. West Virginia" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Wisconsin" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: United States public holidays. Wyoming" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Weekdays" for "Mo,Th,Sa,Su 10:00-12:00": [1m[32mPASSED[39m[22m
 "Weekdays" for "Mo,Th,weekend 10:00-12:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1921,7 +2083,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-745/754 tests passed.
+799/808 tests passed.
 38 tests where (partly) ignored, sorted by commonness:
 * 23: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

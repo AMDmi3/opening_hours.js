@@ -3174,10 +3174,15 @@
 		// holidays.
 		var location_cc, location_state, lat, lon;
 		if (typeof nominatiomJSON != 'undefined') {
-			if (typeof nominatiomJSON.address != 'undefined' &&
-					typeof nominatiomJSON.address.state != 'undefined') { // country_code will be tested later …
-						location_cc    = nominatiomJSON.address.country_code;
-						location_state = nominatiomJSON.address.state;
+			if (typeof nominatiomJSON.address != 'undefined') {
+				if (typeof nominatiomJSON.address.country_code != 'undefined') {
+					location_cc    = nominatiomJSON.address.country_code;
+				}
+				if (typeof nominatiomJSON.address.state != 'undefined') {
+					location_state = nominatiomJSON.address.state;
+				} else if (typeof nominatiomJSON.address.county != 'undefined') {
+					location_state = nominatiomJSON.address.county;
+				}
 			}
 
 			if (typeof nominatiomJSON.lon != 'undefined') { // lat will be tested later …
@@ -5211,38 +5216,37 @@
 		function getMatchingHoliday(type_of_holidays) {
 			if (typeof location_cc != 'undefined') {
 				if (holidays.hasOwnProperty(location_cc)) {
-					if (typeof location_state != 'undefined') {
-						if (holidays[location_cc][location_state]
-								&& holidays[location_cc][location_state][type_of_holidays]) {
-							// if holidays for the state are specified use it
-							// and ignore lesser specific ones (for the country)
-							return holidays[location_cc][location_state][type_of_holidays];
-						} else if (holidays[location_cc][type_of_holidays]) {
-							// holidays are only defined country wide
-							var matching_holiday = {}; // holidays in the country wide scope can be limited to certain states
-							for (var holiday_name in holidays[location_cc][type_of_holidays]) {
-								if (typeof holidays[location_cc][type_of_holidays][holiday_name][2] === 'object') {
-									if (-1 != holidays[location_cc][type_of_holidays][holiday_name][2].indexOf(location_state))
-										matching_holiday[holiday_name] = holidays[location_cc][type_of_holidays][holiday_name];
-								} else {
+					if (typeof location_state != 'undefined'
+							&& holidays[location_cc][location_state]
+							&& holidays[location_cc][location_state][type_of_holidays]) {
+						// if holidays for the state are specified use it
+						// and ignore lesser specific ones (for the country)
+						return holidays[location_cc][location_state][type_of_holidays];
+					} else if (holidays[location_cc][type_of_holidays]) {
+						// holidays are only defined country wide
+						var matching_holiday = {}; // holidays in the country wide scope can be limited to certain states
+						for (var holiday_name in holidays[location_cc][type_of_holidays]) {
+							if (typeof holidays[location_cc][type_of_holidays][holiday_name][2] === 'object') {
+								if (-1 != holidays[location_cc][type_of_holidays][holiday_name][2].indexOf(location_state))
 									matching_holiday[holiday_name] = holidays[location_cc][type_of_holidays][holiday_name];
-								}
+							} else {
+								matching_holiday[holiday_name] = holidays[location_cc][type_of_holidays][holiday_name];
 							}
-							if (Object.keys(matching_holiday).length === 0)
-							throw formatLibraryBugMessage('There are no holidays ' + type_of_holidays + ' defined for country ' + location_cc + '.'
-									+ ' You can also add them: ' + repository_url);
-							return matching_holiday;
-						} else {
-							throw formatLibraryBugMessage('Holidays ' + type_of_holidays + ' are not defined for country ' + location_cc
-									+ ' and state ' + location_state + '.'
-									+ ' You can also add them: ' + repository_url);
 						}
+						if (Object.keys(matching_holiday).length === 0)
+						throw formatLibraryBugMessage('There are no holidays ' + type_of_holidays + ' defined for country ' + location_cc + '.'
+								+ ' You can also add them: ' + repository_url);
+						return matching_holiday;
+					} else {
+						throw formatLibraryBugMessage('Holidays ' + type_of_holidays + ' are not defined for country ' + location_cc
+								+ ' and state ' + location_state + '.'
+								+ ' You can also add them: ' + repository_url);
 					}
 				} else {
 					throw formatLibraryBugMessage('No holidays are defined for country ' + location_cc + '.'
 							+ ' You can also add them: ' + repository_url);
 				}
-			} else { // we have no idea which holidays do apply because the country code was not provided
+			} else { /* We have no idea which holidays do apply because the country code was not provided. */
 				throw 'Country code missing which is needed to select the correct holidays (see README how to provide it)';
 			}
 		}
@@ -5304,13 +5308,13 @@
 				var first = new Date(Y, month, 1);
 				return 1 + ((7 + weekday - first.getDay()) % 7);
 			}
-            
+
 			function lastWeekdayOfMonth(month, weekday){
 				var last = new Date(Y, month+1, 0);
 				var offset=((7 + last.getDay() - weekday) % 7);
                 return last.getDate() - offset;
 			}
-            
+
 			return {
 				'firstFebruaryMonday': new Date(Y, 1, firstMondays[1]),
 				'lastFebruarySunday': new Date(Y, 1, lastFebruarySunday),

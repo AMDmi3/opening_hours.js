@@ -23,17 +23,62 @@ var test = new opening_hours_test();
 
 // nominatiomJSON {{{
 // used for sunrise, sunset … and PH,SH
+/* Defaults {{{ */
 // http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1
 var nominatiomTestJSON = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
 
 // http://nominatim.openstreetmap.org/reverse?format=json&lat=60.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1
 var nominatiomTestJSON_sunrise_below_default = {"place_id":"71977948","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"118145917","lat":"60.5467949","lon":"9.8269589","display_name":"243, Ringerike, Buskerud, Norway","address":{"road":"243","county":"Ringerike","state":"Buskerud","country":"Norway","country_code":"no"}};
+/* }}} */
 
+/* Germany {{{ */
 // http://nominatim.openstreetmap.org/reverse?format=json&lat=53.1208&lon=8.8780&zoom=18&addressdetails=1&accept-language=de
-var nominatiomTestJSON_bremen = {"place_id":"39182271","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"28200369","lat":"53.1249048","lon":"8.8755814","display_name":"Am Lehester Deich, Lehesterdeich, Horn-Lehe, Stadtbezirk Bremen-Ost, Bremen, 28357, Deutschland, Europ\u00e4ischen Union","address":{"road":"Am Lehester Deich","neighbourhood":"Lehesterdeich","suburb":"Horn-Lehe","city_district":"Stadtbezirk Bremen-Ost","city":"Bremen","county":"Bremen","state":"Bremen","postcode":"28357","country":"Deutschland","country_code":"de","continent":"Europ\u00e4ischen Union"}};
+var nominatiomTestJSON_bremen = {
+    "address": {
+        "city": "Bremen",
+        "city_district": "Stadtbezirk Bremen-Ost",
+        "continent": "Europ\u00e4ischen Union",
+        "country": "Deutschland",
+        "country_code": "de",
+        "county": "Bremen",
+        "neighbourhood": "Lehesterdeich",
+        "postcode": "28357",
+        "road": "Am Lehester Deich",
+        "state": "Bremen",
+        "suburb": "Horn-Lehe"
+    },
+    "display_name": "Am Lehester Deich, Lehesterdeich, Horn-Lehe, Stadtbezirk Bremen-Ost, Bremen, 28357, Deutschland, Europ\u00e4ischen Union",
+    "lat": "53.1249048",
+    "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+    "lon": "8.8755814",
+    "osm_id": "28200369",
+    "osm_type": "way",
+    "place_id": "39182271"
+};
+/* }}} */
 
+/* Russia {{{ */
 // http://nominatim.openstreetmap.org/reverse?format=json&lat=59.9179&lon=30.3058&zoom=18&addressdetails=1&accept-language=en
-var nominatiomTestJSON_russia_sanktpeterburg = {"place_id":"158850652","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"relation","osm_id":"1122295","lat":"59.9180615","lon":"30.3059528150966","display_name":"126, Fontanka River Embankment, Kolomna, Saint Petersburg, \u0410\u0434\u043c\u0438\u0440\u0430\u043b\u0442\u0435\u0439\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d, Saint Petersburg, Northwestern Federal District, 190000, Russian Federation","address":{"house_number":"126","road":"Fontanka River Embankment","suburb":"Kolomna","city":"Saint Petersburg","state_district":"\u0410\u0434\u043c\u0438\u0440\u0430\u043b\u0442\u0435\u0439\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d","state":"Saint Petersburg","postcode":"190000","country":"Russian Federation","country_code":"ru"}};
+var nominatiomTestJSON_russia_sanktpeterburg = {
+    "address": {
+        "city": "Saint Petersburg",
+        "country": "Russian Federation",
+        "country_code": "ru",
+        "house_number": "126",
+        "postcode": "190000",
+        "road": "Fontanka River Embankment",
+        "state": "Saint Petersburg",
+        "state_district": "\u0410\u0434\u043c\u0438\u0440\u0430\u043b\u0442\u0435\u0439\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
+        "suburb": "Kolomna"
+    },
+    "display_name": "126, Fontanka River Embankment, Kolomna, Saint Petersburg, \u0410\u0434\u043c\u0438\u0440\u0430\u043b\u0442\u0435\u0439\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d, Saint Petersburg, Northwestern Federal District, 190000, Russian Federation",
+    "lat": "59.9180615",
+    "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+    "lon": "30.3059528150966",
+    "osm_id": "1122295",
+    "osm_type": "relation",
+    "place_id": "158850652"
+};
 // http://nominatim.openstreetmap.org/reverse?format=json&lat=55.7780&lon=49.1303&zoom=18&addressdetails=1&accept-language=en
 var nominatiomTestJSON_russia_tatarstan = {"place_id":"33377476","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"node","osm_id":"2783648099","lat":"55.7779748","lon":"49.1296892","display_name":"Cinema Cafe, 6, Spartakovskaya Street, \u041a\u0430\u043b\u0443\u0433\u0430, \u0412\u0430\u0445\u0438\u0442\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d, \u041a\u0430\u0437\u0430\u043d\u044c, \u0433\u043e\u0440\u043e\u0434\u0441\u043a\u043e\u0439 \u043e\u043a\u0440\u0443\u0433 \u041a\u0430\u0437\u0430\u043d\u044c, Tatarstan, Volga Federal District, 420106, Russian Federation","address":{"cafe":"Cinema Cafe","house_number":"6","road":"Spartakovskaya Street","suburb":"\u041a\u0430\u043b\u0443\u0433\u0430","city_district":"\u0412\u0430\u0445\u0438\u0442\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d","city":"\u041a\u0430\u0437\u0430\u043d\u044c","county":"\u0433\u043e\u0440\u043e\u0434\u0441\u043a\u043e\u0439 \u043e\u043a\u0440\u0443\u0433 \u041a\u0430\u0437\u0430\u043d\u044c","state":"Tatarstan","postcode":"420106","country":"Russian Federation","country_code":"ru"}};
 // http://nominatim.openstreetmap.org/reverse?format=json&lat=54.1264&lon=56.5797&zoom=18&addressdetails=1&accept-language=en
@@ -72,11 +117,73 @@ var nominatiomTestJSON_russia_saratov = {"place_id":"63722839","licence":"Data \
 var nominatiomTestJSON_russia_bryansk = {"place_id":"121844937","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"190394567","lat":"52.9876239","lon":"33.2285656","display_name":"\u00ab\u0411\u0440\u044f\u043d\u0441\u043a \u2014 \u041d\u043e\u0432\u043e\u0437\u044b\u0431\u043a\u043e\u0432\u00bb \u2014 \u041c\u0433\u043b\u0438\u043d, \u0411\u0435\u0440\u0451\u0437\u043e\u0432\u043a\u0430, \u041f\u043e\u0447\u0435\u043f\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d, Bryansk Oblast, Central Federal District, Russian Federation","address":{"road":"\u00ab\u0411\u0440\u044f\u043d\u0441\u043a \u2014 \u041d\u043e\u0432\u043e\u0437\u044b\u0431\u043a\u043e\u0432\u00bb \u2014 \u041c\u0433\u043b\u0438\u043d","hamlet":"\u0411\u0435\u0440\u0451\u0437\u043e\u0432\u043a\u0430","county":"\u041f\u043e\u0447\u0435\u043f\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d","state":"Bryansk Oblast","country":"Russian Federation","country_code":"ru"}};
 // http://nominatim.openstreetmap.org/reverse?format=json&lat=64.191&lon=55.826&zoom=18&addressdetails=1&accept-language=en
 var nominatiomTestJSON_russia_komi = {"place_id":"158847082","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"relation","osm_id":"1082933","lat":"65.0204625","lon":"57.3740830196108","display_name":"\u0440\u0430\u0439\u043e\u043d \u041f\u0435\u0447\u043e\u0440\u0430, Komi Republic, Northwestern Federal District, Russian Federation","address":{"county":"\u0440\u0430\u0439\u043e\u043d \u041f\u0435\u0447\u043e\u0440\u0430","state":"Komi Republic","country":"Russian Federation","country_code":"ru"}};
+/* }}} */
 
+/* USA {{{ */
+var nominatiomTestJSON_usa_state_unknown = {
+    "address": {
+        "country": "United States of America",
+        "country_code": "us",
+		// "city": "Washington",
+		// "county": "District of Columbia",
+		// "information": "White House Visitor Center",
+		// "neighbourhood": "Franklin McPherson Square",
+		"postcode": "20500",
+		// "road": "Ellipse Road Northwest",
+		// "suburb": "Southwest Waterfront"
+    },
+    // "display_name": "White House Visitor Center, Ellipse Road Northwest, Franklin McPherson Square, Southwest Waterfront, Washington, District of Columbia, 20500, United States of America",
+    "lat": "38.895048",
+    "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+    "lon": "-77.035046",
+    "osm_id": "2525694724",
+    "osm_type": "node",
+    "place_id": "25998054"
+};
+/* Washington DC {{{ */
 // http://nominatim.openstreetmap.org/reverse?format=json&lat=38.8953&lon=-77.0356&zoom=18&addressdetails=1&accept-language=en
-var nominatiomTestJSON_usa_washingtondc={"place_id":"25998054","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"node","osm_id":"2525694724","lat":"38.895048","lon":"-77.035046","display_name":"White House Visitor Center, Ellipse Road Northwest, Franklin McPherson Square, Southwest Waterfront, Washington, District of Columbia, 20500, United States of America","address":{"information":"White House Visitor Center","road":"Ellipse Road Northwest","neighbourhood":"Franklin McPherson Square","suburb":"Southwest Waterfront","city":"Washington","county":"District of Columbia","postcode":"20500","country":"United States of America","country_code":"us"}};
+var nominatiomTestJSON_usa_washingtondc = {
+    "address": {
+        // "city": "Washington",
+        "country": "United States of America",
+        "country_code": "us",
+		"county": "District of Columbia",
+		"information": "White House Visitor Center",
+		"neighbourhood": "Franklin McPherson Square",
+		"postcode": "20500",
+		"road": "Ellipse Road Northwest",
+		"suburb": "Southwest Waterfront"
+    },
+    "display_name": "White House Visitor Center, Ellipse Road Northwest, Franklin McPherson Square, Southwest Waterfront, Washington, District of Columbia, 20500, United States of America",
+    "lat": "38.895048",
+    "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+    "lon": "-77.035046",
+    "osm_id": "2525694724",
+    "osm_type": "node",
+    "place_id": "25998054"
+};
+/* }}} */
+/* Alabama {{{ */
 // http://nominatim.openstreetmap.org/reverse?format=json&lat=32.3673&lon=-86.2983&zoom=18&addressdetails=1&accept-language=en
-var nominatiomTestJSON_usa_alabama={"place_id":"49048248","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"7928836","lat":"32.366649","lon":"-86.2990459","display_name":"Genetta Court, Montgomery, Montgomery County, Alabama, 36104, United States of America","address":{"road":"Genetta Court","city":"Montgomery","county":"Montgomery County","state":"Alabama","postcode":"36104","country":"United States of America","country_code":"us"}};
+var nominatiomTestJSON_usa_alabama = {
+    "address": {
+        "city": "Montgomery",
+        "country": "United States of America",
+        "country_code": "us",
+        "county": "Montgomery County",
+        "postcode": "36104",
+        "road": "Genetta Court",
+        "state": "Alabama"
+    },
+    "display_name": "Genetta Court, Montgomery, Montgomery County, Alabama, 36104, United States of America",
+    "lat": "32.366649",
+    "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+    "lon": "-86.2990459",
+    "osm_id": "7928836",
+    "osm_type": "way",
+    "place_id": "49048248"
+};
+/* }}} */
 // http://nominatim.openstreetmap.org/reverse?format=json&lat=64.5082&lon=-165.4066&zoom=18&addressdetails=1&accept-language=en
 var nominatiomTestJSON_usa_alaska={"place_id":"49689315","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"8984498","lat":"64.5093904","lon":"-165.4064219","display_name":"North Star Assoc Access Road, Nome, Alaska, 99762, United States of America","address":{"road":"North Star Assoc Access Road","city":"Nome","county":"Nome","state":"Alaska","postcode":"99762","country":"United States of America","country_code":"us"}};
 // http://nominatim.openstreetmap.org/reverse?format=json&lat=34.9378&lon=-109.7565&zoom=18&addressdetails=1&accept-language=en
@@ -181,9 +288,10 @@ var nominatiomTestJSON_usa_westvirginia={"place_id":"53946928","licence":"Data \
 var nominatiomTestJSON_usa_wisconsin={"place_id":"58231065","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"21562994","lat":"45.8707426","lon":"-89.6984064","display_name":"Cedar Street, Minocqua, Oneida County, Wisconsin, United States of America","address":{"road":"Cedar Street","village":"Minocqua","county":"Oneida County","state":"Wisconsin","country":"United States of America","country_code":"us"}};
 // http://nominatim.openstreetmap.org/reverse?format=json&lat=42.8590&lon=-106.3126&zoom=18&addressdetails=1&accept-language=en
 var nominatiomTestJSON_usa_wyoming={"place_id":"54223976","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"15763013","lat":"42.8591296","lon":"-106.317155","display_name":"East H Street, Casper, Natrona County, Wyoming, 82601, United States of America","address":{"road":"East H Street","city":"Casper","county":"Natrona County","state":"Wyoming","postcode":"82601","country":"United States of America","country_code":"us"}};
-// }}}
+/* }}} */
 
-// }}}
+/* }}} */
+/* }}} */
 
 var sane_value_suffix = '; 00:23-00:42 closed "warning at correct position?"';
 // Suffix to add to values to make the value more complex and to spot problems
@@ -1376,7 +1484,7 @@ test.addTest('Variable days: United States common public holidays', [
 	[ '2014.11.11 00:00', '2014.11.12 00:00', false, "Veterans Day" ],
 	[ '2014.11.27 00:00', '2014.11.28 00:00', false, "Thanksgiving" ],
 	[ '2014.12.25 00:00', '2014.12.26 00:00', false, "Christmas Day" ],
-], 1000 * 60 * 60 * 24 * (7 + 0), 0, false, nominatiomTestJSON_usa_washingtondc, 'not last test');
+], 1000 * 60 * 60 * 24 * (7 + 0), 0, false, nominatiomTestJSON_usa_state_unknown, 'not last test');
 
 test.addTest('Variable days: United States public holidays. Alabama', [
 	'PH',
@@ -1560,7 +1668,7 @@ test.addTest('Variable days: United States public holidays. Guam', [
 	[ '2014.01.01 00:00', '2014.01.02 00:00', false, "New Year's Day" ],
 	[ '2014.01.20 00:00', '2014.01.21 00:00', false, "Martin Luther King, Jr. Day" ],
 	[ '2014.02.17 00:00', '2014.02.18 00:00', false, "Washington's Birthday" ],
-	[ '2014.03.05 00:00', '2014.03.06 00:00', false, "Guam Discovery Day" ], 
+	[ '2014.03.05 00:00', '2014.03.06 00:00', false, "Guam Discovery Day" ],
 	[ '2014.04.18 00:00', '2014.04.19 00:00', false, "Good Friday" ],
 	[ '2014.05.26 00:00', '2014.05.27 00:00', false, "Memorial Day" ],
 	[ '2014.07.04 00:00', '2014.07.05 00:00', false, "Independence Day" ],
@@ -1570,7 +1678,7 @@ test.addTest('Variable days: United States public holidays. Guam', [
 	[ '2014.11.02 00:00', '2014.11.03 00:00', false, "All Souls' Day" ],
 	[ '2014.11.11 00:00', '2014.11.12 00:00', false, "Veterans Day" ],
 	[ '2014.11.27 00:00', '2014.11.28 00:00', false, "Thanksgiving" ],
-	[ '2014.12.08 00:00', '2014.12.09 00:00', false, "Lady of Camarin Da" ],
+	[ '2014.12.08 00:00', '2014.12.09 00:00', false, "Lady of Camarin Day" ],
 	[ '2014.12.25 00:00', '2014.12.26 00:00', false, "Christmas Day" ],
 ], 1000 * 60 * 60 * 24 * (10 + 5), 0, false, nominatiomTestJSON_usa_guam, 'not last test');
 
@@ -2040,7 +2148,7 @@ test.addTest('Variable days: United States public holidays. Puerto Rico', [
 	[ '2014.10.13 00:00', '2014.10.14 00:00', false, "Día de la Raza Descubrimiento de América" ],
 	[ '2014.11.11 00:00', '2014.11.12 00:00', false, "Día del Veterano" ],
 	[ '2014.11.19 00:00', '2014.11.20 00:00', false, "Día del Descubrimiento de Puerto Rico" ],
-	[ '2014.11.27 00:00', '2014.11.28 00:00', false, "Día de Acción de Gracias" ],	
+	[ '2014.11.27 00:00', '2014.11.28 00:00', false, "Día de Acción de Gracias" ],
 	[ '2014.12.24 00:00', '2014.12.25 00:00', false, "Noche Buena" ],
 	[ '2014.12.25 00:00', '2014.12.26 00:00', false, "Día de Navidad" ],
 ], 1000 * 60 * 60 * 24 * (10 + 9), 0, false, nominatiomTestJSON_usa_puertorico, 'not last test');
