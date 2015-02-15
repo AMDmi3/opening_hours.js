@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env nodejs
 
 /* Constant variables {{{ */
 var taginfo_api_url = 'http://taginfo.openstreetmap.org/api/4/';

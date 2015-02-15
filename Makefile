@@ -1,6 +1,6 @@
 ## Variables {{{
 SHELL  ?= /bin/sh
-NODE   ?= node
+NODE   ?= nodejs
 SEARCH ?= opening_hours
 
 WGET_OPTIONS ?= --no-verbose

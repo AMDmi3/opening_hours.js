@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env nodejs
 
 var opening_hours = require('./opening_hours.js');
 var readline      = require('readline');
