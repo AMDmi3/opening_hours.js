@@ -2616,7 +2616,7 @@
 					"Christmas Day"               : [ 12, 25 ]
 				}
 			}
-		},
+		}, // }}}
 		'si': { // {{{
 			'PH': { // http://www.vlada.si/o_sloveniji/politicni_sistem/prazniki/
 				'novo leto'                                 : [  1,  1 ],
