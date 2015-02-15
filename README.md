@@ -392,6 +392,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
         * [Ukraine][PH-ua]
         * [Slovenian][PH-si]
         * [Russian][PH-ru]
+        * [United states][PH-us] (Some special cases are [currently not handeltet](https://github.com/ypid/opening_hours.js/issues/69#issuecomment-74103181))
     * **EXT:** Supports limited calculations based on public holidays (e.g. `Sa,PH -1 day open`). The only two possibilities are currently +1 and -1. All other cases are not handled. This seems to be enough because the only thing which is really used is -1.
 
 *   Support for school holidays (`SH 10:00-14:00`).
@@ -684,4 +685,5 @@ Edit: This does also work on npmjs in this short version … -->
 [PH-ua]: http://uk.wikipedia.org/wiki/%D0%A1%D0%B2%D1%8F%D1%82%D0%B0_%D1%82%D0%B0_%D0%BF%D0%B0%D0%BC%27%D1%8F%D1%82%D0%BD%D1%96_%D0%B4%D0%BD%D1%96_%D0%B2_%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%96
 [PH-si]: http://www.vlada.si/o_sloveniji/politicni_sistem/prazniki/
 [PH-ru]: https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%D0%B8_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8
+[PH-us]: https://en.wikipedia.org/wiki/Public_holidays_in_the_United_States
 <!-- }}} -->
