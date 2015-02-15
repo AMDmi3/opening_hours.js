@@ -620,16 +620,17 @@ Autor                                         | Contact            | Note
 
 Contributor                                     | Contribution
 -------------                                   | -------------
-[Sergey Leschina](https://github.com/putnik)    | [demo][ohlib.evaluation-tooldemohtml] improvements
-[don-vip](https://github.com/don-vip)           | French localization and public holidays for France
-[Charly Koza](https://github.com/Cactusbone)    | fixed package.json
-[Simon B.](https://github.com/sesam)            | improved understandability of overlapping rules in README.md
-[NonnEmilia](https://github.com/NonnEmilia)     | Italian localization and fixes in the [demo page][ohlib.evaluation-tooldemohtml]
-[João G. Packer](https://github.com/jgpacker)   | Portuguese localization
-[James Badger](https://github.com/openfirmware) | add Canadian national, provincial public holidays and fixed Russian localization
-[Zgarbul Andrey](https://github.com/burrbull)   | Ukrainian localization and public holidays for Ukraine
-[Blaž Lorger](https://github.com/blorger)       | public holidays for Slovenian
-[dmromanov](https://github.com/dmromanov)       | public holidays and tests for Russian, small fixes
+[Sergey Leschina](https://github.com/putnik)    | [demo][ohlib.evaluation-tooldemohtml] improvements.
+[don-vip](https://github.com/don-vip)           | French localization and public holidays for France.
+[Charly Koza](https://github.com/Cactusbone)    | Fixed package.json.
+[Simon B.](https://github.com/sesam)            | Improved understandability of overlapping rules in README.md.
+[NonnEmilia](https://github.com/NonnEmilia)     | Italian localization and fixes in the [demo page][ohlib.evaluation-tooldemohtml].
+[João G. Packer](https://github.com/jgpacker)   | Portuguese localization.
+[James Badger](https://github.com/openfirmware) | Add Canadian national, provincial public holidays and fixed Russian localization.
+[Zgarbul Andrey](https://github.com/burrbull)   | Ukrainian localization and public holidays for Ukraine.
+[Blaž Lorger](https://github.com/blorger)       | Public holidays for Slovenian.
+[dmromanov](https://github.com/dmromanov)       | Public holidays and tests for Russian, small fixes.
+[maxerickson](https://github.com/maxerickson)   | Public holidays and tests for USA. He also wrote a Python script for testing the holiday JSON. See [us_holidays](https://github.com/maxerickson/us_holidays).
 
 ## Credits
 

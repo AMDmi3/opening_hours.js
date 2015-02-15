@@ -80,8 +80,11 @@ check-diff: check-diff-opening_hours.js
 .PHONY: check-test
 check-test: check-opening_hours.js
 
-# .PHONY: check-opening_hours.js
+# .PHONY: check-opening_hours.js check-opening_hours.min.js
 ## Does not work
+# check-opening_hours.js:
+# check-opening_hours.min.js:
+
 check-%.js: %.js test.js
 	-$(NODE) test.js "./$<"
 
