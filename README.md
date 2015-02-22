@@ -392,7 +392,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
         * [Ukraine][PH-ua]
         * [Slovenian][PH-si]
         * [Russian][PH-ru]
-        * [United states][PH-us] (Some special cases are [currently not handeltet](https://github.com/ypid/opening_hours.js/issues/69#issuecomment-74103181))
+        * [United states][PH-us] (Some special cases are [currently not handled](https://github.com/ypid/opening_hours.js/issues/69#issuecomment-74103181))
     * **EXT:** Supports limited calculations based on public holidays (e.g. `Sa,PH -1 day open`). The only two possibilities are currently +1 and -1. All other cases are not handled. This seems to be enough because the only thing which is really used is -1.
 
 *   Support for school holidays (`SH 10:00-14:00`).
