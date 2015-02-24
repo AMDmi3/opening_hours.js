@@ -13,7 +13,8 @@
 	 * The country code keys and the PH, SH keys are surrounded by '':
 	 * :%s/^\s\+\zs"\([^"]\+\)"\(: {\)/'\1'\2/
 	 * Fixed the indention with Vim Marco:
-	 * /'PH'f{jVk%k,a:
+	 * /'PH'
+f{jVk%k,a:
 	 * Fixed spacing in parenthesis:
 	 * :%s/\[\zs\([^ ]\)/ \1/e | %s/\([^ ]\)\]/\1 \]/e | %s/,\([^ ]\)/, \1/e
 	 */
@@ -2632,9 +2633,26 @@
 				'dan reformacije'                           : [ 10, 31 ],
 				'dan spomina na mrtve'                      : [ 11,  1 ],
 				'božič'                                     : [ 12, 25 ],
-				'dan samostojnosti in enotnosti'            : [ 12, 26 ],
-			},
+				'dan samostojnosti in enotnosti'            : [ 12, 26 ]
+			}
 		}, // }}}
+		'it': { // {{{
+			'PH': { // http://www.governo.it/Presidenza/ufficio_cerimoniale/cerimoniale/giornate.html
+				'Capodanno'                                 : [  1,  1 ],
+				'Epifania'                                  : [  1,  6 ],
+				'Liberazione dal nazifascismo (1945)'       : [  4, 25 ],
+				'Pasqua'                                    : [ 'easter',  0 ],
+				'Lunedì di Pasqua'                          : [ 'easter',  1 ],
+				'Festa del lavoro'                          : [  5, 1 ],
+				'Festa della Repubblica'                    : [  6, 2 ],
+				'Assunzione di Maria'                       : [  8, 15 ],
+				'Ognissanti'                                : [ 11,  1 ],
+				'Festa dell’unità nazionale'                : [ 11, 'firstSeptemberSunday' ],
+				'Immacolata Concezione'                     : [ 12,  8 ],]
+				'Natale di Gesù'                            : [ 12, 25 ],
+				'Santo Stefano'                             : [ 12, 26 ]
+			}
+		} // }}}
 	};
 	// }}}
 
@@ -5304,6 +5322,14 @@
 				firstMondays[i] = firstMonday;
 			}
 
+			// calculate first Sunday for each month
+			var firstSundays = {};
+			for (var i = 0; i < 12; i++) {
+				var first = new Date(Y, i, 1);
+				var firstSunday = 1 + ((7 - first.getDay()) % 7);
+				firstSundays[i] = firstSunday;
+			}
+
 			function firstWeekdayOfMonth(month, weekday){
 				var first = new Date(Y, month, 1);
 				return 1 + ((7 + weekday - first.getDay()) % 7);
@@ -5312,7 +5338,7 @@
 			function lastWeekdayOfMonth(month, weekday){
 				var last = new Date(Y, month+1, 0);
 				var offset=((7 + last.getDay() - weekday) % 7);
-                return last.getDate() - offset;
+				return last.getDate() - offset;
 			}
 
 			return {
@@ -5321,26 +5347,27 @@
 				'easter': new Date(Y, M - 1, D),
 				'victoriaDay': new Date(Y, 4, victoriaDay),
 				'canadaDay': new Date(Y, 6, canadaDay),
-                'firstJanuaryMonday': new Date(Y, 0, firstMondays[0]),
-                'firstMarchMonday': new Date(Y, 2, firstMondays[2]),
-                'firstAprilMonday':  new Date(Y, 3, firstMondays[3]),
-                'firstMayMonday': new Date(Y, 4, firstMondays[4]),
+				'firstJanuaryMonday': new Date(Y, 0, firstMondays[0]),
+				'firstMarchMonday': new Date(Y, 2, firstMondays[2]),
+				'firstAprilMonday': new Date(Y, 3, firstMondays[3]),
+				'firstMayMonday': new Date(Y, 4, firstMondays[4]),
 				'firstJuneMonday': new Date(Y, 5, firstMondays[5]),
-                'firstJulyMonday': new Date(Y, 6, firstMondays[6]),
+				'firstJulyMonday': new Date(Y, 6, firstMondays[6]),
 				'firstAugustMonday': new Date(Y, 7, firstMondays[7]),
 				'firstSeptemberMonday': new Date(Y, 8, firstMondays[8]),
+				'firstSeptemberSunday': new Date(Y, 8, firstSundays[8]),
 				'firstOctoberMonday': new Date(Y, 9, firstMondays[9]),
 				'firstNovemberMonday': new Date(Y, 10, firstMondays[10]),
-                'firstMarchTuesday': new Date(Y, 2, firstWeekdayOfMonth(2,2)),
-                'firstAugustTuesday': new Date(Y, 7, firstWeekdayOfMonth(7,2)),
-                'firstAugustFriday': new Date(Y, 7, firstWeekdayOfMonth(7,5)),
-                'firstNovemberThursday': new Date(Y, 10, firstWeekdayOfMonth(10,4)),
-                'lastMayMonday': new Date(Y, 4, lastWeekdayOfMonth(4,1)),
-                'lastMarchMonday': new Date(Y, 2, lastWeekdayOfMonth(2,1)),
-                'lastAprilMonday': new Date(Y, 3, lastWeekdayOfMonth(3,1)),
-                'lastAprilFriday': new Date(Y, 3, lastWeekdayOfMonth(3,5)),
-                'lastOctoberFriday': new Date(Y, 9, lastWeekdayOfMonth(9,5)),
-				'orthodox easter' : oDate,
+				'firstMarchTuesday': new Date(Y, 2, firstWeekdayOfMonth(2,2)),
+				'firstAugustTuesday': new Date(Y, 7, firstWeekdayOfMonth(7,2)),
+				'firstAugustFriday': new Date(Y, 7, firstWeekdayOfMonth(7,5)),
+				'firstNovemberThursday': new Date(Y, 10, firstWeekdayOfMonth(10,4)),
+				'lastMayMonday': new Date(Y, 4, lastWeekdayOfMonth(4,1)),
+				'lastMarchMonday': new Date(Y, 2, lastWeekdayOfMonth(2,1)),
+				'lastAprilMonday': new Date(Y, 3, lastWeekdayOfMonth(3,1)),
+				'lastAprilFriday': new Date(Y, 3, lastWeekdayOfMonth(3,5)),
+				'lastOctoberFriday': new Date(Y, 9, lastWeekdayOfMonth(9,5)),
+				'orthodox easter' : oDate
 			};
 		}
 
