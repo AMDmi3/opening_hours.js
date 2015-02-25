@@ -5313,15 +5313,6 @@
 			var july_1 = new Date(Y, 6, 1);
 			var canadaDay = july_1.getDay() === 0 ? 2 : 1;
 
-			// calculate first Monday for each month
-			/* FIXME use first firstWeekdayOfMonth */
-			var firstMondays = {};
-			for (var i = 0; i < 12; i++) {
-				var first = new Date(Y, i, 1);
-				var firstMonday = 1 + ((8 - first.getDay()) % 7);
-				firstMondays[i] = firstMonday;
-			}
-
 			function firstWeekdayOfMonth(month, weekday){
 				var first = new Date(Y, month, 1);
 				return 1 + ((7 + weekday - first.getDay()) % 7);
@@ -5334,32 +5325,32 @@
 			}
 
 			return {
-				'firstFebruaryMonday': new Date(Y, 1, firstMondays[1]),
-				'lastFebruarySunday': new Date(Y, 1, lastFebruarySunday),
-				'easter': new Date(Y, M - 1, D),
-				'victoriaDay': new Date(Y, 4, victoriaDay),
-				'canadaDay': new Date(Y, 6, canadaDay),
-				'firstJanuaryMonday': new Date(Y, 0, firstMondays[0]),
-				'firstMarchMonday': new Date(Y, 2, firstMondays[2]),
-				'firstAprilMonday': new Date(Y, 3, firstMondays[3]),
-				'firstMayMonday': new Date(Y, 4, firstMondays[4]),
-				'firstJuneMonday': new Date(Y, 5, firstMondays[5]),
-				'firstJulyMonday': new Date(Y, 6, firstMondays[6]),
-				'firstAugustMonday': new Date(Y, 7, firstMondays[7]),
-				'firstSeptemberMonday': new Date(Y, 8, firstMondays[8]),
-				'firstSeptemberSunday': new Date(Y, 8, firstWeekdayOfMonth(8,7)),
-				'firstOctoberMonday': new Date(Y, 9, firstMondays[9]),
-				'firstNovemberMonday': new Date(Y, 10, firstMondays[10]),
-				'firstMarchTuesday': new Date(Y, 2, firstWeekdayOfMonth(2,2)),
-				'firstAugustTuesday': new Date(Y, 7, firstWeekdayOfMonth(7,2)),
-				'firstAugustFriday': new Date(Y, 7, firstWeekdayOfMonth(7,5)),
-				'firstNovemberThursday': new Date(Y, 10, firstWeekdayOfMonth(10,4)),
-				'lastMayMonday': new Date(Y, 4, lastWeekdayOfMonth(4,1)),
-				'lastMarchMonday': new Date(Y, 2, lastWeekdayOfMonth(2,1)),
-				'lastAprilMonday': new Date(Y, 3, lastWeekdayOfMonth(3,1)),
-				'lastAprilFriday': new Date(Y, 3, lastWeekdayOfMonth(3,5)),
-				'lastOctoberFriday': new Date(Y, 9, lastWeekdayOfMonth(9,5)),
-				'orthodox easter' : oDate
+				'easter'                :  new Date(Y, M - 1, D),
+				'orthodox easter'       :  oDate,
+				'victoriaDay'           :  new Date(Y,  4, victoriaDay),
+				'canadaDay'             :  new Date(Y,  6, canadaDay),
+				'firstJanuaryMonday'    :  new Date(Y,  0, firstWeekdayOfMonth(0, 1)),
+				'firstFebruaryMonday'   :  new Date(Y,  1, firstWeekdayOfMonth(1, 1)),
+				'lastFebruarySunday'    :  new Date(Y,  1, lastFebruarySunday),
+				'firstMarchMonday'      :  new Date(Y,  2, firstWeekdayOfMonth(2, 1)),
+				'firstAprilMonday'      :  new Date(Y,  3, firstWeekdayOfMonth(3, 1)),
+				'firstMayMonday'        :  new Date(Y,  4, firstWeekdayOfMonth(4, 1)),
+				'firstJuneMonday'       :  new Date(Y,  5, firstWeekdayOfMonth(5, 1)),
+				'firstJulyMonday'       :  new Date(Y,  6, firstWeekdayOfMonth(6, 1)),
+				'firstAugustMonday'     :  new Date(Y,  7, firstWeekdayOfMonth(7, 1)),
+				'firstSeptemberMonday'  :  new Date(Y,  8, firstWeekdayOfMonth(8, 1)),
+				'firstSeptemberSunday'  :  new Date(Y,  8, firstWeekdayOfMonth(8, 0)),
+				'firstOctoberMonday'    :  new Date(Y,  9, firstWeekdayOfMonth(9, 1)),
+				'firstNovemberMonday'   :  new Date(Y, 10, firstWeekdayOfMonth(10, 1)),
+				'firstMarchTuesday'     :  new Date(Y,  2, firstWeekdayOfMonth(2, 2)),
+				'firstAugustTuesday'    :  new Date(Y,  7, firstWeekdayOfMonth(7, 2)),
+				'firstAugustFriday'     :  new Date(Y,  7, firstWeekdayOfMonth(7, 5)),
+				'firstNovemberThursday' :  new Date(Y, 10, firstWeekdayOfMonth(10, 4)),
+				'lastMayMonday'         :  new Date(Y,  4, lastWeekdayOfMonth(4, 1)),
+				'lastMarchMonday'       :  new Date(Y,  2, lastWeekdayOfMonth(2, 1)),
+				'lastAprilMonday'       :  new Date(Y,  3, lastWeekdayOfMonth(3, 1)),
+				'lastAprilFriday'       :  new Date(Y,  3, lastWeekdayOfMonth(3, 5)),
+				'lastOctoberFriday'     :  new Date(Y,  9, lastWeekdayOfMonth(9, 5)),
 			};
 		}
 
