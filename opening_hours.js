@@ -2646,7 +2646,7 @@
 				'Festa della Repubblica'                    : [  6, 2 ],
 				'Assunzione di Maria'                       : [  8, 15 ],
 				'Ognissanti'                                : [ 11,  1 ],
-				'Festa dell’unità nazionale'                : [ 11, 'firstSeptemberSunday' ],
+				'Festa dell’unità nazionale'                : [ 'firstSeptemberSunday', 0 ],
 				'Immacolata Concezione'                     : [ 12,  8 ],
 				'Natale di Gesù'                            : [ 12, 25 ],
 				'Santo Stefano'                             : [ 12, 26 ],
@@ -5314,19 +5314,12 @@
 			var canadaDay = july_1.getDay() === 0 ? 2 : 1;
 
 			// calculate first Monday for each month
+			/* FIXME use first firstWeekdayOfMonth */
 			var firstMondays = {};
 			for (var i = 0; i < 12; i++) {
 				var first = new Date(Y, i, 1);
 				var firstMonday = 1 + ((8 - first.getDay()) % 7);
 				firstMondays[i] = firstMonday;
-			}
-
-			// calculate first Sunday for each month
-			var firstSundays = {};
-			for (var i = 0; i < 12; i++) {
-				var first = new Date(Y, i, 1);
-				var firstSunday = 1 + ((7 - first.getDay()) % 7);
-				firstSundays[i] = firstSunday;
 			}
 
 			function firstWeekdayOfMonth(month, weekday){
@@ -5354,7 +5347,7 @@
 				'firstJulyMonday': new Date(Y, 6, firstMondays[6]),
 				'firstAugustMonday': new Date(Y, 7, firstMondays[7]),
 				'firstSeptemberMonday': new Date(Y, 8, firstMondays[8]),
-				'firstSeptemberSunday': new Date(Y, 8, firstSundays[8]),
+				'firstSeptemberSunday': new Date(Y, 8, firstWeekdayOfMonth(8,7)),
 				'firstOctoberMonday': new Date(Y, 9, firstMondays[9]),
 				'firstNovemberMonday': new Date(Y, 10, firstMondays[10]),
 				'firstMarchTuesday': new Date(Y, 2, firstWeekdayOfMonth(2,2)),

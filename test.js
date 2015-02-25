@@ -290,6 +290,23 @@ var nominatiomTestJSON_usa_wisconsin={"place_id":"58231065","licence":"Data \u00
 var nominatiomTestJSON_usa_wyoming={"place_id":"54223976","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"15763013","lat":"42.8591296","lon":"-106.317155","display_name":"East H Street, Casper, Natrona County, Wyoming, 82601, United States of America","address":{"road":"East H Street","city":"Casper","county":"Natrona County","state":"Wyoming","postcode":"82601","country":"United States of America","country_code":"us"}};
 /* }}} */
 
+/* Italy {{{ */
+var nominatiomTestJSON_italy = {
+  "place_id"     :  "127565598",
+  "licence"      :  "Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+  "osm_type"     :  "relation",
+  "osm_id"       :  "40784",
+  "lat"          :  "41.9808038",
+  "lon"          :  "12.7662312",
+  "display_name" :  "Lazio, Italy",
+  "address": {
+    "state"        :  "Lazio",
+    "country"      :  "Italy",
+    "country_code" :  "it"
+  }
+}
+/* }}} */
+
 /* }}} */
 /* }}} */
 
@@ -1040,6 +1057,24 @@ test.addTest('Variable days: Everyday including public holidays', [
 		[ '2014.01.06 00:00', '2014.01.07 00:00', false, 'Heilige Drei Könige' ],
 		[ '2014.01.07 00:00', '2014.01.15 00:00' ],
 	], 1000 * 60 * 60 * 24 * 14, 0, false, nominatiomTestJSON, 'not last test');
+
+test.addTest('Variable days: Italian public holidays', [
+		'PH',
+	], '2014.01.01 0:00', '2014.12.31 23:59', [
+		[ '2014.01.01 00:00', '2014.01.02 00:00', false, 'Capodanno' ],
+		[ '2014.01.06 00:00', '2014.01.07 00:00', false, 'Epifania' ],
+		[ '2014.04.20 00:00', '2014.04.21 00:00', false, 'Pasqua' ],
+		[ '2014.04.21 00:00', '2014.04.22 00:00', false, 'Lunedì di Pasqua' ],
+		[ '2014.04.25 00:00', '2014.04.26 00:00', false, 'Liberazione dal nazifascismo (1945)' ],
+		[ '2014.05.01 00:00', '2014.05.02 00:00', false, 'Festa del lavoro' ],
+		[ '2014.06.02 00:00', '2014.06.03 00:00', false, 'Festa della Repubblica' ],
+		[ '2014.08.15 00:00', '2014.08.16 00:00', false, 'Assunzione di Maria' ],
+		[ '2014.09.07 00:00', '2014.09.08 00:00', false, 'Festa dell’unità nazionale' ],
+		[ '2014.11.01 00:00', '2014.11.02 00:00', false, 'Ognissanti' ],
+		[ '2014.12.08 00:00', '2014.12.09 00:00', false, 'Immacolata Concezione' ],
+		[ '2014.12.25 00:00', '2014.12.26 00:00', false, 'Natale di Gesù' ],
+		[ '2014.12.26 00:00', '2014.12.27 00:00', false, 'Santo Stefano' ],
+	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON_italy, 'not last test');
 
 /* Russian holidays {{{ */
 test.addTest('Variable days: Russian common public holidays', [
