@@ -13,8 +13,7 @@
 	 * The country code keys and the PH, SH keys are surrounded by '':
 	 * :%s/^\s\+\zs"\([^"]\+\)"\(: {\)/'\1'\2/
 	 * Fixed the indention with Vim Marco:
-	 * /'PH'
-f{jVk%k,a:
+	 * /'PH'<cr>f{jVk%k,a:
 	 * Fixed spacing in parenthesis:
 	 * :%s/\[\zs\([^ ]\)/ \1/e | %s/\([^ ]\)\]/\1 \]/e | %s/,\([^ ]\)/, \1/e
 	 */
@@ -2648,11 +2647,11 @@ f{jVk%k,a:
 				'Assunzione di Maria'                       : [  8, 15 ],
 				'Ognissanti'                                : [ 11,  1 ],
 				'Festa dell’unità nazionale'                : [ 11, 'firstSeptemberSunday' ],
-				'Immacolata Concezione'                     : [ 12,  8 ],]
+				'Immacolata Concezione'                     : [ 12,  8 ],
 				'Natale di Gesù'                            : [ 12, 25 ],
-				'Santo Stefano'                             : [ 12, 26 ]
-			}
-		} // }}}
+				'Santo Stefano'                             : [ 12, 26 ],
+			},
+		}, // }}}
 	};
 	// }}}
 
