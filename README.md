@@ -626,6 +626,7 @@ Contributor                                     | Contribution
 [Charly Koza](https://github.com/Cactusbone)    | Fixed package.json.
 [Simon B.](https://github.com/sesam)            | Improved understandability of overlapping rules in README.md.
 [NonnEmilia](https://github.com/NonnEmilia)     | Italian localization and fixes in the [demo page][ohlib.evaluation-tooldemohtml].
+[damjang](https://github.com/damjang)           | Italian public holidays.
 [João G. Packer](https://github.com/jgpacker)   | Portuguese localization.
 [James Badger](https://github.com/openfirmware) | Add Canadian national, provincial public holidays and fixed Russian localization.
 [Zgarbul Andrey](https://github.com/burrbull)   | Ukrainian localization and public holidays for Ukraine.
