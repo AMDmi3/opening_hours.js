@@ -2830,11 +2830,11 @@
 				'an sonn- und feiertagen': 'PH,Su',
 				'nur sonn-/feiertags': 'PH,Su',
 				'sonn- und feiertage': 'PH,Su',
-			}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours:specification.': {
+			}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours/specification.': {
 				'„': '"',
 				'“': '"',
 				'”': '"',
-			}, 'Please use notation "<ok>" for "<ko>". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.': {
+			}, 'Please use notation "<ok>" for "<ko>". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.': {
 				'«': '"',
 				'»': '"',
 				'‚': '"',
@@ -2844,7 +2844,7 @@
 				'」': '"',
 				'『': '"',
 				'』': '"',
-			}, 'Please use notation "<ok>" for "<ko>". The used quote signs are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification.': {
+			}, 'Please use notation "<ok>" for "<ko>". The used quote signs are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.': {
 				"'": '"',
 			}, 'You might want to use comments instead of brackets (which are not valid in this context). If you do, replace "<ok>" with "<ko>".': {
 				// '（': '"',
@@ -3809,7 +3809,7 @@
 						// parsing_warnings.push([nrule, new_tokens[nrule][0].length - 1,
 							// "This rule will be evaluated as closed but it was specified as additional rule."
 							// + " It is enough to specify this rule as normal rule using the \";\" character."
-							// + " See https://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#explain:rule_modifier:closed."
+							// + " See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:rule_modifier:closed."
 						// ]);
 					}
 					/* }}} */
@@ -4159,7 +4159,7 @@
 					/* Ignore colon if they appear somewhere else than as time separator.
 					 * Except the start or end of the value.
 					 * This provides compatibility with the syntax proposed by Netzwolf:
-					 * http://wiki.openstreetmap.org/wiki/Key:opening_hours:specification#separator_for_readability
+					 * http://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#separator_for_readability
 					 * Check for valid use of <separator_for_readability> is implemented in function getWarnings().
 					 */
 
