@@ -88,6 +88,9 @@ check-opening_hours.min.js:
 check-%.js: %.js test.js
 	-$(NODE) test.js "./$<"
 
+check-diff-opening_hours.js:
+check-diff-opening_hours.min.js:
+
 .SILENT: check-diff-opening_hours.js check-diff-opening_hours.min.js
 check-diff-%.js: %.js test.js
 	git checkout HEAD -- test.log
