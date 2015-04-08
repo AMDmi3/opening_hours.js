@@ -1,5 +1,6 @@
-export.*
+export*
 opening_hours.min.js
 node_modules/
 tags
 README.html
+tmp_query*

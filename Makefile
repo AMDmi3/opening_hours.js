@@ -2,6 +2,9 @@
 SHELL  ?= /bin/sh
 NODE   ?= nodejs
 SEARCH ?= opening_hours
+TMP_QUERY ?= ./tmp_query.op
+URL_TAGINFO ?= http://taginfo.openstreetmap.org/api
+URL_OVERPASS_API ?= http://overpass-api.de/api
 
 WGET_OPTIONS ?= --no-verbose
 ## }}}
@@ -148,7 +151,30 @@ osm-tag-data-update-all:
 osm-tag-data-get-all: export.opening_hours.json export.lit.json export.opening_hours\:kitchen.json export.opening_hours\:warm_kitchen.json export.smoking_hours.json export.collection_times.json export.service_times.json export.fee.json export.happy_hours.json export.delivery_hours.json export.opening_hours\:delivery.json
 
 export.%.json:
-	wget $(WGET_OPTIONS) --output-document="$(shell echo "$@" | sed 's/\\//g' )" "http://taginfo.openstreetmap.org/api/4/key/values?key=$(shell echo "$@" | sed 's/^export\.\(.*\)\.json/\1/;s/\\//g' )" 2>&1
+	wget $(WGET_OPTIONS) --output-document="$(shell echo "$@" | sed 's/\\//g' )" "$(URL_TAGINFO)/4/key/values?key=$(shell echo "$@" | sed 's/^export\.\(.*\)\.json/\1/;s/\\//g' )" 2>&1
+## }}}
+
+## OSM data from overpass API {{{
+
+## Generate OverpassQL and execute it.
+export-int_name-Deutschland.json:
+export-int_name-Österreich.json:
+export-int_name-Schweiz.json:
+
+# Used for testing:
+export-name-Erlangen.json:
+export-name-Leutershausen.json:
+export-%.json:
+	@(echo '[out:json][date:"$(shell date '+%F')T00:00:00Z"];'; \
+		echo 'area["type"="boundary"]["$(shell echo $@ | cut -d- -f 2)"="$(shell echo $@ | cut -d- -f 3 | sed 's/\.json$$//')"];'; \
+		echo 'foreach('; \
+		grep -v '^#' related_tags.list | while read key; do \
+			for type in node way; do \
+				echo "    $$type(area)[\"$$key\"]->.t; .t out tags;"; \
+			done; \
+		done; \
+		echo ");" ) > "$(TMP_QUERY)"
+	wget $(WGET_OPTIONS) --post-file="$(TMP_QUERY)" --output-document="$(shell echo "$@" | sed 's/\\//g' )" "$(URL_OVERPASS_API)/interpreter" 2>&1
 ## }}}
 
 %.min.js: %.js
