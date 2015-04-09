@@ -4,3 +4,4 @@ node_modules/
 tags
 README.html
 tmp_query*
+*.json
