@@ -4,6 +4,8 @@ NODE   ?= nodejs
 SEARCH ?= opening_hours
 TMP_QUERY ?= ./tmp_query.op
 
+START_DATE ?= now
+
 API_URL_TAGINFO  ?= http://taginfo.openstreetmap.org/api
 API_URL_OVERPASS ?= http://overpass-api.de/api
 
@@ -52,6 +54,9 @@ clean: osm-tag-data-rm
 	rm -f *.min.js
 	rm -f README.html
 	rm -f taginfo_sources.json
+
+.PHONY: osm-tag-data-rm
+osm-tag-data-rm: osm-tag-data-taginfo-rm osm-tag-data-overpass-rm
 
 ## Publish {{{
 
@@ -134,12 +139,12 @@ check-package.json: package.json
 
 ## OSM data from taginfo {{{
 
-.PHONY: osm-tag-data-rm
-osm-tag-data-rm:
+.PHONY: osm-tag-data-taginfo-rm
+osm-tag-data-taginfo-rm:
 	rm -f export.*.json
 
 .PHONY: osm-tag-data-update-all
-osm-tag-data-update-all: taginfo_sources.json osm-tag-data-rm osm-tag-data-get-all
+osm-tag-data-update-all: taginfo_sources.json osm-tag-data-taginfo-rm osm-tag-data-get-all
 
 ## Always refresh
 .PHONY: taginfo_sources.json
@@ -180,7 +185,7 @@ export♡%.json: real_test.js related_tags.list
 		fi; \
 		boundary_key="$(shell echo "$@" | sed 's/♡/\x0/g;s/\.json$$//;' | cut -d '' -f 2)"; \
 		boundary_value="$(shell echo "$@" | sed 's/♡/\x0/g;s/\.json$$//;' | cut -d '' -f 3)"; \
-		echo "[out:json];"; \
+		echo "[out:json][timeout:900];"; \
 		echo "area[\"type\"=\"boundary\"][\"$$boundary_key\"=\"$$boundary_value\"];"; \
 		echo 'foreach('; \
 		grep -v '^#' related_tags.list | while read key; do \
@@ -190,22 +195,46 @@ export♡%.json: real_test.js related_tags.list
 		done; \
 		echo ");" ) > "$(TMP_QUERY)"
 	@echo "Executing queriy:"
-	@cat "$(TMP_QUERY)" sed 's/^/    /;'
+	@cat "$(TMP_QUERY)" | sed 's/^/    /;'
 	wget $(WGET_OPTIONS) --post-file="$(TMP_QUERY)" --output-document="$(shell echo "$@" | sed 's/\\//g' )" "$(API_URL_OVERPASS)/interpreter" 2>&1
 	$(NODE) "$<" "$(shell echo "$@" | sed 's/\\//g' )"
+
+.PHONY: osm-tag-data-overpass-rm
+osm-tag-data-overpass-rm:
+	rm -f export♡*.json
+
 ## }}}
 
 ## Generate statistics  {{{
 
 ## See real_test.js
 .PHONY: osm-tag-data-gen-stats
-osm-tag-data-gen-stats: real_test.opening_hours.stats.csv osm-tag-data-update-check
+osm-tag-data-gen-stats: real_test.opening_hours.stats.csv osm-tag-data-update-check osm-tag-data-check
 
-.PHONY: osm-tag-data-gen-stats
-osm-tag-data-gen-stats-overpass: stats_for_boundaries.list
+.PHONY: osm-tag-data-gen-stats-overpass-daily
+osm-tag-data-gen-stats-overpass-daily: stats_for_boundaries.list
 	@grep -v '^#' "$<" | while read location; do \
-		$(MAKE) export♡$$location.json; \
+		$(MAKE) export♡$$location♡$(shell date '+%F')T00:00:00Z.json; \
 	done
+
+.PHONY: osm-tag-data-gen-stats-overpass-hourly
+osm-tag-data-gen-stats-overpass-hourly: stats_for_boundaries.list
+	@grep -v '^#' "$<" | while read location; do \
+		$(MAKE) export♡$$location♡$(shell date '+%FT%H'):00:00Z.json; \
+	done
+
+.PHONY: osm-tag-data-gen-stats-overpass-n-days-back
+osm-tag-data-gen-stats-overpass-n-days-back: stats_for_boundaries.list
+	@if [ -z "$(DAYS_BACK)" ]; then \
+		echo "The DAYS_BACK parameter is empty!"; \
+		exit 1; \
+	fi; \
+	grep -v '^#' "$<" | while read location; do \
+		for d in `seq $(DAYS_BACK)`; do \
+			$(MAKE) export♡$$location♡$(shell date -d "$(START_DATE) - $$d days "'+%FT%H'):00:00Z.json; \
+		done; \
+	done
+
 ## }}}
 
 %.min.js: %.js

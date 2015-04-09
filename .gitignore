@@ -1,6 +1,7 @@
 export*
+!export♡*♡stats.csv
 opening_hours.min.js
-node_modules/
+node_modules
 tags
 README.html
 tmp_query*
