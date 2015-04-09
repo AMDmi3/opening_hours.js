@@ -16,9 +16,10 @@
 
 /* Required modules {{{ */
 var opening_hours = require('./opening_hours.js');
-var fs = require('fs');
-var colors = require('colors');
-var sprintf = require('sprintf-js').sprintf;
+var fs            = require('fs');
+var colors        = require('colors');
+var sprintf       = require('sprintf-js').sprintf;
+var assert        = require('assert');
 /* }}} */
 
 colors.setTheme({
@@ -26,7 +27,7 @@ colors.setTheme({
 });
 
 /* Run tests {{{ */
-var test = new opening_hours_test();
+var test_framework = new opening_hours_test();
 
 /* Add as much tests (for different tags) as you like. Just make sure that the
  * export is present by added it as dependence to the make file. Tests will not
@@ -34,34 +35,56 @@ var test = new opening_hours_test();
  * node.js.
  */
 
-test.exported_json('opening_hours');
+test_framework.config = {
+	'opening_hours:kitchen'      :  { ignore  :  [ 'opening_hours' ] },
+	'opening_hours:warm_kitchen' :  { ignore  :  [ 'opening_hours' ] },
+	'lit'                        :  { ignore  :  [ 'yes', 'no', 'on', 'automatic', 'interval', 'limited' ] },
+	'smoking_hours'              :  { ignore  :  [ 'yes' ] },
+	'collection_times'           :  { oh_mode :  2 },
+	/* oh_mode 2: "including the hyphen because there are post boxes which are
+	 * emptied several (undefined) times or one (undefined) time in a certain time
+	 * frame. This shall be covered also.".
+	 * Ref: http://wiki.openstreetmap.org/wiki/Key:collection_times */
+	'service_times'              :  { oh_mode :  2, ignore :  [ 'automatic' ] },
+	'fee'                        :  { ignore  :  [ 'yes', 'no', 'interval', 'unknown' ] },
+}
 
-test.exported_json('happy_hours');
+var args = process.argv.splice(2);
+if (args.length > 0) {
+	for (var i = 0; i < args.length; i++) {
+		var filename = args[i];
+		test_framework.json_file(filename);
+	}
+} else {
 
-test.exported_json('delivery_hours');
+	// test_framework.json_file('opening_hours');
 
-test.exported_json('opening_hours:delivery');
+	// test_framework.json_file('happy_hours');
 
-test.exported_json('lit', { ignore: [ 'yes', 'no', 'on', 'automatic', 'interval', 'limited' ]});
+	// test_framework.json_file('delivery_hours');
 
-test.exported_json('opening_hours:kitchen', { ignore: [ 'opening_hours' ]});
+	// test_framework.json_file('opening_hours:delivery');
 
-test.exported_json('opening_hours:warm_kitchen', { ignore: [ 'opening_hours' ]});
+	// test_framework.json_file('lit');
 
-test.exported_json('smoking_hours', { ignore: [ 'yes' ]});
+	// test_framework.json_file('opening_hours:kitchen');
 
-test.exported_json('collection_times', { oh_mode: 2 });
-// oh_mode 2: "including the hyphen because there are post boxes which are emptied several (undefined) times or one (undefined) time in a certain time frame. This shall be covered also.". Ref: http://wiki.openstreetmap.org/wiki/Key:collection_times
+	// test_framework.json_file('opening_hours:warm_kitchen');
 
-test.exported_json('service_times', { oh_mode: 2, ignore: [ 'automatic' ] });
-// Mostly points in time are used. But there are 244 values which use time ranges. Both seems useful.
+	// test_framework.json_file('smoking_hours');
 
-test.exported_json('fee', { ignore: [ 'yes', 'no', 'interval', 'unknown' ]});
+	// test_framework.json_file('collection_times');
+
+	// test_framework.json_file('service_times');
+	// Mostly points in time are used. But there are 244 values which use time ranges. Both seems useful.
+
+	test_framework.json_file('fee');
+}
+
 /* }}} */
 
 /* Test framework {{{ */
 function opening_hours_test() {
-	var args = process.argv.splice(2);
 
 	// var percent_number_format     = '%04.1f %%';
 	// Looks kind of unusual.
@@ -70,26 +93,20 @@ function opening_hours_test() {
 	var total_differ_value_number_format = '%6d';
 	var ms_runtime_number_format         = '%5d';
 
+	var related_tags_file = 'related_tags.list';
+
 	var nominatiomTestJSON = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
 
 	console.log('The holiday defintions for the country ' + nominatiomTestJSON.address.country_code + ' are used so the result will probably be a bit worse in reality but you can change that by providing the definition for missing holidays.\n');
 
+	this.config = {};
 
-	this.exported_json = function (tagname /* file exported by the taginfo API */, options) {
-		if (args.length > 0) {
-			if (args.indexOf(tagname) === -1)
-				return;
-		}
+	this.parse_tag = function (tagname, info, data) { /* {{{ */
+		var options = this.config[tagname];
 
 		var how_often_print_stats = 15000;
 		var importance_threshold  = 30;
 		var global_ignore = [ 'fixme', 'FIXME' ];
-
-		fs.readFile(__dirname + '/export.' + tagname + '.json', 'utf8', function (err, data) {
-			if (err) {
-				console.log('Error for tag "' + tagname + '": ' + err);
-				return;
-			}
 
 			var ignored_values = global_ignore;
 			if (typeof options !== 'undefined' && typeof options.ignore !== 'undefined')
@@ -99,7 +116,7 @@ function opening_hours_test() {
 			if (typeof options !== 'undefined' && typeof options.oh_mode == 'number')
 				oh_mode = options.oh_mode;
 
-			console.log('Parsing ' + tagname.blue.bold + (ignored_values.length !== 0 ? ' (ignoring: ' + ignored_values.join(', ') + ')': '') + ' …');
+			console.log('Parsing ' + tagname.blue.bold + (ignored_values.length !== 1 ? ' (ignoring: ' + ignored_values.join(', ') + ')': '') + ' …');
 
 			var success_differ       = 0; // increment only by one despite that the value might appears more than one time
 			var success              = 0; // increment by number of appearances
@@ -112,8 +129,6 @@ function opening_hours_test() {
 			var important_and_failed = [];
 
 			var logfile_out_string = '';
-
-			data = JSON.parse(data);
 
 			for (var i = 0; i < data.data.length; i++) {
 				if (indexOf.call(ignored_values, data.data[i].value) == -1) {
@@ -149,8 +164,9 @@ function opening_hours_test() {
 					}
 				}
 			}
-			if (total_differ >= how_often_print_stats)
+			if (total_differ >= how_often_print_stats) {
 				console.log();
+			}
 
 			log_to_user(true, total, total_differ, undefined, parsed_values,
 				success, success_differ, warnings, warnings_differ, not_pretty, not_pretty_differ,
@@ -166,6 +182,7 @@ function opening_hours_test() {
 			}
 			console.log();
 
+			/* Generate logs {{{ */
 			/* Just `touch` the file that you want logs for. */
 			if (fs.existsSync('real_test.' + tagname + '.log')) {
 				try {
@@ -178,11 +195,27 @@ function opening_hours_test() {
 							throw(err);
 					}
 				);
+			} /* }}} */
+
+			switch (info.export_format) {
+			case 'overpass': var csv_filename = [
+						 'export',
+						 tagname,
+						 info.key,
+						 info.value,
+						 'stats.csv'
+					].join('♡');
+				 break;
+			case 'taginfo':  var csv_filename = 'real_test.' + tagname + '.stats.csv'; break;
+			default: throw('Unknown export_format.');
 			}
-			if (fs.existsSync('real_test.' + tagname + '.stats.csv')) {
-				if (fs.statSync('real_test.' + tagname + '.stats.csv').size === 0) {
+			if (info.export_format === 'overpass' || fs.existsSync('real_test.' + tagname + '.stats.csv')) { /* Generate stats {{{ */
+				if (!fs.existsSync(csv_filename)) {
+					fs.closeSync(fs.openSync(csv_filename, 'w'));
+				}
+				if (fs.statSync(csv_filename).size === 0) {
 					fs.appendFile(
-						'real_test.' + tagname + '.stats.csv',
+						csv_filename,
 						[
 							"Time",
 							"Number of values", "Number of different values",
@@ -191,18 +224,22 @@ function opening_hours_test() {
 							"Number of values which are not prettified", "Number of different values which are not prettified",
 						].join(', ') + '\n',
 						function(err) {
-							if (err)
+							if (err) {
 								throw(err);
+							}
 						}
 					);
 				}
-				var current_dump_creation_time = get_dump_creation_time_from_file('taginfo_sources.json');
-				if (typeof current_dump_creation_time != 'object') {
+				if (info.export_format === 'taginfo') {
+					info.timestamp = get_dump_creation_time_from_file('taginfo_sources.json');
+					console.log(info.timestamp);
+				}
+				if (typeof(info.timestamp) !== 'object') {
 				    throw('dump creation time is unknown.');
 				}
 				fs.appendFile(
-					'real_test.' + tagname + '.stats.csv',
-					current_dump_creation_time.toISOString() + ', ' + [
+					csv_filename,
+					info.timestamp.toISOString() + ', ' + [
 						total, total_differ,
 						success, success_differ,
 						warnings, warnings_differ,
@@ -213,10 +250,108 @@ function opening_hours_test() {
 							throw(err);
 					}
 				);
+			} /* }}} */
+
+	} /* }}} */
+
+	this.json_file = function (filename /* file exported by the taginfo API */) { /* {{{ */
+		if (!fs.existsSync(filename)) {
+			console.error("File " + filename + " does not exist.");
+			return;
+		}
+
+		filename_asciified = filename.replace(/♡/g, '@');
+		/* TODO: JavaScript could not handle [^♡] */
+		var re = filename_asciified.match(/^export@([^@]+)@([^@]+)(@[^@]+|).json$/);
+		if (re !== null) {
+			var info = {
+				'key': re[1],
+				'value': re[2],
+				'timestamp': re[3].replace(/^@/, ''),
+				'filename': filename,
+				'export_format': 'overpass',
+			};
+			assert.strictEqual(typeof(info.key)       , "string")
+			assert.strictEqual(typeof(info.value)     , "string")
+			assert.strictEqual(typeof(info.timestamp) , "string")
+			if (info.timestamp.length > 0) {
+				info.timestamp = new Date(info.timestamp);
+			} else {
+				info.timestamp = new Date();
+			}
+			// console.log(info);
+			var related_tags = [];
+			fs.readFileSync(related_tags_file, 'utf8').split('\n').forEach(function (line) {
+				if (line.match(/^[^#]/)) {
+					related_tags.push(line);
+				}
+			});
+		} else if (re = filename.match(/^export\.([^.]+).json$/)) {
+			var info = {
+				'key': re[1],
+				'filename': filename,
+				'export_format': 'taginfo',
+			};
+			assert.strictEqual(typeof(info.key)       , "string")
+		} else {
+			throw 'Filename of unknwon type given.';
+		}
+
+		fs.readFile(filename, 'utf8', function (err, data) {
+			if (err) {
+				console.error('Error for tag "' + tagname + '": ' + err);
+				return;
+			}
+
+			var taginfo_format = {};
+
+			data = JSON.parse(data);
+
+			if (info.export_format == 'overpass') {
+				for (var elements_number = 0; elements_number < data.elements.length; elements_number++) {
+					var elem = data.elements[elements_number];
+					Object.keys(elem.tags).forEach(function (key) {
+						if (indexOf.call(related_tags, key) != -1) {
+							var val = elem.tags[key];
+							if (typeof(taginfo_format[key]) === 'undefined') {
+								taginfo_format[key] = { data: [] };
+							}
+							var known_value = false;
+							Object.keys(taginfo_format[key].data).forEach(function (data_index) {
+								var tag = taginfo_format[key].data[data_index];
+								if (tag.value === val) {
+									known_value = data_index;
+								}
+							});
+							if (known_value) {
+								taginfo_format[key].data[known_value].count++;
+							} else {
+								taginfo_format[key].data.push(
+									{
+										"value": val,
+										"count": 1,
+									}
+								);
+							}
+						}
+					});
+				}
+			}
+
+
+			if (info.export_format == 'overpass') {
+				// console.log(JSON.stringify(taginfo_format, null, '    '));
+				Object.keys(taginfo_format).forEach(function (tag_key) {
+					// FIXME: no access to 'this' …
+					test_framework.parse_tag(tag_key, info, taginfo_format[tag_key]);
+				});
+			} else {
+				test_framework.parse_tag(tag_key, info, data);
 			}
 		});
-	};
+	}; /* }}} */
 
+	/* log_to_user {{{ */
 	function log_to_user(tests_done, total, total_differ, currently_parsed_value, parsed_values,
 		success, success_differ, warnings, warnings_differ, not_pretty, not_pretty_differ, time_at_test_begin) {
 
@@ -246,14 +381,14 @@ function opening_hours_test() {
 					' in ' + sprintf(ms_runtime_number_format, delta) + ' ms (' + sprintf('%0.1f', currently_parsed_value/delta*1000) + ' n/sec).'
 				)
 		);
-	}
+	} /* }}} */
 
 	function get_percent(passing_values, parsed_values) {
 		return sprintf('%6s', sprintf(percent_number_format, passing_values / parsed_values * 100)).result;
 		/* "100.0 %" would be 7 characters long, but that does not happen to often. */
 	}
 
-	function test_value(value, oh_mode) {
+	function test_value(value, oh_mode) { /* {{{ */
 		var crashed = true, warnings = [], prettified;
 		try {
 			oh = new opening_hours(value, nominatiomTestJSON, oh_mode);
@@ -271,7 +406,7 @@ function opening_hours_test() {
 			warnings = warnings.length;
 
 		return [ !crashed, warnings, prettified == value ];
-	}
+	} /* }}} */
 
 	/* Helper functions {{{ */
 	function Comparator(a,b){

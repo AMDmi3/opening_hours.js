@@ -3,8 +3,9 @@ SHELL  ?= /bin/sh
 NODE   ?= nodejs
 SEARCH ?= opening_hours
 TMP_QUERY ?= ./tmp_query.op
-URL_TAGINFO ?= http://taginfo.openstreetmap.org/api
-URL_OVERPASS_API ?= http://overpass-api.de/api
+
+API_URL_TAGINFO  ?= http://taginfo.openstreetmap.org/api
+API_URL_OVERPASS ?= http://overpass-api.de/api
 
 WGET_OPTIONS ?= --no-verbose
 ## }}}
@@ -41,7 +42,7 @@ release: check
 	read continue
 	editor package.json
 	git commit --all --message="Released version `json -f package.json version`."
-	git tag --sign --local-user=EE88E1F0 "v`json -f package.json version`"
+	git tag --sign --local-user=C505B5C93B0DB3D338A1B6005FE92C12EE88E1F0 "v`json -f package.json version`"
 	git push --follow-tags
 	npm publish
 	$(MAKE) publish-website-on-all-servers
@@ -133,40 +134,54 @@ check-package.json: package.json
 
 ## OSM data from taginfo {{{
 
-## See real_test.js
-.PHONY: osm-tag-data-gen-stats
-osm-tag-data-gen-stats: real_test.opening_hours.stats.csv osm-tag-data-update-check
-
 .PHONY: osm-tag-data-rm
 osm-tag-data-rm:
 	rm -f export.*.json
 
 .PHONY: osm-tag-data-update-all
-osm-tag-data-update-all:
+osm-tag-data-update-all: taginfo_sources.json osm-tag-data-rm osm-tag-data-get-all
+
+## Always refresh
+.PHONY: taginfo_sources.json
+taginfo_sources.json:
 	$(NODE) ./check_for_new_taginfo_data.js
-	$(MAKE) osm-tag-data-rm
-	$(MAKE) osm-tag-data-get-all
 
 .PHONY: osm-tag-data-get-all
-osm-tag-data-get-all: export.opening_hours.json export.lit.json export.opening_hours\:kitchen.json export.opening_hours\:warm_kitchen.json export.smoking_hours.json export.collection_times.json export.service_times.json export.fee.json export.happy_hours.json export.delivery_hours.json export.opening_hours\:delivery.json
+osm-tag-data-get-all: related_tags.list
+	@grep -v '^#' "$<" | while read location; do \
+		$(MAKE) --no-print-directory "export.$$location.json"; \
+	done
 
 export.%.json:
-	wget $(WGET_OPTIONS) --output-document="$(shell echo "$@" | sed 's/\\//g' )" "$(URL_TAGINFO)/4/key/values?key=$(shell echo "$@" | sed 's/^export\.\(.*\)\.json/\1/;s/\\//g' )" 2>&1
+	wget $(WGET_OPTIONS) --output-document="$(shell echo "$@" | sed 's/\\//g' )" "$(API_URL_TAGINFO)/4/key/values?key=$(shell echo "$@" | sed 's/^export\.\(.*\)\.json/\1/;s/\\//g' )" 2>&1
 ## }}}
 
-## OSM data from overpass API {{{
+## OSM data from the overpass API {{{
 
-## Generate OverpassQL and execute it.
-export-int_name-Deutschland.json:
-export-int_name-Österreich.json:
-export-int_name-Schweiz.json:
+## The value separator is ♡ because it is not expected that this appears anywhere else in the tags and it works with GNU make.
+## Unfortunately, it does not work with cut, but that problem can be solved.
 
 # Used for testing:
-export-name-Erlangen.json:
-export-name-Leutershausen.json:
-export-%.json:
-	@(echo '[out:json][date:"$(shell date '+%F')T00:00:00Z"];'; \
-		echo 'area["type"="boundary"]["$(shell echo $@ | cut -d- -f 2)"="$(shell echo $@ | cut -d- -f 3 | sed 's/\.json$$//')"];'; \
+export♡name♡Erlangen.json:
+export♡name♡Leutershausen.json:
+
+# export♡name♡Leutershausen♡2015-04-09T00:00:00Z.json:
+## Can be used to import data from a specific date.
+
+## FIXME: Check if overpass API is faster with regex key search.
+
+## Generate OverpassQL and execute it.
+export♡%.json: real_test.js related_tags.list
+	@(timestamp="$(shell echo "$@" | sed 's/♡/\x0/g;s/\.json$$//;' | cut -d '' -f 4)"; \
+		if [ -z "$$timestamp" ]; then \
+			timestamp="$(shell date '+%F')T00:00:00Z"; \
+		else \
+			echo "[date:\"$$timestamp\"]"; \
+		fi; \
+		boundary_key="$(shell echo "$@" | sed 's/♡/\x0/g;s/\.json$$//;' | cut -d '' -f 2)"; \
+		boundary_value="$(shell echo "$@" | sed 's/♡/\x0/g;s/\.json$$//;' | cut -d '' -f 3)"; \
+		echo "[out:json];"; \
+		echo "area[\"type\"=\"boundary\"][\"$$boundary_key\"=\"$$boundary_value\"];"; \
 		echo 'foreach('; \
 		grep -v '^#' related_tags.list | while read key; do \
 			for type in node way; do \
@@ -174,7 +189,23 @@ export-%.json:
 			done; \
 		done; \
 		echo ");" ) > "$(TMP_QUERY)"
-	wget $(WGET_OPTIONS) --post-file="$(TMP_QUERY)" --output-document="$(shell echo "$@" | sed 's/\\//g' )" "$(URL_OVERPASS_API)/interpreter" 2>&1
+	@echo "Executing queriy:"
+	@cat "$(TMP_QUERY)" sed 's/^/    /;'
+	wget $(WGET_OPTIONS) --post-file="$(TMP_QUERY)" --output-document="$(shell echo "$@" | sed 's/\\//g' )" "$(API_URL_OVERPASS)/interpreter" 2>&1
+	$(NODE) "$<" "$(shell echo "$@" | sed 's/\\//g' )"
+## }}}
+
+## Generate statistics  {{{
+
+## See real_test.js
+.PHONY: osm-tag-data-gen-stats
+osm-tag-data-gen-stats: real_test.opening_hours.stats.csv osm-tag-data-update-check
+
+.PHONY: osm-tag-data-gen-stats
+osm-tag-data-gen-stats-overpass: stats_for_boundaries.list
+	@grep -v '^#' "$<" | while read location; do \
+		$(MAKE) export♡$$location.json; \
+	done
 ## }}}
 
 %.min.js: %.js
