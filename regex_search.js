@@ -50,7 +50,7 @@ fs.readFile(json_file, 'utf8', function (err, json) {
 					matched.push([json.data[i].value, json.data[i].count, res]);
 			}
 
-			if (matched == 0) {
+			if (matched === 0) {
 				console.log('Did not match any value with regular expression: ' + line)
 			} else {
 				matched = matched.sort(Comparator);
@@ -59,8 +59,8 @@ fs.readFile(json_file, 'utf8', function (err, json) {
 					total_in_use += matched[i][1];
 				}
 
-				console.log('Matched '.green + matched.length + ' different value' + (matched.length == 1 ? '' : 's')
-					+ (matched.length != 1 ? ', total in use: ' + total_in_use : ''));
+				console.log('Matched '.green + matched.length + ' different value' + (matched.length === 1 ? '' : 's')
+					+ (matched.length !== 1 ? ', total in use: ' + total_in_use : ''));
 				if (matched.length < page_width) {
 					print_values(matched);
 				} else {
@@ -83,7 +83,7 @@ fs.readFile(json_file, 'utf8', function (err, json) {
 
 function print_values(matched) {
 	for (var i = 0; i < matched.length; i++) {
-		if (i != 0 && i % page_width == 0) {
+		if (i !== 0 && i % page_width === 0) {
 		}
 		var value = matched[i][0];
 		var count = matched[i][1];

@@ -113,7 +113,7 @@ function opening_hours_test() {
 				ignored_values.push.apply(ignored_values, options.ignore);
 
 			var oh_mode = 0;
-			if (typeof options !== 'undefined' && typeof options.oh_mode == 'number')
+			if (typeof options !== 'undefined' && typeof options.oh_mode === 'number')
 				oh_mode = options.oh_mode;
 
 			console.log('Parsing ' + tagname.blue.bold + (ignored_values.length !== 1 ? ' (ignoring: ' + ignored_values.join(', ') + ')': '') + ' …');
@@ -131,7 +131,7 @@ function opening_hours_test() {
 			var logfile_out_string = '';
 
 			for (var i = 0; i < data.data.length; i++) {
-				if (indexOf.call(ignored_values, data.data[i].value) == -1) {
+				if (indexOf.call(ignored_values, data.data[i].value) === -1) {
 					total_differ++;
 					total += data.data[i].count;
 				}
@@ -141,7 +141,7 @@ function opening_hours_test() {
 
 			var parsed_values = 0; // total number of values which are "parsed" (if one value appears more than one, it counts more than one)
 			for (var i = 0; i < total_differ; i++) {
-				if (indexOf.call(ignored_values, data.data[i].value) == -1) {
+				if (indexOf.call(ignored_values, data.data[i].value) === -1) {
 					var result = test_value(data.data[i].value, oh_mode);
 					logfile_out_string += (+result[0]) + ' ' + data.data[i].value + '\n';
 					if (result[0]) {
@@ -307,11 +307,11 @@ function opening_hours_test() {
 
 			data = JSON.parse(data);
 
-			if (info.export_format == 'overpass') {
+			if (info.export_format === 'overpass') {
 				for (var elements_number = 0; elements_number < data.elements.length; elements_number++) {
 					var elem = data.elements[elements_number];
 					Object.keys(elem.tags).forEach(function (key) {
-						if (indexOf.call(related_tags, key) != -1) {
+						if (indexOf.call(related_tags, key) !== -1) {
 							var val = elem.tags[key];
 							if (typeof(taginfo_format[key]) === 'undefined') {
 								taginfo_format[key] = { data: [] };
@@ -339,7 +339,7 @@ function opening_hours_test() {
 			}
 
 
-			if (info.export_format == 'overpass') {
+			if (info.export_format === 'overpass') {
 				// console.log(JSON.stringify(taginfo_format, null, '    '));
 				Object.keys(taginfo_format).forEach(function (tag_key) {
 					// FIXME: no access to 'this' …
@@ -400,12 +400,12 @@ function opening_hours_test() {
 			crashed = true;
 		}
 
-		if (typeof warnings != 'object')
+		if (typeof warnings !== 'object')
 			warnings = 1; // crashed by oh.getWarnings()
 		else
 			warnings = warnings.length;
 
-		return [ !crashed, warnings, prettified == value ];
+		return [ !crashed, warnings, prettified === value ];
 	} /* }}} */
 
 	/* Helper functions {{{ */
@@ -440,7 +440,7 @@ function opening_hours_test() {
 		try {
 			var data = JSON.parse(fs.readFileSync(file, 'utf8'));
 			for (var i = 0; i < data.length; i++) {
-				if (data[i].name == 'Database') {
+				if (data[i].name === 'Database') {
 					return new Date(data[i].data_until);
 				}
 			}

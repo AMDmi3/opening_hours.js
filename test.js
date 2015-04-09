@@ -4963,7 +4963,7 @@ function opening_hours_test() {
 			weekstable = oh.isWeekStable();
 			prettified = oh.prettifyValue();
 
-			intervals_ok  = typeof expected_intervals  === 'undefined' || intervals.length == expected_intervals.length;
+			intervals_ok  = typeof expected_intervals  === 'undefined' || intervals.length === expected_intervals.length;
 			duration_ok   = (typeof expected_durations[0] === 'undefined' || durations[0] === expected_durations[0])
 				&& (typeof expected_durations[1] === 'undefined' || durations[1] === expected_durations[1]);
 			weekstable_ok = typeof expected_weekstable === 'undefined' || weekstable === expected_weekstable;
@@ -4979,8 +4979,8 @@ function opening_hours_test() {
 				var expected_from = new Date(expected_intervals[interval][0]);
 				var expected_to   = new Date(expected_intervals[interval][1]);
 
-				if (intervals[interval][0].getTime() != expected_from.getTime()
-						|| intervals[interval][1].getTime() != expected_to.getTime()
+				if (intervals[interval][0].getTime() !== expected_from.getTime()
+						|| intervals[interval][1].getTime() !== expected_to.getTime()
 						|| (typeof expected_intervals[interval][2] !== 'undefined' // unknown state boolean
 							&& intervals[interval][2] !== expected_intervals[interval][2])
 						|| (typeof intervals[interval][3] !== 'undefined'
@@ -4995,13 +4995,13 @@ function opening_hours_test() {
 		var failed = false;
 		if (intervals_ok
 				&& duration_ok
-				&& (prettify_ok   || ignored == 'prettifyValue')
-				&& (weekstable_ok || ignored == 'check for week stable not implemented')) { // replace 'check for week stable not implemented'.
+				&& (prettify_ok   || ignored === 'prettifyValue')
+				&& (weekstable_ok || ignored === 'check for week stable not implemented')) { // replace 'check for week stable not implemented'.
 			str += 'PASSED'.passed;
 			if (ignored) {
-				if (ignored == 'check for week stable not implemented') {
+				if (ignored === 'check for week stable not implemented') {
 					str += ', ' + 'except'.ignored + ' weekstable which is ignored for now';
-				} else if (ignored == 'prettifyValue'){
+				} else if (ignored === 'prettifyValue'){
 					str += ', ' + 'except'.ignored + ' prettifyValue';
 					if (prettify_ok)
 						str += ' Ignored but passes!';
@@ -5017,8 +5017,8 @@ function opening_hours_test() {
 			// }
 			this.print_warnings(warnings);
 		} else if (ignored && (
-					ignored != 'prettifyValue'
-				||  ignored == 'check for week stable not implemented'
+					ignored !== 'prettifyValue'
+				||  ignored === 'check for week stable not implemented'
 				)
 			) {
 
@@ -5061,7 +5061,7 @@ function opening_hours_test() {
 			it = oh.getIterator(new Date(point_in_time));
 
 			matching_rule = oh.prettifyValue({ rule_index: it.getMatchingRule() });
-			matching_rule_ok = matching_rule == expected_matching_rule;
+			matching_rule_ok = matching_rule === expected_matching_rule;
 
 		var passed = false;
 
@@ -5117,7 +5117,7 @@ function opening_hours_test() {
 
 		console.warn(success + '/' + tests_length + ' tests passed.');
 		if (this.ignored.length) {
-			console.warn(this.ignored.length + ' test' + (this.ignored.length == 1 ? ' was' : 's where') + ' (partly) ignored, sorted by commonness:');
+			console.warn(this.ignored.length + ' test' + (this.ignored.length === 1 ? ' was' : 's where') + ' (partly) ignored, sorted by commonness:');
 			var ignored_categories = [];
 			for (var i = 0; i < this.ignored.length; i++) {
 				var value   = this.ignored[i][0];
@@ -5147,7 +5147,7 @@ function opening_hours_test() {
 			}
 		}
 
-		return success == tests_length;
+		return success === tests_length;
 	};
 	// }}}
 
@@ -5191,7 +5191,7 @@ function opening_hours_test() {
 		if (this.last === true) return;
 		this.handle_only_test(last);
 
-		if (typeof values == 'string')
+		if (typeof values === 'string')
 			this.tests_should_warn.push([name, values, nominatiomJSON, oh_mode]);
 		else
 			for (var value = 0; value < values.length; value++)
@@ -5204,7 +5204,7 @@ function opening_hours_test() {
 		if (this.last === true) return;
 		this.handle_only_test(last);
 
-		if (typeof values == 'string')
+		if (typeof values === 'string')
 			this.tests_comp_matching_rule.push([name, values, date, matching_rule, nominatiomJSON]);
 		else
 			for (var value = 0; value < values.length; value++)
@@ -5261,7 +5261,7 @@ function opening_hours_test() {
 	// }}}
 
 	this.print_warnings = function(warnings) { // {{{
-		if (this.show_error_warnings && typeof warnings == 'object' && warnings.length > 0) {
+		if (this.show_error_warnings && typeof warnings === 'object' && warnings.length > 0) {
 			console.info('With ' + 'warnings'.warn + ':\n\t*' + warnings.join('\n\t*'));
 		}
 	};

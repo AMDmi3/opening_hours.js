@@ -16,7 +16,7 @@ function opening_hours_object(value) {
     try {
         oh = new opening_hours(value);
         warnings = oh.getWarnings();
-        if (typeof warnings != 'object')
+        if (typeof warnings !== 'object')
             console.error(warnings);
         // prettified = oh.prettifyValue();
         crashed = false;
@@ -47,7 +47,7 @@ function opening_hours_object(value) {
             // This might throw an exception if there is no change.
         }
         result.rule_index    = oh.getMatchingRule();
-        result.matching_rule = typeof result.rule_index == 'undefined'
+        result.matching_rule = typeof result.rule_index === 'undefined'
             ? undefined
             : oh.prettifyValue({ 'rule_index': result.rule_index });
         result.prettified    = oh.prettifyValue();
