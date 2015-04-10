@@ -3,6 +3,16 @@ SHELL  ?= /bin/sh
 NODE   ?= nodejs
 SEARCH ?= opening_hours
 TMP_QUERY ?= ./tmp_query.op
+VERBOSE ?= 1
+
+QUERY_USE_REGEX ?= 0
+# Using regular expressions for querying areas is still slow
+# https://github.com/drolbr/Overpass-API/issues/59#issuecomment-54013988
+# Benchmarks:
+# 7:54.68: make WGET_OPTIONS='' export♡ISO3166-2♡DE-SL♡2015-04-09T00:00:00.json -B QUERY_USE_REGEX=1
+# 0:35.04: make WGET_OPTIONS='' export♡ISO3166-2♡DE-SL♡2015-04-09T00:00:00.json -B QUERY_USE_REGEX=0
+# The query without regular expressions also returns more results …
+# Use the log feature of real_test.js for this.
 
 START_DATE ?= now
 
@@ -119,7 +129,9 @@ check-diff-%.js: %.js test.js
 
 .PHONY: osm-tag-data-check
 osm-tag-data-check: real_test.js opening_hours.js osm-tag-data-get-all
-	$(NODE) "$<"
+	@grep -v '^#' related_tags.list | while read key; do \
+			$(NODE) "$<" "export.$$key.json"; \
+	done
 
 .PHONY: osm-tag-data-update-check
 .SILENT : osm-tag-data-update-check
@@ -157,47 +169,73 @@ osm-tag-data-get-all: related_tags.list
 		$(MAKE) --no-print-directory "export.$$location.json"; \
 	done
 
+# Testing:
+export.happy_hours.json:
+export.lit.json:
+
 export.%.json:
 	wget $(WGET_OPTIONS) --output-document="$(shell echo "$@" | sed 's/\\//g' )" "$(API_URL_TAGINFO)/4/key/values?key=$(shell echo "$@" | sed 's/^export\.\(.*\)\.json/\1/;s/\\//g' )" 2>&1
 ## }}}
 
 ## OSM data from the overpass API {{{
+# Before running large imports check the load of the overpass API:
+# * http://overpass-api.de/munin/de/overpass-api.de/load.html
+# * http://overpass-api.de/munin/de/overpass-api.de/osm_db_request_count.html
 
 ## The value separator is ♡ because it is not expected that this appears anywhere else in the tags and it works with GNU make.
 ## Unfortunately, it does not work with cut, but that problem can be solved.
 
 # Used for testing:
+export♡ISO3166-2♡DE-SL.json:
 export♡name♡Erlangen.json:
 export♡name♡Leutershausen.json:
 
-# export♡name♡Leutershausen♡2015-04-09T00:00:00Z.json:
+## make WGET_OPTIONS='' export♡ISO3166-2♡DE-SL♡2015-04-09T00:00:00.json -B
+
+# export♡name♡Leutershausen♡2015-04-09T00:00:00.json:
 ## Can be used to import data from a specific date.
 
-## FIXME: Check if overpass API is faster with regex key search.
+# grep --quiet "^$$timestamp"
+# The grep would lead to wrong results if Z is present in the timestamp because
+# the stats files contain milliseconds as well.
 
 ## Generate OverpassQL and execute it.
 export♡%.json: real_test.js related_tags.list
-	@(timestamp="$(shell echo "$@" | sed 's/♡/\x0/g;s/\.json$$//;' | cut -d '' -f 4)"; \
-		if [ -z "$$timestamp" ]; then \
-			timestamp="$(shell date '+%F')T00:00:00Z"; \
-		else \
-			echo "[date:\"$$timestamp\"]"; \
-		fi; \
+	@timestamp="$(shell echo "$@" | sed 's/♡/\x0/g;s/\.json$$//;' | cut -d '' -f 4)"; \
 		boundary_key="$(shell echo "$@" | sed 's/♡/\x0/g;s/\.json$$//;' | cut -d '' -f 2)"; \
 		boundary_value="$(shell echo "$@" | sed 's/♡/\x0/g;s/\.json$$//;' | cut -d '' -f 3)"; \
-		echo "[out:json][timeout:900];"; \
-		echo "area[\"type\"=\"boundary\"][\"$$boundary_key\"=\"$$boundary_value\"];"; \
-		echo 'foreach('; \
-		grep -v '^#' related_tags.list | while read key; do \
+		if [ -z "$$timestamp" ]; then \
+			timestamp="$(shell date '+%F')T00:00:00"; \
+		fi; \
+		if grep --quiet "^$$timestamp" export♡*♡$$boundary_key♡$$boundary_value♡stats.csv; then \
+			echo "Skipping. Timestamp ($$timestamp) already present in statistical data." 1>&2; \
+		else \
+			( \
+			echo -n "[date:\"$$timestamp\"]"; \
+			echo "[out:json][timeout:900];"; \
+			echo "area[\"type\"=\"boundary\"][\"$$boundary_key\"=\"$$boundary_value\"];"; \
+			echo 'foreach('; \
 			for type in node way; do \
-				echo "    $$type(area)[\"$$key\"]->.t; .t out tags;"; \
-			done; \
-		done; \
-		echo ");" ) > "$(TMP_QUERY)"
-	@echo "Executing queriy:"
-	@cat "$(TMP_QUERY)" | sed 's/^/    /;'
-	wget $(WGET_OPTIONS) --post-file="$(TMP_QUERY)" --output-document="$(shell echo "$@" | sed 's/\\//g' )" "$(API_URL_OVERPASS)/interpreter" 2>&1
-	$(NODE) "$<" "$(shell echo "$@" | sed 's/\\//g' )"
+			if [ "$(QUERY_USE_REGEX)" -eq "1" ]; then \
+				echo -n "    $$type(area)[~\"^("; \
+				(grep -v '^#' related_tags.list | while read key; do \
+					echo -n "$$key|"; \
+				done) | sed 's/|$$//;'; \
+				echo ")$$\"~\".\"]->.t; .t out tags;"; \
+			else \
+				grep -v '^#' related_tags.list | while read key; do \
+						echo "    $$type(area)[\"$$key\"]->.t; .t out tags;"; \
+				done; \
+			fi; \
+				done; \
+			echo ");" ) > "$(TMP_QUERY)"; \
+			if [ "$(VERBOSE)" -eq "1" ]; then \
+				echo "Executing query:"; \
+				cat "$(TMP_QUERY)" | sed 's/^/    /;'; \
+			fi; \
+			time wget $(WGET_OPTIONS) --post-file="$(TMP_QUERY)" --output-document="$(shell echo "$@" | sed 's/\\//g' )" "$(API_URL_OVERPASS)/interpreter" 2>&1; \
+			$(NODE) "$<" "$(shell echo "$@" | sed 's/\\//g' )"; \
+		fi
 
 .PHONY: osm-tag-data-overpass-rm
 osm-tag-data-overpass-rm:
@@ -214,13 +252,13 @@ osm-tag-data-gen-stats: real_test.opening_hours.stats.csv osm-tag-data-update-ch
 .PHONY: osm-tag-data-gen-stats-overpass-daily
 osm-tag-data-gen-stats-overpass-daily: stats_for_boundaries.list
 	@grep -v '^#' "$<" | while read location; do \
-		$(MAKE) export♡$$location♡$(shell date '+%F')T00:00:00Z.json; \
+		$(MAKE) export♡$$location♡$(shell date '+%F')T00:00:00.json; \
 	done
 
 .PHONY: osm-tag-data-gen-stats-overpass-hourly
 osm-tag-data-gen-stats-overpass-hourly: stats_for_boundaries.list
 	@grep -v '^#' "$<" | while read location; do \
-		$(MAKE) export♡$$location♡$(shell date '+%FT%H'):00:00Z.json; \
+		$(MAKE) export♡$$location♡$(shell date '+%FT%H'):00:00.json; \
 	done
 
 .PHONY: osm-tag-data-gen-stats-overpass-n-days-back
@@ -230,11 +268,10 @@ osm-tag-data-gen-stats-overpass-n-days-back: stats_for_boundaries.list
 		exit 1; \
 	fi; \
 	grep -v '^#' "$<" | while read location; do \
-		for d in `seq $(DAYS_BACK)`; do \
-			$(MAKE) export♡$$location♡$(shell date -d "$(START_DATE) - $$d days "'+%FT%H'):00:00Z.json; \
+		for day_back in `seq 0 $(DAYS_BACK)`; do \
+			$(MAKE) "export♡$$location♡`date -d \"$(START_DATE) - $$day_back days\" '+%FT%H'`:00:00.json" osm-tag-data-overpass-rm; \
 		done; \
 	done
-
 ## }}}
 
 %.min.js: %.js

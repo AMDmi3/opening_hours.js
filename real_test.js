@@ -97,7 +97,7 @@ function opening_hours_test() {
 
 	var nominatiomTestJSON = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
 
-	console.log('The holiday defintions for the country ' + nominatiomTestJSON.address.country_code + ' are used so the result will probably be a bit worse in reality but you can change that by providing the definition for missing holidays.\n');
+	console.log('The holiday definitions for the country ' + nominatiomTestJSON.address.country_code + ' are used so the result will probably be a bit worse in reality but you can change that by providing the definition for missing holidays.\n');
 
 	this.config = {};
 
@@ -346,7 +346,7 @@ function opening_hours_test() {
 					test_framework.parse_tag(tag_key, info, taginfo_format[tag_key]);
 				});
 			} else {
-				test_framework.parse_tag(tag_key, info, data);
+				test_framework.parse_tag(info.key, info, data);
 			}
 		});
 	}; /* }}} */
