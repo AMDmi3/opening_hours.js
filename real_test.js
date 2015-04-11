@@ -320,6 +320,9 @@ function opening_hours_test() {
 			if (info.export_format === 'overpass') {
 				for (var elements_number = 0; elements_number < data.elements.length; elements_number++) {
 					var elem = data.elements[elements_number];
+					if (typeof(elem.tags) === 'undefined') {
+						elem.tags = [];
+					}
 					Object.keys(elem.tags).forEach(function (key) {
 						if (indexOf.call(related_tags, key) !== -1) {
 							var val = elem.tags[key];
