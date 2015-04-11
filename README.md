@@ -18,7 +18,7 @@ around-the-clock shop with some breaks.
 
 ## evaluation tool/demo.html
 
-Please have a look at the [evaluation tool][] which can give you an impression how this library can be used and what it is capable of.
+Please have a look at the [evaluation tool] which can give you an impression how this library can be used and what it is capable of.
 
 A mirror is setup up under: http://ypid.de/~osm/evaluation_tool/
 
@@ -145,7 +145,7 @@ function getReadableState(startString, endString, oh, past) {
 
         Throws an error string if the expression is malformed or unsupported.
 
-    *   nominatiomJSON (optional): In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges][ohlib.time-ranges]) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim][] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=5&addressdetails=1) and you are good to go. Note that this second parameter is optional. The data returned by Nominatim should be in the local language (the language of the country for which the opening hours apply). If not, *accept-language* can be used as parameter in the request URL.
+    *   nominatiomJSON (optional): In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges][ohlib.time-ranges]) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=5&addressdetails=1) and you are good to go. Note that this second parameter is optional. The data returned by Nominatim should be in the local language (the language of the country for which the opening hours apply). If not, *accept-language* can be used as parameter in the request URL.
 
     *   mode (optional): In OSM, the syntax originally designed to describe opening hours is now used to describe a few other things as well. Some of those other tags work with points in time instead of time ranges. To support this the mode can be specified. If there is no mode specified, opening_hours.js will only operate with time ranges and will throw an error message when points in times are used in the value.
 
@@ -350,7 +350,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 *   **WARN:** Supports space as time interval separator, i.e. `Mo 12:00-14:00,16:00-20:00` and `Mo 12:00-14:00 16:00-20:00` are the same thing
 *   **WARN:** Supports dot as time separator (`12.00-16.00`)
-*   Complete support for dawn/sunrise/sunset/dusk (variable times) keywords (`10:00-sunset`, `dawn-dusk`). To calculate the correct values, the latitude and longitude are required which are included in the JSON returned by [Nominatim] \(see in the [Library API][ohlib.library-api] how to provide it\). The calculation is done by [suncalc][].
+*   Complete support for dawn/sunrise/sunset/dusk (variable times) keywords (`10:00-sunset`, `dawn-dusk`). To calculate the correct values, the latitude and longitude are required which are included in the JSON returned by [Nominatim] \(see in the [Library API][ohlib.library-api] how to provide it\). The calculation is done by [suncalc].
 
     If the coordinates are missing, constant times will be used (dawn: '05:30', sunrise: '06:00', sunset: '18:00', dusk: '18:30').
 
@@ -398,8 +398,8 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 *   Support for school holidays (`SH 10:00-14:00`).
 
-    * Currently only Germany is supported (based on ical files from [schulferien.org][]).
-    * To update the school holiday definition or add definitions for other countries the script [convert\_ical\_to\_json][ohlib.convert-ical-to-json] can be used (probably includes a little bit of adjustment of the script) to generate JSON definition based on ical calendar files, which can then be added to the library.
+    * Currently only Germany is supported (based on ical files from [schulferien.org]).
+    * To update the school holiday definition or add definitions for other countries the script [convert_ical_to_json][ohlib.convert-ical-to-json] can be used (probably includes a little bit of adjustment of the script) to generate JSON definition based on ical calendar files, which can then be added to the library.
 
 *   There can be two cases which need to be separated (this applies for PH and SH):
 
@@ -480,7 +480,7 @@ The current results of this test are also tracked in the repository and can be v
 
 #### Large scale
 
-To see how this library performances in the real OpenStreetMap world you can run `make osm-tag-data-check` or `node real_test.js` (data needs to be exported first) to try to process every value which uses the opening_hours syntax from [taginfo][] with this library.
+To see how this library performances in the real OpenStreetMap world you can run `make osm-tag-data-check` or `node real_test.js` (data needs to be exported first) to try to process every value which uses the opening_hours syntax from [taginfo] with this library.
 
 Currently (March 2014) this library can parse 97 % (245639/253588) of all opening_hours values in OSM. If identical values appear multiple times then each value counts.
 
@@ -490,7 +490,7 @@ Python script to search with regular expressions over OSM opening_hours style ta
 
 This script not only shows you if the found value can be processed with this library or not, it also indicates using different colors if the facility is currently open (open: green, unknown: magenta, closed: blue).
 
-It also offers filter options (e.g. only errors) and additional things like a link to [taginfo][].
+It also offers filter options (e.g. only errors) and additional things like a link to [taginfo].
 
 Hint: If you want to do quality assurance on tags like opening_hours you can also use this script and enter a regex for values you would like to check and correct (if you have no particular case just enter a dot which matches any character which results in every value being selected). Now you see how many values match your search pattern. As you do QA you probably only want to see values which can not be evaluated. To do this enter the filter "failed".
 To improve the speed of fixing errors, a [feature](https://github.com/ypid/opening_hours.js/issues/29) was added to load those failed values in JOSM. To enable this, append " josm" to the input line. So you will have something like "failed josm" as argument. Now you can hit enter and go through the values.
@@ -501,7 +501,7 @@ To improve the speed of fixing errors, a [feature](https://github.com/ypid/openi
 
 You want to try some opening_hours yourself? Just run `make run-interactive_testing` or `node interactive_testing.js` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message). The answer is JSON encoded.
 
-Testing is much easier by now. Have a look at the [evaluation tool][ohlib.evaluation-tooldemohtml]. The reason why this peace of code was written is to have an interface which can be accessed from other programming languages. It is used by the python module [pyopening\_hours][].
+Testing is much easier by now. Have a look at the [evaluation tool][ohlib.evaluation-tooldemohtml]. The reason why this peace of code was written is to have an interface which can be accessed from other programming languages. It is used by the python module [pyopening_hours].
 
 ## Performance
 
@@ -518,15 +518,15 @@ Project                                                          | Additional In
 [osm24.eu](https://github.com/dotevo/osm24)                      |
 [OpenBeerMap](https://openbeermap.github.io)                     | [issue for integration](https://github.com/OpenBeerMap/OpenBeerMap.github.io/issues/25)
 [JOSM](http://josm.openstreetmap.de/)                            | [ticket for integration](http://josm.openstreetmap.de/ticket/9157)
-[opening\_hours\_map][]                                          |
+[opening_hours_map]                                          |
 [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours) |
-[pyopening\_hours][]                                             | python module for opening_hours.js
-[opening_hours_server.js][]                                      | A little server answering query‘s for opening_hours and check if they can be evaluated.
-[opening_hours-statistics][]                                     | Visualization of the data quality and grow over time.
+[pyopening_hours]                                             | python module for opening_hours.js
+[opening_hours_server.js]                                      | A little server answering query‘s for opening_hours and check if they can be evaluated.
+[opening_hours-statistics]                                     | Visualization of the data quality and grow over time.
 [www.openstreetmap.hu](http://www.openstreetmap.hu/)             | old version of this library, see also https://github.com/AMDmi3/opening_hours.js/issues/19
 
-[opening\_hours\_map]: https://github.com/ypid/opening_hours_map
-[pyopening\_hours]: https://github.com/ypid/pyopening_hours
+[opening_hours_map]: https://github.com/ypid/opening_hours_map
+[pyopening_hours]: https://github.com/ypid/pyopening_hours
 [opening_hours_server.js]: https://github.com/ypid/opening_hours_server.js
 [opening_hours-statistics]: https://github.com/ypid/opening_hours-statistics
 
@@ -568,7 +568,7 @@ This project uses http://i18next.com/ for translation.
 
 Translations can be made in the file [js/i18n-resources.js][ohlib.js/i18n-resources.js]. Just copy the whole English block, change the language code to the one you are adding and make your translation. You can open the [demo.html](/demo.html) to see the result of your work. To complete your localization add the translated language name to the other languages. Week and month names are translatated by [moment.js][moment-lib].
 
-Note that this resource file does also provide the localization for the [opening\_hours\_map][]. This can also be tested by cloning the project and linking your modified opening_hours.js working copy to the opening_hours.js directory (after renaming it) inside the opening_hours_map project. Or just follow the installation instructions from the [opening\_hours\_map][].
+Note that this resource file does also provide the localization for the [opening_hours_map]. This can also be tested by cloning the project and linking your modified opening_hours.js working copy to the opening_hours.js directory (after renaming it) inside the opening_hours_map project. Or just follow the installation instructions from the [opening_hours_map].
 
 ### Holidays
 
