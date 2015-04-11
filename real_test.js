@@ -237,19 +237,29 @@ function opening_hours_test() {
 				if (typeof(info.timestamp) !== 'object') {
 				    throw('dump creation time is unknown.');
 				}
-				fs.appendFile(
-					csv_filename,
-					info.timestamp.toISOString() + ', ' + [
-						total, total_differ,
-						success, success_differ,
-						warnings, warnings_differ,
-						not_pretty, not_pretty_differ
-					].join(', ') + '\n',
-					function(err) {
-						if (err)
-							throw(err);
+				var timestamp = info.timestamp.toISOString();
+				var known_timestamp = false;
+				fs.readFileSync(csv_filename, 'utf8').split('\n').forEach(function (line) {
+					if (!known_timestamp && line.match(new RegExp('^' + timestamp))) {
+						console.error("Skipping write to stats file. An entry does already exist for the timestamp: " + timestamp);
+						known_timestamp = true;
 					}
-				);
+				});
+				if (!known_timestamp) {
+					fs.appendFile(
+						csv_filename, [
+							timestamp,
+							total, total_differ,
+							success, success_differ,
+							warnings, warnings_differ,
+							not_pretty, not_pretty_differ
+						].join(', ') + '\n',
+						function(err) {
+							if (err)
+								throw(err);
+						}
+					);
+				}
 			} /* }}} */
 
 	} /* }}} */
