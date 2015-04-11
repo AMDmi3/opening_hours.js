@@ -1,5 +1,8 @@
 export*
-!export♡*♡stats.csv
+
+# Enable the following line for repositories which should track statistical data.
+# !export♡*♡stats.csv
+
 opening_hours.min.js
 node_modules
 tags
