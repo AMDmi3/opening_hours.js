@@ -1,10 +1,14 @@
 ## Variables {{{
-SHELL  ?= /bin/sh
-NODE   ?= nodejs
-SEARCH ?= opening_hours
-TMP_QUERY ?= ./tmp_query.op
+SHELL   := /bin/bash
+NODE    ?= nodejs
+SEARCH  ?= opening_hours
 VERBOSE ?= 1
 
+## Data source variables {{{
+API_URL_TAGINFO  ?= http://taginfo.openstreetmap.org/api
+API_URL_OVERPASS ?= http://overpass-api.de/api
+
+TMP_QUERY ?= ./tmp_query.op
 QUERY_USE_REGEX ?= 0
 # Using regular expressions for querying areas is still slow
 # https://github.com/drolbr/Overpass-API/issues/59#issuecomment-54013988
@@ -14,12 +18,13 @@ QUERY_USE_REGEX ?= 0
 # The query without regular expressions also returns more results …
 # Use the log feature of real_test.js for this.
 
+REMOVE_DATA_AFTER_STATS_GEN ?= 1
 START_DATE ?= now
-
-API_URL_TAGINFO  ?= http://taginfo.openstreetmap.org/api
-API_URL_OVERPASS ?= http://overpass-api.de/api
+DAYS_INCREMENT ?= 1
+## }}}
 
 WGET_OPTIONS ?= --no-verbose
+MAKE_OPTIONS ?= --no-print-directory
 ## }}}
 
 .PHONY: default
@@ -57,13 +62,13 @@ release: check
 	git tag --sign --local-user=C505B5C93B0DB3D338A1B6005FE92C12EE88E1F0 "v`json -f package.json version`"
 	git push --follow-tags
 	npm publish
-	$(MAKE) publish-website-on-all-servers
+	$(MAKE) $(MAKE_OPTIONS) publish-website-on-all-servers
 
 .PHONY: clean
 clean: osm-tag-data-rm
-	rm -f *.min.js
-	rm -f README.html
-	rm -f taginfo_sources.json
+	rm --force *.min.js
+	rm --force README.html
+	rm --force taginfo_sources.json
 
 .PHONY: osm-tag-data-rm
 osm-tag-data-rm: osm-tag-data-taginfo-rm osm-tag-data-overpass-rm
@@ -130,14 +135,12 @@ check-diff-%.js: %.js test.js
 .PHONY: osm-tag-data-check
 osm-tag-data-check: real_test.js opening_hours.js osm-tag-data-get-all
 	@grep -v '^#' related_tags.list | while read key; do \
-			$(NODE) "$<" "export.$$key.json"; \
+		$(NODE) "$<" "export.$$key.json"; \
 	done
 
 .PHONY: osm-tag-data-update-check
 .SILENT : osm-tag-data-update-check
-osm-tag-data-update-check:
-	-$(MAKE) --quiet osm-tag-data-update-all 2>/dev/null
-	$(MAKE) --quiet osm-tag-data-check
+osm-tag-data-update-check: osm-tag-data-update-all osm-tag-data-check
 
 # .PHONY: benchmark
 benchmark-%.js: %.js benchmark.js
@@ -153,7 +156,7 @@ check-package.json: package.json
 
 .PHONY: osm-tag-data-taginfo-rm
 osm-tag-data-taginfo-rm:
-	rm -f export.*.json
+	rm --force export.*.json
 
 .PHONY: osm-tag-data-update-all
 osm-tag-data-update-all: taginfo_sources.json osm-tag-data-taginfo-rm osm-tag-data-get-all
@@ -166,7 +169,7 @@ taginfo_sources.json:
 .PHONY: osm-tag-data-get-all
 osm-tag-data-get-all: related_tags.list
 	@grep -v '^#' "$<" | while read location; do \
-		$(MAKE) --no-print-directory "export.$$location.json"; \
+		$(MAKE) $(MAKE_OPTIONS) "export.$$location.json"; \
 	done
 
 # Testing:
@@ -208,7 +211,9 @@ export♡%.json: real_test.js related_tags.list
 			timestamp="$(shell date '+%F')T00:00:00"; \
 		fi; \
 		if grep --quiet "^$$timestamp" export♡*♡$$boundary_key♡$$boundary_value♡stats.csv; then \
-			echo "Skipping. Timestamp ($$timestamp) already present in statistical data." 1>&2; \
+			if [ "$(VERBOSE)" -eq "1" ]; then \
+				echo "Skipping. Timestamp ($$timestamp) already present in statistical data for $${boundary_key}=$${boundary_value}." 1>&2; \
+			fi; \
 		else \
 			( \
 			echo -n "[date:\"$$timestamp\"]"; \
@@ -235,11 +240,18 @@ export♡%.json: real_test.js related_tags.list
 			fi; \
 			time wget $(WGET_OPTIONS) --post-file="$(TMP_QUERY)" --output-document="$(shell echo "$@" | sed 's/\\//g' )" "$(API_URL_OVERPASS)/interpreter" 2>&1; \
 			$(NODE) "$<" "$(shell echo "$@" | sed 's/\\//g' )"; \
+			find . -name "export♡*♡$$boundary_key♡$$boundary_value♡stats.csv" | while read file; do \
+				sort --numeric-sort "$$file" > "$$file.tmp" && \
+				mv "$$file.tmp" "$$file"; \
+			done; \
+			if [ "$(REMOVE_DATA_AFTER_STATS_GEN)" -eq "1" ]; then \
+				$(MAKE) $(MAKE_OPTIONS) osm-tag-data-overpass-rm; \
+			fi; \
 		fi
 
 .PHONY: osm-tag-data-overpass-rm
 osm-tag-data-overpass-rm:
-	rm -f export♡*.json
+	rm --force export♡*.json
 
 ## }}}
 
@@ -247,18 +259,18 @@ osm-tag-data-overpass-rm:
 
 ## See real_test.js
 .PHONY: osm-tag-data-gen-stats
-osm-tag-data-gen-stats: real_test.opening_hours.stats.csv osm-tag-data-update-check osm-tag-data-check
+osm-tag-data-gen-stats: real_test.opening_hours.stats.csv osm-tag-data-update-check
 
 .PHONY: osm-tag-data-gen-stats-overpass-daily
 osm-tag-data-gen-stats-overpass-daily: stats_for_boundaries.list
 	@grep -v '^#' "$<" | while read location; do \
-		$(MAKE) export♡$$location♡$(shell date '+%F')T00:00:00.json; \
+		$(MAKE) $(MAKE_OPTIONS) export♡$$location♡$(shell date '+%F')T00:00:00.json; \
 	done
 
 .PHONY: osm-tag-data-gen-stats-overpass-hourly
 osm-tag-data-gen-stats-overpass-hourly: stats_for_boundaries.list
 	@grep -v '^#' "$<" | while read location; do \
-		$(MAKE) export♡$$location♡$(shell date '+%FT%H'):00:00.json; \
+		$(MAKE) $(MAKE_OPTIONS) export♡$$location♡$(shell date '+%FT%H'):00:00.json; \
 	done
 
 .PHONY: osm-tag-data-gen-stats-overpass-n-days-back
@@ -268,9 +280,16 @@ osm-tag-data-gen-stats-overpass-n-days-back: stats_for_boundaries.list
 		exit 1; \
 	fi; \
 	grep -v '^#' "$<" | while read location; do \
-		for day_back in `seq 0 $(DAYS_BACK)`; do \
-			$(MAKE) "export♡$$location♡`date -d \"$(START_DATE) - $$day_back days\" '+%FT%H'`:00:00.json" osm-tag-data-overpass-rm; \
+		for day_back in `seq 0 $(DAYS_INCREMENT) $(DAYS_BACK)`; do \
+			$(MAKE) $(MAKE_OPTIONS) "export♡$$location♡`date -d \"$(START_DATE) - $$day_back days\" '+%FT%H'`:00:00.json"; \
 		done; \
+	done
+
+.PHONY: osm-tag-data-gen-stats-sort
+osm-tag-data-gen-stats-sort:
+	find . -name 'export*stats.csv' | while read file; do \
+		sort --numeric-sort "$$file" > "$$file.tmp" && \
+		mv "$$file.tmp" "$$file"; \
 	done
 ## }}}
 
