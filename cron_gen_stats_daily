@@ -1,8 +1,0 @@
-#!/bin/bash
-
-(
-    make osm-tag-data-gen-stats
-    make osm-tag-data-gen-stats-overpass-daily >> run.log 2>&1
-    make osm-tag-data-rm
-    git commit -am 'Generated stats.'
-) >/dev/zero 2>&1

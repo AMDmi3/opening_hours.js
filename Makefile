@@ -9,18 +9,20 @@ API_URL_TAGINFO  ?= http://taginfo.openstreetmap.org/api
 API_URL_OVERPASS ?= http://overpass-api.de/api
 
 TMP_QUERY ?= ./tmp_query.op
-QUERY_USE_REGEX ?= 0
+OVERPASS_QUERY_TIMEOUT ?= 4000
+OVERPASS_QUERY_USE_REGEX ?= 0
 # Using regular expressions for querying areas is still slow
 # https://github.com/drolbr/Overpass-API/issues/59#issuecomment-54013988
 # Benchmarks:
-# 7:54.68: make WGET_OPTIONS='' export♡ISO3166-2♡DE-SL♡2015-04-09T00:00:00.json -B QUERY_USE_REGEX=1
-# 0:35.04: make WGET_OPTIONS='' export♡ISO3166-2♡DE-SL♡2015-04-09T00:00:00.json -B QUERY_USE_REGEX=0
+# 7:54.68: make WGET_OPTIONS='' export♡ISO3166-2♡DE-SL♡2015-04-09T00:00:00.json -B OVERPASS_QUERY_USE_REGEX=1
+# 0:35.04: make WGET_OPTIONS='' export♡ISO3166-2♡DE-SL♡2015-04-09T00:00:00.json -B OVERPASS_QUERY_USE_REGEX=0
 # The query without regular expressions also returns more results …
 # Use the log feature of real_test.js for this.
 
 REMOVE_DATA_AFTER_STATS_GEN ?= 1
 START_DATE ?= now
 DAYS_INCREMENT ?= 1
+HOURS_INCREMENT ?= 1
 ## }}}
 
 WGET_OPTIONS ?= --no-verbose
@@ -203,6 +205,7 @@ export♡name♡Leutershausen.json:
 # the stats files contain milliseconds as well.
 
 ## Generate OverpassQL and execute it.
+.PRECIOUS: export♡%.json
 export♡%.json: real_test.js related_tags.list
 	@timestamp="$(shell echo "$@" | sed 's/♡/\x0/g;s/\.json$$//;' | cut -d '' -f 4)"; \
 		boundary_key="$(shell echo "$@" | sed 's/♡/\x0/g;s/\.json$$//;' | cut -d '' -f 2)"; \
@@ -217,11 +220,11 @@ export♡%.json: real_test.js related_tags.list
 		else \
 			( \
 			echo -n "[date:\"$$timestamp\"]"; \
-			echo "[out:json][timeout:900];"; \
+			echo "[out:json][timeout:$(OVERPASS_QUERY_TIMEOUT)];"; \
 			echo "area[\"type\"=\"boundary\"][\"$$boundary_key\"=\"$$boundary_value\"];"; \
 			echo 'foreach('; \
 			for type in node way; do \
-			if [ "$(QUERY_USE_REGEX)" -eq "1" ]; then \
+			if [ "$(OVERPASS_QUERY_USE_REGEX)" -eq "1" ]; then \
 				echo -n "    $$type(area)[~\"^("; \
 				(grep -v '^#' related_tags.list | while read key; do \
 					echo -n "$$key|"; \
@@ -253,9 +256,26 @@ export♡%.json: real_test.js related_tags.list
 osm-tag-data-overpass-rm:
 	rm --force export♡*.json
 
+.PHONY: osm-tag-data-overpass-kill-queries
+osm-tag-data-overpass-kill-queries:
+	curl "$(API_URL_OVERPASS)/kill_my_queries"
+
 ## }}}
 
 ## Generate statistics  {{{
+
+## Cronjob is running on gauss: http://munin.openstreetmap.de/gauss/gauss-load.html
+# m h  dom mon dow   command
+# 48 02    * * *       cd ./oh-stats && make osm-tag-data-gen-stats-cron > cron.02.log
+# 48 06    * * *       cd ./oh-stats && make osm-tag-data-gen-stats-cron > cron.06.log
+.PHONY: osm-tag-data-gen-stats-cron
+osm-tag-data-gen-stats-cron: real_test.opening_hours.stats.csv
+	date
+	$(MAKE) $(MAKE_OPTIONS) osm-tag-data-gen-stats > cron_taginfo.log 2>&1
+	git commit --all --message 'Generated stats.'
+	# $(MAKE) $(MAKE_OPTIONS) osm-tag-data-gen-stats-overpass-daily >> cron_overpass.log 2>&1
+	$(MAKE) $(MAKE_OPTIONS) osm-tag-data-rm
+	git commit --all --message 'Generated stats.'
 
 ## See real_test.js
 .PHONY: osm-tag-data-gen-stats
@@ -282,6 +302,15 @@ osm-tag-data-gen-stats-overpass-n-days-back: stats_for_boundaries.list
 	grep -v '^#' "$<" | while read location; do \
 		for day_back in `seq 0 $(DAYS_INCREMENT) $(DAYS_BACK)`; do \
 			$(MAKE) $(MAKE_OPTIONS) "export♡$$location♡`date -d \"$(START_DATE) - $$day_back days\" '+%FT%H'`:00:00.json"; \
+		done; \
+	done
+
+## To track the OSM activities of Jack Bauer :)
+.PHONY: osm-tag-data-gen-stats-overpass-24-hours
+osm-tag-data-gen-stats-overpass-24-hours: stats_for_boundaries.list
+	grep -v '^#' "$<" | while read location; do \
+		for hour in `seq --equal-width 0 $(HOURS_INCREMENT) 23`; do \
+		$(MAKE) $(MAKE_OPTIONS) "export♡$$location♡`date -d \"$(START_DATE)" '+%F'`T$${hour}:00:00.json"; \
 		done; \
 	done
 
