@@ -320,7 +320,7 @@ osm-tag-data-gen-stats-overpass-n-days-back: stats_for_boundaries.txt
 				echo "Stopping. The time is `date`."; \
 				exit; \
 			fi; \
-			$(MAKE) $(MAKE_OPTIONS) "export♡$$location♡`date -d \"$(START_DATE) - $$day_back days\" '+%FT%H'`:00:00.json"; \
+			$(MAKE) $(MAKE_OPTIONS) "export♡$$location♡`date -d \"$(START_DATE) - $$day_back days\" '+%F'`T00:00:00.json"; \
 		done; \
 	done
 
