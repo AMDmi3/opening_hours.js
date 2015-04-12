@@ -4986,7 +4986,7 @@
 				} else if (matchTokens(tokens, at - 1, ',')) { // additional rule
 					throw formatWarnErrorMessage(
 						nrule,
-						at,
+						at - 1,
 						'An additional rule does not make sense here. Just use a ";" as rule separator.'
 						+ ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator');
 				} else {
@@ -5186,7 +5186,7 @@
 				} else if (matchTokens(tokens, at - 1, ',')) { // additional rule
 					throw formatWarnErrorMessage(
 						nrule,
-						at,
+						at - 1,
 						'An additional rule does not make sense here. Just use a ";" as rule separator.'
 						+ ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator');
 				} else {
@@ -5489,7 +5489,7 @@
 				} else if (matchTokens(tokens, at - 1, ',')) { // additional rule
 					throw formatWarnErrorMessage(
 						nrule,
-						at,
+						at - 1,
 						'An additional rule does not make sense here. Just use a ";" as rule separator.'
 						+ ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator');
 				} else {
@@ -5594,7 +5594,7 @@
 				} else if (matchTokens(tokens, at - 1, ',')) { // additional rule
 					throw formatWarnErrorMessage(
 						nrule,
-						at,
+						at - 1,
 						'An additional rule does not make sense here. Just use a ";" as rule separator.'
 						+ ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator');
 				} else {
