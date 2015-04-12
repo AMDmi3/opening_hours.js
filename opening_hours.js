@@ -5486,6 +5486,12 @@
 					}}(tokens, at, year_from, is_range, has_period, period));
 
 					at += 1 + (is_range ? 2 : 0) + (has_period ? (has_period === 2 ? 1 : 2) : 0);
+				} else if (matchTokens(tokens, at - 1, ',')) { // additional rule
+					throw formatWarnErrorMessage(
+						nrule,
+						at,
+						'An additional rule does not make sense here. Just use a ";" as rule separator.'
+						+ ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator');
 				} else {
 					throw formatWarnErrorMessage(nrule, at, 'Unexpected token in year range: ' + tokens[at][1]);
 				}
@@ -5585,6 +5591,12 @@
 					}
 
 					at += 1 + (is_range ? 2 : 0) + (period ? 2 : 0);
+				} else if (matchTokens(tokens, at - 1, ',')) { // additional rule
+					throw formatWarnErrorMessage(
+						nrule,
+						at,
+						'An additional rule does not make sense here. Just use a ";" as rule separator.'
+						+ ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator');
 				} else {
 					throw formatWarnErrorMessage(nrule, at, 'Unexpected token in week range: ' + tokens[at][1]);
 				}

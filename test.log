@@ -1836,7 +1836,7 @@ PH + 2 day <--- (There should be no reason to differ more than 1 days from a pub
 Su- <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) 
 
 "Incorrect syntax which should throw an error" for "2012, Jan; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-2012, Jan <--- (Unexpected token in year range: month)
+2012, Jan <--- (An additional rule does not make sense here. Just use a ";" as rule separator. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator)
 
 "Incorrect syntax which should throw an error" for "easter + 370 days; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 easter + 370 days <--- (There should be no reason to differ more than 200 days from a event like easter. If so tell us …)
@@ -1979,6 +1979,13 @@ We off, Mo,Tu,Th-Su,PH, Jun <--- (An additional rule does not make sense here. J
 "Incorrect syntax which should throw an error" for "We, Aug Mo; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 We, Aug  <--- (An additional rule does not make sense here. Just use a ";" as rule separator. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator)
 
+"Incorrect syntax which should throw an error" for "2014, Aug Mo; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+2014, Aug  <--- (An additional rule does not make sense here. Just use a ";" as rule separator. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator)
+
+"Incorrect syntax which should throw an error" for "week 5, Aug Mo; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+week 5, Aug  <--- (An additional rule does not make sense here. Just use a ";" as rule separator. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator)
+
+"Incorrect syntax which should throw an error" for "Jun 2-5, week 5 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[31mFAILED[39m[22m
 "Missing information (e.g. country or holidays not defined in this lib)" for "PH": [1m[32mPASSED[39m[22m
 Country code missing which is needed to select the correct holidays (see README how to provide it)
 
@@ -2102,7 +2109,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-806/815 tests passed.
+808/818 tests passed.
 38 tests where (partly) ignored, sorted by commonness:
 * 23: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
