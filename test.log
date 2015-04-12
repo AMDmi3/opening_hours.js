@@ -1758,7 +1758,7 @@ week 2-53 00:00-24:00::: <--- (Unexpected token: "timesep" This means that the s
 week 2-53 00: <--- (Missing minutes in time range after: "timesep")
 
 "Incorrect syntax which should throw an error" for "week 2-52/2 We, week 1-53/2 Sa 0:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-week 2-52/2 We, week  <--- (Unexpected token in weekday range: week)
+week 2-52/2 We, week  <--- (An additional rule does not make sense here. Just use a ";" as rule separator. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator)
 
 "Incorrect syntax which should throw an error" for "(sunrise+01:00-sunset; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 (sunrise+01:00- <--- (Calculcation with variable time is not in the right syntax. Missing ")".)
@@ -1851,7 +1851,7 @@ easter - 2 days -  <--- (Unexpected token: "-" This means that the syntax is not
 Jan,, <--- (Unexpected token in month range: ,)
 
 "Incorrect syntax which should throw an error" for "Mo,,Th; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Mo,, <--- (Unexpected token in weekday range: ,)
+Mo,, <--- (An additional rule does not make sense here. Just use a ";" as rule separator. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator)
 
 "Incorrect syntax which should throw an error" for "12:00-15:00/60; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 12:00-15:00/60 <--- (opening_hours is running in "time range mode". Found point in time.)
@@ -1976,6 +1976,9 @@ PH, Aug <--- (An additional rule does not make sense here. Just use a ";" as rul
 "Incorrect syntax which should throw an error" for "We off, Mo,Tu,Th-Su,PH, Jun-Aug We 11:00-14:00,17:00+; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 We off, Mo,Tu,Th-Su,PH, Jun <--- (An additional rule does not make sense here. Just use a ";" as rule separator. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator)
 
+"Incorrect syntax which should throw an error" for "We, Aug Mo; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+We, Aug  <--- (An additional rule does not make sense here. Just use a ";" as rule separator. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator)
+
 "Missing information (e.g. country or holidays not defined in this lib)" for "PH": [1m[32mPASSED[39m[22m
 Country code missing which is needed to select the correct holidays (see README how to provide it)
 
@@ -2099,7 +2102,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-805/814 tests passed.
+806/815 tests passed.
 38 tests where (partly) ignored, sorted by commonness:
 * 23: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

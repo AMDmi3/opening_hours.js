@@ -4983,6 +4983,12 @@
 				} else if (matchTokens(tokens, at, 'holiday')) {
 					week_stable = false;
 					return parseHoliday(tokens, at, selectors, true, in_holiday_selector);
+				} else if (matchTokens(tokens, at - 1, ',')) { // additional rule
+					throw formatWarnErrorMessage(
+						nrule,
+						at,
+						'An additional rule does not make sense here. Just use a ";" as rule separator.'
+						+ ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator');
 				} else {
 					throw formatWarnErrorMessage(nrule, at, 'Unexpected token in weekday range: ' + tokens[at][1]);
 				}

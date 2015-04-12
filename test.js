@@ -4762,6 +4762,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'|| open' + value_suffix,
 		'PH, Aug-Sep 00:00-24:00' + value_suffix,
 		'We off, Mo,Tu,Th-Su,PH, Jun-Aug We 11:00-14:00,17:00+' + value_suffix,
+		'We, Aug Mo' + value_suffix,
 	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
