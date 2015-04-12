@@ -1263,13 +1263,9 @@ With [1m[34mwarnings[39m[22m:
 "Real world example: Was not processed right (test over a full year)" for "Nov-Mar off; Apr,May,Sep,Oct Tu-Su 10:00-14:30; Jun Tu-Su 09:00-16:00; Jul,Aug Tu-Su 10:00-17:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right (test over a full year)" for "Nov-Mar off; Apr,May,Sep,Oct 10:00-14:30; Jun 09:00-16:00; Jul,Aug 10:00-17:00; Mo off": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right" for "Tu 10:00-12:00, Fr 16:00-18:00; unknown": [1m[35mCRASHED[39m[22m, reason: TypeError: Cannot read property '0' of undefined
-"Real world example: Problem with <additional_rule_separator> in holiday parser" for "PH, Aug-Sep 00:00-24:00": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Real world example: Problem with <additional_rule_separator> in holiday parser" for "PH; Aug-Sep 00:00-24:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-"Real world example: Problem with <additional_rule_separator> in holiday parser" for "We off, Mo,Tu,Th-Su,PH, Jun-Aug We 11:00-14:00,17:00+": [1m[35mCRASHED[39m[22m, reason: TypeError: Cannot read property '0' of undefined
 "Real world example: Problem with <additional_rule_separator> in holiday parser" for "We off; Mo,Tu,Th-Su,PH; Jun-Aug We 11:00-14:00,17:00+": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*We off; Mo,Tu,Th-Su,PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
@@ -1974,6 +1970,12 @@ Tu 23:59-48:00+ <--- (Time spanning more than two midnights not supported)
 "Incorrect syntax which should throw an error" for "|| open; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 || <--- (Rule before fallback rule does not contain anything useful)
 
+"Incorrect syntax which should throw an error" for "PH, Aug-Sep 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+PH, Aug <--- (An additional rule does not make sense here. Just use a ";" as rule separator. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator)
+
+"Incorrect syntax which should throw an error" for "We off, Mo,Tu,Th-Su,PH, Jun-Aug We 11:00-14:00,17:00+; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+We off, Mo,Tu,Th-Su,PH, Jun <--- (An additional rule does not make sense here. Just use a ";" as rule separator. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator)
+
 "Missing information (e.g. country or holidays not defined in this lib)" for "PH": [1m[32mPASSED[39m[22m
 Country code missing which is needed to select the correct holidays (see README how to provide it)
 
@@ -2097,7 +2099,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-804/814 tests passed.
+805/814 tests passed.
 38 tests where (partly) ignored, sorted by commonness:
 * 23: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

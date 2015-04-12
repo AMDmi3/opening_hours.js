@@ -4085,14 +4085,14 @@ test.addTest('Real world example: Was not processed right', [
 
 /* https://github.com/ypid/opening_hours.js/issues/75 {{{ */
 test.addTest('Real world example: Problem with <additional_rule_separator> in holiday parser', [
-		'PH, Aug-Sep 00:00-24:00',
+		// 'PH, Aug-Sep 00:00-24:00', // Should fail.
 		'PH; Aug-Sep 00:00-24:00',
 	], '2015.01.01 0:00', '2015.01.10 0:00', [
 		[ '2015.01.01 00:00', '2015.01.02 00:00', false, 'Neujahrstag' ],
 		[ '2015.01.06 00:00', '2015.01.07 00:00', false, 'Heilige Drei Könige' ],
 	], 1000 * 60 * 60 * 24 * 2, 0, false, nominatiomTestJSON, 'not only test');
 test.addTest('Real world example: Problem with <additional_rule_separator> in holiday parser', [
-		'We off, Mo,Tu,Th-Su,PH, Jun-Aug We 11:00-14:00,17:00+', // FIXME: Change to new_tokens.
+		// 'We off, Mo,Tu,Th-Su,PH, Jun-Aug We 11:00-14:00,17:00+', // Should fail.
 		'We off; Mo,Tu,Th-Su,PH; Jun-Aug We 11:00-14:00,17:00+',
 		'Mo,Tu,Th-Su,PH 00:00-24:00; Jun-Aug We 11:00-14:00,17:00+'
 	], '2015.05.25 0:00', '2015.06.10 0:00', [
@@ -4760,6 +4760,8 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'"testing«' + value_suffix,   // Garbage, no valid quotes what so ever.
 		' || open' + value_suffix,
 		'|| open' + value_suffix,
+		'PH, Aug-Sep 00:00-24:00' + value_suffix,
+		'We off, Mo,Tu,Th-Su,PH, Jun-Aug We 11:00-14:00,17:00+' + value_suffix,
 	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
