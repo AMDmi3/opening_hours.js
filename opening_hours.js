@@ -4211,7 +4211,7 @@
 					var warnings = getWarnings();
 					throw formatWarnErrorMessage(nrule, at, 'Unexpected token: "' + tokens[at][1]
 						+ '" This means that the syntax is not valid at that point or it is currently not supported.')
-						+ (warnings ? ' ' + warnings.join('; ') : '');
+						+ (warnings ? (' ' + warnings.join('; ')) : '');
 				}
 
 				if (typeof at === 'object') { // additional rule
@@ -5173,12 +5173,14 @@
 							selectors.weekday.push(selector);
 						else
 							selectors.holiday.push(selector);
-						at += 1;
+						at += 1; // FIXME: test
 					}
 				} else if (matchTokens(tokens, at, 'weekday')) {
 					return parseWeekdayRange(tokens, at, selectors, true);
+				} else if (matchTokens(tokens, at - 1, ',')) { // additional rule
+					return [ at ];
 				} else {
-					throw formatWarnErrorMessage(nrule, at, 'Unexpected token (school holiday parser): ' + tokens[at][1]);
+					throw formatWarnErrorMessage(nrule, at, 'Unexpected token (holiday parser): ' + tokens[at][1]);
 				}
 
 				if (!matchTokens(tokens, at, ','))

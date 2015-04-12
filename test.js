@@ -4083,6 +4083,29 @@ test.addTest('Real world example: Was not processed right', [
 	], '2014.01.01 0:00', '2016.01.01 0:00', [
 	], 0, 0, false, {}, 'not last test');
 
+/* https://github.com/ypid/opening_hours.js/issues/75 {{{ */
+test.addTest('Real world example: Problem with <additional_rule_separator> in holiday parser', [
+		'PH, Aug-Sep 00:00-24:00',
+		'PH; Aug-Sep 00:00-24:00',
+	], '2015.01.01 0:00', '2015.01.10 0:00', [
+		[ '2015.01.01 00:00', '2015.01.02 00:00', false, 'Neujahrstag' ],
+		[ '2015.01.06 00:00', '2015.01.07 00:00', false, 'Heilige Drei Könige' ],
+	], 1000 * 60 * 60 * 24 * 2, 0, false, nominatiomTestJSON, 'not only test');
+test.addTest('Real world example: Problem with <additional_rule_separator> in holiday parser', [
+		'We off, Mo,Tu,Th-Su,PH, Jun-Aug We 11:00-14:00,17:00+', // FIXME: Change to new_tokens.
+		'We off; Mo,Tu,Th-Su,PH; Jun-Aug We 11:00-14:00,17:00+',
+		'Mo,Tu,Th-Su,PH 00:00-24:00; Jun-Aug We 11:00-14:00,17:00+'
+	], '2015.05.25 0:00', '2015.06.10 0:00', [
+		[ '2015.05.25 00:00', '2015.05.26 00:00', false, 'Pfingstmontag' ], // Mo: 1
+		[ '2015.05.26 00:00', '2015.05.27 00:00' ], // Tu: 1
+		[ '2015.05.28 00:00', '2015.06.03 00:00' ], // Th till Tu: 6
+		[ '2015.06.03 11:00', '2015.06.03 14:00' ], // We
+		[ '2015.06.03 17:00', '2015.06.04 03:00', true, 'Specified as open end. Closing time was guessed.' ],
+		[ '2015.06.04 03:00', '2015.06.05 00:00', false, 'Fronleichnam' ], // Th
+		[ '2015.06.05 00:00', '2015.06.10 00:00' ], // Fr-Tu: 5
+	], 1000 * 60 * 60 * (24 * (1 + 1 + 6 + 5) + 3 + (24 - 3)), 1000 * 60 * 60 * (24 - 17 + 3), false, nominatiomTestJSON, 'not last test');
+/* }}} */
+
 /* {{{ http://www.openstreetmap.org/node/3010451545 */
 test.addShouldFail('Incorrect syntax which should throw an error', [
 		'MON-FRI 5PM-12AM | SAT-SUN 12PM-12AM',  // Website.
