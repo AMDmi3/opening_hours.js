@@ -10,8 +10,7 @@ API_URL_OVERPASS ?= http://overpass-api.de/api
 
 TMP_QUERY ?= ./tmp_query.op
 OVERPASS_QUERY_TIMEOUT ?= 4000
-OVERPASS_QUERY_STOP_AFTER_TIME_HOUR ?= 14
-# OVERPASS_QUERY_STOP_AFTER_TIME_HOUR ?= 11
+OVERPASS_QUERY_STOP_AFTER_TIME_HOUR ?= 11
 # OVERPASS_QUERY_STOP_AFTER_TIME_HOUR ?= -1
 ## Stop the make process gracefully after 14:00. Intended for cron which start at night.
 OVERPASS_QUERY_USE_REGEX ?= 0
@@ -23,8 +22,10 @@ OVERPASS_QUERY_USE_REGEX ?= 0
 # The query without regular expressions also returns more results …
 # Use the log feature of real_test.js for this.
 
-REMOVE_DATA_AFTER_STATS_GEN ?= 1
+# REMOVE_DATA_AFTER_STATS_GEN ?= 1
+REMOVE_DATA_AFTER_STATS_GEN ?= 0
 START_DATE ?= now
+# START_DATE ?= now - 1 day
 DAYS_INCREMENT ?= 1
 HOURS_INCREMENT ?= 1
 ## }}}
@@ -138,15 +139,15 @@ check-diff-%.js: %.js test.js
 	# git --no-pager diff --color-words test.log
 	git --no-pager diff test.log
 
-.PHONY: osm-tag-data-check
-osm-tag-data-check: real_test.js opening_hours.js osm-tag-data-get-all
+.PHONY: osm-tag-data-taginfo-check
+osm-tag-data-taginfo-check: real_test.js opening_hours.js osm-tag-data-get-taginfo
 	@grep -v '^#' related_tags.txt | while read key; do \
-		$(NODE) "$<" "export.$$key.json"; \
+		$(NODE) "$<" --map-bad-oh-values --ignore-manual-values "export.$$key.json"; \
 	done
 
 .PHONY: osm-tag-data-update-check
 .SILENT : osm-tag-data-update-check
-osm-tag-data-update-check: osm-tag-data-update-all osm-tag-data-check
+osm-tag-data-update-check: osm-tag-data-update-taginfo osm-tag-data-taginfo-check
 
 # .PHONY: benchmark
 benchmark-%.js: %.js benchmark.js
@@ -164,16 +165,16 @@ check-package.json: package.json
 osm-tag-data-taginfo-rm:
 	rm --force export.*.json
 
-.PHONY: osm-tag-data-update-all
-osm-tag-data-update-all: taginfo_sources.json osm-tag-data-taginfo-rm osm-tag-data-get-all
+.PHONY: osm-tag-data-update-taginfo
+osm-tag-data-update-taginfo: taginfo_sources.json osm-tag-data-taginfo-rm osm-tag-data-get-taginfo
 
 ## Always refresh
 .PHONY: taginfo_sources.json
 taginfo_sources.json:
 	$(NODE) ./check_for_new_taginfo_data.js
 
-.PHONY: osm-tag-data-get-all
-osm-tag-data-get-all: related_tags.txt
+.PHONY: osm-tag-data-get-taginfo
+osm-tag-data-get-taginfo: related_tags.txt
 	@grep -v '^#' "$<" | while read location; do \
 		$(MAKE) $(MAKE_OPTIONS) "export.$$location.json"; \
 	done
@@ -217,7 +218,7 @@ export♡%.json: real_test.js related_tags.txt
 		if [ -z "$$timestamp" ]; then \
 			timestamp="$(shell date '+%F')T00:00:00"; \
 		fi; \
-		if grep --quiet "^$$timestamp" export♡*♡$$boundary_key♡$$boundary_value♡stats.csv; then \
+		if grep --quiet "^$$timestamp" export♡*♡$$boundary_key♡$$boundary_value♡stats.csv 2>/dev/null; then \
 			if [ "$(VERBOSE)" -eq "1" ]; then \
 				echo "Skipping. Timestamp ($$timestamp) already present in statistical data for $${boundary_key}=$${boundary_value}." 1>&2; \
 			fi; \
@@ -246,7 +247,7 @@ export♡%.json: real_test.js related_tags.txt
 				cat "$(TMP_QUERY)" | sed 's/^/    /;'; \
 			fi; \
 			time wget $(WGET_OPTIONS) --post-file="$(TMP_QUERY)" --output-document="$(shell echo "$@" | sed 's/\\//g' )" "$(API_URL_OVERPASS)/interpreter" 2>&1; \
-			$(NODE) "$<" "$(shell echo "$@" | sed 's/\\//g' )"; \
+			$(NODE) "$<" --map-bad-oh-values "$(shell echo "$@" | sed 's/\\//g' )"; \
 			find . -name "export♡*♡$$boundary_key♡$$boundary_value♡stats.csv" | while read file; do \
 				sort --numeric-sort "$$file" > "$$file.tmp" && \
 				mv "$$file.tmp" "$$file"; \
@@ -270,9 +271,9 @@ osm-tag-data-overpass-kill-queries:
 
 ## Cronjob is running on gauss: http://munin.openstreetmap.de/gauss/gauss-load.html
 # m h  dom mon dow   command
-# 12 22    * * *       cd ./oh-stats && make osm-tag-data-gen-stats-cron-overpass > cron.22.log
-# 48 02    * * *       cd ./oh-stats && make osm-tag-data-gen-stats-cron-taginfo > cron.02.log
-# 48 06    * * *       cd ./oh-stats && make osm-tag-data-gen-stats-cron-taginfo > cron.06.log
+# 12 22    * * *       cd ./oh-stats/ && make osm-tag-data-gen-stats-cron-overpass > cron.22.log
+# 48 02    * * *       cd ./oh-stats/ && make osm-tag-data-gen-stats-cron-taginfo > cron.02.log
+# 48 06    * * *       cd ./oh-stats/ && make osm-tag-data-gen-stats-cron-taginfo > cron.06.log
 .PHONY: osm-tag-data-gen-stats-cron-taginfo
 osm-tag-data-gen-stats-cron-taginfo: real_test.opening_hours.stats.csv
 	date
@@ -284,9 +285,11 @@ osm-tag-data-gen-stats-cron-taginfo: real_test.opening_hours.stats.csv
 osm-tag-data-gen-stats-cron-overpass:
 	date
 	-$(MAKE) $(MAKE_OPTIONS) osm-tag-data-gen-stats-overpass-n-days-back DAYS_BACK=120 >> cron_overpass.1.log 2>&1
+	git add export♡*♡stats.csv
 	date
 	-git commit --all --message 'Generated stats.'
 	-$(MAKE) $(MAKE_OPTIONS) osm-tag-data-gen-stats-overpass-n-days-back DAYS_BACK=2400 DAYS_INCREMENT=30 START_DATE=2015-04-12 >> cron_overpass.2.log 2>&1
+	git add export♡*♡stats.csv
 	date
 	-git commit --all --message 'Generated stats.'
 	$(MAKE) $(MAKE_OPTIONS) osm-tag-data-rm
