@@ -5,10 +5,14 @@ SEARCH  ?= opening_hours
 VERBOSE ?= 1
 
 ## Data source variables {{{
+OH_RELATED_TAGS ?= related_tags.txt
+STATS_FOR_BOUNDARIES ?= stats_for_boundaries.txt
+
 API_URL_TAGINFO  ?= http://taginfo.openstreetmap.org/api
 API_URL_OVERPASS ?= http://overpass-api.de/api
 
 TMP_QUERY ?= ./tmp_query.op
+OVERPASS_QUERY_KEY_FILTER_CMD ?= cat
 OVERPASS_QUERY_TIMEOUT ?= 4000
 OVERPASS_QUERY_STOP_AFTER_TIME_HOUR ?= 11
 # OVERPASS_QUERY_STOP_AFTER_TIME_HOUR ?= -1
@@ -141,7 +145,7 @@ check-diff-%.js: %.js test.js
 
 .PHONY: osm-tag-data-taginfo-check
 osm-tag-data-taginfo-check: real_test.js opening_hours.js osm-tag-data-get-taginfo
-	@grep -v '^#' related_tags.txt | while read key; do \
+	@grep -v '^#' $(OH_RELATED_TAGS) | while read key; do \
 		$(NODE) "$<" --map-bad-oh-values --ignore-manual-values "export.$$key.json"; \
 	done
 
@@ -174,7 +178,7 @@ taginfo_sources.json:
 	$(NODE) ./check_for_new_taginfo_data.js
 
 .PHONY: osm-tag-data-get-taginfo
-osm-tag-data-get-taginfo: related_tags.txt
+osm-tag-data-get-taginfo: $(OH_RELATED_TAGS)
 	@grep -v '^#' "$<" | while read location; do \
 		$(MAKE) $(MAKE_OPTIONS) "export.$$location.json"; \
 	done
@@ -211,7 +215,7 @@ export♡name♡Leutershausen.json:
 
 ## Generate OverpassQL and execute it.
 .PRECIOUS: export♡%.json
-export♡%.json: real_test.js related_tags.txt
+export♡%.json: real_test.js $(OH_RELATED_TAGS)
 	@timestamp="$(shell echo "$@" | sed 's/♡/\x0/g;s/\.json$$//;' | cut -d '' -f 4)"; \
 		boundary_key="$(shell echo "$@" | sed 's/♡/\x0/g;s/\.json$$//;' | cut -d '' -f 2)"; \
 		boundary_value="$(shell echo "$@" | sed 's/♡/\x0/g;s/\.json$$//;' | cut -d '' -f 3)"; \
@@ -231,12 +235,12 @@ export♡%.json: real_test.js related_tags.txt
 			for type in node way; do \
 			if [ "$(OVERPASS_QUERY_USE_REGEX)" -eq "1" ]; then \
 				echo -n "    $$type(area)[~\"^("; \
-				(grep -v '^#' related_tags.txt | while read key; do \
+				(grep -v '^#' $(OH_RELATED_TAGS) | while read key; do \
 					echo -n "$$key|"; \
 				done) | sed 's/|$$//;'; \
 				echo ")$$\"~\".\"]->.t; .t out tags;"; \
 			else \
-				grep -v '^#' related_tags.txt | while read key; do \
+				grep -v '^#' $(OH_RELATED_TAGS) | $(OVERPASS_QUERY_KEY_FILTER_CMD) | while read key; do \
 						echo "    $$type(area)[\"$$key\"]->.t; .t out tags;"; \
 				done; \
 			fi; \
@@ -247,6 +251,7 @@ export♡%.json: real_test.js related_tags.txt
 				cat "$(TMP_QUERY)" | sed 's/^/    /;'; \
 			fi; \
 			time wget $(WGET_OPTIONS) --post-file="$(TMP_QUERY)" --output-document="$(shell echo "$@" | sed 's/\\//g' )" "$(API_URL_OVERPASS)/interpreter" 2>&1; \
+			if [ "$$?" != "0" ]; then exit 1; fi; \
 			$(NODE) "$<" --map-bad-oh-values "$(shell echo "$@" | sed 's/\\//g' )"; \
 			find . -name "export♡*♡$$boundary_key♡$$boundary_value♡stats.csv" | while read file; do \
 				sort --numeric-sort "$$file" > "$$file.tmp" && \
@@ -271,9 +276,9 @@ osm-tag-data-overpass-kill-queries:
 
 ## Cronjob is running on gauss: http://munin.openstreetmap.de/gauss/gauss-load.html
 # m h  dom mon dow   command
-# 12 22    * * *       cd ./oh-stats/ && make osm-tag-data-gen-stats-cron-overpass > cron.22.log
-# 48 02    * * *       cd ./oh-stats/ && make osm-tag-data-gen-stats-cron-taginfo > cron.02.log
-# 48 06    * * *       cd ./oh-stats/ && make osm-tag-data-gen-stats-cron-taginfo > cron.06.log
+# 12 22    * * *       cd ./oh-stats/ && make osm-tag-data-gen-stats-cron-overpass > cron.22.log 2>&1
+# 48 02    * * *       cd ./oh-stats/ && make osm-tag-data-gen-stats-cron-taginfo > cron.02.log 2>&1
+# 48 06    * * *       cd ./oh-stats/ && make osm-tag-data-gen-stats-cron-taginfo > cron.06.log 2>&1
 .PHONY: osm-tag-data-gen-stats-cron-taginfo
 osm-tag-data-gen-stats-cron-taginfo: real_test.opening_hours.stats.csv
 	date
@@ -284,11 +289,11 @@ osm-tag-data-gen-stats-cron-taginfo: real_test.opening_hours.stats.csv
 .PHONY: osm-tag-data-gen-stats-cron-overpass
 osm-tag-data-gen-stats-cron-overpass:
 	date
-	-$(MAKE) $(MAKE_OPTIONS) osm-tag-data-gen-stats-overpass-n-days-back DAYS_BACK=120 >> cron_overpass.1.log 2>&1
+	$(MAKE) $(MAKE_OPTIONS) osm-tag-data-gen-stats-overpass-n-days-back DAYS_BACK=120 >> cron_overpass.1.log 2>&1
 	git add export♡*♡stats.csv
 	date
 	-git commit --all --message 'Generated stats.'
-	-$(MAKE) $(MAKE_OPTIONS) osm-tag-data-gen-stats-overpass-n-days-back DAYS_BACK=2400 DAYS_INCREMENT=30 START_DATE=2015-04-12 >> cron_overpass.2.log 2>&1
+	$(MAKE) $(MAKE_OPTIONS) osm-tag-data-gen-stats-overpass-n-days-back DAYS_BACK=2400 DAYS_INCREMENT=30 START_DATE=2015-04-12 >> cron_overpass.2.log 2>&1
 	git add export♡*♡stats.csv
 	date
 	-git commit --all --message 'Generated stats.'
@@ -300,19 +305,21 @@ osm-tag-data-gen-stats-cron-overpass:
 osm-tag-data-gen-stats: real_test.opening_hours.stats.csv osm-tag-data-update-check
 
 .PHONY: osm-tag-data-gen-stats-overpass-daily
-osm-tag-data-gen-stats-overpass-daily: stats_for_boundaries.txt
+osm-tag-data-gen-stats-overpass-daily: $(STATS_FOR_BOUNDARIES)
 	@grep -v '^#' "$<" | while read location; do \
 		$(MAKE) $(MAKE_OPTIONS) export♡$$location♡$(shell date '+%F')T00:00:00.json; \
+		if [ "$$?" != "0" ]; then exit 1; fi; \
 	done
 
 .PHONY: osm-tag-data-gen-stats-overpass-hourly
-osm-tag-data-gen-stats-overpass-hourly: stats_for_boundaries.txt
+osm-tag-data-gen-stats-overpass-hourly: $(STATS_FOR_BOUNDARIES)
 	@grep -v '^#' "$<" | while read location; do \
 		$(MAKE) $(MAKE_OPTIONS) export♡$$location♡$(shell date '+%FT%H'):00:00.json; \
+		if [ "$$?" != "0" ]; then exit 1; fi; \
 	done
 
 .PHONY: osm-tag-data-gen-stats-overpass-n-days-back
-osm-tag-data-gen-stats-overpass-n-days-back: stats_for_boundaries.txt
+osm-tag-data-gen-stats-overpass-n-days-back: $(STATS_FOR_BOUNDARIES)
 	@if [ -z "$(DAYS_BACK)" ]; then \
 		echo "The DAYS_BACK parameter is empty!"; \
 		exit 1; \
@@ -323,26 +330,36 @@ osm-tag-data-gen-stats-overpass-n-days-back: stats_for_boundaries.txt
 				echo "Stopping. The time is `date`."; \
 				exit; \
 			fi; \
-			$(MAKE) $(MAKE_OPTIONS) "export♡$$location♡`date -d \"$(START_DATE) - $$day_back days\" '+%F'`T00:00:00.json"; \
+			if [ "$$location" == "int_name♡Deutschland" ]; then \
+				echo "Making multiple queries to overcome a timeout bug of the overpass API."; \
+				$(MAKE) $(MAKE_OPTIONS) "OVERPASS_QUERY_KEY_FILTER_CMD=grep --line-regexp \"opening_hours\"" "export♡$$location♡`date -d \"$(START_DATE) - $$day_back days\" '+%F'`T00:00:00.json"; \
+				if [ "$$?" != "0" ]; then exit 1; fi; \
+				$(MAKE) $(MAKE_OPTIONS) "OVERPASS_QUERY_KEY_FILTER_CMD=grep --line-regexp --invert-match \"opening_hours\"" "export♡$$location♡`date -d \"$(START_DATE) - $$day_back days\" '+%F'`T00:00:00.json"; \
+				if [ "$$?" != "0" ]; then exit 1; fi; \
+			else \
+				$(MAKE) $(MAKE_OPTIONS) "export♡$$location♡`date -d \"$(START_DATE) - $$day_back days\" '+%F'`T00:00:00.json"; \
+			fi; \
+			if [ "$$?" != "0" ]; then exit 1; fi; \
 		done; \
 	done
 
 ## To track the OSM activities of Jack Bauer :)
 .PHONY: osm-tag-data-gen-stats-overpass-24-hours
-osm-tag-data-gen-stats-overpass-24-hours: stats_for_boundaries.txt
-	grep -v '^#' "$<" | while read location; do \
+osm-tag-data-gen-stats-overpass-24-hours: $(STATS_FOR_BOUNDARIES)
+	@grep -v '^#' "$<" | while read location; do \
 		for hour in `seq --equal-width 0 $(HOURS_INCREMENT) 23`; do \
 		if [ "$(OVERPASS_QUERY_STOP_AFTER_TIME_HOUR)" == "`date '+%H'`" ]; then \
 			echo "Stopping. The time is `date`."; \
 			exit; \
 		fi; \
 		$(MAKE) $(MAKE_OPTIONS) "export♡$$location♡`date -d \"$(START_DATE)" '+%F'`T$${hour}:00:00.json"; \
+		if [ "$$?" != "0" ]; then exit 1; fi; \
 		done; \
 	done
 
 .PHONY: osm-tag-data-gen-stats-sort
 osm-tag-data-gen-stats-sort:
-	find . -name 'export*stats.csv' | while read file; do \
+	@find . -name 'export*stats.csv' | while read file; do \
 		sort --numeric-sort "$$file" > "$$file.tmp" && \
 		mv "$$file.tmp" "$$file"; \
 	done
