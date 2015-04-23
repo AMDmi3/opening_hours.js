@@ -1076,6 +1076,12 @@ test.addTest('Variable days: Italian public holidays', [
 		[ '2014.12.26 00:00', '2014.12.27 00:00', false, 'Santo Stefano' ],
 	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON_italy, 'not last test');
 
+test.addTest('SH(summer holiday) workaround', [
+		'Jul-Sep SH',
+	], '2015.01.01 0:00', '2016.01.01 0:00', [
+		[ '2015.07.30 00:00', '2015.09.13 00:00', false, 'Sommerferien' ],
+	], 1000 * 60 * 60 * 24 * (2 + 31 + 12), 0, false, nominatiomTestJSON, 'not only test');
+
 /* Russian holidays {{{ */
 test.addTest('Variable days: Russian common public holidays', [
 	'PH',

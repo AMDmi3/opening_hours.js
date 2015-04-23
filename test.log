@@ -510,6 +510,9 @@ With [1m[34mwarnings[39m[22m:
 "Variable days: Italian public holidays" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"SH(summer holiday) workaround" for "Jul-Sep SH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Jul-Sep SH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian common public holidays" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
@@ -2109,7 +2112,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-808/818 tests passed.
+809/819 tests passed.
 38 tests where (partly) ignored, sorted by commonness:
 * 23: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
