@@ -19,6 +19,6 @@ ISO3166-2♡DE-ST
 ISO3166-2♡DE-SH
 ISO3166-2♡DE-TH
 ##
-int_name♡Deutschland
+# int_name♡Deutschland
 int_name♡Österreich
 int_name♡Schweiz

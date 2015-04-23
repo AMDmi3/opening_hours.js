@@ -14,6 +14,7 @@ API_URL_OVERPASS ?= http://overpass-api.de/api
 TMP_QUERY ?= ./tmp_query.op
 OVERPASS_QUERY_KEY_FILTER_CMD ?= cat
 OVERPASS_QUERY_TIMEOUT ?= 4000
+# OVERPASS_QUERY_TIMEOUT ?= 1000
 OVERPASS_QUERY_STOP_AFTER_TIME_HOUR ?= 11
 # OVERPASS_QUERY_STOP_AFTER_TIME_HOUR ?= -1
 ## Stop the make process gracefully after 14:00. Intended for cron which start at night.
@@ -272,6 +273,34 @@ osm-tag-data-overpass-kill-queries:
 
 ## }}}
 
+## OSM data via a SQL query against postgreSQL {{{
+## Thanks to walter nordmann
+# select 'N'||osm_id id,
+# 	  cab.localname,
+# 	  poi.tags->'opening_hours' opening_hours
+#  from planet_osm_point poi,
+# 	  collected_admin_boundaries cab
+# where poi.way && (select way from collected_admin_boundaries where id=51477)
+#   and st_contains((select way from collected_admin_boundaries where id=51477),poi.way)
+#   and poi.tags ? 'opening_hours'
+#   and cab.admin_level = '4'
+#   and cab.type='admin'
+#   and st_contains(cab.way,poi.way)
+# union
+# select case when osm_id > 0 then 'W'||osm_id else 'R'||osm_id end id,
+# 	  cab.localname,
+# 	  cab.tags->'opening_hours' opening_hours
+#  from planet_osm_polygon poi,
+# 	  collected_admin_boundaries cab
+# where poi.pointonsurface && (select way from collected_admin_boundaries where id=51477)
+#   and st_contains((select way from collected_admin_boundaries where id=51477),poi.pointonsurface)
+#   and poi.tags ? 'opening_hours'
+#   and cab.admin_level = '4'
+#   and cab.type='admin'
+#   and st_contains(cab.way,poi.way)
+# ;
+## }}}
+
 ## Generate statistics  {{{
 
 ## Cronjob is running on gauss: http://munin.openstreetmap.de/gauss/gauss-load.html
@@ -295,6 +324,7 @@ osm-tag-data-gen-stats-cron-overpass:
 	-git commit --all --message 'Generated stats.'
 	$(MAKE) $(MAKE_OPTIONS) osm-tag-data-gen-stats-overpass-n-days-back DAYS_BACK=2400 DAYS_INCREMENT=30 START_DATE=2015-04-12 >> cron_overpass.2.log 2>&1
 	git add export♡*♡stats.csv
+	$(MAKE) $(MAKE_OPTIONS) osm-tag-data-gen-stats-overpass-merge
 	date
 	-git commit --all --message 'Generated stats.'
 	$(MAKE) $(MAKE_OPTIONS) osm-tag-data-rm
@@ -303,6 +333,12 @@ osm-tag-data-gen-stats-cron-overpass:
 ## See real_test.js
 .PHONY: osm-tag-data-gen-stats
 osm-tag-data-gen-stats: real_test.opening_hours.stats.csv osm-tag-data-update-check
+
+.PHONY: osm-tag-data-gen-stats-overpass-merge
+osm-tag-data-gen-stats-overpass-merge: merge_all_stats_into_country.py $(OH_RELATED_TAGS)
+	@grep -v '^#' $(OH_RELATED_TAGS) | while read key; do \
+		python3 "$<" --output-file "export♡$$key♡int_name♡Deutschland♡stats.csv" export♡$$key♡ISO3166-2♡DE-*♡stats.csv; \
+	done
 
 .PHONY: osm-tag-data-gen-stats-overpass-daily
 osm-tag-data-gen-stats-overpass-daily: $(STATS_FOR_BOUNDARIES)
