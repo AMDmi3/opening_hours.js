@@ -1,4 +1,21 @@
 #!/usr/bin/env nodejs
+/*
+ * @license AGPLv3 <https://www.gnu.org/licenses/agpl-3.0.html>
+ * @author Copyright (C) 2015 Robin Schneider <ypid@riseup.net>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, version 3 of the
+ * License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 /*
  * Additional features:
@@ -93,6 +110,7 @@ test_framework.config = {
 var optimist = require('optimist')
 	.usage('Usage: $0 export*.json [export*.json]')
 	.describe('h', 'Display the usage')
+	.describe('p', 'Generate a CSV file containing a overview of the following week showing how many facilities will be open for each hour of the week.')
 	.describe('I', 'Ignore all bad values which are defined manually like the value "fixme". Does not include --ignore-bad-oh-values.')
 	.describe('i', 'Ignore values which are not covered by the specification for opening_hours but might be used like "on" for the "lit" tag.'
 		+ ' The default is to not ignore any which will result in those values not being parsed as correct values.')
@@ -102,6 +120,7 @@ var optimist = require('optimist')
 	.alias('h', 'help')
 	.alias('I', 'ignore-manual-values')
 	.alias('i', 'ignore-bad-oh-values')
+	.alias('p', 'punchcard-file')
 	.alias('m', 'map-bad-oh-values');
 
 var argv = optimist.argv;
@@ -203,15 +222,31 @@ function opening_hours_test() {
 					}
 				}
 				if (indexOf.call(ignored_values, oh_value) === -1) {
-					var result = test_value(oh_value, oh_mode);
-					logfile_out_string += (+result[0]) + ' ' + oh_value + '\n';
-					if (result[0]) {
+					var oh_crahsed = true, oh_warnings = [], oh_value_prettified;
+					try {
+						oh = new opening_hours(oh_value, nominatiomTestJSON, oh_mode);
+						oh_warnings = oh.getWarnings();
+						oh_value_prettified = oh.prettifyValue();
+
+						oh_crahsed = false;
+					} catch (err) {
+						oh_crahsed = true;
+					}
+
+					if (typeof oh_warnings !== 'object') {
+						oh_warnings = 1; // oh_crahsed by oh.getWarnings()
+					} else {
+						oh_warnings = oh_warnings.length;
+					}
+
+					logfile_out_string += (Number(!oh_crahsed)) + ' ' + oh_value + '\n';
+					if (!oh_crahsed) {
 						success_differ++;
 						success += data.data[i].count;
-						warnings_differ += !!result[1];
-						warnings += data.data[i].count * !!result[1];
-						not_pretty += result[2];
-						not_pretty_differ += data.data[i].count * result[2];
+						warnings_differ += Number(!!oh_warnings);
+						warnings += data.data[i].count * Number(!!oh_warnings);
+						not_pretty_differ += Number(oh_value_prettified !== oh_value);
+						not_pretty += data.data[i].count * Number(oh_value_prettified !== oh_value);
 						// console.log('passed', oh_value);
 					} else if (data.data[i].count > importance_threshold) {
 						important_and_failed.push([oh_value, data.data[i].count]);
@@ -252,8 +287,9 @@ function opening_hours_test() {
 					/* Ignore */
 				}
 				fs.writeFile('real_test.' + tagname + '.log', logfile_out_string, function(err) {
-						if (err)
+						if (err) {
 							throw(err);
+						}
 					}
 				);
 			} /* }}} */
@@ -300,21 +336,24 @@ function opening_hours_test() {
 				}
 				var timestamp = info.timestamp.toISOString();
 				var known_timestamp = false;
+				var csv_line = [
+					timestamp,
+					total, total_differ,
+					success, success_differ,
+					warnings, warnings_differ,
+					not_pretty, not_pretty_differ
+				].join(', ');
 				fs.readFileSync(csv_filename, 'utf8').split('\n').forEach(function (line) {
 					if (!known_timestamp && line.match(new RegExp('^' + timestamp))) {
 						console.error("Skipping write to stats file. An entry does already exist for the timestamp: " + timestamp);
+						console.log("Line: " + csv_line);
 						known_timestamp = true;
 					}
 				});
 				if (!known_timestamp) {
 					fs.appendFile(
-						csv_filename, [
-							timestamp,
-							total, total_differ,
-							success, success_differ,
-							warnings, warnings_differ,
-							not_pretty, not_pretty_differ
-						].join(', ') + '\n',
+						csv_filename,
+						csv_line + '\n',
 						function(err) {
 							if (err)
 								throw(err);
@@ -478,26 +517,6 @@ function opening_hours_test() {
 		return sprintf('%6s', sprintf(percent_number_format, passing_values / parsed_values * 100)).result;
 		/* "100.0 %" would be 7 characters long, but that does not happen to often. */
 	}
-
-	function test_value(value, oh_mode) { /* {{{ */
-		var crashed = true, warnings = [], prettified;
-		try {
-			oh = new opening_hours(value, nominatiomTestJSON, oh_mode);
-			warnings = oh.getWarnings();
-			prettified = oh.prettifyValue();
-
-			crashed = false;
-		} catch (err) {
-			crashed = true;
-		}
-
-		if (typeof warnings !== 'object')
-			warnings = 1; // crashed by oh.getWarnings()
-		else
-			warnings = warnings.length;
-
-		return [ !crashed, warnings, prettified === value ];
-	} /* }}} */
 
 	/* Helper functions {{{ */
 	function Comparator(a,b){
