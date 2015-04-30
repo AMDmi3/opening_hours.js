@@ -4774,6 +4774,19 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'2014, Aug Mo' + value_suffix,
 		'week 5, Aug Mo' + value_suffix,
 		'Jun 2-5, week 5 00:00-24:00' + value_suffix,
+		'Jan 0' + value_suffix,
+		'Jan 32' + value_suffix,
+		'Feb 30' + value_suffix,
+		'Mar 32' + value_suffix,
+		'Apr 31' + value_suffix,
+		'Mai 32' + value_suffix,
+		'Jun 31' + value_suffix,
+		'Jul 32' + value_suffix,
+		'Aug 32' + value_suffix,
+		'Sep 31' + value_suffix,
+		'Oct 32' + value_suffix,
+		'Nov 31' + value_suffix,
+		'Dec 32' + value_suffix,
 	], nominatiomTestJSON, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [

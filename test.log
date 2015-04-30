@@ -1876,28 +1876,28 @@ Mo, <--- (An additional rule does not make sense here. Just use a ";" as rule se
 12:00-15:00/1: <--- (Time period does not continue as expected. Exampe "/01:30".)
 
 "Incorrect syntax which should throw an error" for "Jun 0-Aug 23; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 0 <--- (Day must be between 1 and 31.)
+Jun 0 <--- (The day for Jun must be between 1 and 31.)
 
 "Incorrect syntax which should throw an error" for "Feb 30-Aug 2; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Feb 30 <--- (Month Feb either has 28 or 29 days (leap years).)
 
 "Incorrect syntax which should throw an error" for "Jun 2-Aug 42; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 2-Aug 42 <--- (Day must be between 1 and 31.)
+Jun 2-Aug 42 <--- (The day for Aug must be between 1 and 31.)
 
 "Incorrect syntax which should throw an error" for "Jun 2-Aug 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 2-Aug 32 <--- (Day must be between 1 and 31.)
+Jun 2-Aug 32 <--- (The day for Aug must be between 1 and 31.)
 
 "Incorrect syntax which should throw an error" for "Jun 2-32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 2-32 <--- (Day must be between 1 and 31.)
+Jun 2-32 <--- (The day for Jun must be between 1 and 31.)
 
 "Incorrect syntax which should throw an error" for "Jun 32-34; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 32 <--- (Day must be between 1 and 31.)
+Jun 32 <--- (The day for Jun must be between 1 and 31.)
 
 "Incorrect syntax which should throw an error" for "Jun 2-32/2; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 2-32 <--- (Day must be between 1 and 31.)
+Jun 2-32 <--- (The day for Jun must be between 1 and 31.)
 
 "Incorrect syntax which should throw an error" for "Jun 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 32 <--- (Day must be between 1 and 31.)
+Jun 32 <--- (The day for Jun must be between 1 and 31.)
 
 "Incorrect syntax which should throw an error" for "Jun 30-24; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Jun 30-24 <--- (Range in wrong order. From day is greater than to day.)
@@ -1999,6 +1999,45 @@ We,  <--- (An additional rule does not make sense here. Just use a ";" as rule s
 week 5,  <--- (An additional rule does not make sense here. Just use a ";" as rule separator. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator)
 
 "Incorrect syntax which should throw an error" for "Jun 2-5, week 5 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[31mFAILED[39m[22m
+"Incorrect syntax which should throw an error" for "Jan 0; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Jan 0 <--- (The day for Jan must be between 1 and 31.)
+
+"Incorrect syntax which should throw an error" for "Jan 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Jan 32 <--- (The day for Jan must be between 1 and 31.)
+
+"Incorrect syntax which should throw an error" for "Feb 30; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Feb 30 <--- (Month Feb either has 28 or 29 days (leap years).)
+
+"Incorrect syntax which should throw an error" for "Mar 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Mar 32 <--- (The day for Mar must be between 1 and 31.)
+
+"Incorrect syntax which should throw an error" for "Apr 31; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Apr 31 <--- (Month Apr doesn't have 31 days. The last day of Apr is day 30.)
+
+"Incorrect syntax which should throw an error" for "Mai 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Mai 32 <--- (The day for May must be between 1 and 31.)
+
+"Incorrect syntax which should throw an error" for "Jun 31; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Jun 31 <--- (Month Jun doesn't have 31 days. The last day of Jun is day 30.)
+
+"Incorrect syntax which should throw an error" for "Jul 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Jul 32 <--- (The day for Jul must be between 1 and 31.)
+
+"Incorrect syntax which should throw an error" for "Aug 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Aug 32 <--- (The day for Aug must be between 1 and 31.)
+
+"Incorrect syntax which should throw an error" for "Sep 31; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Sep 31 <--- (Month Sep doesn't have 31 days. The last day of Sep is day 30.)
+
+"Incorrect syntax which should throw an error" for "Oct 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Oct 32 <--- (The day for Oct must be between 1 and 31.)
+
+"Incorrect syntax which should throw an error" for "Nov 31; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Nov 31 <--- (Month Nov doesn't have 31 days. The last day of Nov is day 30.)
+
+"Incorrect syntax which should throw an error" for "Dec 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Dec 32 <--- (The day for Dec must be between 1 and 31.)
+
 "Missing information (e.g. country or holidays not defined in this lib)" for "PH": [1m[32mPASSED[39m[22m
 Country code missing which is needed to select the correct holidays (see README how to provide it)
 
@@ -2122,7 +2161,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-811/821 tests passed.
+824/834 tests passed.
 38 tests where (partly) ignored, sorted by commonness:
 * 23: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

@@ -4417,12 +4417,13 @@
 			// }
 
 			// https://en.wikipedia.org/wiki/Month#Julian_and_Gregorian_calendars
-			if (day < 1 || day > 31)
-				throw formatWarnErrorMessage(nrule, at, 'Day must be between 1 and 31.');
-			if ((month===3 || month===5 || month===8 || month===10) && day===31)
-				throw formatWarnErrorMessage(nrule, at, 'Month ' + months[month] + " doesn't have 31 days.!");
-			if (month === 1 && day === 30)
-				throw formatWarnErrorMessage(nrule, at, 'Month ' + months[1]+ " either has 28 or 29 days (leap years).");
+			if (day < 1 || day > 31) {
+				throw formatWarnErrorMessage(nrule, at, "The day for " + months[month] + " must be between 1 and 31.");
+			} else if ((month === 3 || month === 5 || month === 8 || month === 10) && day === 31) {
+				throw formatWarnErrorMessage(nrule, at, "Month " + months[month] + " doesn't have 31 days. The last day of " + months[month] + " is day 30.");
+			} else if (month === 1 && day === 30) {
+				throw formatWarnErrorMessage(nrule, at, "Month " + months[1]+ " either has 28 or 29 days (leap years).");
+			}
 		}
 		// }}}
 		// }}}
