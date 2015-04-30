@@ -4547,6 +4547,8 @@ test.addTest('Error tolerance: Full range', [
 		'nonstop',
 		'nonstop geöffnet',
 		'opening_hours=nonstop geöffnet',
+		'opening_hours =nonstop geöffnet',
+		'opening_hours = nonstop geöffnet',
 		'24x7',
 		'anytime',
 		'all day',
