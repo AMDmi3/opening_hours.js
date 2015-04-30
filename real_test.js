@@ -110,17 +110,19 @@ test_framework.config = {
 var optimist = require('optimist')
 	.usage('Usage: $0 export*.json [export*.json]')
 	.describe('h', 'Display the usage')
+	.describe('v', 'Verbose output')
 	.describe('p', 'Generate a CSV file containing a overview of the following week showing how many facilities will be open for each hour of the week.')
 	.describe('I', 'Ignore all bad values which are defined manually like the value "fixme". Does not include --ignore-bad-oh-values.')
 	.describe('i', 'Ignore values which are not covered by the specification for opening_hours but might be used like "on" for the "lit" tag.'
 		+ ' The default is to not ignore any which will result in those values not being parsed as correct values.')
 	.describe('m', 'Map values which would get ignored by the --ignore-bad-oh-values option to there meaning in the opening_hours syntax.'
 		+ ' For example, map "yes" to "sunset-sunrise open "specified as yes"".')
-	.boolean(['I', 'i', 'm'])
+	.boolean(['v', 'I', 'i', 'm'])
 	.alias('h', 'help')
+	.alias('v', 'verbose')
 	.alias('I', 'ignore-manual-values')
 	.alias('i', 'ignore-bad-oh-values')
-	.alias('p', 'punchcard-file')
+	.alias('p', 'punchcard')
 	.alias('m', 'map-bad-oh-values');
 
 var argv = optimist.argv;
@@ -209,6 +211,22 @@ function opening_hours_test() {
 
 			var time_at_test_begin = new Date();
 
+			var punchcard_data = {};
+				punchcard_data_out = {};
+			var day_number_to_name = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
+			var cur_date = new Date();
+			var punchcard_csv = '';
+			for (var i = 0; i < day_number_to_name.length; i++) {
+				punchcard_data[i] = [];
+				for (var hours_per_day = 0; hours_per_day < 24; hours_per_day++) {
+					punchcard_data[i][hours_per_day] = 0;
+					if (i === 0) {
+						punchcard_csv += ',' + hours_per_day;
+					}
+				}
+			}
+			punchcard_csv += '\n';
+
 			var parsed_values = 0; // total number of values which are "parsed" (if one value appears more than one, it counts more than one)
 			for (var i = 0; i < total_differ; i++) {
 				var oh_value = data.data[i].value;
@@ -222,7 +240,10 @@ function opening_hours_test() {
 					}
 				}
 				if (indexOf.call(ignored_values, oh_value) === -1) {
-					var oh_crahsed = true, oh_warnings = [], oh_value_prettified;
+					var oh_crahsed = true,
+						oh_warnings = [],
+						oh_value_prettified,
+						oh;
 					try {
 						oh = new opening_hours(oh_value, nominatiomTestJSON, oh_mode);
 						oh_warnings = oh.getWarnings();
@@ -248,6 +269,17 @@ function opening_hours_test() {
 						not_pretty_differ += Number(oh_value_prettified !== oh_value);
 						not_pretty += data.data[i].count * Number(oh_value_prettified !== oh_value);
 						// console.log('passed', oh_value);
+						if (argv.p && (typeof(argv.p) === 'boolean' && tagname === 'opening_hours')) {
+							var check_date = new Date(cur_date.getFullYear(), cur_date.getMonth(), cur_date.getDate());
+							var iterator = oh.getIterator(check_date);
+							for (var t_offset = 0; t_offset <= 7 * 24; t_offset++) {
+								punchcard_data[check_date.getDay()][check_date.getHours()] += Number(iterator.getState()) * data.data[i].count;
+
+								check_date.setHours(check_date.getHours() + 1);
+								iterator.setDate(check_date);
+							}
+						}
+
 					} else if (data.data[i].count > importance_threshold) {
 						important_and_failed.push([oh_value, data.data[i].count]);
 					}
@@ -295,17 +327,46 @@ function opening_hours_test() {
 			} /* }}} */
 
 			switch (info.export_format) {
-			case 'overpass': var csv_filename = [
-						 'export',
-						 tagname,
-						 info.key,
-						 info.value,
-						 'stats.csv'
-					].join('♡');
-				 break;
-			case 'taginfo':  var csv_filename = 'real_test.' + tagname + '.stats.csv'; break;
+			case 'overpass':
+				var csv_filename = [
+					 'export',
+					 tagname,
+					 info.key,
+					 info.value,
+					 'stats.csv'
+				].join('♡');
+				var csv_punchcard_filename = [
+					 'punchcard',
+					 info.key,
+					 info.value,
+					 'csv'
+				].join('♡');
+				break;
+			case 'taginfo':
+				var csv_filename = 'real_test.' + tagname + '.stats.csv';
+				var csv_punchcard_filename = 'punchcard.csv';
+				break;
 			default: throw('Unknown export_format.');
 			}
+
+			if (argv.p && (typeof(argv.p) === 'boolean' && tagname === 'opening_hours')) {
+				for (var i = 0; i < day_number_to_name.length; i++) {
+					for (var hours_per_day = 0; hours_per_day < 24; hours_per_day++) {
+						punchcard_data[i][hours_per_day] = (punchcard_data[i][hours_per_day] / total * 100).toFixed(2);
+					}
+					punchcard_data_out[day_number_to_name[i]] = punchcard_data[i];
+					punchcard_csv += day_number_to_name[i].toString() + ',' + punchcard_data[i].join(',') + '\n';
+				}
+				if (argv.v) {
+					console.log(punchcard_data_out);
+				}
+				fs.writeFile(csv_punchcard_filename, punchcard_csv, function(err) {
+					if (err) {
+						throw(err);
+					}
+				});
+			}
+
 			if (info.export_format === 'overpass' || fs.existsSync('real_test.' + tagname + '.stats.csv')) { /* Generate stats {{{ */
 				if (!fs.existsSync(csv_filename)) {
 					fs.closeSync(fs.openSync(csv_filename, 'w'));
