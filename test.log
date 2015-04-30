@@ -1360,6 +1360,11 @@ With [1m[34mwarnings[39m[22m:
 	*Montag <--- (Bitte benutze die englische Abkürzung "Mo" für "montag".)
 	*Montag-Sonntag <--- (Bitte benutze die englische Abkürzung "Su" für "sonntag".)
 	*Montag-Sonntag <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Error tolerance: Full range" for "Montag-Sonntags": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Montag <--- (Bitte benutze die englische Abkürzung "Mo" für "montag".)
+	*Montag-Sonntags <--- (Bitte benutze die englische Abkürzung "Su" für "sonntags".)
+	*Montag-Sonntags <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "monday-sunday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*monday <--- (Please use the abbreviation "Mo" for "monday".)
@@ -2161,7 +2166,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-824/834 tests passed.
+825/835 tests passed.
 38 tests where (partly) ignored, sorted by commonness:
 * 23: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

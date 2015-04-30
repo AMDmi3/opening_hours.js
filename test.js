@@ -4523,6 +4523,7 @@ test.addTest('Error tolerance: weekdays, months in different languages', [
 test.addTest('Error tolerance: Full range', [
 		'Mo-Su',       // reference value for prettify
 		'Montag-Sonntag',
+		'Montag-Sonntags',
 		'monday-sunday',
 		'daily',
 		'everyday',
