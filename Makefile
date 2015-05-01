@@ -147,7 +147,7 @@ check-diff-%.js: %.js test.js
 .PHONY: osm-tag-data-taginfo-check
 osm-tag-data-taginfo-check: real_test.js opening_hours.js osm-tag-data-get-taginfo
 	@grep -v '^#' $(OH_RELATED_TAGS) | while read key; do \
-		$(NODE) "$<" --map-bad-oh-values --ignore-manual-values "export.$$key.json"; \
+		$(NODE) "$<" 'REAL_TEST_OPTIONS=--punchcard' --map-bad-oh-values --ignore-manual-values "export.$$key.json"; \
 	done
 
 .PHONY: osm-tag-data-update-check
@@ -253,7 +253,7 @@ export♡%.json: real_test.js $(OH_RELATED_TAGS)
 			fi; \
 			time wget $(WGET_OPTIONS) --post-file="$(TMP_QUERY)" --output-document="$(shell echo "$@" | sed 's/\\//g' )" "$(API_URL_OVERPASS)/interpreter" 2>&1; \
 			if [ "$$?" != "0" ]; then exit 1; fi; \
-			$(NODE) "$<" --map-bad-oh-values "$(shell echo "$@" | sed 's/\\//g' )"; \
+			$(NODE) "$<" $(REAL_TEST_OPTIONS) --map-bad-oh-values "$(shell echo "$@" | sed 's/\\//g' )"; \
 			find . -name "export♡*♡$$boundary_key♡$$boundary_value♡stats.csv" | while read file; do \
 				sort --numeric-sort "$$file" > "$$file.tmp" && \
 				mv "$$file.tmp" "$$file"; \
@@ -311,7 +311,7 @@ osm-tag-data-overpass-kill-queries:
 .PHONY: osm-tag-data-gen-stats-cron-taginfo
 osm-tag-data-gen-stats-cron-taginfo: real_test.opening_hours.stats.csv
 	date
-	$(MAKE) $(MAKE_OPTIONS) osm-tag-data-gen-stats > cron_taginfo.log 2>&1
+	$(MAKE) $(MAKE_OPTIONS) 'REAL_TEST_OPTIONS=--punchcard' osm-tag-data-gen-stats > cron_taginfo.log 2>&1
 	git commit --all --message 'Generated stats.'
 	git push
 

@@ -212,7 +212,9 @@ function opening_hours_test() {
 			var time_at_test_begin = new Date();
 
 			var punchcard_data = {};
-				punchcard_data_out = {};
+			var punchcard_data_out = {};
+			var punchcard_debug = [];
+			var punchcard_debug2 = [];
 			var day_number_to_name = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
 			var cur_date = new Date();
 			var punchcard_csv = '';
@@ -270,10 +272,18 @@ function opening_hours_test() {
 						not_pretty += data.data[i].count * Number(oh_value_prettified !== oh_value);
 						// console.log('passed', oh_value);
 						if (argv.p && (typeof(argv.p) === 'boolean' && tagname === 'opening_hours')) {
-							var check_date = new Date(cur_date.getFullYear(), cur_date.getMonth(), cur_date.getDate());
+							var check_date = new Date(cur_date.getFullYear(), cur_date.getMonth(), cur_date.getDate(), 0, 1, 0);
 							var iterator = oh.getIterator(check_date);
 							for (var t_offset = 0; t_offset <= 7 * 24; t_offset++) {
-								punchcard_data[check_date.getDay()][check_date.getHours()] += Number(iterator.getState()) * data.data[i].count;
+								if (iterator.getState()) {
+									punchcard_data[check_date.getDay()][check_date.getHours()] += data.data[i].count;
+									// if (argv.v && check_date.getDay() === 3 && check_date.getHours() === 0) {
+										// punchcard_debug.push([data.data[i].count, oh_value]);
+									// }
+									// if (argv.v && check_date.getDay() === 3 && check_date.getHours() === 1) {
+										// punchcard_debug2.push([data.data[i].count, oh_value]);
+									// }
+								}
 
 								check_date.setHours(check_date.getHours() + 1);
 								iterator.setDate(check_date);
@@ -359,6 +369,23 @@ function opening_hours_test() {
 				}
 				if (argv.v) {
 					console.log(punchcard_data_out);
+					// if (punchcard_debug.length > 0) {
+						// punchcard_debug = punchcard_debug.sort(Comparator);
+						// for (var i = 0; i < punchcard_debug.length; i++) {
+							// var count = punchcard_debug[i][0];
+							// var value = punchcard_debug[i][1];
+							// console.log('Open ' + sprintf(total_differ_value_number_format, count) + ' times: ' + value);
+						// }
+					// }
+					// console.log("NeXt debug");
+					// if (punchcard_debug2.length > 0) {
+						// punchcard_debug2 = punchcard_debug2.sort(Comparator);
+						// for (var i = 0; i < punchcard_debug2.length; i++) {
+							// var count = punchcard_debug2[i][0];
+							// var value = punchcard_debug2[i][1];
+							// console.log('Open ' + sprintf(total_differ_value_number_format, count) + ' times: ' + value);
+						// }
+					// }
 				}
 				fs.writeFile(csv_punchcard_filename, punchcard_csv, function(err) {
 					if (err) {
@@ -580,7 +607,7 @@ function opening_hours_test() {
 	}
 
 	/* Helper functions {{{ */
-	function Comparator(a,b){
+	function Comparator(a, b){
 		if (a[1] > b[1]) return -1;
 		if (a[1] < b[1]) return 1;
 		return 0;
