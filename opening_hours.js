@@ -1767,7 +1767,7 @@
 				"Thanksgiving"     : [ "firstNovemberThursday", 21 ],
 				"Christmas Day"    : [ 12, 25 ]
 			},
-			'Alabama': {
+			'Alabama': { /* {{{ */
 				'PH': { // http://www.archives.alabama.gov/intro/holidays.html
 					"New Year's Day"                              : [ 1, 1 ],
 					"Robert E. Lee/Martin Luther King Birthday"   : [ "firstJanuaryMonday", 14 ],
@@ -1782,8 +1782,8 @@
 					"Confederate Memorial Day"                    : [ "firstAprilMonday", 21 ],
 					"Jefferson Davis' Birthday"                   : [ "firstJuneMonday", 0 ]
 				}
-			},
-			'Alaska': {
+			}, /* }}} */
+			'Alaska': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -1797,8 +1797,8 @@
 					"Seward's Day"                : [ "lastMarchMonday", 0 ],
 					"Alaska Day"                  : [ 10, 18 ]
 				}
-			},
-			'Arizona': {
+			}, /* }}} */
+			'Arizona': { /* {{{ */
 				'PH': {
 					"New Year's Day"                              : [ 1, 1 ],
 					"Dr. Martin Luther King Jr./Civil Rights Day" : [ "firstJanuaryMonday", 14 ],
@@ -1811,8 +1811,8 @@
 					"Thanksgiving"                                : [ "firstNovemberThursday", 21 ],
 					"Christmas Day"                               : [ 12, 25 ]
 				}
-			},
-			'Arkansas': {
+			}, /* }}} */
+			'Arkansas': { /* {{{ */
 				'PH': {
 					"New Year's Day"                                           : [ 1, 1 ],
 					"Dr. Martin Luther King Jr. and Robert E. Lee's Birthdays" : [ "firstJanuaryMonday", 14 ],
@@ -1826,8 +1826,8 @@
 					"Christmas Eve"                                            : [ 12, 24 ],
 					"Christmas Day"                                            : [ 12, 25 ]
 				}
-			},
-			'California': {
+			}, /* }}} */
+			'California': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -1841,8 +1841,8 @@
 					"Christmas Day"               : [ 12, 25 ],
 					"César Chávez Day"            : [ 3, 31 ]
 				}
-			},
-			'Colorado': {
+			}, /* }}} */
+			'Colorado': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -1855,8 +1855,8 @@
 					"Thanksgiving"                : [ "firstNovemberThursday", 21 ],
 					"Christmas Day"               : [ 12, 25 ]
 				}
-			},
-			'Connecticut': {
+			}, /* }}} */
+			'Connecticut': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -1871,8 +1871,8 @@
 					"Lincoln's Birthday"          : [ 2, 12 ],
 					"Good Friday"                 : [ "easter", -2 ]
 				}
-			},
-			'Delaware': {
+			}, /* }}} */
+			'Delaware': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -1887,8 +1887,8 @@
 					"Christmas Day"               : [ 12, 25 ],
 					"Good Friday"                 : [ "easter", -2 ]
 				}
-			},
-			'District of Columbia': {
+			}, /* }}} */
+			'District of Columbia': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -1902,8 +1902,8 @@
 					"Christmas Day"               : [ 12, 25 ],
 					"Emancipation Day"            : [ 4, 16 ]
 				}
-			},
-			'Florida': {
+			}, /* }}} */
+			'Florida': { /* {{{ */
 				'PH': { // http://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&Search_String=&URL=0100-0199/0110/Sections/0110.117.html
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -1915,8 +1915,8 @@
 					"Friday after Thanksgiving"   : [ "firstNovemberThursday", 22 ],
 					"Christmas Day"               : [ 12, 25 ]
 				}
-			},
-			'Georgia': {
+			}, /* }}} */
+			'Georgia': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -1931,8 +1931,8 @@
 					"Christmas Day"               : [ 12, 25 ],
 					"Confederate Memorial Day"    : [ "lastAprilMonday", 0 ]
 				}
-			},
-			'Guam': {
+			}, /* }}} */
+			'Guam': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -1950,8 +1950,8 @@
 					"Lady of Camarin Day"         : [ 12, 8 ],
 					"Christmas Day"               : [ 12, 25 ],
 				}
-			},
-			'Hawaii': {
+			}, /* }}} */
+			'Hawaii': { /* {{{ */
 				'PH': {
 					"New Year's Day"                      : [ 1, 1 ],
 					"Martin Luther King, Jr. Day"         : [ "firstJanuaryMonday", 14 ],
@@ -1967,8 +1967,8 @@
 					"Statehood Day"                       : [ "firstAugustFriday", 14 ],
 					"Election Day"                        : [ "firstNovemberMonday", 1 ]
 				}
-			},
-			'Idaho': {
+			}, /* }}} */
+			'Idaho': { /* {{{ */
 				'PH': {
 					"New Year's Day"                                 : [ 1, 1 ],
 					"Martin Luther King, Jr.-Idaho Human Rights Day" : [ "firstJanuaryMonday", 14 ],
@@ -1981,8 +1981,8 @@
 					"Thanksgiving"                                   : [ "firstNovemberThursday", 21 ],
 					"Christmas Day"                                  : [ 12, 25 ]
 				}
-			},
-			'Illinois': {
+			}, /* }}} */
+			'Illinois': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -1998,8 +1998,8 @@
 					"Casimir Pulaski Day"         : [ "firstMarchMonday", 0 ],
 					"Election Day"                : [ "firstNovemberMonday", 1 ]
 				}
-			},
-			'Indiana': {
+			}, /* }}} */
+			'Indiana': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2016,8 +2016,8 @@
 					"Primary Election Day"        : [ "firstMayMonday", 1 ],
 					"Election Day"                : [ "firstNovemberMonday", 1 ]
 				}
-			},
-			'Iowa': {
+			}, /* }}} */
+			'Iowa': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2031,8 +2031,8 @@
 					"Christmas Day"               : [ 12, 25 ],
 					"Lincoln's Birthday"          : [ 2, 12 ]
 				}
-			},
-			'Kansas': {
+			}, /* }}} */
+			'Kansas': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2045,8 +2045,8 @@
 					"Thanksgiving"                : [ "firstNovemberThursday", 21 ],
 					"Christmas Day"               : [ 12, 25 ]
 				}
-			},
-			'Kentucky': {
+			}, /* }}} */
+			'Kentucky': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2062,8 +2062,8 @@
 					"New Year's Eve"              : [ 12, 31 ],
 					"Good Friday"                 : [ "easter", -2 ]
 				}
-			},
-			'Louisiana': {
+			}, /* }}} */
+			'Louisiana': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2079,8 +2079,8 @@
 					"Good Friday"                 : [ "easter", -2 ],
 					"Election Day"                : [ "firstNovemberMonday", 1 ]
 				}
-			},
-			'Maine': {
+			}, /* }}} */
+			'Maine': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2094,8 +2094,8 @@
 					"Christmas Day"               : [ 12, 25 ],
 					"Patriots' Day"               : [ "firstAprilMonday", 14 ]
 				}
-			},
-			'Maryland': {
+			}, /* }}} */
+			'Maryland': { /* {{{ */
 				'PH': {
 					"New Year's Day"               : [ 1, 1 ],
 					"Martin Luther King, Jr. Day"  : [ "firstJanuaryMonday", 14 ],
@@ -2109,8 +2109,8 @@
 					"Native American Heritage Day" : [ "firstNovemberThursday", 22 ],
 					"Christmas Day"                : [ 12, 25 ]
 				}
-			},
-			'Massachusetts': {
+			}, /* }}} */
+			'Massachusetts': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2124,8 +2124,8 @@
 					"Christmas Day"               : [ 12, 25 ],
 					"Patriots' Day"               : [ "firstAprilMonday", 14 ]
 				}
-			},
-			'Michigan': {
+			}, /* }}} */
+			'Michigan': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2140,8 +2140,8 @@
 					"Christmas Day"               : [ 12, 25 ],
 					"New Year's Eve"              : [ 12, 31 ]
 				}
-			},
-			'Minnesota': {
+			}, /* }}} */
+			'Minnesota': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2154,8 +2154,8 @@
 					"Thanksgiving"                : [ "firstNovemberThursday", 21 ],
 					"Christmas Day"               : [ 12, 25 ]
 				}
-			},
-			'Mississippi': {
+			}, /* }}} */
+			'Mississippi': { /* {{{ */
 				'PH': {
 					"New Year's Day"                                     : [ 1, 1 ],
 					"Martin Luther King's and Robert E. Lee's Birthdays" : [ "firstJanuaryMonday", 14 ],
@@ -2169,8 +2169,8 @@
 					"Christmas Day"                                      : [ 12, 25 ],
 					"Confederate Memorial Day"                           : [ "lastAprilMonday", 0 ]
 				}
-			},
-			'Missouri': {
+			}, /* }}} */
+			'Missouri': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2184,8 +2184,8 @@
 					"Christmas Day"               : [ 12, 25 ],
 					"Truman Day"                  : [ 5, 8 ]
 				}
-			},
-			'Montana': {
+			}, /* }}} */
+			'Montana': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2201,8 +2201,8 @@
 					"Christmas Eve"               : [ 12, 24 ],
 					"New Year's Eve"              : [ 12, 31 ]
 				}
-			},
-			'Nebraska': {
+			}, /* }}} */
+			'Nebraska': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2216,8 +2216,8 @@
 					"Christmas Day"               : [ 12, 25 ],
 					"Arbor Day"                   : [ "lastAprilFriday", 0 ]
 				}
-			},
-			'Nevada': {
+			}, /* }}} */
+			'Nevada': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2231,8 +2231,8 @@
 					"Nevada Day"                  : [ "lastOctoberFriday", 0 ],
 					"Family Day"                  : [ "firstNovemberThursday", 22 ]
 				}
-			},
-			'New Hampshire': {
+			}, /* }}} */
+			'New Hampshire': { /* {{{ */
 				'PH': {
 					"New Year's Day"                           : [ 1, 1 ],
 					"Martin Luther King, Jr. Civil Rights Day" : [ "firstJanuaryMonday", 14 ],
@@ -2247,8 +2247,8 @@
 					"Christmas Day"                            : [ 12, 25 ],
 					"Election Day"                             : [ "firstNovemberMonday", 1 ]
 				}
-			},
-			'New Jersey': {
+			}, /* }}} */
+			'New Jersey': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2264,8 +2264,8 @@
 					"Good Friday"                 : [ "easter", -2 ],
 					"Election Day"                : [ "firstNovemberMonday", 1 ]
 				}
-			},
-			'New Mexico': {
+			}, /* }}} */
+			'New Mexico': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2278,8 +2278,8 @@
 					"Day after Thanksgiving"      : [ "firstNovemberThursday", 22 ],
 					"Christmas Day"               : [ 12, 25 ]
 				}
-			},
-			'New York': {
+			}, /* }}} */
+			'New York': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2294,8 +2294,8 @@
 					"Lincoln's Birthday"          : [ 2, 12 ],
 					"Election Day"                : [ "firstNovemberMonday", 1 ]
 				}
-			},
-			'North Carolina': {
+			}, /* }}} */
+			'North Carolina': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2312,8 +2312,8 @@
 					"Day after Christmas"         : [ 12, 26 ],
 					"Good Friday"                 : [ "easter", -2 ]
 				}
-			},
-			'North Dakota': {
+			}, /* }}} */
+			'North Dakota': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2326,8 +2326,8 @@
 					"Thanksgiving"                : [ "firstNovemberThursday", 21 ],
 					"Christmas Day"               : [ 12, 25 ]
 				}
-			},
-			'Ohio': {
+			}, /* }}} */
+			'Ohio': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2340,8 +2340,8 @@
 					"Thanksgiving"                : [ "firstNovemberThursday", 21 ],
 					"Christmas Day"               : [ 12, 25 ]
 				}
-			},
-			'Oklahoma': {
+			}, /* }}} */
+			'Oklahoma': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2355,8 +2355,8 @@
 					"Day after Thanksgiving"      : [ "firstNovemberThursday", 22 ],
 					"Christmas Day"               : [ 12, 25 ]
 				}
-			},
-			'Oregon': {
+			}, /* }}} */
+			'Oregon': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2369,8 +2369,8 @@
 					"Thanksgiving"                : [ "firstNovemberThursday", 21 ],
 					"Christmas Day"               : [ 12, 25 ]
 				}
-			},
-			'Pennsylvania': {
+			}, /* }}} */
+			'Pennsylvania': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2384,8 +2384,8 @@
 					"Christmas Day"               : [ 12, 25 ],
 					"Flag Day"                    : [ 6, 14 ]
 				}
-			},
-			'Puerto Rico': {
+			}, /* }}} */
+			'Puerto Rico': { /* {{{ */
 				'PH': {
 					"Día de Año Nuevo"                         : [ 1, 1 ],
 					"Día de Reyes"                             : [ 1, 6 ],
@@ -2407,8 +2407,8 @@
 					"Noche Buena"                              : [ 12, 24 ],
 					"Día de Navidad"                           : [ 12, 25 ]
 				}
-			},
-			'Rhode Island': {
+			}, /* }}} */
+			'Rhode Island': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2422,8 +2422,8 @@
 					"Christmas Day"               : [ 12, 25 ],
 					"Victory Day"                 : [ "firstAugustMonday", 7 ]
 				}
-			},
-			'South Carolina': {
+			}, /* }}} */
+			'South Carolina': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2437,8 +2437,8 @@
 					"Christmas Day"               : [ 12, 25 ],
 					"Confederate Memorial Day"    : [ 5, 10 ]
 				}
-			},
-			'South Dakota': {
+			}, /* }}} */
+			'South Dakota': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2451,8 +2451,8 @@
 					"Thanksgiving"                : [ "firstNovemberThursday", 21 ],
 					"Christmas Day"               : [ 12, 25 ]
 				}
-			},
-			'Tennessee': {
+			}, /* }}} */
+			'Tennessee': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2467,8 +2467,8 @@
 					"Christmas Day"               : [ 12, 25 ],
 					"Good Friday"                 : [ "easter", -2 ]
 				}
-			},
-			'Texas': {
+			}, /* }}} */
+			'Texas': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2484,8 +2484,8 @@
 					"Christmas Day"               : [ 12, 25 ],
 					"Day after Christmas"         : [ 12, 26 ]
 				}
-			},
-			'United States Virgin Islands': {
+			}, /* }}} */
+			'United States Virgin Islands': { /* {{{ */
 				'PH': {
 					"New Year's Day"                            : [ 1, 1 ],
 					"Martin Luther King, Jr. Day"               : [ "firstJanuaryMonday", 14 ],
@@ -2509,8 +2509,8 @@
 					"Christmas Second Day"                      : [ 12, 26 ],
 					"New Year's Eve"                            : [ 12, 31 ]
 				}
-			},
-			'Utah': {
+			}, /* }}} */
+			'Utah': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2524,8 +2524,8 @@
 					"Christmas Day"               : [ 12, 25 ],
 					"Pioneer Day"                 : [ 7, 24 ]
 				}
-			},
-			'Vermont': {
+			}, /* }}} */
+			'Vermont': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2540,8 +2540,8 @@
 					"Town Meeting Day"            : [ "firstMarchTuesday", 0 ],
 					"Battle of Bennington"        : [ "firstAugustMonday", 14 ]
 				}
-			},
-			'Virginia': {
+			}, /* }}} */
+			'Virginia': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Lee-Jackson Day"             : [ "firstJanuaryMonday", 11 ],
@@ -2555,8 +2555,8 @@
 					"Thanksgiving"                : [ "firstNovemberThursday", 21 ],
 					"Christmas Day"               : [ 12, 25 ]
 				}
-			},
-			'Washington': {
+			}, /* }}} */
+			'Washington': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2569,8 +2569,8 @@
 					"Thanksgiving"                : [ "firstNovemberThursday", 21 ],
 					"Christmas Day"               : [ 12, 25 ]
 				}
-			},
-			'West Virginia': {
+			}, /* }}} */
+			'West Virginia': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2585,8 +2585,8 @@
 					"West Virginia Day"           : [ 6, 20 ],
 					"Lincoln's Day"               : [ "firstNovemberThursday", 22 ]
 				}
-			},
-			'Wisconsin': {
+			}, /* }}} */
+			'Wisconsin': { /* {{{ */
 				'PH': { // http://docs.legis.wisconsin.gov/statutes/statutes/995/20
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2601,8 +2601,8 @@
 					"Primary Election Day"        : [ "firstAugustTuesday", 7 ],
 					"Election Day"                : [ "firstNovemberMonday", 1 ]
 				}
-			},
-			'Wyoming': {
+			}, /* }}} */
+			'Wyoming': { /* {{{ */
 				'PH': {
 					"New Year's Day"              : [ 1, 1 ],
 					"Martin Luther King, Jr. Day" : [ "firstJanuaryMonday", 14 ],
@@ -2615,7 +2615,7 @@
 					"Thanksgiving"                : [ "firstNovemberThursday", 21 ],
 					"Christmas Day"               : [ 12, 25 ]
 				}
-			}
+			} /* }}} */
 		}, // }}}
 		'si': { // {{{
 			'PH': { // http://www.vlada.si/o_sloveniji/politicni_sistem/prazniki/
