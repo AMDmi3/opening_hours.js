@@ -1716,16 +1716,16 @@ Mo-Fr 17:00-12:00; Sa-Su 24:00 <--- (Time range starts outside of the current da
 sd <--- (Unexpected token: "s" This means that the syntax is not valid at that point or it is currently not supported.) sdasdlasdj a3reaw <--- (Assuming "We" for "w")
 
 "Incorrect syntax which should throw an error" for "": [1m[32mPASSED[39m[22m
-Value contains nothing meaningful which can be parsed
+The value contains nothing meaningful which can be parsed.
 
 "Incorrect syntax which should throw an error" for " ": [1m[32mPASSED[39m[22m
-Value contains nothing meaningful which can be parsed
+The value contains nothing meaningful which can be parsed.
 
 "Incorrect syntax which should throw an error" for "*newline*": [1m[32mPASSED[39m[22m
-Value contains nothing meaningful which can be parsed
+The value contains nothing meaningful which can be parsed.
 
 "Incorrect syntax which should throw an error" for ";": [1m[32mPASSED[39m[22m
-Value contains nothing meaningful which can be parsed
+The value contains nothing meaningful which can be parsed.
 
 "Incorrect syntax which should throw an error" for "||": [1m[32mPASSED[39m[22m
 || <--- (Rule before fallback rule does not contain anything useful)
@@ -2160,6 +2160,12 @@ Su 7:30,10 <--- (Missing time separator in time range after: "number")
 "Trying to trigger "Missing time separator in time range after" for mode == 2." for "Su 7:30,10i00,22:00": [1m[32mPASSED[39m[22m
 Su 7:30,10i <--- (Missing time separator in time range after: "number")
 
+"Wrong constructor call should throw an error: nominatiomJSON: string" for "1": [1m[32mPASSED[39m[22m
+The value (first parameter) is not a string.
+
+"Wrong constructor call should throw an error: nominatiomJSON: string" for "Mo-Fr 08:00-16:00": [1m[32mPASSED[39m[22m
+The nominatiomJSON parameter is of unknown type. Given string, expected object.
+
 "Wrong constructor call should throw an error: warnings_severity: [ 4 ]" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 The optional_conf_parm["warnings_severity"] parameter is of unknown type. Given object, expected number.
 
@@ -2199,7 +2205,7 @@ The optional_conf_parm["key_name"] parameter is of unknown type. Given object, e
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-836/846 tests passed.
+838/848 tests passed.
 38 tests where (partly) ignored, sorted by commonness:
 * 23: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

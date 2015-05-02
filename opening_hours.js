@@ -3230,6 +3230,10 @@
 				lat = nominatiomJSON.lat;
 				lon = nominatiomJSON.lon;
 			}
+		} else if (typeof nominatiomJSON !== 'undefined') {
+			throw 'The nominatiomJSON parameter is of unknown type.'
+				+ ' Given ' + typeof(nominatiomJSON)
+				+ ', expected object.';
 		}
 		/* }}} */
 
@@ -3302,12 +3306,10 @@
 
 		// Tokenize value and generate selector functions. {{{
 		if (typeof value !== 'string') {
-			// FIXME: Add test.
-			// throw 'The value is not a string.';
+			throw 'The value (first parameter) is not a string.';
 		}
 		if (value.match(/^(?:\s*;?\s*)+$/)) {
-			throw 'Value contains nothing meaningful which can be parsed';
-			// throw 'The value contains nothing meaningful which can be parsed.';
+			throw 'The value contains nothing meaningful which can be parsed.';
 		}
 
 		var parsing_warnings = []; // Elements are fed into function formatWarnErrorMessage(nrule, at, message)

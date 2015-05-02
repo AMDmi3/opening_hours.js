@@ -4868,7 +4868,14 @@ for (var i = 0; i <= 2; i++) {
 // }}}
 
 /* Wrong constructor call, e.g bad parameters {{{ */
-/* FIXME: Add more. */
+
+test.addShouldFail('Wrong constructor call should throw an error: nominatiomJSON: string', [
+		1,
+	], {}, 'not only test');
+
+test.addShouldFail('Wrong constructor call should throw an error: nominatiomJSON: string', [
+		'Mo-Fr 08:00-16:00',
+	], "I am string!", 'not only test');
 
 test.addShouldFail('Wrong constructor call should throw an error: warnings_severity: [ 4 ]', [
 		value_perfectly_valid[0],
@@ -4977,7 +4984,12 @@ function opening_hours_test() {
 		}
 
 		var passed = false;
-		var str = '"' + name + '" for "' + value.replace('\n', '*newline*') + '": ';
+		var str = '"' + name + '" for "'
+			+ (typeof value === 'string'
+				? value.replace('\n', '*newline*')
+				: value
+			)
+			+ '": ';
 		if (crashed) {
 			str += 'PASSED'.passed;
 			passed = true;
@@ -5019,7 +5031,12 @@ function opening_hours_test() {
 		}
 
 		var passed = false;
-		var str = '"' + name + '" for "' + value.replace('\n', '*newline*') + '": ';
+		var str = '"' + name + '" for "'
+			+ (typeof value === 'string'
+				? value.replace('\n', '*newline*')
+				: value
+			)
+			+ '": ';
 		if (!crashed && warnings.length > 0) {
 			str += 'PASSED'.passed;
 			passed = true;
