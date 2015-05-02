@@ -6247,7 +6247,7 @@
 		 */
 		function prettifySelector(tokens, selector_start, selector_end, selector_type, conf) {
 
-			var value = '';
+			var prettified_value = '';
 			var at = selector_start;
 			while (at <= selector_end) {
 				// console.log('At: ' + at + ', token: ' + tokens[at]);
@@ -6256,20 +6256,20 @@
 						&& at - selector_start > 1 && (matchTokens(tokens, at-1, ',') || matchTokens(tokens, at-1, '-'))
 						&& matchTokens(tokens, at-2, 'weekday')
 						&& tokens[at][0] === (tokens[at-2][0] + 1) % 7) {
-							value = value.substring(0, value.length - 1) + conf.sep_one_day_between;
+							prettified_value = prettified_value.substring(0, prettified_value.length - 1) + conf.sep_one_day_between;
 					}
-					value += weekdays[tokens[at][0]];
+					prettified_value += weekdays[tokens[at][0]];
 				} else if (at - selector_start > 0 // e.g. '09:0' -> '09:00'
 						&& selector_type === 'time'
 						&& matchTokens(tokens, at-1, 'timesep')
 						&& matchTokens(tokens, at, 'number')) {
-					value += (tokens[at][0] < 10 ? '0' : '') + tokens[at][0].toString();
+					prettified_value += (tokens[at][0] < 10 ? '0' : '') + tokens[at][0].toString();
 				} else if (selector_type === 'time' // e.g. '9:00' -> ' 09:00'
 						&& conf.zero_pad_hour
 						&& at !== tokens.length
 						&& matchTokens(tokens, at, 'number')
 						&& matchTokens(tokens, at+1, 'timesep')) {
-					value += (
+					prettified_value += (
 							tokens[at][0] < 10 ?
 								(tokens[at][0] === 0 && conf.one_zero_if_hour_zero ?
 								 '' : '0') :
@@ -6279,49 +6279,49 @@
 						&& matchTokens(tokens, at, 'number')
 						&& matchTokens(tokens, at+1, '-')
 						&& matchTokens(tokens, at+2, 'number')) {
-					value += (tokens[at][0] < 10 ?
+					prettified_value += (tokens[at][0] < 10 ?
 							(tokens[at][0] === 0 && conf.one_zero_if_hour_zero ? '' : '0')
 							: '') + tokens[at][0].toString();
-					value += ':00-'
+					prettified_value += ':00-'
 						+ (tokens[at+2][0] < 10 ? '0' : '') + tokens[at+2][0].toString()
 						+ ':00';
 					at += 2;
 				} else if (matchTokens(tokens, at, 'comment')) {
-					value += '"' + tokens[at][0].toString() + '"';
+					prettified_value += '"' + tokens[at][0].toString() + '"';
 				} else if (matchTokens(tokens, at, 'closed')) {
-					value += (conf.leave_off_closed ? tokens[at][0] : conf.keyword_for_off_closed);
+					prettified_value += (conf.leave_off_closed ? tokens[at][0] : conf.keyword_for_off_closed);
 				} else if (at - selector_start > 0 && matchTokens(tokens, at, 'number')
 						&& (matchTokens(tokens, at-1, 'month') && selector_type === 'month'
 						||  matchTokens(tokens, at-1, 'week')  && selector_type === 'week'
 						)) {
-					value += ' '
+					prettified_value += ' '
 						+ (conf.zero_pad_month_and_week_numbers && tokens[at][0] < 10 ? '0' : '')
 						+ tokens[at][0];
 				} else if (at - selector_start > 0 && matchTokens(tokens, at, 'month')
 						&& matchTokens(tokens, at-1, 'year')) {
-					value += ' ' + months[[tokens[at][0]]];
+					prettified_value += ' ' + months[[tokens[at][0]]];
 				} else if (at - selector_start > 0 && matchTokens(tokens, at, 'event')
 						&& matchTokens(tokens, at-1, 'year')) {
-					value += ' ' + tokens[at][0];
+					prettified_value += ' ' + tokens[at][0];
 				} else if (matchTokens(tokens, at, 'month')) {
-					value += months[[tokens[at][0]]];
+					prettified_value += months[[tokens[at][0]]];
 					if (at + 1 <= selector_end && matchTokens(tokens, at+1, 'weekday'))
-						value += ' ';
+						prettified_value += ' ';
 				} else if (at + 2 <= selector_end
 						&& (matchTokens(tokens, at, '-') || matchTokens(tokens, at, '+'))
 						&& matchTokens(tokens, at+1, 'number', 'calcday')) {
-					value += ' ' + tokens[at][0] + tokens[at+1][0] + ' day' + (Math.abs(tokens[at+1][0]) === 1 ? '' : 's');
+					prettified_value += ' ' + tokens[at][0] + tokens[at+1][0] + ' day' + (Math.abs(tokens[at+1][0]) === 1 ? '' : 's');
 					at += 2;
 				} else if (at === selector_end
 						&& selector_type === 'weekday'
 						&& tokens[at][0] === ':') {
 					// Do nothing.
 				} else {
-					value += tokens[at][0].toString();
+					prettified_value += tokens[at][0].toString();
 				}
 				at++;
 			}
-			return value;
+			return prettified_value;
 		}
 		// }}}
 
