@@ -45,6 +45,7 @@ With [1m[34mwarnings[39m[22m:
 "Time zero intervals (always closed)" for "off "always closed"": [1m[32mPASSED[39m[22m
 "Time zero intervals (always closed)" for "00:00-24:00 closed": [1m[32mPASSED[39m[22m
 "Time zero intervals (always closed)" for "24/7 closed": [1m[32mPASSED[39m[22m
+"Time zero intervals (always closed), prettifyValue is OK …" for "yes": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 "Error tolerance: dot as time separator" for "10:00-12:00": [1m[32mPASSED[39m[22m
 "Error tolerance: dot as time separator" for "10.00-12.00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -2195,6 +2196,12 @@ The optional_conf_parm["mode"] parameter is a invalid number. Gave 4, expected o
 "Wrong constructor call should throw an error: key_name: [ "lit" ]" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 The optional_conf_parm["key_name"] parameter is of unknown type. Given object, expected string.
 
+"Wrong constructor call should throw an error: map_value: [ "lit" ]" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+The optional_conf_parm["map_value"] parameter is of unknown type. Given object, expected boolean.
+
+"Wrong constructor call should throw an error: map_value, no key_name" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+The optional_conf_parm["key_name"] is missing, required by optional_conf_parm["map_value"].
+
 "Compare result from getMatchingRule()" for "10:00-16:00": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "10:00-16:00;": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "08:00-10:00; 10:00-16:00;": [1m[32mPASSED[39m[22m
@@ -2207,8 +2214,8 @@ The optional_conf_parm["key_name"] parameter is of unknown type. Given object, e
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-837/848 tests passed.
-38 tests where (partly) ignored, sorted by commonness:
-* 23: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
+840/851 tests passed.
+39 tests where (partly) ignored, sorted by commonness:
+* 24: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
 *  4: check for week stable not implemented

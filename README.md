@@ -151,19 +151,22 @@ function getReadableState(startString, endString, oh, past) {
 
         If this parameter is of the type number then it is interpreted as 'mode' (see below). For the type object, the following keys are defined.
 
-        *   'mode' (type: (integer) number): In OSM, the syntax originally designed to describe opening hours, is now used to describe a few other things as well. Some of those other tags work with points in time instead of time ranges. To support this the mode can be specified. *Note that it is recommended to not use the mode parameter directly but instead use the key_name parameter.* If there is no mode specified, opening_hours.js will only operate with time ranges and will throw an error message when points in times are used in the value.
+        *   'mode' (type: (integer) number, default: 0): In OSM, the syntax originally designed to describe opening hours, is now used to describe a few other things as well. Some of those other tags work with points in time instead of time ranges. To support this the mode can be specified. *Note that it is recommended to not use the mode parameter directly but instead use the key_name parameter.* If there is no mode specified, opening_hours.js will only operate with time ranges and will throw an error message when points in times are used in the value.
 
             * 0: time ranges (opening_hours, lit, …) default
             * 1: points in time
             * 2: both (time ranges and points in time, used by collection_times, service_times, …)
 
-        * 'key_name' (type: string): The name of the key (Tag key). For example 'opening_hours' or 'lit'. Please always specify this parameter. If you do, the mode will be derived from the 'key_name' parameter. Default is undefined e.g. no default value.
+        *   'key_name' (type: string, default: undefined): The name of the key (Tag key). For example 'opening_hours' or 'lit'. Please always specify this parameter. If you do, the mode will be derived from the 'key_name' parameter. Default is undefined e.g. no default value.
 
-        * 'warnings_severity' (type: number): Can be one of the following numbers. The severity levels (including the codes) match the syslog specification. The default is level 4 to not break backwards compatibility. Lower levels e.g. 5 include higher levels e.g. 4.
-          4: warning
-          5: notice
-          6: info
-          7: debug
+        *   'map_value' (type: boolean, default: false): Map certain values to different (valid) oh values. For example for the lit tag the value 'yes' is valid but not for opening_hours.js. If this parameter 'yes' is mapped to `sunset-sunrise open "specified as yes: At night (unknown time schedule or daylight detection)"`.
+
+        *   'warnings_severity' (type: number, default 4): Can be one of the following numbers. The severity levels (including the codes) match the syslog specification. The default is level 4 to not break backwards compatibility. Lower levels e.g. 5 include higher levels e.g. 4.
+
+            4: warning
+            5: notice
+            6: info
+            7: debug
 
 *   `var warnings = oh.getWarnings();`
 
@@ -484,9 +487,9 @@ This project has become so complex that development without extensive testing wo
 
 ### Regression testing
 
-Simple node.js based test framework is bundled. You can run it with `node test.js` or with `make check`.
+node.js based test framework is bundled. You can run it with `node test.js` or with `make check`. Note that number of lines of the test framework almost match up with the number of lines of the actual implementation :)
 
-The current results of this test are also tracked in the repository and can be viewed [here](/test.log). Run `make check-test` to compare the test results with the results from the last commit. Note that this file uses [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code) which can be interpreted by cat in the terminal.
+The current results of this test are also tracked in the repository and can be viewed [here](/test.log). Note that this file uses [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code) which can be interpreted by cat in the terminal. `make check` compares the test output with the output from the last commit and shows you a diff.
 
 ### Testing with real data
 

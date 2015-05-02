@@ -3249,6 +3249,7 @@
 		 */
 
 		var oh_mode;
+		var oh_map_value = false;
 		var oh_key, oh_regex_key;
 
 		if (typeof optional_conf_parm === 'number') {
@@ -3273,12 +3274,20 @@
 					+ ' Given ' + typeof(optional_conf_parm['warnings_severity'])
 					+ ', expected number.';
 			}
+			// FIXME: Rename: key_name -> tag_key
 			if (typeof optional_conf_parm['key_name'] === 'string') {
 				oh_key = optional_conf_parm['key_name'];
 			} else if (typeof optional_conf_parm['key_name'] !== 'undefined') {
 				throw 'The optional_conf_parm["key_name"] parameter is of unknown type.'
 					+ ' Given ' + typeof(optional_conf_parm['key_name'])
 					+ ', expected string.';
+			}
+			if (typeof optional_conf_parm['map_value'] === 'boolean') {
+				oh_map_value = true;
+			} else if (typeof optional_conf_parm['map_value'] !== 'undefined') {
+				throw 'The optional_conf_parm["map_value"] parameter is of unknown type.'
+					+ ' Given ' + typeof(optional_conf_parm['map_value'])
+					+ ', expected boolean.';
 			}
 		} else if (typeof optional_conf_parm !== 'undefined') {
 			throw 'The optional_conf_parm parameter is of unknown type.'
@@ -3287,6 +3296,16 @@
 
 		if (typeof oh_key === 'string') {
 			oh_regex_key = getRegexKeyForKeyFromOsmDefaults(oh_key)
+
+			if (oh_map_value
+				&& typeof osm_tag_defaults[oh_regex_key]['map'] === 'object'
+				&& typeof osm_tag_defaults[oh_regex_key]['map'][value] === 'string'
+				) {
+
+				value = osm_tag_defaults[oh_regex_key]['map'][value];
+			}
+		} else if (oh_map_value) {
+			throw 'The optional_conf_parm["key_name"] is missing, required by optional_conf_parm["map_value"].';
 		}
 
 		if (typeof oh_mode === 'undefined') {

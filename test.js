@@ -378,6 +378,14 @@ test.addTest('Time zero intervals (always closed)', [
 	], '2012.10.01 0:00', '2018.10.08 0:00', [
 	], 0, 0, true, {}, 'not last test');
 
+test.addTest('Time zero intervals (always closed), prettifyValue is OK …', [
+		ignored('yes', 'prettifyValue'),
+	], '2012.10.01 0:00', '2012.10.03 0:00', [
+		[ '2012.10.01 00:00', '2012.10.01 06:00', false, 'specified as yes: At night (unknown time schedule or daylight detection)' ], // 6
+		[ '2012.10.01 18:00', '2012.10.02 06:00', false, 'specified as yes: At night (unknown time schedule or daylight detection)' ], // 12
+		[ '2012.10.02 18:00', '2012.10.03 00:00', false, 'specified as yes: At night (unknown time schedule or daylight detection)' ], // 6
+	], 1000 * 60 * 60 * (6 + 12 + 6), 0, true, {}, 'not last test', { 'map_value': true, 'key_name': 'lit' });
+
 // error tolerance {{{
 test.addTest('Error tolerance: dot as time separator', [
 		'10:00-12:00', // reference value for prettify
@@ -4912,6 +4920,14 @@ test.addShouldFail('Wrong constructor call should throw an error: mode: 4', [
 test.addShouldFail('Wrong constructor call should throw an error: key_name: [ "lit" ]', [
 		value_perfectly_valid[0],
 	], nominatiomTestJSON, 'not only test', { 'key_name': [ 'lit' ] });
+
+test.addShouldFail('Wrong constructor call should throw an error: map_value: [ "lit" ]', [
+		value_perfectly_valid[0],
+	], nominatiomTestJSON, 'not only test', { 'map_value': [ 'lit' ] });
+
+test.addShouldFail('Wrong constructor call should throw an error: map_value, no key_name', [
+		value_perfectly_valid[0],
+	], nominatiomTestJSON, 'not only test', { 'map_value': true, });
 
 /* }}} */
 
