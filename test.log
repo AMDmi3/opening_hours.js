@@ -2182,7 +2182,7 @@ The parameter optional_conf_parm["warnings_severity"] must be an integer number 
 The parameter optional_conf_parm["warnings_severity"] must be an integer number between 0 and 7 (inclusive). Given 8, expected one of the following numbers: [ 0, 1, 2, 3, 4, 5, 6, 7 ].
 
 "Wrong constructor call should throw an error: mode: [ 1 ]" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
-The optional_conf_parm["mode"] parameter is of unknown type. Given string
+The optional_conf_parm["mode"] parameter is of unknown type. Given object, expected number.
 
 "Wrong constructor call should throw an error: mode: -1" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 The optional_conf_parm["mode"] parameter is a invalid number. Gave -1, expected one of the following numbers: [ 0, 1, 2 ].

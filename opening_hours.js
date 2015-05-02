@@ -3255,38 +3255,22 @@
 		if (typeof optional_conf_parm === 'number') {
 			oh_mode = optional_conf_parm;
 		} else if (typeof optional_conf_parm === 'object') {
-			if (typeof optional_conf_parm['mode'] === 'number') {
+			if (checkOptionalConfParm('mode', 'number')) {
 				oh_mode = optional_conf_parm['mode'];
-			} else if (typeof optional_conf_parm['mode'] !== 'undefined') {
-				throw 'The optional_conf_parm["mode"] parameter is of unknown type.'
-					+ ' Given ' + typeof(optional_conf_parm['mode']
-					+ ", expected number.");
 			}
-			if (typeof optional_conf_parm['warnings_severity'] === 'number') {
+			if (checkOptionalConfParm('warnings_severity', 'number')) {
 				warnings_severity = optional_conf_parm['warnings_severity'];
 				if ([ 0, 1, 2, 3, 4, 5, 6, 7 ].indexOf(warnings_severity) === -1) {
 					throw 'The parameter optional_conf_parm["warnings_severity"] must be an integer number between 0 and 7 (inclusive).'
 						+ ' Given ' + warnings_severity
 						+ ', expected one of the following numbers: [ 0, 1, 2, 3, 4, 5, 6, 7 ].';
 				}
-			} else if (typeof optional_conf_parm['warnings_severity'] !== 'undefined') {
-				throw 'The optional_conf_parm["warnings_severity"] parameter is of unknown type.'
-					+ ' Given ' + typeof(optional_conf_parm['warnings_severity'])
-					+ ', expected number.';
 			}
-			if (typeof optional_conf_parm['tag_key'] === 'string') {
+			if (checkOptionalConfParm('tag_key', 'string')) {
 				oh_key = optional_conf_parm['tag_key'];
-			} else if (typeof optional_conf_parm['tag_key'] !== 'undefined') {
-				throw 'The optional_conf_parm["tag_key"] parameter is of unknown type.'
-					+ ' Given ' + typeof(optional_conf_parm['tag_key'])
-					+ ', expected string.';
 			}
-			if (typeof optional_conf_parm['map_value'] === 'boolean') {
+			if (checkOptionalConfParm('map_value', 'boolean')) {
 				oh_map_value = true;
-			} else if (typeof optional_conf_parm['map_value'] !== 'undefined') {
-				throw 'The optional_conf_parm["map_value"] parameter is of unknown type.'
-					+ ' Given ' + typeof(optional_conf_parm['map_value'])
-					+ ', expected boolean.';
 			}
 		} else if (typeof optional_conf_parm !== 'undefined') {
 			throw 'The optional_conf_parm parameter is of unknown type.'
@@ -3487,6 +3471,24 @@
 				}
 			}
 			return regex_key;
+		}
+		/* }}} */
+
+		/* Check given element in optional_conf_parm. {{{
+		 *
+		 * :param key: Key of optional_conf_parm.
+		 * :param expected_type: Expected `typeof()` the parameter.
+		 * :returns: True if the expected type matches the given type.
+		 */
+		function checkOptionalConfParm(key, expected_type) {
+			if (typeof optional_conf_parm[key] === expected_type) {
+				return true;
+			} else if (typeof optional_conf_parm[key] !== 'undefined') {
+				throw 'The optional_conf_parm["' + key + '"] parameter is of unknown type.'
+					+ ' Given ' + typeof(optional_conf_parm[key])
+					+ ', expected ' + expected_type + '.';
+			}
+			return false;
 		}
 		/* }}} */
 		/* }}} */
