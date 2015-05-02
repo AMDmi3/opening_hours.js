@@ -3274,12 +3274,11 @@
 					+ ' Given ' + typeof(optional_conf_parm['warnings_severity'])
 					+ ', expected number.';
 			}
-			// FIXME: Rename: key_name -> tag_key
-			if (typeof optional_conf_parm['key_name'] === 'string') {
-				oh_key = optional_conf_parm['key_name'];
-			} else if (typeof optional_conf_parm['key_name'] !== 'undefined') {
-				throw 'The optional_conf_parm["key_name"] parameter is of unknown type.'
-					+ ' Given ' + typeof(optional_conf_parm['key_name'])
+			if (typeof optional_conf_parm['tag_key'] === 'string') {
+				oh_key = optional_conf_parm['tag_key'];
+			} else if (typeof optional_conf_parm['tag_key'] !== 'undefined') {
+				throw 'The optional_conf_parm["tag_key"] parameter is of unknown type.'
+					+ ' Given ' + typeof(optional_conf_parm['tag_key'])
 					+ ', expected string.';
 			}
 			if (typeof optional_conf_parm['map_value'] === 'boolean') {
@@ -3305,7 +3304,7 @@
 				value = osm_tag_defaults[oh_regex_key]['map'][value];
 			}
 		} else if (oh_map_value) {
-			throw 'The optional_conf_parm["key_name"] is missing, required by optional_conf_parm["map_value"].';
+			throw 'The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["map_value"].';
 		}
 
 		if (typeof oh_mode === 'undefined') {

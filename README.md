@@ -151,13 +151,13 @@ function getReadableState(startString, endString, oh, past) {
 
         If this parameter is of the type number then it is interpreted as 'mode' (see below). For the type object, the following keys are defined.
 
-        *   'mode' (type: (integer) number, default: 0): In OSM, the syntax originally designed to describe opening hours, is now used to describe a few other things as well. Some of those other tags work with points in time instead of time ranges. To support this the mode can be specified. *Note that it is recommended to not use the mode parameter directly but instead use the key_name parameter.* If there is no mode specified, opening_hours.js will only operate with time ranges and will throw an error message when points in times are used in the value.
+        *   'mode' (type: (integer) number, default: 0): In OSM, the syntax originally designed to describe opening hours, is now used to describe a few other things as well. Some of those other tags work with points in time instead of time ranges. To support this the mode can be specified. *Note that it is recommended to not use the mode parameter directly but instead use the tag_key parameter.* If there is no mode specified, opening_hours.js will only operate with time ranges and will throw an error message when points in times are used in the value.
 
             * 0: time ranges (opening_hours, lit, …) default
             * 1: points in time
             * 2: both (time ranges and points in time, used by collection_times, service_times, …)
 
-        *   'key_name' (type: string, default: undefined): The name of the key (Tag key). For example 'opening_hours' or 'lit'. Please always specify this parameter. If you do, the mode will be derived from the 'key_name' parameter. Default is undefined e.g. no default value.
+        *   'tag_key' (type: string, default: undefined): The name of the key (Tag key). For example 'opening_hours' or 'lit'. Please always specify this parameter. If you do, the mode will be derived from the 'tag_key' parameter. Default is undefined e.g. no default value.
 
         *   'map_value' (type: boolean, default: false): Map certain values to different (valid) oh values. For example for the lit tag the value 'yes' is valid but not for opening_hours.js. If this parameter 'yes' is mapped to `sunset-sunrise open "specified as yes: At night (unknown time schedule or daylight detection)"`.
 

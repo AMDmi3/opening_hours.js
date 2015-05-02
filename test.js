@@ -384,7 +384,7 @@ test.addTest('Time zero intervals (always closed), prettifyValue is OK …', [
 		[ '2012.10.01 00:00', '2012.10.01 06:00', false, 'specified as yes: At night (unknown time schedule or daylight detection)' ], // 6
 		[ '2012.10.01 18:00', '2012.10.02 06:00', false, 'specified as yes: At night (unknown time schedule or daylight detection)' ], // 12
 		[ '2012.10.02 18:00', '2012.10.03 00:00', false, 'specified as yes: At night (unknown time schedule or daylight detection)' ], // 6
-	], 1000 * 60 * 60 * (6 + 12 + 6), 0, true, {}, 'not last test', { 'map_value': true, 'key_name': 'lit' });
+	], 1000 * 60 * 60 * (6 + 12 + 6), 0, true, {}, 'not last test', { 'map_value': true, 'tag_key': 'lit' });
 
 // error tolerance {{{
 test.addTest('Error tolerance: dot as time separator', [
@@ -2629,7 +2629,7 @@ test.addTest('Additional rules', [
 		[ '2012.10.03 10:00', '2012.10.03 18:00' ],
 		[ '2012.10.04 10:00', '2012.10.04 16:00' ],
 		[ '2012.10.05 10:00', '2012.10.05 16:00' ],
-	], 1000 * 60 * 60 * (6 * 5 + 2), 0, true, {}, 'not last test', { 'warnings_severity': 5, 'key_name': 'opening_hours:kitchen' });
+	], 1000 * 60 * 60 * (6 * 5 + 2), 0, true, {}, 'not last test', { 'warnings_severity': 5, 'tag_key': 'opening_hours:kitchen' });
 
 test.addTest('Additional rules', [
 		'Mo-Fr 08:00-12:00, We 14:00-18:00',
@@ -4248,13 +4248,13 @@ test.addTest('Points in time, mode 2', [
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 07:22', '2012.10.01 07:23' ],
 		[ '2012.10.01 19:00', '2012.10.01 19:01' ],
-	], 1000 * 60 * 2, 0, false, nominatiomTestJSON, 'not last test', { 'key_name': 'collection_times' });
+	], 1000 * 60 * 2, 0, false, nominatiomTestJSON, 'not last test', { 'tag_key': 'collection_times' });
 
 test.addTest('Points in time, mode 2', [
 		'Mo (sunrise+01:00)',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 08:22', '2012.10.01 08:23' ],
-	], 1000 * 60 * 1, 0, false, nominatiomTestJSON, 'not last test', { 'warnings_severity': 5, 'key_name': 'collection_times' });
+	], 1000 * 60 * 1, 0, false, nominatiomTestJSON, 'not last test', { 'warnings_severity': 5, 'tag_key': 'collection_times' });
 	// Test for warn_for_PH_missing.
 
 test.addTest('Points in time and times ranges, mode 2', [
@@ -4691,9 +4691,9 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning. wa
 		'Mo-Fr 08:00-16:00',
 	], nominatiomTestJSON, 'not only test', { 'warnings_severity': 5 });
 
-test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning. warnings_severity: 5, "key_name": "opening_hours"', [
+test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning. warnings_severity: 5, "tag_key": "opening_hours"', [
 		'Mo-Fr 08:00-16:00',
-	], nominatiomTestJSON, 'not only test', { 'warnings_severity': 5, 'key_name': 'opening_hours' });
+	], nominatiomTestJSON, 'not only test', { 'warnings_severity': 5, 'tag_key': 'opening_hours' });
 // }}}
 
 // values which should fail during parsing {{{
@@ -4917,15 +4917,15 @@ test.addShouldFail('Wrong constructor call should throw an error: mode: 4', [
 		value_perfectly_valid[0],
 	], nominatiomTestJSON, 'not only test', { 'mode': 4 });
 
-test.addShouldFail('Wrong constructor call should throw an error: key_name: [ "lit" ]', [
+test.addShouldFail('Wrong constructor call should throw an error: tag_key: [ "lit" ]', [
 		value_perfectly_valid[0],
-	], nominatiomTestJSON, 'not only test', { 'key_name': [ 'lit' ] });
+	], nominatiomTestJSON, 'not only test', { 'tag_key': [ 'lit' ] });
 
 test.addShouldFail('Wrong constructor call should throw an error: map_value: [ "lit" ]', [
 		value_perfectly_valid[0],
 	], nominatiomTestJSON, 'not only test', { 'map_value': [ 'lit' ] });
 
-test.addShouldFail('Wrong constructor call should throw an error: map_value, no key_name', [
+test.addShouldFail('Wrong constructor call should throw an error: map_value, no tag_key', [
 		value_perfectly_valid[0],
 	], nominatiomTestJSON, 'not only test', { 'map_value': true, });
 
