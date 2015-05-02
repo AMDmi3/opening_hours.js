@@ -3154,7 +3154,7 @@
 	}
 	/// }}}
 }(this, function (SunCalc, holidays, word_error_correction) {
-	return function(value, nominatiomJSON, oh_mode) {
+	return function(value, nominatiomJSON, optional_conf_parm) {
 		// short constants {{{
 		var word_value_replacement = { // If the correct values can not be calculated.
 			dawn    : 60 * 5 + 30,
@@ -3177,6 +3177,27 @@
 			'zero_pad_month_and_week_numbers': false, // Format week (e.g. `week 01`) and month day numbers (e.g. `Jan 01`) with "%02d".
 		};
 
+		/* FIXME: Allow regex in key. */
+		var osm_tag_defaults = {
+			'opening_hours'        : { 'mode': 0, 'warn_for_PH_missing': true, },
+			'collection_times'     : { 'mode': 2, },
+			// 'opening_hours:*'   : { 'mode': 0, },
+			// '*:opening_hours'   : { 'mode': 0, },
+			// '*:opening_hours:*' : { 'mode': 0, },
+			'smoking_hours'        : { 'mode': 0, },
+			'service_times'        : { 'mode': 2, },
+			'happy_hours'          : { 'mode': 0, },
+			'lit'                  : { 'mode': 0,
+				map: {
+					'yes'      : 'sunset-sunrise open "specified as yes: At night (unknown time schedule or daylight detection)"',
+					'automatic': 'unknown "specified as automatic: When someone enters the way the lights are turned on."',
+					'no'       : 'off "specified as no: There are no lights installed."',
+					'interval' : 'unknown "specified as interval"',
+					'limited'  : 'unknown "specified as limited"',
+				}
+			},
+		};
+
 		var minutes_in_day = 60 * 24;
 		var msec_in_day    = 1000 * 60 * minutes_in_day;
 		var msec_in_week   = msec_in_day * 7;
@@ -3186,12 +3207,14 @@
 		var issues_url     = repository_url + '/issues?state=open';
 		// }}}
 
-		// constructor parameters {{{
-		// Evaluate additional information which can be given. They are
-		// required to reasonably calculate 'sunrise' and to use the correct
-		// holidays.
+		/* Optional constructor parameters {{{ */
+
+		/* nominatiomJSON {{{
+		 *
+		 * required to reasonably calculate 'sunrise' and holidays.
+		 */
 		var location_cc, location_state, lat, lon;
-		if (typeof nominatiomJSON !== 'undefined') {
+		if (typeof nominatiomJSON === 'object') {
 			if (typeof nominatiomJSON.address !== 'undefined') {
 				if (typeof nominatiomJSON.address.country_code !== 'undefined') {
 					location_cc    = nominatiomJSON.address.country_code;
@@ -3208,20 +3231,84 @@
 				lon = nominatiomJSON.lon;
 			}
 		}
+		/* }}} */
 
-		// 0: time ranges (default), tags: opening_hours, lit, …
-		// 1: points in time
-		// 2: both (time ranges and points in time), tags: collection_times, service_times
-		if (typeof oh_mode === 'undefined') {
-			oh_mode = 0;
-		} else if (!(typeof oh_mode === 'number' && (oh_mode === 0 || oh_mode === 1 || oh_mode === 2))) {
-			throw 'The third constructor parameter is oh_mode and must be a number (0, 1 or 2)';
+		/* mode (and other things … ) {{{
+		 *
+		 * 0: time ranges (default), tags: opening_hours, lit, …
+		 * 1: points in time
+		 * 2: both (time ranges and points in time), tags: collection_times, service_times
+		 */
+
+		var warnings_severity = 4;
+		/* Default, currently the highest severity supported.
+		 * This number is expected to be >= 4. This is not explicitly checked.
+		 */
+
+		var oh_mode;
+		var oh_key;
+		if (typeof optional_conf_parm === 'number') {
+			oh_mode = optional_conf_parm;
+		} else if (typeof optional_conf_parm === 'object') {
+			if (typeof optional_conf_parm['mode'] === 'number') {
+				oh_mode = optional_conf_parm['mode'];
+			} else if (typeof optional_conf_parm['mode'] !== 'undefined') {
+				throw 'The optional_conf_parm["mode"] parameter is of unknown type.'
+					+ ' Given ' + typeof(optional_conf_parm['mode']
+					+ ", expected number.");
+			}
+			if (typeof optional_conf_parm['warnings_severity'] === 'number') {
+				warnings_severity = optional_conf_parm['warnings_severity'];
+				if ([ 0, 1, 2, 3, 4, 5, 6, 7 ].indexOf(warnings_severity) === -1) {
+					throw 'The parameter optional_conf_parm["warnings_severity"] must be an integer number between 0 and 7 (inclusive).'
+						+ ' Given ' + warnings_severity
+						+ ', expected one of the following numbers: [ 0, 1, 2, 3, 4, 5, 6, 7 ].';
+				}
+			} else if (typeof optional_conf_parm['warnings_severity'] !== 'undefined') {
+				throw 'The optional_conf_parm["warnings_severity"] parameter is of unknown type.'
+					+ ' Given ' + typeof(optional_conf_parm['warnings_severity'])
+					+ ', expected number.';
+			}
+			if (typeof optional_conf_parm['key_name'] === 'string') {
+				oh_key = optional_conf_parm['key_name'];
+			} else if (typeof optional_conf_parm['key_name'] !== 'undefined') {
+				throw 'The optional_conf_parm["key_name"] parameter is of unknown type.'
+					+ ' Given ' + typeof(optional_conf_parm['key_name'])
+					+ ', expected string.';
+			}
+		} else if (typeof optional_conf_parm !== 'undefined') {
+			throw 'The optional_conf_parm parameter is of unknown type.'
+				+ ' Given ' + typeof(optional_conf_parm);
 		}
-		// }}}
+
+		if (typeof oh_mode === 'undefined') {
+			if (typeof oh_key === 'string') {
+				if (typeof osm_tag_defaults[oh_key] === 'object' && typeof osm_tag_defaults[oh_key]['mode'] === 'number') {
+					oh_mode = osm_tag_defaults[oh_key]['mode'];
+				} else {
+					oh_mode = 0;
+				}
+			} else {
+				oh_mode = 0;
+			}
+		} else if (oh_mode !== 0 && oh_mode !== 1 && oh_mode !== 2) {
+			throw 'The optional_conf_parm["mode"] parameter is a invalid number.'
+				+ ' Gave ' + oh_mode
+				+ ', expected one of the following numbers: [ 0, 1, 2 ].';
+		}
+
+		/* }}} */
+		/* }}} */
 
 		// Tokenize value and generate selector functions. {{{
-		if (value.match(/^(?:\s*;?\s*)+$/))
+		if (typeof value !== 'string') {
+			// FIXME: Add test.
+			// throw 'The value is not a string.';
+		}
+		if (value.match(/^(?:\s*;?\s*)+$/)) {
 			throw 'Value contains nothing meaningful which can be parsed';
+			// throw 'The value contains nothing meaningful which can be parsed.';
+		}
 
 		var parsing_warnings = []; // Elements are fed into function formatWarnErrorMessage(nrule, at, message)
 		var done_with_warnings = false; // The functions which throw warnings can be called multiple times.
@@ -3702,6 +3789,12 @@
 						selector_start_end_type = getSelectorRange(new_tokens[nrule][0], selector_start_end_type[1]);
 						// console.log(selector_start_end_type, new_tokens[nrule][0].length);
 
+						for (var token_pos = 0; token_pos < selector_start_end_type[1]; token_pos++) {
+							if (typeof new_tokens[nrule][0][token_pos] === 'object' && new_tokens[nrule][0][token_pos][0] === 'PH') {
+								has_token['PH'] = true;
+							}
+						}
+
 						if (selector_start_end_type[0] === selector_start_end_type[1] &&
 							new_tokens[nrule][0][selector_start_end_type[0]][0] === '24/7'
 							) {
@@ -3812,9 +3905,7 @@
 					}
 					/* }}} */
 
-					/* Disabled checks {{{ */
-					/* Check if rule with closed|off modifier is additional {{{ */
-					/* FIXME: Enable this test. */
+					/* FIXME: Enable (currently disabled): Check if rule with closed|off modifier is additional {{{ */
 					if (typeof new_tokens[nrule][0][0] === 'object'
 							&& new_tokens[nrule][0][0][0] === ','
 							&& new_tokens[nrule][0][0][1] === 'rule separator'
@@ -3832,7 +3923,6 @@
 						// ]);
 					}
 					/* }}} */
-					/* }}} */
 
 				}
 
@@ -3840,11 +3930,47 @@
 				var has_advanced = it.advance();
 
 				if (has_advanced === true && has_token['24/7'] && !done_with_warnings) {
-					parsing_warnings.push([ -1, 0, 'You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week".'
-							// Probably because of: "24/7; 12:00-14:00 open", ". Needs extra testing.
-							+ ' For correctness you might want to use "open" or "closed"'
-							+ ' for this rule and then write your exceptions which should achieve the same goal and is more clear'
-							+ ' e.g. "open; Mo 12:00-14:00 off".']);
+					parsing_warnings.push([ -1, 0,
+						'You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week".'
+						// Probably because of: "24/7; 12:00-14:00 open", ". Needs extra testing.
+						+ ' For correctness you might want to use "open" or "closed"'
+						+ ' for this rule and then write your exceptions which should achieve the same goal and is more clear'
+						+ ' e.g. "open; Mo 12:00-14:00 off".'
+					]);
+				}
+				/* }}} */
+
+				/* Check for missing PH. {{{ */
+				if (	warnings_severity >= 5
+					&& !has_token['PH']
+					&& !done_with_warnings
+					&& (
+						(typeof oh_key === 'string' && osm_tag_defaults[oh_key]['warn_for_PH_missing'])
+						|| (typeof oh_key !== 'string')
+					   )
+					) {
+
+					var keys_with_warn_for_PH_missing = [];
+					for (var key in osm_tag_defaults) {
+						if (osm_tag_defaults[key]['warn_for_PH_missing']) {
+							keys_with_warn_for_PH_missing.push(key);
+						}
+					}
+					parsing_warnings.push([ -1, 0,
+						'There was no PH (public holiday) specified. This is not very explicit.'
+						+ (typeof oh_key !== 'string'
+							? ' Unfortunately the tag key (e.g. "opening_hours", or "lit") is unknown to opening_hours.js'
+								// + '(see README how to provide it)' // UI of the evaluation tool does not allow to provide it (currently).
+								+ '. This warning only applies to the key'
+								+ (keys_with_warn_for_PH_missing.length === 1 ? ' ' : 's: ')
+								+ keys_with_warn_for_PH_missing.join(', ') + '.'
+								+ ' If your value is for that key than read on. If not you can ignore the following.'
+							: ''
+						)
+						+ ' Please either append a "PH off" rule if the amenity is closed on all public holidays'
+						+ ' or use something like "Sa,Su,PH 12:00-16:00" to say that on Saturdays, Sundays and on public holidays the amenity is open 12:00-16:00.'
+						+ ' If you are not certain try to find it out. If you can’t then do not add PH to the value and ignore this warning.'
+					]);
 				}
 				/* }}} */
 

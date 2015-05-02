@@ -1215,10 +1215,10 @@ With [1m[34mwarnings[39m[22m:
 "Additional comments combined with months" for "Oct-Dec "on request"; Apr-Sep": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Oct-Dec "on request"; Apr-Sep <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-"Complex example used in README" for "open; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off": [1m[32mPASSED[39m[22m
-"Complex example used in README" for "00:00-24:00; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off": [1m[32mPASSED[39m[22m
-"Complex example used in README and benchmark" for "Mo,Tu,Th,Fr 12:00-18:00; Sa 12:00-17:00; Th[3] off; Th[-1] off": [1m[32mPASSED[39m[22m
-"Complex example used in README and benchmark" for "Mo,Tu,Th,Fr 12:00-18:00; Sa 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+"Complex example used in README" for "open; Tu-Su 08:30-09:00 off; Tu-Su,PH 14:00-14:30 off; Mo 08:00-13:00 off": [1m[32mPASSED[39m[22m
+"Complex example used in README" for "00:00-24:00; Tu-Su,PH 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off": [1m[32mPASSED[39m[22m
+"Complex example used in README and benchmark" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3] off; Th[-1] off": [1m[32mPASSED[39m[22m
+"Complex example used in README and benchmark" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 "Warnings corrected to additional rule (real world example)" for "Mo-Fr 09:00-12:00, Mo,Tu,Th 15:00-18:00": [1m[32mPASSED[39m[22m
 "Warnings corrected to additional rule (real world example)" for "Mo – Fr: 9 – 12 Uhr und Mo, Di, Do: 15 – 18 Uhr": [1m[35mCRASHED[39m[22m, reason: TypeError: Cannot read property '0' of undefined
 "Real world example: Was not processed right." for "Mo off, Tu 14:00-18:00, We-Sa 10:00-18:00": [1m[32mPASSED[39m[22m
@@ -1697,6 +1697,12 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "open; 00:23-00:42 unknown "warning at correct position?" ||": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*open; 00:23-00:42 unknown "warning at correct position?" || <--- (This rule does not contain anything useful. Please remove this empty rule.)
+"Value not ideal (probably wrong). Should throw a warning. warnings_severity: 5" for "Mo-Fr 08:00-16:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Fr 08:00-16:00 <--- (There was no PH (public holiday) specified. This is not very explicit. Unfortunately the tag key (e.g. "opening_hours", or "lit") is unknown to opening_hours.js. This warning only applies to the key opening_hours. If your value is for that key than read on. If not you can ignore the following. Please either append a "PH off" rule if the amenity is closed on all public holidays or use something like "Sa,Su,PH 12:00-16:00" to say that on Saturdays, Sundays and on public holidays the amenity is open 12:00-16:00. If you are not certain try to find it out. If you can’t then do not add PH to the value and ignore this warning.)
+"Value not ideal (probably wrong). Should throw a warning. warnings_severity: 5, "key_name": "opening_hours"" for "Mo-Fr 08:00-16:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Fr 08:00-16:00 <--- (There was no PH (public holiday) specified. This is not very explicit. Please either append a "PH off" rule if the amenity is closed on all public holidays or use something like "Sa,Su,PH 12:00-16:00" to say that on Saturdays, Sundays and on public holidays the amenity is open 12:00-16:00. If you are not certain try to find it out. If you can’t then do not add PH to the value and ignore this warning.)
 "Incorrect syntax which should throw an error" for "MON-FRI 5PM-12AM | SAT-SUN 12PM-12AM": [1m[32mPASSED[39m[22m
 MON-FRI 5PM-12AM |  <--- (Unexpected token: "|" This means that the syntax is not valid at that point or it is currently not supported.) MON <--- (Please use the abbreviation "Mo" for "mon".); MON-FRI <--- (Please use the abbreviation "Fr" for "fri".); MON-FRI 5PM <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM | SAT <--- (Please use the abbreviation "Sa" for "sat".); MON-FRI 5PM-12AM | SAT-SUN <--- (Please use the abbreviation "Su" for "sun".); MON-FRI 5PM-12AM | SAT-SUN 12PM <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM | SAT-SUN 12PM-12AM <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM  <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead "17:00-12:00".)
 
@@ -2043,10 +2049,10 @@ Nov 31 <--- (Month Nov doesn't have 31 days. The last day of Nov is day 30.)
 "Incorrect syntax which should throw an error" for "Dec 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Dec 32 <--- (The day for Dec must be between 1 and 31.)
 
-"Missing information (e.g. country or holidays not defined in this lib)" for "PH": [1m[32mPASSED[39m[22m
+"Missing information (e.g. country or holidays not known to opening_hours.js)" for "PH": [1m[32mPASSED[39m[22m
 Country code missing which is needed to select the correct holidays (see README how to provide it)
 
-"Missing information (e.g. country or holidays not defined in this lib)" for "SH": [1m[32mPASSED[39m[22m
+"Missing information (e.g. country or holidays not known to opening_hours.js)" for "SH": [1m[32mPASSED[39m[22m
 Country code missing which is needed to select the correct holidays (see README how to provide it)
 
 "opening_hours.js is in the wrong mode." for "Mo sunrise,sunset": [1m[32mPASSED[39m[22m
@@ -2154,6 +2160,33 @@ Su 7:30,10 <--- (Missing time separator in time range after: "number")
 "Trying to trigger "Missing time separator in time range after" for mode == 2." for "Su 7:30,10i00,22:00": [1m[32mPASSED[39m[22m
 Su 7:30,10i <--- (Missing time separator in time range after: "number")
 
+"Wrong constructor call should throw an error: warnings_severity: [ 4 ]" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+The optional_conf_parm["warnings_severity"] parameter is of unknown type. Given object, expected number.
+
+"Wrong constructor call should throw an error: warnings_severity: -1" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+The parameter optional_conf_parm["warnings_severity"] must be an integer number between 0 and 7 (inclusive). Given -1, expected one of the following numbers: [ 0, 1, 2, 3, 4, 5, 6, 7 ].
+
+"Wrong constructor call should throw an error: warnings_severity: 4.5" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+The parameter optional_conf_parm["warnings_severity"] must be an integer number between 0 and 7 (inclusive). Given 4.5, expected one of the following numbers: [ 0, 1, 2, 3, 4, 5, 6, 7 ].
+
+"Wrong constructor call should throw an error: warnings_severity: 8" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+The parameter optional_conf_parm["warnings_severity"] must be an integer number between 0 and 7 (inclusive). Given 8, expected one of the following numbers: [ 0, 1, 2, 3, 4, 5, 6, 7 ].
+
+"Wrong constructor call should throw an error: mode: [ 1 ]" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+The optional_conf_parm["mode"] parameter is of unknown type. Given string
+
+"Wrong constructor call should throw an error: mode: -1" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+The optional_conf_parm["mode"] parameter is a invalid number. Gave -1, expected one of the following numbers: [ 0, 1, 2 ].
+
+"Wrong constructor call should throw an error: mode: 1.5" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+The optional_conf_parm["mode"] parameter is a invalid number. Gave 1.5, expected one of the following numbers: [ 0, 1, 2 ].
+
+"Wrong constructor call should throw an error: mode: 4" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+The optional_conf_parm["mode"] parameter is a invalid number. Gave 4, expected one of the following numbers: [ 0, 1, 2 ].
+
+"Wrong constructor call should throw an error: key_name: [ "lit" ]" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+The optional_conf_parm["key_name"] parameter is of unknown type. Given object, expected string.
+
 "Compare result from getMatchingRule()" for "10:00-16:00": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "10:00-16:00;": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "08:00-10:00; 10:00-16:00;": [1m[32mPASSED[39m[22m
@@ -2166,7 +2199,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-825/835 tests passed.
+836/846 tests passed.
 38 tests where (partly) ignored, sorted by commonness:
 * 23: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

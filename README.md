@@ -5,13 +5,13 @@
 Examples of some complex real-life opening_hours values:
 
 ```
-Mo,Tu,Th,Fr 12:00-18:00; Sa 12:00-17:00; Th[3],Th[-1] off
+Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off
 ```
 
 a library which works from 12:00 to 18:00 on workdays except Wednesday, and from 12:00 to 17:00 on Saturday. It also has breaks on third and last Thursday of each month.
 
 ```
-00:00-24:00; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off
+00:00-24:00; Tu-Su,PH 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off
 ```
 
 around-the-clock shop with some breaks.
@@ -141,17 +141,29 @@ function getReadableState(startString, endString, oh, past) {
 
 *   `var oh = new opening_hours('We 12:00-14:00', nominatiomJSON, mode);`
 
-    *   value (mandadory): Constructs opening_hours object, given the opening_hours tag value.
+    *   value (mandadory, type: string): Constructs opening_hours object, given the opening_hours tag value.
 
         Throws an error string if the expression is malformed or unsupported.
 
-    *   nominatiomJSON (optional): In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges][ohlib.time-ranges]) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=5&addressdetails=1) and you are good to go. Note that this second parameter is optional. The data returned by Nominatim should be in the local language (the language of the country for which the opening hours apply). If not, *accept-language* can be used as parameter in the request URL.
+    *   nominatiomJSON (optional, type: object): In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges][ohlib.time-ranges]) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=5&addressdetails=1) and you are good to go. Note that this second parameter is optional. The data returned by Nominatim should be in the local language (the language of the country for which the opening hours apply). If not, *accept-language* can be used as parameter in the request URL.
 
-    *   mode (optional): In OSM, the syntax originally designed to describe opening hours is now used to describe a few other things as well. Some of those other tags work with points in time instead of time ranges. To support this the mode can be specified. If there is no mode specified, opening_hours.js will only operate with time ranges and will throw an error message when points in times are used in the value.
+    *   optional_conf_parm (optional, either of type number of object):
 
-        * 0: time ranges (opening_hours, lit, …) default
-        * 1: points in time
-        * 2: both (time ranges and points in time, used by collection_times, service_times, …)
+        If this parameter is of the type number then it is interpreted as 'mode' (see below). For the type object, the following keys are defined.
+
+        *   'mode' (type: (integer) number): In OSM, the syntax originally designed to describe opening hours, is now used to describe a few other things as well. Some of those other tags work with points in time instead of time ranges. To support this the mode can be specified. *Note that it is recommended to not use the mode parameter directly but instead use the key_name parameter.* If there is no mode specified, opening_hours.js will only operate with time ranges and will throw an error message when points in times are used in the value.
+
+            * 0: time ranges (opening_hours, lit, …) default
+            * 1: points in time
+            * 2: both (time ranges and points in time, used by collection_times, service_times, …)
+
+        * 'key_name' (type: string): The name of the key (Tag key). For example 'opening_hours' or 'lit'. Please always specify this parameter. If you do, the mode will be derived from the 'key_name' parameter. Default is undefined e.g. no default value.
+
+        * 'warnings_severity' (type: number): Can be one of the following numbers. The severity levels (including the codes) match the syslog specification. The default is level 4 to not break backwards compatibility. Lower levels e.g. 5 include higher levels e.g. 4.
+          4: warning
+          5: notice
+          6: info
+          7: debug
 
 *   `var warnings = oh.getWarnings();`
 

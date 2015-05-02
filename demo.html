@@ -426,7 +426,7 @@
 				var value = document.forms.check.elements['expression'].value;
 				var mode = parseInt(document.getElementById('mode').selectedIndex);
 				try {
-					var oh = new opening_hours(value, nominatim, mode);
+					var oh = new opening_hours(value, nominatim, { 'mode': mode, 'warnings_severity': 7 });
 					var it = oh.getIterator(date);
 				} catch (err) {
 					crashed = err;

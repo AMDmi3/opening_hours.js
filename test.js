@@ -316,6 +316,15 @@ var sane_value_suffix = '; 00:23-00:42 closed "warning at correct position?"';
 var value_suffix = '; 00:23-00:42 unknown "warning at correct position?"';
 // This suffix value is there to test if the warning marks the correct position of the problem.
 var value_suffix_to_disable_time_not_used = ' 12:00-15:00';
+var value_perfectly_valid = [
+	'Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off',
+	'00:00-24:00; Tu-Su,PH 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off',
+];
+/* Used in the README and other places.
+ * Those values must be perfectly valid and not return any warnings,
+ * regardless of the warnings_severity.
+ */
+
 /* Avoid the warning that no time selector was used in a rule. Use this if you
  * are checking for values which should return another warning.
  * warning.
@@ -3497,8 +3506,9 @@ test.addTest('Additional comments combined with months', [
 
 // real world examples, mainly values which caused a problem {{{
 test.addTest('Complex example used in README', [
-		'open; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off', // Can be used (better than using 24/7 which will return a warning).
-		'00:00-24:00; Tu-Su 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off', // preferred because more explicit
+		'open; Tu-Su 08:30-09:00 off; Tu-Su,PH 14:00-14:30 off; Mo 08:00-13:00 off',
+		/* Can be used (better than using 24/7 which will return a warning). PH usage does not make much sense … */
+		value_perfectly_valid[1], // preferred because more explicit
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 08:00' ],
 		[ '2012.10.01 13:00', '2012.10.02 08:30' ],
@@ -3514,14 +3524,15 @@ test.addTest('Complex example used in README', [
 		[ '2012.10.06 14:30', '2012.10.07 08:30' ],
 		[ '2012.10.07 09:00', '2012.10.07 14:00' ],
 		[ '2012.10.07 14:30', '2012.10.08 00:00' ],
-	], 1000 * 60 * 60 * (24 * 7 - 5 - 0.5 * 6 - 0.5 * 6), 0, true, {}, 'not last test');
+	], 1000 * 60 * 60 * (24 * 7 - 5 - 0.5 * 6 - 0.5 * 6), 0, false, nominatiomTestJSON, 'not last test', { 'warnings_severity': 7 });
 
 test.addTest('Complex example used in README and benchmark', [
-		'Mo,Tu,Th,Fr 12:00-18:00; Sa 12:00-17:00; Th[3] off; Th[-1] off',
-		'Mo,Tu,Th,Fr 12:00-18:00; Sa 12:00-17:00; Th[3],Th[-1] off', // preferred because shorter
+		'Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3] off; Th[-1] off',
+		value_perfectly_valid[0], // preferred because shorter
 	], '2012.10.01 0:00', '2012.10.31 0:00', [
 		[ '2012.10.01 12:00', '2012.10.01 18:00' ],
 		[ '2012.10.02 12:00', '2012.10.02 18:00' ],
+		[ '2012.10.03 12:00', '2012.10.03 17:00', false, 'Tag der Deutschen Einheit' ],
 		[ '2012.10.04 12:00', '2012.10.04 18:00' ],
 		[ '2012.10.05 12:00', '2012.10.05 18:00' ],
 		[ '2012.10.06 12:00', '2012.10.06 17:00' ],
@@ -3540,7 +3551,7 @@ test.addTest('Complex example used in README and benchmark', [
 		[ '2012.10.27 12:00', '2012.10.27 17:00' ],
 		[ '2012.10.29 12:00', '2012.10.29 18:00' ],
 		[ '2012.10.30 12:00', '2012.10.30 18:00' ],
-	], 1000 * 60 * 60 * (6 * 16 + 5 * 4), 0, false, {}, 'not last test');
+	], 1000 * 60 * 60 * (6 * 16 + 5 * 5), 0, false, nominatiomTestJSON, 'not last test', { 'warnings_severity': 7 });
 
 test.addTest('Warnings corrected to additional rule (real world example)', [
 		'Mo-Fr 09:00-12:00, Mo,Tu,Th 15:00-18:00', // reference value for prettify
@@ -4211,7 +4222,7 @@ test.addTest('Points in time, mode 1', [
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 07:22', '2012.10.01 07:23' ],
 		[ '2012.10.01 19:00', '2012.10.01 19:01' ],
-	], 1000 * 60 * 2, 0, false, nominatiomTestJSON, 'not last test', 1);
+	], 1000 * 60 * 2, 0, false, nominatiomTestJSON, 'not last test', { 'mode': 1 });
 
 // based on real data which could not be parse:
 // http://www.openstreetmap.org/way/159114283/history
@@ -4230,13 +4241,14 @@ test.addTest('Points in time, mode 2', [
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 07:22', '2012.10.01 07:23' ],
 		[ '2012.10.01 19:00', '2012.10.01 19:01' ],
-	], 1000 * 60 * 2, 0, false, nominatiomTestJSON, 'not last test', 2);
+	], 1000 * 60 * 2, 0, false, nominatiomTestJSON, 'not last test', { 'key_name': 'collection_times' });
 
 test.addTest('Points in time, mode 2', [
 		'Mo (sunrise+01:00)',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 08:22', '2012.10.01 08:23' ],
-	], 1000 * 60 * 1, 0, false, nominatiomTestJSON, 'not last test', 2);
+	], 1000 * 60 * 1, 0, false, nominatiomTestJSON, 'not last test', { 'warnings_severity': 5, 'key_name': 'collection_times' });
+	// Test for warn_for_PH_missing.
 
 test.addTest('Points in time and times ranges, mode 2', [
 		'Mo 12:00,13:00-14:00',
@@ -4665,7 +4677,15 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		// <additional_rule_separator>  …
 		// 'Mo 12:00-14:00 und nach Vereinbarung' // Not easily correctable
 		// because of the way error tolerance is implemented.
-	], {}, 'not only test');
+	], nominatiomTestJSON, 'not only test');
+
+test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning. warnings_severity: 5', [
+		'Mo-Fr 08:00-16:00',
+	], nominatiomTestJSON, 'not only test', { 'warnings_severity': 5 });
+
+test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning. warnings_severity: 5, "key_name": "opening_hours"', [
+		'Mo-Fr 08:00-16:00',
+	], nominatiomTestJSON, 'not only test', { 'warnings_severity': 5, 'key_name': 'opening_hours' });
 // }}}
 
 // values which should fail during parsing {{{
@@ -4790,7 +4810,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
 		'Dec 32' + value_suffix,
 	], nominatiomTestJSON, 'not last test');
 
-test.addShouldFail('Missing information (e.g. country or holidays not defined in this lib)', [
+test.addShouldFail('Missing information (e.g. country or holidays not known to opening_hours.js)', [
 		'PH', // country is not specified
 		'SH', // country is not specified
 	]);
@@ -4846,6 +4866,47 @@ for (var i = 0; i <= 2; i++) {
 // }}}
 
 // }}}
+
+/* Wrong constructor call, e.g bad parameters {{{ */
+/* FIXME: Add more. */
+
+test.addShouldFail('Wrong constructor call should throw an error: warnings_severity: [ 4 ]', [
+		value_perfectly_valid[0],
+	], nominatiomTestJSON, 'not only test', { 'warnings_severity': [ 4 ] });
+
+test.addShouldFail('Wrong constructor call should throw an error: warnings_severity: -1', [
+		value_perfectly_valid[0],
+	], nominatiomTestJSON, 'not only test', { 'warnings_severity': -1 });
+
+test.addShouldFail('Wrong constructor call should throw an error: warnings_severity: 4.5', [
+		value_perfectly_valid[0],
+	], nominatiomTestJSON, 'not only test', { 'warnings_severity': 4.5 });
+
+test.addShouldFail('Wrong constructor call should throw an error: warnings_severity: 8', [
+		value_perfectly_valid[0],
+	], nominatiomTestJSON, 'not only test', { 'warnings_severity': 8 });
+
+test.addShouldFail('Wrong constructor call should throw an error: mode: [ 1 ]', [
+		value_perfectly_valid[0],
+	], nominatiomTestJSON, 'not only test', { 'mode': [ 1 ] });
+
+test.addShouldFail('Wrong constructor call should throw an error: mode: -1', [
+		value_perfectly_valid[0],
+	], nominatiomTestJSON, 'not only test', { 'mode': -1 });
+
+test.addShouldFail('Wrong constructor call should throw an error: mode: 1.5', [
+		value_perfectly_valid[0],
+	], nominatiomTestJSON, 'not only test', { 'mode': 1.5 });
+
+test.addShouldFail('Wrong constructor call should throw an error: mode: 4', [
+		value_perfectly_valid[0],
+	], nominatiomTestJSON, 'not only test', { 'mode': 4 });
+
+test.addShouldFail('Wrong constructor call should throw an error: key_name: [ "lit" ]', [
+		value_perfectly_valid[0],
+	], nominatiomTestJSON, 'not only test', { 'key_name': [ 'lit' ] });
+
+/* }}} */
 
 // check if matching rule was evaluated correctly {{{
 test.addCompMatchingRule('Compare result from getMatchingRule()', [
@@ -5226,7 +5287,10 @@ function opening_hours_test() {
 
 	// add test which should fail {{{
 	this.addShouldFail = function(name, values, nominatiomJSON, last, oh_mode) {
-		if (this.last === true) return;
+		if (this.last === true)  {
+			return;
+		}
+
 		this.handle_only_test(last);
 
 		if (typeof values === 'string')
