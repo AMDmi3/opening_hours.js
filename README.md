@@ -197,24 +197,6 @@ function getReadableState(startString, endString, oh, past) {
 
     Checks whether open intervals are same for every week. Useful for giving a user hint whether time table may change for another week.
 
-### High-level API
-
-Here and below, unless noted otherwise, all arguments are expected to be and all output will be in the form of Date objects.
-
-*   `var intervals = oh.getOpenIntervals(from, to);`
-
-    Returns array of open intervals in a given range, in a form of
-
-    ```javascript
-    [ [ from1, to1, unknown1, comment1 ], [ from2, to2, unknown2, comment2 ] ]
-    ```
-
-    Intervals are cropped with the input range.
-
-*   `var duration = oh.getOpenDuration(from, to);`
-
-    Returns an array with two durations for a given date range, in milliseconds. The first element is the duration for which the facility is open and the second is the duration for which the facility is maybe open (unknown is used).
-
 ### Simple API
 
 This API is useful for one-shot checks, but for iteration over intervals you should use the more efficient [iterator API][ohlib.iterator-api].
@@ -258,6 +240,24 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
     ```javascript
     var matching_rule = oh.prettifyValue({ 'rule_index': rule_index });
     ```
+
+### High-level API
+
+Here and below, unless noted otherwise, all arguments are expected to be and all output will be in the form of Date objects.
+
+*   `var intervals = oh.getOpenIntervals(from, to);`
+
+    Returns array of open intervals in a given range, in a form of
+
+    ```javascript
+    [ [ from1, to1, unknown1, comment1 ], [ from2, to2, unknown2, comment2 ] ]
+    ```
+
+    Intervals are cropped with the input range.
+
+*   `var duration = oh.getOpenDuration(from, to);`
+
+    Returns an array with two durations for a given date range, in milliseconds. The first element is the duration for which the facility is open and the second is the duration for which the facility is maybe open (unknown is used).
 
 ### Iterator API
 
@@ -557,7 +557,6 @@ List of features which can make writing easier:
     2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)"
     ```
 
-
 ## How to contribute
 
 You can contribute in the usual manner as known from git (and GitHub). Just fork, change and make a pull request.
@@ -566,13 +565,13 @@ You can contribute in the usual manner as known from git (and GitHub). Just fork
 
 This project uses http://i18next.com/ for translation.
 
-Translations can be made in the file [js/i18n-resources.js][ohlib.js/i18n-resources.js]. Just copy the whole English block, change the language code to the one you are adding and make your translation. You can open the [demo.html](/demo.html) to see the result of your work. To complete your localization add the translated language name to the other languages. Week and month names are translatated by [moment.js][moment-lib].
+Translations can be made in the file [js/i18n-resources.js][ohlib.js/i18n-resources.js]. Just copy the whole English block, change the language code to the one you are adding and make your translation. You can open the [demo.html](/demo.html) to see the result of your work. To complete your localization add the translated language name to the other languages. Week and month names are translated by [moment.js][moment-lib].
 
 Note that this resource file does also provide the localization for the [opening_hours_map]. This can also be tested by cloning the project and linking your modified opening_hours.js working copy to the opening_hours.js directory (after renaming it) inside the opening_hours_map project. Or just follow the installation instructions from the [opening_hours_map].
 
 ### Holidays
 
-Holidays can be added to the file [opening_hours.js][ohlib.opening_hours.js] as JavaScript Object notation. Have a look at the current definitions for [other holidays][ohlib.holidays]. Please add the source for this information (in form of an URL) as comment.
+Holidays can be added to the file [opening_hours.js][ohlib.opening_hours.js] as JavaScript object notation. Have a look at the current definitions for [other holidays][ohlib.holidays]. Please add the source for this information (in form of an URL) as comment.
 
 Please consider adding a test (with a time range of one year for example) to see if everything works as expected and to ensure that it will stay that way.
 See under [testing][ohlib.testing].
@@ -637,9 +636,9 @@ Contributor                                     | Contribution
 
 ## Credits
 
-* [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favor of opening_hours.js but a few parts where reused (mainly the input tolerance and the online evaluation for the [demo page][ohlib.evaluation-tooldemohtml]). It was also very useful as prove and motivation that all those complex things used in opening_hours values are possible to evaluate with software :) )
+* [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favor of opening_hours.js but a few parts where reused (mainly the input tolerance and the online evaluation for the [demo page][ohlib.evaluation-tooldemohtml]). It was also very useful as prove and motivation that all those complex things used in the [opening_hours syntax][oh:specification] are possible to evaluate with software :) )
 * Also thanks to FOSSGIS for hosting a public instance of this service. See the [wiki][fossgis-project].
-* The [favicon.png](/favicon.png) is based on the file ic_action_add_alarm.png from the [Android Design Icons](https://developer.android.com/downloads/design/Android_Design_Icons_20131106.zip) which is licensed under [Creative Commons Attribution 2.5](https://creativecommons.org/licenses/by/2.5/). It represents a clock next to the most common opening_hours value (by far) and a check mark.
+* The [favicon.png](/favicon.png) is based on the file ic_action_add_alarm.png from the [Android Design Icons](https://developer.android.com/downloads/design/Android_Design_Icons_20131106.zip) which is licensed under [Creative Commons Attribution 2.5](https://creativecommons.org/licenses/by/2.5/). It represents a clock next to the most common opening_hours value (by far) which is `24/7` and a check mark.
 
 ## License
 

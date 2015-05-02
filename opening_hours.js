@@ -3679,8 +3679,8 @@
 				 * code in the (sub) selector parser function directly.
 				 */
 
-				var wide_range_selectors = [ 'year', 'month', 'week', 'holiday' ];
-				var small_range_selectors = [ 'weekday', 'time', '24/7', 'state', 'comment'];
+				var wide_range_selector_order = [ 'year', 'month', 'week', 'holiday' ];
+				var small_range_selector_order = [ 'weekday', 'time', '24/7', 'state', 'comment'];
 
 				// How many times was a selector_type used per rule? {{{
 				var used_selectors = [];
@@ -3749,7 +3749,6 @@
 						}
 					}
 					/* }}} */
-
 					/* Check if change default state rule is not the first rule {{{ */
 					if (   typeof used_selectors[nrule].state === 'object'
 						&& Object.keys(used_selectors[nrule]).length === 1
@@ -3782,7 +3781,6 @@
 						}
 					}
 					/* }}} */
-
 					/* Check if empty comment was given {{{ */
 					if (typeof used_selectors[nrule].comment === 'object'
 						&& new_tokens[nrule][0][used_selectors[nrule].comment[0]][0].length === 0
@@ -3794,7 +3792,27 @@
 						]);
 					}
 					/* }}} */
+					/* Check for valid use of <separator_for_readability> {{{ */
+					for (var i = 0; i < used_selectors_types_array[nrule].length - 1; i++) {
+						var selector_type = used_selectors_types_array[nrule][i];
+						var next_selector_type = used_selectors_types_array[nrule][i+1];
+						if (   (   wide_range_selector_order.indexOf(selector_type)       !== -1
+								&& wide_range_selector_order.indexOf(next_selector_type)  !== -1
+							) || ( small_range_selector_order.indexOf(selector_type)      !== -1
+								&& small_range_selector_order.indexOf(next_selector_type) !== -1)
+							) {
 
+							if (new_tokens[nrule][0][used_selectors[nrule][selector_type][0]][0] === ':') {
+								parsing_warnings.push([nrule, used_selectors[nrule][selector_type][0],
+									"You have used the optional symbol <separator_for_readability> in the wrong place."
+									+ " Please check the syntax specification to see where it could be used or remove it."
+								]);
+							}
+						}
+					}
+					/* }}} */
+
+					/* Disabled checks {{{ */
 					/* Check if rule with closed|off modifier is additional {{{ */
 					/* FIXME: Enable this test. */
 					if (typeof new_tokens[nrule][0][0] === 'object'
@@ -3814,25 +3832,6 @@
 						// ]);
 					}
 					/* }}} */
-
-					/* Check for valid use of <separator_for_readability> {{{ */
-					for (var i = 0; i < used_selectors_types_array[nrule].length - 1; i++) {
-						var selector_type = used_selectors_types_array[nrule][i];
-						var next_selector_type = used_selectors_types_array[nrule][i+1];
-						if (   (   wide_range_selectors.indexOf(selector_type)       !== -1
-								&& wide_range_selectors.indexOf(next_selector_type)  !== -1
-							) || ( small_range_selectors.indexOf(selector_type)      !== -1
-								&& small_range_selectors.indexOf(next_selector_type) !== -1)
-							) {
-
-							if (new_tokens[nrule][0][used_selectors[nrule][selector_type][0]][0] === ':') {
-								parsing_warnings.push([nrule, used_selectors[nrule][selector_type][0],
-									"You have used the optional symbol <separator_for_readability> in the wrong place."
-									+ " Please check the syntax specification to see where it could be used or remove it."
-								]);
-							}
-						}
-					}
 					/* }}} */
 
 				}
@@ -3943,28 +3942,31 @@
 		 * :returns: Prettified value string or object if get_internals is true.
 		 */
 		function prettifyValue(argument_hash) {
-			var user_conf = {},
-				get_internals   = false,
-				rule_index;
+			var user_conf = {};
+			var get_internals = false;
+			var rule_index;
+
+			prettified_value = '';
+			var prettified_value_array = [];
+
 			if (typeof argument_hash !== 'undefined') {
-
-				if (typeof argument_hash.conf === 'object')
+				if (typeof argument_hash.conf === 'object') {
 					user_conf = argument_hash.conf;
+				}
 
-				if (typeof argument_hash.rule_index === 'number')
+				if (typeof argument_hash.rule_index === 'number') {
 					rule_index = argument_hash.rule_index;
+				}
 
-				if (argument_hash.get_internals === true)
+				if (argument_hash.get_internals === true) {
 					get_internals = true;
+				}
 			}
 
 			for (var key in default_prettify_conf) {
 				if (typeof user_conf[key] === 'undefined')
 					user_conf[key] = default_prettify_conf[key];
 			}
-
-			prettified_value = '';
-			var prettified_value_array = [];
 
 			for (var nrule = 0; nrule < new_tokens.length; nrule++) {
 				if (new_tokens[nrule][0].length === 0) continue;
@@ -3989,11 +3991,10 @@
 							user_conf.rule_sep_string);
 				}
 
-				var selector_start_end_type = [ 0, 0, undefined ],
-					prettified_group_value = [];
-				// console.log(new_tokens[nrule][0]);
+				var selector_start_end_type = [ 0, 0, undefined ];
+				var prettified_group_value = [];
 				var count = 0;
-
+				// console.log(new_tokens[nrule][0]);
 
 				do {
 					selector_start_end_type = getSelectorRange(new_tokens[nrule][0], selector_start_end_type[1]);
@@ -6330,7 +6331,155 @@
 		// All functions below are considered public.
 		//======================================================================
 
-		// Iterator interface {{{
+		// Simple API {{{
+
+		this.getState = function(date) {
+			var it = this.getIterator(date);
+			return it.getState();
+		};
+
+		this.getUnknown = function(date) {
+			var it = this.getIterator(date);
+			return it.getUnknown();
+		};
+
+		this.getStateString = function(date, past) {
+			var it = this.getIterator(date);
+			return it.getStateString(past);
+		};
+
+		this.getComment = function(date) {
+			var it = this.getIterator(date);
+			return it.getComment();
+		};
+
+		this.getMatchingRule = function(date) {
+			var it = this.getIterator(date);
+			return it.getMatchingRule();
+		};
+
+		/* Not available for iterator API {{{ */
+		/* getWarnings: Get warnings, empty list if none {{{ */
+		this.getWarnings = function() {
+			var it = this.getIterator();
+			return getWarnings(it);
+		};
+		/* }}} */
+
+		/* prettifyValue: Get a nicely formated value {{{ */
+		this.prettifyValue = function(argument_hash) {
+			this.getWarnings();
+			/* getWarnings has to be run before prettifyValue because some
+			 * decisions if a certain aspect makes sense to prettify or not
+			 * are based on the warnings.
+			 * Basically, both functions depend on each other in some way :(
+			 * See done_with_selector_reordering.
+			 */
+			return prettifyValue(argument_hash);
+		};
+		/* }}} */
+
+		/* getNextChange: Get time of next status change {{{ */
+		this.getNextChange = function(date, maxdate) {
+			var it = this.getIterator(date);
+			if (!it.advance(maxdate))
+				return undefined;
+			return it.getDate();
+		};
+		/* }}} */
+
+		/* isWeekStable: Checks whether open intervals are same for every week. {{{ */
+		this.isWeekStable = function() {
+			return week_stable;
+		};
+		/* }}} */
+		/* }}} */
+		/* }}} */
+
+		// High-level API {{{
+		/* getOpenIntervals: Get array of open intervals between two dates {{{ */
+		this.getOpenIntervals = function(from, to) {
+			var res = [];
+
+			var it = this.getIterator(from);
+
+			if (it.getState() || it.getUnknown())
+				res.push([from, undefined, it.getUnknown(), it.getComment()]);
+
+			while (it.advance(to)) {
+				if (it.getState() || it.getUnknown()) {
+					if (res.length !== 0 && typeof res[res.length - 1][1] === 'undefined') {
+						// last state was also open or unknown
+						res[res.length - 1][1] = it.getDate();
+					}
+					res.push([it.getDate(), undefined, it.getUnknown(), it.getComment()]);
+				} else {
+					if (res.length !== 0 && typeof res[res.length - 1][1] === 'undefined') {
+						// only use the first time as closing/change time and ignore closing times which might follow
+						res[res.length - 1][1] = it.getDate();
+					}
+				}
+			}
+
+			if (res.length > 0 && typeof res[res.length - 1][1] === 'undefined')
+				res[res.length - 1][1] = to;
+
+			return res;
+		};
+		/* }}} */
+
+		/* getOpenDuration: Get total number of milliseconds a facility is open,unknown within a given date range {{{ */
+		this.getOpenDuration = function(from, to) {
+		// console.log('-----------');
+
+			var open    = 0;
+			var unknown = 0;
+
+			var it = this.getIterator(from);
+			var prevdate    = (it.getState() || it.getUnknown()) ? from : undefined;
+			var prevstate   = it.getState();
+			var prevunknown = it.getUnknown();
+
+			while (it.advance(to)) {
+				if (it.getState() || it.getUnknown()) {
+
+					if (typeof prevdate !== 'undefined') {
+						// last state was also open or unknown
+						if (prevunknown) //
+							unknown += it.getDate().getTime() - prevdate.getTime();
+						else if (prevstate)
+							open    += it.getDate().getTime() - prevdate.getTime();
+					}
+
+					prevdate    = it.getDate();
+					prevstate   = it.getState();
+					prevunknown = it.getUnknown();
+					// console.log('if', prevdate, open / (1000 * 60 * 60), unknown / (1000 * 60 * 60));
+				} else {
+					// console.log('else', prevdate);
+					if (typeof prevdate !== 'undefined') {
+						if (prevunknown)
+							unknown += it.getDate().getTime() - prevdate.getTime();
+						else
+							open    += it.getDate().getTime() - prevdate.getTime();
+						prevdate = undefined;
+					}
+				}
+			}
+
+			if (typeof prevdate !== 'undefined') {
+				if (prevunknown)
+					unknown += to.getTime() - prevdate.getTime();
+				else
+					open    += to.getTime() - prevdate.getTime();
+			}
+
+			return [ open, unknown ];
+		};
+		/* }}} */
+		/* }}} */
+
+		// Iterator API {{{
 		this.getIterator = function(date) {
 			return new function(oh) {
 				if (typeof date === 'undefined')
@@ -6425,156 +6574,8 @@
 				/* }}} */
 			}(this);
 		};
-		// }}}
-
-		// Simple API {{{
-
-		this.getState = function(date) {
-			var it = this.getIterator(date);
-			return it.getState();
-		};
-
-		this.getUnknown = function(date) {
-			var it = this.getIterator(date);
-			return it.getUnknown();
-		};
-
-		this.getStateString = function(date, past) {
-			var it = this.getIterator(date);
-			return it.getStateString(past);
-		};
-
-		this.getComment = function(date) {
-			var it = this.getIterator(date);
-			return it.getComment();
-		};
-
-		this.getMatchingRule = function(date) {
-			var it = this.getIterator(date);
-			return it.getMatchingRule();
-		};
-
-		/* Not available for iterator API {{{ */
-		/* getWarnings: Get warnings, empty list if none {{{ */
-		this.getWarnings = function() {
-			var it = this.getIterator();
-			return getWarnings(it);
-		};
 		/* }}} */
 
-		/* prettifyValue: Get a nicely formated value {{{ */
-		this.prettifyValue = function(argument_hash) {
-			this.getWarnings();
-			/* getWarnings has to be run before prettifyValue because some
-			 * decisions if a certain aspect makes sense to prettify or not
-			 * are based on the warnings.
-			 * Basically, both functions depend on each other in some way :(
-			 * See done_with_selector_reordering.
-			 */
-			return prettifyValue(argument_hash);
-		};
-		/* }}} */
-
-		/* getNextChange: Get time of next status change {{{ */
-		this.getNextChange = function(date, maxdate) {
-			var it = this.getIterator(date);
-			if (!it.advance(maxdate))
-				return undefined;
-			return it.getDate();
-		};
-		/* }}} */
-
-		/* isWeekStable: Checks whether open intervals are same for every week. {{{ */
-		this.isWeekStable = function() {
-			return week_stable;
-		};
-		/* }}} */
-		/* }}} */
-		/* }}} */
-
-		// High-level API {{{
-
-		/* getOpenIntervals: Get array of open intervals between two dates {{{ */
-		this.getOpenIntervals = function(from, to) {
-			var res = [];
-
-			var it = this.getIterator(from);
-
-			if (it.getState() || it.getUnknown())
-				res.push([from, undefined, it.getUnknown(), it.getComment()]);
-
-			while (it.advance(to)) {
-				if (it.getState() || it.getUnknown()) {
-					if (res.length !== 0 && typeof res[res.length - 1][1] === 'undefined') {
-						// last state was also open or unknown
-						res[res.length - 1][1] = it.getDate();
-					}
-					res.push([it.getDate(), undefined, it.getUnknown(), it.getComment()]);
-				} else {
-					if (res.length !== 0 && typeof res[res.length - 1][1] === 'undefined') {
-						// only use the first time as closing/change time and ignore closing times which might follow
-						res[res.length - 1][1] = it.getDate();
-					}
-				}
-			}
-
-			if (res.length > 0 && typeof res[res.length - 1][1] === 'undefined')
-				res[res.length - 1][1] = to;
-
-			return res;
-		};
-		/* }}} */
-
-		/* getOpenDuration: Get total number of milliseconds a facility is open,unknown within a given date range {{{ */
-		this.getOpenDuration = function(from, to) {
-		// console.log('-----------');
-
-			var open    = 0;
-			var unknown = 0;
-
-			var it = this.getIterator(from);
-			var prevdate    = (it.getState() || it.getUnknown()) ? from : undefined;
-			var prevstate   = it.getState();
-			var prevunknown = it.getUnknown();
-
-			while (it.advance(to)) {
-				if (it.getState() || it.getUnknown()) {
-
-					if (typeof prevdate !== 'undefined') {
-						// last state was also open or unknown
-						if (prevunknown) //
-							unknown += it.getDate().getTime() - prevdate.getTime();
-						else if (prevstate)
-							open    += it.getDate().getTime() - prevdate.getTime();
-					}
-
-					prevdate    = it.getDate();
-					prevstate   = it.getState();
-					prevunknown = it.getUnknown();
-					// console.log('if', prevdate, open / (1000 * 60 * 60), unknown / (1000 * 60 * 60));
-				} else {
-					// console.log('else', prevdate);
-					if (typeof prevdate !== 'undefined') {
-						if (prevunknown)
-							unknown += it.getDate().getTime() - prevdate.getTime();
-						else
-							open    += it.getDate().getTime() - prevdate.getTime();
-						prevdate = undefined;
-					}
-				}
-			}
-
-			if (typeof prevdate !== 'undefined') {
-				if (prevunknown)
-					unknown += to.getTime() - prevdate.getTime();
-				else
-					open    += to.getTime() - prevdate.getTime();
-			}
-
-			return [ open, unknown ];
-		};
-		/* }}} */
-		/* }}} */
 		/* }}} */
 	};
 }));
