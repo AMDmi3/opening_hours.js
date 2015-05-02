@@ -4226,10 +4226,12 @@ test.addTest('Points in time, mode 1', [
 
 test.addTest('Points in time, mode 1', [
 		'Mo sunrise,sunset',
+		'Mon sunrise,sunset',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 07:22', '2012.10.01 07:23' ],
 		[ '2012.10.01 19:00', '2012.10.01 19:01' ],
-	], 1000 * 60 * 2, 0, false, nominatiomTestJSON, 'not last test', { 'mode': 1 });
+	], 1000 * 60 * 2, 0, false, nominatiomTestJSON, 'not last test', { 'mode': 1, 'warnings_severity': 0 });
+	// Should not return any warnings.
 
 // based on real data which could not be parse:
 // http://www.openstreetmap.org/way/159114283/history

@@ -3802,6 +3802,10 @@
 		 * :returns: Warnings as list with one warning per element.
 		 */
 		function getWarnings(it) {
+			if (warnings_severity < 4) {
+				return [];
+			}
+
 			if (!done_with_warnings && typeof it === 'object') {
 				/* getWarnings was called in a state without critical errors.
 				 * We can do extended tests.

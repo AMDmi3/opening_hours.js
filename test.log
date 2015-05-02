@@ -1288,6 +1288,7 @@ With [1m[34mwarnings[39m[22m:
 "Additional rules with comment" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Points in time, mode 1" for "Mo 12:00,15:00; Tu-Fr 14:00": [1m[32mPASSED[39m[22m
 "Points in time, mode 1" for "Mo sunrise,sunset": [1m[32mPASSED[39m[22m
+"Points in time, mode 1" for "Mon sunrise,sunset": [1m[32mPASSED[39m[22m
 "Points in time with month, mode 1" for "Apr 08:00": [1m[32mPASSED[39m[22m
 "Points in time with month, mode 1" for "Apr: 08:00": [1m[32mPASSED[39m[22m
 "Points in time with month, mode 1" for "Apr. 08:00": [1m[32mPASSED[39m[22m
@@ -2214,7 +2215,7 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-840/851 tests passed.
+841/852 tests passed.
 39 tests where (partly) ignored, sorted by commonness:
 * 24: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
