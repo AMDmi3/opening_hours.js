@@ -2615,14 +2615,13 @@ test.addTest('Constrained weekday (complex real world example)', [
 // additional rules {{{
 test.addTest('Additional rules', [
 		'Mo-Fr 10:00-16:00, We 12:00-18:00',
-		'Mo-Fr 10:00-16:00, We 12:00-18:00,',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 10:00', '2012.10.01 16:00' ],
 		[ '2012.10.02 10:00', '2012.10.02 16:00' ],
 		[ '2012.10.03 10:00', '2012.10.03 18:00' ],
 		[ '2012.10.04 10:00', '2012.10.04 16:00' ],
 		[ '2012.10.05 10:00', '2012.10.05 16:00' ],
-	], 1000 * 60 * 60 * (6 * 5 + 2), 0, true, {}, 'not last test');
+	], 1000 * 60 * 60 * (6 * 5 + 2), 0, true, {}, 'not last test', { 'warnings_severity': 5, 'key_name': 'opening_hours:kitchen' });
 
 test.addTest('Additional rules', [
 		'Mo-Fr 08:00-12:00, We 14:00-18:00',
@@ -4677,6 +4676,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
 		// <additional_rule_separator>  …
 		// 'Mo 12:00-14:00 und nach Vereinbarung' // Not easily correctable
 		// because of the way error tolerance is implemented.
+		'We 12:00-18:00,',
 	], nominatiomTestJSON, 'not only test');
 
 test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning. warnings_severity: 5', [

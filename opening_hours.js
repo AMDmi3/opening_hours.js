@@ -3177,17 +3177,16 @@
 			'zero_pad_month_and_week_numbers': false, // Format week (e.g. `week 01`) and month day numbers (e.g. `Jan 01`) with "%02d".
 		};
 
-		/* FIXME: Allow regex in key. */
 		var osm_tag_defaults = {
-			'opening_hours'        : { 'mode': 0, 'warn_for_PH_missing': true, },
-			'collection_times'     : { 'mode': 2, },
-			// 'opening_hours:*'   : { 'mode': 0, },
-			// '*:opening_hours'   : { 'mode': 0, },
-			// '*:opening_hours:*' : { 'mode': 0, },
-			'smoking_hours'        : { 'mode': 0, },
-			'service_times'        : { 'mode': 2, },
-			'happy_hours'          : { 'mode': 0, },
-			'lit'                  : { 'mode': 0,
+			'opening_hours'       :  { 'mode' :  0, 'warn_for_PH_missing' :  true, },
+			'collection_times'    :  { 'mode' :  2, },
+			'opening_hours:.+'    :  { 'mode' :  0, },
+			'.+:opening_hours'    :  { 'mode' :  0, },
+			'.+:opening_hours:.+' :  { 'mode' :  0, },
+			'smoking_hours'       :  { 'mode' :  0, },
+			'service_times'       :  { 'mode' :  2, },
+			'happy_hours'         :  { 'mode' :  0, },
+			'lit'                 :  { 'mode' :  0,
 				map: {
 					'yes'      : 'sunset-sunrise open "specified as yes: At night (unknown time schedule or daylight detection)"',
 					'automatic': 'unknown "specified as automatic: When someone enters the way the lights are turned on."',
@@ -3250,7 +3249,8 @@
 		 */
 
 		var oh_mode;
-		var oh_key;
+		var oh_key, oh_regex_key;
+
 		if (typeof optional_conf_parm === 'number') {
 			oh_mode = optional_conf_parm;
 		} else if (typeof optional_conf_parm === 'object') {
@@ -3285,10 +3285,14 @@
 				+ ' Given ' + typeof(optional_conf_parm);
 		}
 
+		if (typeof oh_key === 'string') {
+			oh_regex_key = getRegexKeyForKeyFromOsmDefaults(oh_key)
+		}
+
 		if (typeof oh_mode === 'undefined') {
 			if (typeof oh_key === 'string') {
-				if (typeof osm_tag_defaults[oh_key] === 'object' && typeof osm_tag_defaults[oh_key]['mode'] === 'number') {
-					oh_mode = osm_tag_defaults[oh_key]['mode'];
+				if (typeof osm_tag_defaults[oh_regex_key]['mode'] === 'number') {
+					oh_mode = osm_tag_defaults[oh_regex_key]['mode'];
 				} else {
 					oh_mode = 0;
 				}
@@ -3445,7 +3449,29 @@
 		}
 		// console.log(JSON.stringify(tokens, null, '    '));
 		// console.log(JSON.stringify(new_tokens, null, '    '));
-		// }}}
+		/* }}} */
+
+		/* Helper functions {{{ */
+		/* Get regex string key from key osm_tag_defaults. {{{
+		 *
+		 * :param key: Tag key e.g. opening_hours:kitchen.
+		 * :returns: Regex key from osm_tag_defaults e.g. opening_hours:.*
+		 */
+		function getRegexKeyForKeyFromOsmDefaults(key) {
+			var regex_key;
+
+			for (var osm_key in osm_tag_defaults) {
+				if (key === osm_key) { // Exact match.
+					regex_key = osm_key;
+					break;
+				} else if (key.match(osm_key)) {
+					regex_key = osm_key;
+				}
+			}
+			return regex_key;
+		}
+		/* }}} */
+		/* }}} */
 
 		/* Format warning or error message for the user. {{{
 		 *
@@ -3947,8 +3973,11 @@
 					&& !has_token['PH']
 					&& !done_with_warnings
 					&& (
-						(typeof oh_key === 'string' && osm_tag_defaults[oh_key]['warn_for_PH_missing'])
-						|| (typeof oh_key !== 'string')
+							(
+								typeof oh_key === 'string'
+								&& osm_tag_defaults[oh_regex_key]['warn_for_PH_missing']
+							)
+							|| (typeof oh_key !== 'string')
 					   )
 					) {
 

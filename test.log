@@ -876,7 +876,6 @@ With [1m[34mwarnings[39m[22m:
 "Constrained weekday (complex real world example)" for "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug: Su[-1] 10:00-18:00": [1m[32mPASSED[39m[22m
 "Constrained weekday (complex real world example)" for "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug: Su[-1] 10:00-18:00": [1m[32mPASSED[39m[22m
 "Additional rules" for "Mo-Fr 10:00-16:00, We 12:00-18:00": [1m[32mPASSED[39m[22m
-"Additional rules" for "Mo-Fr 10:00-16:00, We 12:00-18:00,": [1m[32mPASSED[39m[22m
 "Additional rules" for "Mo-Fr 08:00-12:00, We 14:00-18:00": [1m[32mPASSED[39m[22m
 "Additional rules" for "Mo-Fr 08:00-12:00, We 14:00-18:00, Su off": [1m[32mPASSED[39m[22m
 "Fallback group rules (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call"": [1m[32mPASSED[39m[22m
@@ -1697,6 +1696,9 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "open; 00:23-00:42 unknown "warning at correct position?" ||": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*open; 00:23-00:42 unknown "warning at correct position?" || <--- (This rule does not contain anything useful. Please remove this empty rule.)
+"Value not ideal (probably wrong). Should throw a warning." for "We 12:00-18:00,": [1m[31mFAILED[39m[22m
+false
+
 "Value not ideal (probably wrong). Should throw a warning. warnings_severity: 5" for "Mo-Fr 08:00-16:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Fr 08:00-16:00 <--- (There was no PH (public holiday) specified. This is not very explicit. Unfortunately the tag key (e.g. "opening_hours", or "lit") is unknown to opening_hours.js. This warning only applies to the key opening_hours. If your value is for that key than read on. If not you can ignore the following. Please either append a "PH off" rule if the amenity is closed on all public holidays or use something like "Sa,Su,PH 12:00-16:00" to say that on Saturdays, Sundays and on public holidays the amenity is open 12:00-16:00. If you are not certain try to find it out. If you can’t then do not add PH to the value and ignore this warning.)
@@ -2205,7 +2207,7 @@ The optional_conf_parm["key_name"] parameter is of unknown type. Given object, e
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-838/848 tests passed.
+837/848 tests passed.
 38 tests where (partly) ignored, sorted by commonness:
 * 23: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
