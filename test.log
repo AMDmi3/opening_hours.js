@@ -1194,6 +1194,7 @@ With [1m[34mwarnings[39m[22m:
 	*2012 Feb week 5 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 "Selector order" for "week 5 Feb 2012-2014": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
+	*week 5 Feb 2012-2014 <--- (The year is in the past.)
 	*week 5 Feb 2012-2014 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 	*2012-2014 <--- (The selector "year" was switched with the selector "week" for readablitity and compatibiltity reasons.)
 	*2012-2014 Feb week 5 <--- (The selector "week" was switched with the selector "year" for readablitity and compatibiltity reasons.)
@@ -1689,6 +1690,7 @@ With [1m[34mwarnings[39m[22m:
 	*2012 Feb week 6 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 "Value not ideal (probably wrong). Should throw a warning." for "week 6 Feb 2012-2014": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*week 6 Feb 2012-2014 <--- (The year is in the past.)
 	*week 6 Feb 2012-2014 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 	*2012-2014 <--- (The selector "year" was switched with the selector "week" for readablitity and compatibiltity reasons.)
 	*2012-2014 Feb week 6 <--- (The selector "week" was switched with the selector "year" for readablitity and compatibiltity reasons.)

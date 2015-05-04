@@ -5641,6 +5641,9 @@
 						if (!is_range && year_from < new Date().getFullYear()) {
 							parsing_warnings.push([ nrule, at, 'The year is in the past.' ]);
 						}
+						if (is_range && tokens[at+2][0] < new Date().getFullYear()) {
+							parsing_warnings.push([ nrule, at+2, 'The year is in the past.' ]);
+						}
 					// }}}
 
 					selectors.year.push(function(tokens, at, year_from, is_range, has_period, period) { return function(date) {
