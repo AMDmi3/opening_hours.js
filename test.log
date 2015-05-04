@@ -423,12 +423,14 @@ With [1m[34mwarnings[39m[22m:
 	*SHWe <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH: Only if SH is Wednesday" for "2014 SH We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*2014  <--- (The year is in the past.)
 	*2014 SH We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH,PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH,PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "2014 SH,PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*2014  <--- (The year is in the past.)
 	*2014 SH,PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "Jan-Feb SH,PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -884,6 +886,8 @@ With [1m[34mwarnings[39m[22m:
 "Fallback group rules (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || unknown "should never appear"": [1m[32mPASSED[39m[22m
 "Fallback group rules (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || open "should never appear"": [1m[32mPASSED[39m[22m
 "Fallback group rules (unknown). Example for the tokenizer documentation." for "We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012 "please call"; Jan 1 open "should never appear"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012  <--- (The year is in the past.)
 "Fallback group rules" for "We-Fr 10:00-24:00 open "first" || We "please call" || open "we are open!!!"": [1m[32mPASSED[39m[22m
 "Fallback group rules" for "Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00, PH off || Tu 06:00-06:00 open "Notdienst"": [1m[32mPASSED[39m[22m
 "Fallback group rules" for "Mo-Fr 08:00-12:00,14:00-18:00; Sa 09:00-13:00; PH off || Tu 06:00-06:00 open "Notdienst"": [1m[32mPASSED[39m[22m
@@ -955,6 +959,7 @@ With [1m[34mwarnings[39m[22m:
 	*Nov-Nov <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Month ranges" for "2012 Nov-Nov": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*2012  <--- (The year is in the past.)
 	*2012 Nov-Nov <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Month ranges" for "Jan 1,Dec 24-25; Nov Th[4]": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -966,6 +971,7 @@ With [1m[34mwarnings[39m[22m:
 	*Jan 1,Dec 24,25; Nov Th[4] <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Month ranges" for "2012 Jan 1,2012 Dec 24-25; 2012 Nov Th[4]": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*2012 Jan 1,2012 Dec 24-25; 2012  <--- (The year is in the past.)
 	*2012 Jan 1,2012 Dec 24-25 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 	*2012 Jan 1,2012 Dec 24-25; 2012 Nov Th[4] <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Month ranges" for "Jan 1,Dec 11,Dec 15-17,Dec 19-23/2,Dec 24-25": [1m[32mPASSED[39m[22m
@@ -1004,6 +1010,8 @@ With [1m[34mwarnings[39m[22m:
 	*2013 Dec 31; 2014 Jan 5 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Full day (with year)" for "2013/10 Dec 31; 2014/10 Jan 5": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*2013 <--- (The year is in the past.)
+	*2013/10 Dec 31; 2014 <--- (The year is in the past.)
 	*2013/10 Dec 31 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 	*2013/10 Dec 31; 2014/10 Jan 5 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Date range which only applies for one year" for "2013 Dec 31": [1m[32mPASSED[39m[22m
@@ -1011,6 +1019,7 @@ With [1m[34mwarnings[39m[22m:
 	*2013 Dec 31 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Date range which only applies for one year" for "2013 Dec 31; 2014 Jan 5; 2014+ off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*2013 Dec 31; 2014 Jan 5; 2014 <--- (The year is in the past.)
 	*2013 Dec 31 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 	*2013 Dec 31; 2014 Jan 5 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Monthday (with year) ranges spanning year boundary" for "2013 Dec 31-2014 Jan 2": [1m[32mPASSED[39m[22m
@@ -1051,7 +1060,16 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*2015 Feb 29 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Last day in month" for "Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; Feb 29 open "last day in month (Feb, leap year)"; 2009 <--- (The year is in the past.)
+	*Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010 <--- (The year is in the past.)
+	*Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010/4,2011 <--- (The year is in the past.)
 "Last day in month" for "Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; 2008/4 Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; 2008 <--- (The year is in the past.)
+	*Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; 2008/4 Feb 29 open "last day in month (Feb, leap year)"; 2009 <--- (The year is in the past.)
+	*Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; 2008/4 Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010 <--- (The year is in the past.)
+	*Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; 2008/4 Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010/4,2011 <--- (The year is in the past.)
 "Periodical monthdays" for "Jan 1-31/8 00:00-24:00": [1m[32mPASSED[39m[22m
 "Periodical monthdays" for "Jan 1-31/8: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Periodical monthdays" for "Jan 1-31/8": [1m[32mPASSED[39m[22m
@@ -1078,9 +1096,11 @@ With [1m[34mwarnings[39m[22m:
 	*Jan 10-31/7 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*2013 <--- (The year is in the past.)
 	*2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1 Mo-Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*2013 <--- (The year is in the past.)
 	*2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1 Mo-Su <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Date range which only applies for specific year" for "2060+": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1163,10 +1183,12 @@ With [1m[34mwarnings[39m[22m:
 	*Feb week 5 Mo-Su 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 "Selector order" for "2012 00:00-24:00 week 5 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
+	*2012  <--- (The year is in the past.)
 	*2012 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
 	*2012 Feb week 5 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 "Selector order" for "00:00-24:00 2012 week 5 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
+	*00:00-24:00 2012  <--- (The year is in the past.)
 	*2012 <--- (The selector "year" was switched with the selector "time" for readablitity and compatibiltity reasons.)
 	*2012 Feb <--- (The selector "month" was switched with the selector "year" for readablitity and compatibiltity reasons.)
 	*2012 Feb week 5 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
@@ -1510,6 +1532,7 @@ With [1m[34mwarnings[39m[22m:
 	*2013-2015/1 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*2013 <--- (The year is in the past.)
 	*2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1  <--- (Please don’t use year ranges with period equals one.)
 	*2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo: 15:00-16:00 off; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
@@ -1601,6 +1624,7 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "2014/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2014/1 <--- (Please don’t use year ranges with period equals one. If you want to express that a facility is open starting from a year without limit use "<year>+".)
+	*2014 <--- (The year is in the past.)
 	*2014/1 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-Sa 11:00-21:00 Su off; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1654,10 +1678,12 @@ With [1m[34mwarnings[39m[22m:
 	*Feb week 6 Mo-Su 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 "Value not ideal (probably wrong). Should throw a warning." for "2012 00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*2012  <--- (The year is in the past.)
 	*2012 Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
 	*2012 Feb week 6 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 "Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 2012 week 6 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*00:00-24:00 2012  <--- (The year is in the past.)
 	*2012 <--- (The selector "year" was switched with the selector "time" for readablitity and compatibiltity reasons.)
 	*2012 Feb <--- (The selector "month" was switched with the selector "year" for readablitity and compatibiltity reasons.)
 	*2012 Feb week 6 00:00-24:00 <--- (The selector "time" was switched with the selector "month" for readablitity and compatibiltity reasons.)
@@ -1668,9 +1694,11 @@ With [1m[34mwarnings[39m[22m:
 	*2012-2014 Feb week 6 <--- (The selector "week" was switched with the selector "year" for readablitity and compatibiltity reasons.)
 "Value not ideal (probably wrong). Should throw a warning." for "2012 Jan-Feb; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*2012  <--- (The year is in the past.)
 	*2012 Jan-Feb <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "2012 Jan-Feb open; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*2012  <--- (The year is in the past.)
 	*2012 Jan-Feb open <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "12:00-14:00 ""; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1927,7 +1955,7 @@ Jun 2-20/0 <--- (You can not use day ranges with period equals zero.)
 2014/0 <--- (You can not use year ranges with period equals zero.)
 
 "Incorrect syntax which should throw an error" for "2014-; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-2014- <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) 
+2014- <--- (Unexpected token: "-" This means that the syntax is not valid at that point or it is currently not supported.) 2014 <--- (The year is in the past.)
 
 "Incorrect syntax which should throw an error" for "2014-2014; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 2014 <--- (A year range in which the start year is equal to the end year does not make sense. Please remove the end year. E.g. "2014 May 23")

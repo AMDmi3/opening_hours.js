@@ -5638,6 +5638,9 @@
 										+ ' Please turn it over.');
 							}
 						}
+						if (!is_range && year_from < new Date().getFullYear()) {
+							parsing_warnings.push([ nrule, at, 'The year is in the past.' ]);
+						}
 					// }}}
 
 					selectors.year.push(function(tokens, at, year_from, is_range, has_period, period) { return function(date) {
