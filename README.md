@@ -522,7 +522,7 @@ Testing is much easier by now. Have a look at the [evaluation tool][ohlib.evalua
 
 Simple node.js based benchmark is bundled. You can run it with `node benchmark.js` or with `make benchmark`.
 
-On author's Intel Core i5-2540M CPU @ 2.60GHz library allows ~8k/sec constructor calls and ~2.5k/sec openIntervals() calls with one week period. This may further improve in future.
+On author's Intel Core i5-2540M CPU @ 2.60GHz (Linux: 3.16.0-4-amd64, nodejs: v0.10.29) library allows ~9k/sec constructor calls and ~3k/sec openIntervals() calls with one week period. This may further improve in future.
 
 ## Used by other projects
 

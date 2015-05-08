@@ -27,8 +27,8 @@ OVERPASS_QUERY_USE_REGEX ?= 0
 # The query without regular expressions also returns more results …
 # Use the log feature of real_test.js for this.
 
-# REMOVE_DATA_AFTER_STATS_GEN ?= 1
-REMOVE_DATA_AFTER_STATS_GEN ?= 0
+REMOVE_DATA_AFTER_STATS_GEN ?= 1
+# REMOVE_DATA_AFTER_STATS_GEN ?= 0
 START_DATE ?= now
 # START_DATE ?= now - 1 day
 DAYS_INCREMENT ?= 1
@@ -61,7 +61,7 @@ build: opening_hours.min.js
 check: check-diff-all check-package.json
 
 .PHONY: benchmark
-benchmark: benchmark-opening_hours.js
+benchmark: benchmark-opening_hours.min.js
 
 README.html: README.md
 
@@ -153,6 +153,9 @@ osm-tag-data-taginfo-check: real_test.js opening_hours.js osm-tag-data-get-tagin
 .PHONY: osm-tag-data-update-check
 .SILENT : osm-tag-data-update-check
 osm-tag-data-update-check: osm-tag-data-update-taginfo osm-tag-data-taginfo-check
+
+benchmark-opening_hours.js:
+benchmark-opening_hours.min.js:
 
 # .PHONY: benchmark
 benchmark-%.js: %.js benchmark.js
@@ -273,7 +276,7 @@ osm-tag-data-overpass-kill-queries:
 
 ## }}}
 
-## OSM data via a SQL query against postgreSQL {{{
+## OSM data via a SQL query against PostgreSQL {{{
 ## Thanks to walter nordmann
 # select 'N'||osm_id id,
 # 	  cab.localname,
@@ -401,8 +404,12 @@ osm-tag-data-gen-stats-sort:
 	done
 ## }}}
 
+opening_hours.min.js:
+
 %.min.js: %.js
 	uglifyjs "$<" --output "$@" --comments '/ypid\/opening_hours\.js/' --lint
+
+README.html:
 
 %.html: %.md
 	pandoc --from markdown_github --to html --standalone "$<" --output "$@"
