@@ -50,9 +50,10 @@ class CsvMerge:
 
         self._merged_data = {}
         self._merged_data_sources = {}
-        self._data_sources_count = len(csv_files)
+        self._csv_files = csv_files
+        self._data_sources_count = len(self._csv_files)
 
-        for self._csv_file in csv_files:
+        for self._csv_file in self._csv_files:
             self.parse_file()
 
     def parse_file(self):
@@ -108,7 +109,20 @@ class CsvMerge:
             available_sources = len(self._merged_data_sources[time])
             if self._data_sources_count == available_sources:
                 writer.writerow(self._merged_data[time])
-                logger.debug(self._merged_data[time])
+                # logger.debug(self._merged_data[time])
+            elif logger.getEffectiveLevel() == logging.DEBUG:
+                missing_csv_files = []
+                for csv_file in self._csv_files:
+                    if csv_file not in self._merged_data_sources[time]:
+                        missing_csv_files.append(csv_file)
+                if len(missing_csv_files):
+                    logger.debug(
+                        u"Missing files for {}: {}".format(
+                            time,
+                            missing_csv_files,
+                        )
+                        # + u" (present: {})".format(self._merged_data_sources[time])
+                    )
 
 
 # main {{{
