@@ -2,6 +2,31 @@
 
 /* Constant variables {{{ */
 var taginfo_api_url = 'http://taginfo.openstreetmap.org/api/4/';
+var exit_code_new = 0;
+var exit_code_not_new = 1;
+
+/* Parameter handling {{{ */
+var optimist = require('optimist')
+	.usage('Usage: $0')
+	.describe('h', 'Display the usage')
+	.describe('E', 'Specifiy the exit code in case there is no new data. The default value is ' + exit_code_not_new + '.')
+	.alias('h', 'help')
+	.alias('E', 'exit-code-not-new');
+
+var argv = optimist.argv;
+if (argv.help) {
+	optimist.showHelp();
+	process.exit(0);
+}
+
+if (typeof argv.E === 'number') {
+	exit_code_not_new = argv.E;
+} else if (typeof argv.E !== 'undefined') {
+	optimist.showHelp();
+	process.exit(0);
+}
+/* }}} */
+
 /* }}} */
 
 /* Required modules {{{ */
@@ -47,11 +72,11 @@ var request = http.get(taginfo_api_url_source, function(response) {
 				&& local_dump_creation_time.getTime() === upstream_dump_creation_time.getTime()) {
 
 				console.log("Not newer then local data.");
-				process.exit(1);
+				process.exit(exit_code_not_new);
 			} else {
 				console.log("New data available …");
 				console.log("Taginfo data was generated on: " + upstream_dump_creation_time.toISOString());
-				process.exit(0);
+				process.exit(exit_code_new);
 			}
 	});
 });

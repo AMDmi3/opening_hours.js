@@ -1,5 +1,5 @@
 #!/usr/bin/env nodejs
-/*
+/* Info, license and author {{{
  * @license AGPLv3 <https://www.gnu.org/licenses/agpl-3.0.html>
  * @author Copyright (C) 2015 Robin Schneider <ypid@riseup.net>
  *
@@ -15,9 +15,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
-/*
+ *
+ *
  * Additional features:
  *   * Can log all values and if they could be evaluated or not to a log file
  *   to compare versions.  Just `touch real_test.opening_hours.log` to generate
@@ -29,6 +28,7 @@
  *
  *   * You can restrict the tags which should be parsed. Just specify them as
  *   parameter.
+ * }}}
  */
 
 /* Required modules {{{ */
@@ -39,20 +39,20 @@ var sprintf       = require('sprintf-js').sprintf;
 var assert        = require('assert');
 /* }}} */
 
+var test_framework = new opening_hours_test();
+
+/* Add as much tests (for different tags) as you like. Just make sure that the
+ * export is present by adding it as dependence to the related_tags.txt file.
+ * Tests will not be executed in order listed there due to non-blocking aspect
+ * of JS and node.js.
+ */
+
+/* Configuration {{{ */
+
 colors.setTheme({
 	result: [ 'green', 'bold' ],
 });
 
-/* Run tests {{{ */
-var test_framework = new opening_hours_test();
-
-/* Add as much tests (for different tags) as you like. Just make sure that the
- * export is present by added it as dependence to the make file. Tests will not
- * be executed in order listed here due to non-blocking aspect of JS and
- * node.js.
- */
-
-/* Configuration {{{ */
 /* Also used by opening_hours_map/opening_hours_map.html */
 test_framework.config = {
 	'opening_hours:kitchen': {
@@ -87,7 +87,6 @@ test_framework.config = {
 		}
 	},
 }
-/* }}} */
 
 /*
  * Difference when ignoring values and when not ignoring values based on:
@@ -105,6 +104,8 @@ test_framework.config = {
  * not ignoring 2018-02-21T00:00:00.000Z, 1994, 1388, 1987, 1381, 5, 5, 965, 1539
  * ignoring     2018-02-21T00:00:00.000Z, 1994, 1388, 1987, 1381, 5, 5, 965, 1539
  */
+
+/* }}} */
 
 /* Parameter handling {{{ */
 var optimist = require('optimist')
@@ -138,8 +139,6 @@ for (var i = 0; i < argv._.length; i++) {
 	var filename = argv._[i];
 	test_framework.json_file(filename);
 }
-
-/* }}} */
 
 /* Test framework {{{ */
 function opening_hours_test() {
