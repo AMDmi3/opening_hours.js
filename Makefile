@@ -145,9 +145,9 @@ check-diff-%.js: %.js test.js
 	git --no-pager diff test.log
 
 .PHONY: osm-tag-data-taginfo-check
-osm-tag-data-taginfo-check: real_test.js opening_hours.js osm-tag-data-get-taginfo
+osm-tag-data-taginfo-check: real_test.js opening_hours.js taginfo_sources.json osm-tag-data-get-taginfo
 	@grep -v '^#' $(OH_RELATED_TAGS) | while read key; do \
-		$(NODE) "$<" 'REAL_TEST_OPTIONS=--punchcard' --map-bad-oh-values --ignore-manual-values "export.$$key.json"; \
+		$(NODE) "$<" $(REAL_TEST_OPTIONS) --map-bad-oh-values --ignore-manual-values "export.$$key.json"; \
 	done
 
 .PHONY: osm-tag-data-update-check
