@@ -442,6 +442,7 @@ test.addTest('Error tolerance: Correctly handle pm time.', [
 
 test.addTest('Error tolerance: Time intervals, short time', [
 		'Mo 07:00-18:00', //reference value for prettify
+		'Montags 07:00-18:00', //reference value for prettify
 		'Mo 7-18', // throws a warning, use previous value which is equal.
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 07:00', '2012.10.01 18:00' ],
@@ -4544,6 +4545,7 @@ test.addTest('Error tolerance: weekdays, months in different languages', [
 test.addTest('Error tolerance: Full range', [
 		'Mo-Su',       // reference value for prettify
 		'Montag-Sonntag',
+		'Montags bis sonntags',       // Do not use. Returns warning.
 		'Montag-Sonntags',
 		'monday-sunday',
 		'daily',
