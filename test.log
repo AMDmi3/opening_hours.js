@@ -116,15 +116,21 @@ With [1m[34mwarnings[39m[22m:
 "Error tolerance: Time range" for "Mo 12:00→14:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo 12:00→ <--- (Please use notation "-" for "→".)
+"Error tolerance: Time range" for "Mo 12:00–14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00– <--- (Please use notation "-" for "–". Although using "–" is typographical correct, the opening_hours syntax is defined with the normal hyphen. Correct typography should be done on application level …)
 "Error tolerance: Time range" for "Mo 12:00−14:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo 12:00− <--- (Please use notation "-" for "−".)
-"Error tolerance: Time range" for "Mo 12:00=14:00": [1m[32mPASSED[39m[22m
+"Error tolerance: Time range" for "Mo 12:00—14:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo 12:00= <--- (Please use notation "-" for "=".)
+	*Mo 12:00— <--- (Please use notation "-" for "—".)
 "Error tolerance: Time range" for "Mo 12:00ー14:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo 12:00ー <--- (Please use notation "-" for "ー".)
+"Error tolerance: Time range" for "Mo 12:00=14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 12:00= <--- (Assuming "-" for "=".)
 "Error tolerance: Time range" for "Mo 12:00 to 14:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo 12:00 to <--- (Please use notation "-" for "to".)
@@ -2292,7 +2298,7 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-852/863 tests passed.
+854/865 tests passed.
 39 tests where (partly) ignored, sorted by commonness:
 * 24: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

@@ -452,9 +452,11 @@ test.addTest('Error tolerance: Time range', [
 		'Mo 12:00-14:00', // reference value for prettify
 		'Mo12:00-14:00',
 		'Mo 12:00→14:00',
+		'Mo 12:00–14:00',
 		'Mo 12:00−14:00',
-		'Mo 12:00=14:00',
+		'Mo 12:00—14:00',
 		'Mo 12:00ー14:00',
+		'Mo 12:00=14:00',
 		'Mo 12:00 to 14:00',
 		'Mo 12:00 до 14:00',
 		'Mo 12:00 a 14:00',
@@ -575,6 +577,7 @@ test.addTest('Open end', [
 		'17:00 till late',
 		'17:00 bis Open End',
 		'17:00-open end',
+		// '17:00 – Open End', // '–' matches first.
 		'17:00-openend',
 		'17:00+; 15:00-16:00 off',
 		'15:00-16:00 off; 17:00+',
