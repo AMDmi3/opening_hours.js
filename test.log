@@ -1215,6 +1215,10 @@ With [1m[34mwarnings[39m[22m:
 	*open week 6 Feb <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 	*Feb <--- (The selector "month" was switched with the selector "state" for readablitity and compatibiltity reasons.)
 	*Feb week 6 open <--- (The selector "state" was switched with the selector "month" for readablitity and compatibiltity reasons.)
+"Additional comment "on appointment"" for "Mo-Fr 08:00-12:00 open "appointment not needed", Mo-Fr 13:00-17:00 open "on appointment"": [1m[32mPASSED[39m[22m
+"Additional comment "on appointment"" for "Mo-Fr 08:00-12:00 open "appointment not needed", Mo-Fr 13:00-17:00 open on_appointment": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Fr 08:00-12:00 open "appointment not needed", Mo-Fr 13:00-17:00 open on_appointment <--- (Please use notation ""on appointment"" for "on_appointment".)
 "Additional comments" for "Mo,Tu 10:00-16:00 open "no warranty"; We 12:00-18:00 open "female only"; Th closed "Not open because we are coding :)"; Fr 10:00-16:00 open "male only"; Sa 10:00-12:00 "Maybe open. Call us."": [1m[32mPASSED[39m[22m
 "Additional comments for unknown" for "Sa 10:00-12:00 "Maybe open. Call us. (testing special tokens in comment: ; ;; ' || | test end)"": [1m[32mPASSED[39m[22m
 "Additional comments for unknown" for "Sa 10:00-12:00 unknown "Maybe open. Call us. (testing special tokens in comment: ; ;; ' || | test end)"": [1m[32mPASSED[39m[22m
@@ -2238,7 +2242,7 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-837/848 tests passed.
+839/850 tests passed.
 39 tests where (partly) ignored, sorted by commonness:
 * 24: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
