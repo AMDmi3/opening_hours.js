@@ -363,6 +363,7 @@ test.addTest('Time intervals', [
 test.addTest('Time zero intervals (always closed)', [
 		'off',
 		'closed',
+		ignored('always closed', 'prettifyValue'),
 		'off; closed',
 		'24/7 closed "always closed"', // Used on the demo page.
 		'24/7: closed "always closed"',
@@ -4592,6 +4593,7 @@ test.addTest('Error tolerance: Full range', [
 test.addTest('Error tolerance: Full range', [
 		'24/7',       // reference value for prettify
 		'always',
+		'always open',
 		'nonstop',
 		'nonstop geöffnet',
 		'opening_hours=nonstop geöffnet',

@@ -17,6 +17,9 @@ With [1m[34mwarnings[39m[22m:
 "Time intervals" for "00:00-24:00; Mo 15:00-16:00 off": [1m[32mPASSED[39m[22m
 "Time zero intervals (always closed)" for "off": [1m[32mPASSED[39m[22m
 "Time zero intervals (always closed)" for "closed": [1m[32mPASSED[39m[22m
+"Time zero intervals (always closed)" for "always closed": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*always closed <--- (Please use notation "closed" for "always closed".)
 "Time zero intervals (always closed)" for "off; closed": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*off; closed <--- (This rule which changes the default state (which is closed) for all following rules is not the first rule. The rule will overwrite all previous rules. It can be legitimate to change the default state to open for example and then only specify for which times the facility is closed.)
@@ -1489,6 +1492,9 @@ With [1m[34mwarnings[39m[22m:
 "Error tolerance: Full range" for "always": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*always <--- (Please use notation "24/7" for "always".)
+"Error tolerance: Full range" for "always open": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*always open <--- (Please use notation "24/7" for "always open".)
 "Error tolerance: Full range" for "nonstop": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*nonstop <--- (Please use notation "24/7" for "nonstop".)
@@ -2288,8 +2294,8 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-850/861 tests passed.
-40 tests where (partly) ignored, sorted by commonness:
-* 25: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
+852/863 tests passed.
+41 tests where (partly) ignored, sorted by commonness:
+* 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
 *  4: check for week stable not implemented

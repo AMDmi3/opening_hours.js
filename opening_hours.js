@@ -2743,6 +2743,8 @@
 				'：':              ':',
 				'°°':              ':00',
 				'always':          '24/7',
+				'always open':     '24/7',
+				'always closed':   'closed',
 				'nonstop':         '24/7',
 				'24x7':            '24/7',
 				'anytime':         '24/7',
@@ -2828,8 +2830,9 @@
 				// '（': '"',
 				// '）': '"',
 			}, 'Bitte benutze die Schreibweise "<ok>" als Ersatz für "<ko>".': {
-				'und': ',',
-				'u':   ',',
+				'und':  ',',
+				'u':    ',',
+				'auch': ',',
 			}, 'Bitte benutze die englische Abkürzung "<ok>" für "<ko>".': {
 				'(?:an )?feiertag(?:s|en?)?': 'PH',
 			}, 'S\'il vous plaît utiliser "<ok>" pour "<ko>".': {
@@ -3563,7 +3566,7 @@
 					// special day name (holidays)
 					curr_rule_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
 					value = value.substr(2);
-				} else if (tmp = value.match(/^(&|_|→|–|−|—|ー|=|·|öffnungszeit(?:en)?:?|opening_hours\s*=|\?|~|～|：|°°|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|(:?bis|till?|-|–)? ?(?:open ?end|late)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|on work days?|sonntags?|(?:nur |an )?sonn-?(?:(?: und |\/)feiertag(?:s|en?)?)?|(?:an )?feiertag(?:s|en?)?|(?:nach|on|by) (?:appointments?|vereinbarung|absprache)|[_a-zäößàáéøčěíúýřПнВсо]+\b|à|á|mo|tu|we|th|fr|sa|su|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|→|–|−|—|ー|=|·|öffnungszeit(?:en)?:?|opening_hours\s*=|\?|~|～|：|°°|always (?:open|closed)|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|(:?bis|till?|-|–)? ?(?:open ?end|late)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|on work days?|sonntags?|(?:nur |an )?sonn-?(?:(?: und |\/)feiertag(?:s|en?)?)?|(?:an )?feiertag(?:s|en?)?|(?:nach|on|by) (?:appointments?|vereinbarung|absprache)|[_a-zäößàáéøčěíúýřПнВсо]+\b|à|á|mo|tu|we|th|fr|sa|su|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\.?/i)) {
 					/* Handle all remaining words and specific other characters with error tolerance.
 					 *
 					 * à|á: Word boundary does not work with unicode chars: 'test à test'.match(/\bà\b/i)
