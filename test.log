@@ -1504,11 +1504,36 @@ With [1m[34mwarnings[39m[22m:
 	*opening_hours = <--- (Please omit "opening_hours =". The key must not be in the value.)
 	*opening_hours =nonstop <--- (Please use notation "24/7" for "nonstop".)
 	*opening_hours =nonstop geöffnet <--- (Bitte verzichte auf "geöffnet".)
+"Error tolerance: Full range" for "opening_hours 	 =nonstop geöffnet": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*opening_hours 	 = <--- (Please omit "opening_hours 	 =". The key must not be in the value.)
+	*opening_hours 	 =nonstop <--- (Please use notation "24/7" for "nonstop".)
+	*opening_hours 	 =nonstop geöffnet <--- (Bitte verzichte auf "geöffnet".)
 "Error tolerance: Full range" for "opening_hours = nonstop geöffnet": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*opening_hours = <--- (Please omit "opening_hours =". The key must not be in the value.)
 	*opening_hours = nonstop <--- (Please use notation "24/7" for "nonstop".)
 	*opening_hours = nonstop geöffnet <--- (Bitte verzichte auf "geöffnet".)
+"Error tolerance: Full range" for "Öffnungszeit nonstop geöffnet": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Öffnungszeit <--- (Bitte verzichte auf "öffnungszeit".)
+	*Öffnungszeit nonstop <--- (Please use notation "24/7" for "nonstop".)
+	*Öffnungszeit nonstop geöffnet <--- (Bitte verzichte auf "geöffnet".)
+"Error tolerance: Full range" for "Öffnungszeit: nonstop geöffnet": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Öffnungszeit: <--- (Bitte verzichte auf "öffnungszeit:".)
+	*Öffnungszeit: nonstop <--- (Please use notation "24/7" for "nonstop".)
+	*Öffnungszeit: nonstop geöffnet <--- (Bitte verzichte auf "geöffnet".)
+"Error tolerance: Full range" for "Öffnungszeiten nonstop geöffnet": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Öffnungszeiten <--- (Bitte verzichte auf "öffnungszeiten".)
+	*Öffnungszeiten nonstop <--- (Please use notation "24/7" for "nonstop".)
+	*Öffnungszeiten nonstop geöffnet <--- (Bitte verzichte auf "geöffnet".)
+"Error tolerance: Full range" for "Öffnungszeiten: nonstop geöffnet": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Öffnungszeiten: <--- (Bitte verzichte auf "öffnungszeiten:".)
+	*Öffnungszeiten: nonstop <--- (Please use notation "24/7" for "nonstop".)
+	*Öffnungszeiten: nonstop geöffnet <--- (Bitte verzichte auf "geöffnet".)
 "Error tolerance: Full range" for "24x7": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*24x7 <--- (Please use notation "24/7" for "24x7".)
@@ -2267,7 +2292,7 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-847/858 tests passed.
+852/863 tests passed.
 39 tests where (partly) ignored, sorted by commonness:
 * 24: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
