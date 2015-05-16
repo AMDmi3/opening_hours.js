@@ -3438,9 +3438,20 @@ test.addTest('Selector order', [
 
 // comments {{{
 
+test.addTest('Additional comment "Nach Vereinbarung"', [
+		'Mo-Fr 08:00-12:00 open "Kein Termin erforderlich", Mo-Fr 13:00-17:00 open "Nach Vereinbarung"',
+		'Mo-Fr 08:00-12:00 open "Kein Termin erforderlich", Mo-Fr 13:00-17:00 open nach_vereinbarung',
+		'Mo-Fr 08:00-12:00 open "Kein Termin erforderlich", Mo-Fr 13:00-17:00 open nach Vereinbarung',
+	], '2012.10.01 0:00', '2012.10.02 0:00', [
+		[ '2012.10.01 08:00', '2012.10.01 12:00', false, 'Kein Termin erforderlich' ],
+		[ '2012.10.01 13:00', '2012.10.01 17:00', false, 'Nach Vereinbarung' ],
+	], 1000 * 60 * 60 * (4 + 4), 0, true, {}, "not only test");
+
 test.addTest('Additional comment "on appointment"', [
 		'Mo-Fr 08:00-12:00 open "appointment not needed", Mo-Fr 13:00-17:00 open "on appointment"',
 		'Mo-Fr 08:00-12:00 open "appointment not needed", Mo-Fr 13:00-17:00 open on_appointment',
+		'Mo-Fr 08:00-12:00 open "appointment not needed", Mo-Fr 13:00-17:00 open on appointment',
+		'Mo-Fr 08:00-12:00 open "appointment not needed", Mo-Fr 13:00-17:00 open by_appointment',
 	], '2012.10.01 0:00', '2012.10.02 0:00', [
 		[ '2012.10.01 08:00', '2012.10.01 12:00', false, 'appointment not needed' ],
 		[ '2012.10.01 13:00', '2012.10.01 17:00', false, 'on appointment' ],
