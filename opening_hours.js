@@ -2784,7 +2784,7 @@
 				/* }}} */
 				'weekends?':       'Sa,Su',
 				'daylight':        'sunrise-sunset',
-				'(?:on|by)?(?:_| )?appointment':  '"on appointment"',
+				'(?:on|by)?(?:_| )?appointments?':  '"on appointment"',
 			}, 'Please use notation "<ok>" for "<ko>". Those characters look very similar but are not the same!': {
 				'оff':             'off', // Russian o
 			}, 'Please use time format in 24 hours notation ("<ko>"). If PM is used you might have to convert the hours to the 24 hours notation.': {
@@ -2808,14 +2808,7 @@
 				'bis':         '-',
 				'täglich':     'Mo-Su',
 				'schulferien': 'SH',
-				'sonn und feiertag':   'PH,Su',
-				'sonn und feiertags':  'PH,Su',
-				'sonn- und feiertags': 'PH,Su',
-				'sonn-/feiertag':      'PH,Su',
-				'sonn-/feiertags':     'PH,Su',
-				'an sonn- und feiertagen': 'PH,Su',
-				'nur sonn-/feiertags': 'PH,Su',
-				'sonn- und feiertage': 'PH,Su',
+				'(?:an|nur)? ?sonn-?(?: und |/)feiertag(?:s|en?)?': 'PH,Su',
 				'nach(?: |_)vereinbarung':   '"Nach Vereinbarung"',
 				'nach(?: |_)absprache':      '"Nach Absprache"',
 			}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours/specification.': {
@@ -2841,10 +2834,7 @@
 				'und': ',',
 				'u':   ',',
 			}, 'Bitte benutze die englische Abkürzung "<ok>" für "<ko>".': {
-				'feiertag':   'PH',
-				'feiertags':  'PH',
-				'feiertage':  'PH',
-				'feiertagen': 'PH'
+				'feiertag(?:s|en?)?': 'PH',
 			}, 'S\'il vous plaît utiliser "<ok>" pour "<ko>".': {
 				'fermé':        'off',
 				'et':           ',',
@@ -3576,7 +3566,7 @@
 					// special day name (holidays)
 					curr_rule_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
 					value = value.substr(2);
-				} else if (tmp = value.match(/^(&|_|→|–|−|=|·|opening_hours\s*=|ー|\?|~|～|：|°°|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|(?:|-|till? |bis )?(?:late|open[ ]?end)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|on work days?|sonntags?|(?:nur |an )?sonn-?(?:(?: und |\/)feiertag(?:s|en?)?)?|(?:nach|on|by) (?:appointment|vereinbarung|absprache)|[_a-zäößàáéøčěíúýřПнВсо]+\b|à|á|mo|tu|we|th|fr|sa|su|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\.?/i)) {
+				} else if (tmp = value.match(/^(&|_|→|–|−|=|·|opening_hours\s*=|ー|\?|~|～|：|°°|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|(?:|-|till? |bis )?(?:late|open[ ]?end)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|on work days?|sonntags?|(?:nur |an )?sonn-?(?:(?: und |\/)feiertag(?:s|en?)?)?|(?:nach|on|by) (?:appointments?|vereinbarung|absprache)|[_a-zäößàáéøčěíúýřПнВсо]+\b|à|á|mo|tu|we|th|fr|sa|su|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\.?/i)) {
 					/* Handle all remaining words and specific other characters with error tolerance.
 					 *
 					 * à|á: Word boundary does not work with unicode chars: 'test à test'.match(/\bà\b/i)
