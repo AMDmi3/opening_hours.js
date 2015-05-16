@@ -4140,6 +4140,8 @@ test.addTest('Real world example: Problem with <additional_rule_separator> in ho
 test.addTest('Real world example: Problem with <additional_rule_separator> in holiday parser', [
 		// 'We off, Mo,Tu,Th-Su,PH, Jun-Aug We 11:00-14:00,17:00+', // Should fail.
 		'We off; Mo,Tu,Th-Su,PH; Jun-Aug We 11:00-14:00,17:00+',
+		'We off; Mo,Tu,Th-Su,PH; Sommer We 11:00-14:00,17:00+',
+		'We off; Mo,Tu,Th-Su,PH; sommer We 11:00-14:00,17:00+',
 		'Mo,Tu,Th-Su,PH 00:00-24:00; Jun-Aug We 11:00-14:00,17:00+'
 	], '2015.05.25 0:00', '2015.06.10 0:00', [
 		[ '2015.05.25 00:00', '2015.05.26 00:00', false, 'Pfingstmontag' ], // Mo: 1

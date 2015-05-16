@@ -2663,23 +2663,21 @@
 	var word_error_correction = {
 		wrong_words: { /* {{{ */
 			'Assuming "<ok>" for "<ko>".': {
-				// FIXME test if they work, make lower case
-				'Frühling':  'Mar-May',
-				'Frühjahr':  'Mar-May',
-				'Sommer':    'Jun-Aug',
-				'Herbst':    'Sep-Nov',
-				'winter':    'Dec-Feb',
-			}, '"<ko>" wird als "<ok>" interpertiert.': {
+				'daytime': 'sunrise-sunset',
 				'spring':  'Mar-May',
 				'summer':  'Jun-Aug',
 				'autumn':  'Sep-Nov',
-				// 'winter':  'Dec-Feb', // Same as in English.
-				// morning: '08:00-12:00',
-				// evening: '13:00-18:00',
+				'winter':  'Dec-Feb',
 				'_':  '-',
-				'daytime': 'sunrise-sunset',
+			}, '"<ko>" wird als "<ok>" interpertiert.': {
+				'frühling': 'Mar-May',
+				'frühjahr': 'Mar-May',
+				'sommer':   'Jun-Aug',
+				'herbst':   'Sep-Nov',
+				// 'winter':  'Dec-Feb', // Same as in English.
+				// 'morning': '08:00-12:00',
+				// 'evening': '13:00-18:00',
 			}, 'Bitte benutze die englische Schreibweise "<ok>" für "<ko>".': {
-				'sommer':    'summer',
 				'werktags?': 'Mo-Fr',
 			}, 'Bitte benutze "<ok>" für "<ko>". Beispiel: "Mo-Fr 08:00-12:00; Tu off".': {
 				'ruhetage?':   'off',
