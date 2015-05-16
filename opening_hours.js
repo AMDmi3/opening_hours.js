@@ -2727,8 +2727,8 @@
 				'～': '-',
 			}, 'Please use notation "<ok>" for "<ko>". Fallback rule: 12:00-14:00 || "call us"': {
 				'otherwise':  '||',
-			}, 'You can use notation "<ok>" for "<ko>" temporally if the syntax will still be valid.': {
-				'?':  'unknown "please add this if known"',
+			}, 'You can use notation "<ok>" for "?" temporally if the syntax will still be valid.': {
+				'\\?':  'unknown "please add this if known"',
 			}, 'Please use notation "<ok>" for "<ko>". Although using "–" is typographical correct, the opening_hours syntax is defined with the normal hyphen. Correct typography should be done on application level …': {
 				'–':  '-',
 			}, 'Please use notation "<ok>" for "<ko>".': {
@@ -3760,7 +3760,7 @@
 			for (var token_name in word_error_correction) {
 				for (var comment in word_error_correction[token_name]) {
 					for (var old_val in word_error_correction[token_name][comment]) {
-						if (old_val === word) {
+						if (word.match(new RegExp('^' + old_val + '$'))) {
 							var val = word_error_correction[token_name][comment][old_val];
 							if (comment === 'default') {
 								// Return internal representation of word.
