@@ -921,9 +921,10 @@ test.addTest('PH: Only if PH is Wednesday', [
 		[ '2012.10.03 00:00', '2012.10.04 00:00', false, 'Tag der Deutschen Einheit' ], // We
 	], 1000 * 60 * 60 * 24 * 3, 0, false, nominatiomTestJSON, 'not only test');
 
-test.addTest('PH: Only if SH is Wednesday', [
+test.addTest('SH', [
 		'SH Mo-Fr',
 		'Schulferien Mo-Fr',
+		'schoolholiday Mo-Fr',
 		'school holiday Mo-Fr',
 		'school holidays Mo-Fr',
 		'SH: Mo-Fr', // Please don’t use ":" after holiday.

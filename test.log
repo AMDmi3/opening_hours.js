@@ -317,30 +317,34 @@ With [1m[34mwarnings[39m[22m:
 	* We,Fr: PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 	*PH <--- (The selector "holiday" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
 	*PH We,Fr <--- (The selector "weekday" was switched with the selector "holiday" for readablitity and compatibiltity reasons.)
-"PH: Only if SH is Wednesday" for "SH Mo-Fr": [1m[32mPASSED[39m[22m
+"SH" for "SH Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-"PH: Only if SH is Wednesday" for "Schulferien Mo-Fr": [1m[32mPASSED[39m[22m
+"SH" for "Schulferien Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Schulferien <--- (Bitte benutze die Schreibweise "SH" für "schulferien".)
 	*Schulferien Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-"PH: Only if SH is Wednesday" for "school holiday Mo-Fr": [1m[32mPASSED[39m[22m
+"SH" for "schoolholiday Mo-Fr": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*schoolholiday <--- (Please use notation "SH" for "schoolholiday".)
+	*schoolholiday Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"SH" for "school holiday Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*school holiday <--- (Please use notation "SH" for "school holiday".)
 	*school holiday Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-"PH: Only if SH is Wednesday" for "school holidays Mo-Fr": [1m[32mPASSED[39m[22m
+"SH" for "school holidays Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*school holidays <--- (Please use notation "SH" for "school holidays".)
 	*school holidays Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-"PH: Only if SH is Wednesday" for "SH: Mo-Fr": [1m[32mPASSED[39m[22m
+"SH" for "SH: Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH:  <--- (Please don’t use ":" after holiday.)
 	*SH: Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-"PH: Only if SH is Wednesday" for "SH on work day": [1m[32mPASSED[39m[22m
+"SH" for "SH on work day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH on work day <--- (Assuming "Mo-Fr" for "on work day". Please avoid using "workday": http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays)
 	*SH on work day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-"PH: Only if SH is Wednesday" for "SH on work days": [1m[32mPASSED[39m[22m
+"SH" for "SH on work days": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH on work days <--- (Assuming "Mo-Fr" for "on work days". Please avoid using "workday": http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays)
 	*SH on work days <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
@@ -2027,10 +2031,10 @@ Tu 23:59-48:00+ <--- (Time spanning more than two midnights not supported)
 』t <--- (Unexpected token: "』" This means that the syntax is not valid at that point or it is currently not supported.) 
 
 "Incorrect syntax which should throw an error" for "』testing"; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-』t <--- (Unexpected token: "』" This means that the syntax is not valid at that point or it is currently not supported.) 』testing"; 00:23-00:42 unknown "warning at correct position <--- (Please use the English abbreviation "Su" (Polish) for "n".); 』testing"; 00:23-00:42 unknown "warning at correct position?" <--- (You can use notation "unknown "please add this if known"" for "?" temporally if the syntax will still be valid.)
+』t <--- (Unexpected token: "』" This means that the syntax is not valid at that point or it is currently not supported.) 』testing"; 00:23-00:42 unknown "warning at correct position <--- (Please use the English abbreviation "Su" (Polish) for "n".); 』testing"; 00:23-00:42 unknown "warning at correct position? <--- (You can use notation "unknown "please add this if known"" for "?" temporally if the syntax will still be valid.)
 
 "Incorrect syntax which should throw an error" for ""testing«; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-"testing«; 00:23-00:42 unknown "wa <--- (Unexpected token: "w" This means that the syntax is not valid at that point or it is currently not supported.) "testing«; 00:23-00:42 unknown "warning at correct position <--- (Please use the English abbreviation "Su" (Polish) for "n".); "testing«; 00:23-00:42 unknown "warning at correct position?" <--- (You can use notation "unknown "please add this if known"" for "?" temporally if the syntax will still be valid.)
+"testing«; 00:23-00:42 unknown "wa <--- (Unexpected token: "w" This means that the syntax is not valid at that point or it is currently not supported.) "testing«; 00:23-00:42 unknown "warning at correct position <--- (Please use the English abbreviation "Su" (Polish) for "n".); "testing«; 00:23-00:42 unknown "warning at correct position? <--- (You can use notation "unknown "please add this if known"" for "?" temporally if the syntax will still be valid.)
 
 "Incorrect syntax which should throw an error" for " || open; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
  || <--- (Rule before fallback rule does not contain anything useful)
@@ -2255,7 +2259,7 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-844/855 tests passed.
+845/856 tests passed.
 39 tests where (partly) ignored, sorted by commonness:
 * 24: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
