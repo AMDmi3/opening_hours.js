@@ -2082,100 +2082,100 @@ Mo sunrise-(sunrise+01:00)/60 <--- (opening_hours is running in "time range mode
 "opening_hours.js is in the wrong mode." for "Mo 12:00-14:00": [1m[32mPASSED[39m[22m
 Mo 12:00-14 <--- (opening_hours is running in "points in time mode". Found time range.)
 
-"Time range starts outside of the current day for mode == 1." for "Mo-Fr 13:00,15:00,17:45,19:00,24:00; Sa 13:00,24:00; Su 10:00,18:00": [1m[32mPASSED[39m[22m
+"Time range starts outside of the current day for mode === 1." for "Mo-Fr 13:00,15:00,17:45,19:00,24:00; Sa 13:00,24:00; Su 10:00,18:00": [1m[32mPASSED[39m[22m
 Mo-Fr 13:00,15:00,17:45,19:00,24:00 <--- (Time range starts outside of the current day)
 
-"Time range starts outside of the current day for mode == 1." for "Mo-Fr 15:00,117:00; Sa 11:00": [1m[32mPASSED[39m[22m
+"Time range starts outside of the current day for mode === 1." for "Mo-Fr 15:00,117:00; Sa 11:00": [1m[32mPASSED[39m[22m
 Mo-Fr 15:00,117:00 <--- (Time range starts outside of the current day)
 
-"Time range starts outside of the current day for mode == 1." for "Mo-Fr 08:00,24:00": [1m[32mPASSED[39m[22m
+"Time range starts outside of the current day for mode === 1." for "Mo-Fr 08:00,24:00": [1m[32mPASSED[39m[22m
 Mo-Fr 08:00,24:00 <--- (Time range starts outside of the current day)
 
-"Time range starts outside of the current day for mode == 1." for "Mo-Fr 07:00,15:00,24.00; Sa-Su 24:00": [1m[32mPASSED[39m[22m
+"Time range starts outside of the current day for mode === 1." for "Mo-Fr 07:00,15:00,24.00; Sa-Su 24:00": [1m[32mPASSED[39m[22m
 Mo-Fr 07:00,15:00,24.00 <--- (Time range starts outside of the current day)
 
-"Time range starts outside of the current day for mode == 1." for "Mo-Fr 07:00,24.00,15:00; Sa-Su 24:00": [1m[32mPASSED[39m[22m
+"Time range starts outside of the current day for mode === 1." for "Mo-Fr 07:00,24.00,15:00; Sa-Su 24:00": [1m[32mPASSED[39m[22m
 Mo-Fr 07:00,24.00 <--- (Time range starts outside of the current day)
 
-"Time range does not continue as expected for mode == 1." for "7.00-": [1m[32mPASSED[39m[22m
+"Time range does not continue as expected for mode === 1." for "7.00-": [1m[32mPASSED[39m[22m
 7.00- <--- (Time range does not continue as expected)
 
-"Time range does not continue as expected for mode == 1." for " mar-nov 12:30-": [1m[32mPASSED[39m[22m
+"Time range does not continue as expected for mode === 1." for " mar-nov 12:30-": [1m[32mPASSED[39m[22m
  mar-nov 12:30- <--- (Time range does not continue as expected)
 
-"Time range does not continue as expected for mode == 1." for " mar-nov 12:30-; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+"Time range does not continue as expected for mode === 1." for " mar-nov 12:30-; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
  mar-nov 12:30- <--- (Time range does not continue as expected)
 
-"Time range does not continue as expected for mode == 1." for "7.00-": [1m[32mPASSED[39m[22m
+"Time range does not continue as expected for mode === 1." for "7.00-": [1m[32mPASSED[39m[22m
 7.00- <--- (Time range does not continue as expected)
 
-"Time range does not continue as expected for mode == 1." for " mar-nov 12:30-": [1m[32mPASSED[39m[22m
+"Time range does not continue as expected for mode === 1." for " mar-nov 12:30-": [1m[32mPASSED[39m[22m
  mar-nov 12:30- <--- (Time range does not continue as expected)
 
-"Time range does not continue as expected for mode == 1." for " mar-nov 12:30-; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+"Time range does not continue as expected for mode === 1." for " mar-nov 12:30-; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
  mar-nov 12:30- <--- (Time range does not continue as expected)
 
-"Time range does not continue as expected for mode == 1." for "(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+"Time range does not continue as expected for mode === 1." for "(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 ( <--- (Unexpected token: "(" This means that the syntax is not valid at that point or it is currently not supported.) 
 
-"Time range does not continue as expected for mode == 1." for "sunrise-(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+"Time range does not continue as expected for mode === 1." for "sunrise-(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 sunrise-( <--- (Time range does not continue as expected)
 
-"Time range does not continue as expected for mode == 1." for "sunrise-sunset,(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+"Time range does not continue as expected for mode === 1." for "sunrise-sunset,(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 sunrise-sunset,( <--- (Missing variable time (e.g. sunrise) after: "(")
 
-"Trying to trigger "Missing minutes in time range after" for mode == 0." for "Mon-Sun 14-": [1m[32mPASSED[39m[22m
+"Trying to trigger "Missing minutes in time range after" for mode === 0." for "Mon-Sun 14-": [1m[32mPASSED[39m[22m
 Mon-Sun 14- <--- (Missing time separator in time range after: "number")
 
-"Trying to trigger "Missing minutes in time range after" for mode == 0." for "8:am": [1m[32mPASSED[39m[22m
+"Trying to trigger "Missing minutes in time range after" for mode === 0." for "8:am": [1m[32mPASSED[39m[22m
 8:am <--- (Missing minutes in time range after: "timesep")
 
-"Trying to trigger "Missing minutes in time range after" for mode == 0." for "8:am; open": [1m[32mPASSED[39m[22m
+"Trying to trigger "Missing minutes in time range after" for mode === 0." for "8:am; open": [1m[32mPASSED[39m[22m
 8:am <--- (Missing minutes in time range after: "timesep")
 
-"Trying to trigger "Missing minutes in time range after" for mode == 1." for "Mon-Sun 14-": [1m[32mPASSED[39m[22m
+"Trying to trigger "Missing minutes in time range after" for mode === 1." for "Mon-Sun 14-": [1m[32mPASSED[39m[22m
 Mon-Sun 14- <--- (Missing time separator in time range after: "number")
 
-"Trying to trigger "Missing minutes in time range after" for mode == 1." for "8:am": [1m[32mPASSED[39m[22m
+"Trying to trigger "Missing minutes in time range after" for mode === 1." for "8:am": [1m[32mPASSED[39m[22m
 8:am <--- (Missing minutes in time range after: "timesep")
 
-"Trying to trigger "Missing minutes in time range after" for mode == 1." for "8:am; open": [1m[32mPASSED[39m[22m
+"Trying to trigger "Missing minutes in time range after" for mode === 1." for "8:am; open": [1m[32mPASSED[39m[22m
 8:am <--- (Missing minutes in time range after: "timesep")
 
-"Trying to trigger "Missing minutes in time range after" for mode == 2." for "Mon-Sun 14-": [1m[32mPASSED[39m[22m
+"Trying to trigger "Missing minutes in time range after" for mode === 2." for "Mon-Sun 14-": [1m[32mPASSED[39m[22m
 Mon-Sun 14- <--- (Missing time separator in time range after: "number")
 
-"Trying to trigger "Missing minutes in time range after" for mode == 2." for "8:am": [1m[32mPASSED[39m[22m
+"Trying to trigger "Missing minutes in time range after" for mode === 2." for "8:am": [1m[32mPASSED[39m[22m
 8:am <--- (Missing minutes in time range after: "timesep")
 
-"Trying to trigger "Missing minutes in time range after" for mode == 2." for "8:am; open": [1m[32mPASSED[39m[22m
+"Trying to trigger "Missing minutes in time range after" for mode === 2." for "8:am; open": [1m[32mPASSED[39m[22m
 8:am <--- (Missing minutes in time range after: "timesep")
 
-"Trying to trigger "Missing time separator in time range after" for mode == 0." for "Su 7:30,10;00,22:00": [1m[32mPASSED[39m[22m
+"Trying to trigger "Missing time separator in time range after" for mode === 0." for "Su 7:30,10;00,22:00": [1m[32mPASSED[39m[22m
 Su 7:30, <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
 
-"Trying to trigger "Missing time separator in time range after" for mode == 0." for "Su 7:30,10?00,22:00": [1m[32mPASSED[39m[22m
+"Trying to trigger "Missing time separator in time range after" for mode === 0." for "Su 7:30,10?00,22:00": [1m[32mPASSED[39m[22m
 Su 7:30, <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
 
-"Trying to trigger "Missing time separator in time range after" for mode == 0." for "Su 7:30,10i00,22:00": [1m[32mPASSED[39m[22m
+"Trying to trigger "Missing time separator in time range after" for mode === 0." for "Su 7:30,10i00,22:00": [1m[32mPASSED[39m[22m
 Su 7:30, <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
 
-"Trying to trigger "Missing time separator in time range after" for mode == 1." for "Su 7:30,10;00,22:00": [1m[32mPASSED[39m[22m
+"Trying to trigger "Missing time separator in time range after" for mode === 1." for "Su 7:30,10;00,22:00": [1m[32mPASSED[39m[22m
 Su 7:30,10 <--- (Missing time separator in time range after: "number")
 
-"Trying to trigger "Missing time separator in time range after" for mode == 1." for "Su 7:30,10?00,22:00": [1m[32mPASSED[39m[22m
+"Trying to trigger "Missing time separator in time range after" for mode === 1." for "Su 7:30,10?00,22:00": [1m[32mPASSED[39m[22m
 Su 7:30,10 <--- (Missing time separator in time range after: "number")
 
-"Trying to trigger "Missing time separator in time range after" for mode == 1." for "Su 7:30,10i00,22:00": [1m[32mPASSED[39m[22m
+"Trying to trigger "Missing time separator in time range after" for mode === 1." for "Su 7:30,10i00,22:00": [1m[32mPASSED[39m[22m
 Su 7:30,10i <--- (Missing time separator in time range after: "number")
 
-"Trying to trigger "Missing time separator in time range after" for mode == 2." for "Su 7:30,10;00,22:00": [1m[32mPASSED[39m[22m
+"Trying to trigger "Missing time separator in time range after" for mode === 2." for "Su 7:30,10;00,22:00": [1m[32mPASSED[39m[22m
 Su 7:30,10 <--- (Missing time separator in time range after: "number")
 
-"Trying to trigger "Missing time separator in time range after" for mode == 2." for "Su 7:30,10?00,22:00": [1m[32mPASSED[39m[22m
+"Trying to trigger "Missing time separator in time range after" for mode === 2." for "Su 7:30,10?00,22:00": [1m[32mPASSED[39m[22m
 Su 7:30,10 <--- (Missing time separator in time range after: "number")
 
-"Trying to trigger "Missing time separator in time range after" for mode == 2." for "Su 7:30,10i00,22:00": [1m[32mPASSED[39m[22m
+"Trying to trigger "Missing time separator in time range after" for mode === 2." for "Su 7:30,10i00,22:00": [1m[32mPASSED[39m[22m
 Su 7:30,10i <--- (Missing time separator in time range after: "number")
 
 "Wrong constructor call should throw an error: nominatiomJSON: string" for "1": [1m[32mPASSED[39m[22m

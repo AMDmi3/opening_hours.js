@@ -110,6 +110,12 @@ run-interactive_testing: interactive_testing.js
 	$(NODE) "$<"
 ## }}}
 
+## Source code QA {{{
+.PHONY: source-code-qa
+source-code-qa:
+	git ls-files | egrep '\.js$$' | xargs sed -i 's/\([^=!]\)==\([^=]\)/\1===\2/g;s/\([^=!]\)!=\([^=]\)/\1!==\2/g;'
+## }}}
+
 ## software testing {{{
 
 .PHONY: check-all

@@ -4823,7 +4823,7 @@ test.addShouldFail('opening_hours.js is in the wrong mode.', [
 		'Mo 12:00-14:00', // only in mode 0 or 2
 	], nominatiomTestJSON, 'not last test', 1);
 
-test.addShouldFail('Time range starts outside of the current day for mode == 1.', [
+test.addShouldFail('Time range starts outside of the current day for mode === 1.', [
 		'Mo-Fr 13:00,15:00,17:45,19:00,24:00; Sa 13:00,24:00; Su 10:00,18:00',
 		'Mo-Fr 15:00,117:00; Sa 11:00',
 		'Mo-Fr 08:00,24:00',
@@ -4831,13 +4831,13 @@ test.addShouldFail('Time range starts outside of the current day for mode == 1.'
 		'Mo-Fr 07:00,24.00,15:00; Sa-Su 24:00',
 	], nominatiomTestJSON, 'not last test', 1);
 
-test.addShouldFail('Time range does not continue as expected for mode == 1.', [
+test.addShouldFail('Time range does not continue as expected for mode === 1.', [
 		'7.00-',
 		' mar-nov 12:30-',
 		' mar-nov 12:30-' + value_suffix,
 	], nominatiomTestJSON, 'not last test', 1);
 
-test.addShouldFail('Time range does not continue as expected for mode == 1.', [
+test.addShouldFail('Time range does not continue as expected for mode === 1.', [
 		'7.00-',
 		' mar-nov 12:30-',
 		' mar-nov 12:30-' + value_suffix,
@@ -4848,7 +4848,7 @@ test.addShouldFail('Time range does not continue as expected for mode == 1.', [
 
 // Appeared in real_test … {{{
 for (var i = 0; i <= 2; i++) {
-	test.addShouldFail('Trying to trigger "Missing minutes in time range after" for mode == ' + i + '.', [
+	test.addShouldFail('Trying to trigger "Missing minutes in time range after" for mode === ' + i + '.', [
 		'Mon-Sun 14-',
 		'8:am',
 		'8:am; open',
@@ -4856,7 +4856,7 @@ for (var i = 0; i <= 2; i++) {
 }
 
 for (var i = 0; i <= 2; i++) {
-	test.addShouldFail('Trying to trigger "Missing time separator in time range after" for mode == ' + i + '.', [
+	test.addShouldFail('Trying to trigger "Missing time separator in time range after" for mode === ' + i + '.', [
 		'Su 7:30,10;00,22:00',
 		'Su 7:30,10?00,22:00', // ? gets replaced. Not fully supported … FIXME
 		'Su 7:30,10i00,22:00',
