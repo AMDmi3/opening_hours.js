@@ -2633,7 +2633,7 @@ test.addTest('Additional rules', [
 
 test.addTest('Additional rules', [
 		'Mo-Fr 08:00-12:00, We 14:00-18:00',
-		'Mo-Fr 08:00-12:00, We 14:00-18:00, Su off',
+		'Mo-Fr 08:00-12:00, We 14:00-18:00; Su off',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 08:00', '2012.10.01 12:00' ],
 		[ '2012.10.02 08:00', '2012.10.02 12:00' ],
@@ -4575,17 +4575,6 @@ test.addTest('Error tolerance: Full range', [
 		'anytime',
 		'all day',
 		'24 hours 7 days a week',
-	], '2012.10.01 0:00', '2012.10.08 0:00', [
-		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
-	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
-
-test.addTest('Error tolerance: Full range', [
-		'24/7',       // reference value for prettify
-		'always',
-		'nonstop',
-		'24x7',
-		'anytime',
-		'all day',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
 	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');

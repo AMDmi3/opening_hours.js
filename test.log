@@ -880,7 +880,7 @@ With [1m[34mwarnings[39m[22m:
 "Constrained weekday (complex real world example)" for "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug: Su[-1] 10:00-18:00": [1m[32mPASSED[39m[22m
 "Additional rules" for "Mo-Fr 10:00-16:00, We 12:00-18:00": [1m[32mPASSED[39m[22m
 "Additional rules" for "Mo-Fr 08:00-12:00, We 14:00-18:00": [1m[32mPASSED[39m[22m
-"Additional rules" for "Mo-Fr 08:00-12:00, We 14:00-18:00, Su off": [1m[32mPASSED[39m[22m
+"Additional rules" for "Mo-Fr 08:00-12:00, We 14:00-18:00; Su off": [1m[32mPASSED[39m[22m
 "Fallback group rules (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call"": [1m[32mPASSED[39m[22m
 "Fallback group rules (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || closed "should never appear"": [1m[32mPASSED[39m[22m
 "Fallback group rules (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || unknown "should never appear"": [1m[32mPASSED[39m[22m
@@ -1483,22 +1483,6 @@ With [1m[34mwarnings[39m[22m:
 "Error tolerance: Full range" for "24 hours 7 days a week": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*24 hours 7 days a week <--- (Please use notation "24/7" for "24 hours 7 days a week".)
-"Error tolerance: Full range" for "24/7": [1m[32mPASSED[39m[22m
-"Error tolerance: Full range" for "always": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*always <--- (Please use notation "24/7" for "always".)
-"Error tolerance: Full range" for "nonstop": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*nonstop <--- (Please use notation "24/7" for "nonstop".)
-"Error tolerance: Full range" for "24x7": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*24x7 <--- (Please use notation "24/7" for "24x7".)
-"Error tolerance: Full range" for "anytime": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*anytime <--- (Please use notation "24/7" for "anytime".)
-"Error tolerance: Full range" for "all day": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*all day <--- (Please use notation "24/7" for "all day".)
 "Extensions: missing time range separators" for "Mo 12:00-14:00 16:00-18:00 20:00-22:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo 12:00-14:00 16:00-18:00 20:00-22:00 <--- (You have used 3 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
@@ -2245,7 +2229,7 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-841/852 tests passed.
+835/846 tests passed.
 39 tests where (partly) ignored, sorted by commonness:
 * 24: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
