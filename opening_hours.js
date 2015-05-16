@@ -2705,7 +2705,7 @@
 				'hs':     '',
 				'hrs':    '',
 				'hours':  '',
-				'·':      '',
+				// '·':      '', // Sometimes used to separate opening hours (on websites).
 			}, 'Please omit "<ko>". The key must not be in the value.': {
 				'opening_hours\\s*=': '',
 			}, 'Please omit "<ko>". You might want to express open end which can be specified as "12:00+" for example.': {

@@ -16,16 +16,6 @@ With [1m[34mwarnings[39m[22m:
 "Time intervals" for "open; Mo 15:00-16:00 off": [1m[32mPASSED[39m[22m
 "Time intervals" for "00:00-24:00; Mo 15:00-16:00 off": [1m[32mPASSED[39m[22m
 "Time zero intervals (always closed)" for "off": [1m[32mPASSED[39m[22m
-"Time zero intervals (always closed)" for "·off": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*· <--- (Please omit "·".)
-"Time zero intervals (always closed)" for "off·": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*off· <--- (Please omit "·".)
-"Time zero intervals (always closed)" for "·off·": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*· <--- (Please omit "·".)
-	*·off· <--- (Please omit "·".)
 "Time zero intervals (always closed)" for "closed": [1m[32mPASSED[39m[22m
 "Time zero intervals (always closed)" for "off; closed": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1758,12 +1748,6 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "12:00-14:00 ""; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*12:00-14:00 "" <--- (You have used an empty comment. Please either write something in the comment or use the keyword unknown instead.)
-"Value not ideal (probably wrong). Should throw a warning." for "· 12:00-14:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*· <--- (Please omit "·".)
-"Value not ideal (probably wrong). Should throw a warning." for "12:00-14:00·; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*12:00-14:00· <--- (Please omit "·".)
 "Value not ideal (probably wrong). Should throw a warning." for " ; open; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	* ; open <--- (This rule does not contain anything useful. Please remove this empty rule.)
@@ -2298,7 +2282,7 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-854/865 tests passed.
+849/860 tests passed.
 39 tests where (partly) ignored, sorted by commonness:
 * 24: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
