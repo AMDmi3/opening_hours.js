@@ -66,7 +66,7 @@ benchmark: benchmark-opening_hours.min.js
 README.html: README.md
 
 .PHONY: release
-release: check
+release: check source-code-qa
 	git status
 	read continue
 	editor package.json
