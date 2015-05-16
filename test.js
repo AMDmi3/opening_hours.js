@@ -4610,7 +4610,7 @@ test.addTest('Error tolerance: Full range', [
 		'24 hours 7 days a week',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 0:00', '2012.10.08 0:00' ],
-	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test');
+	], 1000 * 60 * 60 * 24 * 7, 0, true, nominatiomTestJSON, 'not only test', { 'warnings_severity': 5 } );
 // }}}
 
 // values which should return a warning {{{

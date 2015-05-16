@@ -3964,6 +3964,7 @@
 				/* Check for missing PH. {{{ */
 				if (	warnings_severity >= 5
 					&& !has_token['PH']
+					&& !has_token['24/7']
 					&& !done_with_warnings
 					&& (
 							(
