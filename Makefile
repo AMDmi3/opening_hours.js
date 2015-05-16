@@ -70,6 +70,7 @@ release: check
 	git status
 	read continue
 	editor package.json
+	$(MAKE) $(MAKE_OPTIONS) check-package.json
 	git commit --all --message="Released version `json -f package.json version`."
 	git tag --sign --local-user=C505B5C93B0DB3D338A1B6005FE92C12EE88E1F0 "v`json -f package.json version`"
 	git push --follow-tags
