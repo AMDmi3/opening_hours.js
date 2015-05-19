@@ -537,7 +537,7 @@ Project                                                          | Additional In
 [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours) |
 [pyopening_hours]                                             | python module for opening_hours.js
 [opening_hours_server.js]                                      | A little server answering query‘s for opening_hours and check if they can be evaluated.
-[opening_hours-statistics]                                     | Visualization of the data quality and grow over time.
+[opening_hours-statistics]                                     | Visualization of the data quality and growth over time.
 [www.openstreetmap.hu](http://www.openstreetmap.hu/)             | old version of this library, see also https://github.com/AMDmi3/opening_hours.js/issues/19
 
 [opening_hours_map]: https://github.com/ypid/opening_hours_map
