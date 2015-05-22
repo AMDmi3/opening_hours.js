@@ -5358,7 +5358,7 @@
 
 		/* Returns a number for a date which can then be used to compare just the dates (without the time). {{{
 		 * This is necessary because a selector could be called for the middle of the day and we need to tell if it matches that day.
-		 * Example: Returns 20150015 for Jan 01 2015
+		 * Example: Returns 20150015 for Jan 15 2015
 		 *
 		 * :param date: Date object.
 		 * :param include_year: Boolean. If true include the year.

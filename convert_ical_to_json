@@ -45,36 +45,36 @@ my $mech = WWW::Mechanize->new();
 # debugging stuff {{{
 #<<< Don‘t allow perltidy to touch the following.
 my %ical_urls = (
-    'Bremen' => [
-        [
-            'Ferien/icals/Ferien_Bremen_2012.ics',
-            2012
-        ],
-        [
-            'Ferien/icals/Ferien_Bremen_2013.ics',
-            2013
-        ],
-    ],
+    # 'Bremen' => [
+        # [
+            # 'Ferien/icals/Ferien_Bremen_2012.ics',
+            # 2012
+        # ],
+        # [
+            # 'Ferien/icals/Ferien_Bremen_2013.ics',
+            # 2013
+        # ],
+    # ],
     'Bayern' => [
         [
             'Ferien/icals/Ferien_Bayern_2012.ics',
-            2012
+            2014
         ],
         [
             'Ferien/icals/Ferien_Bayern_2013.ics',
-            2013
+            2015
         ],
     ],
-    'Baden-Württemberg' => [
-        [
-            'Ferien/icals/Ferien_Baden_Wuerttemberg_2013.ics',
-            2013
-        ],
-        [
-            'Ferien/icals/Ferien_Baden_Wuerttemberg_2014.ics',
-            2014
-        ],
-    ],
+    # 'Baden-Württemberg' => [
+        # [
+            # 'Ferien/icals/Ferien_Baden_Wuerttemberg_2013.ics',
+            # 2013
+        # ],
+        # [
+            # 'Ferien/icals/Ferien_Baden_Wuerttemberg_2014.ics',
+            # 2014
+        # ],
+    # ],
 );
 #>>>
 # use Data::Dumper::Simple;
@@ -109,6 +109,7 @@ sub find_ical_links {
             my $attrs    = $link->attrs();
             my $base     = $link->base();
             my $filename = $link->url();
+            # say $filename;
             if (   $filename =~ /\.ics\Z/xms
                 && $attrs->{onmouseover} =~ /\('iCal\sSchulferien\s(?<year>\d{4})\s(?<state_name>[^']*)'\)/xms )
             {
@@ -269,7 +270,7 @@ sub parse_ical {
 
         # this part is spanning the year # 2013: [ 1, 1, 1, 5 ],
         if ( $event->start->month == 1 and $event->start->day == 1 and $pos == 0 ) {
-            # There is no previous year ignore this holiday.
+            # There is no previous year, ignore this holiday.
             next HOLIDAY_THIS_YEAR;
         }
 

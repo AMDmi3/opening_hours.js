@@ -21,6 +21,8 @@ colors.setTheme({
 
 var test = new opening_hours_test();
 
+// test.extensive_testing = true;
+
 // nominatiomJSON {{{
 // used for sunrise, sunset … and PH,SH
 /* Defaults {{{ */
@@ -988,6 +990,7 @@ test.addTest('Variable days: public holidays', [
 		[ '2015.01.05 00:00', '2015.01.06 00:00', false, 'Day before Heilige Drei Könige' ],
 	], 1000 * 60 * 60 * 24 * (3 + 2), 0, false, nominatiomTestJSON, 'not last test');
 
+// http://www.schulferien.org/Kalender_mit_Ferien/kalender_2014_ferien_Baden_Wuerttemberg.html
 test.addTest('Variable days: school holidays', [
 		'SH',
 	], '2014.01.01 0:00', '2015.02.01 0:00', [
@@ -997,7 +1000,15 @@ test.addTest('Variable days: school holidays', [
 		[ '2014.07.31 00:00', '2014.09.14 00:00', false, 'Sommerferien' ],
 		[ '2014.10.27 00:00', '2014.10.31 00:00', false, 'Herbstferien' ],
 		[ '2014.12.22 00:00', '2015.01.06 00:00', false, 'Weihnachtsferien' ],
-	], 1000 * 60 * 60 * 24 * (4 + 12 + 12 + 1 + 31 + 13 + 4 + 15), 0, false, nominatiomTestJSON, 'not last test');
+	], 1000 * 60 * 60 * 24 * (4 + 12 + 12 + 1 + 31 + 13 + 4 + 15), 0, false, nominatiomTestJSON, 'not only test');
+
+// http://www.schulferien.org/Kalender_mit_Ferien/kalender_2015_ferien_Baden_Wuerttemberg.html
+// https://github.com/ypid/opening_hours.js/issues/83
+test.addTest('Variable days: school holidays', [
+		'SH',
+	], '2015.01.05 1:00', '2015.01.05 5:00', [
+		[ '2015.01.05 01:00', '2015.01.05 05:00', false, 'Weihnachtsferien' ],
+	], 1000 * 60 * 60, 0, false, nominatiomTestJSON, 'not only test');
 
 test.addTest('Variable days: school holiday', [
 		'open; SH off',
@@ -5004,6 +5015,10 @@ function opening_hours_test() {
 	this.tests_should_warn = [];
 	this.tests_comp_matching_rule = [];
 
+	this.extensive_testing = false;
+	// If set to true, to run extensive tests.
+	// This mainly finds bugs in selector code but is slow.
+
 	this.last = false; // If set to true, no more tests are added to the testing queue.
 	// This might be useful for testing to avoid to comment tests out and something like that …
 
@@ -5141,20 +5156,45 @@ function opening_hours_test() {
 			crashed = err;
 		}
 
-		if (intervals_ok) {
-			for (var interval = 0; interval < intervals.length; interval++) {
-				var expected_from = new Date(expected_intervals[interval][0]);
-				var expected_to   = new Date(expected_intervals[interval][1]);
+		for (var interval = 0; interval < expected_intervals.length; interval++) {
 
-				if (intervals[interval][0].getTime() !== expected_from.getTime()
-						|| intervals[interval][1].getTime() !== expected_to.getTime()
-						|| (typeof expected_intervals[interval][2] !== 'undefined' // unknown state boolean
-							&& intervals[interval][2] !== expected_intervals[interval][2])
-						|| (typeof intervals[interval][3] !== 'undefined'
-							&& intervals[interval][3] !== expected_intervals[interval][3])
-						)
+			var expected_from = new Date(expected_intervals[interval][0]);
+			var expected_to   = new Date(expected_intervals[interval][1]);
+
+			if (intervals_ok) {
+				if (   intervals[interval][0].getTime() !== expected_from.getTime()
+					|| intervals[interval][1].getTime() !== expected_to.getTime()
+					|| (typeof expected_intervals[interval][2] !== 'boolean' // unknown state boolean
+						&& intervals[interval][2] !== expected_intervals[interval][2])
+					|| (typeof intervals[interval][3] === 'string'
+						&& intervals[interval][3] !== expected_intervals[interval][3])
+					) {
+
 					intervals_ok = false;
+				}
 			}
+
+			if (this.extensive_testing && !crashed) {
+
+				var oh = new opening_hours(value, nominatiomJSON, oh_mode);
+
+				for (var move_date = expected_from; move_date.getTime() < expected_to.getTime(); move_date.setHours(move_date.getHours() + 1)) {
+					var is_open = oh.getState(move_date);
+					var unknown = oh.getUnknown(move_date);
+
+					if (!is_open ||
+							(
+							typeof expected_intervals[interval][2] === 'boolean' // unknown state boolean
+							&& unknown !== expected_intervals[interval][2]
+							)
+						) {
+
+						console.error("Error for '" + value + "' at " + move_date + ".");
+
+					}
+				}
+			}
+
 		}
 
 		var passed = false;
