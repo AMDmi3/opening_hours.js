@@ -3810,7 +3810,7 @@
 						selector_start_end_type = getSelectorRange(new_tokens[nrule][0], selector_start_end_type[1]);
 						// console.log(selector_start_end_type, new_tokens[nrule][0].length);
 
-						for (var token_pos = 0; token_pos < selector_start_end_type[1]; token_pos++) {
+						for (var token_pos = 0; token_pos <= selector_start_end_type[1]; token_pos++) {
 							if (typeof new_tokens[nrule][0][token_pos] === 'object' && new_tokens[nrule][0][token_pos][0] === 'PH') {
 								has_token['PH'] = true;
 							}

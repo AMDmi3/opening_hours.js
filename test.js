@@ -1095,7 +1095,7 @@ test.addTest('Variable days: Italian public holidays', [
 		[ '2014.12.08 00:00', '2014.12.09 00:00', false, 'Immacolata Concezione' ],
 		[ '2014.12.25 00:00', '2014.12.26 00:00', false, 'Natale di Gesù' ],
 		[ '2014.12.26 00:00', '2014.12.27 00:00', false, 'Santo Stefano' ],
-	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON_italy, 'not last test');
+	], 1000 * 60 * 60 * 24 * 13, 0, false, nominatiomTestJSON_italy, 'not last test', { 'warnings_severity': 5 });
 
 test.addTest('SH(summer holiday) workaround', [
 		'Jul-Sep SH',
