@@ -1008,7 +1008,7 @@ test.addTest('Variable days: school holidays', [
 		'SH',
 	], '2015.01.05 1:00', '2015.01.05 5:00', [
 		[ '2015.01.05 01:00', '2015.01.05 05:00', false, 'Weihnachtsferien' ],
-	], 1000 * 60 * 60, 0, false, nominatiomTestJSON, 'not only test');
+	], 1000 * 60 * 60 * 4, 0, false, nominatiomTestJSON, 'not only test');
 
 test.addTest('Variable days: school holiday', [
 		'open; SH off',

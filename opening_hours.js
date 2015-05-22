@@ -5296,8 +5296,9 @@
 												+ last_year_holiday[last_year_holiday.length - 3]; // e.g. 1125
 											var last_year_holiday_to   = (last_year_holiday[last_year_holiday.length - 2] - 1) * 100
 												+ last_year_holiday[last_year_holiday.length - 1]; // e.g. 0005
+											// console.log(last_year_holiday_from, last_year_holiday_to);
 
-											if (last_year_holiday_to < last_year_holiday_from && date_num < last_year_holiday_to)
+											if (last_year_holiday_from > last_year_holiday_to && date_num <= last_year_holiday_to)
 												return [ true, new Date(date.getFullYear(),
 													last_year_holiday[last_year_holiday.length - 2] - 1,
 													last_year_holiday[last_year_holiday.length - 1] + 1),
