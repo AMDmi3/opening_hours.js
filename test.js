@@ -21,6 +21,7 @@ colors.setTheme({
 
 var test = new opening_hours_test();
 
+// FIXME: Do it
 // test.extensive_testing = true;
 
 // nominatiomJSON {{{
