@@ -487,7 +487,7 @@ This project has become so complex that development without extensive testing wo
 
 ### Regression testing
 
-node.js based test framework is bundled. You can run it with `node test.js` or with `make check`. Note that number of lines of the test framework almost match up with the number of lines of the actual implementation :)
+node.js based test framework is bundled. You can run it with `node test.js` or with `make check`. Note that the number of lines of the test framework almost match up with the number of lines of the actual implementation :)
 
 The current results of this test are also tracked in the repository and can be viewed [here](/test.log). Note that this file uses [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code) which can be interpreted by cat in the terminal. `make check` compares the test output with the output from the last commit and shows you a diff.
 
