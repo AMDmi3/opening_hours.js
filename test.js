@@ -3701,8 +3701,8 @@ test.addTest('Real world example: Was not processed right (month range/monthday 
 	], 0, 1000 * 60 * 60 * (17 * (6 + 4) + 6), false, nominatiomTestJSON, 'not only test');
 /* }}} */
 
-// http://www.openstreetmap.org/node/863426086
-// Could be tricky because of overwriting and wrapping over midnight.
+/* http://www.openstreetmap.org/node/863426086 {{{ */
+/* Could be tricky because of overwriting and wrapping over midnight. */
 test.addTest('Real world example: Was processed right (month range/monthday range)', [
 		'Mo-Sa 17:15-01:00, PH,Su 17:15-24:00'
 	], '2014.10.01 0:00', '2014.10.05 0:00', [
@@ -3713,8 +3713,9 @@ test.addTest('Real world example: Was processed right (month range/monthday rang
 		[ '2014.10.04 00:00', '2014.10.04 01:00' ],
 		[ '2014.10.04 17:15', '2014.10.05 00:00' ],
 	], 1000 * 60 * 60 * (1 + (24 - 17.25 + 1) * 4  - 1), 0, false, nominatiomTestJSON, 'not only test');
+/* }}} */
 
-// http://www.openstreetmap.org/node/1754337209/history
+/* http://www.openstreetmap.org/node/1754337209/history {{{ */
 test.addTest('Real world example: Was not processed right (month range/monthday range)', [
 		// 'Jun 15-Sep 15: Th-Su 16:00-19:00; Sep 16-Dec 31: Sa,Su 16:00-19:00; Jan-Mar off; Dec 25-easter off'
 		'Jun 15-Sep 15; Sep 16-Dec 31; Jan-Mar off; Dec 25-easter off'
@@ -3722,6 +3723,7 @@ test.addTest('Real world example: Was not processed right (month range/monthday 
 		[ '2014.06.15 00:00', '2014.12.25 00:00' ],
 		[ '2015.06.15 00:00', '2015.12.25 00:00' ],
 	], 33357600000, 0, false, {}, 'not last test');
+/* }}} */
 
 test.addTest('Real world example: Was not processed right', [
 		'Mo, Tu, We, Th, Fr, Su 11:00-01:00; Sa 11:00-02:00',
@@ -3882,7 +3884,7 @@ test.addTest('Real world example: Was not processed right.', [
 	], 1000 * 60 * 60 * (12.5 + 1.5) * 3, 0, false, {}, 'not last test');
 // }}}
 
-/* {{{ https://www.openstreetmap.org/node/35608651/history */
+/* https://www.openstreetmap.org/node/35608651/history {{{ */
 test.addTest('Real world example: Was not processed right', [
 		'Jan off; Feb off; Mar off; Apr Tu-Su 10:00-14:30, May Tu-Su 10:00-14:30; Jun Tu-Su 09:00-16:00; Jul Tu-Su 10:00-17:00; Aug Tu-Su 10:00-17:00; Sep Tu-Su 10:00-14:30; Oct Tu-Su 10:00-14:30 Nov off; Dec off', // FIXME
 		'Nov-Mar off; Apr,May,Sep,Oct Tu-Su 10:00-14:30; Jun Tu-Su 09:00-16:00; Jul,Aug Tu-Su 10:00-17:00',
@@ -4167,6 +4169,21 @@ test.addTest('Real world example: Problem with <additional_rule_separator> in ho
 		[ '2015.06.05 00:00', '2015.06.10 00:00' ], // Fr-Tu: 5
 	], 1000 * 60 * 60 * (24 * (1 + 1 + 6 + 5) + 3 + (24 - 3)), 1000 * 60 * 60 * (24 - 17 + 3), false, nominatiomTestJSON, 'not last test');
 /* }}} */
+
+/* https://github.com/ypid/opening_hours.js/issues/87 {{{ */
+test.addTest('Real world example: Problem with daylight saving?', [
+		'Mo-Su,PH 15:00-03:00; easter -2 days 15:00-24:00',
+	], '2015.03.29 0:00', '2015.04.05 0:00', [
+		[ '2015.03.29 00:00', '2015.03.29 03:00' ], // 3
+		[ '2015.03.29 15:00', '2015.03.30 03:00' ], // 24-15 + 3
+		[ '2015.03.30 15:00', '2015.03.31 03:00' ], // * 2
+		[ '2015.03.31 15:00', '2015.04.01 03:00' ], // * 3
+		[ '2015.04.01 15:00', '2015.04.02 03:00' ], // * 4
+		[ '2015.04.02 15:00', '2015.04.03 00:00' ], // 24-15
+		[ '2015.04.03 15:00', '2015.04.04 03:00' ], // * 5
+		[ '2015.04.04 15:00', '2015.04.05 00:00' ], // 24-15
+	], 1000 * 60 * 60 * (3 + 5 * (24-15 + 3) + 2 * (24-15) - 1), 0, false, nominatiomTestJSON, 'not only test');
+// }}}
 
 /* {{{ http://www.openstreetmap.org/node/3010451545 */
 test.addShouldFail('Incorrect syntax which should throw an error', [

@@ -1336,6 +1336,7 @@ With [1m[34mwarnings[39m[22m:
 	*We off; Mo,Tu,Th-Su,PH; sommer <--- ("sommer" wird als "Jun-Aug" interpertiert.)
 	*We off; Mo,Tu,Th-Su,PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Real world example: Problem with <additional_rule_separator> in holiday parser" for "Mo,Tu,Th-Su,PH 00:00-24:00; Jun-Aug We 11:00-14:00,17:00+": [1m[32mPASSED[39m[22m
+"Real world example: Problem with daylight saving?" for "Mo-Su,PH 15:00-03:00; easter -2 days 15:00-24:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right" for "Mo-Fr 17:00-12:00, Su-Mo 00:00-12:00": [1m[32mPASSED[39m[22m
 "Variable events" for "easter": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -2297,7 +2298,7 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-853/864 tests passed.
+854/865 tests passed.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
