@@ -1272,6 +1272,7 @@ With [1m[34mwarnings[39m[22m:
 	*Oct-Dec "on request"; Apr-Sep <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Complex example used in README" for "open; Tu-Su 08:30-09:00 off; Tu-Su,PH 14:00-14:30 off; Mo 08:00-13:00 off": [1m[32mPASSED[39m[22m
 "Complex example used in README" for "00:00-24:00; Tu-Su,PH 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off": [1m[32mPASSED[39m[22m
+"Complex example used in README and benchmark" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 "Complex example used in README and benchmark" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3] off; Th[-1] off": [1m[32mPASSED[39m[22m
 "Complex example used in README and benchmark" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 "Warnings corrected to additional rule (real world example)" for "Mo-Fr 09:00-12:00, Mo,Tu,Th 15:00-18:00": [1m[32mPASSED[39m[22m
@@ -2253,37 +2254,37 @@ The value (first parameter) is not a string.
 "Wrong constructor call should throw an error: nominatiomJSON: string" for "Mo-Fr 08:00-16:00": [1m[32mPASSED[39m[22m
 The nominatiomJSON parameter is of unknown type. Given string, expected object.
 
-"Wrong constructor call should throw an error: warnings_severity: [ 4 ]" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+"Wrong constructor call should throw an error: warnings_severity: [ 4 ]" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 The optional_conf_parm["warnings_severity"] parameter is of unknown type. Given object, expected number.
 
-"Wrong constructor call should throw an error: warnings_severity: -1" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+"Wrong constructor call should throw an error: warnings_severity: -1" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 The parameter optional_conf_parm["warnings_severity"] must be an integer number between 0 and 7 (inclusive). Given -1, expected one of the following numbers: [ 0, 1, 2, 3, 4, 5, 6, 7 ].
 
-"Wrong constructor call should throw an error: warnings_severity: 4.5" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+"Wrong constructor call should throw an error: warnings_severity: 4.5" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 The parameter optional_conf_parm["warnings_severity"] must be an integer number between 0 and 7 (inclusive). Given 4.5, expected one of the following numbers: [ 0, 1, 2, 3, 4, 5, 6, 7 ].
 
-"Wrong constructor call should throw an error: warnings_severity: 8" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+"Wrong constructor call should throw an error: warnings_severity: 8" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 The parameter optional_conf_parm["warnings_severity"] must be an integer number between 0 and 7 (inclusive). Given 8, expected one of the following numbers: [ 0, 1, 2, 3, 4, 5, 6, 7 ].
 
-"Wrong constructor call should throw an error: mode: [ 1 ]" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+"Wrong constructor call should throw an error: mode: [ 1 ]" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 The optional_conf_parm["mode"] parameter is of unknown type. Given object, expected number.
 
-"Wrong constructor call should throw an error: mode: -1" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+"Wrong constructor call should throw an error: mode: -1" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 The optional_conf_parm["mode"] parameter is a invalid number. Gave -1, expected one of the following numbers: [ 0, 1, 2 ].
 
-"Wrong constructor call should throw an error: mode: 1.5" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+"Wrong constructor call should throw an error: mode: 1.5" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 The optional_conf_parm["mode"] parameter is a invalid number. Gave 1.5, expected one of the following numbers: [ 0, 1, 2 ].
 
-"Wrong constructor call should throw an error: mode: 4" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+"Wrong constructor call should throw an error: mode: 4" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 The optional_conf_parm["mode"] parameter is a invalid number. Gave 4, expected one of the following numbers: [ 0, 1, 2 ].
 
-"Wrong constructor call should throw an error: tag_key: [ "lit" ]" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+"Wrong constructor call should throw an error: tag_key: [ "lit" ]" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 The optional_conf_parm["tag_key"] parameter is of unknown type. Given object, expected string.
 
-"Wrong constructor call should throw an error: map_value: [ "lit" ]" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+"Wrong constructor call should throw an error: map_value: [ "lit" ]" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 The optional_conf_parm["map_value"] parameter is of unknown type. Given object, expected boolean.
 
-"Wrong constructor call should throw an error: map_value, no tag_key" for "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+"Wrong constructor call should throw an error: map_value, no tag_key" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["map_value"].
 
 "Compare result from getMatchingRule()" for "10:00-16:00": [1m[32mPASSED[39m[22m
@@ -2298,7 +2299,7 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-854/865 tests passed.
+855/866 tests passed.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

@@ -11,6 +11,8 @@ var opening_hours = require(opening_hours_lib);
 var tests = 3;
 var iterations = 40000;
 
+// Pinned to this value:
+// Does differ from the optimal value. See test.js: value_perfectly_valid
 var test_value = 'Mo,Tu,Th,Fr 12:00-18:00; Sa 12:00-17:00; Th[3] off; Th[-1] off';
 
 console.log('Construction:');

@@ -320,8 +320,9 @@ var value_suffix = '; 00:23-00:42 unknown "warning at correct position?"';
 // This suffix value is there to test if the warning marks the correct position of the problem.
 var value_suffix_to_disable_time_not_used = ' 12:00-15:00';
 var value_perfectly_valid = [
-	'Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off',
-	'00:00-24:00; Tu-Su,PH 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off',
+	'Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off',
+	'open; Tu-Su 08:30-09:00 off; Tu-Su,PH 14:00-14:30 off; Mo 08:00-13:00 off',
+	/* Don‘t use 24/7 instead of "open". PH usage does not make much sense … */
 ];
 /* Used in the README and other places.
  * Those values must be perfectly valid and not return any warnings,
@@ -3549,9 +3550,8 @@ test.addTest('Additional comments combined with months', [
 
 // real world examples, mainly values which caused a problem {{{
 test.addTest('Complex example used in README', [
-		'open; Tu-Su 08:30-09:00 off; Tu-Su,PH 14:00-14:30 off; Mo 08:00-13:00 off',
-		/* Can be used (better than using 24/7 which will return a warning). PH usage does not make much sense … */
 		value_perfectly_valid[1], // preferred because more explicit
+		'00:00-24:00; Tu-Su,PH 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off',
 	], '2012.10.01 0:00', '2012.10.08 0:00', [
 		[ '2012.10.01 00:00', '2012.10.01 08:00' ],
 		[ '2012.10.01 13:00', '2012.10.02 08:30' ],
@@ -3570,8 +3570,9 @@ test.addTest('Complex example used in README', [
 	], 1000 * 60 * 60 * (24 * 7 - 5 - 0.5 * 6 - 0.5 * 6), 0, false, nominatiomTestJSON, 'not last test', { 'warnings_severity': 7 });
 
 test.addTest('Complex example used in README and benchmark', [
-		'Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3] off; Th[-1] off',
 		value_perfectly_valid[0], // preferred because shorter
+		'Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3] off; Th[-1] off',
+		'Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off',
 	], '2012.10.01 0:00', '2012.10.31 0:00', [
 		[ '2012.10.01 12:00', '2012.10.01 18:00' ],
 		[ '2012.10.02 12:00', '2012.10.02 18:00' ],
