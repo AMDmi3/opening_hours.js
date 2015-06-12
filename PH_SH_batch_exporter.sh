@@ -15,27 +15,28 @@
 ## You should have received a copy of the GNU Affero General Public License
 ## along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+script_url="https://github.com/ypid/opening_hours.js/blob/master/PH_SH_batch_exporter.sh"
+
 for state in bw by be bb hb hh he mv ni nw rp sn st sl sh th
 do
     filepath="feiertage_${state}.conf"
     echo "Generating $filepath …"
     ./PH_SH_exporter.js /tmp/PH_SH_export.list --from 2013 --until 2042 --public-holidays --region $state
     (
-        echo "# Diese Datei wurde durch das Skript https://github.com/ypid/opening_hours.js/blob/master/SH_batch_exporter.sh erzeugt."
+        echo "# Diese Datei wurde durch das Skript ${script_url} erzeugt."
         echo "# Nicht von Hand editieren ;-)"
         cat /tmp/PH_SH_export.list
     ) > $filepath
 done
 
 ## FIXME: Triggers a bug in opening_hours.js: sl sh th
-
 for state in bw by be bb hb hh he mv ni nw rp sn st
 do
     filepath="ferien_${state}.conf"
     echo "Generating $filepath …"
     ./PH_SH_exporter.js /tmp/PH_SH_export.list --from 2013 --until 2016 --school-holidays --region $state
     (
-        echo "# Diese Datei wurde durch das Skript https://github.com/ypid/opening_hours.js/blob/master/SH_batch_exporter.sh erzeugt."
+        echo "# Diese Datei wurde durch das Skript ${script_url} erzeugt."
         echo "# Nicht von Hand editieren ;-)"
         cat /tmp/PH_SH_export.list
     ) > $filepath
