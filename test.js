@@ -36,6 +36,7 @@ var nominatiomTestJSON_sunrise_below_default = {"place_id":"71977948","licence":
 
 /* Germany {{{ */
 // http://nominatim.openstreetmap.org/reverse?format=json&lat=53.1208&lon=8.8780&zoom=18&addressdetails=1&accept-language=de
+// Check PH_SH_exporter.js for a full list.
 var nominatiomTestJSON_bremen = {
     "address": {
         "city": "Bremen",
