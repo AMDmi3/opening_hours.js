@@ -205,8 +205,8 @@ export.%.json:
 
 ## OSM data from the overpass API {{{
 # Before running large imports check the load of the overpass API:
-# * http://overpass-api.de/munin/de/overpass-api.de/load.html
-# * http://overpass-api.de/munin/de/overpass-api.de/osm_db_request_count.html
+# * http://overpass-api.de/munin/localdomain/localhost.localdomain/load.html
+# * http://overpass-api.de/munin/localdomain/localhost.localdomain/osm_db_request_count.html
 
 ## The value separator is ♡ because it is not expected that this appears anywhere else in the tags and it works with GNU make.
 ## Unfortunately, it does not work with cut, but that problem can be solved.
