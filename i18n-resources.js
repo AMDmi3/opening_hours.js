@@ -45,6 +45,34 @@ var opening_hours_resources = { // English is fallback language.
                 'months': 'months',
                 'weekdays': 'weekdays',
                 'ranges': 'ranges',
+                'default state': "This rule which changes the default state (which is closed) for all following rules is not the first rule."
+                + " The rule will overwrite all previous rules."
+                + " It can be legitimate to change the default state to open for example"
+                + " and then only specify for which times the facility is closed.",
+                'vague': "This rule is not very explicit because there is no time selector being used."
+                + " Please add a time selector to this rule or use a comment to make it more explicit.",
+                'empty comment': "You have used an empty comment."
+                + " Please either write something in the comment or use the keyword unknown instead.",
+                'separator_for_readability': "You have used the optional symbol <separator_for_readability> in the wrong place."
+                + " Please check the syntax specification to see where it could be used or remove it.",
+                'strange 24/7': 'You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week".'
+                + ' For correctness you might want to use "open" or "closed"'
+                + ' for this rule and then write your exceptions which should achieve the same goal and is more clear'
+                + ' e.g. "open; Mo 12:00-14:00 off".',
+                'public holiday': 'There was no PH (public holiday) specified. This is not very explicit.__part2__'
+                + ' Please either append a "PH off" rule if the amenity is closed on all public holidays'
+                + ' or use something like "Sa,Su,PH 12:00-16:00" to say that on Saturdays, Sundays and on public holidays the amenity is open 12:00-16:00.'
+                + ' If you are not certain try to find it out. If you can’t then do not add PH to the value and ignore this warning.',
+                'public holiday part2': ' Unfortunately the tag key (e.g. "opening_hours", or "lit") is unknown to opening_hours.js.'
+                + 'This warning only applies to the key(s): __keys__.  If your value is for that key than read on. If not you can ignore the following.',
+                'switched': 'The selector "__first__" was switched with'
+                + ' the selector "__second__"'
+                + ' for readablitity and compatibiltity reasons.',
+                'no colon after': 'Please don’t use ":" after __token__.',
+                'number -5 to 5': 'Number between -5 and 5 (except 0) expected',
+                'one weekday constraint': 'You can not use more than one constrained weekday in a month range',
+                'range contrainted weekdays': 'You can not use a range of constrained weekdays in a month range',
+                'expected': '"__symbol__" expected.',
             },
             "pretty": {
                 "off": "closed",
@@ -91,6 +119,34 @@ var opening_hours_resources = { // English is fallback language.
                 'months': 'Monate',
                 'weekdays': 'Wochentage',
                 'ranges': 'Zeitspannen',
+                'default state': "This rule which changes the default state (which is closed) for all following rules is not the first rule."
+                + " The rule will overwrite all previous rules."
+                + " It can be legitimate to change the default state to open for example"
+                + " and then only specify for which times the facility is closed.",
+                'vague': "This rule is not very explicit because there is no time selector being used."
+                + " Please add a time selector to this rule or use a comment to make it more explicit.",
+                'empty comment': "You have used an empty comment."
+                + " Please either write something in the comment or use the keyword unknown instead.",
+                'separator_for_readability': "You have used the optional symbol <separator_for_readability> in the wrong place."
+                + " Please check the syntax specification to see where it could be used or remove it.",
+                'strange 24/7': 'You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week".'
+                + ' For correctness you might want to use "open" or "closed"'
+                + ' for this rule and then write your exceptions which should achieve the same goal and is more clear'
+                + ' e.g. "open; Mo 12:00-14:00 off".',
+                'public holiday': 'There was no PH (public holiday) specified. This is not very explicit.__part2__'
+                + ' Please either append a "PH off" rule if the amenity is closed on all public holidays'
+                + ' or use something like "Sa,Su,PH 12:00-16:00" to say that on Saturdays, Sundays and on public holidays the amenity is open 12:00-16:00.'
+                + ' If you are not certain try to find it out. If you can’t then do not add PH to the value and ignore this warning.',
+                'public holiday part2': ' Unfortunately the tag key (e.g. "opening_hours", or "lit") is unknown to opening_hours.js.'
+                + 'This warning only applies to the key(s): __keys__.  If your value is for that key than read on. If not you can ignore the following.',
+                'switched': 'The selector "__first__" was switched with'
+                + ' the selector "__second__"'
+                + ' for readablitity and compatibiltity reasons.',
+                'no colon after': 'Please don’t use ":" after __token__.',
+                'number -5 to 5': 'Number between -5 and 5 (except 0) expected',
+                'one weekday constraint': 'You can not use more than one constrained weekday in a month range',
+                'range contrainted weekdays': 'You can not use a range of constrained weekdays in a month range',
+                'expected': '"__symbol__" expected.',
             },
             "pretty": {
                 "off": "geschlossen",

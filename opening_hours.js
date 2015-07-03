@@ -3146,8 +3146,42 @@
 		'comments': 'comments',
 		'months': 'months',
 		'weekdays': 'weekdays',
-		'ranges': 'ranges'
-    }
+		'ranges': 'ranges',
+		'default state': "This rule which changes the default state (which is closed) for all following rules is not the first rule."
+		+ " The rule will overwrite all previous rules."
+		+ " It can be legitimate to change the default state to open for example"
+		+ " and then only specify for which times the facility is closed.",
+		'vague': "This rule is not very explicit because there is no time selector being used."
+		+ " Please add a time selector to this rule or use a comment to make it more explicit.",
+		'empty comment': "You have used an empty comment."
+		+ " Please either write something in the comment or use the keyword unknown instead.",
+		'separator_for_readability': "You have used the optional symbol <separator_for_readability> in the wrong place."
+		+ " Please check the syntax specification to see where it could be used or remove it.",
+		'strange 24/7': 'You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week".'
+		+ ' For correctness you might want to use "open" or "closed"'
+		+ ' for this rule and then write your exceptions which should achieve the same goal and is more clear'
+		+ ' e.g. "open; Mo 12:00-14:00 off".',
+		'public holiday': 'There was no PH (public holiday) specified. This is not very explicit.__part2__'
+		+ ' Please either append a "PH off" rule if the amenity is closed on all public holidays'
+		+ ' or use something like "Sa,Su,PH 12:00-16:00" to say that on Saturdays, Sundays and on public holidays the amenity is open 12:00-16:00.'
+		+ ' If you are not certain try to find it out. If you can’t then do not add PH to the value and ignore this warning.',
+		'public holiday part2': ' Unfortunately the tag key (e.g. "opening_hours", or "lit") is unknown to opening_hours.js.'
+		+ 'This warning only applies to the key(s): __keys__.  If your value is for that key than read on. If not you can ignore the following.',
+		'switched': 'The selector "__first__" was switched with'
+		+ ' the selector "__second__"'
+		+ ' for readablitity and compatibiltity reasons.',
+		'no colon after': 'Please don’t use ":" after __token__.',
+		'number -5 to 5': 'Number between -5 and 5 (except 0) expected',
+		'one weekday constraint': 'You can not use more than one constrained weekday in a month range',
+		'range contrainted weekdays': 'You can not use a range of constrained weekdays in a month range',
+		'expected': '"__symbol__" expected.',
+
+
+
+
+
+
+	}
     // }}}
 	// }}}
 
@@ -3906,12 +3940,7 @@
 					) {
 
 						if (nrule !== 0) {
-							parsing_warnings.push([nrule, new_tokens[nrule][0].length - 1,
-								"This rule which changes the default state (which is closed) for all following rules is not the first rule."
-								+ " The rule will overwrite all previous rules."
-								+ " It can be legitimate to change the default state to open for example"
-								+ " and then only specify for which times the facility is closed."
-							]);
+							parsing_warnings.push([nrule, new_tokens[nrule][0].length - 1, t('default state')]);
 						}
 					/* }}} */
 					/* Check if a rule (with state open) has no time selector {{{ */
@@ -3925,10 +3954,7 @@
 								typeof used_selectors[nrule]['24/7'] === 'undefined'
 						) {
 
-							parsing_warnings.push([nrule, new_tokens[nrule][0].length - 1,
-								"This rule is not very explicit because there is no time selector being used."
-								+ " Please add a time selector to this rule or use a comment to make it more explicit."
-							]);
+							parsing_warnings.push([nrule, new_tokens[nrule][0].length - 1, t('vague')]);
 						}
 					}
 					/* }}} */
@@ -3937,10 +3963,7 @@
 						&& new_tokens[nrule][0][used_selectors[nrule].comment[0]][0].length === 0
 					) {
 
-						parsing_warnings.push([nrule, used_selectors[nrule].comment[0],
-							"You have used an empty comment."
-							+ " Please either write something in the comment or use the keyword unknown instead."
-						]);
+						parsing_warnings.push([nrule, used_selectors[nrule].comment[0], t('empty comment')]);
 					}
 					/* }}} */
 					/* Check for valid use of <separator_for_readability> {{{ */
@@ -3955,8 +3978,7 @@
 
 							if (new_tokens[nrule][0][used_selectors[nrule][selector_type][0]][0] === ':') {
 								parsing_warnings.push([nrule, used_selectors[nrule][selector_type][0],
-									"You have used the optional symbol <separator_for_readability> in the wrong place."
-									+ " Please check the syntax specification to see where it could be used or remove it."
+									t('separator_for_readability')
 								]);
 							}
 						}
@@ -3989,11 +4011,8 @@
 
 				if (has_advanced === true && has_token['24/7'] && !done_with_warnings) {
 					parsing_warnings.push([ -1, 0,
-						'You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week".'
 						// Probably because of: "24/7; 12:00-14:00 open", ". Needs extra testing.
-						+ ' For correctness you might want to use "open" or "closed"'
-						+ ' for this rule and then write your exceptions which should achieve the same goal and is more clear'
-						+ ' e.g. "open; Mo 12:00-14:00 off".'
+						t('strange 24/7')
 					]);
 				}
 				/* }}} */
@@ -4019,19 +4038,9 @@
 						}
 					}
 					parsing_warnings.push([ -1, 0,
-						'There was no PH (public holiday) specified. This is not very explicit.'
-						+ (typeof oh_key !== 'string'
-							? ' Unfortunately the tag key (e.g. "opening_hours", or "lit") is unknown to opening_hours.js'
-								// + '(see README how to provide it)' // UI of the evaluation tool does not allow to provide it (currently).
-								+ '. This warning only applies to the key'
-								+ (keys_with_warn_for_PH_missing.length === 1 ? ' ' : 's: ')
-								+ keys_with_warn_for_PH_missing.join(', ') + '.'
-								+ ' If your value is for that key than read on. If not you can ignore the following.'
-							: ''
-						)
-						+ ' Please either append a "PH off" rule if the amenity is closed on all public holidays'
-						+ ' or use something like "Sa,Su,PH 12:00-16:00" to say that on Saturdays, Sundays and on public holidays the amenity is open 12:00-16:00.'
-						+ ' If you are not certain try to find it out. If you can’t then do not add PH to the value and ignore this warning.'
+						t('public holiday', { 'part2': (typeof oh_key !== 'string'
+							? t('public holiday part2', {'keys': keys_with_warn_for_PH_missing.join(', ')}) : '')})
+							// + '(see README how to provide it)' // UI of the evaluation tool does not allow to provide it (currently).
 					]);
 				}
 				/* }}} */
@@ -4279,10 +4288,10 @@
 								// console.log('Length: ' + length + ' ' + prettified_group_value[x][1]);
 							}
 							// console.log(length);
-							parsing_warnings.push([ prettified_value, length,
-								'The selector "' + prettified_group_value[i][0][2] + '" was switched with'
-								+ ' the selector "' + not_sorted_prettified_group_value[i][0][2] + '"'
-								+ ' for readablitity and compatibiltity reasons.'
+							parsing_warnings.push([ prettified_value, length, t('switched', {
+								'first': prettified_group_value[i][0][2],
+								'second': not_sorted_prettified_group_value[i][0][2]
+							})
 							]);
 						}
 					}
@@ -4391,7 +4400,7 @@
 					 */
 
 					if (!done_with_warnings && matchTokens(tokens, at-1, 'holiday'))
-						parsing_warnings.push([nrule, at, 'Please don’t use ":" after ' + tokens[at-1][1] + '.']);
+						parsing_warnings.push([nrule, at, t('no colon after', { 'token': tokens[at-1][1] })]);
 
 					at++;
 				} else if (matchTokens(tokens, at, 'number', 'timesep')
@@ -4566,21 +4575,21 @@
 				// bad number
 				if (from === 0 || from < -5 || from > 5)
 					throw formatWarnErrorMessage(nrule, at,
-						'Number between -5 and 5 (except 0) expected');
+						t('number -5 to 5'));
 
 				if (from === to) {
 					if (number !== 0)
 						throw formatWarnErrorMessage(nrule, at,
-							'You can not use more than one constrained weekday in a month range');
+							t('one weekday constraint'));
 					number = from;
 				} else {
 					throw formatWarnErrorMessage(nrule, at+2,
-						'You can not use a range of constrained weekdays in a month range');
+						t('range contrainted weekdays'));
 				}
 			});
 
 			if (!matchTokens(tokens, endat, ']'))
-				throw formatWarnErrorMessage(nrule, endat, '"]" expected.');
+				throw formatWarnErrorMessage(nrule, endat, t('expected', {symbol: ']'}));
 
 			return [ number, endat + 1 ];
 		}
