@@ -649,6 +649,7 @@ Contributor                                     | Contribution
 [Blaž Lorger](https://github.com/blorger)       | Public holidays for Slovenian.
 [dmromanov](https://github.com/dmromanov)       | Public holidays and tests for Russian, small fixes.
 [maxerickson](https://github.com/maxerickson)   | Public holidays and tests for USA. He also wrote a Python script for testing the holiday JSON. See [us_holidays](https://github.com/maxerickson/us_holidays).
+[amenk](https://github.com/amenk)               | General i18n support, German translations for error messages and localized pretty formating. Funded by [iMi digital](http://www.imi-digital.de/) and [AddisMap](http://www.addismap.com/).
 
 ## Credits
 

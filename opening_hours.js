@@ -3111,19 +3111,44 @@
 	};
 
     var lang = {
-        'unexpected_token': 'Unexpected token: "__token__" This means that the syntax is not valid at that point or it is currently not supported.__warnings__',
-        'no_string': 'The value (first parameter) is not a string.',
+        'unexpected token': 'Unexpected token: "__token__" This means that the syntax is not valid at that point or it is currently not supported.__warnings__',
+        'no string': 'The value (first parameter) is not a string.',
         'nothing': 'The value contains nothing meaningful which can be parsed.',
-        'nothing_useful': 'This rule does not contain anything useful. Please remove this empty rule.',
-        'programmers_joke': 'Might it be possible that you are a programmer and adding a semicolon after each statement is hardwired in your muscle memory ;) ?'
-                + ' The thing is that the semicolon in the opening_hours syntax is defined as rule separator.'
-                + ' So for compatibility reasons you should omit this last semicolon.',
-        'interpreted_as_year' : 'The number __number__ will be interpreted as year.'
-                + ' This is probably not intended. Times can be specified as "12:00".',
-        'rule_before_fallback_empty' : 'Rule before fallback rule does not contain anything useful',
-        'hour_min_seperator': 'Please use ":" as hour/minute-separator',
+        'nothing useful': 'This rule does not contain anything useful. Please remove this empty rule.',
+        'programmers joke': 'Might it be possible that you are a programmer and adding a semicolon after each statement is hardwired in your muscle memory ;) ?'
+        + ' The thing is that the semicolon in the opening_hours syntax is defined as rule separator.'
+        + ' So for compatibility reasons you should omit this last semicolon.',
+        'interpreted as year': 'The number __number__ will be interpreted as year.'
+        + ' This is probably not intended. Times can be specified as "12:00".',
+        'rule before fallback empty': 'Rule before fallback rule does not contain anything useful',
+        'hour min seperator': 'Please use ":" as hour/minute-separator',
+        'warnings severity': 'The parameter optional_conf_parm["warnings_severity"] must be an integer number between 0 and 7 (inclusive).'
+        + ' Given __severity__ '
+        + ', expected one of the following numbers: [ 0, 1, 2, 3, 4, 5, 6, 7 ].',
+        'optional conf parm type': 'The optional_conf_parm parameter is of unknown type.'
+        + ' Given _given_',
+        'conf param tag key missing': 'The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["map_value"].',
+        'conf param mode invalid': 'The optional_conf_parm["mode"] parameter is a invalid number.'
+        + ' Gave __given__'
+        + ', expected one of the following numbers: [ 0, 1, 2 ].',
+        'conf param unkown type': 'The optional_conf_parm["__key__"] parameter is of unknown type.'
+        + ' Given __given__' +
+        + ', expected __expected__.',
+        'library bug': 'An error occurred during evaluation of the value "__value__".'
+        + ' Please file a bug report here: __url__. __message__',
+		'use multi': 'You have used __count__ __part2__ Rules can be separated by ";".',
+		'selector multi 2a': '__what__ in one rule. You may only use one in one rule.',
+		'selector multi 2b': 'not connected __what__ in one rule. This is probably an error.'
+		+ ' Equal selector types can (and should) always be written in conjunction separated by comma.'
+		+ ' Example for time ranges "12:00-13:00,15:00-18:00".'
+		+ ' Example for weekdays "Mo-We,Fr".',
+		'selector state': 'state keywords',
+		'comments': 'comments',
+		'months': 'months',
+		'weekdays': 'weekdays',
+		'ranges': 'ranges'
     }
-	// }}}
+    // }}}
 	// }}}
 
 	// make the library accessible for the outside world {{{
@@ -3261,9 +3286,7 @@
 			if (checkOptionalConfParm('warnings_severity', 'number')) {
 				warnings_severity = optional_conf_parm['warnings_severity'];
 				if ([ 0, 1, 2, 3, 4, 5, 6, 7 ].indexOf(warnings_severity) === -1) {
-					throw 'The parameter optional_conf_parm["warnings_severity"] must be an integer number between 0 and 7 (inclusive).'
-						+ ' Given ' + warnings_severity
-						+ ', expected one of the following numbers: [ 0, 1, 2, 3, 4, 5, 6, 7 ].';
+					throw t('warnings severity', {'severity': warnings_severity });
 				}
 			}
 			if (checkOptionalConfParm('tag_key', 'string')) {
@@ -3273,8 +3296,7 @@
 				oh_map_value = true;
 			}
 		} else if (typeof optional_conf_parm !== 'undefined') {
-			throw 'The optional_conf_parm parameter is of unknown type.'
-				+ ' Given ' + typeof(optional_conf_parm);
+			throw t('optional conf parm type', { 'given': typeof(optional_conf_parm) });
 		}
 
 		if (typeof oh_key === 'string') {
@@ -3288,7 +3310,7 @@
 				value = osm_tag_defaults[oh_regex_key]['map'][value];
 			}
 		} else if (oh_map_value) {
-			throw 'The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["map_value"].';
+			throw t('conf param tag key missing');
 		}
 
 		if (typeof oh_mode === 'undefined') {
@@ -3302,9 +3324,7 @@
 				oh_mode = 0;
 			}
 		} else if (oh_mode !== 0 && oh_mode !== 1 && oh_mode !== 2) {
-			throw 'The optional_conf_parm["mode"] parameter is a invalid number.'
-				+ ' Gave ' + oh_mode
-				+ ', expected one of the following numbers: [ 0, 1, 2 ].';
+			throw t('conf param mode invalid', {'given': oh_mode});
 		}
 
 		/* }}} */
@@ -3312,7 +3332,7 @@
 
 		// Tokenize value and generate selector functions. {{{
 		if (typeof value !== 'string') {
-			throw t('no_string');
+			throw t('no string');
 		}
 		if (value.match(/^(?:\s*;?\s*)+$/)) {
 			throw t('nothing');
@@ -3334,9 +3354,9 @@
 			if (tokens[nrule][0].length === 0) {
 				// Rule does contain nothing useful e.g. second rule of '10:00-12:00;' (empty) which needs to be handled.
 				parsing_warnings.push([nrule, -1,
-					t('nothing_useful')
+					t('nothing useful')
 					+ (nrule === tokens.length - 1 && nrule > 0 && !tokens[nrule][1] ?
-						' ' + t('programmers_joke') : '')
+						' ' + t('programmers joke') : '')
 					]);
 				continue;
 			}
@@ -3482,9 +3502,7 @@
 			if (typeof optional_conf_parm[key] === expected_type) {
 				return true;
 			} else if (typeof optional_conf_parm[key] !== 'undefined') {
-				throw 'The optional_conf_parm["' + key + '"] parameter is of unknown type.'
-					+ ' Given ' + typeof(optional_conf_parm[key])
-					+ ', expected ' + expected_type + '.';
+				throw t('conf param unkown type', { 'key': key, 'given': typeof(optional_conf_parm[key]), 'expected': expected_type });
 			}
 			return false;
 		}
@@ -3556,9 +3574,7 @@
 			else
 				message = ' ' + message;
 
-			message = 'An error occurred during evaluation of the value "' + value + '".'
-				+ ' Please file a bug report here: ' + issues_url + '.'
-				+ message;
+			message = t('library bug', { 'value': value, 'url': issues_url, 'message': message });
 			console.log(message);
 			return message;
 		}
@@ -3656,7 +3672,7 @@
 						curr_rule_tokens.push([Number(tmp[0]), 'year', value.length ]);
 						if (Number(tmp[0]) >= 2100) // Probably an error
 							parsing_warnings.push([ -1, value.length - 1,
-                                t('interpreted_as_year', {number:  Number(tmp[0])})
+                                t('interpreted as year', {number:  Number(tmp[0])})
 							]);
 					} else {
 						curr_rule_tokens.push([Number(tmp[0]), 'number', value.length ]);
@@ -3703,7 +3719,7 @@
 					// || terminates rule
 					// Next tokens belong to a fallback rule.
 					if (curr_rule_tokens.length === 0)
-						throw formatWarnErrorMessage(-1, value.length - 2, t('rule_before_fallback_empty'));
+						throw formatWarnErrorMessage(-1, value.length - 2, t('rule before fallback empty'));
 
 					all_tokens.push([ curr_rule_tokens, last_rule_fallback_terminated, value.length ]);
 					curr_rule_tokens = [];
@@ -3722,7 +3738,7 @@
 				} else if (value.match(/^[:.]/)) {
 					// time separator
 					if (value[0] === '.' && !done_with_warnings)
-						parsing_warnings.push([ -1, value.length - 1, t('hour_min_seperator')]);
+						parsing_warnings.push([ -1, value.length - 1, t('hour min seperator')]);
 					curr_rule_tokens.push([ ':', 'timesep', value.length ]);
 					value = value.substr(1);
 				} else {
@@ -3870,22 +3886,15 @@
 						// console.log(selector_type + ' use at: ' + used_selectors[nrule][selector_type].length);
 						if (used_selectors[nrule][selector_type].length > 1) {
 							parsing_warnings.push([nrule, used_selectors[nrule][selector_type][used_selectors[nrule][selector_type].length - 1],
-								'You have used ' + used_selectors[nrule][selector_type].length
-								+ (selector_type.match(/^(?:comment|state)/) ?
-									' ' + selector_type
-									+ (selector_type === 'state' ? ' keywords' : 's')
-									+ ' in one rule.'
-									+ ' You may only use one in one rule.'
-									:
-									' not connected ' + selector_type
-									+ (selector_type.match(/^(?:month|weekday)$/) ? 's' : ' ranges')
-									+ ' in one rule.'
-									+ ' This is probably an error.'
-									+ ' Equal selector types can (and should) always be written in conjunction separated by comma.'
-									+ ' Example for time ranges "12:00-13:00,15:00-18:00".'
-									+ ' Example for weekdays "Mo-We,Fr".'
-								  )
-								+ ' Rules can be separated by ";".' ]
+								t('use multi', {
+									'count': used_selectors[nrule][selector_type].length,
+									'part2': (
+										selector_type.match(/^(?:comment|state)/) ?
+											t('selector multi 2a', {'what': (selector_type === 'state' ? t('selector state'): t('comments'))})
+											:
+											t('selector multi 2b', {'what': t((selector_type.match(/^(?:month|weekday)$/) ? selector_type + 's' : 'ranges'))})
+									)
+								})]
 							);
 							done_with_selector_reordering = true; // Correcting the selector order makes no sense if this kind of issue exists.
 						}
@@ -4427,7 +4436,7 @@
 					// throw formatLibraryBugMessage('Not implemented yet.');
 				} else {
 					var warnings = getWarnings();
-					throw formatWarnErrorMessage(nrule, at, t('unexpected_token', {token: tokens[at][1], warnings: (warnings ? (' ' + warnings.join('; ')) : '')}));
+					throw formatWarnErrorMessage(nrule, at, t('unexpected token', {token: tokens[at][1], warnings: (warnings ? (' ' + warnings.join('; ')) : '')}));
 				}
 
 				if (typeof at === 'object') { // additional rule
