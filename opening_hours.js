@@ -3175,9 +3175,46 @@
 		'one weekday constraint': 'You can not use more than one constrained weekday in a month range',
 		'range contrainted weekdays': 'You can not use a range of constrained weekdays in a month range',
 		'expected': '"__symbol__" expected.',
-
-
-
+		'range zero': 'You can not use __type__ ranges with period equals zero.',
+		'period one year+': 'Please don’t use __type__ ranges with period equals one.'
+		+ ' If you want to express that a facility is open starting from a year without limit use "<year>+".',
+		'period one': 'Please don’t use __period_type__ ranges with period equals one.',
+		'month 31': "The day for __month__ must be between 1 and 31.",
+		'month 30': "Month __month__ doesn't have 31 days. The last day of __month__ is day 30.",
+		'month feb': '"Month __month__ either has 28 or 29 days (leap years)."',
+		'point in time': 'hyphen (-) or open end (+) in time range __calc__ expected.'
+		+ ' For working with points in time, the mode for __library_name__ has to be altered.'
+		+ ' Maybe wrong tag?',
+		'calculation': 'calculation',
+		'time range continue': 'Time range does not continue as expected',
+		'period continue': 'Time period does not continue as expected. Example "/01:30".',
+		'time range mode': '__library_name__ is running in "time range mode". Found point in time.',
+		'point in time mode': '__library_name__ is running in "points in time mode". Found time range.',
+		'outside current day': 'Time range starts outside of the current day',
+		'two midnights': 'Time spanning more than two midnights not supported',
+		'without minutes': 'Time range without minutes specified. Not very explicit!'
+		+ ' Please use this syntax instead "__syntax__".',
+		'outside day': 'Time range starts outside of the current day',
+		'zero calculation': 'Adding zero in a variable time calculation does not change the variable time.'
+		+ ' Please omit the calculation (example: "sunrise-(sunset-00:00)").',
+		'calculation syntax': 'Calculation with variable time is not in the right syntax',
+		'missing': 'Missing "__symbol__"',
+		'(time)': '(time)',
+		'bad range': 'Bad range: __from__-__to__',
+		'] or more numbers': '"]" or more numbers expected.',
+		'additional rule no sense': 'An additional rule does not make sense here. Just use a ";" as rule separator.'
+		+ ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator',
+		'unexpected token weekday range': 'Unexpected token in weekday range: __token__',
+		'max differ': 'There should be no reason to differ more than __max_differ__ days from a __name__. If so tell us …',
+		'adding 0': 'Adding 0 does not change the date. Please omit this.',
+		'unexpected token holiday': 'Unexpected token (holiday parser): __token__',
+		'no SH defintion': 'School holiday __name__ has no definition for the year __year__'
+		+ ' You can also add them: __repository_url__',
+		'no PH definition': 'There are no holidays __name__ defined for country __cc__.'
+		+ ' You can also add them: __repository_url__',
+		'no PH definition state': 'There are no holidays __name__ defined for country __cc__ and state __state__.'
+		+ ' You can also add them: __repository_url__',
+		'no country code': 'Country code missing which is needed to select the correct holidays (see README how to provide it)',
 
 
 
@@ -3201,7 +3238,9 @@
     // sprintf support
     var t = function(str, variables) {
         if (typeof i18n === 'object' && typeof i18n.t === 'function') {
-            return i18n.t('opening_hours:texts.' + str, variables);
+			if (i18n.lng() != 'en') {
+            	return i18n.t('opening_hours:texts.' + str, variables);
+			}
         }
         var text = lang[str];
         return text.replace(/__([^_]*)__/g, function (match, c) {
@@ -4602,15 +4641,12 @@
 
 			if (period === 0) {
 				throw formatWarnErrorMessage(nrule, at,
-					'You can not use '+ period_type +' ranges with period equals zero.');
+					t('range zero', { 'type': period_type }));
 			} else if (period === 1) {
 				if (typeof parm_string === 'string' && parm_string === 'no_end_year')
-					parsing_warnings.push([nrule, at,
-						'Please don’t use '+ period_type +' ranges with period equals one.'
-						+ ' If you want to express that a facility is open starting from a year without limit use "<year>+".']);
+					parsing_warnings.push([nrule, at, t('period one year+')]);
 				else
-					parsing_warnings.push([nrule, at,
-						'Please don’t use '+ period_type +' ranges with period equals one.']);
+					parsing_warnings.push([nrule, at, t('period one', {'period_type': period_type})]);
 			}
 		}
 
@@ -4651,11 +4687,11 @@
 
 			// https://en.wikipedia.org/wiki/Month#Julian_and_Gregorian_calendars
 			if (day < 1 || day > 31) {
-				throw formatWarnErrorMessage(nrule, at, "The day for " + months[month] + " must be between 1 and 31.");
+				throw formatWarnErrorMessage(nrule, at, t('month 31', {'month': months[month]}));
 			} else if ((month === 3 || month === 5 || month === 8 || month === 10) && day === 31) {
-				throw formatWarnErrorMessage(nrule, at, "Month " + months[month] + " doesn't have 31 days. The last day of " + months[month] + " is day 30.");
+				throw formatWarnErrorMessage(nrule, at, t('month 30', {'month': months[month]}));
 			} else if (month === 1 && day === 30) {
-				throw formatWarnErrorMessage(nrule, at, "Month " + months[1]+ " either has 28 or 29 days (leap years).");
+				throw formatWarnErrorMessage(nrule, at, t('month feb', {'month': months[month]}));
 			}
 		}
 		// }}}
@@ -4719,10 +4755,10 @@
 												)
 										)
 									),
-									'hyphen (-) or open end (+) in time range '
-									+ (has_time_var_calc[0] ? 'calculation ' : '') + 'expected.'
-									+ ' For working with points in time, the mode for ' + library_name + ' has to be altered.'
-									+ ' Maybe wrong tag?');
+									t('point in time', {
+										'calc': (has_time_var_calc[0] ? t('calculation') + ' ' : ''),
+										'library_name ': library_name
+									}));
 							} else {
 								minutes_to = minutes_from + 1;
 								is_point_in_time = true;
@@ -4745,7 +4781,7 @@
 						has_time_var_calc[1]      = matchTokens(tokens, at_end_time, '(', 'timevar');
 						if (!has_normal_time[1] && !matchTokens(tokens, at_end_time, 'timevar') && !has_time_var_calc[1]) {
 							throw formatWarnErrorMessage(nrule, at_end_time - (typeof tokens[at_end_time] !== 'undefined' ? 0 : 1),
-									'Time range does not continue as expected');
+									t('time range continue'));
 						} else {
 							if (has_normal_time[1]) {
 								minutes_to = getMinutesByHoursMinutes(tokens, nrule, at_end_time);
@@ -4774,13 +4810,13 @@
 							at += 2;
 							if (matchTokens(tokens, at, 'timesep'))
 								throw formatWarnErrorMessage(nrule, at,
-									'Time period does not continue as expected. Exampe "/01:30".');
+									t('period continue'));
 						}
 
 						// Check at this later state in the if condition to get the correct position.
 						if (oh_mode === 0)
 							throw formatWarnErrorMessage(nrule, at - 1,
-								'opening_hours is running in "time range mode". Found point in time.');
+								t('time range mode', {'library_name': library_name}));
 
 						is_point_in_time = true;
 					} else if (matchTokens(tokens, at, '+')) {
@@ -4788,7 +4824,7 @@
 						at++;
 					} else if (oh_mode === 1 && !is_point_in_time) {
 						throw formatWarnErrorMessage(nrule, at_end_time,
-							'opening_hours is running in "points in time mode". Found time range.');
+							t('point in time mode', {'library_name': library_name}));
 					}
 
 					if (typeof lat !== 'undefined') { // lon will also be defined (see above)
@@ -4800,13 +4836,12 @@
 
 					// Normalize minutes into range.
 					if (!extended_open_end && minutes_from >= minutes_in_day)
-						throw formatWarnErrorMessage(nrule, at_end_time - 2,
-							'Time range starts outside of the current day');
+						throw formatWarnErrorMessage(nrule, at_end_time - 2, t('outside current day'));
 					if (minutes_to < minutes_from || ((has_normal_time[0] && has_normal_time[1]) && minutes_from === minutes_to))
 						minutes_to += minutes_in_day;
 					if (minutes_to > minutes_in_day * 2)
 						throw formatWarnErrorMessage(nrule, at_end_time + (has_normal_time[1] ? 4 : (has_time_var_calc[1] ? 7 : 1)) - 2,
-							'Time spanning more than two midnights not supported');
+							t('two midnights'));
 
 					// This shortcut makes always-open range check faster.
 					if (minutes_from === 0 && minutes_to === minutes_in_day) {
@@ -4929,20 +4964,17 @@
 					minutes_from = tokens[at][0]   * 60;
 					minutes_to   = tokens[at+2][0] * 60;
 					if (!done_with_warnings)
-						parsing_warnings.push([nrule, at + 2,
-							'Time range without minutes specified. Not very explicit!'
-							+ ' Please use this syntax instead "'
-							+ (tokens[at][0]   < 10 ? '0' : '') + tokens[at][0]   + ':00-'
-							+ (tokens[at+2][0] < 10 ? '0' : '') + tokens[at+2][0] + ':00".']);
+						parsing_warnings.push([nrule, at + 2, t('without minutes', {
+							'syntax': (tokens[at][0]   < 10 ? '0' : '') + tokens[at][0]   + ':00-'
+								+ (tokens[at+2][0] < 10 ? '0' : '') + tokens[at+2][0] + ':00'
+						})]);
 
 					if (minutes_from >= minutes_in_day)
-						throw formatWarnErrorMessage(nrule, at,
-							'Time range starts outside of the current day');
+						throw formatWarnErrorMessage(nrule, at, t('outside day'));
 					if (minutes_to < minutes_from)
 						minutes_to += minutes_in_day;
 					if (minutes_to > minutes_in_day * 2)
-						throw formatWarnErrorMessage(nrule, at + 2,
-							'Time spanning more than two midnights not supported');
+						throw formatWarnErrorMessage(nrule, at + 2, t('two midnights'));
 
 					if (minutes_to > minutes_in_day) {
 						selectors.time.push(function(minutes_from, minutes_to) { return function(date) {
@@ -5029,23 +5061,22 @@
 						var add_or_subtract = tokens[at+2][0] === '+' ? '1' : '-1';
 						var minutes = getMinutesByHoursMinutes(tokens, nrule, at+3) * add_or_subtract;
 						if (minutes === 0)
-							parsing_warnings.push([ nrule, at+5, 'Adding zero in a variable time calculation does not change the variable time.'
-									+ ' Please omit the calculation (example: "sunrise-(sunset-00:00)").' ]
+							parsing_warnings.push([ nrule, at+5, t('zero calculation') ]
 								);
 						return minutes;
 					} else {
-						error = [ at+6, '. Missing ")".'];
+						error = [ at+6, '. ' + t('missing', {'symbol': ")"}) + '.'];
 					}
 				} else {
-					error = [ at+5, ' (time).'];
+					error = [ at+5, ' ' + t('(time)') + '.'];
 				}
 			} else {
-				error = [ at+2, '. "+" or "-" expected.'];
+				error = [ at+2, '. ' + t('expected', {'symbol': '+" or "-'})];
 			}
 
 			if (error)
 				throw formatWarnErrorMessage(nrule, error[0],
-					'Calculcation with variable time is not in the right syntax' + error[1]);
+					 t('calculation syntax')+ error[1]);
 		}
 		/* }}} */
 		/* }}} */
@@ -5089,12 +5120,12 @@
 							}
 						} else {
 							throw formatWarnErrorMessage(nrule, at+2,
-								'Bad range: ' + from + '-' + to);
+								t('bad range',{'from': from, 'to': to}));
 						}
 					});
 
 					if (!matchTokens(tokens, endat, ']'))
-						throw formatWarnErrorMessage(nrule, endat, '"]" or more numbers expected.');
+						throw formatWarnErrorMessage(nrule, endat, t('] or more numbers'));
 
 					var add_days = getMoveDays(tokens, endat+1, 6, 'constrained weekdays');
 					week_stable = false;
@@ -5222,10 +5253,9 @@
 					throw formatWarnErrorMessage(
 						nrule,
 						at - 1,
-						'An additional rule does not make sense here. Just use a ";" as rule separator.'
-						+ ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator');
+						t('additional rule no sense'));
 				} else {
-					throw formatWarnErrorMessage(nrule, at, 'Unexpected token in weekday range: ' + tokens[at][1]);
+					throw formatWarnErrorMessage(nrule, at, t('unexpected token weekday range', {'token': tokens[at][1]}));
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -5252,10 +5282,10 @@
 				// continues with '+ 5 days' or something like that
 				if (tokens[at+1][0] > max_differ)
 					throw formatWarnErrorMessage(nrule, at+2,
-						'There should be no reason to differ more than ' + max_differ + ' days from a ' + name + '. If so tell us …');
+						t('max_differ',{'max_differ': max_differ, 'name': name}));
 				add_days[0] *= tokens[at+1][0];
 				if (add_days[0] === 0 && !done_with_warnings)
-					parsing_warnings.push([ nrule, at+2, 'Adding 0 does not change the date. Please omit this.' ]);
+					parsing_warnings.push([ nrule, at+2, t('adding 0') ]);
 				add_days[1] = 3;
 			} else {
 				add_days[0] = 0;
@@ -5423,10 +5453,9 @@
 					throw formatWarnErrorMessage(
 						nrule,
 						at - 1,
-						'An additional rule does not make sense here. Just use a ";" as rule separator.'
-						+ ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator');
+						t('additional rule no sense'));
 				} else {
-					throw formatWarnErrorMessage(nrule, at, 'Unexpected token (holiday parser): ' + tokens[at][1]);
+					throw formatWarnErrorMessage(nrule, at, t('unexpected token holiday', {'token': tokens[at][1]}));
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -5465,8 +5494,7 @@
 				holiday = SH_hash['default']; // applies for any year without explicit definition
 				if (typeof holiday === 'undefined') {
 					if (fatal) {
-						throw formatLibraryBugMessage('School holiday ' + SH_hash.name + ' has no definition for the year ' + year + '.'
-								+ ' You can also add them: ' + repository_url);
+						throw formatLibraryBugMessage(t('no SH definition', {'name': SH_hash.name, 'year': year, 'repository_url': repository_url}));
 					} else {
 						return undefined;
 					}
@@ -5499,20 +5527,19 @@
 							}
 						}
 						if (Object.keys(matching_holiday).length === 0)
-						throw formatLibraryBugMessage('There are no holidays ' + type_of_holidays + ' defined for country ' + location_cc + '.'
-								+ ' You can also add them: ' + repository_url);
+						throw formatLibraryBugMessage(t('no PH definition',
+							{'name': type_of_holidays, 'cc': location_cc, 'repository_url': repository_url}));
 						return matching_holiday;
 					} else {
-						throw formatLibraryBugMessage('Holidays ' + type_of_holidays + ' are not defined for country ' + location_cc
-								+ ' and state ' + location_state + '.'
-								+ ' You can also add them: ' + repository_url);
+						throw formatLibraryBugMessage(t('no PH definition state',
+							{'name': type_of_holidays, 'cc': location_cc, 'state': location_state, 'repository_url': repository_url}));
 					}
 				} else {
-					throw formatLibraryBugMessage('No holidays are defined for country ' + location_cc + '.'
-							+ ' You can also add them: ' + repository_url);
+					throw formatLibraryBugMessage(t('no PH definition',
+						{'name': type_of_holidays, 'cc': location_cc, 'repository_url': repository_url}));
 				}
 			} else { /* We have no idea which holidays do apply because the country code was not provided. */
-				throw 'Country code missing which is needed to select the correct holidays (see README how to provide it)';
+				throw t('no country code');
 			}
 		}
 

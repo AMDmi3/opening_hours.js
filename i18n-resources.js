@@ -9,71 +9,8 @@ var opening_hours_resources = { // English is fallback language.
     // English (en) localization {{{
     en: {
         opening_hours: {
-            "texts": {
-                'unexpected token': 'Unexpected token: "__token__" This means that the syntax is not valid at that point or it is currently not supported.__warnings__',
-                'no string': 'The value (first parameter) is not a string.',
-                'nothing': 'The value contains nothing meaningful which can be parsed.',
-                'nothing useful': 'This rule does not contain anything useful. Please remove this empty rule.',
-                'programmers joke': 'Might it be possible that you are a programmer and adding a semicolon after each statement is hardwired in your muscle memory ;) ?'
-                + ' The thing is that the semicolon in the opening_hours syntax is defined as rule separator.'
-                + ' So for compatibility reasons you should omit this last semicolon.',
-                'interpreted as year': 'The number __number__ will be interpreted as year.'
-                + ' This is probably not intended. Times can be specified as "12:00".',
-                'rule before fallback empty': 'Rule before fallback rule does not contain anything useful',
-                'hour min seperator': 'Please use ":" as hour/minute-separator',
-                'warnings severity': 'The parameter optional_conf_parm["warnings_severity"] must be an integer number between 0 and 7 (inclusive).'
-                + ' Given __severity__ '
-                + ', expected one of the following numbers: [ 0, 1, 2, 3, 4, 5, 6, 7 ].',
-                'optional conf parm type': 'The optional_conf_parm parameter is of unknown type.'
-                + ' Given _given_',
-                'conf param tag key missing': 'The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["map_value"].',
-                'conf param mode invalid': 'The optional_conf_parm["mode"] parameter is a invalid number.'
-                + ' Gave __given__'
-                + ', expected one of the following numbers: [ 0, 1, 2 ].',
-                'conf param unkown type': 'The optional_conf_parm["__key__"] parameter is of unknown type.'
-                + ' Given __given__' + +', expected __expected__.',
-                'library bug': 'An error occurred during evaluation of the value "__value__".'
-                + ' Please file a bug report here: __url__. __message__',
-                'use multi': 'You have used __count__ __part2__ Rules can be separated by ";".',
-                'selector multi 2a': '__what__ in one rule. You may only use one in one rule.',
-                'selector multi 2b': 'not connected __what__ in one rule. This is probably an error.'
-                + ' Equal selector types can (and should) always be written in conjunction separated by comma.'
-                + ' Example for time ranges "12:00-13:00,15:00-18:00".'
-                + ' Example for weekdays "Mo-We,Fr".',
-                'selector state': 'state keywords',
-                'comments': 'comments',
-                'months': 'months',
-                'weekdays': 'weekdays',
-                'ranges': 'ranges',
-                'default state': "This rule which changes the default state (which is closed) for all following rules is not the first rule."
-                + " The rule will overwrite all previous rules."
-                + " It can be legitimate to change the default state to open for example"
-                + " and then only specify for which times the facility is closed.",
-                'vague': "This rule is not very explicit because there is no time selector being used."
-                + " Please add a time selector to this rule or use a comment to make it more explicit.",
-                'empty comment': "You have used an empty comment."
-                + " Please either write something in the comment or use the keyword unknown instead.",
-                'separator_for_readability': "You have used the optional symbol <separator_for_readability> in the wrong place."
-                + " Please check the syntax specification to see where it could be used or remove it.",
-                'strange 24/7': 'You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week".'
-                + ' For correctness you might want to use "open" or "closed"'
-                + ' for this rule and then write your exceptions which should achieve the same goal and is more clear'
-                + ' e.g. "open; Mo 12:00-14:00 off".',
-                'public holiday': 'There was no PH (public holiday) specified. This is not very explicit.__part2__'
-                + ' Please either append a "PH off" rule if the amenity is closed on all public holidays'
-                + ' or use something like "Sa,Su,PH 12:00-16:00" to say that on Saturdays, Sundays and on public holidays the amenity is open 12:00-16:00.'
-                + ' If you are not certain try to find it out. If you can’t then do not add PH to the value and ignore this warning.',
-                'public holiday part2': ' Unfortunately the tag key (e.g. "opening_hours", or "lit") is unknown to opening_hours.js.'
-                + 'This warning only applies to the key(s): __keys__.  If your value is for that key than read on. If not you can ignore the following.',
-                'switched': 'The selector "__first__" was switched with'
-                + ' the selector "__second__"'
-                + ' for readablitity and compatibiltity reasons.',
-                'no colon after': 'Please don’t use ":" after __token__.',
-                'number -5 to 5': 'Number between -5 and 5 (except 0) expected',
-                'one weekday constraint': 'You can not use more than one constrained weekday in a month range',
-                'range contrainted weekdays': 'You can not use a range of constrained weekdays in a month range',
-                'expected': '"__symbol__" expected.',
-            },
+            // Dear Translator,
+            // the original English texts are bundled with the lib, search for "var lang =" in opening_hours.js
             "pretty": {
                 "off": "closed",
                 "SH": "school holidays",
