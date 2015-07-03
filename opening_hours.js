@@ -3109,6 +3109,20 @@
 			},
 		},
 	};
+
+    var lang = {
+        'unexpected_token': 'Unexpected token: "__token__" This means that the syntax is not valid at that point or it is currently not supported.__warnings__',
+        'no_string': 'The value (first parameter) is not a string.',
+        'nothing': 'The value contains nothing meaningful which can be parsed.',
+        'nothing_useful': 'This rule does not contain anything useful. Please remove this empty rule.',
+        'programmers_joke': 'Might it be possible that you are a programmer and adding a semicolon after each statement is hardwired in your muscle memory ;) ?'
+                + ' The thing is that the semicolon in the opening_hours syntax is defined as rule separator.'
+                + ' So for compatibility reasons you should omit this last semicolon.',
+        'interpreted_as_year' : 'The number __number__ will be interpreted as year.'
+                + ' This is probably not intended. Times can be specified as "12:00".',
+        'rule_before_fallback_empty' : 'Rule before fallback rule does not contain anything useful',
+        'hour_min_seperator': 'Please use ":" as hour/minute-separator',
+    }
 	// }}}
 	// }}}
 
@@ -3116,13 +3130,26 @@
 	if (typeof exports === 'object') {
 		// For nodejs
 		var SunCalc = require('suncalc');
-		module.exports = factory(SunCalc, holidays, word_error_correction);
+		module.exports = factory(SunCalc, holidays, word_error_correction, lang);
 	} else {
 		// For browsers
-		root.opening_hours = factory(root.SunCalc, holidays, word_error_correction);
+		root.opening_hours = factory(root.SunCalc, holidays, word_error_correction, lang);
 	}
 	/// }}}
-}(this, function (SunCalc, holidays, word_error_correction) {
+}(this, function (SunCalc, holidays, word_error_correction, months, weekdays, lang) {
+
+    // translation function, roughly compatibly to i18next so we can replace everything by i18next include later
+    // sprintf support
+    var t = function(str, variables) {
+        var text = lang[str];
+        return text.replace(/__([^_]*)__/g, function (match, c) {
+            return typeof variables[c] != 'undefined'
+                ? variables[c]
+                : match
+                ;
+        })
+    };
+
 	return function(value, nominatiomJSON, optional_conf_parm) {
 		// short constants {{{
 		var word_value_replacement = { // If the correct values can not be calculated.
@@ -3281,10 +3308,10 @@
 
 		// Tokenize value and generate selector functions. {{{
 		if (typeof value !== 'string') {
-			throw 'The value (first parameter) is not a string.';
+			throw t('no_string');
 		}
 		if (value.match(/^(?:\s*;?\s*)+$/)) {
-			throw 'The value contains nothing meaningful which can be parsed.';
+			throw t('nothing');
 		}
 
 		var parsing_warnings = []; // Elements are fed into function formatWarnErrorMessage(nrule, at, message)
@@ -3303,11 +3330,9 @@
 			if (tokens[nrule][0].length === 0) {
 				// Rule does contain nothing useful e.g. second rule of '10:00-12:00;' (empty) which needs to be handled.
 				parsing_warnings.push([nrule, -1,
-					'This rule does not contain anything useful. Please remove this empty rule.'
+					t('nothing_useful')
 					+ (nrule === tokens.length - 1 && nrule > 0 && !tokens[nrule][1] ?
-						' Might it be possible that you are a programmer and adding a semicolon after each statement is hardwired in your muscle memory ;) ?'
-						+ ' The thing is that the semicolon in the opening_hours syntax is defined as rule separator.'
-						+ ' So for compatibility reasons you should omit this last semicolon.': '')
+						' ' + t('programmers_joke') : '')
 					]);
 				continue;
 			}
@@ -3627,8 +3652,7 @@
 						curr_rule_tokens.push([Number(tmp[0]), 'year', value.length ]);
 						if (Number(tmp[0]) >= 2100) // Probably an error
 							parsing_warnings.push([ -1, value.length - 1,
-								'The number ' + Number(tmp[0]) + ' will be interpreted as year.'
-								+ ' This is probably not intended. Times can be specified as "12:00".'
+                                t('interpreted_as_year', {number:  Number(tmp[0])})
 							]);
 					} else {
 						curr_rule_tokens.push([Number(tmp[0]), 'number', value.length ]);
@@ -3675,7 +3699,7 @@
 					// || terminates rule
 					// Next tokens belong to a fallback rule.
 					if (curr_rule_tokens.length === 0)
-						throw formatWarnErrorMessage(-1, value.length - 2, 'Rule before fallback rule does not contain anything useful');
+						throw formatWarnErrorMessage(-1, value.length - 2, t('rule_before_fallback_empty'));
 
 					all_tokens.push([ curr_rule_tokens, last_rule_fallback_terminated, value.length ]);
 					curr_rule_tokens = [];
@@ -3694,7 +3718,7 @@
 				} else if (value.match(/^[:.]/)) {
 					// time separator
 					if (value[0] === '.' && !done_with_warnings)
-						parsing_warnings.push([ -1, value.length - 1, 'Please use ":" as hour/minute-separator' ]);
+						parsing_warnings.push([ -1, value.length - 1, t('hour_min_seperator')]);
 					curr_rule_tokens.push([ ':', 'timesep', value.length ]);
 					value = value.substr(1);
 				} else {
@@ -4362,9 +4386,7 @@
 					// throw formatLibraryBugMessage('Not implemented yet.');
 				} else {
 					var warnings = getWarnings();
-					throw formatWarnErrorMessage(nrule, at, 'Unexpected token: "' + tokens[at][1]
-						+ '" This means that the syntax is not valid at that point or it is currently not supported.')
-						+ (warnings ? (' ' + warnings.join('; ')) : '');
+					throw formatWarnErrorMessage(nrule, at, t('unexpected_token', {token: tokens[at][1], warnings: (warnings ? (' ' + warnings.join('; ')) : '')}));
 				}
 
 				if (typeof at === 'object') { // additional rule
@@ -6736,5 +6758,6 @@
 
 		/* }}} */
 	};
+
 }));
 // vim: set ts=4 sw=4 tw=0 noet foldmarker={{{,}}} foldlevel=0 foldmethod=marker :
