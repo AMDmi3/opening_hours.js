@@ -3136,11 +3136,14 @@
 		root.opening_hours = factory(root.SunCalc, holidays, word_error_correction, lang);
 	}
 	/// }}}
-}(this, function (SunCalc, holidays, word_error_correction, months, weekdays, lang) {
+}(this, function (SunCalc, holidays, word_error_correction, lang) {
 
     // translation function, roughly compatibly to i18next so we can replace everything by i18next include later
     // sprintf support
     var t = function(str, variables) {
+        if (typeof i18n != 'undefined') {
+            return i18n.t('opening_hours:texts.' + str, variables);
+        }
         var text = lang[str];
         return text.replace(/__([^_]*)__/g, function (match, c) {
             return typeof variables[c] != 'undefined'
