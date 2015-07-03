@@ -5074,7 +5074,7 @@
 						// bad number
 						if (from === 0 || from < -5 || from > 5)
 							throw formatWarnErrorMessage(nrule, at,
-								'Number between -5 and 5 (except 0) expected');
+								t('number -5 to 5'));
 
 						if (from === to) {
 							numbers.push(from);
@@ -5083,7 +5083,7 @@
 								// bad number
 								if (i === 0 || i < -5 || i > 5)
 									throw formatWarnErrorMessage(nrule, at+2,
-										'Number between -5 and 5 (except 0) expected.');
+										t('number -5 to 5'));
 
 								numbers.push(i);
 							}
