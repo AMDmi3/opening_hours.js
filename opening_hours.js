@@ -3174,6 +3174,7 @@
 			'leave_weekday_sep_one_day_betw': true, // use the separator (either "," or "-" which is used to separate days which follow to each other like Sa,Su or Su-Mo
 			'sep_one_day_between': ',',      // separator which should be used
 			'zero_pad_month_and_week_numbers': false, // Format week (e.g. `week 01`) and month day numbers (e.g. `Jan 01`) with "%02d".
+            'localize': false,               // use local language (needs moment.js / i18n.js)
 		};
 
 		var osm_tag_defaults = {
@@ -4122,6 +4123,7 @@
 		function prettifyValue(argument_hash) {
 			var user_conf = {};
 			var get_internals = false;
+            var localize = false;
 			var rule_index;
 
 			prettified_value = '';
@@ -4139,12 +4141,31 @@
 				if (argument_hash.get_internals === true) {
 					get_internals = true;
 				}
+
 			}
 
 			for (var key in default_prettify_conf) {
 				if (typeof user_conf[key] === 'undefined')
 					user_conf[key] = default_prettify_conf[key];
 			}
+
+            if (user_conf['localize']) {
+                // build translation arrays from moment
+                var currentLocale = moment.locale();
+                moment.locale('en');
+                var weekdays_en = moment.weekdaysMin();
+                var months_en = moment.months(); // monthShort would not return what we like
+                for(var key in months_en) {
+                    months_en[key] = months_en[key].substr(0,3);
+                }
+                moment.locale(currentLocale);
+                var weekdays_local = moment.weekdaysMin();
+                var months_local = moment.months();
+                for(var key in months_local) {
+                    months_local[key] = months_local[key].substr(0,3);
+                }
+
+            }
 
 			for (var nrule = 0; nrule < new_tokens.length; nrule++) {
 				if (new_tokens[nrule][0].length === 0) continue;
@@ -4216,7 +4237,24 @@
 
 				prettified_value += prettified_group_value.map(
 					function (array) {
-						return array[1];
+                        if (user_conf['localize']) {
+                            text = array[1];
+                            if (array[0][2] == 'weekday') {
+                                for(var key in weekdays_en) {
+                                    text = text.replace(new RegExp(weekdays_en[key], 'g'), weekdays_local[key]);
+                                }
+                                return text;
+                            }
+                            if (array[0][2] == 'month') {
+                                for(var key in months_en) {
+                                    text = text.replace(new RegExp(months_en[key], 'g'), months_local[key]);
+                                }
+                                return text;
+                            }
+                            return i18n.t(['opening_hours:pretty.' + text, text]);
+                        } else {
+                            return array[1];
+                        }
 					}
 				).join(' ');
 
