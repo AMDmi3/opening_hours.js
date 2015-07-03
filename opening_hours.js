@@ -3200,7 +3200,7 @@
     // translation function, roughly compatibly to i18next so we can replace everything by i18next include later
     // sprintf support
     var t = function(str, variables) {
-        if (typeof i18n != 'undefined') {
+        if (typeof i18n === 'object' && typeof i18n.t === 'function') {
             return i18n.t('opening_hours:texts.' + str, variables);
         }
         var text = lang[str];
