@@ -18,6 +18,20 @@
 	 * :%s/\[\zs\([^ ]\)/ \1/e | %s/\([^ ]\)\]/\1 \]/e | %s/,\([^ ]\)/, \1/e
 	 */
 	var holidays = {
+		'be': { // {{{
+			'PH': { // https://nl.wikipedia.org/wiki/Feestdagen_in_Belgi%C3%AB
+				"Nieuwjaar - Jour de l'an"                                 : [ 1, 1 ],
+				"Paasmaandag - Lundi de Pâques"                            : [ 'easter', 1 ],
+				"Dag van de Arbeid - Fête du Travail"                      : [ 5, 1 ],
+				"Onze-Lieve-Heer-Hemelvaart - Jeudi de l'Ascensionn"       : [ 'easter', 39 ],
+				"Pinkstermaandag - Lundi de Pentecôte"                     : [ 'easter', 50 ],
+				"Nationale feestdag van België - Fête nationale"           : [ 7, 21 ],
+				"Onze-Lieve-Vrouw-Hemelvaart - Assomption"                 : [ 8, 15 ],
+				"Allerheiligen - Toussaint"                                : [ 11, 1 ],
+				"Wapenstilstand - Armistice"                               : [ 11, 11 ],
+				"Kerstmis - Noël"                                          : [ 12, 25 ]
+			}
+		}, // }}}
 		'fr': { // {{{
 			'PH': { // http://fr.wikipedia.org/wiki/F%C3%AAtes_et_jours_f%C3%A9ri%C3%A9s_en_France
 				"Jour de l'an"                          : [  1,  1 ],
