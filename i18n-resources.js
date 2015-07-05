@@ -22,7 +22,7 @@ var opening_hours_resources = { // English is fallback language.
         opening_hours: {
             "texts": {
                 'unexpected token': 'Unerwartetes Zeichen: "__token__" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__',
-                'no string': 'Der Wert (erster parameter) ist kein String',
+                'no string': 'Der Wert (erster Parameter) ist kein String',
                 'nothing': 'Der Wert enthält nichts, was ausgewertet werden könnte.',
                 'nothing useful': 'Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel.',
                 'programmers joke': 'Kann es sein, dass du ein Programmier bist und das Hinzufügen eines Semikolons nach jedem Statement ist zwanghaft ;) ?'
@@ -32,20 +32,20 @@ var opening_hours_resources = { // English is fallback language.
                 + ' Vermutlich ist das nicht beabsichtigt. Uhrzeiten werden als "12:00" angegeben.',
                 'rule before fallback empty': 'Die Regel vor der Fallback-Regel enthält nichts nützliches',
                 'hour min seperator': 'Bitte benutze ":" als Stunden/Minuten Trenner',
-                'warnings severity': 'The parameter optional_conf_parm["warnings_severity"] must be an integer number between 0 and 7 (inclusive).'
-                + ' Given __severity__ '
-                + ', expected one of the following numbers: [ 0, 1, 2, 3, 4, 5, 6, 7 ].',
-                'optional conf parm type': 'The optional_conf_parm parameter is of unknown type.'
-                + ' Given _given_',
-                'conf param tag key missing': 'The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["map_value"].',
-                'conf param mode invalid': 'The optional_conf_parm["mode"] parameter is a invalid number.'
-                + ' Gave __given__'
-                + ', expected one of the following numbers: [ 0, 1, 2 ].',
-                'conf param unkown type': 'The optional_conf_parm["__key__"] parameter is of unknown type.'
-                + ' Given __given__' + +', expected __expected__.',
-                'library bug': 'An error occurred during evaluation of the value "__value__".'
-                + ' Please file a bug report here: __url__. __message__',
-                'use multi': 'Du hast __count__ __part2__ Rules can be separated by ";".',
+                'warnings severity': 'Der Parameter optional_conf_parm["warnings_severity"] muss eine ganze Zahl zwischen (einschließlich) 0 und (einschließlich) 7 sein.'
+                + ' Gegeben: __severity__ '
+                + ', erwartet: Eine der Zahlen: [ 0, 1, 2, 3, 4, 5, 6, 7 ].',
+                'optional conf parm type': 'Der optional_conf_parm Parameter hat einen unbekannten Typ.'
+                + ' Gegeben: _given_',
+                'conf param tag key missing': 'Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_parm["map_value"].',
+                'conf param mode invalid': 'Der optional_conf_parm["mode"] Parameter ist eine ungültige Zahl.'
+                + ' Gegeben: __given__'
+                + ', erwartet: Eine der Zahlen: [ 0, 1, 2 ].',
+                'conf param unkown type': 'Der optional_conf_parm["__key__"] Parameter hat einen unbekannten Typ.'
+                + ' Gegeben: __given__, erwartet: __expected__.',
+                'library bug': 'Bei der Auswertung des Wertes "__value__" ist ein Fehler aufgetreten.'
+                + ' Bitte melde diesen Bug hier: __url__. __message__',
+                'use multi': 'Du hast __count__ __part2__ Einzelne Regeln können mit ";" getrennt werden.',
                 'selector multi 2a': '__what__ in einer Regel benutzt. Du kannst nur einen davon je Regel verwenden',
                 'selector multi 2b': 'nicht verbundene __what__ in einer Regel benutzt. Das ist vermutlich ein Fehler.'
                 + ' Gleiche Selektoren können (und sollten) immer zusammen und durch Kommas getrennt geschrieben werden.'
@@ -56,31 +56,30 @@ var opening_hours_resources = { // English is fallback language.
                 'months': 'Monate',
                 'weekdays': 'Wochentage',
                 'ranges': 'Zeitspannen',
-                'default state': "This rule which changes the default state (which is closed) for all following rules is not the first rule."
-                + " The rule will overwrite all previous rules."
-                + " It can be legitimate to change the default state to open for example"
-                + " and then only specify for which times the facility is closed.",
-                'vague': "This rule is not very explicit because there is no time selector being used."
-                + " Please add a time selector to this rule or use a comment to make it more explicit.",
-                'empty comment': "You have used an empty comment."
-                + " Please either write something in the comment or use the keyword unknown instead.",
-                'separator_for_readability': "You have used the optional symbol <separator_for_readability> in the wrong place."
-                + " Please check the syntax specification to see where it could be used or remove it.",
-                'strange 24/7': 'You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week".'
-                + ' For correctness you might want to use "open" or "closed"'
-                + ' for this rule and then write your exceptions which should achieve the same goal and is more clear'
-                + ' e.g. "open; Mo 12:00-14:00 off".',
-                'public holiday': 'There was no PH (public holiday) specified. This is not very explicit.__part2__'
-                + ' Please either append a "PH off" rule if the amenity is closed on all public holidays'
-                + ' or use something like "Sa,Su,PH 12:00-16:00" to say that on Saturdays, Sundays and on public holidays the amenity is open 12:00-16:00.'
-                + ' If you are not certain try to find it out. If you can’t then do not add PH to the value and ignore this warning.',
-                'public holiday part2': ' Unfortunately the tag key (e.g. "opening_hours", or "lit") is unknown to opening_hours.js.'
-                + 'This warning only applies to the key(s): __keys__.  If your value is for that key than read on. If not you can ignore the following.',
-                'switched': 'The selector "__first__" was switched with'
-                + ' the selector "__second__"'
-                + ' for readablitity and compatibiltity reasons.',
-                'no colon after': 'Please don’t use ":" after __token__.',
-                'number -5 to 5': 'Number between -5 and 5 (except 0) expected',
+                'default state': "Diese Regel, welche den Standard Status (d.h. geschlossen) für alle folgenden Regeln ändert, ist nicht die erste Regel."
+                + " Diese Regel überschreibt alle vorherigen Regeln."
+                + " Es kann legtim sein, dden Standard Status z.B. auf geöffnet festzulegen"
+                + " und dann nur die Zeiten zu denen geschlossen ist anzugeben.",
+                'vague': "Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde."
+                + " Bitte füge eine Zeitangabe oder einen Kommentar hinzu um dies zu verbessern.",
+                'empty comment': "Du hast einen leeren Kommentar verwendet."
+                + '" Bitte schreib entweder einen Kommentar-Text oder benutze stattdessen das Schlüsselwort "unknown".',
+                'separator_for_readability': "Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt."
+                + " Bitte lies die Syntax Spezifikation um zu sehen wo es verwendet werden kann oder entferne es.",
+                'strange 24/7': 'Du hast 24/7 in einer Art verwendet, welches wahrscheinlich nicht als "24 Stunden, 7 Tage die Woche" interpretiert wird.'
+                + ' Der Richtigkeit halber solltest du "open" oder "closed"'
+                + ' für diese Regel verwenden und dann die Ausnahmen angeben um das selbe ziel zu erreichen. So ist es klarer -'
+                + ' zum Beispiel "open; Mo 12:00-14:00 off".',
+                'public holiday': 'Es wurde keine Regel für "PH" (feiertags) angegeben. Dies ist nicht sehr Aussagekräftig.__part2__'
+                + ' Bitte füge die Regel "PH off" an, when die Einrichtung an allen Feiertagen geschlossen ist'
+                + ' oder schreibe "Sa,Su,PH 12:00-16:00" um auszudrücken, dass Samstags, Sonntags und feiertags von 12:00-16:00 geöffnet ist.'
+                + ' Wenn du dir im Unklaren bist, versuche die Öffnungszeit zu klären. Falls das nicht möglich ist, lass die Angabe weg und ignoriere diese Warnung.',
+                'public holiday part2': ' Leider ist der "tag key" (beispielsweise "opening_hours", or "lit") in opening_hours.js nicht bekannt.'
+                + 'Diese Warnung betrifft nur die Keys: __keys__.  Falls deine Angabe nicht für einen dieser ist, ignoriere bitte folgenden Hinweis:',
+                'switched': 'Der Selektor "__first__" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit '
+                + ' "__second__" getauscht.',
+                'no colon after': 'Bitte Benutze kein ":" nach dem Token __token__.',
+                'number -5 to 5': 'Zahl zwischen -5 und 5 (außer 0) wartert',
                 'one weekday constraint': 'You can not use more than one constrained weekday in a month range',
                 'range contrainted weekdays': 'You can not use a range of constrained weekdays in a month range',
                 'expected': '"__symbol__" expected.',
