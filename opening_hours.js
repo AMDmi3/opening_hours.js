@@ -3215,9 +3215,29 @@
 		'no PH definition state': 'There are no holidays __name__ defined for country __cc__ and state __state__.'
 		+ ' You can also add them: __repository_url__',
 		'no country code': 'Country code missing which is needed to select the correct holidays (see README how to provide it)',
-
-
-
+		'movable no formular': 'Movable day __name__ can not not be calculated.'
+		+ ' Please add the formula how to calculate it.',
+		'movable not in year': 'The movable day __name__ plus __days__'
+		+ ' days is not in the year of the movable day anymore. Currently not supported.',
+		'year range one year': 'A year range in which the start year is equal to the end year does not make sense.'
+		+ ' Please remove the end year. E.g. "__year__ May 23"',
+		'year range reverse': 'A year range in which the start year is greater than the end year does not make sense.'
+			+ ' Please turn it over.',
+		'year past': 'The year is in the past.',
+		'unexpected token year range': 'Unexpected token in year range: __token__',
+		'week range reverse': 'You have specified a week range in reverse order or leaping over a year. This is (currently) not supported.',
+		'week negative': 'You have specified a week date less then one. A valid week date range is 1-53.',
+		'week exceed': 'You have specified a week date greater then 53. A valid week date range is 1-53.',
+		'week period less than 2': 'You have specified a week period which is less than two.'
+		+ ' If you want to select the whole range from week __week_from__ to week __week_to__ then just omit the "/__period__".',
+		'week period greater than 26': 'You have specified a week period which is greater than 26.'
+		+ ' 26.5 is the half of the maximum 53 week dates per year so a week date period greater than 26 would only apply once per year.'
+		+ ' Please specify the week selector as "week __week_from__" if that is what you want to express.',
+		'unexpected token week range': 'Unexpected token in week range: __token__',
+		'unexpected token month range': 'Unexpected token in month range: __token__',
+		'day range reverse': 'Range in wrong order. From day is greater than to day.',
+		'open end': 'Specified as open end. Closing time was guessed.',
+		'date parameter needed': 'Date parameter needed.',
 	}
     // }}}
 	// }}}
@@ -5639,17 +5659,15 @@
 				if (typeof applying_holidays[holiday_name][0] === 'string') {
 					var selected_movableDay = movableDays[applying_holidays[holiday_name][0]];
 					if (!selected_movableDay)
-						throw 'Movable day ' + applying_holidays[holiday_name][0] + ' can not not be calculated.'
-							+ ' Please add the formula how to calculate it.';
+						throw t('movable no formular', {'name': applying_holidays[holiday_name][0]});
 					next_holiday = new Date(selected_movableDay.getFullYear(),
 							selected_movableDay.getMonth(),
 							selected_movableDay.getDate()
 							+ applying_holidays[holiday_name][1]
 						);
 					if (year !== next_holiday.getFullYear())
-						throw 'The movable day ' + applying_holidays[holiday_name][0] + ' plus '
-							+ applying_holidays[holiday_name][1]
-							+ ' days is not in the year of the movable day anymore. Currently not supported.';
+						throw t('movable not in year', {
+							'name': applying_holidays[holiday_name][0], 'days': applying_holidays[holiday_name][1]});
 				} else {
 					next_holiday = new Date(year,
 							applying_holidays[holiday_name][0] - 1,
@@ -5708,20 +5726,16 @@
 						if (is_range && tokens[at+2][0] <= year_from) {
 							// handle reversed range
 							if (tokens[at+2][0] === year_from) {
-								throw formatWarnErrorMessage(nrule, at,
-										'A year range in which the start year is equal to the end year does not make sense.'
-										+ ' Please remove the end year. E.g. "' + year_from + ' May 23"');
+								throw formatWarnErrorMessage(nrule, at, t('year range one year', {'year': year_from }));
 							} else {
-								throw formatWarnErrorMessage(nrule, at,
-										'A year range in which the start year is greater than the end year does not make sense.'
-										+ ' Please turn it over.');
+								throw formatWarnErrorMessage(nrule, at, t('year range reverse'));
 							}
 						}
 						if (!is_range && year_from < new Date().getFullYear()) {
-							parsing_warnings.push([ nrule, at, 'The year is in the past.' ]);
+							parsing_warnings.push([ nrule, at, t('year past') ]);
 						}
 						if (is_range && tokens[at+2][0] < new Date().getFullYear()) {
-							parsing_warnings.push([ nrule, at+2, 'The year is in the past.' ]);
+							parsing_warnings.push([ nrule, at+2, t('year past') ]);
 						}
 					// }}}
 
@@ -5756,13 +5770,9 @@
 
 					at += 1 + (is_range ? 2 : 0) + (has_period ? (has_period === 2 ? 1 : 2) : 0);
 				} else if (matchTokens(tokens, at - 1, ',')) { // additional rule
-					throw formatWarnErrorMessage(
-						nrule,
-						at - 1,
-						'An additional rule does not make sense here. Just use a ";" as rule separator.'
-						+ ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator');
+					throw formatWarnErrorMessage(nrule, at - 1, t('additional rule no sense'));
 				} else {
-					throw formatWarnErrorMessage(nrule, at, 'Unexpected token in year range: ' + tokens[at][1]);
+					throw formatWarnErrorMessage(nrule, at, t('unexpected token year range', {'token': tokens[at][1]}));
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -5789,30 +5799,25 @@
 					var week_from = tokens[at][0];
 					var week_to   = is_range ? tokens[at+2][0] : week_from;
 					if (week_from > week_to) {
-						throw formatWarnErrorMessage(nrule, at+2,
-							'You have specified a week range in reverse order or leaping over a year. This is (currently) not supported.');
+						throw formatWarnErrorMessage(nrule, at+2, t('week range reverse'));
 					}
 					if (week_from < 1) {
-						throw formatWarnErrorMessage(nrule, at,
-							'You have specified a week date less then one. A valid week date range is 1-53.');
+						throw formatWarnErrorMessage(nrule, at, t('week negative'));
 					}
 					if (week_to > 53) {
-						throw formatWarnErrorMessage(nrule, is_range ? at+2 : at,
-							'You have specified a week date greater then 53. A valid week date range is 1-53.');
+						throw formatWarnErrorMessage(nrule, is_range ? at+2 : at, t('week exceed'));
 					}
 					if (is_range) {
 						period = matchTokens(tokens, at+3, '/', 'number');
 						if (period) {
 							period = tokens[at+4][0];
 							if (period < 2) {
-								throw formatWarnErrorMessage(nrule, at+4,
-									'You have specified a week period which is less than two.'
-									+ ' If you want to select the whole range from week ' + week_from + ' to week ' + week_to + ' then just omit the "/' + period + '".');
+								throw formatWarnErrorMessage(nrule, at+4, t('week period less than 2', {
+									'week_from': week_from, 'week_to': week_to, 'period': period}));
 							} else if (period > 26) {
-								throw formatWarnErrorMessage(nrule, at+4,
-									'You have specified a week period which is greater than 26.'
-									+ ' 26.5 is the half of the maximum 53 week dates per year so a week date period greater than 26 would only apply once per year.'
-									+ ' Please specify the week selector as "week ' + week_from + '" if that is what you want to express.');
+								throw formatWarnErrorMessage(nrule, at+4, t('week period greater than 26', {
+									'week_from': week_from
+								}));
 							}
 						}
 					}
@@ -5861,13 +5866,9 @@
 
 					at += 1 + (is_range ? 2 : 0) + (period ? 2 : 0);
 				} else if (matchTokens(tokens, at - 1, ',')) { // additional rule
-					throw formatWarnErrorMessage(
-						nrule,
-						at - 1,
-						'An additional rule does not make sense here. Just use a ";" as rule separator.'
-						+ ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator');
+					throw formatWarnErrorMessage(nrule, at - 1, t('additional rule no sense'));
 				} else {
-					throw formatWarnErrorMessage(nrule, at, 'Unexpected token in week range: ' + tokens[at][1]);
+					throw formatWarnErrorMessage(nrule, at, t('unexpected token week range', {'token': tokens[at][1]}));
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -5989,7 +5990,7 @@
 
 					at += is_range ? 3 : 1;
 				} else {
-					throw formatWarnErrorMessage(nrule, at, 'Unexpected token in month range: ' + tokens[at][1]);
+					throw formatWarnErrorMessage(nrule, at, t('unexpected token month range', {'token': tokens[at][1]}));
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -6075,8 +6076,7 @@
 								from_date.setDate(from_date.getDate() + has_calc[0][0]);
 								if (from_year_before_calc !== from_date.getFullYear())
 									throw formatWarnErrorMessage(nrule, at+has_year[0]+has_calc[0][1]*3,
-										'The movable day ' + tokens[at+has_year[0]][0] + ' plus ' + has_calc[0][0]
-										+ ' days is not in the year of the movable day anymore. Currently not supported.');
+										t('movable not in year', {'name': tokens[at+has_year[0]][0], 'days': has_calc[0][0]}));
 							}
 						} else if (has_constrained_weekday[0]) {
 							from_date = getDateForConstrainedWeekday((has_year[0] ? tokens[at][0] : date.getFullYear()), // year
@@ -6101,8 +6101,7 @@
 								to_date.setDate(to_date.getDate() + has_calc[1][0]);
 								if (to_year_before_calc !== to_date.getFullYear())
 									throw formatWarnErrorMessage(nrule, at_sec_event_or_month+has_calc[1][1],
-										'The movable day ' + tokens[at_sec_event_or_month][0] + ' plus ' + has_calc[1][0]
-										+ ' days is not in the year of the movable day anymore. Currently not supported.');
+										t('movable not in year', {'name': tokens[at_sec_event_or_month][0], 'days':  has_calc[1][0] }));
 							}
 						} else if (has_constrained_weekday[1]) {
 							to_date = getDateForConstrainedWeekday((has_year[1] ? tokens[at_sec_event_or_month-1][0] : date.getFullYear()), // year
@@ -6183,8 +6182,7 @@
 
 						// error checking {{{
 						if (range_to < range_from)
-							throw formatWarnErrorMessage(nrule, at+has_year+3,
-									'Range in wrong order. From day is greater than to day.');
+							throw formatWarnErrorMessage(nrule, at+has_year+3, t('day range reverse'));
 
 						checkIfDateIsValid(month, range_from, nrule, at+1 + has_year);
 						checkIfDateIsValid(month, range_to - 1 /* added previously */,
@@ -6244,15 +6242,13 @@
 						var movableDays = getMovableEventsForYear((has_year ? tokens[at][0] : date.getFullYear()));
 						var event_date = movableDays[tokens[at+has_year][0]];
 						if (!event_date)
-							throw 'Movable day ' + tokens[at+has_year][0] + ' can not not be calculated.'
-								+ ' Please add the formula how to calculate it.';
+							throw t('movable no formular', {'name': tokens[at+has_year][0]});
 
 						if (add_days[0]) {
 							event_date.setDate(event_date.getDate() + add_days[0]);
 							if (date.getFullYear() !== event_date.getFullYear())
-								throw formatWarnErrorMessage(nrule, at+has_year+add_days[1], 'The movable day ' + tokens[at+has_year][0] + ' plus '
-									+ add_days[0]
-									+ ' days is not in the year of the movable day anymore. Currently not supported.');
+								throw formatWarnErrorMessage(nrule, at+has_year+add_days[1], t('movable not in year', {
+									'name': tokens[at+has_year][0], 'days': add_days[0]}));
 						}
 
 						if (date.getTime() < event_date.getTime())
@@ -6403,12 +6399,12 @@
 							match_rule  = rule;
 
 							/* Reset open end comment */
-							if (typeof comment === 'object' && comment[0] === 'Specified as open end. Closing time was guessed.')
+							if (typeof comment === 'object' && comment[0] === t('open end'))
 								comment = undefined;
 
 							// open end
 							if (res[2] === true && (resultstate || unknown)) {
-								comment = [ 'Specified as open end. Closing time was guessed.', match_rule ];
+								comment = [ t('open end'), match_rule ];
 
 								resultstate = false;
 								unknown     = true;
@@ -6763,7 +6759,7 @@
 				/* setDate {{{ */
 				this.setDate = function(date) {
 					if (typeof date !== 'object')
-						throw 'Date parameter needed.';
+						throw t('date parameter needed');
 
 					prevstate = [ undefined, date, undefined, undefined, undefined ];
 					state     = oh.getStatePair(date);
