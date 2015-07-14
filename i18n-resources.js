@@ -80,72 +80,72 @@ var opening_hours_resources = { // English is fallback language.
                 + ' "__second__" getauscht.',
                 'no colon after': 'Bitte Benutze kein ":" nach dem Token __token__.',
                 'number -5 to 5': 'Zahl zwischen -5 und 5 (außer 0) wartert',
-                'one weekday constraint': 'You can not use more than one constrained weekday in a month range',
-                'range contrainted weekdays': 'You can not use a range of constrained weekdays in a month range',
-                'expected': '"__symbol__" expected.',
-                'range zero': 'You can not use __type__ ranges with period equals zero.',
-                'period one year+': 'Please don’t use __type__ ranges with period equals one.'
-                + ' If you want to express that a facility is open starting from a year without limit use "<year>+".',
-                'period one': 'Please don’t use __period_type__ ranges with period equals one.',
-                'month 31': "The day for __month__ must be between 1 and 31.",
-                'month 30': "Month __month__ doesn't have 31 days. The last day of __month__ is day 30.",
-                'month feb': '"Month __month__ either has 28 or 29 days (leap years)."',
-                'point in time': 'hyphen (-) or open end (+) in time range __calc__ expected.'
-                + ' For working with points in time, the mode for __library_name__ has to be altered.'
-                + ' Maybe wrong tag?',
-                'calculation': 'calculation',
-                'time range continue': 'Time range does not continue as expected',
-                'period continue': 'Time period does not continue as expected. Example "/01:30".',
-                'time range mode': '__library_name__ is running in "time range mode". Found point in time.',
-                'point in time mode': '__library_name__ is running in "points in time mode". Found time range.',
-                'outside current day': 'Time range starts outside of the current day',
-                'two midnights': 'Time spanning more than two midnights not supported',
-                'without minutes': 'Time range without minutes specified. Not very explicit!'
-                + ' Please use this syntax instead "__syntax__".',
-                'outside day': 'Time range starts outside of the current day',
-                'zero calculation': 'Adding zero in a variable time calculation does not change the variable time.'
-                + ' Please omit the calculation (example: "sunrise-(sunset-00:00)").',
-                'calculation syntax': 'Calculation with variable time is not in the right syntax',
-                'missing': 'Missing "__symbol__"',
-                '(time)': '(time)',
-                'bad range': 'Bad range: __from__-__to__',
-                '] or more numbers': '"]" or more numbers expected.',
-                'additional rule no sense': 'An additional rule does not make sense here. Just use a ";" as rule separator.'
-                + ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator',
-                'unexpected token weekday range': 'Unexpected token in weekday range: __token__',
-                'max differ': 'There should be no reason to differ more than __max_differ__ days from a __name__. If so tell us …',
-                'adding 0': 'Adding 0 does not change the date. Please omit this.',
-                'unexpected token holiday': 'Unexpected token (holiday parser): __token__',
-                'no SH defintion': 'School holiday __name__ has no definition for the year __year__'
-                + ' You can also add them: __repository_url__',
-                'no PH definition': 'There are no holidays __name__ defined for country __cc__.'
-                + ' You can also add them: __repository_url__',
-                'no PH definition state': 'There are no holidays __name__ defined for country __cc__ and state __state__.'
-                + ' You can also add them: __repository_url__',
-                'no country code': 'Country code missing which is needed to select the correct holidays (see README how to provide it)',
-                'movable no formular': 'Movable day __name__ can not not be calculated.'
-                + ' Please add the formula how to calculate it.',
-                'movable not in year': 'The movable day __name__ plus __days__'
-                + ' days is not in the year of the movable day anymore. Currently not supported.',
-                'year range one year': 'A year range in which the start year is equal to the end year does not make sense.'
-                + ' Please remove the end year. E.g. "__year__ May 23"',
-                'year range reverse': 'A year range in which the start year is greater than the end year does not make sense.'
-                + ' Please turn it over.',
-                'year past': 'The year is in the past.',
-                'unexpected token year range': 'Unexpected token in year range: __token__',
-                'week range reverse': 'You have specified a week range in reverse order or leaping over a year. This is (currently) not supported.',
-                'week negative': 'You have specified a week date less then one. A valid week date range is 1-53.',
-                'week exceed': 'You have specified a week date greater then 53. A valid week date range is 1-53.',
-                'week period less than 2': 'You have specified a week period which is less than two.'
-                + ' If you want to select the whole range from week __week_from__ to week __week_to__ then just omit the "/__period__".',
-                'week period greater than 26': 'You have specified a week period which is greater than 26.'
-                + ' 26.5 is the half of the maximum 53 week dates per year so a week date period greater than 26 would only apply once per year.'
-                + ' Please specify the week selector as "week __week_from__" if that is what you want to express.',
-                'unexpected token week range': 'Unexpected token in week range: __token__',
-                'unexpected token month range': 'Unexpected token in month range: __token__',
-                'day range reverse': 'Range in wrong order. From day is greater than to day.',
-                'open end': 'Specified as open end. Closing time was guessed.',
-                'date parameter needed': 'Date parameter needed.',
+                'one weekday constraint': 'Du kannst höchstens einen beschränkten Wochentag in einer Monats-Spanne verwenden',
+                'range contrainted weekdays': 'Du kannst keine Wochentags-Spanne als Beschränkung in einer Monats-Spanne verwenden',
+                'expected': '"__symbol__" erwartet.',
+                'range zero': 'Du kannst keine __type__-Spanne mit eine Periode "0" verwenden.',
+                'period one year+': 'Bitte verwende keine __type__-Spannen mit Periode "1".'
+                + ' Wenn du ausdrücken willst, das eine Einrichtung ab einem bestimmten Jahr immer offen ist, benutze bitte "<year>+".',
+                'period one': 'Bitte verwende keine __period_type__-Spannen mit Periode "1".',
+                'month 31': "Die Tagangabe für __month__ muss zwischen 1 und 31 liegen.",
+                'month 30': "Der Monat __month__ hat keine 31 Tage. Der letzte Tag von __month__ ist Tag 30.",
+                'month feb': '"Der Monat __month__ hat entwedet 28 oder 29 Tage (Schaltjahre)."',
+                'point in time': 'Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne __calc__.'
+                + ' Um mit Zeitpunkten zu arbeiten, muss der Modus für  __library_name__ umgestellt werden.'
+                + ' Vielleicht falscher OSM tag verwendet?',
+                'calculation': 'Berechnung',
+                'time range continue': 'Die Zeitspanne geht nicht wie erwartet weiter',
+                'period continue': 'Die Zeitspannen-Periode geht nicht wie erwartet weiter. Beispiel "/01:30".',
+                'time range mode': '__library_name__ läuft im "Zeitspannen-Modus". Zeitpunkt gefunden.',
+                'point in time mode': '__library_name__ läuft im "Zeitpunkt-Modus". Zeitspanne gefunden.',
+                'outside current day': 'Zeitspanne beginnt außerhalb des aktuellen Tages',
+                'two midnights': 'Zeitspanne welche mehrmals Mitternacht beinhaltet wird nicht untersützt',
+                'without minutes': 'Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig!'
+                + ' Bitte verwende stattdessen folgende Syntax "__syntax__".',
+                'outside day': 'Die Zeitspanne beginnt außerhalb des aktuellen Tages',
+                'zero calculation': 'Das Hinzufügen von 0 in einer variablen Zeitberechnung ändert die variable Zeit nicht.'
+                + ' Bitte entferne die Zeitberechnung (Beispiel: "sunrise-(sunset-00:00)").',
+                'calculation syntax': 'Berechnung mit variabler Zeit hat nicht die korrekte Syntax',
+                'missing': 'Fehlendes "__symbol__"',
+                '(time)': '(Zeit)',
+                'bad range': 'Ungültige Zeitspanne: __from__-__to__',
+                '] or more numbers': '"]" oder weitere Zahlen erwartet.',
+                'additional rule no sense': 'Eine weitere Regel an dieser Stelle ergibt keinen Sinn. Benutze einfach ";" als Trenner für Regeln.'
+                + ' Siehe https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator',
+                'unexpected token weekday range': 'Unerwartes Token in Tages-Spanne: __token__',
+                'max differ': 'Es sollte keinen Grund geben, mehr als __max_differ__ Tage von einem __name__ abzuweichen. Wenn nötig, teile uns dies bitte mit…',
+                'adding 0': 'Addition von 0 verändert das Datum nicht. Bitte weglassen.',
+                'unexpected token holiday': 'Unerwartes Token (in Feiertags-Auswertung): __token__',
+                'no SH defintion': 'Für die Schulferien __name__ fehlen die Defintionen für das Jahr __year__'
+                + ' Du kannst diese hinzufügen: __repository_url__',
+                'no PH definition': 'Der Feiertag __name__ ist für das Land __cc__ nicht definiert.'
+                + ' Du kannst diese hinzufügen: __repository_url__',
+                'no PH definition state': 'Der Feiertag __name__ ist für das Land __cc__ und Bundesland __state__ nicht definiert.'
+                + ' Du kannst diese hinzufügen: __repository_url__',
+                'no country code': 'Der Ländercode fehlt. Dieser wird benötigt um die korrekten Feiertage zu bestimmen (siehe in der README wie dieser anzugeben ist)',
+                'movable no formular': 'Der bewegliche Feiertag __name__ can nicht berechnet werden.'
+                + ' Bitte füge eine entsprechende Formel hinzu.',
+                'movable not in year': 'Der bewegliche Feiertag __name__ plus __days__'
+                + ' Tage befindet sich nicht mehr im selben Jahr. Aktuell nicht unterstüzt.',
+                'year range one year': 'Eine Jahres-Spanne mit gleichem Jahr als Beginn und Ende ergibt keinen Sinn.'
+                + ' Bitte entferne das Ende-Jahr. zum Beispiel: "__year__ May 23"',
+                'year range reverse': 'Eine Jahres-Spanne mit Beginn größer als Ende ergibt keinen Sinn.'
+                + ' Bitte umdrehen.',
+                'year past': 'Das Jahr liegt in der Vergangenheit.',
+                'unexpected token year range': 'Unerwartetes Token in der Jahres-Spanne: __token__',
+                'week range reverse': 'Du hast eine Wochen-Spanne in umgekehrter Reihenfolge oder mehrere Jahr umfassende angegeben. Dies ist aktuell nicht unterstützt.',
+                'week negative': 'Du hast eine Wochennummer kleiner 1 angegeben. Korrekte Angaben sind 1-53.',
+                'week exceed': 'Du hast eine Wochennummer größer als 53 angegeben. Korrekte Angaben sind 1-53.',
+                'week period less than 2': 'Du hast eine Wochenperiode kleiner 2 angegeben.'
+                + ' Wenn du die gesammte Spanne von __week_from__ bis __week_to__ angeben will, lasse "/__period__" einfach weg.',
+                'week period greater than 26': 'Du hast eine Wochen-Periode größer als 26 angegeben.'
+                + ' 26.5 ist die Hälfte des Maximums von 53 Wochen pro Jahr. Damit würde eine Periode größer als 26 nur einmal pro Jahr auftreten.'
+                + ' Bitte gibt den Wochen-Selektor als "week __week_from__" an, wenn es das ist, was du ausdrücken möchtest.',
+                'unexpected token week range': 'Unerwartetes Token in Wochen-Spanne: __token__',
+                'unexpected token month range': 'Unerwartetes Token in Monats-Spanne: __token__',
+                'day range reverse': 'Zeitspanne in falscher Reihenfolge. Begin ist größer als Ende.',
+                'open end': 'Angegeben als "open end". Schließzeit wurde geraten.',
+                'date parameter needed': 'Datumsparameter nötig.',
             },
             "pretty": {
                 "off": "geschlossen",
