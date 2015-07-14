@@ -22,6 +22,7 @@ if (argv.help) {
 	optimist.showHelp();
 	process.exit(0);
 }
+/* }}} */
 
 /* Required modules {{{ */
 if (typeof argv.locale === 'string' && argv.locale !== 'en') {
@@ -4974,6 +4975,10 @@ test.addShouldFail('Wrong constructor call should throw an error: nominatiomJSON
 		'Mo-Fr 08:00-16:00',
 	], "I am string!", 'not only test');
 
+test.addShouldFail('Wrong constructor call should throw an error: "string"', [
+		value_perfectly_valid[0],
+	], nominatiomTestJSON, 'not only test', 'test for failure');
+
 test.addShouldFail('Wrong constructor call should throw an error: warnings_severity: [ 4 ]', [
 		value_perfectly_valid[0],
 	], nominatiomTestJSON, 'not only test', { 'warnings_severity': [ 4 ] });
@@ -5516,6 +5521,8 @@ function opening_hours_test() {
 				'mode': oh_mode,
 				'locale': argv.locale,
 			};
+		} else if (oh_mode === 'test for failure') {
+			// Do nothing.
 		} else if (typeof oh_mode !== 'object') {
 			oh_mode = {
 				'locale': argv.locale,

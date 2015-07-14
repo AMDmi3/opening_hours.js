@@ -4,7 +4,7 @@ currentLng set to: de
 "Time intervals" for "10:00-12:00,": [1m[32mPASSED[39m[22m
 "Time intervals" for "10:00-12:00;": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*10:00-12:00; <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel. Kann es sein, dass du ein Programmier bist und das Hinzufügen eines Semikolons nach jedem Statement ist zwanghaft ;) ? Es ist so, dass das Semikolon in der opening_hours Syntax als Trenner für Regeln definiert ist. Du solltest bitte des abschließende Semikolon auslassen.)
+	*10:00-12:00; <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel. Kann es sein, dass du ein Programmier bist und das Hinzufügen eines Semikolons nach jedem Statement ist zwanghaft ;) ? Es ist so, dass das Semikolon in der opening_hours Syntax als Trenner für Regeln definiert ist. Bitte verzichte an dieser Stelle auf ein Semikolon.)
 "Time intervals" for "10-12": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10-12 <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "10:00-12:00".)
@@ -2186,7 +2186,7 @@ With [1m[34mwarnings[39m[22m:
 	*;;; open <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel.)
 "Value not ideal (probably wrong). Should throw a warning." for "open; 00:23-00:42 unknown "warning at correct position?";": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*open; 00:23-00:42 unknown "warning at correct position?"; <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel. Kann es sein, dass du ein Programmier bist und das Hinzufügen eines Semikolons nach jedem Statement ist zwanghaft ;) ? Es ist so, dass das Semikolon in der opening_hours Syntax als Trenner für Regeln definiert ist. Du solltest bitte des abschließende Semikolon auslassen.)
+	*open; 00:23-00:42 unknown "warning at correct position?"; <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel. Kann es sein, dass du ein Programmier bist und das Hinzufügen eines Semikolons nach jedem Statement ist zwanghaft ;) ? Es ist so, dass das Semikolon in der opening_hours Syntax als Trenner für Regeln definiert ist. Bitte verzichte an dieser Stelle auf ein Semikolon.)
 "Value not ideal (probably wrong). Should throw a warning." for "open; 00:23-00:42 unknown "warning at correct position?" ||": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*open; 00:23-00:42 unknown "warning at correct position?" || <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel.)
@@ -2662,6 +2662,9 @@ Der Wert (erster Parameter) ist kein String
 "Wrong constructor call should throw an error: nominatiomJSON: string" for "Mo-Fr 08:00-16:00": [1m[32mPASSED[39m[22m
 The nominatiomJSON parameter is of unknown type. Given string, expected object.
 
+"Wrong constructor call should throw an error: "string"" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
+Der optional_conf_parm Parameter hat einen unbekannten Typ. Gegeben: string
+
 "Wrong constructor call should throw an error: warnings_severity: [ 4 ]" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 Der optional_conf_parm["warnings_severity"] Parameter hat einen unbekannten Typ. Gegeben: object, erwartet: number.
 
@@ -2707,7 +2710,7 @@ Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-814/866 tests passed.
+815/867 tests passed.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

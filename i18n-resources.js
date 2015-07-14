@@ -20,7 +20,7 @@ module.exports = {
                     'nothing useful': 'Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel.',
                     'programmers joke': 'Kann es sein, dass du ein Programmier bist und das Hinzufügen eines Semikolons nach jedem Statement ist zwanghaft ;) ?'
                         + ' Es ist so, dass das Semikolon in der opening_hours Syntax als Trenner für Regeln definiert ist.'
-                        + ' Du solltest bitte des abschließende Semikolon auslassen.',
+                        + ' Bitte verzichte an dieser Stelle auf ein Semikolon.',
                     'interpreted as year': 'Die Zahl __number__ wird als Jahr interpretiert.'
                         + ' Vermutlich ist das nicht beabsichtigt. Uhrzeiten werden als "12:00" angegeben.',
                     'rule before fallback empty': 'Die Regel vor der Fallback-Regel enthält nichts nützliches',
@@ -29,7 +29,7 @@ module.exports = {
                         + ' Gegeben: __severity__ '
                         + ', erwartet: Eine der Zahlen: [ 0, 1, 2, 3, 4, 5, 6, 7 ].',
                     'optional conf parm type': 'Der optional_conf_parm Parameter hat einen unbekannten Typ.'
-                        + ' Gegeben: _given_',
+                        + ' Gegeben: __given__',
                     'conf param tag key missing': 'Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_parm["map_value"].',
                     'conf param mode invalid': 'Der optional_conf_parm["mode"] Parameter ist eine ungültige Zahl.'
                         + ' Gegeben: __given__'

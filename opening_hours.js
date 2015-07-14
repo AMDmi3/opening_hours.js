@@ -3128,7 +3128,7 @@
 			+ ' Given __severity__'
 			+ ', expected one of the following numbers: [ 0, 1, 2, 3, 4, 5, 6, 7 ].',
 		'optional conf parm type': 'The optional_conf_parm parameter is of unknown type.'
-			+ ' Given _given_',
+			+ ' Given __given__',
 		'conf param tag key missing': 'The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["map_value"].',
 		'conf param mode invalid': 'The optional_conf_parm["mode"] parameter is a invalid number.'
 			+ ' Gave __given__'
@@ -3385,7 +3385,7 @@
 			if (checkOptionalConfParm('warnings_severity', 'number')) {
 				warnings_severity = optional_conf_parm['warnings_severity'];
 				if ([ 0, 1, 2, 3, 4, 5, 6, 7 ].indexOf(warnings_severity) === -1) {
-					throw t('warnings severity', {'severity': warnings_severity });
+					throw t('warnings severity', { 'severity': warnings_severity });
 				}
 			}
 			if (checkOptionalConfParm('tag_key', 'string')) {
