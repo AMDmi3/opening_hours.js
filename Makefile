@@ -144,12 +144,14 @@ check-diff-opening_hours.min.js:
 
 .SILENT: check-diff-opening_hours.js check-diff-opening_hours.min.js
 check-diff-%.js: %.js test.js
-	git checkout HEAD -- test.log
-	# git checkout master -- test.log
-	# git checkout 9f323b9d06720b6efffc7420023e746ff8f1b309 -- test.log
-	$(NODE) test.js 1> test.log 2>&1 || echo "Test results for $< are exactly the same as on developemt system. So far, so good ;)"
-	# git --no-pager diff --color-words test.log
-	git --no-pager diff test.log
+	# git checkout HEAD -- test.*.log
+	# git checkout master -- test.*.log
+	# git checkout 9f323b9d06720b6efffc7420023e746ff8f1b309 -- test.*.log
+	@for lang in en de; do \
+		$(NODE) test.js --locale $$lang 1> test.$$lang.log 2>&1 || echo "Test results for $< ($$lang) are exactly the same as on developemt system. So far, so good ;)"; \
+	done
+	# git --no-pager diff --color-words test.*.log
+	git --no-pager diff test*.log
 
 .PHONY: osm-tag-data-taginfo-check
 osm-tag-data-taginfo-check: real_test.js opening_hours.js osm-tag-data-get-taginfo

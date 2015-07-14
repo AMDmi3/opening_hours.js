@@ -3261,7 +3261,7 @@
     // sprintf support
     var t = function(str, variables) {
         if (typeof i18n === 'object' && typeof i18n.t === 'function') {
-			if (i18n.lng() != 'en') {
+			if (i18n.lng() !== 'en') {
             	return i18n.t('opening_hours:texts.' + str, variables);
 			}
         }
@@ -3298,7 +3298,7 @@
 			'leave_weekday_sep_one_day_betw': true, // use the separator (either "," or "-" which is used to separate days which follow to each other like Sa,Su or Su-Mo
 			'sep_one_day_between': ',',      // separator which should be used
 			'zero_pad_month_and_week_numbers': false, // Format week (e.g. `week 01`) and month day numbers (e.g. `Jan 01`) with "%02d".
-            'localize': false,               // use local language (needs moment.js / i18n.js)
+            'locale': 'en',               // use local language (needs moment.js / i18n.js)
 		};
 
 		var osm_tag_defaults = {
@@ -4206,7 +4206,6 @@
 		function prettifyValue(argument_hash) {
 			var user_conf = {};
 			var get_internals = false;
-            var localize = false;
 			var rule_index;
 
 			prettified_value = '';
@@ -4232,16 +4231,16 @@
 					user_conf[key] = default_prettify_conf[key];
 			}
 
-            if (user_conf['localize']) {
+            if (typeof user_conf['locale'] === 'string' && user_conf['locale'] !== 'en') {
                 // build translation arrays from moment
-                var currentLocale = moment.locale();
+                // var currentLocale = moment.locale();
                 moment.locale('en');
                 var weekdays_en = moment.weekdaysMin();
                 var months_en = moment.months(); // monthShort would not return what we like
                 for(var key in months_en) {
-                    months_en[key] = months_en[key].substr(0,3);
+                    months_en[key] = months_en[key].substr(0,3); // FIXME: Function for that?
                 }
-                moment.locale(currentLocale);
+                moment.locale(user_conf['locale']);
                 var weekdays_local = moment.weekdaysMin();
                 var months_local = moment.months();
                 for(var key in months_local) {
@@ -4320,7 +4319,7 @@
 
 				prettified_value += prettified_group_value.map(
 					function (array) {
-                        if (user_conf['localize']) {
+						if (typeof user_conf['locale'] === 'string' && user_conf['locale'] !== 'en') {
                             text = array[1];
                             if (array[0][2] == 'weekday') {
                                 for(var key in weekdays_en) {

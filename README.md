@@ -162,12 +162,16 @@ function getReadableState(startString, endString, oh, past) {
 
         *   'map_value' (type: boolean, default: false): Map certain values to different (valid) oh values. For example for the lit tag the value 'yes' is valid but not for opening_hours.js. If this parameter 'yes' is mapped to `sunset-sunrise open "specified as yes: At night (unknown time schedule or daylight detection)"`.
 
-        *   'warnings_severity' (type: number, default 4): Can be one of the following numbers. The severity levels (including the codes) match the syslog specification. The default is level 4 to not break backwards compatibility. Lower levels e.g. 5 include higher levels e.g. 4.
+        *   'warnings_severity' (type: number, default: 4): Can be one of the following numbers. The severity levels (including the codes) match the syslog specification. The default is level 4 to not break backwards compatibility. Lower levels e.g. 5 include higher levels e.g. 4.
 
             4: warning
             5: notice
             6: info
             7: debug
+
+        *   'locale' (type: string, default: 'en'): Defines the locale for errors and warnings and changes the default language for oh.prettifyValue(). To use this option, [moment.js][moment-lib] has to be loaded.
+
+            To get the current default locale, use: `moment.locale()`
 
 *   `var warnings = oh.getWarnings();`
 
@@ -490,7 +494,7 @@ This project has become so complex that development without extensive testing wo
 
 node.js based test framework is bundled. You can run it with `node test.js` or with `make check`. Note that the number of lines of the test framework almost match up with the number of lines of the actual implementation :)
 
-The current results of this test are also tracked in the repository and can be viewed [here](/test.log). Note that this file uses [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code) which can be interpreted by cat in the terminal. `make check` compares the test output with the output from the last commit and shows you a diff.
+The current results of this test are also tracked in the repository and can be viewed [here](/test.en.log). Note that this file uses [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code) which can be interpreted by cat in the terminal. `make check` compares the test output with the output from the last commit and shows you a diff.
 
 ### Testing with real data
 
