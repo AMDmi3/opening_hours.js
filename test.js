@@ -1,14 +1,51 @@
 #!/usr/bin/env nodejs
 
 // preamble {{{
-/* Required modules {{{ */
-var opening_hours_lib = process.argv[2];
-if (typeof opening_hours_lib !== 'string')
-	opening_hours_lib = './opening_hours.js';
 
-var opening_hours = require(opening_hours_lib);
+/* Parameter handling {{{ */
+var optimist = require('optimist')
+	.usage('Usage: $0 [optional parameters]')
+	.describe('h', 'Display the usage')
+	// .describe('v', 'Verbose output')
+	.describe('f', 'File path to the opening_hours.js libary file to run the tests against.')
+	.describe('l', 'Locale for error/warning messages and prettified values.')
+	.alias('h', 'help')
+	// .alias('v', 'verbose')
+	.alias('f', 'library-file')
+	.alias('l', 'locale')
+	.default('f', './opening_hours.js')
+	.default('l', 'en');
+
+var argv = optimist.argv;
+
+if (argv.help) {
+	optimist.showHelp();
+	process.exit(0);
+}
+/* }}} */
+
+/* Required modules {{{ */
+if (typeof argv.locale === 'string' && argv.locale !== 'en') {
+	var i18n_res = require('./i18n-resources');
+
+	/* Define it globally. FIXME: Better way? */
+	i18n     = require('i18next');
+	moment   = require('moment');
+
+    i18n.init({
+        fallbackLng: 'en',
+		lng: argv.locale,
+        resStore: i18n_res.opening_hours_resources,
+        getAsync: true,
+        useCookie: true,
+        debug: true
+    });
+    moment.locale(argv.locale);
+}
+
+var opening_hours = require(argv['library-file']);
 var colors        = require('colors');
-var sprintf = require('sprintf-js').sprintf;
+var sprintf       = require('sprintf-js').sprintf;
 /* }}} */
 
 colors.setTheme({
@@ -4938,6 +4975,10 @@ test.addShouldFail('Wrong constructor call should throw an error: nominatiomJSON
 		'Mo-Fr 08:00-16:00',
 	], "I am string!", 'not only test');
 
+test.addShouldFail('Wrong constructor call should throw an error: "string"', [
+		value_perfectly_valid[0],
+	], nominatiomTestJSON, 'not only test', 'test for failure');
+
 test.addShouldFail('Wrong constructor call should throw an error: warnings_severity: [ 4 ]', [
 		value_perfectly_valid[0],
 	], nominatiomTestJSON, 'not only test', { 'warnings_severity': [ 4 ] });
@@ -5384,6 +5425,8 @@ function opening_hours_test() {
 		if (this.last === true) return;
 		this.handle_only_test(last);
 
+		oh_mode = get_oh_mode_parameter(oh_mode);
+
 		for (var expected_interval = 0; expected_interval < expected_intervals.length; expected_interval++) {
 			// Set default of unknown to false. If you expect something else you
 			// will have to specify it.
@@ -5405,8 +5448,9 @@ function opening_hours_test() {
 		if (this.last === true)  {
 			return;
 		}
-
 		this.handle_only_test(last);
+
+		oh_mode = get_oh_mode_parameter(oh_mode);
 
 		if (typeof values === 'string')
 			this.tests_should_fail.push([name, values, nominatiomJSON, oh_mode]);
@@ -5418,8 +5462,12 @@ function opening_hours_test() {
 
 	// add test which should give a warning {{{
 	this.addShouldWarn = function(name, values, nominatiomJSON, last, oh_mode) {
-		if (this.last === true) return;
+		if (this.last === true)  {
+			return;
+		}
 		this.handle_only_test(last);
+
+		oh_mode = get_oh_mode_parameter(oh_mode);
 
 		if (typeof values === 'string')
 			this.tests_should_warn.push([name, values, nominatiomJSON, oh_mode]);
@@ -5431,7 +5479,9 @@ function opening_hours_test() {
 
 	// add test to check if the matiching rule is evaluated correctly {{{
 	this.addCompMatchingRule = function(name, values, date, matching_rule, nominatiomJSON, last) {
-		if (this.last === true) return;
+		if (this.last === true)  {
+			return;
+		}
 		this.handle_only_test(last);
 
 		if (typeof values === 'string')
@@ -5465,6 +5515,23 @@ function opening_hours_test() {
 	}
 	// }}}
 
+	function get_oh_mode_parameter(oh_mode) {
+		if (typeof oh_mode === 'number') {
+			oh_mode = {
+				'mode': oh_mode,
+				'locale': argv.locale,
+			};
+		} else if (oh_mode === 'test for failure') {
+			// Do nothing.
+		} else if (typeof oh_mode !== 'object') {
+			oh_mode = {
+				'locale': argv.locale,
+			};
+		} else if (typeof oh_mode['locale'] !== 'string'){
+			oh_mode['locale'] = argv.locale;
+		}
+		return oh_mode;
+	}
 	function formatDate(date) { // {{{
 		if (typeof date === 'string')
 			return date;

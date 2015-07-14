@@ -7,7 +7,7 @@
 /* jshint loopfunc: true */
 
 (function (root, factory) {
-	/* constants (holidays, error correction) {{{ */
+	/* constants (holidays, error correction, lang) {{{ */
 	/* holidays {{{ */
 	/*
 	 * The country code keys and the PH, SH keys are surrounded by '':
@@ -2656,8 +2656,8 @@
 	// }}}
 
 	// error correction {{{
-	// Taken form http://www.netzwolf.info/j/osm/time_domain.js
-	// Credits go to Netzwolf
+	// Initially taken form http://www.netzwolf.info/j/osm/time_domain.js
+	// Credits go to Netzwolf.
 	//
 	// Key to word_error_correction is the token name except wrong_words
 	var word_error_correction = {
@@ -3109,6 +3109,139 @@
 			},
 		},
 	};
+    // }}}
+
+	/* error and warning messages {{{ */
+	var lang = {
+		'unexpected token': 'Unexpected token: "__token__" This means that the syntax is not valid at that point or it is currently not supported.',
+		'no string': 'The value (first parameter) is not a string.',
+		'nothing': 'The value contains nothing meaningful which can be parsed.',
+		'nothing useful': 'This rule does not contain anything useful. Please remove this empty rule.',
+		'programmers joke': 'Might it be possible that you are a programmer and adding a semicolon after each statement is hardwired in your muscle memory ;) ?'
+			+ ' The thing is that the semicolon in the opening_hours syntax is defined as rule separator.'
+			+ ' So for compatibility reasons you should omit this last semicolon.',
+		'interpreted as year': 'The number __number__ will be interpreted as year.'
+			+ ' This is probably not intended. Times can be specified as "12:00".',
+		'rule before fallback empty': 'Rule before fallback rule does not contain anything useful',
+		'hour min seperator': 'Please use ":" as hour/minute-separator',
+		'warnings severity': 'The parameter optional_conf_parm["warnings_severity"] must be an integer number between 0 and 7 (inclusive).'
+			+ ' Given __severity__'
+			+ ', expected one of the following numbers: __allowed__.',
+		'optional conf parm type': 'The optional_conf_parm parameter is of unknown type.'
+			+ ' Given __given__',
+		'conf param tag key missing': 'The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["map_value"].',
+		'conf param mode invalid': 'The optional_conf_parm["mode"] parameter is a invalid number.'
+			+ ' Gave __given__'
+			+ ', expected one of the following numbers: __allowed__.',
+		'conf param unkown type': 'The optional_conf_parm["__key__"] parameter is of unknown type.'
+			+ ' Given __given__'
+			+ ', expected __expected__.',
+		'library bug': 'An error occurred during evaluation of the value "__value__".'
+			+ ' Please file a bug report here: __url__.__message__',
+		'use multi': 'You have used __count__ __part2__ Rules can be separated by ";".',
+		'selector multi 2a': '__what__ in one rule. You may only use one in one rule.',
+		'selector multi 2b': 'not connected __what__ in one rule. This is probably an error.'
+			+ ' Equal selector types can (and should) always be written in conjunction separated by comma.'
+			+ ' Example for time ranges "12:00-13:00,15:00-18:00".'
+			+ ' Example for weekdays "Mo-We,Fr".',
+		'selector state': 'state keywords',
+		'comments': 'comments',
+		'holiday ranges': 'holiday ranges',
+		'months': 'months',
+		'weekdays': 'weekdays',
+		'ranges': 'ranges',
+		'default state': "This rule which changes the default state (which is closed) for all following rules is not the first rule."
+			+ " The rule will overwrite all previous rules."
+			+ " It can be legitimate to change the default state to open for example"
+			+ " and then only specify for which times the facility is closed.",
+		'vague': "This rule is not very explicit because there is no time selector being used."
+			+ " Please add a time selector to this rule or use a comment to make it more explicit.",
+		'empty comment': "You have used an empty comment."
+			+ " Please either write something in the comment or use the keyword unknown instead.",
+		'separator_for_readability': "You have used the optional symbol <separator_for_readability> in the wrong place."
+			+ " Please check the syntax specification to see where it could be used or remove it.",
+		'strange 24/7': 'You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week".'
+			+ ' For correctness you might want to use "open" or "closed"'
+			+ ' for this rule and then write your exceptions which should achieve the same goal and is more clear'
+			+ ' e.g. "open; Mo 12:00-14:00 off".',
+		'public holiday': 'There was no PH (public holiday) specified. This is not very explicit.__part2__'
+			+ ' Please either append a "PH off" rule if the amenity is closed on all public holidays'
+			+ ' or use something like "Sa,Su,PH 12:00-16:00" to say that on Saturdays, Sundays and on public holidays the amenity is open 12:00-16:00.'
+			+ ' If you are not certain try to find it out. If you can’t then do not add PH to the value and ignore this warning.',
+		'public holiday part2': ' Unfortunately the tag key (e.g. "opening_hours", or "lit") is unknown to opening_hours.js. '
+			+ 'This warning only applies to the key __keys__. If your value is for that key than read on. If not you can ignore the following.',
+		'switched': 'The selector "__first__" was switched with'
+			+ ' the selector "__second__"'
+			+ ' for readablitity and compatibiltity reasons.',
+		'no colon after': 'Please don’t use ":" after __token__.',
+		'number -5 to 5': 'Number between -5 and 5 (except 0) expected.',
+		'one weekday constraint': 'You can not use more than one constrained weekday in a month range',
+		'range contrainted weekdays': 'You can not use a range of constrained weekdays in a month range',
+		'expected': '"__symbol__" expected.',
+		'range zero': 'You can not use __type__ ranges with period equals zero.',
+		'period one year+': 'Please don’t use __type__ ranges with period equals one.'
+			+ ' If you want to express that a facility is open starting from a year without limit use "<year>+".',
+		'period one': 'Please don’t use __type__ ranges with period equals one.',
+		'month 31': "The day for __month__ must be between 1 and 31.",
+		'month 30': "Month __month__ doesn't have 31 days. The last day of __month__ is day 30.",
+		'month feb': 'Month __month__ either has 28 or 29 days (leap years).',
+		'point in time': 'hyphen (-) or open end (+) in time range __calc__expected.'
+			+ ' For working with points in time, the mode for __libraryname__ has to be altered.'
+			+ ' Maybe wrong tag?',
+		'calculation': 'calculation',
+		'time range continue': 'Time range does not continue as expected',
+		'period continue': 'Time period does not continue as expected. Example "/01:30".',
+		'time range mode': '__libraryname__ is running in "time range mode". Found point in time.',
+		'point in time mode': '__libraryname__ is running in "points in time mode". Found time range.',
+		'outside current day': 'Time range starts outside of the current day',
+		'two midnights': 'Time spanning more than two midnights not supported',
+		'without minutes': 'Time range without minutes specified. Not very explicit!'
+			+ ' Please use this syntax instead "__syntax__".',
+		'outside day': 'Time range starts outside of the current day',
+		'zero calculation': 'Adding zero in a variable time calculation does not change the variable time.'
+			+ ' Please omit the calculation (example: "sunrise-(sunset-00:00)").',
+		'calculation syntax': 'Calculation with variable time is not in the right syntax',
+		'missing': 'Missing "__symbol__"',
+		'(time)': '(time)',
+		'bad range': 'Bad range: __from__-__to__',
+		'] or more numbers': '"]" or more numbers expected.',
+		'additional rule no sense': 'An additional rule does not make sense here. Just use a ";" as rule separator.'
+			+ ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator',
+		'unexpected token weekday range': 'Unexpected token in weekday range: __token__',
+		'max differ': 'There should be no reason to differ more than __maxdiffer__ days from a __name__. If so tell us …',
+		'adding 0': 'Adding 0 does not change the date. Please omit this.',
+		'unexpected token holiday': 'Unexpected token (holiday parser): __token__',
+		'no SH defintion': 'School holiday __name__ has no definition for the year __year__'
+			+ ' You can also add them: __repository_url__',
+		'no PH definition': 'There are no holidays __name__ defined for country __cc__.'
+			+ ' You can also add them: __repository_url__',
+		'no PH definition state': 'There are no holidays __name__ defined for country __cc__ and state __state__.'
+			+ ' You can also add them: __repository_url__',
+		'no country code': 'Country code missing which is needed to select the correct holidays (see README how to provide it)',
+		'movable no formular': 'Movable day __name__ can not not be calculated.'
+			+ ' Please add the formula how to calculate it.',
+		'movable not in year': 'The movable day __name__ plus __days__'
+			+ ' days is not in the year of the movable day anymore. Currently not supported.',
+		'year range one year': 'A year range in which the start year is equal to the end year does not make sense.'
+			+ ' Please remove the end year. E.g. "__year__ May 23"',
+		'year range reverse': 'A year range in which the start year is greater than the end year does not make sense.'
+			+ ' Please turn it over.',
+		'year past': 'The year is in the past.',
+		'unexpected token year range': 'Unexpected token in year range: __token__',
+		'week range reverse': 'You have specified a week range in reverse order or leaping over a year. This is (currently) not supported.',
+		'week negative': 'You have specified a week date less then one. A valid week date range is 1-53.',
+		'week exceed': 'You have specified a week date greater then 53. A valid week date range is 1-53.',
+		'week period less than 2': 'You have specified a week period which is less than two.'
+			+ ' If you want to select the whole range from week __weekfrom__ to week __weekto__ then just omit the "/__period__".',
+		'week period greater than 26': 'You have specified a week period which is greater than 26.'
+			+ ' 26.5 is the half of the maximum 53 week dates per year so a week date period greater than 26 would only apply once per year.'
+			+ ' Please specify the week selector as "week __weekfrom__" if that is what you want to express.',
+		'unexpected token week range': 'Unexpected token in week range: __token__',
+		'unexpected token month range': 'Unexpected token in month range: __token__',
+		'day range reverse': 'Range in wrong order. From day is greater than to day.',
+		'open end': 'Specified as open end. Closing time was guessed.',
+		'date parameter needed': 'Date parameter needed.',
+	}
 	// }}}
 	// }}}
 
@@ -3116,13 +3249,34 @@
 	if (typeof exports === 'object') {
 		// For nodejs
 		var SunCalc = require('suncalc');
-		module.exports = factory(SunCalc, holidays, word_error_correction);
+		module.exports = factory(SunCalc, holidays, word_error_correction, lang);
 	} else {
 		// For browsers
-		root.opening_hours = factory(root.SunCalc, holidays, word_error_correction);
+		root.opening_hours = factory(root.SunCalc, holidays, word_error_correction, lang);
 	}
 	/// }}}
-}(this, function (SunCalc, holidays, word_error_correction) {
+}(this, function (SunCalc, holidays, word_error_correction, lang) {
+
+    // translation function, roughly compatibly to i18next so we can replace everything by i18next include later
+    // sprintf support
+    var t = function(str, variables) {
+        if (typeof i18n === 'object' && typeof i18n.t === 'function') {
+			if (i18n.lng() !== 'en') {
+            	return i18n.t('opening_hours:texts.' + str, variables);
+			}
+        }
+        var text = lang[str];
+		if (typeof text === 'undefined') {
+			text = str;
+		}
+        return text.replace(/__([^_]*)__/g, function (match, c) {
+            return typeof variables[c] != 'undefined'
+                ? variables[c]
+                : match
+                ;
+        })
+    };
+
 	return function(value, nominatiomJSON, optional_conf_parm) {
 		// short constants {{{
 		var word_value_replacement = { // If the correct values can not be calculated.
@@ -3144,6 +3298,7 @@
 			'leave_weekday_sep_one_day_betw': true, // use the separator (either "," or "-" which is used to separate days which follow to each other like Sa,Su or Su-Mo
 			'sep_one_day_between': ',',      // separator which should be used
 			'zero_pad_month_and_week_numbers': false, // Format week (e.g. `week 01`) and month day numbers (e.g. `Jan 01`) with "%02d".
+            'locale': 'en',               // use local language (needs moment.js / i18n.js)
 		};
 
 		var osm_tag_defaults = {
@@ -3230,9 +3385,7 @@
 			if (checkOptionalConfParm('warnings_severity', 'number')) {
 				warnings_severity = optional_conf_parm['warnings_severity'];
 				if ([ 0, 1, 2, 3, 4, 5, 6, 7 ].indexOf(warnings_severity) === -1) {
-					throw 'The parameter optional_conf_parm["warnings_severity"] must be an integer number between 0 and 7 (inclusive).'
-						+ ' Given ' + warnings_severity
-						+ ', expected one of the following numbers: [ 0, 1, 2, 3, 4, 5, 6, 7 ].';
+					throw t('warnings severity', { 'severity': warnings_severity, 'allowed': '[ 0, 1, 2, 3, 4, 5, 6, 7 ]' });
 				}
 			}
 			if (checkOptionalConfParm('tag_key', 'string')) {
@@ -3242,8 +3395,7 @@
 				oh_map_value = true;
 			}
 		} else if (typeof optional_conf_parm !== 'undefined') {
-			throw 'The optional_conf_parm parameter is of unknown type.'
-				+ ' Given ' + typeof(optional_conf_parm);
+			throw t('optional conf parm type', { 'given': typeof(optional_conf_parm) });
 		}
 
 		if (typeof oh_key === 'string') {
@@ -3257,7 +3409,7 @@
 				value = osm_tag_defaults[oh_regex_key]['map'][value];
 			}
 		} else if (oh_map_value) {
-			throw 'The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["map_value"].';
+			throw t('conf param tag key missing');
 		}
 
 		if (typeof oh_mode === 'undefined') {
@@ -3271,9 +3423,7 @@
 				oh_mode = 0;
 			}
 		} else if (oh_mode !== 0 && oh_mode !== 1 && oh_mode !== 2) {
-			throw 'The optional_conf_parm["mode"] parameter is a invalid number.'
-				+ ' Gave ' + oh_mode
-				+ ', expected one of the following numbers: [ 0, 1, 2 ].';
+			throw t('conf param mode invalid', { 'given': oh_mode, 'allowed': '[ 0, 1, 2 ]' });
 		}
 
 		/* }}} */
@@ -3281,10 +3431,10 @@
 
 		// Tokenize value and generate selector functions. {{{
 		if (typeof value !== 'string') {
-			throw 'The value (first parameter) is not a string.';
+			throw t('no string');
 		}
 		if (value.match(/^(?:\s*;?\s*)+$/)) {
-			throw 'The value contains nothing meaningful which can be parsed.';
+			throw t('nothing');
 		}
 
 		var parsing_warnings = []; // Elements are fed into function formatWarnErrorMessage(nrule, at, message)
@@ -3303,11 +3453,9 @@
 			if (tokens[nrule][0].length === 0) {
 				// Rule does contain nothing useful e.g. second rule of '10:00-12:00;' (empty) which needs to be handled.
 				parsing_warnings.push([nrule, -1,
-					'This rule does not contain anything useful. Please remove this empty rule.'
+					t('nothing useful')
 					+ (nrule === tokens.length - 1 && nrule > 0 && !tokens[nrule][1] ?
-						' Might it be possible that you are a programmer and adding a semicolon after each statement is hardwired in your muscle memory ;) ?'
-						+ ' The thing is that the semicolon in the opening_hours syntax is defined as rule separator.'
-						+ ' So for compatibility reasons you should omit this last semicolon.': '')
+						' ' + t('programmers joke') : '')
 					]);
 				continue;
 			}
@@ -3453,9 +3601,7 @@
 			if (typeof optional_conf_parm[key] === expected_type) {
 				return true;
 			} else if (typeof optional_conf_parm[key] !== 'undefined') {
-				throw 'The optional_conf_parm["' + key + '"] parameter is of unknown type.'
-					+ ' Given ' + typeof(optional_conf_parm[key])
-					+ ', expected ' + expected_type + '.';
+				throw t('conf param unkown type', { 'key': key, 'given': typeof(optional_conf_parm[key]), 'expected': expected_type });
 			}
 			return false;
 		}
@@ -3527,9 +3673,7 @@
 			else
 				message = ' ' + message;
 
-			message = 'An error occurred during evaluation of the value "' + value + '".'
-				+ ' Please file a bug report here: ' + issues_url + '.'
-				+ message;
+			message = t('library bug', { 'value': value, 'url': issues_url, 'message': message });
 			console.log(message);
 			return message;
 		}
@@ -3627,8 +3771,7 @@
 						curr_rule_tokens.push([Number(tmp[0]), 'year', value.length ]);
 						if (Number(tmp[0]) >= 2100) // Probably an error
 							parsing_warnings.push([ -1, value.length - 1,
-								'The number ' + Number(tmp[0]) + ' will be interpreted as year.'
-								+ ' This is probably not intended. Times can be specified as "12:00".'
+                                t('interpreted as year', {number:  Number(tmp[0])})
 							]);
 					} else {
 						curr_rule_tokens.push([Number(tmp[0]), 'number', value.length ]);
@@ -3675,7 +3818,7 @@
 					// || terminates rule
 					// Next tokens belong to a fallback rule.
 					if (curr_rule_tokens.length === 0)
-						throw formatWarnErrorMessage(-1, value.length - 2, 'Rule before fallback rule does not contain anything useful');
+						throw formatWarnErrorMessage(-1, value.length - 2, t('rule before fallback empty'));
 
 					all_tokens.push([ curr_rule_tokens, last_rule_fallback_terminated, value.length ]);
 					curr_rule_tokens = [];
@@ -3694,7 +3837,7 @@
 				} else if (value.match(/^[:.]/)) {
 					// time separator
 					if (value[0] === '.' && !done_with_warnings)
-						parsing_warnings.push([ -1, value.length - 1, 'Please use ":" as hour/minute-separator' ]);
+						parsing_warnings.push([ -1, value.length - 1, t('hour min seperator')]);
 					curr_rule_tokens.push([ ':', 'timesep', value.length ]);
 					value = value.substr(1);
 				} else {
@@ -3842,22 +3985,15 @@
 						// console.log(selector_type + ' use at: ' + used_selectors[nrule][selector_type].length);
 						if (used_selectors[nrule][selector_type].length > 1) {
 							parsing_warnings.push([nrule, used_selectors[nrule][selector_type][used_selectors[nrule][selector_type].length - 1],
-								'You have used ' + used_selectors[nrule][selector_type].length
-								+ (selector_type.match(/^(?:comment|state)/) ?
-									' ' + selector_type
-									+ (selector_type === 'state' ? ' keywords' : 's')
-									+ ' in one rule.'
-									+ ' You may only use one in one rule.'
-									:
-									' not connected ' + selector_type
-									+ (selector_type.match(/^(?:month|weekday)$/) ? 's' : ' ranges')
-									+ ' in one rule.'
-									+ ' This is probably an error.'
-									+ ' Equal selector types can (and should) always be written in conjunction separated by comma.'
-									+ ' Example for time ranges "12:00-13:00,15:00-18:00".'
-									+ ' Example for weekdays "Mo-We,Fr".'
-								  )
-								+ ' Rules can be separated by ";".' ]
+								t('use multi', {
+									'count': used_selectors[nrule][selector_type].length,
+									'part2': (
+										selector_type.match(/^(?:comment|state)/) ?
+											t('selector multi 2a', {'what': (selector_type === 'state' ? t('selector state'): t('comments'))})
+											:
+											t('selector multi 2b', {'what': t(selector_type + (selector_type.match(/^(?:month|weekday)$/) ? 's' : ' ranges'))})
+									)
+								})]
 							);
 							done_with_selector_reordering = true; // Correcting the selector order makes no sense if this kind of issue exists.
 						}
@@ -3869,12 +4005,7 @@
 					) {
 
 						if (nrule !== 0) {
-							parsing_warnings.push([nrule, new_tokens[nrule][0].length - 1,
-								"This rule which changes the default state (which is closed) for all following rules is not the first rule."
-								+ " The rule will overwrite all previous rules."
-								+ " It can be legitimate to change the default state to open for example"
-								+ " and then only specify for which times the facility is closed."
-							]);
+							parsing_warnings.push([nrule, new_tokens[nrule][0].length - 1, t('default state')]);
 						}
 					/* }}} */
 					/* Check if a rule (with state open) has no time selector {{{ */
@@ -3888,10 +4019,7 @@
 								typeof used_selectors[nrule]['24/7'] === 'undefined'
 						) {
 
-							parsing_warnings.push([nrule, new_tokens[nrule][0].length - 1,
-								"This rule is not very explicit because there is no time selector being used."
-								+ " Please add a time selector to this rule or use a comment to make it more explicit."
-							]);
+							parsing_warnings.push([nrule, new_tokens[nrule][0].length - 1, t('vague')]);
 						}
 					}
 					/* }}} */
@@ -3900,10 +4028,7 @@
 						&& new_tokens[nrule][0][used_selectors[nrule].comment[0]][0].length === 0
 					) {
 
-						parsing_warnings.push([nrule, used_selectors[nrule].comment[0],
-							"You have used an empty comment."
-							+ " Please either write something in the comment or use the keyword unknown instead."
-						]);
+						parsing_warnings.push([nrule, used_selectors[nrule].comment[0], t('empty comment')]);
 					}
 					/* }}} */
 					/* Check for valid use of <separator_for_readability> {{{ */
@@ -3918,8 +4043,7 @@
 
 							if (new_tokens[nrule][0][used_selectors[nrule][selector_type][0]][0] === ':') {
 								parsing_warnings.push([nrule, used_selectors[nrule][selector_type][0],
-									"You have used the optional symbol <separator_for_readability> in the wrong place."
-									+ " Please check the syntax specification to see where it could be used or remove it."
+									t('separator_for_readability')
 								]);
 							}
 						}
@@ -3952,11 +4076,8 @@
 
 				if (has_advanced === true && has_token['24/7'] && !done_with_warnings) {
 					parsing_warnings.push([ -1, 0,
-						'You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week".'
 						// Probably because of: "24/7; 12:00-14:00 open", ". Needs extra testing.
-						+ ' For correctness you might want to use "open" or "closed"'
-						+ ' for this rule and then write your exceptions which should achieve the same goal and is more clear'
-						+ ' e.g. "open; Mo 12:00-14:00 off".'
+						t('strange 24/7')
 					]);
 				}
 				/* }}} */
@@ -3982,19 +4103,9 @@
 						}
 					}
 					parsing_warnings.push([ -1, 0,
-						'There was no PH (public holiday) specified. This is not very explicit.'
-						+ (typeof oh_key !== 'string'
-							? ' Unfortunately the tag key (e.g. "opening_hours", or "lit") is unknown to opening_hours.js'
-								// + '(see README how to provide it)' // UI of the evaluation tool does not allow to provide it (currently).
-								+ '. This warning only applies to the key'
-								+ (keys_with_warn_for_PH_missing.length === 1 ? ' ' : 's: ')
-								+ keys_with_warn_for_PH_missing.join(', ') + '.'
-								+ ' If your value is for that key than read on. If not you can ignore the following.'
-							: ''
-						)
-						+ ' Please either append a "PH off" rule if the amenity is closed on all public holidays'
-						+ ' or use something like "Sa,Su,PH 12:00-16:00" to say that on Saturdays, Sundays and on public holidays the amenity is open 12:00-16:00.'
-						+ ' If you are not certain try to find it out. If you can’t then do not add PH to the value and ignore this warning.'
+						t('public holiday', { 'part2': (typeof oh_key !== 'string'
+							? t('public holiday part2', {'keys': keys_with_warn_for_PH_missing.join(', ')}) : '')})
+							// + '(see README how to provide it)' // UI of the evaluation tool does not allow to provide it (currently).
 					]);
 				}
 				/* }}} */
@@ -4112,12 +4223,31 @@
 				if (argument_hash.get_internals === true) {
 					get_internals = true;
 				}
+
 			}
 
 			for (var key in default_prettify_conf) {
 				if (typeof user_conf[key] === 'undefined')
 					user_conf[key] = default_prettify_conf[key];
 			}
+
+            if (typeof user_conf['locale'] === 'string' && user_conf['locale'] !== 'en') {
+                // build translation arrays from moment
+                // var currentLocale = moment.locale();
+                moment.locale('en');
+                var weekdays_en = moment.weekdaysMin();
+                var months_en = moment.months(); // monthShort would not return what we like
+                for(var key in months_en) {
+                    months_en[key] = months_en[key].substr(0,3); // FIXME: Function for that?
+                }
+                moment.locale(user_conf['locale']);
+                var weekdays_local = moment.weekdaysMin();
+                var months_local = moment.months();
+                for(var key in months_local) {
+                    months_local[key] = months_local[key].substr(0,3);
+                }
+
+            }
 
 			for (var nrule = 0; nrule < new_tokens.length; nrule++) {
 				if (new_tokens[nrule][0].length === 0) continue;
@@ -4189,7 +4319,24 @@
 
 				prettified_value += prettified_group_value.map(
 					function (array) {
-						return array[1];
+						if (typeof user_conf['locale'] === 'string' && user_conf['locale'] !== 'en') {
+                            text = array[1];
+                            if (array[0][2] == 'weekday') {
+                                for(var key in weekdays_en) {
+                                    text = text.replace(new RegExp(weekdays_en[key], 'g'), weekdays_local[key]);
+                                }
+                                return text;
+                            }
+                            if (array[0][2] == 'month') {
+                                for(var key in months_en) {
+                                    text = text.replace(new RegExp(months_en[key], 'g'), months_local[key]);
+                                }
+                                return text;
+                            }
+                            return i18n.t(['opening_hours:pretty.' + text, text]);
+                        } else {
+                            return array[1];
+                        }
 					}
 				).join(' ');
 
@@ -4205,10 +4352,10 @@
 								// console.log('Length: ' + length + ' ' + prettified_group_value[x][1]);
 							}
 							// console.log(length);
-							parsing_warnings.push([ prettified_value, length,
-								'The selector "' + prettified_group_value[i][0][2] + '" was switched with'
-								+ ' the selector "' + not_sorted_prettified_group_value[i][0][2] + '"'
-								+ ' for readablitity and compatibiltity reasons.'
+							parsing_warnings.push([ prettified_value, length, t('switched', {
+								'first': prettified_group_value[i][0][2],
+								'second': not_sorted_prettified_group_value[i][0][2]
+							})
 							]);
 						}
 					}
@@ -4317,7 +4464,7 @@
 					 */
 
 					if (!done_with_warnings && matchTokens(tokens, at-1, 'holiday'))
-						parsing_warnings.push([nrule, at, 'Please don’t use ":" after ' + tokens[at-1][1] + '.']);
+						parsing_warnings.push([nrule, at, t('no colon after', { 'token': tokens[at-1][1] })]);
 
 					at++;
 				} else if (matchTokens(tokens, at, 'number', 'timesep')
@@ -4362,9 +4509,7 @@
 					// throw formatLibraryBugMessage('Not implemented yet.');
 				} else {
 					var warnings = getWarnings();
-					throw formatWarnErrorMessage(nrule, at, 'Unexpected token: "' + tokens[at][1]
-						+ '" This means that the syntax is not valid at that point or it is currently not supported.')
-						+ (warnings ? (' ' + warnings.join('; ')) : '');
+					throw formatWarnErrorMessage(nrule, at, t('unexpected token', {token: tokens[at][1] })) + (warnings ? (' ' + warnings.join('; ')) : '');
 				}
 
 				if (typeof at === 'object') { // additional rule
@@ -4494,21 +4639,21 @@
 				// bad number
 				if (from === 0 || from < -5 || from > 5)
 					throw formatWarnErrorMessage(nrule, at,
-						'Number between -5 and 5 (except 0) expected');
+						t('number -5 to 5'));
 
 				if (from === to) {
 					if (number !== 0)
 						throw formatWarnErrorMessage(nrule, at,
-							'You can not use more than one constrained weekday in a month range');
+							t('one weekday constraint'));
 					number = from;
 				} else {
 					throw formatWarnErrorMessage(nrule, at+2,
-						'You can not use a range of constrained weekdays in a month range');
+						t('range contrainted weekdays'));
 				}
 			});
 
 			if (!matchTokens(tokens, endat, ']'))
-				throw formatWarnErrorMessage(nrule, endat, '"]" expected.');
+				throw formatWarnErrorMessage(nrule, endat, t('expected', {symbol: ']'}));
 
 			return [ number, endat + 1 ];
 		}
@@ -4521,15 +4666,12 @@
 
 			if (period === 0) {
 				throw formatWarnErrorMessage(nrule, at,
-					'You can not use '+ period_type +' ranges with period equals zero.');
+					t('range zero', { 'type': period_type }));
 			} else if (period === 1) {
 				if (typeof parm_string === 'string' && parm_string === 'no_end_year')
-					parsing_warnings.push([nrule, at,
-						'Please don’t use '+ period_type +' ranges with period equals one.'
-						+ ' If you want to express that a facility is open starting from a year without limit use "<year>+".']);
+					parsing_warnings.push([nrule, at, t('period one year+', {'type': period_type})]);
 				else
-					parsing_warnings.push([nrule, at,
-						'Please don’t use '+ period_type +' ranges with period equals one.']);
+					parsing_warnings.push([nrule, at, t('period one', {'type': period_type})]);
 			}
 		}
 
@@ -4570,11 +4712,11 @@
 
 			// https://en.wikipedia.org/wiki/Month#Julian_and_Gregorian_calendars
 			if (day < 1 || day > 31) {
-				throw formatWarnErrorMessage(nrule, at, "The day for " + months[month] + " must be between 1 and 31.");
+				throw formatWarnErrorMessage(nrule, at, t('month 31', {'month': months[month]}));
 			} else if ((month === 3 || month === 5 || month === 8 || month === 10) && day === 31) {
-				throw formatWarnErrorMessage(nrule, at, "Month " + months[month] + " doesn't have 31 days. The last day of " + months[month] + " is day 30.");
+				throw formatWarnErrorMessage(nrule, at, t('month 30', {'month': months[month]}));
 			} else if (month === 1 && day === 30) {
-				throw formatWarnErrorMessage(nrule, at, "Month " + months[1]+ " either has 28 or 29 days (leap years).");
+				throw formatWarnErrorMessage(nrule, at, t('month feb', {'month': months[month]}));
 			}
 		}
 		// }}}
@@ -4638,10 +4780,10 @@
 												)
 										)
 									),
-									'hyphen (-) or open end (+) in time range '
-									+ (has_time_var_calc[0] ? 'calculation ' : '') + 'expected.'
-									+ ' For working with points in time, the mode for ' + library_name + ' has to be altered.'
-									+ ' Maybe wrong tag?');
+									t('point in time', {
+										'calc': (has_time_var_calc[0] ? t('calculation') + ' ' : ''),
+										'libraryname': library_name
+									}));
 							} else {
 								minutes_to = minutes_from + 1;
 								is_point_in_time = true;
@@ -4664,7 +4806,7 @@
 						has_time_var_calc[1]      = matchTokens(tokens, at_end_time, '(', 'timevar');
 						if (!has_normal_time[1] && !matchTokens(tokens, at_end_time, 'timevar') && !has_time_var_calc[1]) {
 							throw formatWarnErrorMessage(nrule, at_end_time - (typeof tokens[at_end_time] !== 'undefined' ? 0 : 1),
-									'Time range does not continue as expected');
+									t('time range continue'));
 						} else {
 							if (has_normal_time[1]) {
 								minutes_to = getMinutesByHoursMinutes(tokens, nrule, at_end_time);
@@ -4693,13 +4835,13 @@
 							at += 2;
 							if (matchTokens(tokens, at, 'timesep'))
 								throw formatWarnErrorMessage(nrule, at,
-									'Time period does not continue as expected. Exampe "/01:30".');
+									t('period continue'));
 						}
 
 						// Check at this later state in the if condition to get the correct position.
 						if (oh_mode === 0)
 							throw formatWarnErrorMessage(nrule, at - 1,
-								'opening_hours is running in "time range mode". Found point in time.');
+								t('time range mode', {'libraryname': library_name}));
 
 						is_point_in_time = true;
 					} else if (matchTokens(tokens, at, '+')) {
@@ -4707,7 +4849,7 @@
 						at++;
 					} else if (oh_mode === 1 && !is_point_in_time) {
 						throw formatWarnErrorMessage(nrule, at_end_time,
-							'opening_hours is running in "points in time mode". Found time range.');
+							t('point in time mode', {'libraryname': library_name}));
 					}
 
 					if (typeof lat !== 'undefined') { // lon will also be defined (see above)
@@ -4719,13 +4861,12 @@
 
 					// Normalize minutes into range.
 					if (!extended_open_end && minutes_from >= minutes_in_day)
-						throw formatWarnErrorMessage(nrule, at_end_time - 2,
-							'Time range starts outside of the current day');
+						throw formatWarnErrorMessage(nrule, at_end_time - 2, t('outside current day'));
 					if (minutes_to < minutes_from || ((has_normal_time[0] && has_normal_time[1]) && minutes_from === minutes_to))
 						minutes_to += minutes_in_day;
 					if (minutes_to > minutes_in_day * 2)
 						throw formatWarnErrorMessage(nrule, at_end_time + (has_normal_time[1] ? 4 : (has_time_var_calc[1] ? 7 : 1)) - 2,
-							'Time spanning more than two midnights not supported');
+							t('two midnights'));
 
 					// This shortcut makes always-open range check faster.
 					if (minutes_from === 0 && minutes_to === minutes_in_day) {
@@ -4848,20 +4989,17 @@
 					minutes_from = tokens[at][0]   * 60;
 					minutes_to   = tokens[at+2][0] * 60;
 					if (!done_with_warnings)
-						parsing_warnings.push([nrule, at + 2,
-							'Time range without minutes specified. Not very explicit!'
-							+ ' Please use this syntax instead "'
-							+ (tokens[at][0]   < 10 ? '0' : '') + tokens[at][0]   + ':00-'
-							+ (tokens[at+2][0] < 10 ? '0' : '') + tokens[at+2][0] + ':00".']);
+						parsing_warnings.push([nrule, at + 2, t('without minutes', {
+							'syntax': (tokens[at][0]   < 10 ? '0' : '') + tokens[at][0]   + ':00-'
+								+ (tokens[at+2][0] < 10 ? '0' : '') + tokens[at+2][0] + ':00'
+						})]);
 
 					if (minutes_from >= minutes_in_day)
-						throw formatWarnErrorMessage(nrule, at,
-							'Time range starts outside of the current day');
+						throw formatWarnErrorMessage(nrule, at, t('outside day'));
 					if (minutes_to < minutes_from)
 						minutes_to += minutes_in_day;
 					if (minutes_to > minutes_in_day * 2)
-						throw formatWarnErrorMessage(nrule, at + 2,
-							'Time spanning more than two midnights not supported');
+						throw formatWarnErrorMessage(nrule, at + 2, t('two midnights'));
 
 					if (minutes_to > minutes_in_day) {
 						selectors.time.push(function(minutes_from, minutes_to) { return function(date) {
@@ -4948,23 +5086,22 @@
 						var add_or_subtract = tokens[at+2][0] === '+' ? '1' : '-1';
 						var minutes = getMinutesByHoursMinutes(tokens, nrule, at+3) * add_or_subtract;
 						if (minutes === 0)
-							parsing_warnings.push([ nrule, at+5, 'Adding zero in a variable time calculation does not change the variable time.'
-									+ ' Please omit the calculation (example: "sunrise-(sunset-00:00)").' ]
+							parsing_warnings.push([ nrule, at+5, t('zero calculation') ]
 								);
 						return minutes;
 					} else {
-						error = [ at+6, '. Missing ")".'];
+						error = [ at+6, '. ' + t('missing', {'symbol': ")"}) + '.'];
 					}
 				} else {
-					error = [ at+5, ' (time).'];
+					error = [ at+5, ' ' + t('(time)') + '.'];
 				}
 			} else {
-				error = [ at+2, '. "+" or "-" expected.'];
+				error = [ at+2, '. ' + t('expected', {'symbol': '+" or "-'})];
 			}
 
 			if (error)
 				throw formatWarnErrorMessage(nrule, error[0],
-					'Calculcation with variable time is not in the right syntax' + error[1]);
+					 t('calculation syntax')+ error[1]);
 		}
 		/* }}} */
 		/* }}} */
@@ -4993,7 +5130,7 @@
 						// bad number
 						if (from === 0 || from < -5 || from > 5)
 							throw formatWarnErrorMessage(nrule, at,
-								'Number between -5 and 5 (except 0) expected');
+								t('number -5 to 5'));
 
 						if (from === to) {
 							numbers.push(from);
@@ -5002,18 +5139,18 @@
 								// bad number
 								if (i === 0 || i < -5 || i > 5)
 									throw formatWarnErrorMessage(nrule, at+2,
-										'Number between -5 and 5 (except 0) expected.');
+										t('number -5 to 5'));
 
 								numbers.push(i);
 							}
 						} else {
 							throw formatWarnErrorMessage(nrule, at+2,
-								'Bad range: ' + from + '-' + to);
+								t('bad range',{'from': from, 'to': to}));
 						}
 					});
 
 					if (!matchTokens(tokens, endat, ']'))
-						throw formatWarnErrorMessage(nrule, endat, '"]" or more numbers expected.');
+						throw formatWarnErrorMessage(nrule, endat, t('] or more numbers'));
 
 					var add_days = getMoveDays(tokens, endat+1, 6, 'constrained weekdays');
 					week_stable = false;
@@ -5141,10 +5278,9 @@
 					throw formatWarnErrorMessage(
 						nrule,
 						at - 1,
-						'An additional rule does not make sense here. Just use a ";" as rule separator.'
-						+ ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator');
+						t('additional rule no sense'));
 				} else {
-					throw formatWarnErrorMessage(nrule, at, 'Unexpected token in weekday range: ' + tokens[at][1]);
+					throw formatWarnErrorMessage(nrule, at, t('unexpected token weekday range', {'token': tokens[at][1]}));
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -5171,10 +5307,10 @@
 				// continues with '+ 5 days' or something like that
 				if (tokens[at+1][0] > max_differ)
 					throw formatWarnErrorMessage(nrule, at+2,
-						'There should be no reason to differ more than ' + max_differ + ' days from a ' + name + '. If so tell us …');
+						t('max differ',{'maxdiffer': max_differ, 'name': name}));
 				add_days[0] *= tokens[at+1][0];
 				if (add_days[0] === 0 && !done_with_warnings)
-					parsing_warnings.push([ nrule, at+2, 'Adding 0 does not change the date. Please omit this.' ]);
+					parsing_warnings.push([ nrule, at+2, t('adding 0') ]);
 				add_days[1] = 3;
 			} else {
 				add_days[0] = 0;
@@ -5342,10 +5478,9 @@
 					throw formatWarnErrorMessage(
 						nrule,
 						at - 1,
-						'An additional rule does not make sense here. Just use a ";" as rule separator.'
-						+ ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator');
+						t('additional rule no sense'));
 				} else {
-					throw formatWarnErrorMessage(nrule, at, 'Unexpected token (holiday parser): ' + tokens[at][1]);
+					throw formatWarnErrorMessage(nrule, at, t('unexpected token holiday', {'token': tokens[at][1]}));
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -5384,8 +5519,7 @@
 				holiday = SH_hash['default']; // applies for any year without explicit definition
 				if (typeof holiday === 'undefined') {
 					if (fatal) {
-						throw formatLibraryBugMessage('School holiday ' + SH_hash.name + ' has no definition for the year ' + year + '.'
-								+ ' You can also add them: ' + repository_url);
+						throw formatLibraryBugMessage(t('no SH definition', {'name': SH_hash.name, 'year': year, 'repository_url': repository_url}));
 					} else {
 						return undefined;
 					}
@@ -5418,20 +5552,19 @@
 							}
 						}
 						if (Object.keys(matching_holiday).length === 0)
-						throw formatLibraryBugMessage('There are no holidays ' + type_of_holidays + ' defined for country ' + location_cc + '.'
-								+ ' You can also add them: ' + repository_url);
+						throw formatLibraryBugMessage(t('no PH definition',
+							{'name': type_of_holidays, 'cc': location_cc, 'repository_url': repository_url}));
 						return matching_holiday;
 					} else {
-						throw formatLibraryBugMessage('Holidays ' + type_of_holidays + ' are not defined for country ' + location_cc
-								+ ' and state ' + location_state + '.'
-								+ ' You can also add them: ' + repository_url);
+						throw formatLibraryBugMessage(t('no PH definition state',
+							{'name': type_of_holidays, 'cc': location_cc, 'state': location_state, 'repository_url': repository_url}));
 					}
 				} else {
-					throw formatLibraryBugMessage('No holidays are defined for country ' + location_cc + '.'
-							+ ' You can also add them: ' + repository_url);
+					throw formatLibraryBugMessage(t('no PH definition',
+						{'name': type_of_holidays, 'cc': location_cc, 'repository_url': repository_url}));
 				}
 			} else { /* We have no idea which holidays do apply because the country code was not provided. */
-				throw 'Country code missing which is needed to select the correct holidays (see README how to provide it)';
+				throw t('no country code');
 			}
 		}
 
@@ -5531,17 +5664,15 @@
 				if (typeof applying_holidays[holiday_name][0] === 'string') {
 					var selected_movableDay = movableDays[applying_holidays[holiday_name][0]];
 					if (!selected_movableDay)
-						throw 'Movable day ' + applying_holidays[holiday_name][0] + ' can not not be calculated.'
-							+ ' Please add the formula how to calculate it.';
+						throw t('movable no formular', {'name': applying_holidays[holiday_name][0]});
 					next_holiday = new Date(selected_movableDay.getFullYear(),
 							selected_movableDay.getMonth(),
 							selected_movableDay.getDate()
 							+ applying_holidays[holiday_name][1]
 						);
 					if (year !== next_holiday.getFullYear())
-						throw 'The movable day ' + applying_holidays[holiday_name][0] + ' plus '
-							+ applying_holidays[holiday_name][1]
-							+ ' days is not in the year of the movable day anymore. Currently not supported.';
+						throw t('movable not in year', {
+							'name': applying_holidays[holiday_name][0], 'days': applying_holidays[holiday_name][1]});
 				} else {
 					next_holiday = new Date(year,
 							applying_holidays[holiday_name][0] - 1,
@@ -5600,20 +5731,16 @@
 						if (is_range && tokens[at+2][0] <= year_from) {
 							// handle reversed range
 							if (tokens[at+2][0] === year_from) {
-								throw formatWarnErrorMessage(nrule, at,
-										'A year range in which the start year is equal to the end year does not make sense.'
-										+ ' Please remove the end year. E.g. "' + year_from + ' May 23"');
+								throw formatWarnErrorMessage(nrule, at, t('year range one year', {'year': year_from }));
 							} else {
-								throw formatWarnErrorMessage(nrule, at,
-										'A year range in which the start year is greater than the end year does not make sense.'
-										+ ' Please turn it over.');
+								throw formatWarnErrorMessage(nrule, at, t('year range reverse'));
 							}
 						}
 						if (!is_range && year_from < new Date().getFullYear()) {
-							parsing_warnings.push([ nrule, at, 'The year is in the past.' ]);
+							parsing_warnings.push([ nrule, at, t('year past') ]);
 						}
 						if (is_range && tokens[at+2][0] < new Date().getFullYear()) {
-							parsing_warnings.push([ nrule, at+2, 'The year is in the past.' ]);
+							parsing_warnings.push([ nrule, at+2, t('year past') ]);
 						}
 					// }}}
 
@@ -5648,13 +5775,9 @@
 
 					at += 1 + (is_range ? 2 : 0) + (has_period ? (has_period === 2 ? 1 : 2) : 0);
 				} else if (matchTokens(tokens, at - 1, ',')) { // additional rule
-					throw formatWarnErrorMessage(
-						nrule,
-						at - 1,
-						'An additional rule does not make sense here. Just use a ";" as rule separator.'
-						+ ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator');
+					throw formatWarnErrorMessage(nrule, at - 1, t('additional rule no sense'));
 				} else {
-					throw formatWarnErrorMessage(nrule, at, 'Unexpected token in year range: ' + tokens[at][1]);
+					throw formatWarnErrorMessage(nrule, at, t('unexpected token year range', {'token': tokens[at][1]}));
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -5681,30 +5804,25 @@
 					var week_from = tokens[at][0];
 					var week_to   = is_range ? tokens[at+2][0] : week_from;
 					if (week_from > week_to) {
-						throw formatWarnErrorMessage(nrule, at+2,
-							'You have specified a week range in reverse order or leaping over a year. This is (currently) not supported.');
+						throw formatWarnErrorMessage(nrule, at+2, t('week range reverse'));
 					}
 					if (week_from < 1) {
-						throw formatWarnErrorMessage(nrule, at,
-							'You have specified a week date less then one. A valid week date range is 1-53.');
+						throw formatWarnErrorMessage(nrule, at, t('week negative'));
 					}
 					if (week_to > 53) {
-						throw formatWarnErrorMessage(nrule, is_range ? at+2 : at,
-							'You have specified a week date greater then 53. A valid week date range is 1-53.');
+						throw formatWarnErrorMessage(nrule, is_range ? at+2 : at, t('week exceed'));
 					}
 					if (is_range) {
 						period = matchTokens(tokens, at+3, '/', 'number');
 						if (period) {
 							period = tokens[at+4][0];
 							if (period < 2) {
-								throw formatWarnErrorMessage(nrule, at+4,
-									'You have specified a week period which is less than two.'
-									+ ' If you want to select the whole range from week ' + week_from + ' to week ' + week_to + ' then just omit the "/' + period + '".');
+								throw formatWarnErrorMessage(nrule, at+4, t('week period less than 2', {
+									'weekfrom': week_from, 'weekto': week_to, 'period': period}));
 							} else if (period > 26) {
-								throw formatWarnErrorMessage(nrule, at+4,
-									'You have specified a week period which is greater than 26.'
-									+ ' 26.5 is the half of the maximum 53 week dates per year so a week date period greater than 26 would only apply once per year.'
-									+ ' Please specify the week selector as "week ' + week_from + '" if that is what you want to express.');
+								throw formatWarnErrorMessage(nrule, at+4, t('week period greater than 26', {
+									'weekfrom': week_from
+								}));
 							}
 						}
 					}
@@ -5753,13 +5871,9 @@
 
 					at += 1 + (is_range ? 2 : 0) + (period ? 2 : 0);
 				} else if (matchTokens(tokens, at - 1, ',')) { // additional rule
-					throw formatWarnErrorMessage(
-						nrule,
-						at - 1,
-						'An additional rule does not make sense here. Just use a ";" as rule separator.'
-						+ ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator');
+					throw formatWarnErrorMessage(nrule, at - 1, t('additional rule no sense'));
 				} else {
-					throw formatWarnErrorMessage(nrule, at, 'Unexpected token in week range: ' + tokens[at][1]);
+					throw formatWarnErrorMessage(nrule, at, t('unexpected token week range', {'token': tokens[at][1]}));
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -5881,7 +5995,7 @@
 
 					at += is_range ? 3 : 1;
 				} else {
-					throw formatWarnErrorMessage(nrule, at, 'Unexpected token in month range: ' + tokens[at][1]);
+					throw formatWarnErrorMessage(nrule, at, t('unexpected token month range', {'token': tokens[at][1]}));
 				}
 
 				if (!matchTokens(tokens, at, ','))
@@ -5967,8 +6081,7 @@
 								from_date.setDate(from_date.getDate() + has_calc[0][0]);
 								if (from_year_before_calc !== from_date.getFullYear())
 									throw formatWarnErrorMessage(nrule, at+has_year[0]+has_calc[0][1]*3,
-										'The movable day ' + tokens[at+has_year[0]][0] + ' plus ' + has_calc[0][0]
-										+ ' days is not in the year of the movable day anymore. Currently not supported.');
+										t('movable not in year', {'name': tokens[at+has_year[0]][0], 'days': has_calc[0][0]}));
 							}
 						} else if (has_constrained_weekday[0]) {
 							from_date = getDateForConstrainedWeekday((has_year[0] ? tokens[at][0] : date.getFullYear()), // year
@@ -5993,8 +6106,7 @@
 								to_date.setDate(to_date.getDate() + has_calc[1][0]);
 								if (to_year_before_calc !== to_date.getFullYear())
 									throw formatWarnErrorMessage(nrule, at_sec_event_or_month+has_calc[1][1],
-										'The movable day ' + tokens[at_sec_event_or_month][0] + ' plus ' + has_calc[1][0]
-										+ ' days is not in the year of the movable day anymore. Currently not supported.');
+										t('movable not in year', {'name': tokens[at_sec_event_or_month][0], 'days':  has_calc[1][0] }));
 							}
 						} else if (has_constrained_weekday[1]) {
 							to_date = getDateForConstrainedWeekday((has_year[1] ? tokens[at_sec_event_or_month-1][0] : date.getFullYear()), // year
@@ -6075,8 +6187,7 @@
 
 						// error checking {{{
 						if (range_to < range_from)
-							throw formatWarnErrorMessage(nrule, at+has_year+3,
-									'Range in wrong order. From day is greater than to day.');
+							throw formatWarnErrorMessage(nrule, at+has_year+3, t('day range reverse'));
 
 						checkIfDateIsValid(month, range_from, nrule, at+1 + has_year);
 						checkIfDateIsValid(month, range_to - 1 /* added previously */,
@@ -6136,15 +6247,13 @@
 						var movableDays = getMovableEventsForYear((has_year ? tokens[at][0] : date.getFullYear()));
 						var event_date = movableDays[tokens[at+has_year][0]];
 						if (!event_date)
-							throw 'Movable day ' + tokens[at+has_year][0] + ' can not not be calculated.'
-								+ ' Please add the formula how to calculate it.';
+							throw t('movable no formular', {'name': tokens[at+has_year][0]});
 
 						if (add_days[0]) {
 							event_date.setDate(event_date.getDate() + add_days[0]);
 							if (date.getFullYear() !== event_date.getFullYear())
-								throw formatWarnErrorMessage(nrule, at+has_year+add_days[1], 'The movable day ' + tokens[at+has_year][0] + ' plus '
-									+ add_days[0]
-									+ ' days is not in the year of the movable day anymore. Currently not supported.');
+								throw formatWarnErrorMessage(nrule, at+has_year+add_days[1], t('movable not in year', {
+									'name': tokens[at+has_year][0], 'days': add_days[0]}));
 						}
 
 						if (date.getTime() < event_date.getTime())
@@ -6295,12 +6404,12 @@
 							match_rule  = rule;
 
 							/* Reset open end comment */
-							if (typeof comment === 'object' && comment[0] === 'Specified as open end. Closing time was guessed.')
+							if (typeof comment === 'object' && comment[0] === t('open end'))
 								comment = undefined;
 
 							// open end
 							if (res[2] === true && (resultstate || unknown)) {
-								comment = [ 'Specified as open end. Closing time was guessed.', match_rule ];
+								comment = [ t('open end'), match_rule ];
 
 								resultstate = false;
 								unknown     = true;
@@ -6655,7 +6764,7 @@
 				/* setDate {{{ */
 				this.setDate = function(date) {
 					if (typeof date !== 'object')
-						throw 'Date parameter needed.';
+						throw t('date parameter needed');
 
 					prevstate = [ undefined, date, undefined, undefined, undefined ];
 					state     = oh.getStatePair(date);
@@ -6736,5 +6845,6 @@
 
 		/* }}} */
 	};
+
 }));
 // vim: set ts=4 sw=4 tw=0 noet foldmarker={{{,}}} foldlevel=0 foldmethod=marker :

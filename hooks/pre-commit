@@ -13,6 +13,6 @@ git stash -q --keep-index
 # exec 1>&2
 
 make check-diff-all
-git add test.log
+git add test.*.log
 
 git stash pop -q

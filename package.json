@@ -29,7 +29,8 @@
         "interactive_testing.js",
         "real_test.js",
         "test.js",
-        "test.log",
+        "test.en.log",
+        "test.de.log",
         ".gitignore"
     ],
     "directories": {
@@ -48,7 +49,7 @@
     },
     "optionalDependencies": {
         "i18next": ">=1.6.3",
-        "moment" : "2.7.x"
+        "moment" : "*"
     },
     "devDependencies": {
         "colors"      :  "0.6.*",
