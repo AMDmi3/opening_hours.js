@@ -27,13 +27,13 @@ module.exports = {
                     'hour min seperator': 'Bitte benutze ":" als Stunden/Minuten Trenner',
                     'warnings severity': 'Der Parameter optional_conf_parm["warnings_severity"] muss eine ganze Zahl zwischen (einschließlich) 0 und (einschließlich) 7 sein.'
                         + ' Gegeben: __severity__ '
-                        + ', erwartet: Eine der Zahlen: [ 0, 1, 2, 3, 4, 5, 6, 7 ].',
+                        + ', erwartet: Eine der Zahlen: __allowed__.',
                     'optional conf parm type': 'Der optional_conf_parm Parameter hat einen unbekannten Typ.'
                         + ' Gegeben: __given__',
                     'conf param tag key missing': 'Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_parm["map_value"].',
                     'conf param mode invalid': 'Der optional_conf_parm["mode"] Parameter ist eine ungültige Zahl.'
                         + ' Gegeben: __given__'
-                        + ', erwartet: Eine der Zahlen: [ 0, 1, 2 ].',
+                        + ', erwartet: Eine der Zahlen: __allowed__.',
                     'conf param unkown type': 'Der optional_conf_parm["__key__"] Parameter hat einen unbekannten Typ.'
                         + ' Gegeben: __given__, erwartet: __expected__.',
                     'library bug': 'Bei der Auswertung des Wertes "__value__" ist ein Fehler aufgetreten.'
@@ -51,24 +51,24 @@ module.exports = {
                     'ranges': 'Zeitspannen',
                     'default state': "Diese Regel, welche den Standard Status (d.h. geschlossen) für alle folgenden Regeln ändert, ist nicht die erste Regel."
                         + " Diese Regel überschreibt alle vorherigen Regeln."
-                        + " Es kann legtim sein, dden Standard Status z.B. auf geöffnet festzulegen"
-                        + " und dann nur die Zeiten zu denen geschlossen ist anzugeben.",
+                        + " Es kann legtim sein, den Standard Status z.B. auf geöffnet festzulegen"
+                        + " und dann nur die Zeiten, zu denen geschlossen ist, anzugeben.",
                     'vague': "Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde."
-                        + " Bitte füge eine Zeitangabe oder einen Kommentar hinzu um dies zu verbessern.",
+                        + " Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.",
                     'empty comment': "Du hast einen leeren Kommentar verwendet."
-                        + '" Bitte schreib entweder einen Kommentar-Text oder benutze stattdessen das Schlüsselwort "unknown".',
+                        + '" Bitte schreibe entweder einen Kommentar-Text oder benutze stattdessen das Schlüsselwort "unknown".',
                     'separator_for_readability': "Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt."
                         + " Bitte lies die Syntax Spezifikation um zu sehen wo es verwendet werden kann oder entferne es.",
-                    'strange 24/7': 'Du hast 24/7 in einer Art verwendet, welches wahrscheinlich nicht als "24 Stunden, 7 Tage die Woche" interpretiert wird.'
+                    'strange 24/7': 'Du hast 24/7 in einer Art verwendet, welche wahrscheinlich nicht als "24 Stunden, 7 Tage die Woche" interpretiert wird.'
                         + ' Der Richtigkeit halber solltest du "open" oder "closed"'
-                        + ' für diese Regel verwenden und dann die Ausnahmen angeben um das selbe ziel zu erreichen. So ist es klarer -'
+                        + ' für diese Regel verwenden und dann die Ausnahmen angeben um das selbe Ziel zu erreichen. So ist es klarer –'
                         + ' zum Beispiel "open; Mo 12:00-14:00 off".',
                     'public holiday': 'Es wurde keine Regel für "PH" (feiertags) angegeben. Dies ist nicht sehr Aussagekräftig.__part2__'
-                        + ' Bitte füge die Regel "PH off" an, when die Einrichtung an allen Feiertagen geschlossen ist'
+                        + ' Bitte füge die Regel "PH off" an, wenn die Einrichtung an allen Feiertagen geschlossen ist'
                         + ' oder schreibe "Sa,Su,PH 12:00-16:00" um auszudrücken, dass Samstags, Sonntags und feiertags von 12:00-16:00 geöffnet ist.'
                         + ' Wenn du dir im Unklaren bist, versuche die Öffnungszeit zu klären. Falls das nicht möglich ist, lass die Angabe weg und ignoriere diese Warnung.',
                     'public holiday part2': ' Leider ist der "tag key" (beispielsweise "opening_hours", or "lit") in opening_hours.js nicht bekannt.'
-                        + 'Diese Warnung betrifft nur die Keys: __keys__.  Falls deine Angabe nicht für einen dieser ist, ignoriere bitte folgenden Hinweis:',
+                        + ' Diese Warnung betrifft nur die Keys: __keys__. Falls deine Angabe nicht für einen dieser ist, ignoriere bitte folgenden Hinweis:',
                     'switched': 'Der Selektor "__first__" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit '
                         + ' "__second__" getauscht.',
                     'no colon after': 'Bitte Benutze kein ":" nach dem Token __token__.',
@@ -76,7 +76,7 @@ module.exports = {
                     'one weekday constraint': 'Du kannst höchstens einen beschränkten Wochentag in einer Monats-Spanne verwenden',
                     'range contrainted weekdays': 'Du kannst keine Wochentags-Spanne als Beschränkung in einer Monats-Spanne verwenden',
                     'expected': '"__symbol__" erwartet.',
-                    'range zero': 'Du kannst keine __type__-Spanne mit eine Periode "0" verwenden.',
+                    'range zero': 'Du kannst keine __type__-Spanne mit Periode "0" verwenden.',
                     'period one year+': 'Bitte verwende keine __type__-Spannen mit Periode "1".'
                         + ' Wenn du ausdrücken willst, das eine Einrichtung ab einem bestimmten Jahr immer offen ist, benutze bitte "<year>+".',
                     'period one': 'Bitte verwende keine __type__-Spannen mit Periode "1".',
@@ -89,8 +89,8 @@ module.exports = {
                     'calculation': 'Berechnung',
                     'time range continue': 'Die Zeitspanne geht nicht wie erwartet weiter',
                     'period continue': 'Die Zeitspannen-Periode geht nicht wie erwartet weiter. Beispiel "/01:30".',
-                    'time range mode': '__libraryname__ läuft im "Zeitspannen-Modus". Zeitpunkt gefunden.',
-                    'point in time mode': '__libraryname__ läuft im "Zeitpunkt-Modus". Zeitspanne gefunden.',
+                    'time range mode': '__libraryname__ wurde im "Zeitspannen-Modus" aufgerufen. Zeitpunkt gefunden.',
+                    'point in time mode': '__libraryname__ wurde im "Zeitpunkt-Modus" aufgerufen. Zeitspanne gefunden.',
                     'outside current day': 'Zeitspanne beginnt außerhalb des aktuellen Tages',
                     'two midnights': 'Zeitspanne welche mehrmals Mitternacht beinhaltet wird nicht untersützt',
                     'without minutes': 'Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig!'
@@ -106,7 +106,7 @@ module.exports = {
                     'additional rule no sense': 'Eine weitere Regel an dieser Stelle ergibt keinen Sinn. Benutze einfach ";" als Trenner für Regeln.'
                         + ' Siehe https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator',
                     'unexpected token weekday range': 'Unerwartes Token in Tages-Spanne: __token__',
-                    'max differ': 'Es sollte keinen Grund geben, mehr als __maxdiffer__ Tage von einem __name__ abzuweichen. Wenn nötig, teile uns dies bitte mit…',
+                    'max differ': 'Es sollte keinen Grund geben, mehr als __maxdiffer__ Tage von einem __name__ abzuweichen. Wenn nötig, teile uns dies bitte mit …',
                     'adding 0': 'Addition von 0 verändert das Datum nicht. Bitte weglassen.',
                     'unexpected token holiday': 'Unerwartes Token (in Feiertags-Auswertung): __token__',
                     'no SH defintion': 'Für die Schulferien __name__ fehlen die Defintionen für das Jahr __year__'
@@ -116,7 +116,7 @@ module.exports = {
                     'no PH definition state': 'Der Feiertag __name__ ist für das Land __cc__ und Bundesland __state__ nicht definiert.'
                         + ' Du kannst diese hinzufügen: __repository_url__',
                     'no country code': 'Der Ländercode fehlt. Dieser wird benötigt um die korrekten Feiertage zu bestimmen (siehe in der README wie dieser anzugeben ist)',
-                    'movable no formular': 'Der bewegliche Feiertag __name__ can nicht berechnet werden.'
+                    'movable no formular': 'Der bewegliche Feiertag __name__ kann nicht berechnet werden.'
                         + ' Bitte füge eine entsprechende Formel hinzu.',
                     'movable not in year': 'Der bewegliche Feiertag __name__ plus __days__'
                         + ' Tage befindet sich nicht mehr im selben Jahr. Aktuell nicht unterstüzt.',

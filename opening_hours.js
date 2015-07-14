@@ -3126,13 +3126,13 @@
 		'hour min seperator': 'Please use ":" as hour/minute-separator',
 		'warnings severity': 'The parameter optional_conf_parm["warnings_severity"] must be an integer number between 0 and 7 (inclusive).'
 			+ ' Given __severity__'
-			+ ', expected one of the following numbers: [ 0, 1, 2, 3, 4, 5, 6, 7 ].',
+			+ ', expected one of the following numbers: __allowed__.',
 		'optional conf parm type': 'The optional_conf_parm parameter is of unknown type.'
 			+ ' Given __given__',
 		'conf param tag key missing': 'The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["map_value"].',
 		'conf param mode invalid': 'The optional_conf_parm["mode"] parameter is a invalid number.'
 			+ ' Gave __given__'
-			+ ', expected one of the following numbers: [ 0, 1, 2 ].',
+			+ ', expected one of the following numbers: __allowed__.',
 		'conf param unkown type': 'The optional_conf_parm["__key__"] parameter is of unknown type.'
 			+ ' Given __given__'
 			+ ', expected __expected__.',
@@ -3385,7 +3385,7 @@
 			if (checkOptionalConfParm('warnings_severity', 'number')) {
 				warnings_severity = optional_conf_parm['warnings_severity'];
 				if ([ 0, 1, 2, 3, 4, 5, 6, 7 ].indexOf(warnings_severity) === -1) {
-					throw t('warnings severity', { 'severity': warnings_severity });
+					throw t('warnings severity', { 'severity': warnings_severity, 'allowed': '[ 0, 1, 2, 3, 4, 5, 6, 7 ]' });
 				}
 			}
 			if (checkOptionalConfParm('tag_key', 'string')) {
@@ -3423,7 +3423,7 @@
 				oh_mode = 0;
 			}
 		} else if (oh_mode !== 0 && oh_mode !== 1 && oh_mode !== 2) {
-			throw t('conf param mode invalid', {'given': oh_mode});
+			throw t('conf param mode invalid', { 'given': oh_mode, 'allowed': '[ 0, 1, 2 ]' });
 		}
 
 		/* }}} */
