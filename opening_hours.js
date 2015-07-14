@@ -3111,7 +3111,7 @@
 	};
 
     var lang = {
-        'unexpected token': 'Unexpected token: "__token__" This means that the syntax is not valid at that point or it is currently not supported.__warnings__',
+        'unexpected token': 'Unexpected token: "__token__" This means that the syntax is not valid at that point or it is currently not supported.',
         'no string': 'The value (first parameter) is not a string.',
         'nothing': 'The value contains nothing meaningful which can be parsed.',
         'nothing useful': 'This rule does not contain anything useful. Please remove this empty rule.',
@@ -3123,7 +3123,7 @@
         'rule before fallback empty': 'Rule before fallback rule does not contain anything useful',
         'hour min seperator': 'Please use ":" as hour/minute-separator',
         'warnings severity': 'The parameter optional_conf_parm["warnings_severity"] must be an integer number between 0 and 7 (inclusive).'
-        + ' Given __severity__ '
+        + ' Given __severity__'
         + ', expected one of the following numbers: [ 0, 1, 2, 3, 4, 5, 6, 7 ].',
         'optional conf parm type': 'The optional_conf_parm parameter is of unknown type.'
         + ' Given _given_',
@@ -3132,10 +3132,10 @@
         + ' Gave __given__'
         + ', expected one of the following numbers: [ 0, 1, 2 ].',
         'conf param unkown type': 'The optional_conf_parm["__key__"] parameter is of unknown type.'
-        + ' Given __given__' +
+        + ' Given __given__'
         + ', expected __expected__.',
         'library bug': 'An error occurred during evaluation of the value "__value__".'
-        + ' Please file a bug report here: __url__. __message__',
+        + ' Please file a bug report here: __url__.__message__',
 		'use multi': 'You have used __count__ __part2__ Rules can be separated by ";".',
 		'selector multi 2a': '__what__ in one rule. You may only use one in one rule.',
 		'selector multi 2b': 'not connected __what__ in one rule. This is probably an error.'
@@ -3144,6 +3144,7 @@
 		+ ' Example for weekdays "Mo-We,Fr".',
 		'selector state': 'state keywords',
 		'comments': 'comments',
+		'holiday ranges': 'holiday ranges',
 		'months': 'months',
 		'weekdays': 'weekdays',
 		'ranges': 'ranges',
@@ -3165,31 +3166,31 @@
 		+ ' Please either append a "PH off" rule if the amenity is closed on all public holidays'
 		+ ' or use something like "Sa,Su,PH 12:00-16:00" to say that on Saturdays, Sundays and on public holidays the amenity is open 12:00-16:00.'
 		+ ' If you are not certain try to find it out. If you can’t then do not add PH to the value and ignore this warning.',
-		'public holiday part2': ' Unfortunately the tag key (e.g. "opening_hours", or "lit") is unknown to opening_hours.js.'
-		+ 'This warning only applies to the key(s): __keys__.  If your value is for that key than read on. If not you can ignore the following.',
+		'public holiday part2': ' Unfortunately the tag key (e.g. "opening_hours", or "lit") is unknown to opening_hours.js. '
+		+ 'This warning only applies to the key __keys__. If your value is for that key than read on. If not you can ignore the following.',
 		'switched': 'The selector "__first__" was switched with'
 		+ ' the selector "__second__"'
 		+ ' for readablitity and compatibiltity reasons.',
 		'no colon after': 'Please don’t use ":" after __token__.',
-		'number -5 to 5': 'Number between -5 and 5 (except 0) expected',
+		'number -5 to 5': 'Number between -5 and 5 (except 0) expected.',
 		'one weekday constraint': 'You can not use more than one constrained weekday in a month range',
 		'range contrainted weekdays': 'You can not use a range of constrained weekdays in a month range',
 		'expected': '"__symbol__" expected.',
 		'range zero': 'You can not use __type__ ranges with period equals zero.',
 		'period one year+': 'Please don’t use __type__ ranges with period equals one.'
 		+ ' If you want to express that a facility is open starting from a year without limit use "<year>+".',
-		'period one': 'Please don’t use __period_type__ ranges with period equals one.',
+		'period one': 'Please don’t use __type__ ranges with period equals one.',
 		'month 31': "The day for __month__ must be between 1 and 31.",
 		'month 30': "Month __month__ doesn't have 31 days. The last day of __month__ is day 30.",
 		'month feb': '"Month __month__ either has 28 or 29 days (leap years)."',
-		'point in time': 'hyphen (-) or open end (+) in time range __calc__ expected.'
-		+ ' For working with points in time, the mode for __library_name__ has to be altered.'
+		'point in time': 'hyphen (-) or open end (+) in time range __calc__expected.'
+		+ ' For working with points in time, the mode for __libraryname__ has to be altered.'
 		+ ' Maybe wrong tag?',
 		'calculation': 'calculation',
 		'time range continue': 'Time range does not continue as expected',
 		'period continue': 'Time period does not continue as expected. Example "/01:30".',
-		'time range mode': '__library_name__ is running in "time range mode". Found point in time.',
-		'point in time mode': '__library_name__ is running in "points in time mode". Found time range.',
+		'time range mode': '__libraryname__ is running in "time range mode". Found point in time.',
+		'point in time mode': '__libraryname__ is running in "points in time mode". Found time range.',
 		'outside current day': 'Time range starts outside of the current day',
 		'two midnights': 'Time spanning more than two midnights not supported',
 		'without minutes': 'Time range without minutes specified. Not very explicit!'
@@ -3205,7 +3206,7 @@
 		'additional rule no sense': 'An additional rule does not make sense here. Just use a ";" as rule separator.'
 		+ ' See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator',
 		'unexpected token weekday range': 'Unexpected token in weekday range: __token__',
-		'max differ': 'There should be no reason to differ more than __max_differ__ days from a __name__. If so tell us …',
+		'max differ': 'There should be no reason to differ more than __maxdiffer__ days from a __name__. If so tell us …',
 		'adding 0': 'Adding 0 does not change the date. Please omit this.',
 		'unexpected token holiday': 'Unexpected token (holiday parser): __token__',
 		'no SH defintion': 'School holiday __name__ has no definition for the year __year__'
@@ -3229,10 +3230,10 @@
 		'week negative': 'You have specified a week date less then one. A valid week date range is 1-53.',
 		'week exceed': 'You have specified a week date greater then 53. A valid week date range is 1-53.',
 		'week period less than 2': 'You have specified a week period which is less than two.'
-		+ ' If you want to select the whole range from week __week_from__ to week __week_to__ then just omit the "/__period__".',
+		+ ' If you want to select the whole range from week __weekfrom__ to week __weekto__ then just omit the "/__period__".',
 		'week period greater than 26': 'You have specified a week period which is greater than 26.'
 		+ ' 26.5 is the half of the maximum 53 week dates per year so a week date period greater than 26 would only apply once per year.'
-		+ ' Please specify the week selector as "week __week_from__" if that is what you want to express.',
+		+ ' Please specify the week selector as "week __weekfrom__" if that is what you want to express.',
 		'unexpected token week range': 'Unexpected token in week range: __token__',
 		'unexpected token month range': 'Unexpected token in month range: __token__',
 		'day range reverse': 'Range in wrong order. From day is greater than to day.',
@@ -3263,6 +3264,9 @@
 			}
         }
         var text = lang[str];
+		if (typeof text === 'undefined') {
+			text = str;
+		}
         return text.replace(/__([^_]*)__/g, function (match, c) {
             return typeof variables[c] != 'undefined'
                 ? variables[c]
@@ -3985,7 +3989,7 @@
 										selector_type.match(/^(?:comment|state)/) ?
 											t('selector multi 2a', {'what': (selector_type === 'state' ? t('selector state'): t('comments'))})
 											:
-											t('selector multi 2b', {'what': t((selector_type.match(/^(?:month|weekday)$/) ? selector_type + 's' : 'ranges'))})
+											t('selector multi 2b', {'what': t(selector_type + (selector_type.match(/^(?:month|weekday)$/) ? 's' : ' ranges'))})
 									)
 								})]
 							);
@@ -4504,7 +4508,7 @@
 					// throw formatLibraryBugMessage('Not implemented yet.');
 				} else {
 					var warnings = getWarnings();
-					throw formatWarnErrorMessage(nrule, at, t('unexpected token', {token: tokens[at][1], warnings: (warnings ? (' ' + warnings.join('; ')) : '')}));
+					throw formatWarnErrorMessage(nrule, at, t('unexpected token', {token: tokens[at][1] })) + (warnings ? (' ' + warnings.join('; ')) : '');
 				}
 
 				if (typeof at === 'object') { // additional rule
@@ -4664,9 +4668,9 @@
 					t('range zero', { 'type': period_type }));
 			} else if (period === 1) {
 				if (typeof parm_string === 'string' && parm_string === 'no_end_year')
-					parsing_warnings.push([nrule, at, t('period one year+')]);
+					parsing_warnings.push([nrule, at, t('period one year+', {'type': period_type})]);
 				else
-					parsing_warnings.push([nrule, at, t('period one', {'period_type': period_type})]);
+					parsing_warnings.push([nrule, at, t('period one', {'type': period_type})]);
 			}
 		}
 
@@ -4777,7 +4781,7 @@
 									),
 									t('point in time', {
 										'calc': (has_time_var_calc[0] ? t('calculation') + ' ' : ''),
-										'library_name ': library_name
+										'libraryname': library_name
 									}));
 							} else {
 								minutes_to = minutes_from + 1;
@@ -4836,7 +4840,7 @@
 						// Check at this later state in the if condition to get the correct position.
 						if (oh_mode === 0)
 							throw formatWarnErrorMessage(nrule, at - 1,
-								t('time range mode', {'library_name': library_name}));
+								t('time range mode', {'libraryname': library_name}));
 
 						is_point_in_time = true;
 					} else if (matchTokens(tokens, at, '+')) {
@@ -4844,7 +4848,7 @@
 						at++;
 					} else if (oh_mode === 1 && !is_point_in_time) {
 						throw formatWarnErrorMessage(nrule, at_end_time,
-							t('point in time mode', {'library_name': library_name}));
+							t('point in time mode', {'libraryname': library_name}));
 					}
 
 					if (typeof lat !== 'undefined') { // lon will also be defined (see above)
@@ -5302,7 +5306,7 @@
 				// continues with '+ 5 days' or something like that
 				if (tokens[at+1][0] > max_differ)
 					throw formatWarnErrorMessage(nrule, at+2,
-						t('max_differ',{'max_differ': max_differ, 'name': name}));
+						t('max_differ',{'maxdiffer': max_differ, 'name': name}));
 				add_days[0] *= tokens[at+1][0];
 				if (add_days[0] === 0 && !done_with_warnings)
 					parsing_warnings.push([ nrule, at+2, t('adding 0') ]);
@@ -5813,10 +5817,10 @@
 							period = tokens[at+4][0];
 							if (period < 2) {
 								throw formatWarnErrorMessage(nrule, at+4, t('week period less than 2', {
-									'week_from': week_from, 'week_to': week_to, 'period': period}));
+									'weekfrom': week_from, 'weekto': week_to, 'period': period}));
 							} else if (period > 26) {
 								throw formatWarnErrorMessage(nrule, at+4, t('week period greater than 26', {
-									'week_from': week_from
+									'weekfrom': week_from
 								}));
 							}
 						}

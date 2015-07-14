@@ -44,7 +44,7 @@ var opening_hours_resources = { // English is fallback language.
                 'conf param unkown type': 'Der optional_conf_parm["__key__"] Parameter hat einen unbekannten Typ.'
                 + ' Gegeben: __given__, erwartet: __expected__.',
                 'library bug': 'Bei der Auswertung des Wertes "__value__" ist ein Fehler aufgetreten.'
-                + ' Bitte melde diesen Bug hier: __url__. __message__',
+                + ' Bitte melde diesen Bug hier: __url__.__message__',
                 'use multi': 'Du hast __count__ __part2__ Einzelne Regeln können mit ";" getrennt werden.',
                 'selector multi 2a': '__what__ in einer Regel benutzt. Du kannst nur einen davon je Regel verwenden',
                 'selector multi 2b': 'nicht verbundene __what__ in einer Regel benutzt. Das ist vermutlich ein Fehler.'
@@ -79,25 +79,25 @@ var opening_hours_resources = { // English is fallback language.
                 'switched': 'Der Selektor "__first__" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit '
                 + ' "__second__" getauscht.',
                 'no colon after': 'Bitte Benutze kein ":" nach dem Token __token__.',
-                'number -5 to 5': 'Zahl zwischen -5 und 5 (außer 0) wartert',
+                'number -5 to 5': 'Zahl zwischen -5 und 5 (außer 0) erwartet.',
                 'one weekday constraint': 'Du kannst höchstens einen beschränkten Wochentag in einer Monats-Spanne verwenden',
                 'range contrainted weekdays': 'Du kannst keine Wochentags-Spanne als Beschränkung in einer Monats-Spanne verwenden',
                 'expected': '"__symbol__" erwartet.',
                 'range zero': 'Du kannst keine __type__-Spanne mit eine Periode "0" verwenden.',
                 'period one year+': 'Bitte verwende keine __type__-Spannen mit Periode "1".'
                 + ' Wenn du ausdrücken willst, das eine Einrichtung ab einem bestimmten Jahr immer offen ist, benutze bitte "<year>+".',
-                'period one': 'Bitte verwende keine __period_type__-Spannen mit Periode "1".',
+                'period one': 'Bitte verwende keine __type__-Spannen mit Periode "1".',
                 'month 31': "Die Tagangabe für __month__ muss zwischen 1 und 31 liegen.",
                 'month 30': "Der Monat __month__ hat keine 31 Tage. Der letzte Tag von __month__ ist Tag 30.",
                 'month feb': '"Der Monat __month__ hat entwedet 28 oder 29 Tage (Schaltjahre)."',
                 'point in time': 'Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne __calc__.'
-                + ' Um mit Zeitpunkten zu arbeiten, muss der Modus für  __library_name__ umgestellt werden.'
+                + ' Um mit Zeitpunkten zu arbeiten, muss der Modus für  __libraryname__ umgestellt werden.'
                 + ' Vielleicht falscher OSM tag verwendet?',
                 'calculation': 'Berechnung',
                 'time range continue': 'Die Zeitspanne geht nicht wie erwartet weiter',
                 'period continue': 'Die Zeitspannen-Periode geht nicht wie erwartet weiter. Beispiel "/01:30".',
-                'time range mode': '__library_name__ läuft im "Zeitspannen-Modus". Zeitpunkt gefunden.',
-                'point in time mode': '__library_name__ läuft im "Zeitpunkt-Modus". Zeitspanne gefunden.',
+                'time range mode': '__libraryname__ läuft im "Zeitspannen-Modus". Zeitpunkt gefunden.',
+                'point in time mode': '__libraryname__ läuft im "Zeitpunkt-Modus". Zeitspanne gefunden.',
                 'outside current day': 'Zeitspanne beginnt außerhalb des aktuellen Tages',
                 'two midnights': 'Zeitspanne welche mehrmals Mitternacht beinhaltet wird nicht untersützt',
                 'without minutes': 'Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig!'
@@ -113,7 +113,7 @@ var opening_hours_resources = { // English is fallback language.
                 'additional rule no sense': 'Eine weitere Regel an dieser Stelle ergibt keinen Sinn. Benutze einfach ";" als Trenner für Regeln.'
                 + ' Siehe https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator',
                 'unexpected token weekday range': 'Unerwartes Token in Tages-Spanne: __token__',
-                'max differ': 'Es sollte keinen Grund geben, mehr als __max_differ__ Tage von einem __name__ abzuweichen. Wenn nötig, teile uns dies bitte mit…',
+                'max differ': 'Es sollte keinen Grund geben, mehr als __maxdiffer__ Tage von einem __name__ abzuweichen. Wenn nötig, teile uns dies bitte mit…',
                 'adding 0': 'Addition von 0 verändert das Datum nicht. Bitte weglassen.',
                 'unexpected token holiday': 'Unerwartes Token (in Feiertags-Auswertung): __token__',
                 'no SH defintion': 'Für die Schulferien __name__ fehlen die Defintionen für das Jahr __year__'
@@ -137,10 +137,10 @@ var opening_hours_resources = { // English is fallback language.
                 'week negative': 'Du hast eine Wochennummer kleiner 1 angegeben. Korrekte Angaben sind 1-53.',
                 'week exceed': 'Du hast eine Wochennummer größer als 53 angegeben. Korrekte Angaben sind 1-53.',
                 'week period less than 2': 'Du hast eine Wochenperiode kleiner 2 angegeben.'
-                + ' Wenn du die gesammte Spanne von __week_from__ bis __week_to__ angeben will, lasse "/__period__" einfach weg.',
+                + ' Wenn du die gesammte Spanne von __weekfrom__ bis __weekto__ angeben will, lasse "/__period__" einfach weg.',
                 'week period greater than 26': 'Du hast eine Wochen-Periode größer als 26 angegeben.'
                 + ' 26.5 ist die Hälfte des Maximums von 53 Wochen pro Jahr. Damit würde eine Periode größer als 26 nur einmal pro Jahr auftreten.'
-                + ' Bitte gibt den Wochen-Selektor als "week __week_from__" an, wenn es das ist, was du ausdrücken möchtest.',
+                + ' Bitte gibt den Wochen-Selektor als "week __weekfrom__" an, wenn es das ist, was du ausdrücken möchtest.',
                 'unexpected token week range': 'Unerwartetes Token in Wochen-Spanne: __token__',
                 'unexpected token month range': 'Unerwartetes Token in Monats-Spanne: __token__',
                 'day range reverse': 'Zeitspanne in falscher Reihenfolge. Begin ist größer als Ende.',
