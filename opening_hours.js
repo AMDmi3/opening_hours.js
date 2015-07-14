@@ -3182,7 +3182,7 @@
 		'period one': 'Please don’t use __type__ ranges with period equals one.',
 		'month 31': "The day for __month__ must be between 1 and 31.",
 		'month 30': "Month __month__ doesn't have 31 days. The last day of __month__ is day 30.",
-		'month feb': '"Month __month__ either has 28 or 29 days (leap years)."',
+		'month feb': 'Month __month__ either has 28 or 29 days (leap years).',
 		'point in time': 'hyphen (-) or open end (+) in time range __calc__expected.'
 		+ ' For working with points in time, the mode for __libraryname__ has to be altered.'
 		+ ' Maybe wrong tag?',
@@ -5306,7 +5306,7 @@
 				// continues with '+ 5 days' or something like that
 				if (tokens[at+1][0] > max_differ)
 					throw formatWarnErrorMessage(nrule, at+2,
-						t('max_differ',{'maxdiffer': max_differ, 'name': name}));
+						t('max differ',{'maxdiffer': max_differ, 'name': name}));
 				add_days[0] *= tokens[at+1][0];
 				if (add_days[0] === 0 && !done_with_warnings)
 					parsing_warnings.push([ nrule, at+2, t('adding 0') ]);
