@@ -48,8 +48,9 @@
         "suncalc": "1.2.1"
     },
     "optionalDependencies": {
-        "i18next": ">=1.6.3",
-        "moment" : "*"
+        "i18next": "1.10.2",
+        "i18next-client": "1.10.2",
+        "moment" : "2.10.3"
     },
     "devDependencies": {
         "colors"      :  "0.6.*",

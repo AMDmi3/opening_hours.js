@@ -1,7 +1,8 @@
 // localization {{{
 var resources = { // English is fallback language.
     // English (en) localization {{{
-    en: { translation: {
+    en: {
+        translation: {
             "lang": {
                 "en": "English",
                 "fr": "French",
@@ -134,7 +135,8 @@ var resources = { // English is fallback language.
     }, // }}}
 
     // French (fr) localization {{{
-    fr: { translation: {
+    fr: {
+        translation: {
             "lang": {
                 "en": "Anglais",
                 "fr": "Français",
@@ -255,7 +257,8 @@ var resources = { // English is fallback language.
     }, // }}}
 
     // German (de) localization {{{
-    de: { translation: {
+    de: {
+        translation: {
             "lang": {
                 "en": "Englisch",
                 "fr": "Französisch",
@@ -387,7 +390,8 @@ var resources = { // English is fallback language.
     }, // }}}
 
     // Russian (ru) localization {{{
-    ru: { translation: {
+    ru: {
+        translation: {
             "lang": {
                 "en": "английский",
                 "fr": "французский",
@@ -468,7 +472,8 @@ var resources = { // English is fallback language.
     }, // }}}
 
     // Portuguese (pt) localization {{{
-    pt: { translation: {
+    pt: {
+        translation: {
             "lang": {
                 "en": "Inglês",
                 "fr": "Francês",
@@ -591,7 +596,8 @@ var resources = { // English is fallback language.
     }, // }}}
 
     // Italian (it) localization {{{
-    it: { translation: {
+    it: {
+        translation: {
             "lang": {
                 "en": "Inglese",
                 "fr": "Francese",
@@ -714,7 +720,8 @@ var resources = { // English is fallback language.
     }, // }}}
 
     // Ukrainian (uk) localization {{{
-    uk: { translation: {
+    uk: {
+        translation: {
             "lang": {
                 "en": "англійська",
                 "fr": "французька",
@@ -861,12 +868,12 @@ function translatePage() { // Gets called when localization is loaded.
 }
 
 i18n.init({
-        fallbackLng: 'en',
-        resStore: resources,
-        getAsync: true,
-        useCookie: true,
-        debug: true
-    }, translatePage);
-moment.lang(i18n.lng());
+    fallbackLng: 'en',
+    resStore: resources,
+    getAsync: true,
+    useCookie: true,
+    debug: true
+}, translatePage);
+moment.locale(i18n.lng());
 // }}}
 // }}}
