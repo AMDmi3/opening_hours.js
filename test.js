@@ -5052,6 +5052,11 @@ test.addCompMatchingRule('Compare result from getMatchingRule()', [
 	'Fr 12:00-16:00 open "Notfallsprechstunde"', {}, 'n last test');
 // }}}
 
+if (argv.locale !== 'en') {
+	var tmp = new opening_hours(value_perfectly_valid[0], nominatiomTestJSON);
+	console.log(tmp.prettifyValue({ conf: { locale: argv.locale } }));
+}
+
 process.exit(test.run() ? 0 : 1);
 
 //======================================================================

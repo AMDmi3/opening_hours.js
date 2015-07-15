@@ -142,7 +142,7 @@ var opening_hours_resources = { // English is fallback language.
             "pretty": {
                 "off": "geschlossen",
                 "SH": "Schulferien",
-                "PH": "feiertags",
+                "PH": "Feiertags",
             },
         },
     }, /* }}} */

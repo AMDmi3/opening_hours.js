@@ -441,9 +441,12 @@
 				show_time_table.innerHTML = '<a href="javascript:josm(\'import?url=' + encodeURIComponent('http://overpass-api.de/api/xapi_meta?*[opening_hours='
 					+ document.forms.check.elements['expression'].value + ']') + '\')">' + i18n.t('texts.load all with JOSM') + '</a><br />';
 				if (!crashed) {
-					var prettified = oh.prettifyValue();
-					var prettified_value_array = oh.prettifyValue({ get_internals: true });
-					var prettified_newline_sep = oh.prettifyValue({ conf: { rule_sep_string: '\n', print_semicolon: false } });
+					var prettified = oh.prettifyValue({});
+					var prettified_value_array = oh.prettifyValue({
+						// conf: { locale: i18n.lng() },
+						get_internals: true,
+					});
+					// var prettified_newline_sep = oh.prettifyValue({ conf: { locale: i18n.lng(), rule_sep_string: '\n', print_semicolon: false } });
 					show_results.innerHTML = '<p>' + i18n.t('words.status') + ':<br />'
 						+ '<input size="10" name="status" readonly="readonly" />'
 						+ '<input size="60" name="comment" readonly="readonly" />'

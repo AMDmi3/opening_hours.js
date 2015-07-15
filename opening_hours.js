@@ -4214,6 +4214,7 @@
 			if (typeof argument_hash !== 'undefined') {
 				if (typeof argument_hash.conf === 'object') {
 					user_conf = argument_hash.conf;
+					console.log(user_conf);
 				}
 
 				if (typeof argument_hash.rule_index === 'number') {
@@ -4233,20 +4234,20 @@
 
             if (typeof user_conf['locale'] === 'string' && user_conf['locale'] !== 'en') {
                 // build translation arrays from moment
-                // var currentLocale = moment.locale();
+				// var currentLocale = moment.locale();
                 moment.locale('en');
                 var weekdays_en = moment.weekdaysMin();
-                var months_en = moment.months(); // monthShort would not return what we like
-                for(var key in months_en) {
-                    months_en[key] = months_en[key].substr(0,3); // FIXME: Function for that?
-                }
+                // monthShort would not return what we like
+				var months_en = moment.months().map(function (month) {
+					return month.substr(0,3);
+				});
+				// FIXME: Does not work in Firefox?
                 moment.locale(user_conf['locale']);
                 var weekdays_local = moment.weekdaysMin();
-                var months_local = moment.months();
-                for(var key in months_local) {
-                    months_local[key] = months_local[key].substr(0,3);
-                }
-
+				var months_local = moment.months().map(function (month) {
+					return month.substr(0,3);
+				});
+				// console.log(months_local);
             }
 
 			for (var nrule = 0; nrule < new_tokens.length; nrule++) {
@@ -4317,26 +4318,26 @@
 				}
 				var old_prettified_value_length = prettified_value.length;
 
+				if (typeof user_conf['locale'] === 'string' && user_conf['locale'] !== 'en') {
+					for (var i = 0; i < prettified_group_value.length; i++) {
+						type = prettified_group_value[i][0][2];
+						if (type === 'weekday') {
+							for(var key in weekdays_en) {
+								prettified_group_value[i][1] = prettified_group_value[i][1].replace(new RegExp(weekdays_en[key], 'g'), weekdays_local[key]);
+							}
+						} else if (type === 'month') {
+							for(var key in months_en) {
+								prettified_group_value[i][1] = prettified_group_value[i][1].replace(new RegExp(months_en[key], 'g'), months_local[key]);
+							}
+						} else {
+							prettified_group_value[i][1] = i18n.t(['opening_hours:pretty.' + prettified_group_value[i][1], prettified_group_value[i][1]]);
+						}
+					}
+				}
+
 				prettified_value += prettified_group_value.map(
 					function (array) {
-						if (typeof user_conf['locale'] === 'string' && user_conf['locale'] !== 'en') {
-                            text = array[1];
-                            if (array[0][2] == 'weekday') {
-                                for(var key in weekdays_en) {
-                                    text = text.replace(new RegExp(weekdays_en[key], 'g'), weekdays_local[key]);
-                                }
-                                return text;
-                            }
-                            if (array[0][2] == 'month') {
-                                for(var key in months_en) {
-                                    text = text.replace(new RegExp(months_en[key], 'g'), months_local[key]);
-                                }
-                                return text;
-                            }
-                            return i18n.t(['opening_hours:pretty.' + text, text]);
-                        } else {
-                            return array[1];
-                        }
+						return array[1];
 					}
 				).join(' ');
 
