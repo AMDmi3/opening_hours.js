@@ -869,6 +869,7 @@ function translatePage() { // Gets called when localization is loaded.
 
 i18n.init({
     fallbackLng: 'en',
+    // resGetPath: 'locales/__ns__.__lng__.json',
     resStore: resources,
     getAsync: true,
     useCookie: true,

@@ -1,3 +1,4 @@
+currentLng set to: en
 currentLng set to: de
 "Time intervals" for "10:00-12:00": [1m[32mPASSED[39m[22m
 "Time intervals" for "08:00-09:00; 10:00-12:00": [1m[32mPASSED[39m[22m

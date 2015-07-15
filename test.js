@@ -26,21 +26,14 @@ if (argv.help) {
 
 /* Required modules {{{ */
 if (typeof argv.locale === 'string' && argv.locale !== 'en') {
-	var i18n_res = require('./i18n-resources');
-
 	/* Define it globally. FIXME: Better way? */
 	i18n     = require('i18next');
 	moment   = require('moment');
 
-    i18n.init({
-        fallbackLng: 'en',
-		lng: argv.locale,
-        resStore: i18n_res.opening_hours_resources,
-        getAsync: true,
-        useCookie: true,
-        debug: true
-    });
-    moment.locale(argv.locale);
+	var i18n_res = require('./locales/core.js');
+
+	i18n.setLng(argv.locale, function(err, t) { /* loading done */ });
+	moment.locale(argv.locale);
 }
 
 var opening_hours = require(argv['library-file']);
