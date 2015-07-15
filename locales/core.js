@@ -151,6 +151,7 @@ var opening_hours_resources = { // English is fallback language.
 if (!i18n.isInitialized()) {
     i18n.init({
         fallbackLng: 'en',
+        // lngWhitelist: ['en', 'de'],
         resStore: opening_hours_resources,
         getAsync: true,
         useCookie: true,

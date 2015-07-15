@@ -3261,7 +3261,7 @@
     // sprintf support
     var t = function(str, variables) {
         if (typeof i18n === 'object' && typeof i18n.t === 'function') {
-			if (i18n.lng() !== 'en') {
+			if (['de'].indexOf(i18n.lng()) !== -1) {
             	return i18n.t('opening_hours:texts.' + str, variables);
 			}
         }
