@@ -341,6 +341,30 @@ var nominatiomTestJSON_italy = {
 }
 /* }}} */
 
+/* Czech Republic {{{ */
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=50.0874401&lon=14.4212556&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_czechRepublic = {
+    "place_id":"2582799432",
+    "licence":"Data © OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright",
+    "osm_type":"way",
+    "osm_id":"340086966",
+    "lat":"50.08748275",
+    "lon":"14.4213733265222",
+    //"display_name":"Pražský poledník, Staroměstské náměstí, Old Town, Prague, okres Hlavní město Praha, Hlavní město Praha, Praha, 11000, Czech Republic",
+    "address": {
+        //"memorial":"Pražský poledník",
+        //"pedestrian":"Staroměstské náměstí",
+        //"suburb":"Old Town",
+		//"city":"Prague",
+        //"county":"okres Hlavní město Praha",
+        //"state":"Praha",
+		"postcode":"11000",
+        "country":"Czech Republic",
+        "country_code":"cz"
+    }
+}
+/* }}} */
+
 /* }}} */
 /* }}} */
 
