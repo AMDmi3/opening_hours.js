@@ -156,6 +156,19 @@ check-diff-%.js: %.js test.js
 	# git --no-pager diff --color-words test.*.log
 	git --no-pager diff --exit-code test.*.log
 
+check-diff-en-opening_hours.js:
+
+.SILENT: check-diff-en-opening_hours.js
+check-diff-en-%.js: %.js test.js
+	$(NODE) test.js --locale $$lang 1> test.$$lang.log 2>&1; \
+	git diff --quiet --exit-code HEAD -- test.$$lang.log; \
+	if [ "$$?" == "0" ]; then \
+		echo "Test results for $< ($$lang) are exactly the same as on developemt system. So far, so good ;)"; \
+	else \
+		echo "Test results for $< ($$lang) produced a different output then the output of the current HEAD. Checkout the following diff."; \
+	fi
+	git --no-pager diff --exit-code test.en.log
+
 .PHONY: osm-tag-data-taginfo-check
 osm-tag-data-taginfo-check: real_test.js opening_hours.js osm-tag-data-get-taginfo
 	$(NODE) ./check_for_new_taginfo_data.js --exit-code-not-new 0

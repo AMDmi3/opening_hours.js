@@ -2806,7 +2806,7 @@
 			}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>".': {
 				'bis':         '-',
 				'täglich':     'Mo-Su',
-				'schulferien': 'SH',
+				'(?:schul)?ferien': 'SH',
 				'(?:an|nur)? ?sonn-?(?: und |/)feiertag(?:s|en?)?': 'PH,Su',
 				'nach(?: |_)vereinbarung':   '"Nach Vereinbarung"',
 				'nach(?: |_)absprache':      '"Nach Absprache"',

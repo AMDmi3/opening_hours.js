@@ -960,6 +960,7 @@ test.addTest('PH: Only if PH is Wednesday', [
 test.addTest('SH', [
 		'SH Mo-Fr',
 		'Schulferien Mo-Fr',
+		'Ferien Mo-Fr',
 		'schoolholiday Mo-Fr',
 		'school holiday Mo-Fr',
 		'school holidays Mo-Fr',
