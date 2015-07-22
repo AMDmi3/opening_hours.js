@@ -1,6 +1,6 @@
 /*
  * For information see https://github.com/ypid/opening_hours.js
- * and the doc directory which contains internal documentation and design.
+ * and the docs directory which contains internal documentation and design.
  */
 /* jshint laxbreak: true */
 /* jshint boss: true */
