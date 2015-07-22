@@ -122,6 +122,9 @@ source-code-qa:
 .PHONY: check-all
 check-all: check-package.json check-test check-diff-all osm-tag-data-update-check
 
+.PHONY: check-fast
+check-fast: check-diff-en-opening_hours.js
+
 .PHONY: check-diff-all
 check-diff-all: check-diff check-diff-opening_hours.min.js
 
