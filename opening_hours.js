@@ -3257,8 +3257,10 @@
 	/// }}}
 }(this, function (SunCalc, holidays, word_error_correction, lang) {
 
-    // translation function, roughly compatibly to i18next so we can replace everything by i18next include later
-    // sprintf support
+    /* translation function {{{ */
+	/* Roughly compatibly to i18next so we can replace everything by i18next include later
+     * sprintf support
+	 */
     var t = function(str, variables) {
         if (typeof i18n === 'object' && typeof i18n.t === 'function') {
 			if (['de'].indexOf(i18n.lng()) !== -1) {
@@ -3276,6 +3278,7 @@
                 ;
         })
     };
+	/* }}} */
 
 	return function(value, nominatiomJSON, optional_conf_parm) {
 		// short constants {{{
