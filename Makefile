@@ -145,7 +145,7 @@ check-diff-opening_hours.min.js:
 .SILENT: check-diff-opening_hours.js check-diff-opening_hours.min.js
 check-diff-%.js: %.js test.js
 	for lang in en de; do \
-		$(NODE) test.js --locale $$lang 1> test.$$lang.log 2>&1; \
+		$(NODE) test.js --library-file "$<" --locale $$lang 1> test.$$lang.log 2>&1; \
 		git diff --quiet --exit-code HEAD -- test.$$lang.log; \
 		if [ "$$?" == "0" ]; then \
 			echo "Test results for $< ($$lang) are exactly the same as on developemt system. So far, so good ;)"; \
@@ -160,7 +160,7 @@ check-diff-en-opening_hours.js:
 
 .SILENT: check-diff-en-opening_hours.js
 check-diff-en-%.js: %.js test.js
-	$(NODE) test.js --locale $$lang 1> test.$$lang.log 2>&1; \
+	$(NODE) test.js --library-file "$<" --locale $$lang 1> test.$$lang.log 2>&1; \
 	git diff --quiet --exit-code HEAD -- test.$$lang.log; \
 	if [ "$$?" == "0" ]; then \
 		echo "Test results for $< ($$lang) are exactly the same as on developemt system. So far, so good ;)"; \
