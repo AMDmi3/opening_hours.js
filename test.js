@@ -2505,6 +2505,25 @@ test.addTest('Variable days: United States public holidays. Wyoming', [
 ], 1000 * 60 * 60 * 24 * (10 + 0), 0, false, nominatiomTestJSON_usa_wyoming, 'not last test');
 /* }}} */
 
+/* Czech holidays {{{ */
+test.addTest('Variable days: Czech Republic public holidays.', [
+	'PH',
+], '2015.01.01 0:00', '2015.12.31 23:59', [
+	[ '2015.01.01 00:00', '2015.01.02 00:00', false, "Den obnovy samostatného českého státu" ],
+	[ '2015.04.05 00:00', '2015.04.06 00:00', false, "Velikonoční pondělí" ],
+	[ '2015.05.01 00:00', '2015.05.02 00:00', false, "Svátek práce" ],
+	[ '2015.05.08 00:00', '2015.05.09 00:00', false, "Den vítězství" ],
+	[ '2015.07.05 00:00', '2015.07.06 00:00', false, "Den slovanských věrozvěstů Cyrila a Metoděje" ],
+	[ '2015.07.06 00:00', '2015.07.07 00:00', false, "Den upálení mistra Jana Husa" ],
+	[ '2015.09.28 00:00', '2015.09.29 00:00', false, "Den české státnosti" ],
+	[ '2015.10.28 00:00', '2015.10.29 00:00', false, "Den vzniku samostatného československého státu" ],
+	[ '2015.11.17 00:00', '2015.11.18 00:00', false, "Den boje za svobodu a demokracii" ],
+	[ '2015.12.24 00:00', '2015.12.25 00:00', false, "Štědrý den" ],
+	[ '2015.12.25 00:00', '2015.12.26 00:00', false, "1. svátek vánoční" ],
+	[ '2015.12.26 00:00', '2015.12.27 00:00', false, "2. svátek vánoční" ],
+], 1000 * 60 * 60 * 24 * (12 + 0), 0, false, nominatiomTestJSON_czechRepublic, 'not last test');
+/* }}} */
+
 // }}}
 
 // weekdays {{{
