@@ -2510,7 +2510,7 @@ test.addTest('Variable days: Czech Republic public holidays.', [
 	'PH',
 ], '2015.01.01 0:00', '2015.12.31 23:59', [
 	[ '2015.01.01 00:00', '2015.01.02 00:00', false, "Den obnovy samostatného českého státu" ],
-	[ '2015.04.05 00:00', '2015.04.06 00:00', false, "Velikonoční pondělí" ],
+	[ '2015.04.06 00:00', '2015.04.07 00:00', false, "Velikonoční pondělí" ],
 	[ '2015.05.01 00:00', '2015.05.02 00:00', false, "Svátek práce" ],
 	[ '2015.05.08 00:00', '2015.05.09 00:00', false, "Den vítězství" ],
 	[ '2015.07.05 00:00', '2015.07.06 00:00', false, "Den slovanských věrozvěstů Cyrila a Metoděje" ],
