@@ -31,7 +31,8 @@
         "test.js",
         "test.en.log",
         "test.de.log",
-        ".gitignore"
+        ".gitignore",
+        "locales/core.js"
     ],
     "directories": {
         "doc": "./doc",
