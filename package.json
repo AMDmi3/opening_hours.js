@@ -34,7 +34,8 @@
         ".gitignore"
     ],
     "directories": {
-        "doc": "./doc"
+        "doc": "./doc",
+        "locales": "./locales"
     },
     "scripts": {
         "build"               : "make build",
