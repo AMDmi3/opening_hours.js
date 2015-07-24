@@ -341,6 +341,30 @@ var nominatiomTestJSON_italy = {
 }
 /* }}} */
 
+/* Czech Republic {{{ */
+// http://nominatim.openstreetmap.org/reverse?format=json&lat=50.0874401&lon=14.4212556&zoom=18&addressdetails=1&accept-language=en
+var nominatiomTestJSON_czechRepublic = {
+    "place_id":"2582799432",
+    "licence":"Data © OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright",
+    "osm_type":"way",
+    "osm_id":"340086966",
+    "lat":"50.08748275",
+    "lon":"14.4213733265222",
+    //"display_name":"Pražský poledník, Staroměstské náměstí, Old Town, Prague, okres Hlavní město Praha, Hlavní město Praha, Praha, 11000, Czech Republic",
+    "address": {
+        //"memorial":"Pražský poledník",
+        //"pedestrian":"Staroměstské náměstí",
+        //"suburb":"Old Town",
+		//"city":"Prague",
+        //"county":"okres Hlavní město Praha",
+        //"state":"Praha",
+		"postcode":"11000",
+        "country":"Czech Republic",
+        "country_code":"cz"
+    }
+}
+/* }}} */
+
 /* }}} */
 /* }}} */
 
@@ -2480,6 +2504,25 @@ test.addTest('Variable days: United States public holidays. Wyoming', [
 	[ '2014.11.27 00:00', '2014.11.28 00:00', false, "Thanksgiving" ],
 	[ '2014.12.25 00:00', '2014.12.26 00:00', false, "Christmas Day" ],
 ], 1000 * 60 * 60 * 24 * (10 + 0), 0, false, nominatiomTestJSON_usa_wyoming, 'not last test');
+/* }}} */
+
+/* Czech holidays {{{ */
+test.addTest('Variable days: Czech Republic public holidays.', [
+	'PH',
+], '2015.01.01 0:00', '2015.12.31 23:59', [
+	[ '2015.01.01 00:00', '2015.01.02 00:00', false, "Den obnovy samostatného českého státu" ],
+	[ '2015.04.06 00:00', '2015.04.07 00:00', false, "Velikonoční pondělí" ],
+	[ '2015.05.01 00:00', '2015.05.02 00:00', false, "Svátek práce" ],
+	[ '2015.05.08 00:00', '2015.05.09 00:00', false, "Den vítězství" ],
+	[ '2015.07.05 00:00', '2015.07.06 00:00', false, "Den slovanských věrozvěstů Cyrila a Metoděje" ],
+	[ '2015.07.06 00:00', '2015.07.07 00:00', false, "Den upálení mistra Jana Husa" ],
+	[ '2015.09.28 00:00', '2015.09.29 00:00', false, "Den české státnosti" ],
+	[ '2015.10.28 00:00', '2015.10.29 00:00', false, "Den vzniku samostatného československého státu" ],
+	[ '2015.11.17 00:00', '2015.11.18 00:00', false, "Den boje za svobodu a demokracii" ],
+	[ '2015.12.24 00:00', '2015.12.25 00:00', false, "Štědrý den" ],
+	[ '2015.12.25 00:00', '2015.12.26 00:00', false, "1. svátek vánoční" ],
+	[ '2015.12.26 00:00', '2015.12.27 00:00', false, "2. svátek vánoční" ],
+], 1000 * 60 * 60 * 24 * (12 + 0), 0, false, nominatiomTestJSON_czechRepublic, 'not last test');
 /* }}} */
 
 // }}}
