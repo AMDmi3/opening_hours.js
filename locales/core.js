@@ -13,7 +13,7 @@ var opening_hours_resources = { // English is fallback language.
     de: { /* {{{ */
         opening_hours: {
             "texts": {
-                'unexpected token': 'Unerwartetes Zeichen: "__token__" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__',
+                'unexpected token': 'Unerwartetes Zeichen: "__token__" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.',
                 'no string': 'Der Wert (erster Parameter) ist kein String',
                 'nothing': 'Der Wert enthält nichts, was ausgewertet werden könnte.',
                 'nothing useful': 'Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel.',
