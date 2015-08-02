@@ -3288,7 +3288,7 @@
 			text = str;
 		}
         return text.replace(/__([^_]*)__/g, function (match, c) {
-            return typeof variables[c] != 'undefined'
+            return typeof variables[c] !== 'undefined'
                 ? variables[c]
                 : match
                 ;
