@@ -66,13 +66,15 @@ benchmark: benchmark-opening_hours.min.js
 README.html: README.md
 
 .PHONY: release
-release: check source-code-qa
+release: package.json check source-code-qa
 	git status
 	read continue
 	editor package.json
+	json -f package.json version
+	read continue
 	$(MAKE) $(MAKE_OPTIONS) check-package.json
-	git commit --all --message="Released version `json -f package.json version`."
-	git tag --sign --local-user=C505B5C93B0DB3D338A1B6005FE92C12EE88E1F0 "v`json -f package.json version`"
+	git commit --all --message="Released version $(json -f package.json version)."
+	git tag --sign --local-user C505B5C93B0DB3D338A1B6005FE92C12EE88E1F0 "v$(json -f package.json version)"
 	git push --follow-tags
 	npm publish
 	$(MAKE) $(MAKE_OPTIONS) publish-website-on-all-servers
