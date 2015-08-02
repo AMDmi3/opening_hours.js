@@ -3,10 +3,13 @@ export*
 # Enable the following line for repositories which should track statistical data.
 # !export♡*♡stats.csv
 
+*.csv
+*.log
+*.json
+
 opening_hours.min.js
 node_modules
 tags
 README.html
 tmp_query*
-*.json
 lockfile_*
