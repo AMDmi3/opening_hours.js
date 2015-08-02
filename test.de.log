@@ -2210,7 +2210,7 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*Mo-Fr 08:00-16:00 <--- (Es wurde keine Regel für "PH" (feiertags) angegeben. Dies ist nicht sehr Aussagekräftig. Bitte füge die Regel "PH off" an, wenn die Einrichtung an allen Feiertagen geschlossen ist oder schreibe "Sa,Su,PH 12:00-16:00" um auszudrücken, dass Samstags, Sonntags und feiertags von 12:00-16:00 geöffnet ist. Wenn du dir im Unklaren bist, versuche die Öffnungszeit zu klären. Falls das nicht möglich ist, lass die Angabe weg und ignoriere diese Warnung.)
 "Incorrect syntax which should throw an error" for "MON-FRI 5PM-12AM | SAT-SUN 12PM-12AM": [1m[32mPASSED[39m[22m
-MON-FRI 5PM-12AM |  <--- (Unerwartetes Zeichen: "|" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) MON <--- (Please use the abbreviation "Mo" for "mon".); MON-FRI <--- (Please use the abbreviation "Fr" for "fri".); MON-FRI 5PM <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM | SAT <--- (Please use the abbreviation "Sa" for "sat".); MON-FRI 5PM-12AM | SAT-SUN <--- (Please use the abbreviation "Su" for "sun".); MON-FRI 5PM-12AM | SAT-SUN 12PM <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM | SAT-SUN 12PM-12AM <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM  <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "17:00-12:00".)
+MON-FRI 5PM-12AM |  <--- (Unerwartetes Zeichen: "|" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) MON <--- (Please use the abbreviation "Mo" for "mon".); MON-FRI <--- (Please use the abbreviation "Fr" for "fri".); MON-FRI 5PM <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM | SAT <--- (Please use the abbreviation "Sa" for "sat".); MON-FRI 5PM-12AM | SAT-SUN <--- (Please use the abbreviation "Su" for "sun".); MON-FRI 5PM-12AM | SAT-SUN 12PM <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM | SAT-SUN 12PM-12AM <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM  <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "17:00-12:00".)
 
 "Incorrect syntax which should throw an error" for "MON-FRI 5PM-12AM; SAT-SUN 12PM-12AM": [1m[32mPASSED[39m[22m
 MON-FRI 5PM-12AM; SAT-SUN 12PM <--- (Die Zeitspanne beginnt außerhalb des aktuellen Tages)
@@ -2219,7 +2219,7 @@ MON-FRI 5PM-12AM; SAT-SUN 12PM <--- (Die Zeitspanne beginnt außerhalb des aktue
 Mo-Fr 17:00-12:00; Sa-Su 24:00 <--- (Zeitspanne beginnt außerhalb des aktuellen Tages)
 
 "Incorrect syntax which should throw an error" for "sdasdlasdj a3reaw": [1m[32mPASSED[39m[22m
-sd <--- (Unerwartetes Zeichen: "s" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) sdasdlasdj a3reaw <--- (Assuming "We" for "w")
+sd <--- (Unerwartetes Zeichen: "s" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) sdasdlasdj a3reaw <--- (Assuming "We" for "w")
 
 "Incorrect syntax which should throw an error" for "": [1m[32mPASSED[39m[22m
 Der Wert enthält nichts, was ausgewertet werden könnte.
@@ -2237,13 +2237,13 @@ Der Wert enthält nichts, was ausgewertet werden könnte.
 || <--- (Die Regel vor der Fallback-Regel enthält nichts nützliches)
 
 "Incorrect syntax which should throw an error" for "Mo[2] - 7 days; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Mo[2] -  <--- (Unerwartetes Zeichen: "-" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) Mo[2] - 7 days <--- (Please use notation "Mo-Su" for "7 days".)
+Mo[2] -  <--- (Unerwartetes Zeichen: "-" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) Mo[2] - 7 days <--- (Please use notation "Mo-Su" for "7 days".)
 
 "Incorrect syntax which should throw an error" for ":week 2-54 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-: <--- (Unerwartetes Zeichen: "timesep" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 
+: <--- (Unerwartetes Zeichen: "timesep" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for ":::week 2-54 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-: <--- (Unerwartetes Zeichen: "timesep" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 
+: <--- (Unerwartetes Zeichen: "timesep" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for "week :2-54 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 week : <--- (Unerwartetes Token in Wochen-Spanne: timesep)
@@ -2279,10 +2279,10 @@ week 30-40/27 <--- (Du hast eine Wochen-Periode größer als 26 angegeben. 26.5 
 week week  <--- (Unerwartetes Token in Wochen-Spanne: week)
 
 "Incorrect syntax which should throw an error" for "week 2-53 00:00-24:00:; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-week 2-53 00:00-24:00: <--- (Unerwartetes Zeichen: "timesep" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 
+week 2-53 00:00-24:00: <--- (Unerwartetes Zeichen: "timesep" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for "week 2-53 00:00-24:00:::; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-week 2-53 00:00-24:00::: <--- (Unerwartetes Zeichen: "timesep" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 
+week 2-53 00:00-24:00::: <--- (Unerwartetes Zeichen: "timesep" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for "week 2-53 00::00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 week 2-53 00: <--- (Missing minutes in time range after: "timesep")
@@ -2300,7 +2300,7 @@ week 2-52/2 We,  <--- (Eine weitere Regel an dieser Stelle ergibt keinen Sinn. B
 (sunrise) <--- (Berechnung mit variabler Zeit hat nicht die korrekte Syntax. "+" or "-" erwartet.)
 
 "Incorrect syntax which should throw an error" for "(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-( <--- (Unerwartetes Zeichen: "(" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 
+( <--- (Unerwartetes Zeichen: "(" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for "sunrise-(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 sunrise-( <--- (Die Zeitspanne geht nicht wie erwartet weiter)
@@ -2327,13 +2327,13 @@ dusk <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um 
 14:00-/ <--- (Die Zeitspanne geht nicht wie erwartet weiter)
 
 "Incorrect syntax which should throw an error" for "14:00-16:00,.; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-14:00-16:00,. <--- (Unerwartetes Zeichen: "timesep" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 14:00-16:00,. <--- (Bitte benutze ":" als Stunden/Minuten Trenner)
+14:00-16:00,. <--- (Unerwartetes Zeichen: "timesep" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 14:00-16:00,. <--- (Bitte benutze ":" als Stunden/Minuten Trenner)
 
 "Incorrect syntax which should throw an error" for "11; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-11 <--- (Unerwartetes Zeichen: "number" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 
+11 <--- (Unerwartetes Zeichen: "number" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for "11am; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-11am <--- (Unerwartetes Zeichen: "number" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 11am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+11am <--- (Unerwartetes Zeichen: "number" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 11am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
 
 "Incorrect syntax which should throw an error" for "14:00-16:00,11:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 14:00-16:00,11:00 <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falscher OSM tag verwendet?)
@@ -2363,7 +2363,7 @@ Sa[1,3,. <--- (Unexpected token in number range: timesep)
 PH + 2 day <--- (Es sollte keinen Grund geben, mehr als 1 Tage von einem public holiday abzuweichen. Wenn nötig, teile uns dies bitte mit …)
 
 "Incorrect syntax which should throw an error" for "Su-PH; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Su- <--- (Unerwartetes Zeichen: "-" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 
+Su- <--- (Unerwartetes Zeichen: "-" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for "2012, Jan; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 2012,  <--- (Eine weitere Regel an dieser Stelle ergibt keinen Sinn. Benutze einfach ";" als Trenner für Regeln. Siehe https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator)
@@ -2372,10 +2372,10 @@ Su- <--- (Unerwartetes Zeichen: "-" Das beudetet, dass die Syntax an dieser Stel
 easter + 370 days <--- (Es sollte keinen Grund geben, mehr als 200 Tage von einem event like easter abzuweichen. Wenn nötig, teile uns dies bitte mit …)
 
 "Incorrect syntax which should throw an error" for "easter - 2 days - 2012 easter + 2 days: open "Easter Monday"; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-easter - 2 days -  <--- (Unerwartetes Zeichen: "-" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 
+easter - 2 days -  <--- (Unerwartetes Zeichen: "-" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for "2012 easter - 2 days - easter + 2 days: open "Easter Monday"; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-2012 easter - 2 days -  <--- (Unerwartetes Zeichen: "-" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 
+2012 easter - 2 days -  <--- (Unerwartetes Zeichen: "-" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for "Jan,,,Dec; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Jan,, <--- (Unerwartetes Token in Monats-Spanne: ,)
@@ -2429,7 +2429,7 @@ Jun 2-20/0 <--- (Du kannst keine day-Spanne mit Periode "0" verwenden.)
 2014/0 <--- (Du kannst keine year-Spanne mit Periode "0" verwenden.)
 
 "Incorrect syntax which should throw an error" for "2014-; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-2014- <--- (Unerwartetes Zeichen: "-" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 2014 <--- (Das Jahr liegt in der Vergangenheit.)
+2014- <--- (Unerwartetes Zeichen: "-" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 2014 <--- (Das Jahr liegt in der Vergangenheit.)
 
 "Incorrect syntax which should throw an error" for "2014-2014; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 2014 <--- (Eine Jahres-Spanne mit gleichem Jahr als Beginn und Ende ergibt keinen Sinn. Bitte entferne das Ende-Jahr. zum Beispiel: "2014 May 23")
@@ -2468,31 +2468,31 @@ Tu 23:59-48:00+ <--- (Zeitspanne welche mehrmals Mitternacht beinhaltet wird nic
 12:00 <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falscher OSM tag verwendet?)
 
 "Incorrect syntax which should throw an error" for "„testing„; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-„t <--- (Unerwartetes Zeichen: "„" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 
+„t <--- (Unerwartetes Zeichen: "„" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for "‚testing‚; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-‚t <--- (Unerwartetes Zeichen: "‚" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 
+‚t <--- (Unerwartetes Zeichen: "‚" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for "»testing«; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-»t <--- (Unerwartetes Zeichen: "»" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 
+»t <--- (Unerwartetes Zeichen: "»" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for "」testing「; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-」t <--- (Unerwartetes Zeichen: "」" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 
+」t <--- (Unerwartetes Zeichen: "」" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for "』testing『; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-』t <--- (Unerwartetes Zeichen: "』" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 
+』t <--- (Unerwartetes Zeichen: "』" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for "』testing「; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-』t <--- (Unerwartetes Zeichen: "』" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 
+』t <--- (Unerwartetes Zeichen: "』" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for "』testing«; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-』t <--- (Unerwartetes Zeichen: "』" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 
+』t <--- (Unerwartetes Zeichen: "』" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for "』testing"; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-』t <--- (Unerwartetes Zeichen: "』" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 』testing"; 00:23-00:42 unknown "warning at correct position <--- (Please use the English abbreviation "Su" (Polish) for "n".); 』testing"; 00:23-00:42 unknown "warning at correct position? <--- (You can use notation "unknown "please add this if known"" for "?" temporally if the syntax will still be valid.)
+』t <--- (Unerwartetes Zeichen: "』" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 』testing"; 00:23-00:42 unknown "warning at correct position <--- (Please use the English abbreviation "Su" (Polish) for "n".); 』testing"; 00:23-00:42 unknown "warning at correct position? <--- (You can use notation "unknown "please add this if known"" for "?" temporally if the syntax will still be valid.)
 
 "Incorrect syntax which should throw an error" for ""testing«; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-"testing«; 00:23-00:42 unknown "wa <--- (Unerwartetes Zeichen: "w" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) "testing«; 00:23-00:42 unknown "warning at correct position <--- (Please use the English abbreviation "Su" (Polish) for "n".); "testing«; 00:23-00:42 unknown "warning at correct position? <--- (You can use notation "unknown "please add this if known"" for "?" temporally if the syntax will still be valid.)
+"testing«; 00:23-00:42 unknown "wa <--- (Unerwartetes Zeichen: "w" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) "testing«; 00:23-00:42 unknown "warning at correct position <--- (Please use the English abbreviation "Su" (Polish) for "n".); "testing«; 00:23-00:42 unknown "warning at correct position? <--- (You can use notation "unknown "please add this if known"" for "?" temporally if the syntax will still be valid.)
 
 "Incorrect syntax which should throw an error" for " || open; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
  || <--- (Die Regel vor der Fallback-Regel enthält nichts nützliches)
@@ -2604,7 +2604,7 @@ Mo-Fr 07:00,24.00 <--- (Zeitspanne beginnt außerhalb des aktuellen Tages)
  mar-nov 12:30- <--- (Die Zeitspanne geht nicht wie erwartet weiter)
 
 "Time range does not continue as expected for mode === 1." for "(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-( <--- (Unerwartetes Zeichen: "(" Das beudetet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.__warnings__) 
+( <--- (Unerwartetes Zeichen: "(" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Time range does not continue as expected for mode === 1." for "sunrise-(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 sunrise-( <--- (Die Zeitspanne geht nicht wie erwartet weiter)
