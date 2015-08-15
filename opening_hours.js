@@ -19,7 +19,7 @@
 	 */
 	var holidays = {
 		'fr': { // {{{
-			'PH': { // http://fr.wikipedia.org/wiki/F%C3%AAtes_et_jours_f%C3%A9ri%C3%A9s_en_France
+			'PH': { // https://fr.wikipedia.org/wiki/F%C3%AAtes_et_jours_f%C3%A9ri%C3%A9s_en_France
 				"Jour de l'an"                          : [  1,  1 ],
 				"Vendredi saint"                        : [  'easter', -2, [ 'Moselle', 'Bas-Rhin', 'Haut-Rhin', 'Guadeloupe', 'Martinique', 'Polynésie française' ] ],
 				"Lundi de Pâques"                       : [  'easter', 1 ],
@@ -45,7 +45,7 @@
 			}
 		}, // }}}
 		'de': { // {{{
-			'PH': { // http://de.wikipedia.org/wiki/Feiertage_in_Deutschland
+			'PH': { // https://de.wikipedia.org/wiki/Feiertage_in_Deutschland
 				'Neujahrstag'               : [  1,  1 ], // month 1, day 1, whole Germany
 				'Heilige Drei Könige'       : [  1,  6, [ 'Baden-Württemberg', 'Bayern', 'Sachsen-Anhalt'] ], // only in the specified states
 				'Tag der Arbeit'            : [  5,  1 ], // whole Germany
@@ -1093,7 +1093,7 @@
 			},
 		}, // }}}
 		'at': { // {{{
-			'PH': { // http://de.wikipedia.org/wiki/Feiertage_in_%C3%96sterreich
+			'PH': { // https://de.wikipedia.org/wiki/Feiertage_in_%C3%96sterreich
 				'Neujahrstag'                : [  1,  1 ],
 				'Heilige Drei Könige'        : [  1,  6 ],
 				// 'Josef'                   : [  3, 19, [ 'Kärnten', 'Steiermark', 'Tirol', 'Vorarlberg' ] ],
@@ -1745,7 +1745,7 @@
 			},
 		}, // }}}
 		'ua': { // {{{
-			'PH': { // http://uk.wikipedia.org/wiki/%D0%A1%D0%B2%D1%8F%D1%82%D0%B0_%D1%82%D0%B0_%D0%BF%D0%B0%D0%BC%27%D1%8F%D1%82%D0%BD%D1%96_%D0%B4%D0%BD%D1%96_%D0%B2_%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%96
+			'PH': { // https://uk.wikipedia.org/wiki/%D0%A1%D0%B2%D1%8F%D1%82%D0%B0_%D1%82%D0%B0_%D0%BF%D0%B0%D0%BC%27%D1%8F%D1%82%D0%BD%D1%96_%D0%B4%D0%BD%D1%96_%D0%B2_%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%96
 				"Новий рік"                 : [  1,  1 ],
 				"Різдво"                    : [  1,  7 ],
 				"Міжнародний жіночий день"  : [  3,  8 ],

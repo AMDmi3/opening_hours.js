@@ -701,11 +701,11 @@ Edit: This does also work on npmjs in this short version … -->
 
 [schulferien.org]: http://www.schulferien.org/iCal/
 
-[PH-de]: http://de.wikipedia.org/wiki/Feiertage_in_Deutschland
-[PH-at]: http://de.wikipedia.org/wiki/Feiertage_in_%C3%96sterreich
+[PH-de]: https://de.wikipedia.org/wiki/Feiertage_in_Deutschland
+[PH-at]: https://de.wikipedia.org/wiki/Feiertage_in_%C3%96sterreich
 [PH-fr]: https://fr.wikipedia.org/wiki/F%EAtes_et_jours_f%E9ri%E9s_en_France
 [PH-ca]: https://en.wikipedia.org/wiki/Public_holidays_in_Canada
-[PH-ua]: http://uk.wikipedia.org/wiki/%D0%A1%D0%B2%D1%8F%D1%82%D0%B0_%D1%82%D0%B0_%D0%BF%D0%B0%D0%BC%27%D1%8F%D1%82%D0%BD%D1%96_%D0%B4%D0%BD%D1%96_%D0%B2_%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%96
+[PH-ua]: https://uk.wikipedia.org/wiki/%D0%A1%D0%B2%D1%8F%D1%82%D0%B0_%D1%82%D0%B0_%D0%BF%D0%B0%D0%BC%27%D1%8F%D1%82%D0%BD%D1%96_%D0%B4%D0%BD%D1%96_%D0%B2_%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%96
 [PH-si]: http://www.vlada.si/o_sloveniji/politicni_sistem/prazniki/
 [PH-ru]: https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%D0%B8_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8
 [PH-it]: http://www.governo.it/Presidenza/ufficio_cerimoniale/cerimoniale/giornate.html
