@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 # @author Robin Schneider <ypid23@aol.de>
-# @licence GPLv3 <http://www.gnu.org/licenses/gpl.html>
+# @licence GPLv3 <https://www.gnu.org/licenses/gpl.html>
 #
 # Convert all school holidays from schulferien.org (provided as ical) to a
 # JSON definition which can be used inside the JavaScript library.

@@ -151,7 +151,7 @@ function write_config_file(filepath, oh_value, nominatiom_object, from_date, to_
 }
 
 /* Helper functions {{{ */
-// http://stackoverflow.com/a/2998822
+// https://stackoverflow.com/a/2998822
 function pad(num, size) {
     var s = String(num);
     while (s.length < size) {

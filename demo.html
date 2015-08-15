@@ -66,7 +66,7 @@
 			var def_lat = 48.7769;
 			var def_lon = 9.1844;
 			var repo_url = 'https://github.com/ypid/opening_hours.js';
-			var specification_url = 'http://wiki.openstreetmap.org/wiki/'
+			var specification_url = 'https://wiki.openstreetmap.org/wiki/'
 				+ (i18n.lng() == 'de' ? 'DE:' : '')
 				+ 'Key:opening_hours/specification';
 			// }}}
@@ -363,8 +363,8 @@
 						return;
 					}
 
-					// var url = 'http://nominatim.openstreetmap.org/reverse';
-					var url = 'http://open.mapquestapi.com/nominatim/v1/reverse.php';
+					// var url = 'https://nominatim.openstreetmap.org/reverse';
+					var url = 'https://open.mapquestapi.com/nominatim/v1/reverse.php';
 					url += '?format=json&lat=' + lat + '&lon=' + lon
 						+ '&zoom=5&addressdetails=1&email=ypid23@aol.de';
 					var url_lang_set = 'accept-language=';
@@ -438,7 +438,7 @@
 					show_results.innerHTML    = '';
 				}
 
-				show_time_table.innerHTML = '<a href="javascript:josm(\'import?url=' + encodeURIComponent('http://overpass-api.de/api/xapi_meta?*[opening_hours='
+				show_time_table.innerHTML = '<a href="javascript:josm(\'import?url=' + encodeURIComponent('https://overpass-api.de/api/xapi_meta?*[opening_hours='
 					+ document.forms.check.elements['expression'].value + ']') + '\')">' + i18n.t('texts.load all with JOSM') + '</a><br />';
 				if (!crashed) {
 					var prettified = oh.prettifyValue({});
@@ -854,7 +854,7 @@
 
 		<script type="text/javascript">
 			document.write(i18n.t('texts.more information',
-				{ href: 'href="http://wiki.openstreetmap.org/wiki/Key:opening_hours" target="_blank"' }) + '<br />');
+				{ href: 'href="https://wiki.openstreetmap.org/wiki/Key:opening_hours" target="_blank"' }) + '<br />');
 
 			document.write(i18n.t('texts.this website', { url: repo_url, hoster: 'GitHub' }));
 		</script>

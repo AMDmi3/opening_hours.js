@@ -146,7 +146,7 @@ function getReadableState(startString, endString, oh, past) {
 
         Throws an error string if the expression is malformed or unsupported.
 
-    *   nominatiomJSON (optional, type: object): In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges][ohlib.time-ranges]) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim] (example URL: http://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=5&addressdetails=1) and you are good to go. Note that this second parameter is optional. The data returned by Nominatim should be in the local language (the language of the country for which the opening hours apply). If not, *accept-language* can be used as parameter in the request URL.
+    *   nominatiomJSON (optional, type: object): In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges][ohlib.time-ranges]) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim] (example URL: https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=5&addressdetails=1) and you are good to go. Note that this second parameter is optional. The data returned by Nominatim should be in the local language (the language of the country for which the opening hours apply). If not, *accept-language* can be used as parameter in the request URL.
 
     *   optional_conf_parm (optional, either of type number of object):
 
@@ -382,7 +382,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 *   Supports open end (`10:00+`). It is interpreted as state unknown and the comment "Specified as open end. Closing time was guessed." if there is no comment specified.
 
-    If a facility is open for a fix time followed by open end the shortcut `14:00-17:00+` can be used (see also [proposal page](http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_end_fixed_time_extension)).
+    If a facility is open for a fix time followed by open end the shortcut `14:00-17:00+` can be used (see also [proposal page](https://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_end_fixed_time_extension)).
 
     Open end applies until the end of the day if the opening time is before 17:00. If the opening time is between 17:00 and 21:59 the open end time ends 10 hours after the opening. And if the opening time is after 22:00 (including 22:00) the closing time will be interpreted as 8 hours after the opening time.
 
@@ -515,7 +515,7 @@ It also offers filter options (e.g. only errors) and additional things like a li
 Hint: If you want to do quality assurance on tags like opening_hours you can also use this script and enter a regex for values you would like to check and correct (if you have no particular case just enter a dot which matches any character which results in every value being selected). Now you see how many values match your search pattern. As you do QA you probably only want to see values which can not be evaluated. To do this enter the filter "failed".
 To improve the speed of fixing errors, a [feature](https://github.com/ypid/opening_hours.js/issues/29) was added to load those failed values in JOSM. To enable this, append " josm" to the input line. So you will have something like "failed josm" as argument. Now you can hit enter and go through the values.
 
-[taginfo]: http://taginfo.openstreetmap.org/
+[taginfo]: https://taginfo.openstreetmap.org/
 
 ### Test it yourself (the geeky way)
 
@@ -559,9 +559,9 @@ If you use this libary please let me know …
 ## ToDo
 
 List of missing features which can currently not be expressing in any other way without much pain.
-Please share your opinion on the [talk page](http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours) (or the discussion page of the proposal if that does exist) if you have any idea how to express this (better).
+Please share your opinion on the [talk page](https://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours) (or the discussion page of the proposal if that does exist) if you have any idea how to express this (better).
 
-* Select single (or more, comma separated) (school|public) holidays. [Proposed syntax](http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_holiday_select): `SH(Sommerferien)`
+* Select single (or more, comma separated) (school|public) holidays. [Proposed syntax](https://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_holiday_select): `SH(Sommerferien)`
 * Depending on moon position like `"low tide only"`. Suncalc lib does support moon position. Syntax needed.
 * If weekday is PH than the facility will be open weekday-1 this week. Syntax something like: `We if (We +1 day == PH) else Th` ???
 
@@ -668,16 +668,16 @@ opening_hours.js is published under the New (2-clause) BSD license.
 
 
 <!-- Links {{{ -->
-[Nominatim]: http://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding_.2F_Address_lookup
-[fossgis-project]: http://wiki.openstreetmap.org/wiki/FOSSGIS/Server/Projects/opening_hours.js
+[Nominatim]: https://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding_.2F_Address_lookup
+[fossgis-project]: https://wiki.openstreetmap.org/wiki/FOSSGIS/Server/Projects/opening_hours.js
 [issue-report]: /../../issues
 [releases on github]: /../../releases
-[Key:opening_hours]: http://wiki.openstreetmap.org/wiki/Key:opening_hours
-[oh:specification]: http://wiki.openstreetmap.org/wiki/Key:opening_hours/specification
+[Key:opening_hours]: https://wiki.openstreetmap.org/wiki/Key:opening_hours
+[oh:specification]: https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification
 [oh:specification:fallback rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#fallback_rule_separator
 [oh:specification:additional rule]: https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#additional_rule_separator
 [oh:spec:any_rule_separator]: https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#any_rule_separator
-[oh:spec:separator_for_readability]: http://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#separator_for_readability
+[oh:spec:separator_for_readability]: https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#separator_for_readability
 
 <!-- Can not use short links only referring to the section inside the README.md any more because this will not work on other pages like https://www.npmjs.org/package/opening_hours.
 Edit: This does also work on npmjs in this short version … -->

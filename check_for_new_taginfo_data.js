@@ -1,7 +1,7 @@
 #!/usr/bin/env nodejs
 
 /* Constant variables {{{ */
-var taginfo_api_url = 'http://taginfo.openstreetmap.org/api/4/';
+var taginfo_api_base_url = 'https://taginfo.openstreetmap.org/api/4/';
 var exit_code_new = 0;
 var exit_code_not_new = 1;
 
@@ -30,7 +30,7 @@ if (typeof argv.E === 'number') {
 /* }}} */
 
 /* Required modules {{{ */
-var http = require('http');
+var https = require('https');
 var fs   = require('fs');
 /* }}} */
 
@@ -52,10 +52,10 @@ function get_dump_creation_time_from_file(file) {
 var local_dump_creation_time = get_dump_creation_time_from_file('taginfo_sources.json');
 
 /* Download source file and compare {{{ */
-var taginfo_api_url_source = taginfo_api_url + 'site/sources';
+var taginfo_api_url_source = taginfo_api_base_url + 'site/sources';
 console.log('Loading file ' + taginfo_api_url_source + ' to check if new data is availale.');
 var file = fs.createWriteStream('taginfo_sources.json');
-var request = http.get(taginfo_api_url_source, function(response) {
+var request = https.get(taginfo_api_url_source, function(response) {
 	response.pipe(file);
 
 	response.on('error', function(err) {

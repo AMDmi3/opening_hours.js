@@ -8,8 +8,10 @@ VERBOSE ?= 1
 OH_RELATED_TAGS ?= related_tags.txt
 STATS_FOR_BOUNDARIES ?= stats_for_boundaries.txt
 
-API_URL_TAGINFO  ?= http://taginfo.openstreetmap.org/api
-API_URL_OVERPASS ?= http://overpass-api.de/api
+API_URL_TAGINFO  ?= https://taginfo.openstreetmap.org/api
+API_URL_OVERPASS ?= https://overpass-api.de/api
+# GnuTLS: A TLS warning alert has been received.
+# GnuTLS: received alert [112]: The server name sent was not recognized
 
 TMP_QUERY ?= ./tmp_query.op
 OVERPASS_QUERY_KEY_FILTER_CMD ?= cat
@@ -44,7 +46,7 @@ default: list
 
 ## help {{{
 .PHONY: list
-# http://stackoverflow.com/a/26339924/2239985
+# https://stackoverflow.com/a/26339924/2239985
 list:
 	@echo "This Makefile has the following targets:"
 	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | sed 's/^/    /'
@@ -66,7 +68,7 @@ benchmark: benchmark-opening_hours.min.js
 README.html: README.md
 
 .PHONY: release
-release: package.json check source-code-qa
+release: package.json check qa-source-code qa-https-everywhere
 	git status
 	read continue
 	editor package.json
@@ -114,9 +116,13 @@ run-interactive_testing: interactive_testing.js
 ## }}}
 
 ## Source code QA {{{
-.PHONY: source-code-qa
-source-code-qa:
+.PHONY: qa-source-code qa-https-everywhere
+qa-source-code:
 	git ls-files | egrep '\.js$$' | xargs sed -i 's/\([^=!]\)==\([^=]\)/\1===\2/g;s/\([^=!]\)!=\([^=]\)/\1!==\2/g;'
+
+qa-https-everywhere:
+	git ls-files -z | xargs -0 sed -i 's#http://wiki.openstreetmap.org#https://wiki.openstreetmap.org#g;s#http://open.mapquestapi.com#https://open.mapquestapi.com#g;s#http://nominatim.openstreetmap.org#https://nominatim.openstreetmap.org#g;s#http://taginfo.openstreetmap.org#https://taginfo.openstreetmap.org#g;s#http://stackoverflow.com#https://stackoverflow.com#g;s#http://www.gnu.org/#https://www.gnu.org/#g;s#http://overpass-turbo.eu/#https://overpass-turbo.eu/#g;s#http://www.openstreetmap.org/#https://www.openstreetmap.org/#g;s#http://overpass-api.de/#https://overpass-api.de/#g;'
+	test -L index.html && git checkout index.html
 ## }}}
 
 ## software testing {{{
@@ -228,8 +234,8 @@ export.%.json:
 
 ## OSM data from the overpass API {{{
 # Before running large imports check the load of the overpass API:
-# * http://overpass-api.de/munin/localdomain/localhost.localdomain/load.html
-# * http://overpass-api.de/munin/localdomain/localhost.localdomain/osm_db_request_count.html
+# * https://overpass-api.de/munin/localdomain/localhost.localdomain/load.html
+# * https://overpass-api.de/munin/localdomain/localhost.localdomain/osm_db_request_count.html
 
 ## The value separator is ♡ because it is not expected that this appears anywhere else in the tags and it works with GNU make.
 ## Unfortunately, it does not work with cut, but that problem can be solved.

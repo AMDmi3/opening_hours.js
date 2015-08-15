@@ -26,11 +26,11 @@ class OpeningHoursRegexSearch: # {{{
         :returns: None
         """
 
-        self.overpass_turbo_url = 'http://overpass-turbo.eu/' \
+        self.overpass_turbo_url = 'https://overpass-turbo.eu/' \
                 + '?template=key-value&key=%s&value=' % key
-        self.taginfo_url = 'http://taginfo.openstreetmap.org/tags/%s=' % key
+        self.taginfo_url = 'https://taginfo.openstreetmap.org/tags/%s=' % key
         self.josm_remote_url = 'http://localhost:8111/import?url=%s' % (
-                self._url_encode(u'http://overpass-api.de/api/xapi_meta?*[%s=' % key)
+                self._url_encode(u'https://overpass-api.de/api/xapi_meta?*[%s=' % key)
             )
 
     # helper functions for the user of the package {{{
@@ -277,10 +277,10 @@ def main():
         r'[^0-9a-z ?.]\s*?-\s*?\d{1,2}:\d{2}\s*?[^+]',
         # Start time not specified (not in the syntax specification).
         # Opposite to open end.
-        # http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_until#Notes
+        # https://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_until#Notes
         #
         r'\d{1,2}:\d{2}\s*?-\s*?\d{1,2}:\d{2}\s*?\+', # 12:00-14:00+
-        # http://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_end_fixed_time_extension#Summary
+        # https://wiki.openstreetmap.org/wiki/Proposed_features/opening_hours_open_end_fixed_time_extension#Summary
         #
         r'^(?:(?:[0-1][0-9]|2[0-4])(?:[1-5][0-9]|0[0-9])\s*-?\s*){2}$', # match 1700-2300
         )

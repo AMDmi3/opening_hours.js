@@ -2706,7 +2706,7 @@
 				'gesloten':   'off',
 				'feestdag':   'PH',
 				'feestdagen': 'PH',
-			}, 'Assuming "<ok>" for "<ko>". Please avoid using "workday": http://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays': {
+			}, 'Assuming "<ok>" for "<ko>". Please avoid using "workday": https://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays': {
 				// Used around 260 times but the problem is, that work day might be different in other countries.
 				'wd':            'Mo-Fr',
 				'on work days?': 'Mo-Fr',
@@ -2826,11 +2826,11 @@
 				'(?:an|nur)? ?sonn-?(?: und |/)feiertag(?:s|en?)?': 'PH,Su',
 				'nach(?: |_)vereinbarung':   '"Nach Vereinbarung"',
 				'nach(?: |_)absprache':      '"Nach Absprache"',
-			}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: http://wiki.openstreetmap.org/wiki/DE:Key:opening_hours/specification.': {
+			}, 'Bitte benutze die Schreibweise "<ok>" für "<ko>". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: https://wiki.openstreetmap.org/wiki/DE:Key:opening_hours/specification.': {
 				'„': '"',
 				'“': '"',
 				'”': '"',
-			}, 'Please use notation "<ok>" for "<ko>". The used quote signs might be typographically correct but are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.': {
+			}, 'Please use notation "<ok>" for "<ko>". The used quote signs might be typographically correct but are not defined in the specification. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.': {
 				'«': '"',
 				'»': '"',
 				'‚': '"',
@@ -2840,7 +2840,7 @@
 				'」': '"',
 				'『': '"',
 				'』': '"',
-			}, 'Please use notation "<ok>" for "<ko>". The used quote signs are not defined in the specification. See http://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.': {
+			}, 'Please use notation "<ok>" for "<ko>". The used quote signs are not defined in the specification. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.': {
 				"'": '"',
 			}, 'You might want to use comments instead of brackets (which are not valid in this context). If you do, replace "<ok>" with "<ko>".': {
 				// '（': '"',
@@ -4479,7 +4479,7 @@
 					/* Ignore colon if they appear somewhere else than as time separator.
 					 * Except the start or end of the value.
 					 * This provides compatibility with the syntax proposed by Netzwolf:
-					 * http://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#separator_for_readability
+					 * https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#separator_for_readability
 					 * Check for valid use of <separator_for_readability> is implemented in function getWarnings().
 					 */
 
@@ -4584,7 +4584,7 @@
 		// }}}
 
 		/* Function to determine whether an array contains a value {{{
-		 * Source: http://stackoverflow.com/a/1181586
+		 * Source: https://stackoverflow.com/a/1181586
 		 *
 		 * :param needle: Element to find.
 		 * :returns: Index of element if present, if not present returns -1.
@@ -5903,7 +5903,7 @@
 			return at;
 		}
 
-		// http://stackoverflow.com/a/6117889
+		// https://stackoverflow.com/a/6117889
 		/* For a given date, get the ISO week number
 		 *
 		 * Based on information at:
@@ -5932,7 +5932,7 @@
 		    // Calculate full weeks to nearest Thursday
 		    return Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7)
 		}
-		// http://stackoverflow.com/a/16591175
+		// https://stackoverflow.com/a/16591175
 		function getDateOfISOWeek(w, y) {
 			var simple = new Date(y, 0, 1 + (w - 1) * 7);
 			var dow = simple.getDay();

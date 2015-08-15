@@ -67,7 +67,7 @@ test_framework.config = {
 		/* oh_mode 2: "including the hyphen because there are post boxes which are
 		 * emptied several (undefined) times or one (undefined) time in a certain time
 		 * frame. This shall be covered also.".
-		 * Ref: http://wiki.openstreetmap.org/wiki/Key:collection_times */
+		 * Ref: https://wiki.openstreetmap.org/wiki/Key:collection_times */
 	},
 	'service_times': {
 		manually_ignored: [ 'automatic' ],
