@@ -9,7 +9,7 @@ OH_RELATED_TAGS ?= related_tags.txt
 STATS_FOR_BOUNDARIES ?= stats_for_boundaries.txt
 
 API_URL_TAGINFO  ?= https://taginfo.openstreetmap.org/api
-API_URL_OVERPASS ?= https://overpass-api.de/api
+API_URL_OVERPASS ?= http://overpass-api.de/api
 # GnuTLS: A TLS warning alert has been received.
 # GnuTLS: received alert [112]: The server name sent was not recognized
 
@@ -121,7 +121,8 @@ qa-source-code:
 	git ls-files | egrep '\.js$$' | xargs sed -i 's/\([^=!]\)==\([^=]\)/\1===\2/g;s/\([^=!]\)!=\([^=]\)/\1!==\2/g;'
 
 qa-https-everywhere:
-	git ls-files -z | xargs -0 sed -i 's#http://wiki.openstreetmap.org#https://wiki.openstreetmap.org#g;s#http://open.mapquestapi.com#https://open.mapquestapi.com#g;s#http://nominatim.openstreetmap.org#https://nominatim.openstreetmap.org#g;s#http://taginfo.openstreetmap.org#https://taginfo.openstreetmap.org#g;s#http://stackoverflow.com#https://stackoverflow.com#g;s#http://www.gnu.org/#https://www.gnu.org/#g;s#http://overpass-turbo.eu/#https://overpass-turbo.eu/#g;s#http://www.openstreetmap.org/#https://www.openstreetmap.org/#g;s#http://overpass-api.de/#https://overpass-api.de/#g;'
+	git ls-files -z | xargs -0 sed -i 's#http://wiki.openstreetmap.org#https://wiki.openstreetmap.org#g;s#http://open.mapquestapi.com#https://open.mapquestapi.com#g;s#http://nominatim.openstreetmap.org#https://nominatim.openstreetmap.org#g;s#http://taginfo.openstreetmap.org#https://taginfo.openstreetmap.org#g;s#http://stackoverflow.com#https://stackoverflow.com#g;s#http://www.gnu.org/#https://www.gnu.org/#g;s#http://overpass-turbo.eu/#https://overpass-turbo.eu/#g;s#http://www.openstreetmap.org/#https://www.openstreetmap.org/#g;'
+	# git ls-files -z | xargs -0 sed -i 's#http://overpass-api.de/#https://overpass-api.de/#g;'
 	git ls-files -z | xargs -0 sed -i 's#http://\(\w\+\).wikipedia.org#https://\1.wikipedia.org#g;'
 	test -L index.html && git checkout index.html
 	# ack 'http://'
