@@ -36,7 +36,7 @@ if (typeof argv.locale === 'string' && argv.locale !== 'en') {
 	moment.locale(argv.locale);
 }
 
-var opening_hours = require(argv['library-file']);
+var opening_hours = require('./' + argv['library-file']);
 var colors        = require('colors');
 var sprintf       = require('sprintf-js').sprintf;
 /* }}} */
@@ -5095,11 +5095,6 @@ test.addCompMatchingRule('Compare result from getMatchingRule()', [
 	], '2013.12.20 13:00',
 	'Fr 12:00-16:00 open "Notfallsprechstunde"', {}, 'n last test');
 // }}}
-
-if (argv.locale !== 'en') {
-	var tmp = new opening_hours(value_perfectly_valid[0], nominatiomTestJSON);
-	console.log(tmp.prettifyValue({ conf: { locale: argv.locale } }));
-}
 
 process.exit(test.run() ? 0 : 1);
 
