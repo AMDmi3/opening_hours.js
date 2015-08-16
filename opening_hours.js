@@ -3125,7 +3125,7 @@
 			},
 		},
 	};
-    // }}}
+	// }}}
 
 	/* error and warning messages {{{ */
 	var lang = {
@@ -3273,27 +3273,27 @@
 	/// }}}
 }(this, function (SunCalc, holidays, word_error_correction, lang) {
 
-    /* translation function {{{ */
+	/* translation function {{{ */
 	/* Roughly compatibly to i18next so we can replace everything by i18next include later
-     * sprintf support
+	 * sprintf support
 	 */
-    var t = function(str, variables) {
-        if (typeof i18n === 'object' && typeof i18n.t === 'function') {
+	var t = function(str, variables) {
+		if (typeof i18n === 'object' && typeof i18n.t === 'function') {
 			if (['de'].indexOf(i18n.lng()) !== -1) {
-            	return i18n.t('opening_hours:texts.' + str, variables);
+				return i18n.t('opening_hours:texts.' + str, variables);
 			}
-        }
-        var text = lang[str];
+		}
+		var text = lang[str];
 		if (typeof text === 'undefined') {
 			text = str;
 		}
-        return text.replace(/__([^_]*)__/g, function (match, c) {
-            return typeof variables[c] !== 'undefined'
-                ? variables[c]
-                : match
-                ;
-        })
-    };
+		return text.replace(/__([^_]*)__/g, function (match, c) {
+			return typeof variables[c] !== 'undefined'
+				? variables[c]
+				: match
+				;
+		})
+	};
 	/* }}} */
 
 	return function(value, nominatiomJSON, optional_conf_parm) {
@@ -3317,7 +3317,7 @@
 			'leave_weekday_sep_one_day_betw': true, // use the separator (either "," or "-" which is used to separate days which follow to each other like Sa,Su or Su-Mo
 			'sep_one_day_between': ',',      // separator which should be used
 			'zero_pad_month_and_week_numbers': false, // Format week (e.g. `week 01`) and month day numbers (e.g. `Jan 01`) with "%02d".
-            'locale': 'en',               // use local language (needs moment.js / i18n.js)
+			'locale': 'en',               // use local language (needs moment.js / i18n.js)
 		};
 
 		var osm_tag_defaults = {
@@ -3790,7 +3790,7 @@
 						curr_rule_tokens.push([Number(tmp[0]), 'year', value.length ]);
 						if (Number(tmp[0]) >= 2100) // Probably an error
 							parsing_warnings.push([ -1, value.length - 1,
-                                t('interpreted as year', {number:  Number(tmp[0])})
+									t('interpreted as year', {number:  Number(tmp[0])})
 							]);
 					} else {
 						curr_rule_tokens.push([Number(tmp[0]), 'number', value.length ]);
@@ -4251,23 +4251,23 @@
 					user_conf[key] = default_prettify_conf[key];
 			}
 
-            if (typeof user_conf['locale'] === 'string' && user_conf['locale'] !== 'en') {
-                // build translation arrays from moment
+			if (typeof user_conf['locale'] === 'string' && user_conf['locale'] !== 'en') {
+				// build translation arrays from moment
 				// var currentLocale = moment.locale();
-                moment.locale('en');
-                var weekdays_en = moment.weekdaysMin();
-                // monthShort would not return what we like
+				moment.locale('en');
+				var weekdays_en = moment.weekdaysMin();
+				// monthShort would not return what we like
 				var months_en = moment.months().map(function (month) {
 					return month.substr(0,3);
 				});
 				// FIXME: Does not work in Firefox?
-                moment.locale(user_conf['locale']);
-                var weekdays_local = moment.weekdaysMin();
+				moment.locale(user_conf['locale']);
+				var weekdays_local = moment.weekdaysMin();
 				var months_local = moment.months().map(function (month) {
 					return month.substr(0,3);
 				});
 				// console.log(months_local);
-            }
+			}
 
 			for (var nrule = 0; nrule < new_tokens.length; nrule++) {
 				if (new_tokens[nrule][0].length === 0) continue;
