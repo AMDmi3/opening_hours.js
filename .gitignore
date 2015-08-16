@@ -8,6 +8,8 @@ export*
 *.json
 
 opening_hours.min.js
+opening_hours+deps.js
+opening_hours+deps.min.js
 node_modules
 tags
 README.html
