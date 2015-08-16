@@ -444,10 +444,15 @@ osm-tag-data-gen-stats-sort:
 	done
 ## }}}
 
+.PHONY: opening_hours+deps.js
+opening_hours+deps.js:
+	node_modules/.bin/browserify -r ./opening_hours:opening_hours -o "$@"
+
 opening_hours.min.js:
+opening_hours+deps.min.js:
 
 %.min.js: %.js
-	uglifyjs "$<" --output "$@" --comments '/ypid\/opening_hours\.js/' --lint
+	uglifyjs "$<" --output "$@" --comments '/github.com/' --lint
 
 README.html:
 
