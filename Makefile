@@ -79,7 +79,7 @@ release: package.json check qa-source-code qa-https-everywhere
 	git tag --sign --local-user C505B5C93B0DB3D338A1B6005FE92C12EE88E1F0 "v$(json -f package.json version)"
 	git push --follow-tags
 	npm publish
-	$(MAKE) $(MAKE_OPTIONS) publish-website-on-all-servers
+	# $(MAKE) $(MAKE_OPTIONS) publish-website-on-all-servers
 
 .PHONY: clean
 clean: osm-tag-data-rm
@@ -90,18 +90,21 @@ clean: osm-tag-data-rm
 .PHONY: osm-tag-data-rm
 osm-tag-data-rm: osm-tag-data-taginfo-rm osm-tag-data-overpass-rm
 
+## Build files which are needed to host the evaluation tool on a webserver.
+.PHONY: ready-for-hosting
+ready-for-hosting: dependencies-get opening_hours+deps.min.js
+
 ## Publish {{{
 
-.PHONY: publish-website-on-all-servers
-publish-website-on-all-servers: publish-website-on-ypid.de publish-website-on-openingh.openstreetmap.de
+## Using Ansible with the https://github.com/ypid/ansible-synchronize role to update mirros.
+## This improves the update process significantly.
 
-.PHONY: publish-website-on-openingh.openstreetmap.de
-publish-website-on-openingh.openstreetmap.de:
-	ssh gauss.osm.de './update'
+# .PHONY: publish-website-on-all-servers
+# publish-website-on-all-servers: publish-website-on-ypid.de publish-website-on-openingh.openstreetmap.de
 
-.PHONY: publish-website-on-ypid.de
-publish-website-on-ypid.de:
-	ssh osm@ypid.de './update'
+# .PHONY: publish-website-on-openingh.openstreetmap.de
+# publish-website-on-openingh.openstreetmap.de:
+#     ssh gauss.osm.de './update'
 
 ## }}}
 
