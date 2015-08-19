@@ -3265,13 +3265,19 @@
 	if (typeof exports === 'object') {
 		// For nodejs
 		var SunCalc = require('suncalc');
-		module.exports = factory(SunCalc, holidays, word_error_correction, lang);
+		try { // as long as it is an optional dependency
+			var moment = require('moment');
+		} catch (er) {}
+		try { // as long as it is an optional dependency
+			var i18n = require('./locales/core');
+		} catch (er) {}
+		module.exports = factory(SunCalc, moment, i18n, holidays, word_error_correction, lang);
 	} else {
 		// For browsers
-		root.opening_hours = factory(root.SunCalc, holidays, word_error_correction, lang);
+		root.opening_hours = factory(root.SunCalc, root.moment, root.i18n, holidays, word_error_correction, lang);
 	}
 	/// }}}
-}(this, function (SunCalc, holidays, word_error_correction, lang) {
+}(this, function (SunCalc, moment, i18n, holidays, word_error_correction, lang) {
 
 	/* translation function {{{ */
 	/* Roughly compatibly to i18next so we can replace everything by i18next include later
@@ -3317,7 +3323,7 @@
 			'leave_weekday_sep_one_day_betw': true, // use the separator (either "," or "-" which is used to separate days which follow to each other like Sa,Su or Su-Mo
 			'sep_one_day_between': ',',      // separator which should be used
 			'zero_pad_month_and_week_numbers': false, // Format week (e.g. `week 01`) and month day numbers (e.g. `Jan 01`) with "%02d".
-			'locale': 'en',               // use local language (needs moment.js / i18n.js)
+			'locale': 'en',                  // use local language (needs moment.js / i18n.js)
 		};
 
 		var osm_tag_defaults = {
@@ -3400,6 +3406,10 @@
 		} else if (typeof optional_conf_parm === 'object') {
 			if (checkOptionalConfParm('mode', 'number')) {
 				oh_mode = optional_conf_parm['mode'];
+			}
+			var locale = optional_conf_parm.locale || 'en';
+			if (typeof i18n === 'object' && i18n.lng() !== locale) {
+				i18n.setLng(locale);
 			}
 			if (checkOptionalConfParm('warnings_severity', 'number')) {
 				warnings_severity = optional_conf_parm['warnings_severity'];
@@ -4251,7 +4261,7 @@
 					user_conf[key] = default_prettify_conf[key];
 			}
 
-			if (typeof user_conf['locale'] === 'string' && user_conf['locale'] !== 'en') {
+			if (typeof moment === 'object' && typeof user_conf['locale'] === 'string' && user_conf['locale'] !== 'en') {
 				// build translation arrays from moment
 				// var currentLocale = moment.locale();
 				moment.locale('en');

@@ -25,18 +25,7 @@ if (argv.help) {
 /* }}} */
 
 /* Required modules {{{ */
-if (typeof argv.locale === 'string' && argv.locale !== 'en') {
-	/* Define it globally. FIXME: Better way? */
-	i18n     = require('i18next');
-	moment   = require('moment');
-
-	var i18n_res = require('./locales/core.js');
-
-	i18n.setLng(argv.locale, function(err, t) { /* loading done */ });
-	moment.locale(argv.locale);
-}
-
-var opening_hours = require(argv['library-file']);
+var opening_hours = require('./' + argv['library-file']);
 var colors        = require('colors');
 var sprintf       = require('sprintf-js').sprintf;
 /* }}} */
@@ -5095,11 +5084,6 @@ test.addCompMatchingRule('Compare result from getMatchingRule()', [
 	], '2013.12.20 13:00',
 	'Fr 12:00-16:00 open "Notfallsprechstunde"', {}, 'n last test');
 // }}}
-
-if (argv.locale !== 'en') {
-	var tmp = new opening_hours(value_perfectly_valid[0], nominatiomTestJSON);
-	console.log(tmp.prettifyValue({ conf: { locale: argv.locale } }));
-}
 
 process.exit(test.run() ? 0 : 1);
 

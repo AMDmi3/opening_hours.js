@@ -1,3 +1,8 @@
+if (require && module) {
+  var i18n = require('i18next-client');
+  module.exports = i18n;
+}
+
 var opening_hours_resources = { // English is fallback language.
     en: { /* {{{ */
         opening_hours: {
@@ -157,7 +162,6 @@ if (!i18n.isInitialized()) {
         useCookie: true,
         debug: true
     });
-    moment.locale(i18n.lng());
 } else {
     // compat with an app that already initializes i18n
     for (lang in opening_hours_resources) {
