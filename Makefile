@@ -446,7 +446,7 @@ osm-tag-data-gen-stats-sort:
 
 .PHONY: opening_hours+deps.js
 opening_hours+deps.js:
-	node_modules/.bin/browserify -r ./opening_hours:opening_hours -o "$@"
+	node_modules/.bin/browserify --require moment --require i18next-client --require ./opening_hours:opening_hours -o "$@"
 
 opening_hours.min.js:
 opening_hours+deps.min.js:

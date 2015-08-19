@@ -1,6 +1,26 @@
 #!/usr/bin/env nodejs
 
-var opening_hours = require('./opening_hours.js');
+var optimist = require('optimist')
+	.usage('Usage: $0 [optional parameters]')
+	.describe('h', 'Display the usage')
+	// .describe('v', 'Verbose output')
+	.describe('f', 'File path to the opening_hours.js libary file to run the tests against.')
+	.describe('l', 'Locale for error/warning messages and prettified values.')
+	.alias('h', 'help')
+	// .alias('v', 'verbose')
+	.alias('f', 'library-file')
+	.alias('l', 'locale')
+	.default('f', './opening_hours.js')
+	.default('l', 'en');
+
+var argv = optimist.argv;
+
+if (argv.help) {
+	optimist.showHelp();
+	process.exit(0);
+}
+
+var opening_hours = require('./' + argv['library-file']);
 var readline      = require('readline');
 var net           = require('net');
 
@@ -14,7 +34,7 @@ function opening_hours_object(value) {
     var needed_nominatiom_json = false;
     var warnings = [];
     try {
-        oh = new opening_hours(value);
+        oh = new opening_hours(value, {}, { 'locale': argv.locale } );
         warnings = oh.getWarnings();
         if (typeof warnings !== 'object')
             console.error(warnings);
@@ -22,7 +42,7 @@ function opening_hours_object(value) {
         crashed = false;
     } catch (err) {
         try {
-            oh = new opening_hours(value, nominatiomTestJSON);
+            oh = new opening_hours(value, nominatiomTestJSON, { 'locale': argv.locale });
             crashed = false;
             needed_nominatiom_json = true;
         } catch (err) {

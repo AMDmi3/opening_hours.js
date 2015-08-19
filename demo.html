@@ -39,15 +39,17 @@
 		<link rel="stylesheet" href="css/table.css"/>
 		<!-- }}} -->
 		<!-- Javascript {{{ -->
-		<script type="text/javascript" src="node_modules/suncalc/suncalc.js"></script>
-		<script type="text/javascript" src="opening_hours.js"></script>
-		<script type="text/javascript" src="node_modules/i18next-client/i18next.min.js"></script>
-		<script type="text/javascript" src="node_modules/moment/min/moment.min.js"></script>
+		<script type="text/javascript" src="opening_hours+deps.js"></script>
+		<script type="text/javascript">
+			var opening_hours = require('opening_hours');
+			var moment = require('moment');
+			var i18n = require('i18next-client');
+		</script>
 		<script type="text/javascript" src="js/i18n-resources.js"></script>
-		<script type="text/javascript" src="locales/core.js"></script>
 		<script type="text/javascript" src="js/opening_hours_table.js"></script>
 		<script type="text/javascript" src="js/helpers.js"></script>
 		<script type="text/javascript">
+
 			// add calculation for calendar week to date {{{
 			function dateAtWeek(date, week) {
 				var minutes_in_day = 60 * 24;
@@ -427,7 +429,11 @@
 				var value = document.forms.check.elements['expression'].value;
 				var mode = parseInt(document.getElementById('mode').selectedIndex);
 				try {
-					var oh = new opening_hours(value, nominatim, { 'mode': mode, 'warnings_severity': 7 });
+					var oh = new opening_hours(value, nominatim, {
+						'mode': mode,
+						'warnings_severity': 7,
+						'locale': i18n.lng()
+					});
 					var it = oh.getIterator(date);
 				} catch (err) {
 					crashed = err;

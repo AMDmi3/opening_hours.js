@@ -867,14 +867,21 @@ function translatePage() { // Gets called when localization is loaded.
     // $("headline").i18n();
 }
 
-i18n.init({
-    fallbackLng: 'en',
-    // resGetPath: 'locales/__ns__.__lng__.json',
-    resStore: resources,
-    getAsync: true,
-    useCookie: true,
-    debug: true
-}, translatePage);
+if (!i18n.isInitialized()) {
+    i18n.init({
+        fallbackLng: 'en',
+        // resGetPath: 'locales/__ns__.__lng__.json',
+        resStore: resources,
+        getAsync: true,
+        useCookie: true,
+        debug: true
+    }, translatePage);
+} else {
+    // compat with an app that already initializes i18n
+    for (lang in resources) {
+        i18n.addResourceBundle(lang, 'translation', resources[lang]['translation'], true);
+    }
+}
 moment.locale(i18n.lng());
 // }}}
 // }}}
