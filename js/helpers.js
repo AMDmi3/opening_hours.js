@@ -13,3 +13,6 @@ function josm(url_param) {
     xhr.send(null);
 }
 // }}}
+
+var nominatim_api_url = 'https://nominatim.openstreetmap.org/reverse';
+// var nominatim_api_url = 'https://open.mapquestapi.com/nominatim/v1/reverse.php';
