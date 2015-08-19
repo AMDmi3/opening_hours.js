@@ -86,7 +86,7 @@ release: package.json check qa-source-code qa-https-everywhere
 
 .PHONY: clean
 clean: osm-tag-data-rm
-	rm --force *.min.js
+	rm --force *+deps.js *.min.js
 	rm --force README.html
 	rm --force taginfo_sources.json
 
@@ -450,9 +450,10 @@ osm-tag-data-gen-stats-sort:
 	done
 ## }}}
 
-.PHONY: opening_hours+deps.js
 opening_hours+deps.js:
-	node_modules/.bin/browserify --require moment --require i18next-client --require ./opening_hours:opening_hours -o "$@"
+
+%+deps.js: %.js
+	./node_modules/.bin/browserify --require moment --require i18next-client --require "./$<:opening_hours" --outfile "$@"
 
 opening_hours.min.js:
 opening_hours+deps.min.js:
