@@ -60,7 +60,10 @@ dependencies-get:
 build: opening_hours.min.js
 
 .PHONY: check
-check: check-diff-all check-package.json
+check: check-diff check-package.json
+
+.PHONY: check-full
+check-full: check-diff-all check-package.json
 
 .PHONY: benchmark
 benchmark: benchmark-opening_hours.min.js
