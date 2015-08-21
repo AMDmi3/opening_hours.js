@@ -538,19 +538,21 @@ Project                                                          | Additional In
 [osm24.eu](https://github.com/dotevo/osm24)                      |
 [OpenBeerMap](https://openbeermap.github.io)                     | [issue for integration](https://github.com/OpenBeerMap/OpenBeerMap.github.io/issues/25)
 [JOSM](http://josm.openstreetmap.de/)                            | [ticket for integration](http://josm.openstreetmap.de/ticket/9157)
-[opening_hours_map]                                          |
+[opening_hours_map]                                              |
 [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours) |
-[pyopening_hours]                                             | python module for opening_hours.js
-[opening_hours_server.js]                                      | A little server answering query‘s for opening_hours and check if they can be evaluated.
-[opening_hours-statistics]                                     | Visualization of the data quality and growth over time.
+[YoHours][]                                                      | A simple editor for OpenStreetMap opening hours, [GitHub](https://github.com/PanierAvide/panieravide.github.io/tree/master/yohours)
+[pyopening_hours]                                                | python module for opening_hours.js
+[opening_hours_server.js]                                        | A little server answering query‘s for opening_hours and check if they can be evaluated.
+[opening_hours-statistics]                                       | Visualization of the data quality and growth over time.
 [www.openstreetmap.hu](http://www.openstreetmap.hu/)             | old version of this library, see also https://github.com/AMDmi3/opening_hours.js/issues/19
 
 [opening_hours_map]: https://github.com/ypid/opening_hours_map
 [pyopening_hours]: https://github.com/ypid/pyopening_hours
 [opening_hours_server.js]: https://github.com/ypid/opening_hours_server.js
 [opening_hours-statistics]: https://github.com/ypid/opening_hours-statistics
+[YoHours]: http://github.pavie.info/yohours/
 
-If you use this libary please let me know …
+If you use this library please let me know …
 
 ## Related links
 
