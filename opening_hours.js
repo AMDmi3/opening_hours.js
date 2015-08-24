@@ -3363,18 +3363,18 @@
 		 */
 		var location_cc, location_state, lat, lon;
 		if (typeof nominatiomJSON === 'object') {
-			if (typeof nominatiomJSON.address !== 'undefined') {
-				if (typeof nominatiomJSON.address.country_code !== 'undefined') {
+			if (typeof nominatiomJSON.address === 'object') {
+				if (typeof nominatiomJSON.address.country_code === 'string') {
 					location_cc    = nominatiomJSON.address.country_code;
 				}
-				if (typeof nominatiomJSON.address.state !== 'undefined') {
+				if (typeof nominatiomJSON.address.state === 'string') {
 					location_state = nominatiomJSON.address.state;
-				} else if (typeof nominatiomJSON.address.county !== 'undefined') {
+				} else if (typeof nominatiomJSON.address.county === 'string') {
 					location_state = nominatiomJSON.address.county;
 				}
 			}
 
-			if (typeof nominatiomJSON.lon !== 'undefined') { // lat will be tested later …
+			if (typeof nominatiomJSON.lon === 'string' && typeof nominatiomJSON.lat === 'string') {
 				lat = nominatiomJSON.lat;
 				lon = nominatiomJSON.lon;
 			}
@@ -3664,7 +3664,7 @@
 							//
 							formatLibraryBugMessage('Bug in warning generation code which could not determine the exact position of the warning or error in value.');
 							pos = value.length;
-							if (typeof tokens[nrule][2] !== 'undefined') {
+							if (typeof tokens[nrule][2] === 'number') {
 								// Fallback: Point to last token in the rule which caused the problem.
 								// Run real_test regularly to fix the problem before a user is confronted with it.
 								pos -= tokens[nrule][2];
@@ -3677,9 +3677,9 @@
 						}
 					} else {
 						pos = value.length;
-						if (typeof tokens[nrule][0][at+1] !== 'undefined') {
+						if (typeof tokens[nrule][0][at+1] === 'object') {
 							pos -= tokens[nrule][0][at+1][2];
-						} else if (typeof tokens[nrule][2] !== 'undefined') {
+						} else if (typeof tokens[nrule][2] === 'number') {
 							pos -= tokens[nrule][2];
 						}
 					}
@@ -4240,7 +4240,7 @@
 			prettified_value = '';
 			var prettified_value_array = [];
 
-			if (typeof argument_hash !== 'undefined') {
+			if (typeof argument_hash === 'object') {
 				if (typeof argument_hash.conf === 'object') {
 					user_conf = argument_hash.conf;
 					console.log(user_conf);
@@ -4553,7 +4553,7 @@
 
 		function get_last_token_pos_in_token_group(tokens, at, last_at) {
 			for (at++; at < last_at; at++) {
-				if (typeof tokens[at] !== 'undefined') {
+				if (typeof tokens[at] === 'object') {
 					if (typeof tokens[at][3] === 'string'
 							|| tokens[at][1] === 'comment'
 							|| tokens[at][1] === 'state'){
@@ -4720,7 +4720,7 @@
 
 			tmp_date.setDate(tmp_date.getDate() + (constrained_weekday[0] + (constrained_weekday[0] > 0 ? -1 : 0)) * 7);
 
-			if (typeof add_days !== 'undefined' && add_days[1])
+			if (typeof add_days === 'object' && add_days[1])
 				tmp_date.setDate(tmp_date.getDate() + add_days[0]);
 
 			return tmp_date;
@@ -4806,7 +4806,7 @@
 											typeof tokens[at+3] === 'object' ? 3 : 2
 										) : (
 											has_time_var_calc[0] ? 2 : (
-													typeof tokens[at+1] !== 'undefined' ? 1 : 0
+													typeof tokens[at+1] === 'object' ? 1 : 0
 												)
 										)
 									),
@@ -4835,7 +4835,7 @@
 						has_normal_time[1] = matchTokens(tokens, at_end_time, 'number', 'timesep', 'number');
 						has_time_var_calc[1]      = matchTokens(tokens, at_end_time, '(', 'timevar');
 						if (!has_normal_time[1] && !matchTokens(tokens, at_end_time, 'timevar') && !has_time_var_calc[1]) {
-							throw formatWarnErrorMessage(nrule, at_end_time - (typeof tokens[at_end_time] !== 'undefined' ? 0 : 1),
+							throw formatWarnErrorMessage(nrule, at_end_time - (typeof tokens[at_end_time] === 'object' ? 0 : 1),
 									t('time range continue'));
 						} else {
 							if (has_normal_time[1]) {
@@ -4882,9 +4882,10 @@
 							t('point in time mode', {'libraryname': library_name}));
 					}
 
-					if (typeof lat !== 'undefined') { // lon will also be defined (see above)
-						if (!has_normal_time[0] || !(has_normal_time[1] || has_open_end || is_point_in_time) )
+					if (typeof lat === 'string') { // lon will also be defined (see above)
+						if (!has_normal_time[0] || !(has_normal_time[1] || has_open_end || is_point_in_time) ) {
 							week_stable = false;
+						}
 					} else { // we can not calculate exact times so we use the already applied constants (word_value_replacement).
 						timevar_string = [];
 					}
@@ -5069,7 +5070,7 @@
 					if (matchTokens(tokens, at, 'number', 'timesep'))
 						throw formatWarnErrorMessage(nrule, at+1, 'Missing minutes in time range after: "' + tokens[at+1][1] + '"');
 					if (matchTokens(tokens, at, 'number'))
-						throw formatWarnErrorMessage(nrule, at + (typeof tokens[at+1] !== 'undefined' ? 1 : 0),
+						throw formatWarnErrorMessage(nrule, at + (typeof tokens[at+1] === 'object' ? 1 : 0),
 								'Missing time separator in time range after: "' + tokens[at][1] + '"');
 					return [ at ];
 				}
@@ -5457,7 +5458,7 @@
 
 										// check if we are in the holidays from the last year spanning into this year
 										var last_year_holiday = getSHForYear(applying_holidays[applying_holidays.length - 1], date.getFullYear() - 1, false);
-										if (typeof last_year_holiday !== 'undefined') {
+										if (typeof last_year_holiday === 'object') {
 											var last_year_holiday_from = (last_year_holiday[last_year_holiday.length - 4] - 1) * 100
 												+ last_year_holiday[last_year_holiday.length - 3]; // e.g. 1125
 											var last_year_holiday_to   = (last_year_holiday[last_year_holiday.length - 2] - 1) * 100
@@ -5562,9 +5563,9 @@
 		// First try to get the state, if missing get the country wide holidays
 		// (which can be limited to some states).
 		function getMatchingHoliday(type_of_holidays) {
-			if (typeof location_cc !== 'undefined') {
+			if (typeof location_cc === 'string') {
 				if (holidays.hasOwnProperty(location_cc)) {
-					if (typeof location_state !== 'undefined'
+					if (typeof location_state === 'string'
 							&& holidays[location_cc][location_state]
 							&& holidays[location_cc][location_state][type_of_holidays]) {
 						// if holidays for the state are specified use it
@@ -6065,11 +6066,11 @@
 				if (matchTokens(tokens, at+has_year[0], 'month', 'weekday', '[')) {
 					has_constrained_weekday[0] = getConstrainedWeekday(tokens, at+has_year[0]+3);
 					has_calc[0] = getMoveDays(tokens, has_constrained_weekday[0][1], 6, 'constrained weekdays');
-					at_range_sep = has_constrained_weekday[0][1] + (typeof has_calc[0] !== 'undefined' && has_calc[0][1] ? 3 : 0);
+					at_range_sep = has_constrained_weekday[0][1] + (typeof has_calc[0] === 'object' && has_calc[0][1] ? 3 : 0);
 				} else {
 					at_range_sep = at+has_year[0]
 						+ (has_event[0]
-							? (typeof has_calc[0] !== 'undefined' && has_calc[0][1] ? 4 : 1)
+							? (typeof has_calc[0] === 'object' && has_calc[0][1] ? 4 : 1)
 							: 2);
 				}
 
@@ -6106,7 +6107,7 @@
 							movableDays = getMovableEventsForYear(has_year[0] ? parseInt(tokens[at][0]) : date.getFullYear());
 							from_date = movableDays[tokens[at+has_year[0]][0]];
 
-							if (typeof has_calc[0] !== 'undefined' && has_calc[0][1]) {
+							if (typeof has_calc[0] === 'object' && has_calc[0][1]) {
 								var from_year_before_calc = from_date.getFullYear();
 								from_date.setDate(from_date.getDate() + has_calc[0][0]);
 								if (from_year_before_calc !== from_date.getFullYear())
@@ -6131,7 +6132,7 @@
 										: date.getFullYear());
 							to_date = movableDays[tokens[at_sec_event_or_month][0]];
 
-							if (typeof has_calc[1] !== 'undefined' && has_calc[1][1]) {
+							if (typeof has_calc[1] === 'object' && has_calc[1][1]) {
 								var to_year_before_calc = to_date.getFullYear();
 								to_date.setDate(to_date.getDate() + has_calc[1][0]);
 								if (to_year_before_calc !== to_date.getFullYear())
@@ -6179,7 +6180,7 @@
 					at = (has_constrained_weekday[1]
 							? has_constrained_weekday[1][1]
 							: at_sec_event_or_month + (has_event[1] ? 1 : 2))
-						+ (typeof has_calc[1] !== 'undefined' ? has_calc[1][1] : 0);
+						+ (typeof has_calc[1] === 'object' ? has_calc[1][1] : 0);
 
 					// }}}
 					// Monthday range like Jan 26-31 {{{
@@ -6301,7 +6302,7 @@
 					else
 						selectors.monthday.push(selector);
 
-					at += has_year[0] + has_event[0] + (typeof has_calc[0][1] !== 'undefined' && has_calc[0][1] ? 3 : 0);
+					at += has_year[0] + has_event[0] + (typeof has_calc[0][1] === 'number' && has_calc[0][1] ? 3 : 0);
 					// }}}
 				} else if (has_constrained_weekday[0]) {
 					at = parseMonthRange(tokens, at);
@@ -6363,7 +6364,7 @@
 							}
 
 						}
-						if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1].getTime() < changedate.getTime()))
+						if (typeof changedate === 'undefined' || (typeof res[1] === 'object' && res[1].getTime() < changedate.getTime()))
 							changedate = res[1];
 					}
 
@@ -6506,15 +6507,17 @@
 							}
 
 							if (rules[rule].fallback) {
-								if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate))
+								if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate)) {
+									// FIXME: Changing undefined does not break the test framework.
 									changedate = res[1];
+								}
 
 								// break rule; // Fallback rule matched, no need for checking the rest.
 								// WRONG: What if 'off' is used after fallback rule.
 							}
 						}
 					}
-					if (typeof changedate === 'undefined' || (typeof res[1] !== 'undefined' && res[1] < changedate))
+					if (typeof changedate === 'undefined' || (typeof res[1] === 'object' && res[1] < changedate))
 						changedate = res[1];
 				}
 			}
@@ -6740,7 +6743,7 @@
 			while (it.advance(to)) {
 				if (it.getState() || it.getUnknown()) {
 
-					if (typeof prevdate !== 'undefined') {
+					if (typeof prevdate === 'object') {
 						// last state was also open or unknown
 						if (prevunknown) //
 							unknown += it.getDate().getTime() - prevdate.getTime();
@@ -6754,7 +6757,7 @@
 					// console.log('if', prevdate, open / (1000 * 60 * 60), unknown / (1000 * 60 * 60));
 				} else {
 					// console.log('else', prevdate);
-					if (typeof prevdate !== 'undefined') {
+					if (typeof prevdate === 'object') {
 						if (prevunknown)
 							unknown += it.getDate().getTime() - prevdate.getTime();
 						else
@@ -6764,7 +6767,7 @@
 				}
 			}
 
-			if (typeof prevdate !== 'undefined') {
+			if (typeof prevdate === 'object') {
 				if (prevunknown)
 					unknown += to.getTime() - prevdate.getTime();
 				else
