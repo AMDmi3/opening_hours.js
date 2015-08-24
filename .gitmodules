@@ -1,0 +1,3 @@
+[submodule "submodules/panieravide.github.io"]
+	path = submodules/panieravide.github.io
+	url = https://github.com/PanierAvide/panieravide.github.io.git

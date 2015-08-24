@@ -54,6 +54,7 @@ list:
 
 .PHONY: dependencies-get
 dependencies-get:
+	git submodule update --init --recursive
 	npm install
 
 .PHONY: build

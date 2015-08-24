@@ -79,6 +79,7 @@ var resources = { // English is fallback language.
                 "rule separator  ||": 'rule separator (the next rule will be a fallback rule which applies for any time not handled by previous rules)',
                 "rule separator ,": 'rule separator (the next rule will be a additional rule which extends the times of previous rules and does not override them like normal rules would do)',
                 "JOSM remote conn error": 'Could not connect to JOSM. Please make sure that JOSM is running and is configured for remote control on the default tcp port 8111.',
+                "refer to yohours": 'This value can also be parsed by YoHours which is a simple editor for the opening_hours syntax. If you don’t need advanced features of the syntax, <a href=\"__href__\">give it a try</a>.',
             },
             "words": {
                 "modifier": "__name__ modifier",
@@ -206,6 +207,7 @@ var resources = { // English is fallback language.
                 "low zoom level": 'Les POIs vont commencer à apparaître au niveau de zoom ${next} et au-delà. Vous êtes actuellement au niveau de zoom ${actual}.',
                 "all n entries": "Ensemble des __total__ entrées :",
                 "the first entries": "Les __number__ premières entrées sur __total__ :",
+                "refer to yohours": "Cette valeur peut également s'afficher dans YoHours, un éditeur simple d'horaires d'ouverture. Si vous n'utilisez pas les fonctionnalités avancées de la syntaxe, <a href=\"__href__\">vous pouvez l'essayer ici</a>.",
             },
             "words": {
                 "mode": "mode d'évaluation",
@@ -335,6 +337,7 @@ var resources = { // English is fallback language.
                 "rule separator  ||": 'Begrenzungszeichen für Regeln (es folgt eine Oder-Verknüpfte Regel die nur auf Zeiten zutrifft, die nicht bereits von vorherigen Regeln behandelt werden)',
                 "rule separator ,": 'Begrenzungszeichen für Regeln (es folgt eine additive Regel deren Zeiten vorherige Regeln erweitern und nicht überschreiben wie bei normalen Regeln)',
                 "JOSM remote conn error": 'Es konnte keine Verbindung zu JOSM aufgebaut werden. Bitte prüfe, ob JOSM ausgeführt wird und Fernsteuerung auf dem Standard tcp Port 8111 erlaubt ist.',
+                "refer to yohours": 'Dieser Wert kann auch von YoHours verarbeitet werden. YoHours ist ein benutzerfreundlicher Editor für die opening_hours Syntax. Falls keine fortschrittlichen Funktionen der Syntax benötigt werden ist YoHours eine einsteigerfreundliche Alternative. <a href=\"__href__\">Ausprobieren</a>.',
             },
             "words": {
                 "modifier": "__name__ Regeleigenschaft",

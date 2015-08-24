@@ -49,6 +49,13 @@
 		<script type="text/javascript" src="js/opening_hours_table.js"></script>
 		<script type="text/javascript" src="js/helpers.js"></script>
 		<script type="text/javascript">
+			var YoHours = function() {};
+		</script>
+		<!-- Needed by YoHours modul.js -->
+		<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="submodules/panieravide.github.io/yohours/js/model.js"></script>
+		<script type="text/javascript">
+			var YoHoursChecker = new YoHoursChecker();
 
 			// add calculation for calendar week to date {{{
 			function dateAtWeek(date, week) {
@@ -513,6 +520,11 @@
 						value_explanation += '</span>';
 					}
 					value_explanation += '</p></div>';
+					if (YoHoursChecker.canRead(value)) {
+						value_explanation = i18n.t('texts.refer to yohours', { href: 'http://github.pavie.info/yohours/?oh=' + value })
+						+ '<br>'
+						+ value_explanation;
+					}
 					show_warnings_or_errors.innerHTML = value_explanation;
 
 					// if (prettified_newline_sep.split('\n').length > 1)
