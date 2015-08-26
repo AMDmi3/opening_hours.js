@@ -352,6 +352,9 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*SH on work days <--- (Assuming "Mo-Fr" for "on work days". Please avoid using "workday": https://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays)
 	*SH on work days <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"SH" for "SH Mo-Fr": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*SH Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "PH +1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH +1 day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
@@ -2310,7 +2313,7 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-858/869 tests passed.
+859/870 tests passed.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

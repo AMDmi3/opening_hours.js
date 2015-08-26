@@ -532,6 +532,9 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*SH on work days <--- (Assuming "Mo-Fr" for "on work days". Please avoid using "workday": https://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays)
 	*SH on work days <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"SH" for "SH Mo-Fr": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*SH Mo-Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "PH +1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH +1 day <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
@@ -2718,7 +2721,7 @@ Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-817/869 tests passed.
+818/870 tests passed.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

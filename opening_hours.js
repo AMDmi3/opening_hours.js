@@ -3362,10 +3362,10 @@
 		 * required to reasonably calculate 'sunrise' and holidays.
 		 */
 		var location_cc, location_state, lat, lon;
-		if (typeof nominatiomJSON === 'object') {
+		if (typeof nominatiomJSON === 'object' && nominatiomJSON !== null) {
 			if (typeof nominatiomJSON.address === 'object') {
 				if (typeof nominatiomJSON.address.country_code === 'string') {
-					location_cc    = nominatiomJSON.address.country_code;
+					location_cc = nominatiomJSON.address.country_code;
 				}
 				if (typeof nominatiomJSON.address.state === 'string') {
 					location_state = nominatiomJSON.address.state;
@@ -3378,6 +3378,15 @@
 				lat = nominatiomJSON.lat;
 				lon = nominatiomJSON.lon;
 			}
+		} else if (nominatiomJSON === null) {
+			/* Set the location to some random value. This can be used if you don’t
+			 * care about correct opening hours for more complex opening_hours
+			 * values.
+			 */
+			location_cc = 'de';
+			location_state = 'Baden-W\u00fcrttemberg';
+			lat = '49.5400039';
+			lon = '9.7937133';
 		} else if (typeof nominatiomJSON !== 'undefined') {
 			throw 'The nominatiomJSON parameter is of unknown type.'
 				+ ' Given ' + typeof(nominatiomJSON)
