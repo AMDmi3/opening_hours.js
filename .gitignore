@@ -7,6 +7,9 @@ export*
 *.log
 *.json
 
+!taginfo.json
+!taginfo_template.json
+
 opening_hours.min.js
 opening_hours+deps.js
 opening_hours+deps.min.js

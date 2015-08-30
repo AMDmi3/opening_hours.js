@@ -71,6 +71,9 @@ benchmark: benchmark-opening_hours.min.js
 
 README.html: README.md
 
+taginfo.json: gen_taginfo_json.js related_tags.txt taginfo_template.json
+	$< --key-file related_tags.txt --template-file taginfo_template.json > "$@"
+
 .PHONY: release
 release: package.json check qa-source-code qa-https-everywhere
 	git status
