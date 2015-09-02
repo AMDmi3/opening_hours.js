@@ -68,45 +68,45 @@ var nominatiom_object = {
 
 /* Parameter handling {{{ */
 var optimist = require('optimist')
-	.usage('Usage: $0 export_list.conf')
-	.describe('h', 'Display the usage')
-	.describe('v', 'Verbose output')
-	.describe('f', 'From year (including)')
+    .usage('Usage: $0 export_list.conf')
+    .describe('h', 'Display the usage')
+    .describe('v', 'Verbose output')
+    .describe('f', 'From year (including)')
     .demand('f')
-	.describe('u', 'Until year (including)')
+    .describe('u', 'Until year (including)')
     .demand('u')
-	.describe('p', 'Export public holidays. Can not be used togehter with --school-holidays.')
+    .describe('p', 'Export public holidays. Can not be used togehter with --school-holidays.')
     // .default('p', true)
-	.describe('s', 'Export school holidays. Can not be used together with --public-holidays.')
+    .describe('s', 'Export school holidays. Can not be used together with --public-holidays.')
     .describe('c', 'Country (for which the holidays apply). Defaults to Germany.')
     .default('c', 'de')
     .describe('r', 'Region (for which the holidays apply). Defaults to Baden-Württemberg.')
     .default('r', 'bw')
-	.boolean(['p', 's'])
-	.alias('h', 'help')
-	.alias('v', 'verbose')
-	.alias('f', 'from')
-	.alias('u', 'until')
-	.alias('p', 'public-holidays')
-	.alias('s', 'school-holidays')
-	.alias('c', 'country')
-	.alias('r', 'region');
+    .boolean(['p', 's'])
+    .alias('h', 'help')
+    .alias('v', 'verbose')
+    .alias('f', 'from')
+    .alias('u', 'until')
+    .alias('p', 'public-holidays')
+    .alias('s', 'school-holidays')
+    .alias('c', 'country')
+    .alias('r', 'region');
 
 var argv = optimist.argv;
 
 if (argv.help || argv._.length === 0) {
-	optimist.showHelp();
-	process.exit(0);
+    optimist.showHelp();
+    process.exit(0);
 }
 
 /* Error handling {{{ */
 if (argv.p && argv.s) {
     console.error("--school-holidays and --public-holidays can not be used together.");
-	process.exit(0);
+    process.exit(0);
 }
 if (typeof nominatiom_object[argv.c] !== 'object' || typeof nominatiom_object[argv.c][argv.r] !== 'object') {
     console.error(argv.c + ", " + argv.r + " is currently not supported.");
-	process.exit(0);
+    process.exit(0);
 }
 
 /* }}} */

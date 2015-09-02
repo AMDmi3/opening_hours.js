@@ -89,7 +89,7 @@ var OpeningHoursTable = {
         for (var row = 0; row < 7; row++) {
             date.setDate(date.getDate()+1);
             // if (date.getDay() === date_today.getDay()) {
-            // 	date.setDate(date.getDate()-7);
+            //     date.setDate(date.getDate()-7);
             // }
 
             it.setDate(date);
@@ -153,7 +153,7 @@ var OpeningHoursTable = {
             var cl = today ? ' class="today"' : (endweek ? ' class="endweek"' : '');
 
             // if (today && date_today.getDay() !== 1)
-            // 	output += '<tr class="separator"><td colspan="3"></td></tr>';
+            //     output += '<tr class="separator"><td colspan="3"></td></tr>';
             output += '<tr' + cl + '><td class="day ' + (table[row].date.getDay() % 6 === 0 ? 'weekend' : 'workday') + '">';
             output += this.printDate(table[row].date);
             output += '</td><td class="times">';

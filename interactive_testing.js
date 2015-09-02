@@ -1,23 +1,23 @@
 #!/usr/bin/env nodejs
 
 var optimist = require('optimist')
-	.usage('Usage: $0 [optional parameters]')
-	.describe('h', 'Display the usage')
-	// .describe('v', 'Verbose output')
-	.describe('f', 'File path to the opening_hours.js libary file to run the tests against.')
-	.describe('l', 'Locale for error/warning messages and prettified values.')
-	.alias('h', 'help')
-	// .alias('v', 'verbose')
-	.alias('f', 'library-file')
-	.alias('l', 'locale')
-	.default('f', './opening_hours.js')
-	.default('l', 'en');
+    .usage('Usage: $0 [optional parameters]')
+    .describe('h', 'Display the usage')
+    // .describe('v', 'Verbose output')
+    .describe('f', 'File path to the opening_hours.js libary file to run the tests against.')
+    .describe('l', 'Locale for error/warning messages and prettified values.')
+    .alias('h', 'help')
+    // .alias('v', 'verbose')
+    .alias('f', 'library-file')
+    .alias('l', 'locale')
+    .default('f', './opening_hours.js')
+    .default('l', 'en');
 
 var argv = optimist.argv;
 
 if (argv.help) {
-	optimist.showHelp();
-	process.exit(0);
+    optimist.showHelp();
+    process.exit(0);
 }
 
 var opening_hours = require('./' + argv['library-file']);

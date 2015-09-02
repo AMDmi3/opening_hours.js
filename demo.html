@@ -1,880 +1,880 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-	"http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<head><!-- {{{ -->
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<link rel="icon" type="image/png" href="favicon.png">
-		<!-- Some CSS {{{ -->
-		<style type="text/css">
-			body { font-family: sans-serif }
-			q:before { content:"„"; }
-			q:after { content:"“"; }
+    <head><!-- {{{ -->
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <link rel="icon" type="image/png" href="favicon.png">
+        <!-- Some CSS {{{ -->
+        <style type="text/css">
+            body { font-family: sans-serif }
+            q:before { content:"„"; }
+            q:after { content:"“"; }
 
-			.permalink {
-				position: absolute;
-				right: 1em;
-			}
-			p.value_explanation {
-				background-color: #F8F8F8;
-				border: 1px solid #DDD;
-				line-height: 19px;
-				overflow: auto;
-				padding: 6px 10px;
-				border-radius: 5px;
-			}
-			/* See http://clrs.cc/ */
-			span.year    { background: #ff851b } /* Orange */
-			span.week    { background: #ffdc00 } /* Yellow */
-			span.month   { background: #88ff88 }
-			span.weekday { background: #ff9999 }
-			span.time    { background: #88ccff }
-			span.rule_separator    { background: #3d9970 } /* Olive */
-			/* span.one_rule { text-decoration: underline } */
-			a.specification { color: black; text-decoration:none }
-			span.state   { background: #ffccff }
-			span.comment { background: #dddddd } /* Silver */
+            .permalink {
+                position: absolute;
+                right: 1em;
+            }
+            p.value_explanation {
+                background-color: #F8F8F8;
+                border: 1px solid #DDD;
+                line-height: 19px;
+                overflow: auto;
+                padding: 6px 10px;
+                border-radius: 5px;
+            }
+            /* See http://clrs.cc/ */
+            span.year    { background: #ff851b } /* Orange */
+            span.week    { background: #ffdc00 } /* Yellow */
+            span.month   { background: #88ff88 }
+            span.weekday { background: #ff9999 }
+            span.time    { background: #88ccff }
+            span.rule_separator    { background: #3d9970 } /* Olive */
+            /* span.one_rule { text-decoration: underline } */
+            a.specification { color: black; text-decoration:none }
+            span.state   { background: #ffccff }
+            span.comment { background: #dddddd } /* Silver */
 
-			noscript { color: #AA4400 }
-		</style>
-		<link rel="stylesheet" href="css/table.css"/>
-		<!-- }}} -->
-		<!-- Javascript {{{ -->
-		<script type="text/javascript" src="opening_hours+deps.min.js"></script>
-		<script type="text/javascript">
-			var opening_hours = require('opening_hours');
-			var moment = require('moment');
-			var i18n = require('i18next-client');
-		</script>
-		<script type="text/javascript" src="js/i18n-resources.js"></script>
-		<script type="text/javascript" src="js/opening_hours_table.js"></script>
-		<script type="text/javascript" src="js/helpers.js"></script>
-		<script type="text/javascript">
-			var YoHours = function() {};
-		</script>
-		<!-- Needed by YoHours modul.js -->
-		<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-		<script type="text/javascript" src="submodules/panieravide.github.io/yohours/js/model.js"></script>
-		<script type="text/javascript">
-			var YoHoursChecker = new YoHoursChecker();
+            noscript { color: #AA4400 }
+        </style>
+        <link rel="stylesheet" href="css/table.css"/>
+        <!-- }}} -->
+        <!-- Javascript {{{ -->
+        <script type="text/javascript" src="opening_hours+deps.min.js"></script>
+        <script type="text/javascript">
+            var opening_hours = require('opening_hours');
+            var moment = require('moment');
+            var i18n = require('i18next-client');
+        </script>
+        <script type="text/javascript" src="js/i18n-resources.js"></script>
+        <script type="text/javascript" src="js/opening_hours_table.js"></script>
+        <script type="text/javascript" src="js/helpers.js"></script>
+        <script type="text/javascript">
+            var YoHours = function() {};
+        </script>
+        <!-- Needed by YoHours modul.js -->
+        <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="submodules/panieravide.github.io/yohours/js/model.js"></script>
+        <script type="text/javascript">
+            var YoHoursChecker = new YoHoursChecker();
 
-			// add calculation for calendar week to date {{{
-			function dateAtWeek(date, week) {
-				var minutes_in_day = 60 * 24;
-				var msec_in_day    = 1000 * 60 * minutes_in_day;
-				var msec_in_week   = msec_in_day * 7;
+            // add calculation for calendar week to date {{{
+            function dateAtWeek(date, week) {
+                var minutes_in_day = 60 * 24;
+                var msec_in_day    = 1000 * 60 * minutes_in_day;
+                var msec_in_week   = msec_in_day * 7;
 
-				var tmpdate = new Date(date.getFullYear(), 0, 1);
-				tmpdate.setDate(1 - (tmpdate.getDay() + 6) % 7 + week * 7); // start of week n where week starts on Monday
-				return Math.floor((date - tmpdate) / msec_in_week);
-			}
-			// }}}
+                var tmpdate = new Date(date.getFullYear(), 0, 1);
+                tmpdate.setDate(1 - (tmpdate.getDay() + 6) % 7 + week * 7); // start of week n where week starts on Monday
+                return Math.floor((date - tmpdate) / msec_in_week);
+            }
+            // }}}
 
-			document.write('<title>' + i18n.t('texts.title') + '</title>');
+            document.write('<title>' + i18n.t('texts.title') + '</title>');
 
-			// default values {{{
-			var def_lat = 48.7769;
-			var def_lon = 9.1844;
-			var repo_url = 'https://github.com/ypid/opening_hours.js';
-			var specification_url = 'https://wiki.openstreetmap.org/wiki/'
-				+ (i18n.lng() == 'de' ? 'DE:' : '')
-				+ 'Key:opening_hours/specification';
-			// }}}
-		</script>
-		<!-- }}} -->
-	</head> <!-- }}} -->
-	<body><!-- {{{ -->
-		<noscript>You don‘t have JavaScript enabled and thats a good thing but this tool makes heavy use of JavaScript so you need to enable it in order to use this tool. If you don’t trust the code that is going to be executed that is good as well. I encourage you to read all the source code on <a href="https://github.com/ypid/opening_hours.js">Github</a>. Also note that every commit and all releases are gpg signed. You might want to check this out as well :) Stay safe.</noscript>
-		<script type="text/javascript">
-			document.write('<h1>' + i18n.t('texts.title') + '</h1>');
-			document.write(getUserSelectTranslateHTMLCode());
-		</script>
+            // default values {{{
+            var def_lat = 48.7769;
+            var def_lon = 9.1844;
+            var repo_url = 'https://github.com/ypid/opening_hours.js';
+            var specification_url = 'https://wiki.openstreetmap.org/wiki/'
+                + (i18n.lng() == 'de' ? 'DE:' : '')
+                + 'Key:opening_hours/specification';
+            // }}}
+        </script>
+        <!-- }}} -->
+    </head> <!-- }}} -->
+    <body><!-- {{{ -->
+        <noscript>You don‘t have JavaScript enabled and thats a good thing but this tool makes heavy use of JavaScript so you need to enable it in order to use this tool. If you don’t trust the code that is going to be executed that is good as well. I encourage you to read all the source code on <a href="https://github.com/ypid/opening_hours.js">Github</a>. Also note that every commit and all releases are gpg signed. You might want to check this out as well :) Stay safe.</noscript>
+        <script type="text/javascript">
+            document.write('<h1>' + i18n.t('texts.title') + '</h1>');
+            document.write(getUserSelectTranslateHTMLCode());
+        </script>
 
-		<div id="user"><!-- {{{ -->
-			<!-- JS for user testing stuff {{{ -->
-			<script type="text/javascript">
-			/*<![CDATA[*/
-			function copyToClipboard(text) {
-				window.prompt('Copy to clipboard: Ctrl+C, Enter', text);
-			}
-			var countryToLanguageMapping = {
-				'ad': 'ca',
-				'ae': 'ar',
-				'af': 'fa,ps',
-				'ag': 'en',
-				'ai': 'en',
-				'al': 'sq',
-				'am': 'hy',
-				'an': 'nl,en',
-				'ao': 'pt',
-				// 'aq': '',
-				'ar': 'es',
-				'as': 'en,sm',
-				'at': 'de',
-				'au': 'en',
-				'aw': 'nl,pap',
-				'ax': 'sv',
-				'ba': 'bs,hr,sr',
-				'bb': 'en',
-				'bd': 'bn',
-				'be': 'nl,fr,de',
-				'bf': 'fr',
-				'bh': 'ar',
-				'bi': 'fr',
-				'bj': 'fr',
-				'bl': 'fr',
-				'bm': 'en',
-				'bn': 'ms',
-				'bo': 'es,qu,ay',
-				'br': 'pt',
-				'bs': 'en',
-				'bt': 'dz',
-				'bv': 'no',
-				'bw': 'en,tn',
-				'by': 'be,ru',
-				'bz': 'en',
-				'ca': 'en,fr',
-				'cc': 'en',
-				'cd': 'fr',
-				'cf': 'fr',
-				'cg': 'fr',
-				'ch': 'de,fr,it,rm',
-				'ci': 'fr',
-				'ck': 'en,rar',
-				'cl': 'es',
-				'cm': 'fr,en',
-				'cn': 'zh',
-				'co': 'es',
-				'cr': 'es',
-				'cu': 'es',
-				'cv': 'pt',
-				'cx': 'en',
-				'cy': 'el,tr',
-				'cz': 'cs',
-				'// de': 'de',
-				'dj': 'fr,ar,so',
-				'dk': 'da',
-				'dm': 'en',
-				'do': 'es',
-				'dz': 'ar',
-				'ec': 'es',
-				'ee': 'et',
-				'eg': 'ar',
-				'eh': 'ar,es,fr',
-				'er': 'ti,ar,en',
-				'es': 'ast,ca,es,eu,gl',
-				'et': 'am,om',
-				'fi': 'fi,sv,se',
-				'fj': 'en',
-				'fk': 'en',
-				'fm': 'en',
-				// 'fo': 'fo',
-				// 'fr': 'fr',
-				'ga': 'fr',
-				'gb': 'en,ga,cy,gd,kw',
-				'gd': 'en',
-				'ge': 'ka',
-				'gf': 'fr',
-				'gg': 'en',
-				'gh': 'en',
-				'gi': 'en',
-				'gl': 'kl,da',
-				'gm': 'en',
-				'gn': 'fr',
-				'gp': 'fr',
-				'gq': 'es,fr,pt',
-				'gr': 'el',
-				'gs': 'en',
-				'gt': 'es',
-				'gu': 'en,ch',
-				'gw': 'pt',
-				'gy': 'en',
-				'hk': 'zh,en',
-				'hm': 'en',
-				'hn': 'es',
-				// 'hr': 'hr',
-				'ht': 'fr,ht',
-				// 'hu': 'hu',
-				// 'id': 'id',
-				'ie': 'en,ga',
-				'il': 'he',
-				'im': 'en',
-				'in': 'hi,en',
-				'io': 'en',
-				'iq': 'ar,ku',
-				'ir': 'fa',
-				// 'is': 'is',
-				'it': 'it,de,fr',
-				'je': 'en',
-				'jm': 'en',
-				'jo': 'ar',
-				'jp': 'ja',
-				'ke': 'sw,en',
-				'kg': 'ky,ru',
-				'kh': 'km',
-				'ki': 'en',
-				'km': 'ar,fr',
-				'kn': 'en',
-				'kp': 'ko',
-				'kr': 'ko,en',
-				'kw': 'ar',
-				'ky': 'en',
-				'kz': 'kk,ru',
-				'la': 'lo',
-				'lb': 'ar,fr',
-				'lc': 'en',
-				'li': 'de',
-				'lk': 'si,ta',
-				'lr': 'en',
-				'ls': 'en,st',
-				// 'lt': 'lt',
-				'lu': 'lb,fr,de',
-				// 'lv': 'lv',
-				'ly': 'ar',
-				'ma': 'ar',
-				'mc': 'fr',
-				'md': 'ru,uk,ro',
-				'me': 'srp,sq,bs,hr,sr',
-				'mf': 'fr',
-				'mg': 'mg,fr',
-				'mh': 'en,mh',
-				// 'mk': 'mk',
-				'ml': 'fr',
-				'mm': 'my',
-				// 'mn': 'mn',
-				'mo': 'zh,pt',
-				'mp': 'ch',
-				'mq': 'fr',
-				'mr': 'ar,fr',
-				'ms': 'en',
-				'mt': 'mt,en',
-				'mu': 'mfe,fr,en',
-				'mv': 'dv',
-				'mw': 'en,ny',
-				'mx': 'es',
-				'my': 'ms',
-				'mz': 'pt',
-				'na': 'en,sf,de',
-				'nc': 'fr',
-				'ne': 'fr',
-				'nf': 'en,pih',
-				'ng': 'en',
-				'ni': 'es',
-				// 'nl': 'nl',
-				'no': 'nb,nn,no,se',
-				'np': 'ne',
-				'nr': 'na,en',
-				'nu': 'niu,en',
-				'nz': 'mi,en',
-				'om': 'ar',
-				'pa': 'es',
-				'pe': 'es',
-				'pf': 'fr',
-				'pg': 'en,tpi,ho',
-				'ph': 'en,tl',
-				'pk': 'en,ur',
-				// 'pl': 'pl',
-				'pm': 'fr',
-				'pn': 'en,pih',
-				'pr': 'es,en',
-				'ps': 'ar,he',
-				// 'pt': 'pt',
-				'pw': 'en,pau,ja,sov,tox',
-				'py': 'es,gn',
-				'qa': 'ar',
-				're': 'fr',
-				// 'ro': 'ro',
-				'rs': 'sr',
-				// 'ru': 'ru',
-				'rw': 'rw,fr,en',
-				'sa': 'ar',
-				'sb': 'en',
-				'sc': 'fr,en,crs',
-				'sd': 'ar,en',
-				'se': 'sv',
-				'sg': 'en,ms,zh,ta',
-				'sh': 'en',
-				'si': 'sl',
-				'sj': 'no',
-				// 'sk': 'sk',
-				'sl': 'en',
-				'sm': 'it',
-				'sn': 'fr',
-				'so': 'so,ar',
-				'sr': 'nl',
-				'st': 'pt',
-				'ss': 'en',
-				'sv': 'es',
-				'sy': 'ar',
-				'sz': 'en,ss',
-				'tc': 'en',
-				'td': 'fr,ar',
-				'tf': 'fr',
-				'tg': 'fr',
-				// 'th': 'th',
-				'tj': 'tg,ru',
-				'tk': 'tkl,en,sm',
-				'tl': 'pt,tet',
-				'tm': 'tk',
-				'tn': 'ar',
-				'to': 'en',
-				// 'tr': 'tr',
-				'tt': 'en',
-				'tv': 'en',
-				'tw': 'zh',
-				'tz': 'sw,en',
-				'ua': 'uk',
-				'ug': 'en,sw',
-				'um': 'en',
-				'us': 'en',
-				'uy': 'es',
-				'uz': 'uz,kaa',
-				'va': 'it',
-				'vc': 'en',
-				've': 'es',
-				'vg': 'en',
-				'vi': 'en',
-				'vn': 'vi',
-				'vu': 'bi,en,fr',
-				'wf': 'fr',
-				'ws': 'sm,en',
-				'ye': 'ar',
-				'yt': 'fr',
-				'za': 'zu,xh,af,st,tn,en',
-				'zm': 'en',
-				'zw': 'en,sn,nd ',
-			};
-			function mapCountryToLanguage(country_code) {
-				if (typeof countryToLanguageMapping[country_code] !== 'undefined') {
-					return countryToLanguageMapping[country_code];
-				} else {
-					return country_code;
-				}
-			}
+        <div id="user"><!-- {{{ -->
+            <!-- JS for user testing stuff {{{ -->
+            <script type="text/javascript">
+            /*<![CDATA[*/
+            function copyToClipboard(text) {
+                window.prompt('Copy to clipboard: Ctrl+C, Enter', text);
+            }
+            var countryToLanguageMapping = {
+                'ad': 'ca',
+                'ae': 'ar',
+                'af': 'fa,ps',
+                'ag': 'en',
+                'ai': 'en',
+                'al': 'sq',
+                'am': 'hy',
+                'an': 'nl,en',
+                'ao': 'pt',
+                // 'aq': '',
+                'ar': 'es',
+                'as': 'en,sm',
+                'at': 'de',
+                'au': 'en',
+                'aw': 'nl,pap',
+                'ax': 'sv',
+                'ba': 'bs,hr,sr',
+                'bb': 'en',
+                'bd': 'bn',
+                'be': 'nl,fr,de',
+                'bf': 'fr',
+                'bh': 'ar',
+                'bi': 'fr',
+                'bj': 'fr',
+                'bl': 'fr',
+                'bm': 'en',
+                'bn': 'ms',
+                'bo': 'es,qu,ay',
+                'br': 'pt',
+                'bs': 'en',
+                'bt': 'dz',
+                'bv': 'no',
+                'bw': 'en,tn',
+                'by': 'be,ru',
+                'bz': 'en',
+                'ca': 'en,fr',
+                'cc': 'en',
+                'cd': 'fr',
+                'cf': 'fr',
+                'cg': 'fr',
+                'ch': 'de,fr,it,rm',
+                'ci': 'fr',
+                'ck': 'en,rar',
+                'cl': 'es',
+                'cm': 'fr,en',
+                'cn': 'zh',
+                'co': 'es',
+                'cr': 'es',
+                'cu': 'es',
+                'cv': 'pt',
+                'cx': 'en',
+                'cy': 'el,tr',
+                'cz': 'cs',
+                '// de': 'de',
+                'dj': 'fr,ar,so',
+                'dk': 'da',
+                'dm': 'en',
+                'do': 'es',
+                'dz': 'ar',
+                'ec': 'es',
+                'ee': 'et',
+                'eg': 'ar',
+                'eh': 'ar,es,fr',
+                'er': 'ti,ar,en',
+                'es': 'ast,ca,es,eu,gl',
+                'et': 'am,om',
+                'fi': 'fi,sv,se',
+                'fj': 'en',
+                'fk': 'en',
+                'fm': 'en',
+                // 'fo': 'fo',
+                // 'fr': 'fr',
+                'ga': 'fr',
+                'gb': 'en,ga,cy,gd,kw',
+                'gd': 'en',
+                'ge': 'ka',
+                'gf': 'fr',
+                'gg': 'en',
+                'gh': 'en',
+                'gi': 'en',
+                'gl': 'kl,da',
+                'gm': 'en',
+                'gn': 'fr',
+                'gp': 'fr',
+                'gq': 'es,fr,pt',
+                'gr': 'el',
+                'gs': 'en',
+                'gt': 'es',
+                'gu': 'en,ch',
+                'gw': 'pt',
+                'gy': 'en',
+                'hk': 'zh,en',
+                'hm': 'en',
+                'hn': 'es',
+                // 'hr': 'hr',
+                'ht': 'fr,ht',
+                // 'hu': 'hu',
+                // 'id': 'id',
+                'ie': 'en,ga',
+                'il': 'he',
+                'im': 'en',
+                'in': 'hi,en',
+                'io': 'en',
+                'iq': 'ar,ku',
+                'ir': 'fa',
+                // 'is': 'is',
+                'it': 'it,de,fr',
+                'je': 'en',
+                'jm': 'en',
+                'jo': 'ar',
+                'jp': 'ja',
+                'ke': 'sw,en',
+                'kg': 'ky,ru',
+                'kh': 'km',
+                'ki': 'en',
+                'km': 'ar,fr',
+                'kn': 'en',
+                'kp': 'ko',
+                'kr': 'ko,en',
+                'kw': 'ar',
+                'ky': 'en',
+                'kz': 'kk,ru',
+                'la': 'lo',
+                'lb': 'ar,fr',
+                'lc': 'en',
+                'li': 'de',
+                'lk': 'si,ta',
+                'lr': 'en',
+                'ls': 'en,st',
+                // 'lt': 'lt',
+                'lu': 'lb,fr,de',
+                // 'lv': 'lv',
+                'ly': 'ar',
+                'ma': 'ar',
+                'mc': 'fr',
+                'md': 'ru,uk,ro',
+                'me': 'srp,sq,bs,hr,sr',
+                'mf': 'fr',
+                'mg': 'mg,fr',
+                'mh': 'en,mh',
+                // 'mk': 'mk',
+                'ml': 'fr',
+                'mm': 'my',
+                // 'mn': 'mn',
+                'mo': 'zh,pt',
+                'mp': 'ch',
+                'mq': 'fr',
+                'mr': 'ar,fr',
+                'ms': 'en',
+                'mt': 'mt,en',
+                'mu': 'mfe,fr,en',
+                'mv': 'dv',
+                'mw': 'en,ny',
+                'mx': 'es',
+                'my': 'ms',
+                'mz': 'pt',
+                'na': 'en,sf,de',
+                'nc': 'fr',
+                'ne': 'fr',
+                'nf': 'en,pih',
+                'ng': 'en',
+                'ni': 'es',
+                // 'nl': 'nl',
+                'no': 'nb,nn,no,se',
+                'np': 'ne',
+                'nr': 'na,en',
+                'nu': 'niu,en',
+                'nz': 'mi,en',
+                'om': 'ar',
+                'pa': 'es',
+                'pe': 'es',
+                'pf': 'fr',
+                'pg': 'en,tpi,ho',
+                'ph': 'en,tl',
+                'pk': 'en,ur',
+                // 'pl': 'pl',
+                'pm': 'fr',
+                'pn': 'en,pih',
+                'pr': 'es,en',
+                'ps': 'ar,he',
+                // 'pt': 'pt',
+                'pw': 'en,pau,ja,sov,tox',
+                'py': 'es,gn',
+                'qa': 'ar',
+                're': 'fr',
+                // 'ro': 'ro',
+                'rs': 'sr',
+                // 'ru': 'ru',
+                'rw': 'rw,fr,en',
+                'sa': 'ar',
+                'sb': 'en',
+                'sc': 'fr,en,crs',
+                'sd': 'ar,en',
+                'se': 'sv',
+                'sg': 'en,ms,zh,ta',
+                'sh': 'en',
+                'si': 'sl',
+                'sj': 'no',
+                // 'sk': 'sk',
+                'sl': 'en',
+                'sm': 'it',
+                'sn': 'fr',
+                'so': 'so,ar',
+                'sr': 'nl',
+                'st': 'pt',
+                'ss': 'en',
+                'sv': 'es',
+                'sy': 'ar',
+                'sz': 'en,ss',
+                'tc': 'en',
+                'td': 'fr,ar',
+                'tf': 'fr',
+                'tg': 'fr',
+                // 'th': 'th',
+                'tj': 'tg,ru',
+                'tk': 'tkl,en,sm',
+                'tl': 'pt,tet',
+                'tm': 'tk',
+                'tn': 'ar',
+                'to': 'en',
+                // 'tr': 'tr',
+                'tt': 'en',
+                'tv': 'en',
+                'tw': 'zh',
+                'tz': 'sw,en',
+                'ua': 'uk',
+                'ug': 'en,sw',
+                'um': 'en',
+                'us': 'en',
+                'uy': 'es',
+                'uz': 'uz,kaa',
+                'va': 'it',
+                'vc': 'en',
+                've': 'es',
+                'vg': 'en',
+                'vi': 'en',
+                'vn': 'vi',
+                'vu': 'bi,en,fr',
+                'wf': 'fr',
+                'ws': 'sm,en',
+                'ye': 'ar',
+                'yt': 'fr',
+                'za': 'zu,xh,af,st,tn,en',
+                'zm': 'en',
+                'zw': 'en,sn,nd ',
+            };
+            function mapCountryToLanguage(country_code) {
+                if (typeof countryToLanguageMapping[country_code] !== 'undefined') {
+                    return countryToLanguageMapping[country_code];
+                } else {
+                    return country_code;
+                }
+            }
 
-			var lat, string_lat, string_lon, nominatim;
-			var url_lang = 'de';
-			var date;
+            var lat, string_lat, string_lon, nominatim;
+            var url_lang = 'de';
+            var date;
 
-			function Evaluate (offset, reset) {
-				if (typeof offset == 'undefined') offset = 0;
+            function Evaluate (offset, reset) {
+                if (typeof offset == 'undefined') offset = 0;
 
-				if (document.forms.check.elements['lat'].value !== string_lat || document.forms.check.elements['lon'].value !== string_lon) {
-					string_lat = document.forms.check.elements['lat'].value;
-					string_lon = document.forms.check.elements['lon'].value;
-					lat = parseFloat(string_lat);
-					lon = parseFloat(string_lon);
-					if (typeof lat != 'number' || typeof lon != 'number') {
-						if (typeof lat != 'number')
-							document.forms.check.elements['lat'].value = def_lat;
-						if (typeof lon != 'number')
-							document.forms.check.elements['lon'].value = def_lon;
-						console.log('Please enter numbers for latitude and longitude.');
-						return;
-					}
-					var url = nominatim_api_url;
-					url += '?format=json&lat=' + lat + '&lon=' + lon
-						+ '&zoom=5&addressdetails=1&email=ypid23@aol.de';
-					var url_lang_set = 'accept-language=';
+                if (document.forms.check.elements['lat'].value !== string_lat || document.forms.check.elements['lon'].value !== string_lon) {
+                    string_lat = document.forms.check.elements['lat'].value;
+                    string_lon = document.forms.check.elements['lon'].value;
+                    lat = parseFloat(string_lat);
+                    lon = parseFloat(string_lon);
+                    if (typeof lat != 'number' || typeof lon != 'number') {
+                        if (typeof lat != 'number')
+                            document.forms.check.elements['lat'].value = def_lat;
+                        if (typeof lon != 'number')
+                            document.forms.check.elements['lon'].value = def_lon;
+                        console.log('Please enter numbers for latitude and longitude.');
+                        return;
+                    }
+                    var url = nominatim_api_url;
+                    url += '?format=json&lat=' + lat + '&lon=' + lon
+                        + '&zoom=5&addressdetails=1&email=ypid23@aol.de';
+                    var url_lang_set = 'accept-language=';
 
-					var xhr = new XMLHttpRequest();
-					xhr.open( "GET", url + '&' + url_lang_set + mapCountryToLanguage(url_lang), true );      // true makes this call asynchronous
-					xhr.onreadystatechange = function () {    // need eventhandler since our call is async
-						if ( xhr.readyState == 4 && xhr.status == 200 ) {  // check for success
-							nominatim = JSON.parse( xhr.responseText );
-							// console.log(JSON.stringify(nominatim, null, '\t'));
+                    var xhr = new XMLHttpRequest();
+                    xhr.open( "GET", url + '&' + url_lang_set + mapCountryToLanguage(url_lang), true );      // true makes this call asynchronous
+                    xhr.onreadystatechange = function () {    // need eventhandler since our call is async
+                        if ( xhr.readyState == 4 && xhr.status == 200 ) {  // check for success
+                            nominatim = JSON.parse( xhr.responseText );
+                            // console.log(JSON.stringify(nominatim, null, '\t'));
 
-							if (nominatim.address.country_code != url_lang) {
-								xhr.open( "GET", url + '&' + url_lang_set + mapCountryToLanguage(nominatim.address.country_code), true );
-								xhr.onreadystatechange = function () {
-									if ( xhr.readyState == 4 && xhr.status == 200 ) {  // check for success
-										nominatim = JSON.parse( xhr.responseText );
-									}
-									url_lang = nominatim.address.country_code;
-									document.forms.check.elements['cc'].value    = nominatim.address.country_code;
-									document.forms.check.elements['state'].value = nominatim.address.state;
-									Evaluate();
-								}
-								xhr.send(null);
-							} else {
-								document.forms.check.elements['cc'].value    = nominatim.address.country_code;
-								document.forms.check.elements['state'].value = nominatim.address.state;
-								Evaluate();
-							}
-						}
-					};
-					xhr.send(null);
-				}
+                            if (nominatim.address.country_code != url_lang) {
+                                xhr.open( "GET", url + '&' + url_lang_set + mapCountryToLanguage(nominatim.address.country_code), true );
+                                xhr.onreadystatechange = function () {
+                                    if ( xhr.readyState == 4 && xhr.status == 200 ) {  // check for success
+                                        nominatim = JSON.parse( xhr.responseText );
+                                    }
+                                    url_lang = nominatim.address.country_code;
+                                    document.forms.check.elements['cc'].value    = nominatim.address.country_code;
+                                    document.forms.check.elements['state'].value = nominatim.address.state;
+                                    Evaluate();
+                                }
+                                xhr.send(null);
+                            } else {
+                                document.forms.check.elements['cc'].value    = nominatim.address.country_code;
+                                document.forms.check.elements['state'].value = nominatim.address.state;
+                                Evaluate();
+                            }
+                        }
+                    };
+                    xhr.send(null);
+                }
 
-				date = reset ? new Date() : new Date(
-						document.forms.check.elements['yyyy'].value,
-						document.forms.check.elements['mm'].selectedIndex,
-						document.forms.check.elements['dd'].value,
-						document.forms.check.elements['HH'].value,
-						parseInt(document.forms.check.elements['MM'].value),
-						offset
-					);
+                date = reset ? new Date() : new Date(
+                        document.forms.check.elements['yyyy'].value,
+                        document.forms.check.elements['mm'].selectedIndex,
+                        document.forms.check.elements['dd'].value,
+                        document.forms.check.elements['HH'].value,
+                        parseInt(document.forms.check.elements['MM'].value),
+                        offset
+                    );
 
-				function u2 (v) { return v>=0 && v<10 ? "0"+v : v; }
+                function u2 (v) { return v>=0 && v<10 ? "0"+v : v; }
 
-				document.forms.check.elements['yyyy'].value       = date.getFullYear();
-				document.forms.check.elements['mm'].selectedIndex = date.getMonth();
-				document.forms.check.elements['dd'].value         = u2(date.getDate());
-				document.forms.check.elements['HH'].value         = u2(date.getHours());
-				document.forms.check.elements['MM'].value         = u2(date.getMinutes());
-				document.forms.check.elements['wday'].value       = moment.weekdays(date.getDay());
-				document.forms.check.elements['week'].value       = 'W'+u2(dateAtWeek(date, 0) + 1);
+                document.forms.check.elements['yyyy'].value       = date.getFullYear();
+                document.forms.check.elements['mm'].selectedIndex = date.getMonth();
+                document.forms.check.elements['dd'].value         = u2(date.getDate());
+                document.forms.check.elements['HH'].value         = u2(date.getHours());
+                document.forms.check.elements['MM'].value         = u2(date.getMinutes());
+                document.forms.check.elements['wday'].value       = moment.weekdays(date.getDay());
+                document.forms.check.elements['week'].value       = 'W'+u2(dateAtWeek(date, 0) + 1);
 
-				var show_time_table         = document.getElementById('show_time_table');
-				var show_warnings_or_errors = document.getElementById('show_warnings_or_errors');
-				var show_results            = document.getElementById('show_results');
+                var show_time_table         = document.getElementById('show_time_table');
+                var show_warnings_or_errors = document.getElementById('show_warnings_or_errors');
+                var show_results            = document.getElementById('show_results');
 
-				show_warnings_or_errors.innerHTML = '';
+                show_warnings_or_errors.innerHTML = '';
 
-				var crashed = false;
-				var value = document.forms.check.elements['expression'].value;
-				var mode = parseInt(document.getElementById('mode').selectedIndex);
-				try {
-					var oh = new opening_hours(value, nominatim, {
-						'mode': mode,
-						'warnings_severity': 7,
-						'locale': i18n.lng()
-					});
-					var it = oh.getIterator(date);
-				} catch (err) {
-					crashed = err;
-					show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.filter.error') + ':<br />'
-						+ '<textarea rows="' + crashed.split('\n').length + 1 + '" style="width: 100%" name="WarnErrors" readonly="readonly">' + crashed
-						+ '</textarea></p>';
-					show_time_table.innerHTML = '';
-					show_results.innerHTML    = '';
-				}
+                var crashed = false;
+                var value = document.forms.check.elements['expression'].value;
+                var mode = parseInt(document.getElementById('mode').selectedIndex);
+                try {
+                    var oh = new opening_hours(value, nominatim, {
+                        'mode': mode,
+                        'warnings_severity': 7,
+                        'locale': i18n.lng()
+                    });
+                    var it = oh.getIterator(date);
+                } catch (err) {
+                    crashed = err;
+                    show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.filter.error') + ':<br />'
+                        + '<textarea rows="' + crashed.split('\n').length + 1 + '" style="width: 100%" name="WarnErrors" readonly="readonly">' + crashed
+                        + '</textarea></p>';
+                    show_time_table.innerHTML = '';
+                    show_results.innerHTML    = '';
+                }
 
-				show_time_table.innerHTML = '<a href="javascript:josm(\'import?url=' + encodeURIComponent('https://overpass-api.de/api/xapi_meta?*[opening_hours='
-					+ document.forms.check.elements['expression'].value + ']') + '\')">' + i18n.t('texts.load all with JOSM') + '</a><br />';
-				if (!crashed) {
-					var prettified = oh.prettifyValue({});
-					var prettified_value_array = oh.prettifyValue({
-						// conf: { locale: i18n.lng() },
-						get_internals: true,
-					});
-					// var prettified_newline_sep = oh.prettifyValue({ conf: { locale: i18n.lng(), rule_sep_string: '\n', print_semicolon: false } });
-					show_results.innerHTML = '<p>' + i18n.t('words.status') + ':<br />'
-						+ '<input size="10" name="status" readonly="readonly" />'
-						+ '<input size="60" name="comment" readonly="readonly" />'
-						+ '</p>' + '<p>'
-						+ i18n.t('texts.MatchingRule') + ':<br />'
-						+ '<input style="width: 100%" name="MatchingRule" readonly="readonly" />'
-						+ '</p>';
-					var used_selectors = { };
-					var value_explanation =
-						i18n.t('texts.prettified value for displaying') + ':<br />'
-						+ '<p class="value_explanation">';
-					// console.log(JSON.stringify(prettified_value_array, null, '    '));
-					// console.log(JSON.stringify(prettified_value_array, null, '    '));
-					for (var nrule = 0; nrule < prettified_value_array[0].length; nrule++) {
-						if (nrule != 0) {
-							var rule_separator = (
-								prettified_value_array[1][nrule][1]
-									? ' ||'
-									: (
-										prettified_value_array[1][nrule][0][0][1] == 'rule separator'
-										? ','
-										: ';'
-									)
-							);
-							value_explanation +=
-								'<span title="'
-								+ i18n.t('texts.rule separator ' + rule_separator) + '"'
-								+ ' class="rule_separator"><a target="_blank" class="specification" href="'
-								+ specification_url + '#section:rule_separators'
-								+ '">' + rule_separator + '</a></span><br>';
-						}
-						value_explanation += '<span class="one_rule">';
-						for (var nselector = 0, sl = prettified_value_array[0][nrule].length; nselector < sl; nselector++) {
-							var selector_type  = prettified_value_array[0][nrule][nselector][0][2];
-							var selector_value = prettified_value_array[0][nrule][nselector][1];
-							var fragment_identifier;
-							switch(selector_type) {
-								case '24/7':
-									fragment_identifier = 'selector_sequence';
-									break;
-								case 'state':
-									fragment_identifier = 'section:rule_modifier';
-									break;
-								case 'comment':
-									fragment_identifier = 'comment';
-									break;
-								default:
-									fragment_identifier = 'selector:' + selector_type;
-							}
-							value_explanation += '<span title="'
-								+ i18n.t('words.' + (selector_type.match(/(?:state|comment)/) ? 'modifier' : 'selector'), { name: selector_type }) + '"'
-								+ ' class="' + selector_type + '"><a target="_blank" class="specification" href="'
-								+ specification_url + '#' + fragment_identifier
-								+ '">' + selector_value + '</a></span>';
-							if (nselector + 1 < sl)
-								value_explanation += ' ';
-							used_selectors[selector_type] = true;
-						}
-						// console.log(value_explanation);
-						value_explanation += '</span>';
-					}
-					value_explanation += '</p></div>';
-					if (YoHoursChecker.canRead(value)) {
-						value_explanation = i18n.t('texts.refer to yohours', { href: 'http://github.pavie.info/yohours/?oh=' + value })
-						+ '<br>'
-						+ value_explanation;
-					}
-					show_warnings_or_errors.innerHTML = value_explanation;
+                show_time_table.innerHTML = '<a href="javascript:josm(\'import?url=' + encodeURIComponent('https://overpass-api.de/api/xapi_meta?*[opening_hours='
+                    + document.forms.check.elements['expression'].value + ']') + '\')">' + i18n.t('texts.load all with JOSM') + '</a><br />';
+                if (!crashed) {
+                    var prettified = oh.prettifyValue({});
+                    var prettified_value_array = oh.prettifyValue({
+                        // conf: { locale: i18n.lng() },
+                        get_internals: true,
+                    });
+                    // var prettified_newline_sep = oh.prettifyValue({ conf: { locale: i18n.lng(), rule_sep_string: '\n', print_semicolon: false } });
+                    show_results.innerHTML = '<p>' + i18n.t('words.status') + ':<br />'
+                        + '<input size="10" name="status" readonly="readonly" />'
+                        + '<input size="60" name="comment" readonly="readonly" />'
+                        + '</p>' + '<p>'
+                        + i18n.t('texts.MatchingRule') + ':<br />'
+                        + '<input style="width: 100%" name="MatchingRule" readonly="readonly" />'
+                        + '</p>';
+                    var used_selectors = { };
+                    var value_explanation =
+                        i18n.t('texts.prettified value for displaying') + ':<br />'
+                        + '<p class="value_explanation">';
+                    // console.log(JSON.stringify(prettified_value_array, null, '    '));
+                    // console.log(JSON.stringify(prettified_value_array, null, '    '));
+                    for (var nrule = 0; nrule < prettified_value_array[0].length; nrule++) {
+                        if (nrule != 0) {
+                            var rule_separator = (
+                                prettified_value_array[1][nrule][1]
+                                    ? ' ||'
+                                    : (
+                                        prettified_value_array[1][nrule][0][0][1] == 'rule separator'
+                                        ? ','
+                                        : ';'
+                                    )
+                            );
+                            value_explanation +=
+                                '<span title="'
+                                + i18n.t('texts.rule separator ' + rule_separator) + '"'
+                                + ' class="rule_separator"><a target="_blank" class="specification" href="'
+                                + specification_url + '#section:rule_separators'
+                                + '">' + rule_separator + '</a></span><br>';
+                        }
+                        value_explanation += '<span class="one_rule">';
+                        for (var nselector = 0, sl = prettified_value_array[0][nrule].length; nselector < sl; nselector++) {
+                            var selector_type  = prettified_value_array[0][nrule][nselector][0][2];
+                            var selector_value = prettified_value_array[0][nrule][nselector][1];
+                            var fragment_identifier;
+                            switch(selector_type) {
+                                case '24/7':
+                                    fragment_identifier = 'selector_sequence';
+                                    break;
+                                case 'state':
+                                    fragment_identifier = 'section:rule_modifier';
+                                    break;
+                                case 'comment':
+                                    fragment_identifier = 'comment';
+                                    break;
+                                default:
+                                    fragment_identifier = 'selector:' + selector_type;
+                            }
+                            value_explanation += '<span title="'
+                                + i18n.t('words.' + (selector_type.match(/(?:state|comment)/) ? 'modifier' : 'selector'), { name: selector_type }) + '"'
+                                + ' class="' + selector_type + '"><a target="_blank" class="specification" href="'
+                                + specification_url + '#' + fragment_identifier
+                                + '">' + selector_value + '</a></span>';
+                            if (nselector + 1 < sl)
+                                value_explanation += ' ';
+                            used_selectors[selector_type] = true;
+                        }
+                        // console.log(value_explanation);
+                        value_explanation += '</span>';
+                    }
+                    value_explanation += '</p></div>';
+                    if (YoHoursChecker.canRead(value)) {
+                        value_explanation = i18n.t('texts.refer to yohours', { href: 'http://github.pavie.info/yohours/?oh=' + value })
+                        + '<br>'
+                        + value_explanation;
+                    }
+                    show_warnings_or_errors.innerHTML = value_explanation;
 
-					// if (prettified_newline_sep.split('\n').length > 1)
-						// show_results.innerHTML += '<p>' + i18n.t('texts.prettified value for displaying') + ':<br />'
-							// + '<textarea rows="' + prettified_newline_sep.split('\n').length
-							// + '" style="width: 100%" name="prettifiedValueNewlineSep" readonly="readonly">'
-							// + prettified_newline_sep + '</textarea></p>';
+                    // if (prettified_newline_sep.split('\n').length > 1)
+                        // show_results.innerHTML += '<p>' + i18n.t('texts.prettified value for displaying') + ':<br />'
+                            // + '<textarea rows="' + prettified_newline_sep.split('\n').length
+                            // + '" style="width: 100%" name="prettifiedValueNewlineSep" readonly="readonly">'
+                            // + prettified_newline_sep + '</textarea></p>';
 
 
-					document.forms.check.elements['comment'].value = typeof it.getComment() != 'undefined'
-						? it.getComment() : '>>' + i18n.t('words.no') + ' ' + i18n.t('words.comment') + '<<';
-					document.forms.check.elements['status'].value = (it.getState() ? i18n.t('words.open')
-						: (it.getUnknown() ? i18n.t('words.unknown') : i18n.t('words.closed')));
-					var rule_index    = it.getMatchingRule();
-					document.forms.check.elements['MatchingRule'].value = typeof rule_index == 'undefined'
-						? i18n.t('words.none') : oh.prettifyValue({ 'rule_index': rule_index });
+                    document.forms.check.elements['comment'].value = typeof it.getComment() != 'undefined'
+                        ? it.getComment() : '>>' + i18n.t('words.no') + ' ' + i18n.t('words.comment') + '<<';
+                    document.forms.check.elements['status'].value = (it.getState() ? i18n.t('words.open')
+                        : (it.getUnknown() ? i18n.t('words.unknown') : i18n.t('words.closed')));
+                    var rule_index    = it.getMatchingRule();
+                    document.forms.check.elements['MatchingRule'].value = typeof rule_index == 'undefined'
+                        ? i18n.t('words.none') : oh.prettifyValue({ 'rule_index': rule_index });
 
-					if (prettified != value) {
-						show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.prettified value',
-							{ copyFunc: 'javascript:newValue(\'' + prettified.replace(/"/g, '&quot;') + '\')' }) + ':<br />'
-							+ '<input style="width: 100%" onclick="javascript:newValue(\'' + prettified.replace(/"/g, '&quot;') + '\')" id="prettifiedValue" name="prettifiedValue" value="' + prettified.replace(/"/g, '&quot;') + '" /></p>';
-					}
+                    if (prettified != value) {
+                        show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.prettified value',
+                            { copyFunc: 'javascript:newValue(\'' + prettified.replace(/"/g, '&quot;') + '\')' }) + ':<br />'
+                            + '<input style="width: 100%" onclick="javascript:newValue(\'' + prettified.replace(/"/g, '&quot;') + '\')" id="prettifiedValue" name="prettifiedValue" value="' + prettified.replace(/"/g, '&quot;') + '" /></p>';
+                    }
 
-					var warnings = oh.getWarnings();
-					if (warnings.length > 0) {
-						show_warnings_or_errors.innerHTML += '<p>' + i18n.t('texts.filter.error') + ':<br />'
-							+ '<textarea rows="' + (warnings.length + 1)
-							+ '" style="width: 100%" name="WarnErrors" readonly="readonly">' + warnings.join('\n')
-							+ '</textarea></p>';
-					}
+                    var warnings = oh.getWarnings();
+                    if (warnings.length > 0) {
+                        show_warnings_or_errors.innerHTML += '<p>' + i18n.t('texts.filter.error') + ':<br />'
+                            + '<textarea rows="' + (warnings.length + 1)
+                            + '" style="width: 100%" name="WarnErrors" readonly="readonly">' + warnings.join('\n')
+                            + '</textarea></p>';
+                    }
 
-					if (prettified.length > 255) {
-						show_warnings_or_errors.innerHTML += '<p>' + i18n.t('texts.value to long for osm',
-							{ pretLength: prettified.length, valLength: value.length, maxLength: 255 }) + '</p>';
-					}
+                    if (prettified.length > 255) {
+                        show_warnings_or_errors.innerHTML += '<p>' + i18n.t('texts.value to long for osm',
+                            { pretLength: prettified.length, valLength: value.length, maxLength: 255 }) + '</p>';
+                    }
 
-					show_time_table.innerHTML += OpeningHoursTable.drawTableAndComments(oh, it);
-				}
-			}
+                    show_time_table.innerHTML += OpeningHoursTable.drawTableAndComments(oh, it);
+                }
+            }
 
-			function EX (element) {
-				newValue(element.innerHTML);
-				return false;
-			}
+            function EX (element) {
+                newValue(element.innerHTML);
+                return false;
+            }
 
-			function newValue(value) {
-				if (typeof document.forms.check.elements['prettifiedValue'] == 'object') {
-					document.forms.check.elements['prettifiedValue'].focus();
-					document.forms.check.elements['prettifiedValue'].focus();
-				}
-				document.forms.check.elements['expression'].value = value;
-				Evaluate();
-			}
+            function newValue(value) {
+                if (typeof document.forms.check.elements['prettifiedValue'] == 'object') {
+                    document.forms.check.elements['prettifiedValue'].focus();
+                    document.forms.check.elements['prettifiedValue'].focus();
+                }
+                document.forms.check.elements['expression'].value = value;
+                Evaluate();
+            }
 
-			function permalink () {
-				var exp = document.getElementById('expression').value;
-				var lat = document.getElementById('lat').value;
-				var lon = document.getElementById('lon').value;
-				var mode = document.getElementById('mode').selectedIndex;
+            function permalink () {
+                var exp = document.getElementById('expression').value;
+                var lat = document.getElementById('lat').value;
+                var lon = document.getElementById('lon').value;
+                var mode = document.getElementById('mode').selectedIndex;
 
-				var search='?EXP='+encodeURIComponent(exp)+'&DATE='+date.getTime() +'&lat='+lat+'&lon='+lon+'&mode='+mode;
+                var search='?EXP='+encodeURIComponent(exp)+'&DATE='+date.getTime() +'&lat='+lat+'&lon='+lon+'&mode='+mode;
 
-				location = location.protocol+'//'+location.host+location.pathname+search;
-			}
+                location = location.protocol+'//'+location.host+location.pathname+search;
+            }
 
-			function setCurrentPosition() {
-				if(navigator.geolocation) {
-					navigator.geolocation.getCurrentPosition(onPositionUpdate);
-				}
-			}
+            function setCurrentPosition() {
+                if(navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(onPositionUpdate);
+                }
+            }
 
-			function onPositionUpdate(position) {
-				var lat = position.coords.latitude;
-				var lng = position.coords.longitude;
-				document.getElementById('lat').value = lat;
-				document.getElementById('lon').value = lng;
-				Evaluate();
-				console.log("Current position: " + lat + " " + lng);
-			}
-			window.onload = function () {
-				var prmarr = window.location.search.replace( "?", "" ).split("&");
-				var params = {};
-				var customCoords = false;
+            function onPositionUpdate(position) {
+                var lat = position.coords.latitude;
+                var lng = position.coords.longitude;
+                document.getElementById('lat').value = lat;
+                document.getElementById('lon').value = lng;
+                Evaluate();
+                console.log("Current position: " + lat + " " + lng);
+            }
+            window.onload = function () {
+                var prmarr = window.location.search.replace( "?", "" ).split("&");
+                var params = {};
+                var customCoords = false;
 
-				for ( var i = 0; i < prmarr.length; i++) {
-					var tmparr = prmarr[i].split("=");
-					params[tmparr[0]] = tmparr[1];
-				}
-				if (typeof params['EXP'] != 'undefined') {
-					document.forms.check.elements['expression'].value = decodeURIComponent(params['EXP']);
-				}
-				if (typeof params['lat'] != 'undefined') {
-					document.forms.check.elements['lat'].value = decodeURIComponent(params['lat']);
-					customCoords = true;
-				}
-				if (typeof params['lon'] != 'undefined') {
-					document.forms.check.elements['lon'].value = decodeURIComponent(params['lon']);
-					customCoords = true;
-				}
-				if (typeof params['mode'] != 'undefined') {
-					document.forms.check.elements['mode'].value = decodeURIComponent(params['mode']);
-				}
-				if (typeof params['DATE'] != 'undefined') {
-					var crashed = true;
-					try {
-						date = new Date(parseInt(params['DATE']));
-						crashed = false;
-					} catch (err) {
-						console.log(err);
-					}
-					if (!crashed) {
-						document.forms.check.elements['yyyy'].value       = date.getFullYear();
-						document.forms.check.elements['mm'].selectedIndex = date.getMonth();
-						document.forms.check.elements['dd'].value         = date.getDate();
-						document.forms.check.elements['HH'].value         = date.getHours();
-						document.forms.check.elements['MM'].value         = date.getMinutes();
-					}
-					Evaluate(0, false);
-				} else {
-					Evaluate(0, true);
-				}
-				if(navigator.geolocation && !customCoords)
-					navigator.geolocation.getCurrentPosition(onPositionUpdate);
-			};
+                for ( var i = 0; i < prmarr.length; i++) {
+                    var tmparr = prmarr[i].split("=");
+                    params[tmparr[0]] = tmparr[1];
+                }
+                if (typeof params['EXP'] != 'undefined') {
+                    document.forms.check.elements['expression'].value = decodeURIComponent(params['EXP']);
+                }
+                if (typeof params['lat'] != 'undefined') {
+                    document.forms.check.elements['lat'].value = decodeURIComponent(params['lat']);
+                    customCoords = true;
+                }
+                if (typeof params['lon'] != 'undefined') {
+                    document.forms.check.elements['lon'].value = decodeURIComponent(params['lon']);
+                    customCoords = true;
+                }
+                if (typeof params['mode'] != 'undefined') {
+                    document.forms.check.elements['mode'].value = decodeURIComponent(params['mode']);
+                }
+                if (typeof params['DATE'] != 'undefined') {
+                    var crashed = true;
+                    try {
+                        date = new Date(parseInt(params['DATE']));
+                        crashed = false;
+                    } catch (err) {
+                        console.log(err);
+                    }
+                    if (!crashed) {
+                        document.forms.check.elements['yyyy'].value       = date.getFullYear();
+                        document.forms.check.elements['mm'].selectedIndex = date.getMonth();
+                        document.forms.check.elements['dd'].value         = date.getDate();
+                        document.forms.check.elements['HH'].value         = date.getHours();
+                        document.forms.check.elements['MM'].value         = date.getMinutes();
+                    }
+                    Evaluate(0, false);
+                } else {
+                    Evaluate(0, true);
+                }
+                if(navigator.geolocation && !customCoords)
+                    navigator.geolocation.getCurrentPosition(onPositionUpdate);
+            };
 
-			/*]]>*/</script>
-			<!-- }}} -->
+            /*]]>*/</script>
+            <!-- }}} -->
 
-			<form id="check" action="#">
-				<!-- User input {{{ -->
-				<p>
-					<script type="text/javascript">
-					var buttons = [
-						[ 3600 * 24 * 365, 1, 'words.time.year'    ],
-						[ 3600 * 24      , 1, 'words.time.day'     ],
-						[ 3600           , 1, 'words.time.hour'    ],
-						[ 60             , 1, 'words.time.minute'  ],
-						[ 0              , 0, 'words.time.now'     ],
-					];
-					for (var i = 0; i < buttons.length; i++) {
-						if (buttons[i][1] != 0) {
-							for (var x = -1; x <= 1; x += 2) {
-								var step = x * buttons[i][1]
-								document.write('<button type="button" onclick="Evaluate(' + buttons[i][0] * step
-									+ ')">' + (step > 0 ? '+' : '') + step + ' ' + i18n.t(buttons[i][2]) + '</button>'
-									+ (x == 1 ? ' ' : ''));
-							}
-						} else {
-							document.write('<button type="button" onclick="Evaluate(0, true'
-								+ ')">' + i18n.t(buttons[i][2]) + '</button>');
-						}
-					}
-					</script>
-				</p>
+            <form id="check" action="#">
+                <!-- User input {{{ -->
+                <p>
+                    <script type="text/javascript">
+                    var buttons = [
+                        [ 3600 * 24 * 365, 1, 'words.time.year'    ],
+                        [ 3600 * 24      , 1, 'words.time.day'     ],
+                        [ 3600           , 1, 'words.time.hour'    ],
+                        [ 60             , 1, 'words.time.minute'  ],
+                        [ 0              , 0, 'words.time.now'     ],
+                    ];
+                    for (var i = 0; i < buttons.length; i++) {
+                        if (buttons[i][1] != 0) {
+                            for (var x = -1; x <= 1; x += 2) {
+                                var step = x * buttons[i][1]
+                                document.write('<button type="button" onclick="Evaluate(' + buttons[i][0] * step
+                                    + ')">' + (step > 0 ? '+' : '') + step + ' ' + i18n.t(buttons[i][2]) + '</button>'
+                                    + (x == 1 ? ' ' : ''));
+                            }
+                        } else {
+                            document.write('<button type="button" onclick="Evaluate(0, true'
+                                + ')">' + i18n.t(buttons[i][2]) + '</button>');
+                        }
+                    }
+                    </script>
+                </p>
 
-				<p>
-					<script type="text/javascript">
-						document.write(i18n.t('words.date') + ' ' + i18n.t('words.and') + ' ' + i18n.t('words.time.time') + ':<br />');
-						document.write('<input id="dd" size="3" name="dd" value="02" onblur="Evaluate()"/>.');
-						document.write('<select id="mm" name="mm" onchange="Evaluate()">');
-						for (var i = 0; i < moment.monthsShort().length; i++) {
-							document.write('<option value="monthNumber' + i + '">' + moment.monthsShort(i) + '</option>');
-						}
-						document.write('</select>');
-					</script>
+                <p>
+                    <script type="text/javascript">
+                        document.write(i18n.t('words.date') + ' ' + i18n.t('words.and') + ' ' + i18n.t('words.time.time') + ':<br />');
+                        document.write('<input id="dd" size="3" name="dd" value="02" onblur="Evaluate()"/>.');
+                        document.write('<select id="mm" name="mm" onchange="Evaluate()">');
+                        for (var i = 0; i < moment.monthsShort().length; i++) {
+                            document.write('<option value="monthNumber' + i + '">' + moment.monthsShort(i) + '</option>');
+                        }
+                        document.write('</select>');
+                    </script>
 
-					<input id="yyyy" size="5" name="yyyy" value="2013" onblur="Evaluate()" />
-					&#160;
-					<input size="3" name="HH" value="22" onblur="Evaluate()" />:<input size="3" name="MM" value="21" onblur="Evaluate()" />
-					&#160;
-					<input size="10" name="wday" readonly="readonly" />
-					<input size="3"  name="week" readonly="readonly" />
-				</p>
+                    <input id="yyyy" size="5" name="yyyy" value="2013" onblur="Evaluate()" />
+                    &#160;
+                    <input size="3" name="HH" value="22" onblur="Evaluate()" />:<input size="3" name="MM" value="21" onblur="Evaluate()" />
+                    &#160;
+                    <input size="10" name="wday" readonly="readonly" />
+                    <input size="3"  name="week" readonly="readonly" />
+                </p>
 
-				<p>
-					<script type="text/javascript">
-						document.write(i18n.t('words.position') + ':<br />');
-						document.write(i18n.t('words.lat') + ': <input size="7" id="lat" value="' + def_lat + '" onblur="Evaluate()" /> ');
-						document.write(i18n.t('words.lon') + ': <input size="7" id="lon" value="' + def_lon + '"  onblur="Evaluate()" /> ');
-						document.write(i18n.t('words.country') + ': <input size="3" id="cc" readonly="readonly" /> ');
-						document.write(i18n.t('words.state') + ': <input size="20" id="state" readonly="readonly" /><br />');
-						// document.write('<button type="button" onclick="setCurrentPosition()">' + i18n.t('texts.get my position') + '</button>');
-					</script>
-				</p>
+                <p>
+                    <script type="text/javascript">
+                        document.write(i18n.t('words.position') + ':<br />');
+                        document.write(i18n.t('words.lat') + ': <input size="7" id="lat" value="' + def_lat + '" onblur="Evaluate()" /> ');
+                        document.write(i18n.t('words.lon') + ': <input size="7" id="lon" value="' + def_lon + '"  onblur="Evaluate()" /> ');
+                        document.write(i18n.t('words.country') + ': <input size="3" id="cc" readonly="readonly" /> ');
+                        document.write(i18n.t('words.state') + ': <input size="20" id="state" readonly="readonly" /><br />');
+                        // document.write('<button type="button" onclick="setCurrentPosition()">' + i18n.t('texts.get my position') + '</button>');
+                    </script>
+                </p>
 
-				<p>
-					<script type="text/javascript">
-						document.write(i18n.t('words.mode') + ': <select id="mode" name="mode" onchange="Evaluate()">');
-						for (var i = 0; i <= 2; i++) {
-							document.write('<option value="' + i + '">' + i18n.t('texts.mode ' + i) + '</option>');
-						}
-						document.write('</select>');
-					</script>
-				</p>
+                <p>
+                    <script type="text/javascript">
+                        document.write(i18n.t('words.mode') + ': <select id="mode" name="mode" onchange="Evaluate()">');
+                        for (var i = 0; i <= 2; i++) {
+                            document.write('<option value="' + i + '">' + i18n.t('texts.mode ' + i) + '</option>');
+                        }
+                        document.write('</select>');
+                    </script>
+                </p>
 
-				<p>
-					<script type="text/javascript">
-						document.write(i18n.t('texts.value for') + ' <q>opening_hours</q>:'
-								+ '<br />');
-						function submitenter(myfield,e) {
-							Evaluate();
-							// var keycode;
-							// if (window.event) keycode = window.event.keyCode;
-							// else if (e) keycode = e.which;
-							// else return true;
+                <p>
+                    <script type="text/javascript">
+                        document.write(i18n.t('texts.value for') + ' <q>opening_hours</q>:'
+                                + '<br />');
+                        function submitenter(myfield,e) {
+                            Evaluate();
+                            // var keycode;
+                            // if (window.event) keycode = window.event.keyCode;
+                            // else if (e) keycode = e.which;
+                            // else return true;
 
-							// if (keycode == 13) {
-								// Evaluate();
-								// return false;
-							// } else
-								// return true;
-						}
-					</script>
-					<input id="expression"
-						onKeyUp="return submitenter(this,event)"
-						style="width:100%"
-						name="expression"
-						value="Mo-Fr 10:00-20:00; PH off"
-						onblur="Evaluate()"
-					/>
-				</p>
-				<div class="permalink">
-					<a href="#" onclick="permalink();return false">permalink</a>
-				</div>
-				<!-- }}} -->
+                            // if (keycode == 13) {
+                                // Evaluate();
+                                // return false;
+                            // } else
+                                // return true;
+                        }
+                    </script>
+                    <input id="expression"
+                        onKeyUp="return submitenter(this,event)"
+                        style="width:100%"
+                        name="expression"
+                        value="Mo-Fr 10:00-20:00; PH off"
+                        onblur="Evaluate()"
+                    />
+                </p>
+                <div class="permalink">
+                    <a href="#" onclick="permalink();return false">permalink</a>
+                </div>
+                <!-- }}} -->
 
-				<div id="show_warnings_or_errors">
-				</div>
+                <div id="show_warnings_or_errors">
+                </div>
 
-				<div id="show_time_table">
-				</div>
+                <div id="show_time_table">
+                </div>
 
-				<div id="show_results">
-				</div>
-			</form>
+                <div id="show_results">
+                </div>
+            </form>
 
-			<hr /><!-- Examples {{{ -->
-			<script type="text/javascript">document.write('<a href="javascript:toggle(\'user_examples\')"><h2 id="examples">'
-				+ i18n.t('words.examples') + ':</h2></a>');</script>
-			<!-- JS for toggeling exampes on and off {{{ -->
-			<script type="text/javascript">
-				function toggle(control){
-					var elem = document.getElementById(control);
+            <hr /><!-- Examples {{{ -->
+            <script type="text/javascript">document.write('<a href="javascript:toggle(\'user_examples\')"><h2 id="examples">'
+                + i18n.t('words.examples') + ':</h2></a>');</script>
+            <!-- JS for toggeling exampes on and off {{{ -->
+            <script type="text/javascript">
+                function toggle(control){
+                    var elem = document.getElementById(control);
 
-					if(elem.style.display == "none"){
-						elem.style.display = "block";
-					}else{
-						elem.style.display = "none";
-					}
-				}
-			</script>
-			<!-- }}} -->
-			<div id="user_examples"><!-- {{{ -->
-				<ol>
-					<li><a href="#check" onclick="EX(this)">Mo-Fr 10:00-20:00; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off</a></li>
-					<li><a href="#check" onclick="EX(this)">00:00-24:00; Tu-Su,PH 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off</a></li>
-					<li><a href="#check" onclick="EX(this)">Fr-Sa 18:00-06:00; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">24/7</a></li>
-					<li><a href="#check" onclick="EX(this)">"only after registration"; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">22:00-23:00; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">08:00-11:00; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">open; Mo 15:00-16:00 off; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">Mo-Su 22:00-23:00; We,PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">We-Fr 10:00-24:00 open "it is open" || "please call"; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">Mo-Fr 08:00-11:00 || Tu-Th,PH open "Emergency only"</a></li>
-					<li><a href="#check" onclick="EX(this)">Tu-Th,We 22:00-23:00 open "Hot meals"; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">Mo 12:00-14:00 open "female only", Mo 14:00-16:00 open "male only"; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">Apr: 22:00-23:00; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">Jul-Jan: 22:00-23:00; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">Jan-Jul: 22:00-23:00; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">Jul 23-Jan 3: "needs reservation by phone"; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">Jul 23-Jan 3: 22:00-23:00 "Please make an reservation by phone."; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">Jul 23-Jan 3: 08:00-11:00 "Please make an reservation by phone."; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">Jan 23-Jul 3: 22:00-23:00 "Please make an reservation by phone."; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">Mar Su[-1]-Dec Su[1] -2 days: 22:00-23:00; PH off</a></li>
-					<!-- <li><a href="#check" onclick="EX(this)">Mar Su[&#45;1] &#45; Dec 25&#45;Su&#45;28 days: 22:00&#45;23:00; PH off</a></li> -->
-					<!-- <li><a href="#check" onclick="EX(this)">Dec 25&#45;Su&#45;28 days &#45; Mar Su[&#45;1]: 22:00&#45;23:00; PH off</a></li> -->
-					<!-- Currently used around 6 times: /\d\s*&#45;\s*(mo|tu|we|th|fr|sa|su)\b/ -->
-					<li><a href="#check" onclick="EX(this)">Sa[1],Sa[1] +1 day 10:00-12:00 open "first weekend in the month"; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">Sa[-1],Sa[-1] +1 day 10:00-12:00 open "last weekend in the month"; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">Sa-Su 00:00-24:00; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">Mo-Fr 00:00-24:00; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">sunrise-sunset open "Beware of sunburn!"; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">sunset-sunrise open "Beware of vampires!"; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">(sunset+01:00)-24:00 || closed "No drink before sunset!"; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">22:00+; PH off</a></li>
-					<!-- <li><a href="#check" onclick="EX(this)">&#45;23:00; PH off</a></li> -->
-					<li><a href="#check" onclick="EX(this)">Tu,PH 23:59-22:59</a></li>
-					<li><a href="#check" onclick="EX(this)">We-Mo,PH 23:59-22:59</a></li>
-					<li><a href="#check" onclick="EX(this)">week 2-52/2 We 00:00-24:00; week 1-53/2 Sa 00:00-24:00; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">week 4-16 We 00:00-24:00; week 38-42 Sa 00:00-24:00; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">2012 easter -2 days-2012 easter +2 days: open "Around easter"; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">24/7 closed "always closed"</a></li>
-					<li>
-						<a href="#check" onclick="EX(this)">2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1</a>,
-						<script type="text/javascript">
-							document.write('<a href="' + repo_url + '/tree/master#year-ranges" target="_blank">' + i18n.t('words.docu') + '</a>');
-						</script>
-					</li>
-					<li><a href="#check" onclick="EX(this)">Jan 23-Feb 11,Feb 12 00:00-24:00; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">Apr-Oct Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug Su[-1] 10:00-18:00; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">Mo-Fr 08:00-12:00, We 14:00-18:00; Su,PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">00:00-24:00 week 6 Mo-Su Feb; PH off</a>,
-						<script type="text/javascript">
-							document.write('(' + i18n.t('texts.check out error correction, prettify') + ')');
-						</script>
-					</li>
-					<li><a href="#check" onclick="EX(this)">   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00      Off  ; closed public Holiday</a>,
-						<script type="text/javascript">
-							document.write('(' + i18n.t('texts.check out error correction, prettify') + ')');
-						</script>
-					</li>
-				</ol>
+                    if(elem.style.display == "none"){
+                        elem.style.display = "block";
+                    }else{
+                        elem.style.display = "none";
+                    }
+                }
+            </script>
+            <!-- }}} -->
+            <div id="user_examples"><!-- {{{ -->
+                <ol>
+                    <li><a href="#check" onclick="EX(this)">Mo-Fr 10:00-20:00; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off</a></li>
+                    <li><a href="#check" onclick="EX(this)">00:00-24:00; Tu-Su,PH 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off</a></li>
+                    <li><a href="#check" onclick="EX(this)">Fr-Sa 18:00-06:00; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">24/7</a></li>
+                    <li><a href="#check" onclick="EX(this)">"only after registration"; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">22:00-23:00; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">08:00-11:00; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">open; Mo 15:00-16:00 off; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">Mo-Su 22:00-23:00; We,PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">We-Fr 10:00-24:00 open "it is open" || "please call"; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">Mo-Fr 08:00-11:00 || Tu-Th,PH open "Emergency only"</a></li>
+                    <li><a href="#check" onclick="EX(this)">Tu-Th,We 22:00-23:00 open "Hot meals"; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">Mo 12:00-14:00 open "female only", Mo 14:00-16:00 open "male only"; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">Apr: 22:00-23:00; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">Jul-Jan: 22:00-23:00; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">Jan-Jul: 22:00-23:00; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">Jul 23-Jan 3: "needs reservation by phone"; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">Jul 23-Jan 3: 22:00-23:00 "Please make an reservation by phone."; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">Jul 23-Jan 3: 08:00-11:00 "Please make an reservation by phone."; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">Jan 23-Jul 3: 22:00-23:00 "Please make an reservation by phone."; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">Mar Su[-1]-Dec Su[1] -2 days: 22:00-23:00; PH off</a></li>
+                    <!-- <li><a href="#check" onclick="EX(this)">Mar Su[&#45;1] &#45; Dec 25&#45;Su&#45;28 days: 22:00&#45;23:00; PH off</a></li> -->
+                    <!-- <li><a href="#check" onclick="EX(this)">Dec 25&#45;Su&#45;28 days &#45; Mar Su[&#45;1]: 22:00&#45;23:00; PH off</a></li> -->
+                    <!-- Currently used around 6 times: /\d\s*&#45;\s*(mo|tu|we|th|fr|sa|su)\b/ -->
+                    <li><a href="#check" onclick="EX(this)">Sa[1],Sa[1] +1 day 10:00-12:00 open "first weekend in the month"; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">Sa[-1],Sa[-1] +1 day 10:00-12:00 open "last weekend in the month"; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">Sa-Su 00:00-24:00; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">Mo-Fr 00:00-24:00; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">sunrise-sunset open "Beware of sunburn!"; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">sunset-sunrise open "Beware of vampires!"; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">(sunset+01:00)-24:00 || closed "No drink before sunset!"; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">22:00+; PH off</a></li>
+                    <!-- <li><a href="#check" onclick="EX(this)">&#45;23:00; PH off</a></li> -->
+                    <li><a href="#check" onclick="EX(this)">Tu,PH 23:59-22:59</a></li>
+                    <li><a href="#check" onclick="EX(this)">We-Mo,PH 23:59-22:59</a></li>
+                    <li><a href="#check" onclick="EX(this)">week 2-52/2 We 00:00-24:00; week 1-53/2 Sa 00:00-24:00; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">week 4-16 We 00:00-24:00; week 38-42 Sa 00:00-24:00; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">2012 easter -2 days-2012 easter +2 days: open "Around easter"; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">24/7 closed "always closed"</a></li>
+                    <li>
+                        <a href="#check" onclick="EX(this)">2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1</a>,
+                        <script type="text/javascript">
+                            document.write('<a href="' + repo_url + '/tree/master#year-ranges" target="_blank">' + i18n.t('words.docu') + '</a>');
+                        </script>
+                    </li>
+                    <li><a href="#check" onclick="EX(this)">Jan 23-Feb 11,Feb 12 00:00-24:00; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">Apr-Oct Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug Su[-1] 10:00-18:00; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">Mo-Fr 08:00-12:00, We 14:00-18:00; Su,PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">00:00-24:00 week 6 Mo-Su Feb; PH off</a>,
+                        <script type="text/javascript">
+                            document.write('(' + i18n.t('texts.check out error correction, prettify') + ')');
+                        </script>
+                    </li>
+                    <li><a href="#check" onclick="EX(this)">   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00      Off  ; closed public Holiday</a>,
+                        <script type="text/javascript">
+                            document.write('(' + i18n.t('texts.check out error correction, prettify') + ')');
+                        </script>
+                    </li>
+                </ol>
 
-				<ol>
-					<li value="36"><a href="#check" onclick="EX(this)">We; PH off</a></li>
-					<li><a href="#check" onclick="EX(this)">PH</a></li>
-					<li><a href="#check" onclick="EX(this)">PH Mo-Fr</a>
-						<script type="text/javascript">
-							document.write('(' + i18n.t('texts.if PH is between Mo and Fr') + ')');
-						</script>
-					</li>
-					<li><a href="#check" onclick="EX(this)">PH -1 day</a></li>
-					<li><a href="#check" onclick="EX(this)">SH</a></li>
-					<li><a href="#check" onclick="EX(this)">SH,PH</a></li>
-					<li><a href="#check" onclick="EX(this)">PH,SH</a>
-						<script type="text/javascript">
-							document.write('(' + i18n.t('texts.SH,PH or PH,SH') + ')');
-						</script>
-					</li>
-					<li><a href="#check" onclick="EX(this)">We[1-3]</a></li>
-					<li><a href="#check" onclick="EX(this)">We[3-5]</a></li>
-					<li><a href="#check" onclick="EX(this)">Sa</a></li>
-					<li><a href="#check" onclick="EX(this)">Sa[1]</a></li>
-					<li><a href="#check" onclick="EX(this)">Sa[1-3]</a></li>
-					<li><a href="#check" onclick="EX(this)">Tu-Th</a></li>
-					<li><a href="#check" onclick="EX(this)">Fr-Mo</a></li>
-					<li><a href="#check" onclick="EX(this)">Mo-Su; We "only after registration"</a></li>
-					<li><a href="#check" onclick="EX(this)">Oct: We[1]</a></li>
-				</ol> <!-- }}} -->
-			</div><!-- }}} -->
+                <ol>
+                    <li value="36"><a href="#check" onclick="EX(this)">We; PH off</a></li>
+                    <li><a href="#check" onclick="EX(this)">PH</a></li>
+                    <li><a href="#check" onclick="EX(this)">PH Mo-Fr</a>
+                        <script type="text/javascript">
+                            document.write('(' + i18n.t('texts.if PH is between Mo and Fr') + ')');
+                        </script>
+                    </li>
+                    <li><a href="#check" onclick="EX(this)">PH -1 day</a></li>
+                    <li><a href="#check" onclick="EX(this)">SH</a></li>
+                    <li><a href="#check" onclick="EX(this)">SH,PH</a></li>
+                    <li><a href="#check" onclick="EX(this)">PH,SH</a>
+                        <script type="text/javascript">
+                            document.write('(' + i18n.t('texts.SH,PH or PH,SH') + ')');
+                        </script>
+                    </li>
+                    <li><a href="#check" onclick="EX(this)">We[1-3]</a></li>
+                    <li><a href="#check" onclick="EX(this)">We[3-5]</a></li>
+                    <li><a href="#check" onclick="EX(this)">Sa</a></li>
+                    <li><a href="#check" onclick="EX(this)">Sa[1]</a></li>
+                    <li><a href="#check" onclick="EX(this)">Sa[1-3]</a></li>
+                    <li><a href="#check" onclick="EX(this)">Tu-Th</a></li>
+                    <li><a href="#check" onclick="EX(this)">Fr-Mo</a></li>
+                    <li><a href="#check" onclick="EX(this)">Mo-Su; We "only after registration"</a></li>
+                    <li><a href="#check" onclick="EX(this)">Oct: We[1]</a></li>
+                </ol> <!-- }}} -->
+            </div><!-- }}} -->
 
-		<script type="text/javascript">
-			document.write(i18n.t('texts.more information',
-				{ href: 'href="https://wiki.openstreetmap.org/wiki/Key:opening_hours" target="_blank"' }) + '<br />');
+        <script type="text/javascript">
+            document.write(i18n.t('texts.more information',
+                { href: 'href="https://wiki.openstreetmap.org/wiki/Key:opening_hours" target="_blank"' }) + '<br />');
 
-			document.write(i18n.t('texts.this website', { url: repo_url, hoster: 'GitHub' }));
-		</script>
-		</div><!-- }}} -->
-	<iframe style="visibility:hidden;display:none" name='hiddenframe'></iframe>
-	</body><!-- }}} -->
+            document.write(i18n.t('texts.this website', { url: repo_url, hoster: 'GitHub' }));
+        </script>
+        </div><!-- }}} -->
+    <iframe style="visibility:hidden;display:none" name='hiddenframe'></iframe>
+    </body><!-- }}} -->
 </html>
