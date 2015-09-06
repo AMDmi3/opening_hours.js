@@ -17,9 +17,9 @@ open; Tu-Su 08:30-09:00 off; Tu-Su,PH 14:00-14:30 off; Mo 08:00-13:00 off
 
 around-the-clock shop with some breaks.
 
-## evaluation tool/demo.html
+## evaluation tool
 
-Please have a look at the [evaluation tool] which can give you an impression how this library can be used and what it is capable of.
+Please have a look at the [evaluation tool][] which can give you an impression how this library can be used and what it is capable of.
 
 A mirror is setup up under: http://ypid.de/~osm/evaluation_tool/
 
@@ -524,7 +524,7 @@ To improve the speed of fixing errors, a [feature](https://github.com/ypid/openi
 
 You want to try some opening_hours yourself? Just run `make run-interactive_testing` or `node interactive_testing.js` which will open an primitive interpreter. Just write your opening_hours value and hit enter and you will see if it can be processed (with current state) or not (with error message). The answer is JSON encoded.
 
-Testing is much easier by now. Have a look at the [evaluation tool][ohlib.evaluation-tooldemohtml]. The reason why this peace of code was written is to have an interface which can be accessed from other programming languages. It is used by the python module [pyopening_hours].
+Testing is much easier by now. Have a look at the [evaluation tool][ohlib.evaluation-tool]. The reason why this peace of code was written is to have an interface which can be accessed from other programming languages. It is used by the python module [pyopening_hours].
 
 ## Performance
 
@@ -590,7 +590,7 @@ You can contribute in the usual manner as known from git (and GitHub). Just fork
 
 This project uses http://i18next.com/ for translation.
 
-Translations can be made in the file [js/i18n-resources.js][ohlib.js/i18n-resources.js]. Just copy the whole English block, change the language code to the one you are adding and make your translation. You can open the [demo.html](/demo.html) to see the result of your work. To complete your localization add the translated language name to the other languages. Week and month names are translated by [moment.js][moment-lib].
+Translations can be made in the file [js/i18n-resources.js][ohlib.js/i18n-resources.js]. Just copy the whole English block, change the language code to the one you are adding and make your translation. You can open the [index.html](/index.html) to see the result of your work. To complete your localization add the translated language name to the other languages. Week and month names are translated by [moment.js][moment-lib].
 
 Note that this resource file does also provide the localization for the [opening_hours_map]. This can also be tested by cloning the project and linking your modified opening_hours.js working copy to the opening_hours.js directory (after renaming it) inside the opening_hours_map project. Or just follow the installation instructions from the [opening_hours_map].
 
@@ -640,17 +640,17 @@ The opening brackets `{{{` (and the corresponding closing onces) are used to fol
 Autor                                         | Contact            | Note
 -------------                                 | -------------      | -------------
 [Dmitry Marakasov](https://github.com/AMDmi3) | <amdmi3@amdmi3.ru> | Initial coding and design and all basic features like time ranges, week ranges, month ranges and week ranges.
-[Robin Schneider](https://github.com/ypid)    | <ypid@riseup.net>  | Maintainer (since September 2013). Added support for years, holidays, unknown, comments, open end, fallback/additional rules (and more), wrote getWarnings, prettifyValue, translated [demo page][ohlib.evaluation-tooldemohtml] to English and German and extended it to enter values yourself.
+[Robin Schneider](https://github.com/ypid)    | <ypid@riseup.net>  | Maintainer (since September 2013). Added support for years, holidays, unknown, comments, open end, fallback/additional rules (and more), wrote getWarnings, prettifyValue, translated demo page to English and German and extended it to enter values yourself (now called [evaluation tool][ohlib.evaluation-tool]).
 
 ## Contributors
 
 Contributor                                     | Contribution
 -------------                                   | -------------
-[Sergey Leschina](https://github.com/putnik)    | [demo][ohlib.evaluation-tooldemohtml] improvements.
+[Sergey Leschina](https://github.com/putnik)    | demo page (now called [evaluation tool][ohlib.evaluation-tool]) improvements.
 [don-vip](https://github.com/don-vip)           | French localization and public holidays for France.
 [Charly Koza](https://github.com/Cactusbone)    | Fixed package.json.
 [Simon B.](https://github.com/sesam)            | Improved understandability of overlapping rules in README.md.
-[NonnEmilia](https://github.com/NonnEmilia)     | Italian localization and fixes in the [demo page][ohlib.evaluation-tooldemohtml].
+[NonnEmilia](https://github.com/NonnEmilia)     | Italian localization and fixes in the [evaluation tool][ohlib.evaluation-tool].
 [damjang](https://github.com/damjang)           | Italian public holidays.
 [João G. Packer](https://github.com/jgpacker)   | Portuguese localization.
 [James Badger](https://github.com/openfirmware) | Add Canadian national, provincial public holidays and fixed Russian localization.
@@ -664,7 +664,7 @@ Contributor                                     | Contribution
 
 ## Credits
 
-* [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favor of opening_hours.js but a few parts where reused (mainly the input tolerance and the online evaluation for the [demo page][ohlib.evaluation-tooldemohtml]). It was also very useful as prove and motivation that all those complex things used in the [opening_hours syntax][oh:specification] are possible to evaluate with software :) )
+* [Netzwolf](http://www.netzwolf.info/) (He developed the first and very feature complete JS implementation for opening_hours (time_domain.js). His implementation did not create selector code to go through time as this library does (which is a more advanced design). time_domain.js has been withdrawn in favor of opening_hours.js but a few parts where reused (mainly the input tolerance and the online evaluation for the [evaluation tool][ohlib.evaluation-tool]). It was also very useful as prove and motivation that all those complex things used in the [opening_hours syntax][oh:specification] are possible to evaluate with software :) )
 * Also thanks to FOSSGIS for hosting a public instance of this service. See the [wiki][fossgis-project].
 * The [favicon.png](/favicon.png) is based on the file ic_action_add_alarm.png from the [Android Design Icons](https://developer.android.com/downloads/design/Android_Design_Icons_20131106.zip) which is licensed under [Creative Commons Attribution 2.5](https://creativecommons.org/licenses/by/2.5/). It represents a clock next to the most common opening_hours value (by far) which is `24/7` and a check mark.
 
@@ -692,7 +692,7 @@ Edit: This does also work on npmjs in this short version … -->
 [ohlib.states]: #states
 [ohlib.holidays]: #holidays
 [ohlib.contribute.holidays]: #holidays-1
-[ohlib.evaluation-tooldemohtml]: #evaluation-tooldemohtml
+[ohlib.evaluation-tool]: #evaluation-tool
 [ohlib.library-api]: #library-api
 [ohlib.testing]: #testing
 
