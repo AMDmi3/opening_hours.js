@@ -34,10 +34,10 @@ function dateAtWeek(date, week) {
 /*
  * The names of countries and states are localized in OSM and opening_hours.js (holidays) so we need to get the localized names from Nominatim as well.
  */
-function reverseGeocodeLocation(lat, lon, guessed_language_for_location, callback) {
+function reverseGeocodeLocation(query, guessed_language_for_location, callback) {
     var nominatim_api_url_template_query = nominatim_api_url
         + '?format=json'
-        + '&lat=' + lat + '&lon=' + lon
+        + query
         + '&zoom=5&addressdetails=1'
         + '&email=ypid23@aol.de';
 
@@ -47,7 +47,7 @@ function reverseGeocodeLocation(lat, lon, guessed_language_for_location, callbac
     }
 
     $.getJSON(nominatim_api_url_query, function(nominatim_data) {
-        console.log(JSON.stringify(nominatim_data, null, '\t'));
+        // console.log(JSON.stringify(nominatim_data, null, '\t'));
         if (nominatim_data.address.country_code === guessed_language_for_location) {
             callback(nominatim_data);
         } else {
