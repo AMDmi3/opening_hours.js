@@ -7,6 +7,7 @@ export*
 *.log
 *.json
 
+!bower.json
 !taginfo.json
 !taginfo_template.json
 
@@ -18,3 +19,4 @@ tags
 README.html
 tmp_query*
 lockfile_*
+bower_components

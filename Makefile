@@ -56,6 +56,7 @@ list:
 dependencies-get:
 	git submodule update --init --recursive
 	npm install
+	bower install
 
 .PHONY: build
 build: opening_hours.min.js

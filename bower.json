@@ -1,0 +1,26 @@
+{
+  "name": "opening_hours evaluation tool",
+  "version": "3.3.0",
+  "authors": [
+    "Robin Schneider <ypid@riseup.net>",
+    "Dmitry Marakasov <amdmi3@amdmi3.ru>",
+    "Netzwolf <openlayers(%40)netzwolf.info>"
+  ],
+  "description": "Advanced opening_hours testing tool",
+  "keywords": [
+    "osm",
+    "opening_hours"
+  ],
+  "license": "AGPLv3",
+  "homepage": "http://openingh.openstreetmap.de/evaluation_tool/",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
+}
