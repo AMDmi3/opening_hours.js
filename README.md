@@ -43,13 +43,7 @@ npm install
 If you are a web developer and want to use this library you can do so by including the current version from here:
 
 ```
-http://openingh.openstreetmap.de/evaluation_tool/opening_hours.js
-```
-
-However, before you load opening_hours.js you have to load its dependencies (either from here or somewhere else):
-
-```
-http://openingh.openstreetmap.de/evaluation_tool/node_modules/suncalc/suncalc.js
+http://openingh.openstreetmap.de/opening_hours.js/opening_hours+deps.min.js
 ```
 
 ### NodeJS developer
@@ -61,7 +55,7 @@ This library is packaged with npm and is available under the name [opening_hours
 
 The version number consists of a major release, minor release and patch level (separated by a dot).
 
-For version 2.2.0 and all following, the following applies:
+For version 2.2.0 and all later, the following applies:
 
 * The major release is only increased if the release breaks backward compatibility.
 * The minor release is increased if new features are added.
