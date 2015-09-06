@@ -24,7 +24,7 @@ The tokens are stored in the array `tokens` which has the following structure. T
 
 The most inner array represents one token. The first element of this array is the [lexeme](https://en.wikipedia.org/wiki/Lexeme) (an internal representation of the token value). The second element is the token name and the third one is the start position of the token in the input stream (which is used for generation warnings and let the user know the position where the problem occurred). The fourth element is optional and specifies to which selector the token belongs to.
 
-```javascript
+```JavaScript
 [ // Tokenized input stream
     [ // One rule
         [ // All tokens of one rule. Referred to as "selector array of tokens".

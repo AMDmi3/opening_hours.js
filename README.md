@@ -65,7 +65,7 @@ Check [releases on GitHub] for a list of the releases and their changelog.
 
 ## Synopsis
 
-```javascript
+```JavaScript
 var oh = new opening_hours('We 12:00-14:00');
 
 var from = new Date("01 Jan 2012");
@@ -184,7 +184,7 @@ function getReadableState(startString, endString, oh, past) {
 
     The key 'conf' can hold another hash with configuration options. One example:
 
-    ```javascript
+    ```JavaScript
     {
         rule_sep_string: '\n',
         print_semicolon: false
@@ -254,7 +254,7 @@ This API is useful for one-shot checks, but for iteration over intervals you sho
 
     To prettify this rule, you can specify `rule_index` as parameter for `oh.prettifyValue` like this:
 
-    ```javascript
+    ```JavaScript
     var matching_rule = oh.prettifyValue({ 'rule_index': rule_index });
     ```
 
@@ -266,7 +266,7 @@ Here and below, unless noted otherwise, all arguments are expected to be and all
 
     Returns array of open intervals in a given range, in a form of
 
-    ```javascript
+    ```JavaScript
     [ [ from1, to1, unknown1, comment1 ], [ from2, to2, unknown2, comment2 ] ]
     ```
 
@@ -614,7 +614,7 @@ All functions are documented, which should help contributers to get started.
 
 The documentation looks like this:
 
-```javascript
+```JavaScript
 /* List parser for constrained weekdays in month range {{{
  * e.g. Su[-1] which selects the last Sunday of the month.
  *
