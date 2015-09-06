@@ -36,7 +36,7 @@
             var default_lon = 9.1844;
             var repo_url = 'https://github.com/ypid/opening_hours.js';
             var specification_url = 'https://wiki.openstreetmap.org/wiki/'
-                + (i18n.lng() == 'de' ? 'DE:' : '')
+                + (i18n.lng() === 'de' ? 'DE:' : '')
                 + 'Key:opening_hours/specification';
             // }}}
         </script>
@@ -70,10 +70,10 @@
                     string_lon = document.forms.check.elements['lon'].value;
                     lat = parseFloat(string_lat);
                     lon = parseFloat(string_lon);
-                    if (typeof lat != 'number' || typeof lon != 'number') {
-                        if (typeof lat != 'number')
+                    if (typeof lat !== 'number' || typeof lon !== 'number') {
+                        if (typeof lat !== 'number')
                             document.forms.check.elements['lat'].value = default_lat;
-                        if (typeof lon != 'number')
+                        if (typeof lon !== 'number')
                             document.forms.check.elements['lon'].value = default_lon;
                         console.log('Please enter numbers for latitude and longitude.');
                         return;
@@ -86,14 +86,14 @@
                     var xhr = new XMLHttpRequest();
                     xhr.open( "GET", url + '&' + url_lang_set + mapCountryToLanguage(url_lang), true );      // true makes this call asynchronous
                     xhr.onreadystatechange = function () {    // need eventhandler since our call is async
-                        if ( xhr.readyState == 4 && xhr.status == 200 ) {  // check for success
+                        if ( xhr.readyState === 4 && xhr.status === 200 ) {  // check for success
                             nominatim = JSON.parse( xhr.responseText );
                             // console.log(JSON.stringify(nominatim, null, '\t'));
 
-                            if (nominatim.address.country_code != url_lang) {
+                            if (nominatim.address.country_code !== url_lang) {
                                 xhr.open( "GET", url + '&' + url_lang_set + mapCountryToLanguage(nominatim.address.country_code), true );
                                 xhr.onreadystatechange = function () {
-                                    if ( xhr.readyState == 4 && xhr.status == 200 ) {  // check for success
+                                    if ( xhr.readyState === 4 && xhr.status === 200 ) {  // check for success
                                         nominatim = JSON.parse( xhr.responseText );
                                     }
                                     url_lang = nominatim.address.country_code;
@@ -179,12 +179,12 @@
                     // console.log(JSON.stringify(prettified_value_array, null, '    '));
                     // console.log(JSON.stringify(prettified_value_array, null, '    '));
                     for (var nrule = 0; nrule < prettified_value_array[0].length; nrule++) {
-                        if (nrule != 0) {
+                        if (nrule !== 0) {
                             var rule_separator = (
                                 prettified_value_array[1][nrule][1]
                                     ? ' ||'
                                     : (
-                                        prettified_value_array[1][nrule][0][0][1] == 'rule separator'
+                                        prettified_value_array[1][nrule][0][0][1] === 'rule separator'
                                         ? ','
                                         : ';'
                                     )
@@ -241,15 +241,15 @@
                             // + prettified_newline_sep + '</textarea></p>';
 
 
-                    document.forms.check.elements['comment'].value = typeof it.getComment() != 'undefined'
+                    document.forms.check.elements['comment'].value = typeof it.getComment() !== 'undefined'
                         ? it.getComment() : '>>' + i18n.t('words.no') + ' ' + i18n.t('words.comment') + '<<';
                     document.forms.check.elements['status'].value = (it.getState() ? i18n.t('words.open')
                         : (it.getUnknown() ? i18n.t('words.unknown') : i18n.t('words.closed')));
                     var rule_index    = it.getMatchingRule();
-                    document.forms.check.elements['MatchingRule'].value = typeof rule_index == 'undefined'
+                    document.forms.check.elements['MatchingRule'].value = typeof rule_index === 'undefined'
                         ? i18n.t('words.none') : oh.prettifyValue({ 'rule_index': rule_index });
 
-                    if (prettified != value) {
+                    if (prettified !== value) {
                         show_warnings_or_errors.innerHTML = '<p>' + i18n.t('texts.prettified value',
                             { copyFunc: 'javascript:newValue(\'' + prettified.replace(/"/g, '&quot;') + '\')' }) + ':<br />'
                             + '<input style="width: 100%" onclick="javascript:newValue(\'' + prettified.replace(/"/g, '&quot;') + '\')" id="prettifiedValue" name="prettifiedValue" value="' + prettified.replace(/"/g, '&quot;') + '" /></p>';
@@ -278,7 +278,7 @@
             }
 
             function newValue(value) {
-                if (typeof document.forms.check.elements['prettifiedValue'] == 'object') {
+                if (typeof document.forms.check.elements['prettifiedValue'] === 'object') {
                     document.forms.check.elements['prettifiedValue'].focus();
                     document.forms.check.elements['prettifiedValue'].focus();
                 }
@@ -320,21 +320,21 @@
                     var tmparr = prmarr[i].split("=");
                     params[tmparr[0]] = tmparr[1];
                 }
-                if (typeof params['EXP'] != 'undefined') {
+                if (typeof params['EXP'] !== 'undefined') {
                     document.forms.check.elements['expression'].value = decodeURIComponent(params['EXP']);
                 }
-                if (typeof params['lat'] != 'undefined') {
+                if (typeof params['lat'] !== 'undefined') {
                     document.forms.check.elements['lat'].value = decodeURIComponent(params['lat']);
                     customCoords = true;
                 }
-                if (typeof params['lon'] != 'undefined') {
+                if (typeof params['lon'] !== 'undefined') {
                     document.forms.check.elements['lon'].value = decodeURIComponent(params['lon']);
                     customCoords = true;
                 }
-                if (typeof params['mode'] != 'undefined') {
+                if (typeof params['mode'] !== 'undefined') {
                     document.forms.check.elements['mode'].value = decodeURIComponent(params['mode']);
                 }
-                if (typeof params['DATE'] != 'undefined') {
+                if (typeof params['DATE'] !== 'undefined') {
                     var crashed = true;
                     try {
                         date = new Date(parseInt(params['DATE']));
@@ -372,12 +372,12 @@
                         [ 0              , 0, 'words.time.now'     ],
                     ];
                     for (var i = 0; i < buttons.length; i++) {
-                        if (buttons[i][1] != 0) {
+                        if (buttons[i][1] !== 0) {
                             for (var x = -1; x <= 1; x += 2) {
                                 var step = x * buttons[i][1]
                                 document.write('<button type="button" onclick="Evaluate(' + buttons[i][0] * step
                                     + ')">' + (step > 0 ? '+' : '') + step + ' ' + i18n.t(buttons[i][2]) + '</button>'
-                                    + (x == 1 ? ' ' : ''));
+                                    + (x === 1 ? ' ' : ''));
                             }
                         } else {
                             document.write('<button type="button" onclick="Evaluate(0, true'
@@ -438,7 +438,7 @@
                             // else if (e) keycode = e.which;
                             // else return true;
 
-                            // if (keycode == 13) {
+                            // if (keycode === 13) {
                                 // Evaluate();
                                 // return false;
                             // } else
@@ -476,7 +476,7 @@
                 function toggle(control){
                     var elem = document.getElementById(control);
 
-                    if(elem.style.display == "none"){
+                    if(elem.style.display === "none"){
                         elem.style.display = "block";
                     }else{
                         elem.style.display = "none";
