@@ -38,7 +38,8 @@ function reverseGeocodeLocation(query, guessed_language_for_location, callback) 
     var nominatim_api_url_template_query = nominatim_api_url
         + '?format=json'
         + query
-        + '&zoom=5&addressdetails=1'
+        + '&zoom=5'
+        + '&addressdetails=1'
         + '&email=ypid23@aol.de';
 
     var nominatim_api_url_query = nominatim_api_url_template_query;

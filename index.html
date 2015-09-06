@@ -82,6 +82,7 @@
                     reverseGeocodeLocation('&lat=' + lat + '&lon=' + lon, mapCountryToLanguage(i18n.lng()), function(nominatim_data) {
                         document.forms.check.elements['cc'].value    = nominatim_data.address.country_code;
                         document.forms.check.elements['state'].value = nominatim_data.address.state;
+                        nominatim = nominatim_data;
                         Evaluate();
                     });
                 }
