@@ -57,7 +57,6 @@
             }
 
             var lat, lon, string_lat, string_lon, nominatim;
-            var url_lang = 'de';
             var date;
 
             function Evaluate (offset, reset) {
@@ -71,48 +70,25 @@
                     lat = parseFloat(string_lat);
                     lon = parseFloat(string_lon);
                     if (typeof lat !== 'number' || typeof lon !== 'number') {
-                        if (typeof lat !== 'number')
+                        if (typeof lat !== 'number') {
                             document.forms.check.elements['lat'].value = default_lat;
-                        if (typeof lon !== 'number')
+                        }
+                        if (typeof lon !== 'number') {
                             document.forms.check.elements['lon'].value = default_lon;
+                        }
                         console.log('Please enter numbers for latitude and longitude.');
                         return;
                     }
-                    var url = nominatim_api_url;
-                    url += '?format=json&lat=' + lat + '&lon=' + lon
-                        + '&zoom=5&addressdetails=1&email=ypid23@aol.de';
-                    var url_lang_set = 'accept-language=';
-
-                    var xhr = new XMLHttpRequest();
-                    xhr.open( "GET", url + '&' + url_lang_set + mapCountryToLanguage(url_lang), true );      // true makes this call asynchronous
-                    xhr.onreadystatechange = function () {    // need eventhandler since our call is async
-                        if ( xhr.readyState === 4 && xhr.status === 200 ) {  // check for success
-                            nominatim = JSON.parse( xhr.responseText );
-                            // console.log(JSON.stringify(nominatim, null, '\t'));
-
-                            if (nominatim.address.country_code !== url_lang) {
-                                xhr.open( "GET", url + '&' + url_lang_set + mapCountryToLanguage(nominatim.address.country_code), true );
-                                xhr.onreadystatechange = function () {
-                                    if ( xhr.readyState === 4 && xhr.status === 200 ) {  // check for success
-                                        nominatim = JSON.parse( xhr.responseText );
-                                    }
-                                    url_lang = nominatim.address.country_code;
-                                    document.forms.check.elements['cc'].value    = nominatim.address.country_code;
-                                    document.forms.check.elements['state'].value = nominatim.address.state;
-                                    Evaluate();
-                                }
-                                xhr.send(null);
-                            } else {
-                                document.forms.check.elements['cc'].value    = nominatim.address.country_code;
-                                document.forms.check.elements['state'].value = nominatim.address.state;
-                                Evaluate();
-                            }
-                        }
-                    };
-                    xhr.send(null);
+                    reverseGeocodeLocation(lat, lon, mapCountryToLanguage(i18n.lng()), function(nominatim_data) {
+                        document.forms.check.elements['cc'].value    = nominatim_data.address.country_code;
+                        document.forms.check.elements['state'].value = nominatim_data.address.state;
+                        Evaluate();
+                    });
                 }
 
-                date = reset ? new Date() : new Date(
+                date = reset
+                    ? new Date()
+                    : new Date(
                         document.forms.check.elements['yyyy'].value,
                         document.forms.check.elements['mm'].selectedIndex,
                         document.forms.check.elements['dd'].value,
