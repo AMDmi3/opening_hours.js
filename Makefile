@@ -79,12 +79,12 @@ taginfo.json: gen_taginfo_json.js related_tags.txt taginfo_template.json
 release: package.json check qa-source-code qa-https-everywhere
 	git status
 	read continue
-	editor package.json
-	json -f package.json version
+	editor $<
+	jq --raw-output '.version' $<
 	read continue
 	$(MAKE) $(MAKE_OPTIONS) check-package.json
-	git commit --all --message="Released version $(json -f package.json version)."
-	git tag --sign --local-user C505B5C93B0DB3D338A1B6005FE92C12EE88E1F0 "v$(json -f package.json version)"
+	git commit --all --message="Released version $(jq --raw-output '.version' $<)."
+	git tag --sign --local-user C505B5C93B0DB3D338A1B6005FE92C12EE88E1F0 "v$(jq --raw-output '.version' $<)"
 	git push --follow-tags
 	npm publish
 	# $(MAKE) $(MAKE_OPTIONS) publish-website-on-all-servers
