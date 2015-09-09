@@ -656,6 +656,7 @@ Contributor                                        | Contribution
 [maxerickson](https://github.com/maxerickson)      | Public holidays and tests for USA. He also wrote a Python script for testing the holiday JSON. See [us_holidays](https://github.com/maxerickson/us_holidays).
 [amenk](https://github.com/amenk)                  | General i18n support, German translations for error messages and localized pretty formating. Funded by [iMi digital](http://www.imi-digital.de/) and [AddisMap](http://www.addismap.com/).
 [edqd](https://github.com/edqd)                    | Public holidays for Czech Republic.
+[Simon Legner](https://github.com/simon04)         | [Browserified](https://github.com/ypid/opening_hours.js/pull/98) the library and made it work with JOSM.
 [MKnight](https://github.com/dex2000)              | HTML/CSS fixes, testing and suggesting new features … :smile:
 [Niels Elgaard Larsen](https://github.com/elgaard) | Public holidays for Denmark.
 
