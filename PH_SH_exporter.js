@@ -63,6 +63,10 @@ var nominatiom_object = {
         // 'bb': {"place_id":"127637362","licence":"Data © OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"relation","osm_id":"62504","boundingbox":["51.359064","53.5591194","11.2687203","14.7657479"],"lat":"52.8455492","lon":"13.2461296","display_name":"Brandenburg, Deutschland","class":"boundary","type":"administrative","importance":0.78909942030875,"icon":"https:\/\/nominatim.openstreetmap.org\/images\/mapicons\/poi_boundary_administrative.p.20.png","address":{"state":"Brandenburg","country":"Deutschland","country_code":"de"}},
         // 'hb': {"place_id":"127593591","licence":"Data © OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"relation","osm_id":"62559","boundingbox":["53.0110367","53.5984187","8.4815929","8.9905816"],"lat":"53.0758196","lon":"8.8071646","display_name":"Bremen, Deutschland","class":"place","type":"city","importance":0.773036457778,"icon":"https:\/\/nominatim.openstreetmap.org\/images\/mapicons\/poi_place_city.p.20.png","address":{"city":"Bremen","county":"Bremen","state":"Bremen","country":"Deutschland","country_code":"de"}},
     },
+    'dk' : {
+        'dk': {"place_id":"127691068","licence":"Data © OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"relation","osm_id":"50046","boundingbox":["54.4516667","57.9524297","7.7153255","15.5530641"],"lat":"55.670249","lon":"10.3333283","display_name":"Denmark","class":"boundary","type":"administrative","importance":0.94221531286648,"icon":"https:\/\/nominatim.openstreetmap.org\/images\/mapicons\/poi_boundary_administrative.p.20.png","address":{"country":"Denmark","country_code":"dk"}}
+     }
+
 };
 /* }}} */
 
