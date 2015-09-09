@@ -1125,7 +1125,7 @@
 	        'Langfredag'                 : [ 'easter', -2 ],
                 'Påskedag'                   : [ 'easter',  0 ],
                 '2. Påskedag'                : [ 'easter',  1 ],
-                'Store Bededag'              : [ 'easter', 33 ],
+                'Store Bededag'              : [ 'easter', 26 ],
                 'Kristi Himmelfartsdag'      : [ 'easter', 39 ],
                 'Pinsedag'                   : [ 'easter', 49 ],
                 '2. Pinsedag'                : [ 'easter', 50 ],
