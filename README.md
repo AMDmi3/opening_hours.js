@@ -638,23 +638,24 @@ Autor                                         | Contact            | Note
 
 ## Contributors
 
-Contributor                                     | Contribution
--------------                                   | -------------
-[Sergey Leschina](https://github.com/putnik)    | demo page (now called [evaluation tool][ohlib.evaluation-tool]) improvements.
-[don-vip](https://github.com/don-vip)           | French localization and public holidays for France.
-[Charly Koza](https://github.com/Cactusbone)    | Fixed package.json.
-[Simon B.](https://github.com/sesam)            | Improved understandability of overlapping rules in README.md.
-[NonnEmilia](https://github.com/NonnEmilia)     | Italian localization and fixes in the [evaluation tool][ohlib.evaluation-tool].
-[damjang](https://github.com/damjang)           | Italian public holidays.
-[João G. Packer](https://github.com/jgpacker)   | Portuguese localization.
-[James Badger](https://github.com/openfirmware) | Add Canadian national, provincial public holidays and fixed Russian localization.
-[Zgarbul Andrey](https://github.com/burrbull)   | Ukrainian localization and public holidays for Ukraine.
-[Blaž Lorger](https://github.com/blorger)       | Public holidays for Slovenian.
-[dmromanov](https://github.com/dmromanov)       | Public holidays and tests for Russian, small fixes.
-[maxerickson](https://github.com/maxerickson)   | Public holidays and tests for USA. He also wrote a Python script for testing the holiday JSON. See [us_holidays](https://github.com/maxerickson/us_holidays).
-[amenk](https://github.com/amenk)               | General i18n support, German translations for error messages and localized pretty formating. Funded by [iMi digital](http://www.imi-digital.de/) and [AddisMap](http://www.addismap.com/).
-[edqd](https://github.com/edqd)                 | Public holidays for Czech Republic.
-[MKnight](https://github.com/dex2000)           | HTML/CSS fixes, testing and suggesting new features … :smile:
+Contributor                                        | Contribution
+-------------                                      | -------------
+[Sergey Leschina](https://github.com/putnik)       | demo page (now called [evaluation tool][ohlib.evaluation-tool]) improvements.
+[don-vip](https://github.com/don-vip)              | French localization and public holidays for France.
+[Charly Koza](https://github.com/Cactusbone)       | Fixed package.json.
+[Simon B.](https://github.com/sesam)               | Improved understandability of overlapping rules in README.md.
+[NonnEmilia](https://github.com/NonnEmilia)        | Italian localization and fixes in the [evaluation tool][ohlib.evaluation-tool].
+[damjang](https://github.com/damjang)              | Italian public holidays.
+[João G. Packer](https://github.com/jgpacker)      | Portuguese localization.
+[James Badger](https://github.com/openfirmware)    | Add Canadian national, provincial public holidays and fixed Russian localization.
+[Zgarbul Andrey](https://github.com/burrbull)      | Ukrainian localization and public holidays for Ukraine.
+[Blaž Lorger](https://github.com/blorger)          | Public holidays for Slovenian.
+[dmromanov](https://github.com/dmromanov)          | Public holidays and tests for Russian, small fixes.
+[maxerickson](https://github.com/maxerickson)      | Public holidays and tests for USA. He also wrote a Python script for testing the holiday JSON. See [us_holidays](https://github.com/maxerickson/us_holidays).
+[amenk](https://github.com/amenk)                  | General i18n support, German translations for error messages and localized pretty formating. Funded by [iMi digital](http://www.imi-digital.de/) and [AddisMap](http://www.addismap.com/).
+[edqd](https://github.com/edqd)                    | Public holidays for Czech Republic.
+[MKnight](https://github.com/dex2000)              | HTML/CSS fixes, testing and suggesting new features … :smile:
+[Niels Elgaard Larsen](https://github.com/elgaard) | Public holidays for Denmark.
 
 ## Credits
 
