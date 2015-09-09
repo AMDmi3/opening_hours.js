@@ -161,10 +161,12 @@ function getReadableState(startString, endString, oh, past) {
 
         *   'warnings_severity' (type: number, default: 4): Can be one of the following numbers. The severity levels (including the codes) match the syslog specification. The default is level 4 to not break backwards compatibility. Lower levels e.g. 5 include higher levels e.g. 4.
 
+            ```
             4: warning
             5: notice
             6: info
             7: debug
+            ```
 
         *   'locale' (type: string, default: 'en'): Defines the locale for errors and warnings and changes the default language for oh.prettifyValue(). To use this option, [moment.js][moment-lib] has to be loaded.
 
@@ -328,7 +330,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 *   See the [formal specification][oh:specification]
 
-*   Opening hours consist of multiple rules separated by semicolon (`Mo 10:00-20:00; Tu 12:00-18:00`) or by other separated mentioned by the next to points.
+*   Opening hours consist of multiple rules separated by semicolon (`Mo 10:00-20:00; Tu 12:00-18:00`) or by other separators as follows.
 
 *   Supports [fallback rules][oh:specification:fallback rule] (`We-Fr 10:00-24:00 open "it is open" || "please call"`).
 
@@ -411,6 +413,8 @@ Almost everything from opening_hours definition is supported, as well as some ex
         * [Russian][PH-ru]
         * [Italy][PH-it] (Without the Saint Patron day, see [comment](https://github.com/ypid/opening_hours.js/pull/74#issuecomment-76194891))
         * [United states][PH-us] (Some special cases are [currently not handled](https://github.com/ypid/opening_hours.js/issues/69#issuecomment-74103181))
+        * [Denmark][PH-dk]
+        * [Czech Republic][PH-cz]
     * **EXT:** Supports limited calculations based on public holidays (e.g. `Sa,PH -1 day open`). The only two possibilities are currently +1 and -1. All other cases are not handled. This seems to be enough because the only thing which is really used is -1.
 
 *   Support for school holidays (`SH 10:00-14:00`).
@@ -595,7 +599,7 @@ Holidays can be added to the file [opening_hours.js][ohlib.opening_hours.js] as 
 Please consider adding a test (with a time range of one year for example) to see if everything works as expected and to ensure that it will stay that way.
 See under [testing][ohlib.testing].
 
-In case your holiday definiten does only change the `holidays` variable (and not core code) it is also ok to test the definition using the `PH_SH_exporter.js` script. In that case writing a test is not required but still appreciated. Example: `./PH_SH_exporter.js --verbose --from=2016 --until=2016 --public-holidays --country dk --region dk /tmp/dk_holidays.txt`
+In case your holiday definition does only change the `holidays` variable (and not core code) it is also ok to test the definition using the `PH_SH_exporter.js` script. In that case writing a test is not required but still appreciated. Example: `./PH_SH_exporter.js --verbose --from=2016 --until=2016 --public-holidays --country dk --region dk /tmp/dk_holidays.txt`
 
 ### Core code
 
@@ -714,4 +718,6 @@ Edit: This does also work on npmjs in this short version … -->
 [PH-ru]: https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%D0%B8_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8
 [PH-it]: http://www.governo.it/Presidenza/ufficio_cerimoniale/cerimoniale/giornate.html
 [PH-us]: https://en.wikipedia.org/wiki/Public_holidays_in_the_United_States
+[PH-dk]: https://en.wikipedia.org/wiki/Public_holidays_in_Denmark
+[PH-cz]: https://en.wikipedia.org/wiki/Public_holidays_in_the_Czech_Republic
 <!-- }}} -->
