@@ -595,6 +595,8 @@ Holidays can be added to the file [opening_hours.js][ohlib.opening_hours.js] as 
 Please consider adding a test (with a time range of one year for example) to see if everything works as expected and to ensure that it will stay that way.
 See under [testing][ohlib.testing].
 
+In case your holiday definiten does only change the `holidays` variable (and not core code) it is also ok to test the definition using the `PH_SH_exporter.js` script. In that case writing a test is not required but still appreciated. Example: `./PH_SH_exporter.js --verbose --from=2016 --until=2016 --public-holidays --country dk --region dk /tmp/dk_holidays.txt`
+
 ### Core code
 
 Be sure to add one or more tests if you add new features or enhance error tolerance or the like.
