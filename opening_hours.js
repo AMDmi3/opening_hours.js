@@ -3280,13 +3280,14 @@
 
     // make the library accessible for the outside world {{{
     if (typeof exports === 'object') {
+        var moment, SunCalc, i18n;
         // For nodejs
-        var SunCalc = require('suncalc');
+        SunCalc = root.SunCalc || require('suncalc');
         try { // as long as it is an optional dependency
-            var moment = require('moment');
+            moment = root.moment || require('moment');
         } catch (er) {}
         try { // as long as it is an optional dependency
-            var i18n = require('./locales/core');
+            i18n = require('./locales/core');
         } catch (er) {}
         module.exports = factory(SunCalc, moment, i18n, holidays, word_error_correction, lang);
     } else {
