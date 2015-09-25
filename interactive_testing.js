@@ -70,7 +70,7 @@ function opening_hours_object(value) {
         result.matching_rule = typeof result.rule_index === 'undefined'
             ? undefined
             : oh.prettifyValue({ 'rule_index': result.rule_index });
-        result.prettified    = oh.prettifyValue();
+        result.prettified    = oh.prettifyValue({'locale': 'de'});
         result.week_stable   = oh.isWeekStable();
     }
     return result;

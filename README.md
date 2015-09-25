@@ -168,7 +168,7 @@ function getReadableState(startString, endString, oh, past) {
             7: debug
             ```
 
-        *   'locale' (type: string, default: i18n.lng() || 'en'): Defines the locale for errors and warnings and changes the default language for oh.prettifyValue().
+        *   'locale' (type: string, default: i18n.lng() || 'en'): Defines the locale for errors and warnings.
 
 *   `var warnings = oh.getWarnings();`
 
@@ -189,22 +189,9 @@ function getReadableState(startString, endString, oh, past) {
         rule_sep_string: '\n',
         print_semicolon: false
     }
-
-    /* Default values */
-    {
-        'zero_pad_hour': true,           // enforce ("%02d", hour)
-        'one_zero_if_hour_zero': false,  // only one zero "0" if hour is zero "0"
-        'leave_off_closed': true,        // leave keywords "off" and "closed" as is
-        'keyword_for_off_closed': 'off', // use given keyword instead of "off" or "closed"
-        'rule_sep_string': ' ',          // separate rules by string
-        'print_semicolon': true,         // print token which separates normal rules
-        'leave_weekday_sep_one_day_betw': true, // use the separator (either "," or "-" which is used to separate days which follow to each other like Sa,Su or Su-Mo
-        'sep_one_day_between': ',',      // separator which should be used
-        'zero_pad_month_and_week_numbers': false, // Format week (e.g. `week 01`) and month day numbers (e.g. `Jan 01`) with "%02d".
-    }
     ```
 
-    Look in the source code if you need more. *FIXME*
+    Look in the source code if you need more.
 
     If the key 'rule_index' is a number then only the corresponding rule will be prettified.
 

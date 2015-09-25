@@ -315,18 +315,18 @@ var nominatiomTestJSON_usa_wyoming={"place_id":"54223976","licence":"Data \u00a9
 
 /* Italy {{{ */
 var nominatiomTestJSON_italy = {
-  "place_id"     :  "127565598",
-  "licence"      :  "Data © OpenStreetMap contributors, ODbL 1.0. https://www.openstreetmap.org/copyright",
-  "osm_type"     :  "relation",
-  "osm_id"       :  "40784",
-  "lat"          :  "41.9808038",
-  "lon"          :  "12.7662312",
-  "display_name" :  "Lazio, Italy",
-  "address": {
-    "state"        :  "Lazio",
-    "country"      :  "Italy",
-    "country_code" :  "it"
-  }
+    "place_id"     :  "127565598",
+    "licence"      :  "Data © OpenStreetMap contributors, ODbL 1.0. https://www.openstreetmap.org/copyright",
+    "osm_type"     :  "relation",
+    "osm_id"       :  "40784",
+    "lat"          :  "41.9808038",
+    "lon"          :  "12.7662312",
+    "display_name" :  "Lazio, Italy",
+    "address": {
+        "state"        :  "Lazio",
+        "country"      :  "Italy",
+        "country_code" :  "it",
+    },
 }
 /* }}} */
 
@@ -4639,8 +4639,8 @@ test.addTest('Calculations based on month range', [
 // error tolerance {{{
 test.addTest('Error tolerance: case and whitespace', [
         'Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off', // reference value for prettify
-		'   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00	Off  ',
-		'   monday,    Tu, wE,   TH    12:00 - 20:00  ; Off 14:00-16:00	', // Warnings point to the wrong position for selector reorder.
+        '   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00	Off  ',
+        '   monday,    Tu, wE,   TH    12:00 - 20:00  ; Off 14:00-16:00	', // Warnings point to the wrong position for selector reorder.
     ], '2012.10.01 0:00', '2012.10.08 0:00', [
         [ '2012.10.01 12:00', '2012.10.01 14:00' ],
         [ '2012.10.01 16:00', '2012.10.01 20:00' ],
@@ -4699,7 +4699,7 @@ test.addTest('Error tolerance: Full range', [
         'nonstop geöffnet',
         'opening_hours=nonstop geöffnet',
         'opening_hours =nonstop geöffnet',
-		'opening_hours 	 =nonstop geöffnet',
+        'opening_hours 	 =nonstop geöffnet',
         'opening_hours = nonstop geöffnet',
         'Öffnungszeit nonstop geöffnet',
         'Öffnungszeit: nonstop geöffnet',
@@ -5237,7 +5237,13 @@ function opening_hours_test() {
             intervals  = oh.getOpenIntervals(new Date(from), new Date(to));
             durations  = oh.getOpenDuration(new Date(from), new Date(to));
             weekstable = oh.isWeekStable();
-            prettified = oh.prettifyValue();
+
+            var prettifyValue_argument_hash = {};
+            // if (typeof oh_mode === 'object' && typeof oh_mode['locale'] === 'string') {
+            //     prettifyValue_argument_hash['locale'] = oh_mode['locale'];
+            //     console.log(prettifyValue_argument_hash['locale']);
+            // }
+            prettified = oh.prettifyValue(prettifyValue_argument_hash);
 
             intervals_ok  = typeof expected_intervals  === 'undefined' || intervals.length === expected_intervals.length;
             duration_ok   = (typeof expected_durations[0] === 'undefined' || durations[0] === expected_durations[0])
