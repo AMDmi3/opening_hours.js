@@ -160,7 +160,7 @@ if (!i18n.isInitialized()) {
         resStore: opening_hours_resources,
         getAsync: true,
         useCookie: true,
-        debug: true
+        // debug: true,
     });
 } else {
     // compat with an app that already initializes i18n

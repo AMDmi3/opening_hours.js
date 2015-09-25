@@ -168,9 +168,7 @@ function getReadableState(startString, endString, oh, past) {
             7: debug
             ```
 
-        *   'locale' (type: string, default: 'en'): Defines the locale for errors and warnings and changes the default language for oh.prettifyValue(). To use this option, [moment.js][moment-lib] has to be loaded.
-
-            To get the current default locale, use: `moment.locale()`
+        *   'locale' (type: string, default: i18n.lng() || 'en'): Defines the locale for errors and warnings and changes the default language for oh.prettifyValue().
 
 *   `var warnings = oh.getWarnings();`
 
