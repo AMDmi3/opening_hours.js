@@ -4270,7 +4270,6 @@
             if (typeof argument_hash === 'object') {
                 if (typeof argument_hash.conf === 'object') {
                     user_conf = argument_hash.conf;
-                    console.log(user_conf);
                 }
 
                 if (typeof argument_hash.rule_index === 'number') {
