@@ -153,7 +153,7 @@ check-fast: check-diff-en-opening_hours.js
 check-diff-all: check-diff check-diff-opening_hours.min.js
 
 .PHONY: check-diff
-check-diff: check-diff-opening_hours.js
+check-diff: check-diff-all-opening_hours.js
 
 .PHONY: check-test
 check-test: check-opening_hours.js
@@ -166,15 +166,15 @@ check-opening_hours.min.js:
 check-%.js: %.js test.js
 	-$(NODE) test.js "./$<"
 
-check-diff-opening_hours.js:
-check-diff-opening_hours.min.js:
+check-diff-all-opening_hours.js:
+check-diff-all-opening_hours.min.js:
 
-.SILENT: check-diff-opening_hours.js check-diff-opening_hours.min.js
-check-diff-%.js: %.js test.js
-	for lang in en de; do \
+check-diff-all-%.js: %.js test.js
+	@for lang in en de; do \
 		$(MAKE) $(MAKE_OPTIONS) CHECK_LANG=$$lang check-diff-opening_hours.js; \
 	done
 
+.SILENT: check-diff-opening_hours.js check-diff-opening_hours.min.js
 check-diff-en-opening_hours.js: check-diff-opening_hours.js
 check-diff-de-opening_hours.js:
 	$(MAKE) $(MAKE_OPTIONS) CHECK_LANG=de check-diff-opening_hours.js
