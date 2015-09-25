@@ -22,7 +22,7 @@ var opening_hours_resources = { // English is fallback language.
                 'no string': 'Der Wert (erster Parameter) ist kein String',
                 'nothing': 'Der Wert enthält nichts, was ausgewertet werden könnte.',
                 'nothing useful': 'Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel.',
-                'programmers joke': 'Kann es sein, dass du ein Programmier bist und das Hinzufügen eines Semikolons nach jedem Statement ist zwanghaft ;) ?'
+                'programmers joke': 'Kann es sein, dass du ein Programmierer bist und das Hinzufügen eines Semikolons nach jedem Statement ist zwanghaft ;) ?'
                     + ' Es ist so, dass das Semikolon in der opening_hours Syntax als Trenner für Regeln definiert ist.'
                     + ' Bitte verzichte an dieser Stelle auf ein Semikolon.',
                 'interpreted as year': 'Die Zahl __number__ wird als Jahr interpretiert.'
