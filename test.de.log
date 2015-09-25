@@ -5,7 +5,7 @@ currentLng set to: de
 "Time intervals" for "10:00-12:00,": [1m[32mPASSED[39m[22m
 "Time intervals" for "10:00-12:00;": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*10:00-12:00; <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel. Kann es sein, dass du ein Programmier bist und das Hinzufügen eines Semikolons nach jedem Statement ist zwanghaft ;) ? Es ist so, dass das Semikolon in der opening_hours Syntax als Trenner für Regeln definiert ist. Bitte verzichte an dieser Stelle auf ein Semikolon.)
+	*10:00-12:00; <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel. Kann es sein, dass du ein Programmierer bist und das Hinzufügen eines Semikolons nach jedem Statement ist zwanghaft ;) ? Es ist so, dass das Semikolon in der opening_hours Syntax als Trenner für Regeln definiert ist. Bitte verzichte an dieser Stelle auf ein Semikolon.)
 "Time intervals" for "10-12": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10-12 <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "10:00-12:00".)
@@ -2197,7 +2197,7 @@ With [1m[34mwarnings[39m[22m:
 	*;;; open <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel.)
 "Value not ideal (probably wrong). Should throw a warning." for "open; 00:23-00:42 unknown "warning at correct position?";": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*open; 00:23-00:42 unknown "warning at correct position?"; <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel. Kann es sein, dass du ein Programmier bist und das Hinzufügen eines Semikolons nach jedem Statement ist zwanghaft ;) ? Es ist so, dass das Semikolon in der opening_hours Syntax als Trenner für Regeln definiert ist. Bitte verzichte an dieser Stelle auf ein Semikolon.)
+	*open; 00:23-00:42 unknown "warning at correct position?"; <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel. Kann es sein, dass du ein Programmierer bist und das Hinzufügen eines Semikolons nach jedem Statement ist zwanghaft ;) ? Es ist so, dass das Semikolon in der opening_hours Syntax als Trenner für Regeln definiert ist. Bitte verzichte an dieser Stelle auf ein Semikolon.)
 "Value not ideal (probably wrong). Should throw a warning." for "open; 00:23-00:42 unknown "warning at correct position?" ||": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*open; 00:23-00:42 unknown "warning at correct position?" || <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel.)
