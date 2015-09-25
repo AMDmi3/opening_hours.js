@@ -1,4 +1,4 @@
-if (typeof require != 'undefined' && module) {
+if (typeof require === 'function' && module) {
   var i18n = require('i18next-client');
   module.exports = i18n;
 }
