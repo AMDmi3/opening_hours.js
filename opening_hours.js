@@ -3412,7 +3412,7 @@
         }
         /* }}} */
 
-        /* mode (and other things … ) {{{
+        /* mode, locale, warnings_severity, tag_key, map_value {{{
          *
          * 0: time ranges (default), tags: opening_hours, lit, …
          * 1: points in time
@@ -3434,7 +3434,7 @@
             if (checkOptionalConfParm('mode', 'number')) {
                 oh_mode = optional_conf_parm['mode'];
             }
-            var locale = optional_conf_parm.locale || 'en';
+            var locale = optional_conf_parm['locale'] || 'en';
             if (typeof i18n === 'object' && i18n.lng() !== locale) {
                 i18n.setLng(locale);
             }
