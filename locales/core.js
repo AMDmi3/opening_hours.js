@@ -1,6 +1,6 @@
 if (typeof require === 'function' && module) {
-  var i18n = require('i18next-client');
-  module.exports = i18n;
+    var i18n = require('i18next-client');
+    module.exports = i18n;
 }
 
 var opening_hours_resources = { // English is fallback language.
