@@ -1,17 +1,22 @@
 #!/usr/bin/env nodejs
 
 var optimist = require('optimist')
-    .usage('Usage: $0 [optional parameters]')
+    .usage('Usage: $0 [optional parameters] [server_listening_ports]')
     .describe('h', 'Display the usage')
     // .describe('v', 'Verbose output')
     .describe('f', 'File path to the opening_hours.js libary file to run the tests against.')
     .describe('l', 'Locale for error/warning messages and prettified values.')
+    .describe('L', 'Locale used for prettifyValue')
+    .describe('V', 'opening_hours value. If present, interactive mode will be skipped.')
     .alias('h', 'help')
     // .alias('v', 'verbose')
     .alias('f', 'library-file')
     .alias('l', 'locale')
+    .alias('L', 'prettify-locale')
+    .alias('V', 'value')
     .default('f', './opening_hours.js')
-    .default('l', 'en');
+    .default('l', 'en')
+    .default('L', 'en');
 
 var argv = optimist.argv;
 
@@ -69,17 +74,16 @@ function opening_hours_object(value) {
         result.rule_index    = oh.getMatchingRule();
         result.matching_rule = typeof result.rule_index === 'undefined'
             ? undefined
-            : oh.prettifyValue({ 'rule_index': result.rule_index });
-        result.prettified    = oh.prettifyValue({'locale': 'de'});
+            : oh.prettifyValue({ 'rule_index': result.rule_index, conf: { 'locale': argv['prettify-locale'] } });
+        result.prettified    = oh.prettifyValue({ conf: { 'locale': argv['prettify-locale'] } });
         result.week_stable   = oh.isWeekStable();
     }
     return result;
 }
 
 var servers = [];
-var args = process.argv.splice(2);
-for (var i = 0; i < args.length; i++) {
-    console.log('Starting to listen on "%s"', args[i]);
+for (var i = 0; i < argv._.length; i++) {
+    console.log('Starting to listen on "%s"', argv._[i]);
     servers[i] = net.createServer(function(socket) {
         console.log("connected");
 
@@ -89,26 +93,31 @@ for (var i = 0; i < args.length; i++) {
             result = opening_hours_object(value);
             socket.write(JSON.stringify(result, null, '\t'));
         });
-    }).listen(args[i]);
+    }).listen(argv._[i]);
 }
 
-var rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-});
-
-rl.on('line', function (value) {
-    result = opening_hours_object(value);
+if (typeof argv.value === 'string') {
+    result = opening_hours_object(argv.value);
     console.log(JSON.stringify(result, null, '\t') + '\n');
+} else {
+    var rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
 
-}).on('close', function() {
-    for (var i = 0; i < servers.length; i++) {
-        servers[i].close();
-    }
-    console.log('\nBye');
-    process.exit(0);
-});
+    rl.on('line', function (value) {
+        result = opening_hours_object(value);
+        console.log(JSON.stringify(result, null, '\t') + '\n');
 
-console.info('You can enter your opening_hours like value and hit enter to evaluate. The result handed to you is represented in the JSON.');
-console.info('If you want to create a binding for another programing language you should use the unix socket interface which gives you full access to the API.');
-// Also the stdin method breaks for certain values (e.g. newlines in values).
+    }).on('close', function() {
+        for (var i = 0; i < servers.length; i++) {
+            servers[i].close();
+        }
+        console.log('\nBye');
+        process.exit(0);
+    });
+
+    console.info('You can enter your opening_hours like value and hit enter to evaluate. The result handed to you is represented in the JSON.');
+    console.info('If you want to create a binding for another programing language you should use the unix socket interface which gives you full access to the API.');
+    // Also the stdin method breaks for certain values (e.g. newlines in values).
+}

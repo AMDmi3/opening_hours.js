@@ -3350,47 +3350,47 @@
         var issues_url     = repository_url + '/issues?state=open';
         // }}}
 
-		/* translation function {{{ */
-		/* Roughly compatibly to i18next so we can replace everything by i18next include later
-		 * sprintf support
-		 */
-		var locale = 'en'; // Default locale
-		if (typeof i18n === 'object') {
-			locale = i18n.lng();
-		}
+        /* translation function {{{ */
+        /* Roughly compatibly to i18next so we can replace everything by i18next include later
+         * sprintf support
+         */
+        var locale = 'en'; // Default locale
+        if (typeof i18n === 'object') {
+            locale = i18n.lng();
+        }
 
-		var t = function(str, variables) {
-			if (
-					typeof i18n === 'object'
-					&& typeof i18n.t === 'function'
-					&& typeof locale === 'string'
-					&& ['de'].indexOf(locale) !== -1
-				) {
+        var t = function(str, variables) {
+            if (
+                    typeof i18n === 'object'
+                    && typeof i18n.t === 'function'
+                    && typeof locale === 'string'
+                    && ['de'].indexOf(locale) !== -1
+                ) {
 
-				var global_local = i18n.lng();
+                var global_locale = i18n.lng();
 
-				if (global_local !== locale) {
-					i18n.setLng(locale);
-				}
-				var text = i18n.t('opening_hours:texts.' + str, variables);
-				if (global_local !== locale) {
-					i18n.setLng(global_local);
-				}
-				return text;
-			}
-			var text = lang[str];
-			if (typeof text === 'undefined') {
-				text = str;
-			}
-			return text.replace(/__([^_]*)__/g, function (match, c) {
-				return typeof variables[c] !== 'undefined'
-					? variables[c]
-					: match
-					;
-				}
-			);
-		};
-		/* }}} */
+                if (global_locale !== locale) {
+                    i18n.setLng(locale);
+                }
+                var text = i18n.t('opening_hours:texts.' + str, variables);
+                if (global_locale !== locale) {
+                    i18n.setLng(global_locale);
+                }
+                return text;
+            }
+            var text = lang[str];
+            if (typeof text === 'undefined') {
+                text = str;
+            }
+            return text.replace(/__([^_]*)__/g, function (match, c) {
+                return typeof variables[c] !== 'undefined'
+                    ? variables[c]
+                    : match
+                    ;
+                }
+            );
+        };
+        /* }}} */
 
         /* Optional constructor parameters {{{ */
 
@@ -4299,13 +4299,14 @@
             }
 
             for (var key in default_prettify_conf) {
-                if (typeof user_conf[key] === 'undefined')
+                if (typeof user_conf[key] === 'undefined') {
                     user_conf[key] = default_prettify_conf[key];
+                }
             }
 
-            if (typeof moment === 'object' && typeof user_conf['locale'] === 'string' && user_conf['locale'] !== 'en') {
+            if (typeof moment !== 'undefined' && typeof user_conf['locale'] === 'string' && user_conf['locale'] !== 'en') {
+                var global_locale = moment.locale();
                 // build translation arrays from moment
-                // var currentLocale = moment.locale();
                 moment.locale('en');
                 var weekdays_en = moment.weekdaysMin();
                 // monthShort would not return what we like
@@ -4319,6 +4320,7 @@
                     return month.substr(0,3);
                 });
                 // console.log(months_local);
+                moment.locale(global_locale);
             }
 
             for (var nrule = 0; nrule < new_tokens.length; nrule++) {
@@ -4390,6 +4392,10 @@
                 var old_prettified_value_length = prettified_value.length;
 
                 if (typeof user_conf['locale'] === 'string' && user_conf['locale'] !== 'en') {
+                    var global_locale = i18n.lng();
+                    if (global_locale !== user_conf['locale']) {
+                        i18n.setLng(user_conf['locale']);
+                    }
                     for (var i = 0; i < prettified_group_value.length; i++) {
                         type = prettified_group_value[i][0][2];
                         if (type === 'weekday') {
@@ -4401,9 +4407,11 @@
                                 prettified_group_value[i][1] = prettified_group_value[i][1].replace(new RegExp(months_en[key], 'g'), months_local[key]);
                             }
                         } else {
-							// FIXME: Replace with t
                             prettified_group_value[i][1] = i18n.t(['opening_hours:pretty.' + prettified_group_value[i][1], prettified_group_value[i][1]]);
                         }
+                    }
+                    if (global_locale !== locale) {
+                        i18n.setLng(global_locale);
                     }
                 }
 
@@ -6713,8 +6721,8 @@
         this.prettifyValue = function(argument_hash) {
             this.getWarnings();
             /* getWarnings has to be run before prettifyValue because some
-             * decisions if a certain aspect makes sense to prettify or not
-             * are based on the warnings.
+             * decisions if certain aspects makes sense to prettify or not
+             * are influenced by warnings.
              * Basically, both functions depend on each other in some way :(
              * See done_with_selector_reordering.
              */
