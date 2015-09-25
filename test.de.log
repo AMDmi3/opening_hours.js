@@ -2719,7 +2719,15 @@ Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-818/870 tests passed.
+"Compare prettifyValue" for "Mo": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "Mon": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "Montag": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "Tu": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "Tue": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "Dienstag": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "PH": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "SH": [1m[32mPASSED[39m[22m
+826/878 tests passed.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

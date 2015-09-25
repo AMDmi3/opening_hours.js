@@ -5092,6 +5092,26 @@ test.addCompMatchingRule('Compare result from getMatchingRule()', [
     'Fr 12:00-16:00 open "Notfallsprechstunde"', {}, 'n last test');
 // }}}
 
+test.addPrettifyValue('Compare prettifyValue', [
+        'Mo',
+        'Mon',
+        'Montag',
+    ], 'all', 'Mo');
+
+test.addPrettifyValue('Compare prettifyValue', [
+        'Tu',
+        'Tue',
+        'Dienstag',
+    ], 'de', 'Di');
+
+test.addPrettifyValue('Compare prettifyValue', [
+        'PH',
+    ], 'de', 'Feiertags');
+
+test.addPrettifyValue('Compare prettifyValue', [
+        'SH',
+    ], 'de', 'Schulferien');
+
 process.exit(test.run() ? 0 : 1);
 
 //======================================================================
@@ -5108,6 +5128,7 @@ function opening_hours_test() {
     this.tests_should_fail = [];
     this.tests_should_warn = [];
     this.tests_comp_matching_rule = [];
+    this.tests_prettify_value = [];
 
     this.extensive_testing = false;
     // If set to true, to run extensive tests.
@@ -5239,10 +5260,6 @@ function opening_hours_test() {
             weekstable = oh.isWeekStable();
 
             var prettifyValue_argument_hash = {};
-            // if (typeof oh_mode === 'object' && typeof oh_mode['locale'] === 'string') {
-            //     prettifyValue_argument_hash['locale'] = oh_mode['locale'];
-            //     console.log(prettifyValue_argument_hash['locale']);
-            // }
             prettified = oh.prettifyValue(prettifyValue_argument_hash);
 
             intervals_ok  = typeof expected_intervals  === 'undefined' || intervals.length === expected_intervals.length;
@@ -5395,6 +5412,45 @@ function opening_hours_test() {
 
         return passed;
     };
+
+    this.runSingleTestPrettifyValue = function(test_data_object) { // {{{
+        var name = test_data_object[0],
+            value = test_data_object[1],
+            prettify_locale = test_data_object[2],
+            expected_prettified_value = test_data_object[3];
+        var prettify_value_ok;
+        try {
+            oh = new opening_hours(value, nominatiomTestJSON);
+
+            prettified_value = oh.prettifyValue({ 'conf': { 'locale': prettify_locale } });
+            prettify_value_ok = prettified_value === expected_prettified_value;
+
+            var passed = false;
+
+            crashed = false;
+        } catch (err) {
+            crashed = err;
+        }
+
+        var str = '"' + name + '" for "' + value.replace('\n', '*newline*') + '": ';
+        if (!crashed && prettify_value_ok) {
+            str += 'PASSED'.passed;
+            passed = true;
+
+            if (this.show_passing_tests)
+                console.log(str);
+        } else if (crashed) {
+            str += 'CRASHED'.crashed + ', reason: ' + crashed;
+            console.error(str);
+        } else {
+            str += 'FAILED'.failed + ', prettify value: "' + prettified_value + '", expected "' + expected_prettified_value + '"';
+            console.warn(str);
+        }
+
+        return passed;
+    };
+    // }}}
+
     // }}}
 
     // run all tests (public function) {{{
@@ -5402,7 +5458,8 @@ function opening_hours_test() {
         var tests_length = this.tests.length +
             this.tests_should_fail.length +
             this.tests_should_warn.length +
-            this.tests_comp_matching_rule.length;
+            this.tests_comp_matching_rule.length +
+            this.tests_prettify_value.length;
         var success   = 0;
         this.ignored  = [];
         for (var test = 0; test < this.tests.length; test++) {
@@ -5421,6 +5478,10 @@ function opening_hours_test() {
             if (this.runSingleTestCompMatchingRule(this.tests_comp_matching_rule[test]))
                 success++;
         }
+        for (var test = 0; test < this.tests_prettify_value.length; test++) {
+            if (this.runSingleTestPrettifyValue(this.tests_prettify_value[test]))
+                success++;
+        }
 
         console.warn(success + '/' + tests_length + ' tests passed.');
         if (this.ignored.length) {
@@ -5429,10 +5490,11 @@ function opening_hours_test() {
             for (var i = 0; i < this.ignored.length; i++) {
                 var value   = this.ignored[i][0];
                 var reason  = this.ignored[i][1];
-                if (typeof ignored_categories[reason] !== 'number')
+                if (typeof ignored_categories[reason] !== 'number') {
                     ignored_categories[reason] = 1;
-                else
+                } else {
                     ignored_categories[reason]++;
+                }
             }
 
             var sorted_ignores = [];
@@ -5516,7 +5578,7 @@ function opening_hours_test() {
     };
     // }}}
 
-    // add test to check if the matiching rule is evaluated correctly {{{
+    // add test to check if the matching rule is evaluated correctly {{{
     this.addCompMatchingRule = function(name, values, date, matching_rule, nominatiomJSON, last) {
         if (this.last === true)  {
             return;
@@ -5528,6 +5590,28 @@ function opening_hours_test() {
         else
             for (var value = 0; value < values.length; value++)
                 this.tests_comp_matching_rule.push([name, values[value], date, matching_rule, nominatiomJSON]);
+    };
+    // }}}
+
+    // add test to check if prettifyValue feature works {{{
+    this.addPrettifyValue = function(name, values, only_test_for_locale, expected_prettified_value, last) {
+        if (this.last === true)  {
+            return;
+        }
+        this.handle_only_test(last);
+
+        if (
+                typeof only_test_for_locale === 'string'
+                && (argv.locale === only_test_for_locale || only_test_for_locale === 'all')
+           ) {
+
+            if (typeof values === 'string') {
+                this.tests_prettify_value.push([name, values, only_test_for_locale, expected_prettified_value]);
+            } else {
+                for (var value = 0; value < values.length; value++)
+                    this.tests_prettify_value.push([name, values[value], only_test_for_locale, expected_prettified_value]);
+            }
+        }
     };
     // }}}
 
@@ -5591,6 +5675,7 @@ function opening_hours_test() {
             this.tests_should_fail = [];
             this.tests_should_warn = [];
             this.tests_comp_matching_rule = [];
+            this.tests_prettify_value = [];
         }
         if (last === 'only test' || last === 'last test') this.last = true;
     };
