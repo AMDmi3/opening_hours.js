@@ -1,5 +1,3 @@
-currentLng set to: en
-currentLng set to: de
 "Time intervals" for "10:00-12:00": [1m[32mPASSED[39m[22m
 "Time intervals" for "08:00-09:00; 10:00-12:00": [1m[32mPASSED[39m[22m
 "Time intervals" for "10:00-12:00,": [1m[32mPASSED[39m[22m
@@ -2674,7 +2672,7 @@ Der Wert (erster Parameter) ist kein String
 The nominatiomJSON parameter is of unknown type. Given string, expected object.
 
 "Wrong constructor call should throw an error: "string"" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
-Der optional_conf_parm Parameter hat einen unbekannten Typ. Gegeben: string
+The optional_conf_parm parameter is of unknown type. Given string
 
 "Wrong constructor call should throw an error: warnings_severity: [ 4 ]" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 Der optional_conf_parm["warnings_severity"] Parameter hat einen unbekannten Typ. Gegeben: object, erwartet: number.
@@ -2721,7 +2719,15 @@ Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-818/870 tests passed.
+"Compare prettifyValue" for "Mo": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "Mon": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "Montag": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "Tu": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "Tue": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "Dienstag": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "PH": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "SH": [1m[32mPASSED[39m[22m
+826/878 tests passed.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

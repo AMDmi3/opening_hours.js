@@ -39,6 +39,8 @@ HOURS_INCREMENT ?= 1
 
 WGET_OPTIONS ?= --no-verbose
 MAKE_OPTIONS ?= --no-print-directory
+
+CHECK_LANG ?= 'en'
 ## }}}
 
 .PHONY: default
@@ -123,7 +125,7 @@ run-regex_search: export.$(SEARCH).json interactive_testing.js regex_search.py
 
 .PHONY: run-interactive_testing
 run-interactive_testing: interactive_testing.js
-	$(NODE) "$<"
+	$(NODE) "$<" --locale $(CHECK_LANG)
 ## }}}
 
 ## Source code QA {{{
@@ -151,7 +153,7 @@ check-fast: check-diff-en-opening_hours.js
 check-diff-all: check-diff check-diff-opening_hours.min.js
 
 .PHONY: check-diff
-check-diff: check-diff-opening_hours.js
+check-diff: check-diff-all-opening_hours.js
 
 .PHONY: check-test
 check-test: check-opening_hours.js
@@ -164,35 +166,28 @@ check-opening_hours.min.js:
 check-%.js: %.js test.js
 	-$(NODE) test.js "./$<"
 
-check-diff-opening_hours.js:
-check-diff-opening_hours.min.js:
+check-diff-all-opening_hours.js:
+check-diff-all-opening_hours.min.js:
+
+check-diff-all-%.js: %.js test.js
+	@for lang in en de; do \
+		$(MAKE) $(MAKE_OPTIONS) CHECK_LANG=$$lang check-diff-opening_hours.js; \
+	done
 
 .SILENT: check-diff-opening_hours.js check-diff-opening_hours.min.js
+check-diff-en-opening_hours.js: check-diff-opening_hours.js
+check-diff-de-opening_hours.js:
+	$(MAKE) $(MAKE_OPTIONS) CHECK_LANG=de check-diff-opening_hours.js
+
 check-diff-%.js: %.js test.js
-	for lang in en de; do \
-		$(NODE) test.js --library-file "$<" --locale $$lang 1> test.$$lang.log 2>&1; \
-		git diff --quiet --exit-code HEAD -- test.$$lang.log; \
-		if [ "$$?" == "0" ]; then \
-			echo "Test results for $< ($$lang) are exactly the same as on developemt system. So far, so good ;)"; \
-		else \
-			echo "Test results for $< ($$lang) produced a different output then the output of the current HEAD. Checkout the following diff."; \
-		fi; \
-	done
-	# git --no-pager diff --color-words test.*.log
-	git --no-pager diff --exit-code test.*.log
-
-check-diff-en-opening_hours.js:
-
-.SILENT: check-diff-en-opening_hours.js
-check-diff-en-%.js: %.js test.js
-	$(NODE) test.js --library-file "$<" --locale $$lang 1> test.$$lang.log 2>&1; \
-	git diff --quiet --exit-code HEAD -- test.$$lang.log; \
+	$(NODE) test.js --library-file "$<" --locale $(CHECK_LANG) 1> test.$(CHECK_LANG).log 2>&1; \
+	git diff --quiet --exit-code HEAD -- test.$(CHECK_LANG).log; \
 	if [ "$$?" == "0" ]; then \
-		echo "Test results for $< ($$lang) are exactly the same as on developemt system. So far, so good ;)"; \
+		echo "Test results for $< ($(CHECK_LANG)) are exactly the same as on developemt system. So far, so good ;)"; \
 	else \
-		echo "Test results for $< ($$lang) produced a different output then the output of the current HEAD. Checkout the following diff."; \
+		echo "Test results for $< ($(CHECK_LANG)) produced a different output then the output of the current HEAD. Checkout the following diff."; \
 	fi
-	git --no-pager diff --exit-code test.en.log
+	git --no-pager diff --exit-code test.$(CHECK_LANG).log
 
 .PHONY: osm-tag-data-taginfo-check
 osm-tag-data-taginfo-check: real_test.js opening_hours.js osm-tag-data-get-taginfo

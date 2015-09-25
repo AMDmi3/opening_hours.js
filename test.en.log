@@ -1,4 +1,3 @@
-currentLng set to: en
 "Time intervals" for "10:00-12:00": [1m[32mPASSED[39m[22m
 "Time intervals" for "08:00-09:00; 10:00-12:00": [1m[32mPASSED[39m[22m
 "Time intervals" for "10:00-12:00,": [1m[32mPASSED[39m[22m
@@ -2313,7 +2312,10 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
 "Compare result from getMatchingRule()" for "Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"": [1m[32mPASSED[39m[22m
-859/870 tests passed.
+"Compare prettifyValue" for "Mo": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "Mon": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "Montag": [1m[32mPASSED[39m[22m
+862/873 tests passed.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
