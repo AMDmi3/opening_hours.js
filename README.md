@@ -1,5 +1,54 @@
 # opening_hours.js
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [evaluation tool](#evaluation-tool)
+- [Install](#install)
+  - [For Developer](#for-developer)
+  - [Web developer](#web-developer)
+  - [NodeJS developer](#nodejs-developer)
+- [Versions](#versions)
+- [Synopsis](#synopsis)
+- [Library API](#library-api)
+  - [Simple API](#simple-api)
+  - [High-level API](#high-level-api)
+  - [Iterator API](#iterator-api)
+- [Features](#features)
+  - [Time ranges](#time-ranges)
+  - [Points in time](#points-in-time)
+  - [Weekday ranges](#weekday-ranges)
+  - [Holidays](#holidays)
+  - [Month ranges](#month-ranges)
+  - [Monthday ranges](#monthday-ranges)
+  - [Week ranges](#week-ranges)
+  - [Year ranges](#year-ranges)
+  - [States](#states)
+  - [Comments](#comments)
+- [Testing](#testing)
+  - [Regression testing](#regression-testing)
+  - [Testing with real data](#testing-with-real-data)
+    - [Large scale](#large-scale)
+    - [Small scale](#small-scale)
+  - [Test it yourself (the geeky way)](#test-it-yourself-the-geeky-way)
+- [Performance](#performance)
+- [Used by other projects](#used-by-other-projects)
+- [Related links](#related-links)
+- [ToDo](#todo)
+- [How to contribute](#how-to-contribute)
+  - [Translating](#translating)
+  - [Holidays](#holidays-1)
+  - [Core code](#core-code)
+    - [Commit hooks](#commit-hooks)
+    - [Documentation](#documentation)
+- [Authors](#authors)
+- [Contributors](#contributors)
+- [Credits](#credits)
+- [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 [opening_hours][Key:opening_hours] tag is used in [OpenStreetMap](https://openstreetmap.org) project to describe time ranges when a specific facility (for example, a café) is open. As it has pretty complex syntax which requires special parsing and additional processing to extract some useful information (e.g. whether a facility is open at specific time, next time it's going to open/close, or a readable set of working hours), this library was written.
 
 Examples of some complex opening_hours values:
