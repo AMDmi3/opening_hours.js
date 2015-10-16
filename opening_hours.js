@@ -5575,8 +5575,9 @@
         // Helpers for holiday parsers {{{
 
         /* Returns a number for a date which can then be used to compare just the dates (without the time). {{{
+         *
          * This is necessary because a selector could be called for the middle of the day and we need to tell if it matches that day.
-         * Example: Returns 20150015 for Jan 15 2015
+         * Example: Returns 20150015 for Jan 15 2015.
          *
          * :param date: Date object.
          * :param include_year: Boolean. If true include the year.
@@ -5590,11 +5591,17 @@
         }
         // }}}
 
-        // return the school holiday definition e.g. [ 5, 25, /* to */ 6, 5 ],
-        // for the specified year
+        /* Return the school holiday definition e.g. [ 5, 25, to 6, 5 ], for the specified year {{{
+         *
+         * :param SH_hash:
+         * :param year: Year as integer.
+         * :param fatal: Defines the behavior in case no definition is find. Throw an error if set to true. Return return undefined.
+         * :returns: school holidays for the given year.
+         */
         function getSHForYear(SH_hash, year, fatal) {
-            if (typeof fatal === 'undefined')
+            if (typeof fatal !== 'boolean') {
                 fatal = true;
+            }
 
             var holiday = SH_hash[year];
             if (typeof holiday === 'undefined') {
@@ -5609,10 +5616,16 @@
             }
             return holiday;
         }
+        /* }}} */
 
-        // Return closed holiday definition available.
-        // First try to get the state, if missing get the country wide holidays
-        // (which can be limited to some states).
+        /* Return closed holiday definition available. {{{
+         *
+         * First try to get the state, if missing get the country wide holidays
+         * (which can be limited to some states).
+         *
+         * :param type_of_holidays: Choices: PH, SH.
+         * :returns: Public or school holiday list.
+         */
         function getMatchingHoliday(type_of_holidays) {
             if (typeof location_cc === 'string') {
                 if (holidays.hasOwnProperty(location_cc)) {
@@ -5649,92 +5662,99 @@
                 throw t('no country code');
             }
         }
+        /* }}} */
 
-        function getMovableEventsForYear(Y) {
+        /* Return variable dates used for holiday calculation. {{{
+         *
+         * :param year: Year as integer.
+         * :returns: Hash of variables dates. Key is the name of the variable date. Value is the variable date date object.
+         */
+        function getMovableEventsForYear(year) {
             // calculate easter
-            var C = Math.floor(Y/100);
-            var N = Y - 19*Math.floor(Y/19);
+            var C = Math.floor(year/100);
+            var N = year - 19*Math.floor(year/19);
             var K = Math.floor((C - 17)/25);
             var I = C - Math.floor(C/4) - Math.floor((C - K)/3) + 19*N + 15;
             I = I - 30*Math.floor((I/30));
             I = I - Math.floor(I/28)*(1 - Math.floor(I/28)*Math.floor(29/(I + 1))*Math.floor((21 - N)/11));
-            var J = Y + Math.floor(Y/4) + I + 2 - C + Math.floor(C/4);
+            var J = year + Math.floor(year/4) + I + 2 - C + Math.floor(C/4);
             J = J - 7*Math.floor(J/7);
             var L = I - J;
             var M = 3 + Math.floor((L + 40)/44);
             var D = L + 28 - 31*Math.floor(M/4);
 
             // calculate orthodox easter
-            var oA = Y % 4;
-            var oB = Y % 7;
-            var oC = Y % 19;
+            var oA = year % 4;
+            var oB = year % 7;
+            var oC = year % 19;
             var oD = (19*oC + 15) % 30;
             var oE = (2*oA+4*oB - oD + 34) % 7;
             var oF = oD+oE;
 
             var oDate;
             if (oF < 9) {
-                oDate = new Date(Y, 4-1, oF+4);
+                oDate = new Date(year, 4-1, oF+4);
             } else {
                 if ((oF+4)<31) {
-                    oDate = new Date(Y, 4-1, oF+4);
+                    oDate = new Date(year, 4-1, oF+4);
                 } else {
-                    oDate = new Date(Y, 5-1, oF-26);
+                    oDate = new Date(year, 5-1, oF-26);
                 }
             }
 
             // calculate last Sunday in February
-            var lastFebruaryDay = new Date(Y, 2, 0);
+            var lastFebruaryDay = new Date(year, 2, 0);
             var lastFebruarySunday = lastFebruaryDay.getDate() - lastFebruaryDay.getDay();
 
             // calculate Victoria Day. last Monday before or on May 24
-            var may_24 = new Date(Y, 4, 24);
+            var may_24 = new Date(year, 4, 24);
             var victoriaDay = 24  - ((6 + may_24.getDay()) % 7);
 
             // calculate Canada Day. July 1st unless 1st is on Sunday, then July 2.
-            var july_1 = new Date(Y, 6, 1);
+            var july_1 = new Date(year, 6, 1);
             var canadaDay = july_1.getDay() === 0 ? 2 : 1;
 
             function firstWeekdayOfMonth(month, weekday){
-                var first = new Date(Y, month, 1);
+                var first = new Date(year, month, 1);
                 return 1 + ((7 + weekday - first.getDay()) % 7);
             }
 
             function lastWeekdayOfMonth(month, weekday){
-                var last = new Date(Y, month+1, 0);
+                var last = new Date(year, month+1, 0);
                 var offset=((7 + last.getDay() - weekday) % 7);
                 return last.getDate() - offset;
             }
 
             return {
-                'easter'                :  new Date(Y, M - 1, D),
+                'easter'                :  new Date(year, M - 1, D),
                 'orthodox easter'       :  oDate,
-                'victoriaDay'           :  new Date(Y,  4, victoriaDay),
-                'canadaDay'             :  new Date(Y,  6, canadaDay),
-                'firstJanuaryMonday'    :  new Date(Y,  0, firstWeekdayOfMonth(0, 1)),
-                'firstFebruaryMonday'   :  new Date(Y,  1, firstWeekdayOfMonth(1, 1)),
-                'lastFebruarySunday'    :  new Date(Y,  1, lastFebruarySunday),
-                'firstMarchMonday'      :  new Date(Y,  2, firstWeekdayOfMonth(2, 1)),
-                'firstAprilMonday'      :  new Date(Y,  3, firstWeekdayOfMonth(3, 1)),
-                'firstMayMonday'        :  new Date(Y,  4, firstWeekdayOfMonth(4, 1)),
-                'firstJuneMonday'       :  new Date(Y,  5, firstWeekdayOfMonth(5, 1)),
-                'firstJulyMonday'       :  new Date(Y,  6, firstWeekdayOfMonth(6, 1)),
-                'firstAugustMonday'     :  new Date(Y,  7, firstWeekdayOfMonth(7, 1)),
-                'firstSeptemberMonday'  :  new Date(Y,  8, firstWeekdayOfMonth(8, 1)),
-                'firstSeptemberSunday'  :  new Date(Y,  8, firstWeekdayOfMonth(8, 0)),
-                'firstOctoberMonday'    :  new Date(Y,  9, firstWeekdayOfMonth(9, 1)),
-                'firstNovemberMonday'   :  new Date(Y, 10, firstWeekdayOfMonth(10, 1)),
-                'firstMarchTuesday'     :  new Date(Y,  2, firstWeekdayOfMonth(2, 2)),
-                'firstAugustTuesday'    :  new Date(Y,  7, firstWeekdayOfMonth(7, 2)),
-                'firstAugustFriday'     :  new Date(Y,  7, firstWeekdayOfMonth(7, 5)),
-                'firstNovemberThursday' :  new Date(Y, 10, firstWeekdayOfMonth(10, 4)),
-                'lastMayMonday'         :  new Date(Y,  4, lastWeekdayOfMonth(4, 1)),
-                'lastMarchMonday'       :  new Date(Y,  2, lastWeekdayOfMonth(2, 1)),
-                'lastAprilMonday'       :  new Date(Y,  3, lastWeekdayOfMonth(3, 1)),
-                'lastAprilFriday'       :  new Date(Y,  3, lastWeekdayOfMonth(3, 5)),
-                'lastOctoberFriday'     :  new Date(Y,  9, lastWeekdayOfMonth(9, 5)),
+                'victoriaDay'           :  new Date(year,  4, victoriaDay),
+                'canadaDay'             :  new Date(year,  6, canadaDay),
+                'firstJanuaryMonday'    :  new Date(year,  0, firstWeekdayOfMonth(0, 1)),
+                'firstFebruaryMonday'   :  new Date(year,  1, firstWeekdayOfMonth(1, 1)),
+                'lastFebruarySunday'    :  new Date(year,  1, lastFebruarySunday),
+                'firstMarchMonday'      :  new Date(year,  2, firstWeekdayOfMonth(2, 1)),
+                'firstAprilMonday'      :  new Date(year,  3, firstWeekdayOfMonth(3, 1)),
+                'firstMayMonday'        :  new Date(year,  4, firstWeekdayOfMonth(4, 1)),
+                'firstJuneMonday'       :  new Date(year,  5, firstWeekdayOfMonth(5, 1)),
+                'firstJulyMonday'       :  new Date(year,  6, firstWeekdayOfMonth(6, 1)),
+                'firstAugustMonday'     :  new Date(year,  7, firstWeekdayOfMonth(7, 1)),
+                'firstSeptemberMonday'  :  new Date(year,  8, firstWeekdayOfMonth(8, 1)),
+                'firstSeptemberSunday'  :  new Date(year,  8, firstWeekdayOfMonth(8, 0)),
+                'firstOctoberMonday'    :  new Date(year,  9, firstWeekdayOfMonth(9, 1)),
+                'firstNovemberMonday'   :  new Date(year, 10, firstWeekdayOfMonth(10, 1)),
+                'firstMarchTuesday'     :  new Date(year,  2, firstWeekdayOfMonth(2, 2)),
+                'firstAugustTuesday'    :  new Date(year,  7, firstWeekdayOfMonth(7, 2)),
+                'firstAugustFriday'     :  new Date(year,  7, firstWeekdayOfMonth(7, 5)),
+                'firstNovemberThursday' :  new Date(year, 10, firstWeekdayOfMonth(10, 4)),
+                'lastMayMonday'         :  new Date(year,  4, lastWeekdayOfMonth(4, 1)),
+                'lastMarchMonday'       :  new Date(year,  2, lastWeekdayOfMonth(2, 1)),
+                'lastAprilMonday'       :  new Date(year,  3, lastWeekdayOfMonth(3, 1)),
+                'lastAprilFriday'       :  new Date(year,  3, lastWeekdayOfMonth(3, 5)),
+                'lastOctoberFriday'     :  new Date(year,  9, lastWeekdayOfMonth(9, 5)),
             };
         }
+        /* }}} */
 
         function getApplyingHolidaysForYear(applying_holidays, year, add_days) {
             var movableDays = getMovableEventsForYear(year);
@@ -5995,8 +6015,8 @@
             return Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7)
         }
         // https://stackoverflow.com/a/16591175
-        function getDateOfISOWeek(w, y) {
-            var simple = new Date(y, 0, 1 + (w - 1) * 7);
+        function getDateOfISOWeek(w, year) {
+            var simple = new Date(year, 0, 1 + (w - 1) * 7);
             var dow = simple.getDay();
             var ISOweekStart = simple;
             if (dow <= 4)
@@ -6152,8 +6172,7 @@
                     var selector = function(tokens, at, nrule, has_year, has_event, has_calc, at_sec_event_or_month, has_constrained_weekday) { return function(date) {
                         var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
 
-                        var movableDays,
-                            from_date;
+                        var movableDays, from_date;
                         if (has_event[0]) {
                             movableDays = getMovableEventsForYear(has_year[0] ? parseInt(tokens[at][0]) : date.getFullYear());
                             from_date = movableDays[tokens[at+has_year[0]][0]];
@@ -6186,9 +6205,10 @@
                             if (typeof has_calc[1] === 'object' && has_calc[1][1]) {
                                 var to_year_before_calc = to_date.getFullYear();
                                 to_date.setDate(to_date.getDate() + has_calc[1][0]);
-                                if (to_year_before_calc !== to_date.getFullYear())
+                                if (to_year_before_calc !== to_date.getFullYear()) {
                                     throw formatWarnErrorMessage(nrule, at_sec_event_or_month+has_calc[1][1],
                                         t('movable not in year', {'name': tokens[at_sec_event_or_month][0], 'days':  has_calc[1][0] }));
+                                }
                             }
                         } else if (has_constrained_weekday[1]) {
                             to_date = getDateForConstrainedWeekday((has_year[1] ? tokens[at_sec_event_or_month-1][0] : date.getFullYear()), // year
@@ -6931,4 +6951,4 @@
     };
 
 }));
-// vim: set ts=4 sw=4 tw=0 noet foldmarker={{{,}}} foldlevel=0 foldmethod=marker :
+// vim: set ts=4 sw=4 tw=0 et foldmarker={{{,}}} foldlevel=0 foldmethod=marker :
