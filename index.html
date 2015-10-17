@@ -116,6 +116,7 @@
 
                 var crashed = false;
                 var value = document.forms.check.elements['expression'].value;
+                var diff_value = document.forms.check.elements['diff_value'].value;
                 var mode = parseInt(document.getElementById('mode').selectedIndex);
                 try {
                     var oh = new opening_hours(value, nominatim, {
@@ -209,6 +210,40 @@
                         + '<br>'
                         + value_explanation;
                     }
+
+                    if (diff_value.length > 0) {
+                      var is_equal_to;
+                      try {
+                          is_equal_to = oh.isEqualTo(new opening_hours(diff_value, nominatim, {
+                              'mode': mode,
+                              'warnings_severity': 7,
+                              'locale': i18n.lng()
+                          }));
+                      } catch (err) {
+                          // console.error(err);
+                      }
+                      if (typeof is_equal_to === 'object') {
+                        if (is_equal_to[0]) {
+                          $('input#diff_value').css({'background-color' : evaluation_tool_colors.ok})
+                        } else {
+                          $('input#diff_value').css({'background-color' : evaluation_tool_colors.warn})
+                          var human_readable_not_equal_output = jQuery.extend(true, {}, is_equal_to[1])
+                          if (typeof human_readable_not_equal_output.deviation_for_time === 'object') {
+                            human_readable_not_equal_output.deviation_for_time = {};
+                            for (var time_code in is_equal_to[1].deviation_for_time) {
+                              console.log(time_code);
+                              var time_string = new Date(parseInt(time_code)).toLocaleString();
+                              human_readable_not_equal_output.deviation_for_time[time_string] =
+                                is_equal_to[1].deviation_for_time[time_code];
+                            }
+                          }
+                          value_explanation = JSON.stringify(human_readable_not_equal_output, null, '    ')
+                            + '<br>'
+                            + value_explanation;
+                        }
+                      }
+                    }
+
                     show_warnings_or_errors.innerHTML = value_explanation;
 
                     // if (prettified_newline_sep.split('\n').length > 1)
@@ -317,7 +352,7 @@
                         date = new Date(parseInt(params['DATE']));
                         crashed = false;
                     } catch (err) {
-                        console.log(err);
+                        console.error(err);
                     }
                     if (!crashed) {
                         document.forms.check.elements['yyyy'].value       = date.getFullYear();
@@ -330,8 +365,9 @@
                 } else {
                     Evaluate(0, true);
                 }
-                if(navigator.geolocation && !customCoords)
+                if (navigator.geolocation && !customCoords) {
                     navigator.geolocation.getCurrentPosition(onPositionUpdate);
+                }
             };
 
             /*]]>*/</script>
@@ -408,25 +444,22 @@
                     <script type="text/javascript">
                         document.write(i18n.t('texts.value for') + ' <q>opening_hours</q>:'
                                 + '<br />');
-                        function submitenter(myfield,e) {
-                            Evaluate();
-                            // var keycode;
-                            // if (window.event) keycode = window.event.keyCode;
-                            // else if (e) keycode = e.which;
-                            // else return true;
-
-                            // if (keycode === 13) {
-                                // Evaluate();
-                                // return false;
-                            // } else
-                                // return true;
-                        }
                     </script>
                     <input id="expression"
                         onKeyUp="return submitenter(this,event)"
                         style="width:100%"
                         name="expression"
                         value="Mo-Fr 10:00-20:00; PH off"
+                        onblur="Evaluate()"
+                    />
+                    <script type="text/javascript">
+                        document.write(i18n.t('texts.value to comapre') + ':<br />');
+                    </script>
+                    <input
+                        id="diff_value"
+                        type="text"
+                        onKeyUp="return submitenter(this,event)"
+                        style="width:100%"
                         onblur="Evaluate()"
                     />
                 </p>
@@ -447,20 +480,8 @@
 
             <hr /><!-- Examples {{{ -->
             <script type="text/javascript">document.write('<a href="javascript:toggle(\'user_examples\')"><h2 id="examples">'
-                + i18n.t('words.examples') + ':</h2></a>');</script>
-            <!-- JS for toggeling exampes on and off {{{ -->
-            <script type="text/javascript">
-                function toggle(control){
-                    var elem = document.getElementById(control);
-
-                    if(elem.style.display === "none"){
-                        elem.style.display = "block";
-                    }else{
-                        elem.style.display = "none";
-                    }
-                }
+                + i18n.t('words.examples') + ':</h2></a>');
             </script>
-            <!-- }}} -->
             <div id="user_examples"><!-- {{{ -->
                 <ol>
                     <li><a href="#check" onclick="EX(this)">Mo-Fr 10:00-20:00; PH off</a></li>

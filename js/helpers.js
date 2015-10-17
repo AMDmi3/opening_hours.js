@@ -1,6 +1,11 @@
 /* Constants {{{ */
 var nominatim_api_url = 'https://nominatim.openstreetmap.org/reverse';
 // var nominatim_api_url = 'https://open.mapquestapi.com/nominatim/v1/reverse.php';
+
+var evaluation_tool_colors = {
+    'ok': '#ADFF2F',
+    'warn': '#FFA500',
+};
 /* }}} */
 
 // load nominatim_data in JOSM {{{
@@ -59,3 +64,29 @@ function reverseGeocodeLocation(query, guessed_language_for_location, callback) 
         }
     });
 }
+
+function submitenter(myfield,e) {
+    Evaluate();
+    // var keycode;
+    // if (window.event) keycode = window.event.keyCode;
+    // else if (e) keycode = e.which;
+    // else return true;
+
+    // if (keycode === 13) {
+    //     Evaluate();
+    //     return false;
+    // } else
+    //     return true;
+}
+
+/* JS for toggling examples on and off {{{ */
+function toggle(control){
+    var elem = document.getElementById(control);
+
+    if (elem.style.display === "none") {
+        elem.style.display = "block";
+    } else {
+        elem.style.display = "none";
+    }
+}
+/* }}} */

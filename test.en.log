@@ -2315,7 +2315,16 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Compare prettifyValue" for "Mo": [1m[32mPASSED[39m[22m
 "Compare prettifyValue" for "Mon": [1m[32mPASSED[39m[22m
 "Compare prettifyValue" for "Montag": [1m[32mPASSED[39m[22m
-862/873 tests passed.
+"Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:00": [1m[32mPASSED[39m[22m
+"Test isEqualTo function" for "We-Fr 10:00-20:00; Mo 10:00-20:00": [1m[32mPASSED[39m[22m
+"Test isEqualTo function" for "closed; Mo 10:00-20:00; We-Fr 10:00-20:00": [1m[32mPASSED[39m[22m
+"Test isEqualTo function" for "open; closed; Mo 10:00-20:00; We-Fr 10:00-20:00": [1m[32mPASSED[39m[22m
+"Test isEqualTo function" for "Jan 1: open; closed; Mo 10:00-20:00; We-Fr 10:00-20:00": [1m[32mPASSED[39m[22m
+"Test isEqualTo function" for "Mo": [1m[32mPASSED[39m[22m
+"Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
+"Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
+"Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
+871/882 tests passed.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

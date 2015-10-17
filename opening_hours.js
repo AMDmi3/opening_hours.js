@@ -6764,6 +6764,60 @@
             return week_stable;
         };
         /* }}} */
+
+        /* isEqualTo: Check if this opening_hours object has the same meaning as the given opening_hours object. {{{ */
+        this.isEqualTo = function(second_oh_object, start_date) {
+            if (typeof datelimit === 'undefined') {
+                var start_date = new Date();
+            }
+            var datelimit;
+
+            if (this.isWeekStable() && second_oh_object.isWeekStable()) {
+                datelimit = new Date(start_date.getTime() + msec_in_day * 10);
+            } else {
+                datelimit = new Date(start_date.getTime() + msec_in_day * 366 * 5);
+            }
+
+            var first_it = this.getIterator(start_date);
+            var second_it = second_oh_object.getIterator(start_date);
+
+            while (first_it.advance(datelimit)) {
+                second_it.advance(datelimit);
+
+                var not_equal = [];
+
+                if (first_it.getDate().getTime() !== second_it.getDate().getTime()) {
+                    not_equal.push('getDate');
+                }
+
+                if (first_it.getState() !== second_it.getState()) {
+                    not_equal.push('getState');
+                }
+
+                if (first_it.getUnknown() !== second_it.getUnknown()) {
+                    not_equal.push('getUnknown');
+                }
+
+                if (first_it.getComment() !== second_it.getComment()) {
+                    not_equal.push('getComment');
+                }
+
+                if (not_equal.length) {
+                    var deviation_for_time = {};
+                    deviation_for_time[first_it.getDate().getTime()] = not_equal;
+                    return [ false,
+                        {
+                            'matching_rule': first_it.getMatchingRule(),
+                            'matching_rule_other': second_it.getMatchingRule(),
+                            'deviation_for_time': deviation_for_time,
+                        }
+                    ];
+                }
+            }
+
+            return [ true ];
+        };
+        /* }}} */
         /* }}} */
         /* }}} */
 
@@ -6774,8 +6828,9 @@
 
             var it = this.getIterator(from);
 
-            if (it.getState() || it.getUnknown())
+            if (it.getState() || it.getUnknown()) {
                 res.push([from, undefined, it.getUnknown(), it.getComment()]);
+            }
 
             while (it.advance(to)) {
                 if (it.getState() || it.getUnknown()) {
@@ -6792,8 +6847,9 @@
                 }
             }
 
-            if (res.length > 0 && typeof res[res.length - 1][1] === 'undefined')
+            if (res.length > 0 && typeof res[res.length - 1][1] === 'undefined') {
                 res[res.length - 1][1] = to;
+            }
 
             return res;
         };
@@ -6910,15 +6966,16 @@
 
                 /* advance: Advances to the next position {{{ */
                 this.advance = function(datelimit) {
-                    if (typeof datelimit === 'undefined')
+                    if (typeof datelimit === 'undefined') {
                         datelimit = new Date(prevstate[1].getTime() + msec_in_day * 366 * 5);
-                    else if (datelimit.getTime() <= prevstate[1].getTime())
-                        return false; // The limit for advance needs to be after the current time.
+                    } else if (datelimit.getTime() <= prevstate[1].getTime()) {
+                        return false; /* The limit for advance needs to be after the current time. */
+                    }
 
                     do {
-                        // open range, we won't be able to advance
-                        if (typeof state[1] === 'undefined')
-                            return false;
+                        if (typeof state[1] === 'undefined') {
+                            return false; /* open range, we won't be able to advance */
+                        }
 
                         // console.log('\n' + 'previous check time:', prevstate[1]
                             // + ', current check time:',
@@ -6927,14 +6984,17 @@
                             // state[1],
                             // (state[0] ? 'open' : (state[2] ? 'unknown' : 'closed')) + ', comment:', state[3]);
 
-                        // We're going backwards or staying at place.
-                        // This always indicates coding error in a selector code.
-                        if (state[1].getTime() <= prevstate[1].getTime())
+                        if (state[1].getTime() <= prevstate[1].getTime()) {
+                            /* We're going backwards or staying at the same time.
+                             * This most likely indicates an error in a selector code.
+                             */
                             throw 'Fatal: infinite loop in nextChange';
+                        }
 
-                        // don't advance beyond limits (same as open range)
-                        if (state[1].getTime() >= datelimit.getTime())
+                        if (state[1].getTime() >= datelimit.getTime()) {
+                            /* Don't advance beyond limits (same as open range) */
                             return false;
+                        }
 
                         // do advance
                         prevstate = state;
