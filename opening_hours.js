@@ -6766,9 +6766,11 @@
         /* }}} */
 
         /* isEqualTo: Check if this opening_hours object has the same meaning as the given opening_hours object. {{{ */
-        this.isEqualTo = function(second_oh_object) {
+        this.isEqualTo = function(second_oh_object, start_date) {
+            if (typeof datelimit === 'undefined') {
+                var start_date = new Date();
+            }
             var datelimit;
-            var start_date = new Date();
 
             if (this.isWeekStable() && second_oh_object.isWeekStable()) {
                 datelimit = new Date(start_date.getTime() + msec_in_day * 10);
@@ -6782,30 +6784,32 @@
             while (first_it.advance(datelimit)) {
                 second_it.advance(datelimit);
 
-                var not_equal = false;
+                var not_equal = [];
 
                 if (first_it.getDate().getTime() !== second_it.getDate().getTime()) {
-                    not_equal = 'getDate';
+                    not_equal.push('getDate');
                 }
 
                 if (first_it.getState() !== second_it.getState()) {
-                    not_equal = 'getState';
+                    not_equal.push('getState');
                 }
 
                 if (first_it.getUnknown() !== second_it.getUnknown()) {
-                    not_equal = 'getUnknown';
+                    not_equal.push('getUnknown');
                 }
 
                 if (first_it.getComment() !== second_it.getComment()) {
-                    not_equal = 'getComment';
+                    not_equal.push('getComment');
                 }
 
-                if (not_equal) {
+                if (not_equal.length) {
+                    var deviation_for_time = {};
+                    deviation_for_time[first_it.getDate().getTime()] = not_equal;
                     return [ false,
                         {
                             'matching_rule': first_it.getMatchingRule(),
                             'matching_rule_other': second_it.getMatchingRule(),
-                            'first_deviation': not_equal,
+                            'deviation_for_time': deviation_for_time,
                         }
                     ];
                 }

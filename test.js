@@ -5122,12 +5122,57 @@ test.addEqualTo('Test isEqualTo function', [
 
 test.addEqualTo('Test isEqualTo function', [
 		'Mo',
-	], 'Su', [ false ]);
+	], 'Su', [ false,
+		{
+			"matching_rule": 0,
+			"matching_rule_other": 0,
+			"deviation_for_time": {
+				"1445205600000": [
+					"getDate",
+				],
+			},
+		}
+	]);
 
 test.addEqualTo('Test isEqualTo function', [
 		'Mo 10:00-20:00; We-Fr 10:00-20:01',
+	], 'Mo-Fr 10:00-20:00; Tu off', [ false,
+		{
+			"deviation_for_time": {
+				"1445450460000": [
+					"getDate",
+				],
+			},
+		}
+	]);
+
+test.addEqualTo('Test isEqualTo function', [
 		'Mo 10:00-20:00; We-Fr 10:00-19:59',
-	], 'Mo-Fr 10:00-20:00; Tu off', [ false ]);
+	], 'Mo-Fr 10:00-20:00; Tu off', [ false,
+		{
+			"deviation_for_time": {
+				"1445450340000": [
+					"getDate",
+				],
+			},
+		}
+	]);
+
+test.addEqualTo('Test isEqualTo function', [
+		'closed; Sa unknown "comment"',
+	], 'Sa open', [ false,
+		{
+			"matching_rule": 1,
+			"matching_rule_other": 0,
+			"deviation_for_time": {
+				"1445637600000": [
+					"getState",
+					"getUnknown",
+					"getComment",
+				],
+			},
+		}
+	]);
 
 process.exit(test.run() ? 0 : 1);
 
@@ -5478,15 +5523,16 @@ function opening_hours_test() {
             first_oh = new opening_hours(first_value, nominatiomTestJSON);
             second_oh = new opening_hours(second_value, nominatiomTestJSON);
 
-            actual_result = first_oh.isEqualTo(second_oh);
+            actual_result = first_oh.isEqualTo(second_oh, new Date('Sat Oct 17 2015 18:20:29 GMT+0200 (CEST)'));
 
             crashed = false;
         } catch (err) {
             crashed = err;
         }
+		// console.log(JSON.stringify(actual_result, null, '    '));
 
 		var str = '"' + name + '" for "' + first_value.replace('\n', '*newline*') + '": ';
-		if (!crashed && expected_result[0] === actual_result[0]) {
+		if (!crashed && JSON.stringify(expected_result) === JSON.stringify(actual_result)) {
 			str += 'PASSED'.passed;
 			passed = true;
 

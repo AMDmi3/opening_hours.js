@@ -262,7 +262,21 @@ function getReadableState(startString, endString, oh, past) {
     1. Boolean which is true if both opening_hours objects have the same
        meaning, otherwise false.
 
-    2. Object hash containing more information if both objects are different.
+    2. Object hash containing more information if both objects are different. Example:
+
+       ```JavaScript
+       {
+         "matching_rule": 1,
+         "matching_rule_other": 0,
+         "deviation_for_time": {
+           "1445637600000": [
+             "getState",
+             "getUnknown",
+             "getComment",
+           ],
+         },
+       }
+       ```
 
 ### Simple API
 
