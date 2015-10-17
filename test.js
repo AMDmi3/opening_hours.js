@@ -5112,6 +5112,15 @@ test.addPrettifyValue('Compare prettifyValue', [
         'SH',
     ], 'de', 'Schulferien');
 
+test.addEqualTo('Test isEqualTo function: Full range', [
+		'open',
+		'24/7',
+		'2000-2100',
+		'Mo-Su',
+		'02:00-26:00',
+		'02:00-02:00',
+	], '24/7', [ true ]);
+
 test.addEqualTo('Test isEqualTo function', [
 		'Mo 10:00-20:00; We-Fr 10:00-20:00',
 		'We-Fr 10:00-20:00; Mo 10:00-20:00',
