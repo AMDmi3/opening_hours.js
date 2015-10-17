@@ -7,8 +7,8 @@
 /* jshint loopfunc: true */
 
 (function (root, factory) {
-    /* constants (holidays, error correction, lang) {{{ */
-    /* holidays {{{ */
+    /* constants (holiday_definitions, error correction, lang) {{{ */
+    /* holiday_definitions {{{ */
     /*
      * The country code keys and the PH, SH keys are surrounded by '':
      * :%s/^\s\+\zs"\([^"]\+\)"\(: {\)/'\1'\2/
@@ -17,7 +17,7 @@
      * Fixed spacing in parenthesis:
      * :%s/\[\zs\([^ ]\)/ \1/e | %s/\([^ ]\)\]/\1 \]/e | %s/,\([^ ]\)/, \1/e
      */
-    var holidays = {
+    var holiday_definitions = {
         'fr': { // {{{
             'PH': { // https://fr.wikipedia.org/wiki/F%C3%AAtes_et_jours_f%C3%A9ri%C3%A9s_en_France
                 "Jour de l'an"                          : [  1,  1 ],
@@ -3289,13 +3289,13 @@
         try { // as long as it is an optional dependency
             i18n = require('./locales/core');
         } catch (er) {}
-        module.exports = factory(SunCalc, moment, i18n, holidays, word_error_correction, lang);
+        module.exports = factory(SunCalc, moment, i18n, holiday_definitions, word_error_correction, lang);
     } else {
         // For browsers
-        root.opening_hours = factory(root.SunCalc, root.moment, root.i18n, holidays, word_error_correction, lang);
+        root.opening_hours = factory(root.SunCalc, root.moment, root.i18n, holiday_definitions, word_error_correction, lang);
     }
     /// }}}
-}(this, function (SunCalc, moment, i18n, holidays, word_error_correction, lang) {
+}(this, function (SunCalc, moment, i18n, holiday_definitions, word_error_correction, lang) {
 
     return function(value, nominatiomJSON, optional_conf_parm) {
         // short constants {{{
@@ -5628,22 +5628,22 @@
          */
         function getMatchingHoliday(type_of_holidays) {
             if (typeof location_cc === 'string') {
-                if (holidays.hasOwnProperty(location_cc)) {
+                if (holiday_definitions.hasOwnProperty(location_cc)) {
                     if (typeof location_state === 'string'
-                            && holidays[location_cc][location_state]
-                            && holidays[location_cc][location_state][type_of_holidays]) {
-                        // if holidays for the state are specified use it
+                            && holiday_definitions[location_cc][location_state]
+                            && holiday_definitions[location_cc][location_state][type_of_holidays]) {
+                        // if holiday_definitions for the state are specified use it
                         // and ignore lesser specific ones (for the country)
-                        return holidays[location_cc][location_state][type_of_holidays];
-                    } else if (holidays[location_cc][type_of_holidays]) {
+                        return holiday_definitions[location_cc][location_state][type_of_holidays];
+                    } else if (holiday_definitions[location_cc][type_of_holidays]) {
                         // holidays are only defined country wide
                         var matching_holiday = {}; // holidays in the country wide scope can be limited to certain states
-                        for (var holiday_name in holidays[location_cc][type_of_holidays]) {
-                            if (typeof holidays[location_cc][type_of_holidays][holiday_name][2] === 'object') {
-                                if (-1 !== holidays[location_cc][type_of_holidays][holiday_name][2].indexOf(location_state))
-                                    matching_holiday[holiday_name] = holidays[location_cc][type_of_holidays][holiday_name];
+                        for (var holiday_name in holiday_definitions[location_cc][type_of_holidays]) {
+                            if (typeof holiday_definitions[location_cc][type_of_holidays][holiday_name][2] === 'object') {
+                                if (-1 !== holiday_definitions[location_cc][type_of_holidays][holiday_name][2].indexOf(location_state))
+                                    matching_holiday[holiday_name] = holiday_definitions[location_cc][type_of_holidays][holiday_name];
                             } else {
-                                matching_holiday[holiday_name] = holidays[location_cc][type_of_holidays][holiday_name];
+                                matching_holiday[holiday_name] = holiday_definitions[location_cc][type_of_holidays][holiday_name];
                             }
                         }
                         if (Object.keys(matching_holiday).length === 0)
