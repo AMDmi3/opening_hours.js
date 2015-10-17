@@ -6774,6 +6774,12 @@
 
             if (this.isWeekStable() && second_oh_object.isWeekStable()) {
                 datelimit = new Date(start_date.getTime() + msec_in_day * 10);
+            // } else if (this.isWeekStable() !== second_oh_object.isWeekStable()) {
+            //     return [ false,
+            //         {
+            //             'reason': 'isWeekStable do not match',
+            //         }
+            //     ];
             } else {
                 datelimit = new Date(start_date.getTime() + msec_in_day * 366 * 5);
             }
