@@ -42,7 +42,7 @@
                 "Abolition de l'esclavage (Réunion)"    : [ 12, 20, [ 'Réunion' ] ],
                 "Noël"                                  : [ 12, 25 ],
                 "Saint-Étienne "                        : [ 12, 26, [ 'Moselle', 'Bas-Rhin', 'Haut-Rhin' ] ]
-            }
+            },
         }, // }}}
         'de': { // {{{
             'PH': { // https://de.wikipedia.org/wiki/Feiertage_in_Deutschland
@@ -5618,10 +5618,10 @@
         }
         /* }}} */
 
-        /* Return closed holiday definition available. {{{
+        /* Return closest holiday definition available. {{{
          *
          * First try to get the state, if missing get the country wide holidays
-         * (which can be limited to some states).
+         * (which can on it’s own be limited to some states).
          *
          * :param type_of_holidays: Choices: PH, SH.
          * :returns: Public or school holiday list.
