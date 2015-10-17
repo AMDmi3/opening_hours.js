@@ -5,6 +5,7 @@ var nominatim_api_url = 'https://nominatim.openstreetmap.org/reverse';
 var evaluation_tool_colors = {
     'ok': '#ADFF2F',
     'warn': '#FFA500',
+    'error': '#DEB887',
 };
 /* }}} */
 
@@ -260,7 +261,7 @@ function Evaluate (offset, reset) {
                   'locale': i18n.lng()
               }));
           } catch (err) {
-              // console.error(err);
+              $('input#diff_value').css({'background-color' : evaluation_tool_colors.error})
           }
           if (typeof is_equal_to === 'object') {
             if (is_equal_to[0]) {
