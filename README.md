@@ -253,6 +253,17 @@ function getReadableState(startString, endString, oh, past) {
 
     Checks whether open intervals are same for every week. Useful for giving a user hint whether time table may change for another week.
 
+*   `var is_equal_to = oh.isEqualTo(new opening_hours('We 12:00-16:00'));`
+
+    Check if this opening_hours object has the same meaning as the given opening_hours object.
+
+    `is_equal_to` is a list:
+
+    1. Boolean which is true if both opening_hours objects have the same
+       meaning, otherwise false.
+
+    2. Object hash containing more information if both objects are different.
+
 ### Simple API
 
 This API is useful for one-shot checks, but for iteration over intervals you should use the more efficient [iterator API][ohlib.iterator-api].

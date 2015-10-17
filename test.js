@@ -5112,6 +5112,23 @@ test.addPrettifyValue('Compare prettifyValue', [
         'SH',
     ], 'de', 'Schulferien');
 
+test.addEqualTo('Test isEqualTo function', [
+		'Mo 10:00-20:00; We-Fr 10:00-20:00',
+		'We-Fr 10:00-20:00; Mo 10:00-20:00',
+		'closed; Mo 10:00-20:00; We-Fr 10:00-20:00',
+		'open; closed; Mo 10:00-20:00; We-Fr 10:00-20:00',
+		'Jan 1: open; closed; Mo 10:00-20:00; We-Fr 10:00-20:00',
+	], 'Mo-Fr 10:00-20:00; Tu off', [ true ]);
+
+test.addEqualTo('Test isEqualTo function', [
+		'Mo',
+	], 'Su', [ false ]);
+
+test.addEqualTo('Test isEqualTo function', [
+		'Mo 10:00-20:00; We-Fr 10:00-20:01',
+		'Mo 10:00-20:00; We-Fr 10:00-19:59',
+	], 'Mo-Fr 10:00-20:00; Tu off', [ false ]);
+
 process.exit(test.run() ? 0 : 1);
 
 //======================================================================
@@ -5129,6 +5146,7 @@ function opening_hours_test() {
     this.tests_should_warn = [];
     this.tests_comp_matching_rule = [];
     this.tests_prettify_value = [];
+    this.tests_equal_to = [];
 
     this.extensive_testing = false;
     // If set to true, to run extensive tests.
@@ -5137,7 +5155,7 @@ function opening_hours_test() {
     this.last = false; // If set to true, no more tests are added to the testing queue.
     // This might be useful for testing to avoid to comment tests out and something like that …
 
-    this.runSingleTestShouldFail = function(test_data_object) { // {{{
+    this.runSingleTestShouldFail = function(test_data_object) { /* {{{ */
         var name           = test_data_object[0],
             value          = test_data_object[1],
             nominatiomJSON = test_data_object[2],
@@ -5173,10 +5191,9 @@ function opening_hours_test() {
         }
 
         return crashed;
-    };
-    // }}}
+    }; /* }}} */
 
-    this.runSingleTestShouldThrowWarning = function(test_data_object) { // {{{
+    this.runSingleTestShouldThrowWarning = function(test_data_object) { /* {{{ */
         var name           = test_data_object[0],
             value          = test_data_object[1],
             nominatiomJSON = test_data_object[2],
@@ -5226,10 +5243,9 @@ function opening_hours_test() {
                 console.error(crashed + '\n');
         }
         return passed;
-    };
-    // }}}
+    }; /* }}} */
 
-    this.runSingleTest = function(test_data_object) { // {{{
+    this.runSingleTest = function(test_data_object) { /* {{{ */
         var name                = test_data_object[0],
             value               = test_data_object[1],
             first_value         = test_data_object[2],
@@ -5369,10 +5385,9 @@ function opening_hours_test() {
         }
 
         return passed;
-    };
-    // }}}
+    }; /* }}} */
 
-    this.runSingleTestCompMatchingRule = function(test_data_object) { // {{{
+    this.runSingleTestCompMatchingRule = function(test_data_object) { /* {{{ */
         var name           = test_data_object[0],
             value          = test_data_object[1],
             point_in_time  = test_data_object[2],
@@ -5411,9 +5426,9 @@ function opening_hours_test() {
         }
 
         return passed;
-    };
+    }; /* }}} */
 
-    this.runSingleTestPrettifyValue = function(test_data_object) { // {{{
+    this.runSingleTestPrettifyValue = function(test_data_object) { /* {{{ */
         var name = test_data_object[0],
             value = test_data_object[1],
             prettify_locale = test_data_object[2],
@@ -5448,8 +5463,45 @@ function opening_hours_test() {
         }
 
         return passed;
-    };
-    // }}}
+    }; /* }}} */
+
+    this.runSingleTestEqualTo = function(test_data_object) { /* {{{ */
+        var name = test_data_object[0],
+            first_value = test_data_object[1],
+            second_value = test_data_object[2],
+            expected_result = test_data_object[3];
+
+		var passed = false;
+		var crashed = true;
+		var actual_result;
+        try {
+            first_oh = new opening_hours(first_value, nominatiomTestJSON);
+            second_oh = new opening_hours(second_value, nominatiomTestJSON);
+
+            actual_result = first_oh.isEqualTo(second_oh);
+
+            crashed = false;
+        } catch (err) {
+            crashed = err;
+        }
+
+		var str = '"' + name + '" for "' + first_value.replace('\n', '*newline*') + '": ';
+		if (!crashed && expected_result[0] === actual_result[0]) {
+			str += 'PASSED'.passed;
+			passed = true;
+
+			if (this.show_passing_tests)
+				console.log(str);
+		} else if (crashed) {
+			str += 'CRASHED'.crashed + ', reason: ' + crashed;
+			console.error(str);
+		} else {
+			str += 'FAILED'.failed + ', result: "' + JSON.stringify(actual_result, null, '    ') + '", expected "' + expected_result + '"';
+			console.warn(str);
+		}
+
+        return passed;
+    }; /* }}} */
 
     // }}}
 
@@ -5459,7 +5511,8 @@ function opening_hours_test() {
             this.tests_should_fail.length +
             this.tests_should_warn.length +
             this.tests_comp_matching_rule.length +
-            this.tests_prettify_value.length;
+            this.tests_prettify_value.length +
+            this.tests_equal_to.length;
         var success   = 0;
         this.ignored  = [];
         for (var test = 0; test < this.tests.length; test++) {
@@ -5480,6 +5533,10 @@ function opening_hours_test() {
         }
         for (var test = 0; test < this.tests_prettify_value.length; test++) {
             if (this.runSingleTestPrettifyValue(this.tests_prettify_value[test]))
+                success++;
+        }
+        for (var test = 0; test < this.tests_equal_to.length; test++) {
+            if (this.runSingleTestEqualTo(this.tests_equal_to[test]))
                 success++;
         }
 
@@ -5538,8 +5595,8 @@ function opening_hours_test() {
             tests.push([name, values, values, from, to, expected_intervals,
                 [ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON, oh_mode]);
         else
-            for (var value = 0; value < values.length; value++)
-                this.tests.push([name, values[value], values[0], from, to, expected_intervals,
+            for (var value_ind = 0; value_ind < values.length; value_ind++)
+                this.tests.push([name, values[value_ind], values[0], from, to, expected_intervals,
                     [ expected_duration, expected_unknown_duration ], expected_weekstable, nominatiomJSON, oh_mode]);
     };
     // }}}
@@ -5556,8 +5613,8 @@ function opening_hours_test() {
         if (typeof values === 'string')
             this.tests_should_fail.push([name, values, nominatiomJSON, oh_mode]);
         else
-            for (var value = 0; value < values.length; value++)
-                this.tests_should_fail.push([name, values[value], nominatiomJSON, oh_mode]);
+            for (var value_ind = 0; value_ind < values.length; value_ind++)
+                this.tests_should_fail.push([name, values[value_ind], nominatiomJSON, oh_mode]);
     };
     // }}}
 
@@ -5573,8 +5630,8 @@ function opening_hours_test() {
         if (typeof values === 'string')
             this.tests_should_warn.push([name, values, nominatiomJSON, oh_mode]);
         else
-            for (var value = 0; value < values.length; value++)
-                this.tests_should_warn.push([name, values[value], nominatiomJSON, oh_mode]);
+            for (var value_ind = 0; value_ind < values.length; value_ind++)
+                this.tests_should_warn.push([name, values[value_ind], nominatiomJSON, oh_mode]);
     };
     // }}}
 
@@ -5588,8 +5645,8 @@ function opening_hours_test() {
         if (typeof values === 'string')
             this.tests_comp_matching_rule.push([name, values, date, matching_rule, nominatiomJSON]);
         else
-            for (var value = 0; value < values.length; value++)
-                this.tests_comp_matching_rule.push([name, values[value], date, matching_rule, nominatiomJSON]);
+            for (var value_ind = 0; value_ind < values.length; value_ind++)
+                this.tests_comp_matching_rule.push([name, values[value_ind], date, matching_rule, nominatiomJSON]);
     };
     // }}}
 
@@ -5608,15 +5665,33 @@ function opening_hours_test() {
             if (typeof values === 'string') {
                 this.tests_prettify_value.push([name, values, only_test_for_locale, expected_prettified_value]);
             } else {
-                for (var value = 0; value < values.length; value++)
-                    this.tests_prettify_value.push([name, values[value], only_test_for_locale, expected_prettified_value]);
+                for (var value_ind = 0; value_ind < values.length; value_ind++)
+                    this.tests_prettify_value.push([name, values[value_ind], only_test_for_locale, expected_prettified_value]);
             }
         }
     };
     // }}}
 
+    // add test to check if two oh values are equal {{{
+    this.addEqualTo = function(name, first_values, second_value, expected_result, last) {
+        if (this.last === true)  {
+            return;
+        }
+        this.handle_only_test(last);
+
+		if (typeof first_values === 'string') {
+			this.tests_equal_to.push([name, first_values, second_value, expected_result]);
+		} else if (typeof first_values === 'object'){
+			for (var value_ind = 0; value_ind < first_values.length; value_ind++)
+				this.tests_equal_to.push([name, first_values[value_ind], second_value, expected_result]);
+		} else {
+			throw "first_values must be either a string or a object!";
+		}
+    };
+    // }}}
+
     // helpers {{{
-    function intervalsToString(intervals) { // {{{
+    function intervalsToString(intervals) { /* {{{ */
         var res = '';
 
         if (intervals.length === 0)
@@ -5655,7 +5730,7 @@ function opening_hours_test() {
         }
         return oh_mode;
     }
-    function formatDate(date) { // {{{
+    function formatDate(date) { /* {{{ */
         if (typeof date === 'string')
             return date;
 
@@ -5669,7 +5744,7 @@ function opening_hours_test() {
     }
     // }}}
 
-    this.handle_only_test = function(last) { // {{{
+    this.handle_only_test = function(last) { /* {{{ */
         if (last === 'only test') {
             this.tests = [];
             this.tests_should_fail = [];
@@ -5681,7 +5756,7 @@ function opening_hours_test() {
     };
     // }}}
 
-    this.print_warnings = function(warnings) { // {{{
+    this.print_warnings = function(warnings) { /* {{{ */
         if (this.show_error_warnings && typeof warnings === 'object' && warnings.length > 0) {
             console.info('With ' + 'warnings'.warn + ':\n\t*' + warnings.join('\n\t*'));
         }
