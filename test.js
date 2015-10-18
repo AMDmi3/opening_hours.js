@@ -4969,8 +4969,9 @@ test.addShouldFail('Time range does not continue as expected for mode === 1.', [
         ' mar-nov 12:30-' + value_suffix,
     ], nominatiomTestJSON, 'not last test', 1);
 
-test.addShouldFail('Time range does not continue as expected for mode === 1.', [
+test.addShouldFail('Time range does not continue as expected for mode === 2.', [
         '7.00-',
+        '11:30:14:00',
         ' mar-nov 12:30-',
         ' mar-nov 12:30-' + value_suffix,
         '(' + value_suffix,
@@ -4979,20 +4980,20 @@ test.addShouldFail('Time range does not continue as expected for mode === 1.', [
     ], nominatiomTestJSON, 'not last test', 2);
 
 // Appeared in real_test … {{{
-for (var i = 0; i <= 2; i++) {
-    test.addShouldFail('Trying to trigger "Missing minutes in time range after" for mode === ' + i + '.', [
+for (var mode = 0; mode <= 2; mode++) {
+    test.addShouldFail('Trying to trigger "Missing minutes in time range after" for mode === ' + mode + '.', [
         'Mon-Sun 14-',
         '8:am',
         '8:am; open',
-    ], nominatiomTestJSON, 'not last test', i);
+    ], nominatiomTestJSON, 'not last test', mode);
 }
 
-for (var i = 0; i <= 2; i++) {
-    test.addShouldFail('Trying to trigger "Missing time separator in time range after" for mode === ' + i + '.', [
+for (var mode = 0; mode <= 2; mode++) {
+    test.addShouldFail('Trying to trigger "Missing time separator in time range after" for mode === ' + mode + '.', [
         'Su 7:30,10;00,22:00',
-        'Su 7:30,10?00,22:00', // ? gets replaced. Not fully supported … FIXME
+        'Su 7:30,10?00,22:00', // '?' gets replaced. Not fully supported … FIXME
         'Su 7:30,10i00,22:00',
-    ], nominatiomTestJSON, 'not last test', i);
+    ], nominatiomTestJSON, 'not last test', mode);
 }
 // }}}
 
@@ -5092,6 +5093,7 @@ test.addCompMatchingRule('Compare result from getMatchingRule()', [
     'Fr 12:00-16:00 open "Notfallsprechstunde"', {}, 'n last test');
 // }}}
 
+/* isEqualTo {{{ */
 test.addPrettifyValue('Compare prettifyValue', [
         'Mo',
         'Mon',
@@ -5113,75 +5115,76 @@ test.addPrettifyValue('Compare prettifyValue', [
     ], 'de', 'Schulferien');
 
 test.addEqualTo('Test isEqualTo function: Full range', [
-		'open',
-		'24/7',
-		'2000-2100',
-		'Mo-Su',
-		'02:00-26:00',
-		'02:00-02:00',
-	], '24/7', [ true ]);
+        'open',
+        '24/7',
+        '2000-2100',
+        'Mo-Su',
+        '02:00-26:00',
+        '02:00-02:00',
+    ], '24/7', [ true ]);
 
 test.addEqualTo('Test isEqualTo function', [
-		'Mo 10:00-20:00; We-Fr 10:00-20:00',
-		'We-Fr 10:00-20:00; Mo 10:00-20:00',
-		'closed; Mo 10:00-20:00; We-Fr 10:00-20:00',
-		'open; closed; Mo 10:00-20:00; We-Fr 10:00-20:00',
-		'Jan 1: open; closed; Mo 10:00-20:00; We-Fr 10:00-20:00',
-	], 'Mo-Fr 10:00-20:00; Tu off', [ true ]);
+        'Mo 10:00-20:00; We-Fr 10:00-20:00',
+        'We-Fr 10:00-20:00; Mo 10:00-20:00',
+        'closed; Mo 10:00-20:00; We-Fr 10:00-20:00',
+        'open; closed; Mo 10:00-20:00; We-Fr 10:00-20:00',
+        'Jan 1: open; closed; Mo 10:00-20:00; We-Fr 10:00-20:00',
+    ], 'Mo-Fr 10:00-20:00; Tu off', [ true ]);
 
 test.addEqualTo('Test isEqualTo function', [
-		'Mo',
-	], 'Su', [ false,
-		{
-			"matching_rule": 0,
-			"matching_rule_other": 0,
-			"deviation_for_time": {
-				"1445205600000": [
-					"getDate",
-				],
-			},
-		}
-	]);
+        'Mo',
+    ], 'Su', [ false,
+        {
+            "matching_rule": 0,
+            "matching_rule_other": 0,
+            "deviation_for_time": {
+                "1445205600000": [
+                    "getDate",
+                ],
+            },
+        }
+    ]);
 
 test.addEqualTo('Test isEqualTo function', [
-		'Mo 10:00-20:00; We-Fr 10:00-20:01',
-	], 'Mo-Fr 10:00-20:00; Tu off', [ false,
-		{
-			"deviation_for_time": {
-				"1445450460000": [
-					"getDate",
-				],
-			},
-		}
-	]);
+        'Mo 10:00-20:00; We-Fr 10:00-20:01',
+    ], 'Mo-Fr 10:00-20:00; Tu off', [ false,
+        {
+            "deviation_for_time": {
+                "1445450460000": [
+                    "getDate",
+                ],
+            },
+        }
+    ]);
 
 test.addEqualTo('Test isEqualTo function', [
-		'Mo 10:00-20:00; We-Fr 10:00-19:59',
-	], 'Mo-Fr 10:00-20:00; Tu off', [ false,
-		{
-			"deviation_for_time": {
-				"1445450340000": [
-					"getDate",
-				],
-			},
-		}
-	]);
+        'Mo 10:00-20:00; We-Fr 10:00-19:59',
+    ], 'Mo-Fr 10:00-20:00; Tu off', [ false,
+        {
+            "deviation_for_time": {
+                "1445450340000": [
+                    "getDate",
+                ],
+            },
+        }
+    ]);
 
 test.addEqualTo('Test isEqualTo function', [
-		'closed; Sa unknown "comment"',
-	], 'Sa open', [ false,
-		{
-			"matching_rule": 1,
-			"matching_rule_other": 0,
-			"deviation_for_time": {
-				"1445637600000": [
-					"getState",
-					"getUnknown",
-					"getComment",
-				],
-			},
-		}
-	]);
+        'closed; Sa unknown "comment"',
+    ], 'Sa open', [ false,
+        {
+            "matching_rule": 1,
+            "matching_rule_other": 0,
+            "deviation_for_time": {
+                "1445637600000": [
+                    "getState",
+                    "getUnknown",
+                    "getComment",
+                ],
+            },
+        }
+    ]);
+/* }}} */
 
 process.exit(test.run() ? 0 : 1);
 
@@ -5525,9 +5528,9 @@ function opening_hours_test() {
             second_value = test_data_object[2],
             expected_result = test_data_object[3];
 
-		var passed = false;
-		var crashed = true;
-		var actual_result;
+        var passed = false;
+        var crashed = true;
+        var actual_result;
         try {
             first_oh = new opening_hours(first_value, nominatiomTestJSON);
             second_oh = new opening_hours(second_value, nominatiomTestJSON);
@@ -5538,22 +5541,22 @@ function opening_hours_test() {
         } catch (err) {
             crashed = err;
         }
-		// console.log(JSON.stringify(actual_result, null, '    '));
+        // console.log(JSON.stringify(actual_result, null, '    '));
 
-		var str = '"' + name + '" for "' + first_value.replace('\n', '*newline*') + '": ';
-		if (!crashed && JSON.stringify(expected_result) === JSON.stringify(actual_result)) {
-			str += 'PASSED'.passed;
-			passed = true;
+        var str = '"' + name + '" for "' + first_value.replace('\n', '*newline*') + '": ';
+        if (!crashed && JSON.stringify(expected_result) === JSON.stringify(actual_result)) {
+            str += 'PASSED'.passed;
+            passed = true;
 
-			if (this.show_passing_tests)
-				console.log(str);
-		} else if (crashed) {
-			str += 'CRASHED'.crashed + ', reason: ' + crashed;
-			console.error(str);
-		} else {
-			str += 'FAILED'.failed + ', result: "' + JSON.stringify(actual_result, null, '    ') + '", expected "' + expected_result + '"';
-			console.warn(str);
-		}
+            if (this.show_passing_tests)
+                console.log(str);
+        } else if (crashed) {
+            str += 'CRASHED'.crashed + ', reason: ' + crashed;
+            console.error(str);
+        } else {
+            str += 'FAILED'.failed + ', result: "' + JSON.stringify(actual_result, null, '    ') + '", expected "' + expected_result + '"';
+            console.warn(str);
+        }
 
         return passed;
     }; /* }}} */
@@ -5734,14 +5737,14 @@ function opening_hours_test() {
         }
         this.handle_only_test(last);
 
-		if (typeof first_values === 'string') {
-			this.tests_equal_to.push([name, first_values, second_value, expected_result]);
-		} else if (typeof first_values === 'object'){
-			for (var value_ind = 0; value_ind < first_values.length; value_ind++)
-				this.tests_equal_to.push([name, first_values[value_ind], second_value, expected_result]);
-		} else {
-			throw "first_values must be either a string or a object!";
-		}
+        if (typeof first_values === 'string') {
+            this.tests_equal_to.push([name, first_values, second_value, expected_result]);
+        } else if (typeof first_values === 'object'){
+            for (var value_ind = 0; value_ind < first_values.length; value_ind++)
+                this.tests_equal_to.push([name, first_values[value_ind], second_value, expected_result]);
+        } else {
+            throw "first_values must be either a string or a object!";
+        }
     };
     // }}}
 
@@ -5828,4 +5831,4 @@ function ignored(value, reason) {
 }
 // }}}
 // }}}
-// vim: set ts=4 sw=4 tw=78 noet :
+// vim: set ts=4 sw=4 tw=78 et :

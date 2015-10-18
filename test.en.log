@@ -2186,22 +2186,23 @@ Mo-Fr 07:00,24.00 <--- (Time range starts outside of the current day)
 "Time range does not continue as expected for mode === 1." for " mar-nov 12:30-; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
  mar-nov 12:30- <--- (Time range does not continue as expected)
 
-"Time range does not continue as expected for mode === 1." for "7.00-": [1m[32mPASSED[39m[22m
+"Time range does not continue as expected for mode === 2." for "7.00-": [1m[32mPASSED[39m[22m
 7.00- <--- (Time range does not continue as expected)
 
-"Time range does not continue as expected for mode === 1." for " mar-nov 12:30-": [1m[32mPASSED[39m[22m
+"Time range does not continue as expected for mode === 2." for "11:30:14:00": [1m[31mFAILED[39m[22m
+"Time range does not continue as expected for mode === 2." for " mar-nov 12:30-": [1m[32mPASSED[39m[22m
  mar-nov 12:30- <--- (Time range does not continue as expected)
 
-"Time range does not continue as expected for mode === 1." for " mar-nov 12:30-; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+"Time range does not continue as expected for mode === 2." for " mar-nov 12:30-; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
  mar-nov 12:30- <--- (Time range does not continue as expected)
 
-"Time range does not continue as expected for mode === 1." for "(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+"Time range does not continue as expected for mode === 2." for "(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 ( <--- (Unexpected token: "(" This means that the syntax is not valid at that point or it is currently not supported.) 
 
-"Time range does not continue as expected for mode === 1." for "sunrise-(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+"Time range does not continue as expected for mode === 2." for "sunrise-(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 sunrise-( <--- (Time range does not continue as expected)
 
-"Time range does not continue as expected for mode === 1." for "sunrise-sunset,(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+"Time range does not continue as expected for mode === 2." for "sunrise-sunset,(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 sunrise-sunset,( <--- (Missing variable time (e.g. sunrise) after: "(")
 
 "Trying to trigger "Missing minutes in time range after" for mode === 0." for "Mon-Sun 14-": [1m[32mPASSED[39m[22m
@@ -2326,11 +2327,21 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Test isEqualTo function" for "closed; Mo 10:00-20:00; We-Fr 10:00-20:00": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "open; closed; Mo 10:00-20:00; We-Fr 10:00-20:00": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Jan 1: open; closed; Mo 10:00-20:00; We-Fr 10:00-20:00": [1m[32mPASSED[39m[22m
-"Test isEqualTo function" for "Mo": [1m[32mPASSED[39m[22m
+"Test isEqualTo function" for "Mo": [1m[31mFAILED[39m[22m, result: "[
+    false,
+    {
+        "matching_rule": 0,
+        "deviation_for_time": {
+            "1445205600000": [
+                "getState"
+            ]
+        }
+    }
+]", expected "false,[object Object]"
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-877/888 tests passed.
+876/889 tests passed.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
