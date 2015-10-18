@@ -3594,18 +3594,14 @@
 
                 next_rule_is_additional = continue_at === 0 ? false : true;
 
-                if (selectors.year.length > 0)
-                    selectors.date.push(selectors.year);
-                if (selectors.holiday.length > 0)
-                    selectors.date.push(selectors.holiday);
-                if (selectors.month.length > 0)
-                    selectors.date.push(selectors.month);
-                if (selectors.monthday.length > 0)
-                    selectors.date.push(selectors.monthday);
-                if (selectors.week.length > 0)
-                    selectors.date.push(selectors.week);
-                if (selectors.weekday.length > 0)
-                    selectors.date.push(selectors.weekday);
+                /* Optimal order of selectors for checking */
+                var selector_elements = ['year', 'holiday', 'month', 'monthday', 'week', 'weekday'];
+                for (var selector_ind in selector_elements) {
+                    if (selectors[selector_elements[selector_ind]].length > 0) {
+                        selectors.date.push(selectors[selector_elements[selector_ind]]);
+                        selectors[selector_elements[selector_ind]] = [];
+                    }
+                }
 
                 // console.log('weekday: ' + JSON.stringify(selectors.weekday, null, '\t'));
                 rules.push(selectors);
