@@ -32,6 +32,8 @@
         "test.en.log",
         "test.de.log",
         ".gitignore",
+        "index.html",
+        "js",
         "locales/core.js"
     ],
     "directories": {
