@@ -10,7 +10,7 @@
     ],
     "repository": {
         "type": "git",
-        "url" : "git://github.com/ypid/opening_hours.js"
+        "url" : "https://github.com/ypid/opening_hours.js"
     },
     "bugs": "https://github.com/ypid/opening_hours.js/issues?state=open",
     "keywords": [
@@ -20,8 +20,6 @@
     ],
     "license": "BSD",
     "files": [
-        "LICENSE",
-        "README.md",
         "Makefile",
         "opening_hours.js",
         "opening_hours.min.js",
