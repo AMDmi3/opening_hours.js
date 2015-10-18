@@ -2281,7 +2281,7 @@ week week  <--- (Unerwartetes Token in Wochen-Spanne: week)
 week 2-53 00:00-24:00: <--- (Unerwartetes Zeichen: "timesep" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for "week 2-53 00:00-24:00:::; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-week 2-53 00:00-24:00::: <--- (Unerwartetes Zeichen: "timesep" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
+week 2-53 00:00-24:00: <--- (Unerwartetes Zeichen: "timesep" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for "week 2-53 00::00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 week 2-53 00: <--- (Missing minutes in time range after: "timesep")
@@ -2596,7 +2596,9 @@ Mo-Fr 07:00,24.00 <--- (Zeitspanne beginnt außerhalb des aktuellen Tages)
 "Time range does not continue as expected for mode === 2." for "7.00-": [1m[32mPASSED[39m[22m
 7.00- <--- (Die Zeitspanne geht nicht wie erwartet weiter)
 
-"Time range does not continue as expected for mode === 2." for "11:30:14:00": [1m[31mFAILED[39m[22m
+"Time range does not continue as expected for mode === 2." for "11:30:14:00": [1m[32mPASSED[39m[22m
+11:30: <--- (Unerwartetes Zeichen: "timesep" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
+
 "Time range does not continue as expected for mode === 2." for " mar-nov 12:30-": [1m[32mPASSED[39m[22m
  mar-nov 12:30- <--- (Die Zeitspanne geht nicht wie erwartet weiter)
 
@@ -2753,7 +2755,7 @@ Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-840/894 tests passed.
+841/894 tests passed.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

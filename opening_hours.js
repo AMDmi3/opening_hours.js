@@ -4503,6 +4503,7 @@
             var rule_modifier_specified = false;
 
             // console.log(tokens); // useful for debugging of tokenize
+            var last_selector = [];
             while (at < tokens.length) {
                 // console.log('Parsing at position', at +':', tokens[at]);
                 if (matchTokens(tokens, at, 'weekday')) {
@@ -4513,10 +4514,11 @@
                     // WRONG: This only works if there is no other selector in this selector group ...
                     at++;
                 } else if (matchTokens(tokens, at, 'holiday')) {
-                    if (matchTokens(tokens, at+1, ','))
+                    if (matchTokens(tokens, at+1, ',')) {
                         at = parseHoliday(tokens, at, selectors, true);
-                    else
+                    } else {
                         at = parseHoliday(tokens, at, selectors, false);
+                    }
                     week_stable = false;
                 } else if (matchTokens(tokens, at, 'month', 'number')
                         || matchTokens(tokens, at, 'month', 'weekday')
@@ -4536,7 +4538,8 @@
                     tokens[at][3] = 'week';
                     at = parseWeekRange(tokens, at);
 
-                } else if (at !== 0 && at !== tokens.length - 1 && tokens[at][0] === ':') {
+                } else if (at !== 0 && at !== tokens.length - 1 && tokens[at][0] === ':'
+                    && !(typeof last_selector[1] === 'string' && last_selector[1] === 'time')) {
                     /* Ignore colon if they appear somewhere else than as time separator.
                      * Except the start or end of the value.
                      * This provides compatibility with the syntax proposed by Netzwolf:
@@ -4544,8 +4547,9 @@
                      * Check for valid use of <separator_for_readability> is implemented in function getWarnings().
                      */
 
-                    if (!done_with_warnings && matchTokens(tokens, at-1, 'holiday'))
+                    if (!done_with_warnings && matchTokens(tokens, at-1, 'holiday')) {
                         parsing_warnings.push([nrule, at, t('no colon after', { 'token': tokens[at-1][1] })]);
+                    }
 
                     at++;
                 } else if (matchTokens(tokens, at, 'number', 'timesep')
@@ -4554,6 +4558,7 @@
                         || matchTokens(tokens, at, 'number', '-')) {
 
                     at = parseTimeRange(tokens, at, selectors, false);
+                    last_selector = [at , 'time'];
 
                 } else if (matchTokens(tokens, at, 'state')) {
 
@@ -4582,8 +4587,9 @@
 
                     rule_modifier_specified = true;
                     at++;
-                    if (typeof tokens[at] === 'object' && tokens[at][0] === ',') // additional rule
+                    if (typeof tokens[at] === 'object' && tokens[at][0] === ',') { // additional rule
                         at = [ at + 1 ];
+                    }
                 } else if ((at === 0 || at === tokens.length - 1) && matchTokens(tokens, at, 'rule separator')) {
                     at++;
                     console.log("value: " + nrule);
@@ -4596,6 +4602,9 @@
                 if (typeof at === 'object') { // additional rule
                     tokens[at[0] - 1][1] = 'rule separator';
                     break;
+                }
+                if (typeof last_selector[0] === 'number' && last_selector[0] !== at) {
+                    last_selector = [];
                 }
             }
 
@@ -4810,7 +4819,7 @@
          * :param selectors: Reference to selector object.
          * :param extended_open_end: Used for combined time range with open end.
          * extended_open_end: <time> - <time> +
-         *            param at is here A (if extended_open_end is true)
+         *        parameter at is here A (if extended_open_end is true)
          * :returns: Position at which the token does not belong to the selector anymore.
          */
         function parseTimeRange(tokens, at, selectors, extended_open_end) {
@@ -4874,14 +4883,17 @@
 
                     // minutes_to
                     if (has_open_end) {
-                        if (extended_open_end === 1)
+                        if (extended_open_end === 1) {
                             minutes_from += minutes_in_day;
-                        if (minutes_from >= 22 * 60)
+                        }
+                        if (minutes_from >= 22 * 60) {
+
                             minutes_to = minutes_from +  8 * 60;
-                        else if (minutes_from >= 17 * 60)
+                        } else if (minutes_from >= 17 * 60) {
                             minutes_to = minutes_from + 10 * 60;
-                        else
+                        } else {
                             minutes_to = minutes_in_day;
+                        }
                     } else if (!is_point_in_time) {
                         has_normal_time[1] = matchTokens(tokens, at_end_time, 'number', 'timesep', 'number');
                         has_time_var_calc[1]      = matchTokens(tokens, at_end_time, '(', 'timevar');
@@ -4920,9 +4932,10 @@
                         }
 
                         // Check at this later state in the if condition to get the correct position.
-                        if (oh_mode === 0)
+                        if (oh_mode === 0) {
                             throw formatWarnErrorMessage(nrule, at - 1,
                                 t('time range mode', {'libraryname': library_name}));
+                        }
 
                         is_point_in_time = true;
                     } else if (matchTokens(tokens, at, '+')) {
@@ -4942,13 +4955,17 @@
                     }
 
                     // Normalize minutes into range.
-                    if (!extended_open_end && minutes_from >= minutes_in_day)
-                        throw formatWarnErrorMessage(nrule, at_end_time - 2, t('outside current day'));
-                    if (minutes_to < minutes_from || ((has_normal_time[0] && has_normal_time[1]) && minutes_from === minutes_to))
+                    if (!extended_open_end && minutes_from >= minutes_in_day) {
+                        throw formatWarnErrorMessage(nrule, at_end_time - 2,
+                            t('outside current day'));
+                    }
+                    if (minutes_to < minutes_from || ((has_normal_time[0] && has_normal_time[1]) && minutes_from === minutes_to)) {
                         minutes_to += minutes_in_day;
-                    if (minutes_to > minutes_in_day * 2)
+                    }
+                    if (minutes_to > minutes_in_day * 2) {
                         throw formatWarnErrorMessage(nrule, at_end_time + (has_normal_time[1] ? 4 : (has_time_var_calc[1] ? 7 : 1)) - 2,
                             t('two midnights'));
+                    }
 
                     // This shortcut makes always-open range check faster.
                     if (minutes_from === 0 && minutes_to === minutes_in_day) {
@@ -6282,8 +6299,9 @@
                             if (matchTokens(tokens, at_timesep_if_monthRange, 'timesep', 'number')
                                     && (matchTokens(tokens, at_timesep_if_monthRange+2, '+')
                                         || matchTokens(tokens, at_timesep_if_monthRange+2, '-')
-                                        || oh_mode !== 0)) {
-                                            return parseMonthRange(tokens, at, true, true);
+                                        || oh_mode !== 0)
+                                ) {
+                                    return parseMonthRange(tokens, at, true, true);
                             }
                         }
 
