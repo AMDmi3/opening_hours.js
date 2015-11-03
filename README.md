@@ -201,7 +201,7 @@ function getReadableState(startString, endString, oh, past) {
 
         If this parameter is of the type number then it is interpreted as 'mode' (see below). For the type object, the following keys are defined.
 
-        *   'mode' (type: (integer) number, default: 0): In OSM, the syntax originally designed to describe opening hours, is now used to describe a few other things as well. Some of those other tags work with points in time instead of time ranges. To support this the mode can be specified. *Note that it is recommended to not use the mode parameter directly but instead use the tag_key parameter.* If there is no mode specified, opening_hours.js will only operate with time ranges and will throw an error message when points in times are used in the value.
+        *   'mode' (type: (integer) number, default: 0): In OSM, the syntax originally designed to describe opening hours, is now used to describe a few other things as well. Some of those other tags work with points in time instead of time ranges. To support this the mode can be specified. *Note that it is recommended to not use the mode parameter directly but instead use the tag_key parameter.* If there is no mode specified, opening_hours.js will only operate with time ranges and will throw an error when points in times are used in the value.
 
             * 0: time ranges (opening_hours, lit, …) default
             * 1: points in time
@@ -609,6 +609,10 @@ Project                                                          | Additional In
 [opening_hours_server.js]                                        | A little server answering query‘s for opening_hours and check if they can be evaluated.
 [opening_hours-statistics]                                       | Visualization of the data quality and growth over time.
 [www.openstreetmap.hu](http://www.openstreetmap.hu/)             | old version of this library, see also https://github.com/AMDmi3/opening_hours.js/issues/19
+
+### YoHours
+
+YoHours currently only checks with this lib if the opening_hours value can be evaluated at all and links to the [evaluation tool][ohlib.evaluation-tool] if yes. There might be more integration with YoHours and opening_hours.js in the future. See https://github.com/PanierAvide/panieravide.github.io/issues/2
 
 [opening_hours_map]: https://github.com/ypid/opening_hours_map
 [pyopening_hours]: https://github.com/ypid/pyopening_hours
