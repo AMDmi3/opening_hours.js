@@ -98,6 +98,8 @@ If you are a web developer and want to use this library you can do so by includi
 http://openingh.openstreetmap.de/opening_hours.js/opening_hours+deps.min.js
 ```
 
+To get started checkout the [simple_index.html](/simple_index.html) file.
+
 ### NodeJS developer
 
 This library is packaged with npm and is available under the name [opening_hours][ohlib.npmjs] so you should have no problems using it.
