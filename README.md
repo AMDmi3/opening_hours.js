@@ -734,6 +734,7 @@ Contributor                                        | Contribution
 [Simon Legner](https://github.com/simon04)         | [Browserified](https://github.com/ypid/opening_hours.js/pull/98) the library and made it work with JOSM.
 [MKnight](https://github.com/dex2000)              | HTML/CSS fixes, testing and suggesting new features … :smile:
 [Niels Elgaard Larsen](https://github.com/elgaard) | Public holidays for Denmark.
+[Adrian Fita](https://github.com/afita/)           | Public holidays for Romania.
 
 ## Credits
 
