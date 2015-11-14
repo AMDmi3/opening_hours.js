@@ -65,8 +65,10 @@ var nominatiom_object = {
     },
     'dk' : {
         'dk': {"place_id":"127691068","licence":"Data © OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"relation","osm_id":"50046","boundingbox":["54.4516667","57.9524297","7.7153255","15.5530641"],"lat":"55.670249","lon":"10.3333283","display_name":"Denmark","class":"boundary","type":"administrative","importance":0.94221531286648,"icon":"https:\/\/nominatim.openstreetmap.org\/images\/mapicons\/poi_boundary_administrative.p.20.png","address":{"country":"Denmark","country_code":"dk"}}
-     }
-
+    },
+    'ro' : {
+        'ro' : {"place_id":"127691986","licence":"Data © OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"relation","osm_id":"90689","boundingbox":["43.618682","48.2653964","20.2619773","30.0454257"],"lat":"45.9852129","lon":"24.6859225","display_name":"România","class":"boundary","type":"administrative","importance":0.93930940399775,"icon":"https:\/\/nominatim.openstreetmap.org\/images\/mapicons\/poi_boundary_administrative.p.20.png","address":{"country":"România","country_code":"ro"}}
+    }
 };
 /* }}} */
 
