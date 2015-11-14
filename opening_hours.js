@@ -2700,7 +2700,7 @@
                 'Ziua Națională (Ziua Marii Uniri)'              : [ 12,  1 ],
                 'Crăciunul'                                      : [ 12, 25 ],
                 'A doua zi de Crăciun'                           : [ 12, 26 ],
-            },
+            }
         } // }}}
     };
     // }}}
