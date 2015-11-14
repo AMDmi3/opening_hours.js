@@ -255,9 +255,11 @@ function getReadableState(startString, endString, oh, past) {
 
     Checks whether open intervals are same for every week. Useful for giving a user hint whether time table may change for another week.
 
-*   `var is_equal_to = oh.isEqualTo(new opening_hours('We 12:00-16:00'));`
+*   `var is_equal_to = oh.isEqualTo(new opening_hours('We 12:00-16:00'), start_date);`
 
     Check if this opening_hours object has the same meaning as the given opening_hours object.
+
+    The optional parameter `start_date` (Date object) specifies the start date at which the comparison will begin.
 
     `is_equal_to` is a list:
 

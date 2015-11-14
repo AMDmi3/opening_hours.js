@@ -4671,8 +4671,7 @@
                 };
             }
             return indexOf.call(this, needle);
-        }
-        // }}}
+        } /* }}} */
 
         /* Numeric list parser (1,2,3-4,-1) {{{
          * Used in weekday parser above.
@@ -6781,7 +6780,7 @@
 
         /* isEqualTo: Check if this opening_hours object has the same meaning as the given opening_hours object. {{{ */
         this.isEqualTo = function(second_oh_object, start_date) {
-            if (typeof datelimit === 'undefined') {
+            if (typeof start_date === 'undefined') {
                 var start_date = new Date();
             }
             var datelimit;
