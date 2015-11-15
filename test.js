@@ -40,46 +40,42 @@ colors.setTheme({
 
 var test = new opening_hours_test();
 
-// FIXME: Do it
 // test.extensive_testing = true;
+// FIXME: Do it.
 
 // nominatimJSON {{{
 
 var nominatim_for_loc = require('./js/nominatim_definitions.js').for_loc;
 
-// used for sunrise, sunset … and PH,SH
+/* Used for sunrise, sunset … and PH,SH.
+ * Do not define new nominatim responses below and instead define them in
+ * ./js/nominatim_definitions.js
+ */
+
 /* Defaults {{{ */
 // https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1
 var nominatimTestJSON = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
 
 // https://nominatim.openstreetmap.org/reverse?format=json&lat=60.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1
 var nominatimTestJSON_sunrise_below_default = {"place_id":"71977948","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"118145917","lat":"60.5467949","lon":"9.8269589","display_name":"243, Ringerike, Buskerud, Norway","address":{"road":"243","county":"Ringerike","state":"Buskerud","country":"Norway","country_code":"no"}};
-/* }}} */
 
-/* Germany {{{ */
-// https://nominatim.openstreetmap.org/reverse?format=json&lat=53.1208&lon=8.8780&zoom=18&addressdetails=1&accept-language=de
-// Check PH_SH_exporter.js for a full list.
-var nominatimTestJSON_bremen = {
-    "address": {
-        "city": "Bremen",
-        "city_district": "Stadtbezirk Bremen-Ost",
-        "continent": "Europ\u00e4ischen Union",
-        "country": "Deutschland",
-        "country_code": "de",
-        "county": "Bremen",
-        "neighbourhood": "Lehesterdeich",
-        "postcode": "28357",
-        "road": "Am Lehester Deich",
-        "state": "Bremen",
-        "suburb": "Horn-Lehe"
-    },
-    "display_name": "Am Lehester Deich, Lehesterdeich, Horn-Lehe, Stadtbezirk Bremen-Ost, Bremen, 28357, Deutschland, Europ\u00e4ischen Union",
-    "lat": "53.1249048",
-    "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. https://www.openstreetmap.org/copyright",
-    "lon": "8.8755814",
-    "osm_id": "28200369",
+// https://nominatim.openstreetmap.org/reverse?format=json&lat=27.567&lon=-71.093&zoom=18&addressdetails=1
+// Actual response: {"error":"Unable to geocode"}
+var nominatim_no_valid_address = {
+    "place_id": "-966",
+    "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
     "osm_type": "way",
-    "place_id": "39182271"
+    "osm_id": "-42",
+    "lat": "27.567",
+    "lon": "-71.093",
+    "display_name": "-23, None, None, None",
+    "address": {
+        "road": "-23",
+        "county": "None",
+        "state": "None",
+        "country": "None",
+        "country_code": "none"
+    }
 };
 /* }}} */
 
@@ -1087,7 +1083,7 @@ test.addTest('Variable days: school holidays', [
         [ '2014.07.31 00:00', '2014.09.11 00:00', false, 'Sommerferien' ],     // 1 + 31 + 10
         [ '2014.10.27 00:00', '2014.11.09 00:00', false, 'Herbstferien' ],     // 5 + 8
         [ '2014.12.22 00:00', '2015.01.06 00:00', false, 'Weihnachtsferien' ], // 10 + 5
-    ], 1000 * 60 * 60 * 24 * (3 + 2 + 20 + 1 + 1 + 1 + (1 + 31 + 10) + (5 + 8) + (10 + 5)), 0, false, nominatimTestJSON_bremen, 'not last test');
+    ], 1000 * 60 * 60 * 24 * (3 + 2 + 20 + 1 + 1 + 1 + (1 + 31 + 10) + (5 + 8) + (10 + 5)), 0, false, nominatim_for_loc.de.hb, 'not last test');
 
 test.addTest('SH: Only if SH is Wednesday', [
         'SH We',
@@ -4988,6 +4984,14 @@ test.addShouldFail('Time range does not continue as expected for mode === 2.', [
         'sunrise-(' + value_suffix,
         'sunrise-sunset,(' + value_suffix,
     ], nominatimTestJSON, 'not last test', 2);
+
+test.addShouldFail('PH with non-existing address.', [
+        'Mo-Fr 10:00-20:00; PH off',
+    ], nominatim_no_valid_address, 'not only test');
+
+test.addShouldFail('SH with non-existing address.', [
+        'Mo-Fr 10:00-20:00; SH off',
+    ], nominatim_no_valid_address, 'not only test');
 
 // Appeared in real_test … {{{
 for (var mode = 0; mode <= 2; mode++) {

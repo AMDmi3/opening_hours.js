@@ -3282,10 +3282,8 @@
         'max differ': 'There should be no reason to differ more than __maxdiffer__ days from a __name__. If so tell us …',
         'adding 0': 'Adding 0 does not change the date. Please omit this.',
         'unexpected token holiday': 'Unexpected token (holiday parser): __token__',
-        'no holiday defintion': 'There are no holidays __name__ defined for country __cc__.'
-            + ' You can also add them: __repository_url__',
-        'no holiday defintion state': 'There are no holidays __name__ defined for country __cc__ and state __state__.'
-            + ' You can also add them: __repository_url__',
+        'no holiday defintion': 'There are no holidays (__name__) defined for country __cc__.',
+        'no holiday defintion state': 'There are no holidays (__name__) defined for country __cc__ and state __state__.',
         'no country code': 'Country code missing which is needed to select the correct holidays (see README how to provide it)',
         'movable no formular': 'Movable day __name__ can not not be calculated.'
             + ' Please add the formula how to calculate it.',
@@ -5723,7 +5721,6 @@
                             throw formatLibraryBugMessage(t('no holiday defintion', {
                                 'name': type_of_holidays,
                                 'cc': location_cc,
-                                'repository_url': repository_url,
                             }), 'library bug PR only');
                         }
                         return matching_holiday;
@@ -5732,14 +5729,12 @@
                             'name': type_of_holidays,
                             'cc': location_cc,
                             'state': location_state,
-                            'repository_url': repository_url,
                         }), 'library bug PR only');
                     }
                 } else {
                     throw formatLibraryBugMessage(t('no holiday defintion', {
                         'name': type_of_holidays,
                         'cc': location_cc,
-                        'repository_url': repository_url
                     }), 'library bug PR only');
                 }
             } else { /* We have no idea which holidays do apply because the country code was not provided. */

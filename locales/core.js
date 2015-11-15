@@ -41,9 +41,9 @@ var opening_hours_resources = { // English is fallback language.
                 'conf param unkown type': 'Der optional_conf_parm["__key__"] Parameter hat einen unbekannten Typ.'
                     + ' Gegeben: __given__, erwartet: __expected__.',
                 'library bug': 'Bei der Auswertung des Wertes "__value__" ist ein Fehler aufgetreten.'
-                    + ' Bitte melde diesen Fehler oder schicke einen pull request: __url__.__message__',
+                    + ' Bitte melde diesen Fehler oder korrigiere diesen mittels eines Pull Requests oder Patches: __url__.__message__',
                 'library bug PR only': 'Bei der Auswertung des Wertes "__value__" ist ein Fehler aufgetreten.'
-                    + ' Bitte schicke einen pull request: __url__.__message__',
+                    + ' Du kannst dies korrigieren, indem du das Problem löst und in Form eines Pull Requests oder Patches zum Projekt beiträgst: __url__.__message__',
                 'use multi': 'Du hast __count__ __part2__ Einzelne Regeln können mit ";" getrennt werden.',
                 'selector multi 2a': '__what__ in einer Regel benutzt. Du kannst nur einen davon je Regel verwenden',
                 'selector multi 2b': 'nicht verbundene __what__ in einer Regel benutzt. Das ist vermutlich ein Fehler.'
@@ -116,10 +116,8 @@ var opening_hours_resources = { // English is fallback language.
                 'max differ': 'Es sollte keinen Grund geben, mehr als __maxdiffer__ Tage von einem __name__ abzuweichen. Wenn nötig, teile uns dies bitte mit …',
                 'adding 0': 'Addition von 0 verändert das Datum nicht. Bitte weglassen.',
                 'unexpected token holiday': 'Unerwartes Token (in Feiertags-Auswertung): __token__',
-                'no holiday defintion': 'Der Feiertag __name__ ist für das Land __cc__ nicht definiert.'
-                    + ' Du kannst diese hinzufügen: __repository_url__',
-                'no holiday defintion state': 'Der Feiertag __name__ ist für das Land __cc__ und Bundesland __state__ nicht definiert.'
-                    + ' Du kannst diese hinzufügen: __repository_url__',
+                'no holiday defintion': '__name__ ist für das Land __cc__ nicht definiert.',
+                'no holiday defintion state': '__name__ ist für das Land __cc__ und Bundesland __state__ nicht definiert.',
                 'no country code': 'Der Ländercode fehlt. Dieser wird benötigt um die korrekten Feiertage zu bestimmen (siehe in der README wie dieser anzugeben ist)',
                 'movable no formular': 'Der bewegliche Feiertag __name__ kann nicht berechnet werden.'
                     + ' Bitte füge eine entsprechende Formel hinzu.',
