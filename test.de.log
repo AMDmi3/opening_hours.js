@@ -2737,6 +2737,8 @@ Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_
 "Compare prettifyValue" for "Tue": [1m[32mPASSED[39m[22m
 "Compare prettifyValue" for "Dienstag": [1m[32mPASSED[39m[22m
 "Compare prettifyValue" for "PH": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "märz": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "mär": [1m[32mPASSED[39m[22m
 "Compare prettifyValue" for "SH": [1m[32mPASSED[39m[22m
 "Test isEqualTo function: Full range" for "open": [1m[32mPASSED[39m[22m
 "Test isEqualTo function: Full range" for "24/7": [1m[32mPASSED[39m[22m
@@ -2753,7 +2755,7 @@ Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-844/896 tests passed.
+846/898 tests passed.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

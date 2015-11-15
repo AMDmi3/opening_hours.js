@@ -5107,7 +5107,7 @@ test.addCompMatchingRule('Compare result from getMatchingRule()', [
     'Fr 12:00-16:00 open "Notfallsprechstunde"', {}, 'n last test');
 // }}}
 
-/* isEqualTo {{{ */
+/* PrettifyValue {{{ */
 test.addPrettifyValue('Compare prettifyValue', [
         'Mo',
         'Mon',
@@ -5125,9 +5125,16 @@ test.addPrettifyValue('Compare prettifyValue', [
     ], 'de', 'Feiertags');
 
 test.addPrettifyValue('Compare prettifyValue', [
+        'märz',
+        'mär',
+    ], 'de', 'Mär');
+
+test.addPrettifyValue('Compare prettifyValue', [
         'SH',
     ], 'de', 'Schulferien');
+/* }}} */
 
+/* isEqualTo {{{ */
 test.addEqualTo('Test isEqualTo function: Full range', [
         'open',
         '24/7',
