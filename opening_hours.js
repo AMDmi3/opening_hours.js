@@ -3318,10 +3318,10 @@
         SunCalc = root.SunCalc || require('suncalc');
         try { // as long as it is an optional dependency
             moment = root.moment || require('moment');
-        } catch (er) {}
+        } catch (error_pass) { error_pass }
         try { // as long as it is an optional dependency
             i18n = require('./locales/core');
-        } catch (er) {}
+        } catch (error_pass) { error_pass }
         module.exports = factory(SunCalc, moment, i18n, holiday_definitions, word_error_correction, lang);
     } else {
         // For browsers
@@ -3376,11 +3376,11 @@
 
         var minutes_in_day = 60 * 24;
         var msec_in_day    = 1000 * 60 * minutes_in_day;
-        var msec_in_week   = msec_in_day * 7;
+        // var msec_in_week   = msec_in_day * 7;
 
         var library_name   = 'opening_hours.js';
         var repository_url = 'https://github.com/ypid/' + library_name;
-        var issues_url     = repository_url + '/issues?state=open';
+        // var issues_url     = repository_url + '/issues?state=open';
         // }}}
 
         /* translation function {{{ */
@@ -4047,8 +4047,7 @@
                     if (new_tokens[nrule][0].length === 0) continue;
                     // Rule does contain nothing useful e.g. second rule of '10:00-12:00;' (empty) which needs to be handled.
 
-                    var selector_start_end_type = [ 0, 0, undefined ],
-                        prettified_group_value  = [];
+                    var selector_start_end_type = [ 0, 0, undefined ];
                     // console.log(new_tokens[nrule][0]);
 
                     used_selectors[nrule] = {};
@@ -4434,7 +4433,7 @@
                         i18n.setLng(user_conf['locale']);
                     }
                     for (var i = 0; i < prettified_group_value.length; i++) {
-                        type = prettified_group_value[i][0][2];
+                        var type = prettified_group_value[i][0][2];
                         if (type === 'weekday') {
                             for(var key in weekdays_en) {
                                 prettified_group_value[i][1] = prettified_group_value[i][1].replace(new RegExp(weekdays_en[key], 'g'), weekdays_local[key]);
@@ -4546,7 +4545,7 @@
                 if (matchTokens(tokens, at, 'weekday')) {
                     at = parseWeekdayRange(tokens, at, selectors);
                 } else if (matchTokens(tokens, at, '24/7')) {
-                    selectors.time.push(function(date) { return [true]; });
+                    selectors.time.push(function() { return [true]; });
                     // Not needed. If there is no selector it automatically matches everything.
                     // WRONG: This only works if there is no other selector in this selector group ...
                     at++;
@@ -4648,6 +4647,7 @@
             return at;
         }
 
+        /* Not used
         function get_last_token_pos_in_token_group(tokens, at, last_at) {
             for (at++; at < last_at; at++) {
                 if (typeof tokens[at] === 'object') {
@@ -4661,6 +4661,8 @@
             }
             return last_at;
         }
+        */
+
         // }}}
 
         // helper functions for sub parser {{{
@@ -5005,7 +5007,7 @@
 
                     // This shortcut makes always-open range check faster.
                     if (minutes_from === 0 && minutes_to === minutes_in_day) {
-                        selectors.time.push(function(date) { return [true]; });
+                        selectors.time.push(function() { return [true]; });
                     } else {
                         if (minutes_to > minutes_in_day) { // has_normal_time[1] must be true
                             selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period, extended_open_end) { return function(date) {
@@ -5047,7 +5049,7 @@
                                 }
                             }}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period, extended_open_end));
 
-                            selectors.wraptime.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period, extended_open_end) { return function(date) {
+                            selectors.wraptime.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, point_in_time_period, extended_open_end) { return function(date) {
                                 var ourminutes = date.getHours() * 60 + date.getMinutes();
 
                                 if (timevar_string[0]) {
@@ -5079,9 +5081,9 @@
                                         return [true, dateAtDayMinutes(date, minutes_to), has_open_end, extended_open_end];
                                 }
                                 return [false, undefined];
-                            }}(minutes_from, minutes_to - minutes_in_day, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period, extended_open_end));
+                            }}(minutes_from, minutes_to - minutes_in_day, timevar_string, timevar_add, has_open_end, point_in_time_period, extended_open_end));
                         } else {
-                            selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period, extended_open_end) { return function(date) {
+                            selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period) { return function(date) {
                                 var ourminutes = date.getHours() * 60 + date.getMinutes();
 
                                 if (timevar_string[0]) {
@@ -5116,7 +5118,7 @@
                                     else
                                         return [false, dateAtDayMinutes(date, minutes_from + minutes_in_day)];
                                 }
-                            }}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period, extended_open_end));
+                            }}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period));
                         }
                     }
 
@@ -5146,14 +5148,15 @@
                                 return [true, dateAtDayMinutes(date, minutes_to)];
                         }}(minutes_from, minutes_to));
 
-                        selectors.wraptime.push(function(minutes_from, minutes_to) { return function(date) {
+                        selectors.wraptime.push(function(minutes_to) { return function(date) {
                             var ourminutes = date.getHours() * 60 + date.getMinutes();
 
-                            if (ourminutes < minutes_to)
+                            if (ourminutes < minutes_to) {
                                 return [true, dateAtDayMinutes(date, minutes_to)];
-                            else
+                            } else {
                                 return [false, undefined];
-                        }}(minutes_from, minutes_to - minutes_in_day));
+                            }
+                        }}(minutes_to - minutes_in_day));
                     } else {
                         selectors.time.push(function(minutes_from, minutes_to) { return function(date) {
                             var ourminutes = date.getHours() * 60 + date.getMinutes();
@@ -5390,7 +5393,7 @@
                     }
 
                     if (weekday_to < weekday_from) { // handle full range
-                        selectors.weekday.push(function(date) { return [true]; });
+                        selectors.weekday.push(function() { return [true]; });
                         // Not needed. If there is no selector it automatically matches everything.
                         // WRONG: This only works if there is no other selector in this selector group ...
                     } else {
@@ -5539,8 +5542,6 @@
                         at += 1 + add_days[1];
                     } else if (tokens[at][0] === 'SH') {
                         var applying_holidays = getMatchingHoliday(tokens[at][0]);
-
-                        var holidays = []; // needs to be sorted each time because of movable days
 
                         var selector = function(applying_holidays) { return function(date) {
                             var date_num = getValueForDate(date);
@@ -6017,10 +6018,10 @@
 
                     if (!period && week_from === 1 && week_to === 53) {
                         /* Shortcut and work around bug. */
-                        selectors.week.push(function(date) { return [true]; });
+                        selectors.week.push(function() { return [true]; });
                     } else {
 
-                        selectors.week.push(function(week_from, week_to, is_range, period) { return function(date) {
+                        selectors.week.push(function(week_from, week_to, period) { return function(date) {
                             var ourweek = getWeekNumber(date);
 
                             // console.log("week_from: %s, week_to: %s", week_from, week_to);
@@ -6050,7 +6051,7 @@
 
                             // console.log("Match");
                             return [true, getNextDateOfISOWeek(week_to === 53 ? 1 : week_to + 1, date)];
-                        }}(week_from, week_to, is_range, period));
+                        }}(week_from, week_to, period));
                     }
 
                     at += 1 + (is_range ? 2 : 0) + (period ? 2 : 0);
@@ -6158,19 +6159,20 @@
                         inside = false;
                     }
 
-                    var selector = function(tokens, at, month_from, month_to, is_range, inside) { return function(date) {
+                    var selector = function(month_from, month_to, inside) { return function(date) {
                         var ourmonth = date.getMonth();
 
-                        // handle full range
-                        if (month_to < month_from)
+                        if (month_to < month_from) {
+                            /* Handle full range. */
                             return [!inside];
+                        }
 
                         if (ourmonth < month_from || ourmonth > month_to) {
                             return [!inside, dateAtNextMonth(date, month_from)];
                         } else {
                             return [inside, dateAtNextMonth(date, month_to + 1)];
                         }
-                    }}(tokens, at, month_from, month_to, is_range, inside);
+                    }}(month_from, month_to, inside);
 
                     if (push_to_monthday === true)
                         selectors.monthday.push(selector);
@@ -6557,7 +6559,6 @@
             }
 
             // console.log(date_matching_rules);
-            rule:
             for (var nrule = 0; nrule < date_matching_rules.length; nrule++) {
                 var rule = date_matching_rules[nrule];
 

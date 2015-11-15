@@ -165,7 +165,19 @@ check-fast: check-diff-en-opening_hours.js
 check-diff-all: check-diff check-diff-opening_hours.min.js
 
 .PHONY: check-diff
-check-diff: check-diff-all-opening_hours.js
+check-diff: check-diff-all-opening_hours.js check-diff-uglifyjs-log
+
+
+.PHONY: check-diff-uglifyjs-log
+check-diff-uglifyjs-log: uglifyjs.log opening_hours.min.js
+	git --no-pager diff -- "$<"
+	git diff --quiet --exit-code HEAD -- "$<" || read fnord; \
+	if [ "$$fnord" == "b" ]; then \
+		exit 1; \
+	fi
+
+.PHONY: check-test
+check-test: check-opening_hours.js
 
 .PHONY: check-test
 check-test: check-opening_hours.js
@@ -474,7 +486,6 @@ opening_hours+deps.min.js:
 
 %.min.js: %.js
 	uglifyjs "$<" --output "$@" --comments '/github.com/' --lint 2> uglifyjs.log
-	git --no-pager diff -- uglifyjs.log
 
 README.html:
 
