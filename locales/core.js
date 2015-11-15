@@ -115,11 +115,9 @@ var opening_hours_resources = { // English is fallback language.
                 'max differ': 'Es sollte keinen Grund geben, mehr als __maxdiffer__ Tage von einem __name__ abzuweichen. Wenn nötig, teile uns dies bitte mit …',
                 'adding 0': 'Addition von 0 verändert das Datum nicht. Bitte weglassen.',
                 'unexpected token holiday': 'Unerwartes Token (in Feiertags-Auswertung): __token__',
-                'no SH defintion': 'Für die Schulferien __name__ fehlen die Defintionen für das Jahr __year__'
+                'no holiday defintion': 'Der Feiertag __name__ ist für das Land __cc__ nicht definiert.'
                     + ' Du kannst diese hinzufügen: __repository_url__',
-                'no PH definition': 'Der Feiertag __name__ ist für das Land __cc__ nicht definiert.'
-                    + ' Du kannst diese hinzufügen: __repository_url__',
-                'no PH definition state': 'Der Feiertag __name__ ist für das Land __cc__ und Bundesland __state__ nicht definiert.'
+                'no holiday defintion state': 'Der Feiertag __name__ ist für das Land __cc__ und Bundesland __state__ nicht definiert.'
                     + ' Du kannst diese hinzufügen: __repository_url__',
                 'no country code': 'Der Ländercode fehlt. Dieser wird benötigt um die korrekten Feiertage zu bestimmen (siehe in der README wie dieser anzugeben ist)',
                 'movable no formular': 'Der bewegliche Feiertag __name__ kann nicht berechnet werden.'

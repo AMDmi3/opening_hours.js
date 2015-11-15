@@ -2701,6 +2701,24 @@
                 'Crăciunul'                                      : [ 12, 25 ],
                 'A doua zi de Crăciun'                           : [ 12, 26 ],
             },
+            'SH': [
+                {
+                    name: 'Vacanța de iarnă',
+                    2015: [ 12, 19, /* to */  1,  3 ]
+                },
+                {
+                    name: 'Vacanţa intersemestrială',
+                    2016: [  1, 30, /* to */  2,  7 ]
+                },
+                {
+                    name: 'Vacanța de primăvară',
+                    2016: [  4, 23, /* to */  5,  3 ]
+                },
+                {
+                    name: 'Vacanța de vară',
+                    2016: [  6, 18, /* to */  9,  4 ]
+                }
+            ],
         } // }}}
     };
     // }}}
@@ -3263,11 +3281,9 @@
         'max differ': 'There should be no reason to differ more than __maxdiffer__ days from a __name__. If so tell us …',
         'adding 0': 'Adding 0 does not change the date. Please omit this.',
         'unexpected token holiday': 'Unexpected token (holiday parser): __token__',
-        'no SH defintion': 'School holiday __name__ has no definition for the year __year__'
+        'no holiday defintion': 'There are no holidays __name__ defined for country __cc__.'
             + ' You can also add them: __repository_url__',
-        'no PH definition': 'There are no holidays __name__ defined for country __cc__.'
-            + ' You can also add them: __repository_url__',
-        'no PH definition state': 'There are no holidays __name__ defined for country __cc__ and state __state__.'
+        'no holiday defintion state': 'There are no holidays __name__ defined for country __cc__ and state __state__.'
             + ' You can also add them: __repository_url__',
         'no country code': 'Country code missing which is needed to select the correct holidays (see README how to provide it)',
         'movable no formular': 'Movable day __name__ can not not be calculated.'
@@ -3316,7 +3332,7 @@
     /// }}}
 }(this, function (SunCalc, moment, i18n, holiday_definitions, word_error_correction, lang) {
 
-    return function(value, nominatiomJSON, optional_conf_parm) {
+    return function(value, nominatiom_object, optional_conf_parm) {
         // short constants {{{
         var word_value_replacement = { // If the correct values can not be calculated.
             dawn    : 60 * 5 + 30,
@@ -3413,28 +3429,28 @@
 
         /* Optional constructor parameters {{{ */
 
-        /* nominatiomJSON {{{
+        /* nominatiom_object {{{
          *
-         * required to reasonably calculate 'sunrise' and holidays.
+         * Required to reasonably calculate 'sunrise' and holidays.
          */
         var location_cc, location_state, lat, lon;
-        if (typeof nominatiomJSON === 'object' && nominatiomJSON !== null) {
-            if (typeof nominatiomJSON.address === 'object') {
-                if (typeof nominatiomJSON.address.country_code === 'string') {
-                    location_cc = nominatiomJSON.address.country_code;
+        if (typeof nominatiom_object === 'object' && nominatiom_object !== null) {
+            if (typeof nominatiom_object.address === 'object') {
+                if (typeof nominatiom_object.address.country_code === 'string') {
+                    location_cc = nominatiom_object.address.country_code;
                 }
-                if (typeof nominatiomJSON.address.state === 'string') {
-                    location_state = nominatiomJSON.address.state;
-                } else if (typeof nominatiomJSON.address.county === 'string') {
-                    location_state = nominatiomJSON.address.county;
+                if (typeof nominatiom_object.address.state === 'string') {
+                    location_state = nominatiom_object.address.state;
+                } else if (typeof nominatiom_object.address.county === 'string') {
+                    location_state = nominatiom_object.address.county;
                 }
             }
 
-            if (typeof nominatiomJSON.lon === 'string' && typeof nominatiomJSON.lat === 'string') {
-                lat = nominatiomJSON.lat;
-                lon = nominatiomJSON.lon;
+            if (typeof nominatiom_object.lon === 'string' && typeof nominatiom_object.lat === 'string') {
+                lat = nominatiom_object.lat;
+                lon = nominatiom_object.lon;
             }
-        } else if (nominatiomJSON === null) {
+        } else if (nominatiom_object === null) {
             /* Set the location to some random value. This can be used if you don’t
              * care about correct opening hours for more complex opening_hours
              * values.
@@ -3443,9 +3459,9 @@
             location_state = 'Baden-W\u00fcrttemberg';
             lat = '49.5400039';
             lon = '9.7937133';
-        } else if (typeof nominatiomJSON !== 'undefined') {
-            throw 'The nominatiomJSON parameter is of unknown type.'
-                + ' Given ' + typeof(nominatiomJSON)
+        } else if (typeof nominatiom_object !== 'undefined') {
+            throw 'The nominatiom_object parameter is of unknown type.'
+                + ' Given ' + typeof(nominatiom_object)
                 + ', expected object.';
         }
         /* }}} */
@@ -4611,7 +4627,7 @@
                     }
                 } else if ((at === 0 || at === tokens.length - 1) && matchTokens(tokens, at, 'rule separator')) {
                     at++;
-                    console.log("value: " + nrule);
+                    // console.log("value: " + nrule);
                     // throw formatLibraryBugMessage('Not implemented yet.');
                 } else {
                     var warnings = getWarnings();
@@ -5669,31 +5685,49 @@
             if (typeof location_cc === 'string') {
                 if (holiday_definitions.hasOwnProperty(location_cc)) {
                     if (typeof location_state === 'string'
-                            && holiday_definitions[location_cc][location_state]
-                            && holiday_definitions[location_cc][location_state][type_of_holidays]) {
-                        // if holiday_definitions for the state are specified use it
-                        // and ignore lesser specific ones (for the country)
+                        && typeof holiday_definitions[location_cc][location_state] === 'object'
+                        && typeof holiday_definitions[location_cc][location_state][type_of_holidays] === 'object') {
+
+                        /* If holiday_definitions for the state are specified,
+                         * use it and ignore lesser specific ones (for the
+                         * country)
+                         */
                         return holiday_definitions[location_cc][location_state][type_of_holidays];
+
                     } else if (holiday_definitions[location_cc][type_of_holidays]) {
-                        // holidays are only defined country wide
-                        var matching_holiday = {}; // holidays in the country wide scope can be limited to certain states
-                        for (var holiday_name in holiday_definitions[location_cc][type_of_holidays]) {
-                            if (typeof holiday_definitions[location_cc][type_of_holidays][holiday_name][2] === 'object') {
-                                if (-1 !== holiday_definitions[location_cc][type_of_holidays][holiday_name][2].indexOf(location_state))
-                                    matching_holiday[holiday_name] = holiday_definitions[location_cc][type_of_holidays][holiday_name];
-                            } else {
-                                matching_holiday[holiday_name] = holiday_definitions[location_cc][type_of_holidays][holiday_name];
-                            }
+                        /* Holidays are defined country wide. Some
+                         * countries only have country-wide holiday definitions
+                         * so that is ok too.
+                         */
+                        var applying_holidays_for_country = holiday_definitions[location_cc][type_of_holidays];
+
+                        var matching_holiday = {}; /* Holidays in the country-wide scope can be limited to certain states. */
+                        switch (type_of_holidays) {
+                            case 'PH':
+                                for (var holiday_name in applying_holidays_for_country) {
+                                    if (typeof applying_holidays_for_country[holiday_name][2] === 'object') {
+                                        if (-1 !== applying_holidays_for_country[holiday_name][2].indexOf(location_state)) {
+                                            matching_holiday[holiday_name] = applying_holidays_for_country[holiday_name];
+                                        }
+                                    } else {
+                                        matching_holiday[holiday_name] = applying_holidays_for_country[holiday_name];
+                                    }
+                                }
+                                break;
+                            case 'SH':
+                                matching_holiday = applying_holidays_for_country;
+                                break;
                         }
-                        if (Object.keys(matching_holiday).length === 0)
-                        throw formatLibraryBugMessage(t('no PH definition', {
-                            'name': type_of_holidays,
-                            'cc': location_cc,
-                            'repository_url': repository_url,
-                        }), 'library bug PR only');
+                        if (Object.keys(matching_holiday).length === 0) {
+                            throw formatLibraryBugMessage(t('no holiday defintion', {
+                                'name': type_of_holidays,
+                                'cc': location_cc,
+                                'repository_url': repository_url,
+                            }), 'library bug PR only');
+                        }
                         return matching_holiday;
                     } else {
-                        throw formatLibraryBugMessage(t('no PH definition state', {
+                        throw formatLibraryBugMessage(t('no holiday defintion state', {
                             'name': type_of_holidays,
                             'cc': location_cc,
                             'state': location_state,
@@ -5701,7 +5735,7 @@
                         }), 'library bug PR only');
                     }
                 } else {
-                    throw formatLibraryBugMessage(t('no PH definition', {
+                    throw formatLibraryBugMessage(t('no holiday defintion', {
                         'name': type_of_holidays,
                         'cc': location_cc,
                         'repository_url': repository_url

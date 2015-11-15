@@ -188,15 +188,15 @@ function getReadableState(startString, endString, oh, past) {
 
 ## Library API
 
-*   `var oh = new opening_hours('We 12:00-14:00', nominatiomJSON, mode);`
+*   `var oh = new opening_hours('We 12:00-14:00', nominatiom_object, mode);`
 
     *   value (mandadory, type: string): Constructs opening_hours object, given the opening_hours tag value.
 
         Throws an error string if the expression is malformed or unsupported.
 
-    *   nominatiomJSON (optional, type: object or null): In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges][ohlib.time-ranges]) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim] (example URL: https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=5&addressdetails=1) and you are good to go. Note that this second parameter is optional. The data returned by Nominatim should be in the local language (the language of the country for which the opening hours apply). If not, *accept-language* can be used as parameter in the request URL.
+    *   nominatiom_object (optional, type: object or null): In order to calculate the correct times for variable times (e.g. sunrise, dusk, see under [Time ranges][ohlib.time-ranges]) the coordinates are needed. To apply the correct holidays (PH) and school holidays (SH) the country code and the state is needed. The only thing you as programmer need to know are the coordinates or preferably the OSM id (for the node, way or relation) of the facility (where the opening hours do apply) anything else can be queried for using [reverse geocoding with Nominatim][Nominatim]. So just use as second parameter the returned JSON from [Nominatim] (example URL: https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=5&addressdetails=1) and you are good to go. Note that this second parameter is optional. The data returned by Nominatim should be in the local language (the language of the country for which the opening hours apply). If not, *accept-language* can be used as parameter in the request URL.
 
-        The nominatiomJSON can also be `null` in which case a default location will be used.
+        The `nominatiom_object` can also be `null` in which case a default location will be used.
         This can be used if you don’t care about correct opening hours for more complex opening_hours values.
 
     *   optional_conf_parm (optional, either of type number of object):
@@ -614,6 +614,8 @@ Project                                                          | Additional In
 [opening_hours-statistics]                                       | Visualization of the data quality and growth over time.
 [www.openstreetmap.hu](http://www.openstreetmap.hu/)             | old version of this library, see also https://github.com/AMDmi3/opening_hours.js/issues/19
 
+If you use this library please let me know …
+
 ### YoHours
 
 YoHours currently only checks with this lib if the opening_hours value can be evaluated at all and links to the [evaluation tool][ohlib.evaluation-tool] if yes. There might be more integration with YoHours and opening_hours.js in the future. See https://github.com/PanierAvide/panieravide.github.io/issues/2
@@ -623,8 +625,6 @@ YoHours currently only checks with this lib if the opening_hours value can be ev
 [opening_hours_server.js]: https://github.com/ypid/opening_hours_server.js
 [opening_hours-statistics]: https://github.com/ypid/opening_hours-statistics
 [YoHours]: http://github.pavie.info/yohours/
-
-If you use this library please let me know …
 
 ## Related links
 

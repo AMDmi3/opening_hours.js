@@ -2265,7 +2265,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 The value (first parameter) is not a string.
 
 "Wrong constructor call should throw an error: nominatiomJSON: string" for "Mo-Fr 08:00-16:00": [1m[32mPASSED[39m[22m
-The nominatiomJSON parameter is of unknown type. Given string, expected object.
+The nominatiom_object parameter is of unknown type. Given string, expected object.
 
 "Wrong constructor call should throw an error: "string"" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 The optional_conf_parm parameter is of unknown type. Given string
