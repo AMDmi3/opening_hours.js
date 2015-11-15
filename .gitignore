@@ -10,6 +10,7 @@ export*
 !bower.json
 !taginfo.json
 !taginfo_template.json
+!uglifyjs.log
 
 opening_hours.min.js
 opening_hours+deps.js

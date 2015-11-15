@@ -199,9 +199,9 @@ check-diff-%.js: %.js test.js
 	else \
 		echo "Test results for $< ($(CHECK_LANG)) produced a different output then the output of the current HEAD. Checkout the following diff."; \
 	fi
-	git --no-pager diff test.$(CHECK_LANG).log
+	git --no-pager diff -- test.$(CHECK_LANG).log
 	## This would allow no diff at all which means no changes to the test framework …
-	# git --no-pager diff --exit-code test.$(CHECK_LANG).log
+	# git --no-pager diff --exit-code -- test.$(CHECK_LANG).log
 
 .PHONY: osm-tag-data-taginfo-check
 osm-tag-data-taginfo-check: real_test.js opening_hours.js osm-tag-data-get-taginfo
@@ -473,7 +473,8 @@ opening_hours.min.js:
 opening_hours+deps.min.js:
 
 %.min.js: %.js
-	uglifyjs "$<" --output "$@" --comments '/github.com/' --lint
+	uglifyjs "$<" --output "$@" --comments '/github.com/' --lint 2> uglifyjs.log
+	git --no-pager diff -- uglifyjs.log
 
 README.html:
 
