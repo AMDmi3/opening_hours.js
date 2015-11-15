@@ -3332,7 +3332,7 @@
     /// }}}
 }(this, function (SunCalc, moment, i18n, holiday_definitions, word_error_correction, lang) {
 
-    return function(value, nominatiom_object, optional_conf_parm) {
+    return function(value, nominatim_object, optional_conf_parm) {
         // short constants {{{
         var word_value_replacement = { // If the correct values can not be calculated.
             dawn    : 60 * 5 + 30,
@@ -3429,28 +3429,28 @@
 
         /* Optional constructor parameters {{{ */
 
-        /* nominatiom_object {{{
+        /* nominatim_object {{{
          *
          * Required to reasonably calculate 'sunrise' and holidays.
          */
         var location_cc, location_state, lat, lon;
-        if (typeof nominatiom_object === 'object' && nominatiom_object !== null) {
-            if (typeof nominatiom_object.address === 'object') {
-                if (typeof nominatiom_object.address.country_code === 'string') {
-                    location_cc = nominatiom_object.address.country_code;
+        if (typeof nominatim_object === 'object' && nominatim_object !== null) {
+            if (typeof nominatim_object.address === 'object') {
+                if (typeof nominatim_object.address.country_code === 'string') {
+                    location_cc = nominatim_object.address.country_code;
                 }
-                if (typeof nominatiom_object.address.state === 'string') {
-                    location_state = nominatiom_object.address.state;
-                } else if (typeof nominatiom_object.address.county === 'string') {
-                    location_state = nominatiom_object.address.county;
+                if (typeof nominatim_object.address.state === 'string') {
+                    location_state = nominatim_object.address.state;
+                } else if (typeof nominatim_object.address.county === 'string') {
+                    location_state = nominatim_object.address.county;
                 }
             }
 
-            if (typeof nominatiom_object.lon === 'string' && typeof nominatiom_object.lat === 'string') {
-                lat = nominatiom_object.lat;
-                lon = nominatiom_object.lon;
+            if (typeof nominatim_object.lon === 'string' && typeof nominatim_object.lat === 'string') {
+                lat = nominatim_object.lat;
+                lon = nominatim_object.lon;
             }
-        } else if (nominatiom_object === null) {
+        } else if (nominatim_object === null) {
             /* Set the location to some random value. This can be used if you don’t
              * care about correct opening hours for more complex opening_hours
              * values.
@@ -3459,9 +3459,9 @@
             location_state = 'Baden-W\u00fcrttemberg';
             lat = '49.5400039';
             lon = '9.7937133';
-        } else if (typeof nominatiom_object !== 'undefined') {
-            throw 'The nominatiom_object parameter is of unknown type.'
-                + ' Given ' + typeof(nominatiom_object)
+        } else if (typeof nominatim_object !== 'undefined') {
+            throw 'The nominatim_object parameter is of unknown type.'
+                + ' Given ' + typeof(nominatim_object)
                 + ', expected object.';
         }
         /* }}} */

@@ -31,12 +31,12 @@ var net           = require('net');
 
 // used for sunrise, sunset and PH,SH
 // https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1
-var nominatiomTestJSON = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
+var nominatimTestJSON = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
 
 function opening_hours_object(value) {
     var oh;
     var crashed = true;
-    var needed_nominatiom_json = false;
+    var needed_nominatim_json = false;
     var warnings = [];
     try {
         oh = new opening_hours(value, {}, { 'locale': argv.locale } );
@@ -47,15 +47,15 @@ function opening_hours_object(value) {
         crashed = false;
     } catch (err) {
         try {
-            oh = new opening_hours(value, nominatiomTestJSON, { 'locale': argv.locale });
+            oh = new opening_hours(value, nominatimTestJSON, { 'locale': argv.locale });
             crashed = false;
-            needed_nominatiom_json = true;
+            needed_nominatim_json = true;
         } catch (err) {
             crashed = err;
         }
     }
 
-    var result = { 'needed_nominatiom_json': needed_nominatiom_json };
+    var result = { 'needed_nominatim_json': needed_nominatim_json };
     if (crashed) {
         result.error      = true;
         result.eval_notes = crashed;

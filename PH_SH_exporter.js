@@ -25,7 +25,7 @@ var fs            = require('fs');
 /* }}} */
 
 /* Constants {{{ */
-var nominatiom_object = require('./js/nominatiom_definitions.js').for_loc;
+var nominatim_object = require('./js/nominatim_definitions.js').for_loc;
 /* }}} */
 
 /* Parameter handling {{{ */
@@ -66,7 +66,7 @@ if (argv['public-holidays'] && argv['school-holidays']) {
     console.error("--school-holidays and --public-holidays can not be used together.");
     process.exit(0);
 }
-if (typeof nominatiom_object[argv.country] !== 'object' || typeof nominatiom_object[argv.country][argv.region] !== 'object') {
+if (typeof nominatim_object[argv.country] !== 'object' || typeof nominatim_object[argv.country][argv.region] !== 'object') {
     console.error(argv.country + ", " + argv.region + " is currently not supported.");
     process.exit(0);
 }
@@ -78,11 +78,11 @@ var filepath = argv._[0];
 
 var oh_value = argv['public-holidays'] ? 'PH' : 'SH';
 
-write_config_file(filepath, oh_value, nominatiom_object[argv.country][argv.region], new Date(argv.from, 0, 1), new Date(argv.to + 1, 0, 1));
+write_config_file(filepath, oh_value, nominatim_object[argv.country][argv.region], new Date(argv.from, 0, 1), new Date(argv.to + 1, 0, 1));
 
-function write_config_file(filepath, oh_value, nominatiom_object, from_date, to_date) {
+function write_config_file(filepath, oh_value, nominatim_object, from_date, to_date) {
     try {
-        oh = new opening_hours(oh_value, nominatiom_object);
+        oh = new opening_hours(oh_value, nominatim_object);
     } catch (err) {
         console.error('Something went wrong. Please file issue at https://github.com/ypid/opening_hours.js/issues');
         process.exit(0);
