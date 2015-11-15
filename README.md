@@ -667,7 +667,7 @@ Note that this resource file does also provide the localization for the [opening
 
 Please do not open issues for missing holidays. It is obvious that there are more missing holidays then holidays which are defined in this library. Instead consider if you can add your missing holidays and send me a pull request or patch. If you are hitting a problem because some holidays depend on variable days or something like this, consider opening and a unfinished PR so that the more complicated things can be discussed there.
 
-Holidays can be added to the file [opening_hours.js][ohlib.opening_hours.js] as JavaScript object notation. Have a look at the current definitions for [other holidays][ohlib.holidays]. Holiday names should be in the local language. Please also add the source for this information (in form of an URL) as comment.
+Holidays can be added to the file [opening_hours.js][ohlib.opening_hours.js] as JavaScript object notation. Have a look at the current definitions for [other holidays][ohlib.holidays]. Holiday names should be in the local language. Note that you should include the definitions in order (see [#126](https://github.com/ypid/opening_hours.js/issues/126#issuecomment-156853794) for details. Please also add the source for this information (in form of an URL) as comment.
 
 Please consider adding a test (with a time range of one year for example) to see if everything works as expected and to ensure that it will stay that way.
 See under [testing][ohlib.testing].
