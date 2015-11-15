@@ -72,6 +72,7 @@ var opening_hours_resources = { // English is fallback language.
                 'public holiday': 'Es wurde keine Regel für "PH" (feiertags) angegeben. Dies ist nicht sehr Aussagekräftig.__part2__'
                     + ' Bitte füge die Regel "PH off" an, wenn die Einrichtung an allen Feiertagen geschlossen ist'
                     + ' oder schreibe "Sa,Su,PH 12:00-16:00" um auszudrücken, dass Samstags, Sonntags und feiertags von 12:00-16:00 geöffnet ist.'
+                    + ' Falls die Einrichtung täglich und an Feiertagen geöffent ist, kann dies explizit mittels "Mo-Su,PH" ausgedürckt werden.'
                     + ' Wenn du dir im Unklaren bist, versuche die Öffnungszeit zu klären. Falls das nicht möglich ist, lass die Angabe weg und ignoriere diese Warnung.',
                 'public holiday part2': ' Leider ist der "tag key" (beispielsweise "opening_hours", or "lit") in opening_hours.js nicht bekannt.'
                     + ' Diese Warnung betrifft nur die Keys: __keys__. Falls deine Angabe nicht für einen dieser ist, ignoriere bitte folgenden Hinweis:',

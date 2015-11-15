@@ -3237,6 +3237,7 @@
         'public holiday': 'There was no PH (public holiday) specified. This is not very explicit.__part2__'
             + ' Please either append a "PH off" rule if the amenity is closed on all public holidays'
             + ' or use something like "Sa,Su,PH 12:00-16:00" to say that on Saturdays, Sundays and on public holidays the amenity is open 12:00-16:00.'
+            + ' If the amenity is open everyday including public holidays then you can make this explicit by writing "Mo-Su,PH".'
             + ' If you are not certain try to find it out. If you can’t then do not add PH to the value and ignore this warning.',
         'public holiday part2': ' Unfortunately the tag key (e.g. "opening_hours", or "lit") is unknown to opening_hours.js. '
             + 'This warning only applies to the key __keys__. If your value is for that key than read on. If not you can ignore the following.',
