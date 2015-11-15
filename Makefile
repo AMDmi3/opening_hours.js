@@ -55,14 +55,18 @@ list:
 ## }}}
 
 .PHONY: dependencies-get
-dependencies-get:
+dependencies-get: package.json
 	git submodule update --init --recursive
 	npm install
 	bower install
 
+.PHONY: dependencies-updateable
+dependencies-updateable: package.json
+	ncu --upgradeAll --packageFile "$<"
+
 .PHONY: dependencies-user-wide-get
 dependencies-user-wide-get:
-	npm install --global doctoc
+	npm install --global doctoc npm-check-updates
 
 .PHONY: build
 build: opening_hours.min.js
