@@ -66,7 +66,7 @@ if (argv['public-holidays'] && argv['school-holidays']) {
     console.error("--school-holidays and --public-holidays can not be used together.");
     process.exit(0);
 }
-if (typeof nominatiom_object[argv['school-holidays']] !== 'object' || typeof nominatiom_object[argv.country][argv.region] !== 'object') {
+if (typeof nominatiom_object[argv.country] !== 'object' || typeof nominatiom_object[argv.country][argv.region] !== 'object') {
     console.error(argv.country + ", " + argv.region + " is currently not supported.");
     process.exit(0);
 }
