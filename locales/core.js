@@ -28,7 +28,7 @@ var opening_hours_resources = { // English is fallback language.
                 'interpreted as year': 'Die Zahl __number__ wird als Jahr interpretiert.'
                     + ' Vermutlich ist das nicht beabsichtigt. Uhrzeiten werden als "12:00" angegeben.',
                 'rule before fallback empty': 'Die Regel vor der Fallback-Regel enthält nichts nützliches',
-                'hour min seperator': 'Bitte benutze ":" als Stunden/Minuten Trenner',
+                'hour min separator': 'Bitte benutze ":" als Stunden/Minuten Trenner',
                 'warnings severity': 'Der Parameter optional_conf_parm["warnings_severity"] muss eine ganze Zahl zwischen (einschließlich) 0 und (einschließlich) 7 sein.'
                     + ' Gegeben: __severity__ '
                     + ', erwartet: Eine der Zahlen: __allowed__.',
@@ -57,7 +57,7 @@ var opening_hours_resources = { // English is fallback language.
                 'ranges': 'Zeitspannen',
                 'default state': "Diese Regel, welche den Standard Status (d.h. geschlossen) für alle folgenden Regeln ändert, ist nicht die erste Regel."
                     + " Diese Regel überschreibt alle vorherigen Regeln."
-                    + " Es kann legtim sein, den Standard Status z.B. auf geöffnet festzulegen"
+                    + " Es kann legitim sein, den Standard Status z.B. auf geöffnet festzulegen"
                     + " und dann nur die Zeiten, zu denen geschlossen ist, anzugeben.",
                 'vague': "Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde."
                     + " Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.",
@@ -72,7 +72,7 @@ var opening_hours_resources = { // English is fallback language.
                 'public holiday': 'Es wurde keine Regel für "PH" (feiertags) angegeben. Dies ist nicht sehr Aussagekräftig.__part2__'
                     + ' Bitte füge die Regel "PH off" an, wenn die Einrichtung an allen Feiertagen geschlossen ist'
                     + ' oder schreibe "Sa,Su,PH 12:00-16:00" um auszudrücken, dass Samstags, Sonntags und feiertags von 12:00-16:00 geöffnet ist.'
-                    + ' Falls die Einrichtung täglich und an Feiertagen geöffent ist, kann dies explizit mittels "Mo-Su,PH" ausgedürckt werden.'
+                    + ' Falls die Einrichtung täglich und an Feiertagen geöffnet ist, kann dies explizit mittels "Mo-Su,PH" ausgedrückt werden.'
                     + ' Wenn du dir im Unklaren bist, versuche die Öffnungszeit zu klären. Falls das nicht möglich ist, lass die Angabe weg und ignoriere diese Warnung.',
                 'public holiday part2': ' Leider ist der "tag key" (beispielsweise "opening_hours", or "lit") in opening_hours.js nicht bekannt.'
                     + ' Diese Warnung betrifft nur die Keys: __keys__. Falls deine Angabe nicht für einen dieser ist, ignoriere bitte folgenden Hinweis:',
@@ -81,7 +81,7 @@ var opening_hours_resources = { // English is fallback language.
                 'no colon after': 'Bitte Benutze kein ":" nach dem Token __token__.',
                 'number -5 to 5': 'Zahl zwischen -5 und 5 (außer 0) erwartet.',
                 'one weekday constraint': 'Du kannst höchstens einen beschränkten Wochentag in einer Monats-Spanne verwenden',
-                'range contrainted weekdays': 'Du kannst keine Wochentags-Spanne als Beschränkung in einer Monats-Spanne verwenden',
+                'range constrained weekdays': 'Du kannst keine Wochentags-Spanne als Beschränkung in einer Monats-Spanne verwenden',
                 'expected': '"__symbol__" erwartet.',
                 'range zero': 'Du kannst keine __type__-Spanne mit Periode "0" verwenden.',
                 'period one year+': 'Bitte verwende keine __type__-Spannen mit Periode "1".'
@@ -89,7 +89,7 @@ var opening_hours_resources = { // English is fallback language.
                 'period one': 'Bitte verwende keine __type__-Spannen mit Periode "1".',
                 'month 31': "Die Tagangabe für __month__ muss zwischen 1 und 31 liegen.",
                 'month 30': "Der Monat __month__ hat keine 31 Tage. Der letzte Tag von __month__ ist Tag 30.",
-                'month feb': '"Der Monat __month__ hat entwedet 28 oder 29 Tage (Schaltjahre)."',
+                'month feb': '"Der Monat __month__ hat entweder 28 oder 29 Tage (Schaltjahre)."',
                 'point in time': 'Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne __calc__.'
                     + ' Um mit Zeitpunkten zu arbeiten, muss der Modus für  __libraryname__ umgestellt werden.'
                     + ' Vielleicht falscher OSM tag verwendet?',
@@ -99,7 +99,7 @@ var opening_hours_resources = { // English is fallback language.
                 'time range mode': '__libraryname__ wurde im "Zeitspannen-Modus" aufgerufen. Zeitpunkt gefunden.',
                 'point in time mode': '__libraryname__ wurde im "Zeitpunkt-Modus" aufgerufen. Zeitspanne gefunden.',
                 'outside current day': 'Zeitspanne beginnt außerhalb des aktuellen Tages',
-                'two midnights': 'Zeitspanne welche mehrmals Mitternacht beinhaltet wird nicht untersützt',
+                'two midnights': 'Zeitspanne welche mehrmals Mitternacht beinhaltet wird nicht unterstützt',
                 'without minutes': 'Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig!'
                     + ' Bitte verwende stattdessen folgende Syntax "__syntax__".',
                 'outside day': 'Die Zeitspanne beginnt außerhalb des aktuellen Tages',
@@ -115,14 +115,14 @@ var opening_hours_resources = { // English is fallback language.
                 'unexpected token weekday range': 'Unerwartes Token in Tages-Spanne: __token__',
                 'max differ': 'Es sollte keinen Grund geben, mehr als __maxdiffer__ Tage von einem __name__ abzuweichen. Wenn nötig, teile uns dies bitte mit …',
                 'adding 0': 'Addition von 0 verändert das Datum nicht. Bitte weglassen.',
-                'unexpected token holiday': 'Unerwartes Token (in Feiertags-Auswertung): __token__',
+                'unexpected token holiday': 'Unerwartet Token (in Feiertags-Auswertung): __token__',
                 'no holiday defintion': '__name__ ist für das Land __cc__ nicht definiert.',
                 'no holiday defintion state': '__name__ ist für das Land __cc__ und Bundesland __state__ nicht definiert.',
                 'no country code': 'Der Ländercode fehlt. Dieser wird benötigt um die korrekten Feiertage zu bestimmen (siehe in der README wie dieser anzugeben ist)',
                 'movable no formular': 'Der bewegliche Feiertag __name__ kann nicht berechnet werden.'
                     + ' Bitte füge eine entsprechende Formel hinzu.',
                 'movable not in year': 'Der bewegliche Feiertag __name__ plus __days__'
-                    + ' Tage befindet sich nicht mehr im selben Jahr. Aktuell nicht unterstüzt.',
+                    + ' Tage befindet sich nicht mehr im selben Jahr. Aktuell nicht unterstützt.',
                 'year range one year': 'Eine Jahres-Spanne mit gleichem Jahr als Beginn und Ende ergibt keinen Sinn.'
                     + ' Bitte entferne das Ende-Jahr. zum Beispiel: "__year__ May 23"',
                 'year range reverse': 'Eine Jahres-Spanne mit Beginn größer als Ende ergibt keinen Sinn.'
@@ -130,10 +130,10 @@ var opening_hours_resources = { // English is fallback language.
                 'year past': 'Das Jahr liegt in der Vergangenheit.',
                 'unexpected token year range': 'Unerwartetes Token in der Jahres-Spanne: __token__',
                 'week range reverse': 'Du hast eine Wochen-Spanne in umgekehrter Reihenfolge oder mehrere Jahr umfassende angegeben. Dies ist aktuell nicht unterstützt.',
-                'week negative': 'Du hast eine Wochennummer kleiner 1 angegeben. Korrekte Angaben sind 1-53.',
-                'week exceed': 'Du hast eine Wochennummer größer als 53 angegeben. Korrekte Angaben sind 1-53.',
+                'week negative': 'Du hast eine Kalenderwoche kleiner 1 angegeben. Korrekte Angaben sind 1-53.',
+                'week exceed': 'Du hast eine Kalenderwoche größer als 53 angegeben. Korrekte Angaben sind 1-53.',
                 'week period less than 2': 'Du hast eine Wochenperiode kleiner 2 angegeben.'
-                    + ' Wenn du die gesammte Spanne von __weekfrom__ bis __weekto__ angeben will, lasse "/__period__" einfach weg.',
+                    + ' Wenn du die gesamte Spanne von __weekfrom__ bis __weekto__ angeben will, lasse "/__period__" einfach weg.',
                 'week period greater than 26': 'Du hast eine Wochen-Periode größer als 26 angegeben.'
                     + ' 26.5 ist die Hälfte des Maximums von 53 Wochen pro Jahr. Damit würde eine Periode größer als 26 nur einmal pro Jahr auftreten.'
                 + ' Bitte gibt den Wochen-Selektor als "week __weekfrom__" an, wenn es das ist, was du ausdrücken möchtest.',

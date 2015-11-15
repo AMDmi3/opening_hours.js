@@ -22,7 +22,7 @@ With [1m[34mwarnings[39m[22m:
 	*always closed <--- (Please use notation "closed" for "always closed".)
 "Time zero intervals (always closed)" for "off; closed": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*off; closed <--- (Diese Regel, welche den Standard Status (d.h. geschlossen) für alle folgenden Regeln ändert, ist nicht die erste Regel. Diese Regel überschreibt alle vorherigen Regeln. Es kann legtim sein, den Standard Status z.B. auf geöffnet festzulegen und dann nur die Zeiten, zu denen geschlossen ist, anzugeben.)
+	*off; closed <--- (Diese Regel, welche den Standard Status (d.h. geschlossen) für alle folgenden Regeln ändert, ist nicht die erste Regel. Diese Regel überschreibt alle vorherigen Regeln. Es kann legitim sein, den Standard Status z.B. auf geöffnet festzulegen und dann nur die Zeiten, zu denen geschlossen ist, anzugeben.)
 "Time zero intervals (always closed)" for "24/7 closed "always closed"": [1m[32mPASSED[39m[22m
 "Time zero intervals (always closed)" for "24/7: closed "always closed"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -2204,10 +2204,10 @@ false
 
 "Value not ideal (probably wrong). Should throw a warning. warnings_severity: 5" for "Mo-Fr 08:00-16:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-Fr 08:00-16:00 <--- (Es wurde keine Regel für "PH" (feiertags) angegeben. Dies ist nicht sehr Aussagekräftig. Leider ist der "tag key" (beispielsweise "opening_hours", or "lit") in opening_hours.js nicht bekannt. Diese Warnung betrifft nur die Keys: opening_hours. Falls deine Angabe nicht für einen dieser ist, ignoriere bitte folgenden Hinweis: Bitte füge die Regel "PH off" an, wenn die Einrichtung an allen Feiertagen geschlossen ist oder schreibe "Sa,Su,PH 12:00-16:00" um auszudrücken, dass Samstags, Sonntags und feiertags von 12:00-16:00 geöffnet ist. Falls die Einrichtung täglich und an Feiertagen geöffent ist, kann dies explizit mittels "Mo-Su,PH" ausgedürckt werden. Wenn du dir im Unklaren bist, versuche die Öffnungszeit zu klären. Falls das nicht möglich ist, lass die Angabe weg und ignoriere diese Warnung.)
+	*Mo-Fr 08:00-16:00 <--- (Es wurde keine Regel für "PH" (feiertags) angegeben. Dies ist nicht sehr Aussagekräftig. Leider ist der "tag key" (beispielsweise "opening_hours", or "lit") in opening_hours.js nicht bekannt. Diese Warnung betrifft nur die Keys: opening_hours. Falls deine Angabe nicht für einen dieser ist, ignoriere bitte folgenden Hinweis: Bitte füge die Regel "PH off" an, wenn die Einrichtung an allen Feiertagen geschlossen ist oder schreibe "Sa,Su,PH 12:00-16:00" um auszudrücken, dass Samstags, Sonntags und feiertags von 12:00-16:00 geöffnet ist. Falls die Einrichtung täglich und an Feiertagen geöffnet ist, kann dies explizit mittels "Mo-Su,PH" ausgedrückt werden. Wenn du dir im Unklaren bist, versuche die Öffnungszeit zu klären. Falls das nicht möglich ist, lass die Angabe weg und ignoriere diese Warnung.)
 "Value not ideal (probably wrong). Should throw a warning. warnings_severity: 5, "tag_key": "opening_hours"" for "Mo-Fr 08:00-16:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-Fr 08:00-16:00 <--- (Es wurde keine Regel für "PH" (feiertags) angegeben. Dies ist nicht sehr Aussagekräftig. Bitte füge die Regel "PH off" an, wenn die Einrichtung an allen Feiertagen geschlossen ist oder schreibe "Sa,Su,PH 12:00-16:00" um auszudrücken, dass Samstags, Sonntags und feiertags von 12:00-16:00 geöffnet ist. Falls die Einrichtung täglich und an Feiertagen geöffent ist, kann dies explizit mittels "Mo-Su,PH" ausgedürckt werden. Wenn du dir im Unklaren bist, versuche die Öffnungszeit zu klären. Falls das nicht möglich ist, lass die Angabe weg und ignoriere diese Warnung.)
+	*Mo-Fr 08:00-16:00 <--- (Es wurde keine Regel für "PH" (feiertags) angegeben. Dies ist nicht sehr Aussagekräftig. Bitte füge die Regel "PH off" an, wenn die Einrichtung an allen Feiertagen geschlossen ist oder schreibe "Sa,Su,PH 12:00-16:00" um auszudrücken, dass Samstags, Sonntags und feiertags von 12:00-16:00 geöffnet ist. Falls die Einrichtung täglich und an Feiertagen geöffnet ist, kann dies explizit mittels "Mo-Su,PH" ausgedrückt werden. Wenn du dir im Unklaren bist, versuche die Öffnungszeit zu klären. Falls das nicht möglich ist, lass die Angabe weg und ignoriere diese Warnung.)
 "Incorrect syntax which should throw an error" for "MON-FRI 5PM-12AM | SAT-SUN 12PM-12AM": [1m[32mPASSED[39m[22m
 MON-FRI 5PM-12AM |  <--- (Unerwartetes Zeichen: "|" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) MON <--- (Please use the abbreviation "Mo" for "mon".); MON-FRI <--- (Please use the abbreviation "Fr" for "fri".); MON-FRI 5PM <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM | SAT <--- (Please use the abbreviation "Sa" for "sat".); MON-FRI 5PM-12AM | SAT-SUN <--- (Please use the abbreviation "Su" for "sun".); MON-FRI 5PM-12AM | SAT-SUN 12PM <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM | SAT-SUN 12PM-12AM <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM  <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "17:00-12:00".)
 
@@ -2254,22 +2254,22 @@ week week <--- (Unerwartetes Token in Wochen-Spanne: week)
 week week  <--- (Unerwartetes Token in Wochen-Spanne: week)
 
 "Incorrect syntax which should throw an error" for "week 0": [1m[32mPASSED[39m[22m
-week 0 <--- (Du hast eine Wochennummer kleiner 1 angegeben. Korrekte Angaben sind 1-53.)
+week 0 <--- (Du hast eine Kalenderwoche kleiner 1 angegeben. Korrekte Angaben sind 1-53.)
 
 "Incorrect syntax which should throw an error" for "week 54": [1m[32mPASSED[39m[22m
-week 54 <--- (Du hast eine Wochennummer größer als 53 angegeben. Korrekte Angaben sind 1-53.)
+week 54 <--- (Du hast eine Kalenderwoche größer als 53 angegeben. Korrekte Angaben sind 1-53.)
 
 "Incorrect syntax which should throw an error" for "week 1-54": [1m[32mPASSED[39m[22m
-week 1-54 <--- (Du hast eine Wochennummer größer als 53 angegeben. Korrekte Angaben sind 1-53.)
+week 1-54 <--- (Du hast eine Kalenderwoche größer als 53 angegeben. Korrekte Angaben sind 1-53.)
 
 "Incorrect syntax which should throw an error" for "week 0-54": [1m[32mPASSED[39m[22m
-week 0 <--- (Du hast eine Wochennummer kleiner 1 angegeben. Korrekte Angaben sind 1-53.)
+week 0 <--- (Du hast eine Kalenderwoche kleiner 1 angegeben. Korrekte Angaben sind 1-53.)
 
 "Incorrect syntax which should throw an error" for "week 40-30": [1m[32mPASSED[39m[22m
 week 40-30 <--- (Du hast eine Wochen-Spanne in umgekehrter Reihenfolge oder mehrere Jahr umfassende angegeben. Dies ist aktuell nicht unterstützt.)
 
 "Incorrect syntax which should throw an error" for "week 30-40/1": [1m[32mPASSED[39m[22m
-week 30-40/1 <--- (Du hast eine Wochenperiode kleiner 2 angegeben. Wenn du die gesammte Spanne von 30 bis 40 angeben will, lasse "/1" einfach weg.)
+week 30-40/1 <--- (Du hast eine Wochenperiode kleiner 2 angegeben. Wenn du die gesamte Spanne von 30 bis 40 angeben will, lasse "/1" einfach weg.)
 
 "Incorrect syntax which should throw an error" for "week 30-40/27": [1m[32mPASSED[39m[22m
 week 30-40/27 <--- (Du hast eine Wochen-Periode größer als 26 angegeben. 26.5 ist die Hälfte des Maximums von 53 Wochen pro Jahr. Damit würde eine Periode größer als 26 nur einmal pro Jahr auftreten. Bitte gibt den Wochen-Selektor als "week 30" an, wenn es das ist, was du ausdrücken möchtest.)
@@ -2395,7 +2395,7 @@ Mo, <--- (Eine weitere Regel an dieser Stelle ergibt keinen Sinn. Benutze einfac
 Jun 0 <--- (Die Tagangabe für Jun muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Feb 30-Aug 2; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Feb 30 <--- ("Der Monat Feb hat entwedet 28 oder 29 Tage (Schaltjahre).")
+Feb 30 <--- ("Der Monat Feb hat entweder 28 oder 29 Tage (Schaltjahre).")
 
 "Incorrect syntax which should throw an error" for "Jun 2-Aug 42; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Jun 2-Aug 42 <--- (Die Tagangabe für Aug muss zwischen 1 und 31 liegen.)
@@ -2440,10 +2440,10 @@ Jun 2-20/0 <--- (Du kannst keine day-Spanne mit Periode "0" verwenden.)
 26:00 <--- (Zeitspanne beginnt außerhalb des aktuellen Tages)
 
 "Incorrect syntax which should throw an error" for "23:00-55:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-23:00-55:00 <--- (Zeitspanne welche mehrmals Mitternacht beinhaltet wird nicht untersützt)
+23:00-55:00 <--- (Zeitspanne welche mehrmals Mitternacht beinhaltet wird nicht unterstützt)
 
 "Incorrect syntax which should throw an error" for "23:59-48:01; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-23:59-48:01 <--- (Zeitspanne welche mehrmals Mitternacht beinhaltet wird nicht untersützt)
+23:59-48:01 <--- (Zeitspanne welche mehrmals Mitternacht beinhaltet wird nicht unterstützt)
 
 "Incorrect syntax which should throw an error" for "25am-26pm; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 25am <--- (Die Zeitspanne beginnt außerhalb des aktuellen Tages)
@@ -2452,7 +2452,7 @@ Jun 2-20/0 <--- (Du kannst keine day-Spanne mit Periode "0" verwenden.)
 24am <--- (Die Zeitspanne beginnt außerhalb des aktuellen Tages)
 
 "Incorrect syntax which should throw an error" for "23am-49pm; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-23am-49pm <--- (Zeitspanne welche mehrmals Mitternacht beinhaltet wird nicht untersützt)
+23am-49pm <--- (Zeitspanne welche mehrmals Mitternacht beinhaltet wird nicht unterstützt)
 
 "Incorrect syntax which should throw an error" for "10:am - 8:pm; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 10:am  <--- (Missing minutes in time range after: "timesep")
@@ -2461,7 +2461,7 @@ Jun 2-20/0 <--- (Du kannst keine day-Spanne mit Periode "0" verwenden.)
 25pm <--- (Die Zeitspanne beginnt außerhalb des aktuellen Tages)
 
 "Incorrect syntax which should throw an error" for "Tu 23:59-48:00+; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Tu 23:59-48:00+ <--- (Zeitspanne welche mehrmals Mitternacht beinhaltet wird nicht untersützt)
+Tu 23:59-48:00+ <--- (Zeitspanne welche mehrmals Mitternacht beinhaltet wird nicht unterstützt)
 
 "Incorrect syntax which should throw an error" for "12:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 12:00 <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falscher OSM tag verwendet?)
@@ -2522,7 +2522,7 @@ Jan 0 <--- (Die Tagangabe für Jan muss zwischen 1 und 31 liegen.)
 Jan 32 <--- (Die Tagangabe für Jan muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Feb 30; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Feb 30 <--- ("Der Monat Feb hat entwedet 28 oder 29 Tage (Schaltjahre).")
+Feb 30 <--- ("Der Monat Feb hat entweder 28 oder 29 Tage (Schaltjahre).")
 
 "Incorrect syntax which should throw an error" for "Mar 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Mar 32 <--- (Die Tagangabe für Mar muss zwischen 1 und 31 liegen.)

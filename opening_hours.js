@@ -3191,7 +3191,7 @@
         'interpreted as year': 'The number __number__ will be interpreted as year.'
             + ' This is probably not intended. Times can be specified as "12:00".',
         'rule before fallback empty': 'Rule before fallback rule does not contain anything useful',
-        'hour min seperator': 'Please use ":" as hour/minute-separator',
+        'hour min separator': 'Please use ":" as hour/minute-separator',
         'warnings severity': 'The parameter optional_conf_parm["warnings_severity"] must be an integer number between 0 and 7 (inclusive).'
             + ' Given __severity__'
             + ', expected one of the following numbers: __allowed__.',
@@ -3247,7 +3247,7 @@
         'no colon after': 'Please don’t use ":" after __token__.',
         'number -5 to 5': 'Number between -5 and 5 (except 0) expected.',
         'one weekday constraint': 'You can not use more than one constrained weekday in a month range',
-        'range contrainted weekdays': 'You can not use a range of constrained weekdays in a month range',
+        'range constrained weekdays': 'You can not use a range of constrained weekdays in a month range',
         'expected': '"__symbol__" expected.',
         'range zero': 'You can not use __type__ ranges with period equals zero.',
         'period one year+': 'Please don’t use __type__ ranges with period equals one.'
@@ -3943,7 +3943,7 @@
                 } else if (value.match(/^[:.]/)) {
                     // time separator
                     if (value[0] === '.' && !done_with_warnings)
-                        parsing_warnings.push([ -1, value.length - 1, t('hour min seperator')]);
+                        parsing_warnings.push([ -1, value.length - 1, t('hour min separator')]);
                     curr_rule_tokens.push([ ':', 'timesep', value.length ]);
                     value = value.substr(1);
                 } else {
@@ -4771,7 +4771,7 @@
                     number = from;
                 } else {
                     throw formatWarnErrorMessage(nrule, at+2,
-                        t('range contrainted weekdays'));
+                        t('range constrained weekdays'));
                 }
             });
 
