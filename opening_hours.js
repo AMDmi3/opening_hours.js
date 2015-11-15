@@ -2999,7 +2999,6 @@
                 'f':          5,
             }, 'Please use the abbreviation "<ok>" for "<ko>".': {
                 'sun':         0,
-                'sunday':      0,
                 'sundays?':    0,
                 'mon':         1,
                 'mondays?':    1,
@@ -4339,6 +4338,10 @@
             }
 
             if (typeof moment !== 'undefined' && typeof user_conf['locale'] === 'string' && user_conf['locale'] !== 'en') {
+                // FIXME: Does not work?
+                // var moment_localized = moment();
+                // moment_localized.locale('en');
+
                 var global_locale = moment.locale();
                 // build translation arrays from moment
                 moment.locale('en');
