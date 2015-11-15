@@ -44,6 +44,9 @@ var test = new opening_hours_test();
 // test.extensive_testing = true;
 
 // nominatiomJSON {{{
+
+var nominatiom_for_loc = require('./js/nominatiom_definitions.js').for_loc;
+
 // used for sunrise, sunset … and PH,SH
 /* Defaults {{{ */
 // https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1

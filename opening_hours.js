@@ -2700,7 +2700,7 @@
                 'Ziua Națională (Ziua Marii Uniri)'              : [ 12,  1 ],
                 'Crăciunul'                                      : [ 12, 25 ],
                 'A doua zi de Crăciun'                           : [ 12, 26 ],
-            }
+            },
         } // }}}
     };
     // }}}
@@ -3187,7 +3187,9 @@
             + ' Given __given__'
             + ', expected __expected__.',
         'library bug': 'An error occurred during evaluation of the value "__value__".'
-            + ' Please file a bug report here: __url__.__message__',
+            + ' Please file a bug report or pull request: __url__.__message__',
+        'library bug PR only': 'An error occurred during evaluation of the value "__value__".'
+            + ' Please submit a pull request: __url__.__message__',
         'use multi': 'You have used __count__ __part2__ Rules can be separated by ";".',
         'selector multi 2a': '__what__ in one rule. You may only use one in one rule.',
         'selector multi 2b': 'not connected __what__ in one rule. This is probably an error.'
@@ -3750,19 +3752,23 @@
         /* Format internal library error message. {{{
          *
          * :param message: Human readable string with the error message.
+         * :param text_template: Message template defined in the `lang` variable to use for the error message. Defaults to 'library bug'.
          * :returns: Error message for the user.
          */
-        function formatLibraryBugMessage(message) {
-            if (typeof message === 'undefined')
+        function formatLibraryBugMessage(message, text_template) {
+            if (typeof message === 'undefined') {
                 message = '';
-            else
+            } else {
                 message = ' ' + message;
+            }
+            if (typeof text_template !== 'string') {
+                text_template = 'library bug';
+            }
 
-            message = t('library bug', { 'value': value, 'url': issues_url, 'message': message });
-            console.log(message);
+            message = t(text_template, { 'value': value, 'url': repository_url, 'message': message });
+            console.error(message);
             return message;
-        }
-        // }}}
+        } /* }}} */
 
         /* Tokenize input stream. {{{
          *
@@ -3971,7 +3977,7 @@
                                         break;
                                 }
                                 if (typeof correct_abbr === 'undefined') {
-                                    throw formatLibraryBugMessage('Including the stacktrace.');
+                                    throw formatLibraryBugMessage('Please also include the stacktrace.');
                                 }
                                 if (token_name !== 'timevar') {
                                     // Everything else than timevar:
@@ -4369,7 +4375,7 @@
                     // console.log(selector_start_end_type, new_tokens[nrule][0].length, count);
 
                     if (count > 50) {
-                        throw formatLibraryBugMessage('infinite loop');
+                        throw formatLibraryBugMessage('Infinite loop.');
                     }
 
                     if (selector_start_end_type[2] !== 'rule separator') {
@@ -5637,7 +5643,11 @@
                 holiday = SH_hash['default']; // applies for any year without explicit definition
                 if (typeof holiday === 'undefined') {
                     if (fatal) {
-                        throw formatLibraryBugMessage(t('no SH definition', {'name': SH_hash.name, 'year': year, 'repository_url': repository_url}));
+                        throw formatLibraryBugMessage(t('no SH definition', {
+                            'name': SH_hash.name,
+                            'year': year,
+                            'repository_url': repository_url,
+                        }), 'library bug PR only');
                     } else {
                         return undefined;
                     }
@@ -5676,16 +5686,26 @@
                             }
                         }
                         if (Object.keys(matching_holiday).length === 0)
-                        throw formatLibraryBugMessage(t('no PH definition',
-                            {'name': type_of_holidays, 'cc': location_cc, 'repository_url': repository_url}));
+                        throw formatLibraryBugMessage(t('no PH definition', {
+                            'name': type_of_holidays,
+                            'cc': location_cc,
+                            'repository_url': repository_url,
+                        }), 'library bug PR only');
                         return matching_holiday;
                     } else {
-                        throw formatLibraryBugMessage(t('no PH definition state',
-                            {'name': type_of_holidays, 'cc': location_cc, 'state': location_state, 'repository_url': repository_url}));
+                        throw formatLibraryBugMessage(t('no PH definition state', {
+                            'name': type_of_holidays,
+                            'cc': location_cc,
+                            'state': location_state,
+                            'repository_url': repository_url,
+                        }), 'library bug PR only');
                     }
                 } else {
-                    throw formatLibraryBugMessage(t('no PH definition',
-                        {'name': type_of_holidays, 'cc': location_cc, 'repository_url': repository_url}));
+                    throw formatLibraryBugMessage(t('no PH definition', {
+                        'name': type_of_holidays,
+                        'cc': location_cc,
+                        'repository_url': repository_url
+                    }), 'library bug PR only');
                 }
             } else { /* We have no idea which holidays do apply because the country code was not provided. */
                 throw t('no country code');

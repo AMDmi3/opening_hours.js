@@ -41,7 +41,9 @@ var opening_hours_resources = { // English is fallback language.
                 'conf param unkown type': 'Der optional_conf_parm["__key__"] Parameter hat einen unbekannten Typ.'
                     + ' Gegeben: __given__, erwartet: __expected__.',
                 'library bug': 'Bei der Auswertung des Wertes "__value__" ist ein Fehler aufgetreten.'
-                    + ' Bitte melde diesen Bug hier: __url__.__message__',
+                    + ' Bitte melde diesen Fehler oder schicke einen pull request: __url__.__message__',
+                'library bug PR only': 'Bei der Auswertung des Wertes "__value__" ist ein Fehler aufgetreten.'
+                    + ' Bitte schicke einen pull request: __url__.__message__',
                 'use multi': 'Du hast __count__ __part2__ Einzelne Regeln können mit ";" getrennt werden.',
                 'selector multi 2a': '__what__ in einer Regel benutzt. Du kannst nur einen davon je Regel verwenden',
                 'selector multi 2b': 'nicht verbundene __what__ in einer Regel benutzt. Das ist vermutlich ein Fehler.'
