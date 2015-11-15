@@ -481,11 +481,15 @@ opening_hours+deps.js:
 %+deps.js: %.js
 	./node_modules/.bin/browserify --require moment --require i18next-client --require "./$<:opening_hours" --outfile "$@"
 
-opening_hours.min.js:
-opening_hours+deps.min.js:
+opening_hours.min.js: opening_hours.js
+	uglifyjs "$<" --output "$@" --comments '/github.com/' --lint 2> uglifyjs.log
+
+opening_hours+deps.min.js: opening_hours+deps.js
+	@true I don’t really care for warnings in dependencies of opening_hours.js.
+	uglifyjs "$<" --output "$@" --comments '/github.com/' --lint 2> >(grep --invert-match '^WARN: ')
 
 %.min.js: %.js
-	uglifyjs "$<" --output "$@" --comments '/github.com/' --lint 2> uglifyjs.log
+	uglifyjs "$<" --output "$@" --comments '/github.com/' --lint
 
 README.html:
 

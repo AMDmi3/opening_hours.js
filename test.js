@@ -872,8 +872,9 @@ test.addTest('Variable times which moves over fix end time', [
 test.addTest('Variable times which moves over fix end time', [
         'sunrise-06:00', // from time < constant time <= end time
     ], '2013.04.15 0:00', '2013.04.19 0:00', [
-        [ '2013.04.18 05:57', '2013.04.18 06:00' ],
-    ], 1000 * 60 * 3, 0, false, nominatimTestJSON_sunrise_below_default);
+        [ '2013.04.17 05:59', '2013.04.17 06:00' ],
+        [ '2013.04.18 05:56', '2013.04.18 06:00' ],
+    ], 1000 * 60 * (1 + 4), 0, false, nominatimTestJSON_sunrise_below_default);
 
 test.addTest('Variable times which moves over fix end time', [
         ignored('sunrise-05:59'), // from time < end time <= constant time
