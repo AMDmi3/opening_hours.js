@@ -1169,10 +1169,18 @@ test.addTest('SH(summer holiday) workaround', [
     ], 1000 * 60 * 60 * 24 * (2 + 31 + 12), 0, false, nominatimTestJSON, 'not only test');
 
 /* Romania {{{ */
-// test.addTest('Variable days: United States common public holidays', [
-//     'SH',
-// ], '2015.01.01 0:00', '2016.01.01 0:00', [
-// ], 1000 * 60 * 60 * 24 * (7 + 0), 0, false, nominatim_for_loc.ro.ro, 'only test');
+test.addTest('SH for Romania', [
+    'SH',
+], '2015.01.01 0:00', '2016.09.05 0:00', [
+    [ '2015.01.01 00:00', '2015.01.05 00:00', false, 'Vacanța de iarnă' ],
+    [ '2015.01.31 00:00', '2015.02.09 00:00', false, 'Vacanţa intersemestrială' ],
+    [ '2015.04.11 00:00', '2015.04.20 00:00', false, 'Vacanța de primăvară' ],
+    [ '2015.06.20 00:00', '2015.09.14 00:00', false, 'Vacanța de vară' ],
+    [ '2015.12.19 00:00', '2016.01.04 00:00', false, 'Vacanța de iarnă' ],
+    [ '2016.01.30 00:00', '2016.02.08 00:00', false, 'Vacanţa intersemestrială' ],
+    [ '2016.04.23 00:00', '2016.05.04 00:00', false, 'Vacanța de primăvară' ],
+    [ '2016.06.18 00:00', '2016.09.05 00:00', false, 'Vacanța de vară' ],
+], 19267200000, 0, false, nominatim_for_loc.ro.ro, 'not only test');
 /* }}} */
 
 /* Russian holidays {{{ */
