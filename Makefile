@@ -90,7 +90,7 @@ doctoc:
 	doctoc README.md --title '**Table of Contents**'
 
 .PHONY: release
-release: doctoc package.json check qa-source-code qa-https-everywhere
+release: doctoc check-diff-uglifyjs-log package.json check qa-source-code qa-https-everywhere
 	git status
 	read continue
 	editor $<
@@ -165,11 +165,11 @@ check-fast: check-diff-en-opening_hours.js
 check-diff-all: check-diff check-diff-opening_hours.min.js
 
 .PHONY: check-diff
-check-diff: check-diff-all-opening_hours.js check-diff-uglifyjs-log
+check-diff: check-diff-all-opening_hours.js
 
 
 .PHONY: check-diff-uglifyjs-log
-check-diff-uglifyjs-log: uglifyjs.log opening_hours.min.js
+check-diff-uglifyjs-log: uglifyjs.log
 	git --no-pager diff -- "$<"
 	git diff --quiet --exit-code HEAD -- "$<" || read fnord; \
 	if [ "$$fnord" == "b" ]; then \
@@ -481,8 +481,10 @@ opening_hours+deps.js:
 %+deps.js: %.js
 	./node_modules/.bin/browserify --require moment --require i18next-client --require "./$<:opening_hours" --outfile "$@"
 
-opening_hours.min.js: opening_hours.js
-	uglifyjs "$<" --output "$@" --comments '/github.com/' --lint 2> uglifyjs.log
+uglifyjs.log: opening_hours.js
+	uglifyjs "$<" --lint 1>/dev/zero 2>uglifyjs.log
+
+opening_hours.min.js:
 
 opening_hours+deps.min.js: opening_hours+deps.js
 	@true I don’t really care for warnings in dependencies of opening_hours.js.
