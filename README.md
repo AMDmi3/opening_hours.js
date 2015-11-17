@@ -481,11 +481,16 @@ Almost everything from opening_hours definition is supported, as well as some ex
         * [United states][PH-us] (Some special cases are [currently not handled](https://github.com/ypid/opening_hours.js/issues/69#issuecomment-74103181))
         * [Denmark][PH-dk]
         * [Czech Republic][PH-cz]
+        * [Romania][PH-ro]
     * **EXT:** Supports limited calculations based on public holidays (e.g. `Sa,PH -1 day open`). The only two possibilities are currently +1 and -1. All other cases are not handled. This seems to be enough because the only thing which is really used is -1.
 
 *   Support for school holidays (`SH 10:00-14:00`).
 
-    * Currently only Germany is supported (based on ical files from [schulferien.org]).
+    * Germany is supported based on ical files from [schulferien.org].
+    * Also supported:
+
+        * Romania
+
     * To update the school holiday definition or add definitions for other countries the script [convert_ical_to_json][ohlib.convert-ical-to-json] can be used (probably includes a little bit of adjustment of the script) to generate JSON definition based on ical calendar files, which can then be added to the library.
 
 *   There can be two cases which need to be separated (this applies for PH and SH):
@@ -794,4 +799,5 @@ Edit: This does also work on npmjs in this short version … -->
 [PH-us]: https://en.wikipedia.org/wiki/Public_holidays_in_the_United_States
 [PH-dk]: https://en.wikipedia.org/wiki/Public_holidays_in_Denmark
 [PH-cz]: https://en.wikipedia.org/wiki/Public_holidays_in_the_Czech_Republic
+[PH-ro]: https://en.wikipedia.org/wiki/Public_holidays_in_Romania#Official_non-working_holidays
 <!-- }}} -->
