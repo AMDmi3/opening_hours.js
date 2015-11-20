@@ -44,7 +44,17 @@ var OpeningHoursTable = {
             atday = i18n.t('words.on weekday') + i18n.t('weekdays.word next.' + this.weekdays[nextchange.getDay()])
                 +' '+ moment.weekdays(nextchange.getDay());
 
-        var atdate = nextchange.getDate() + ' ' + moment.months(nextchange.getMonth());
+        var month_name = moment.months(nextchange.getMonth());
+        var month_name_match = month_name.match(/\(([^|]+?)\|.*\)/);
+        if (month_name_match && typeof month_name_match[1] === 'string') {
+            /* The language has multiple words for the month (nominative, subjective).
+             * Use the first one.
+             * https://github.com/ypid/opening_hours_map/issues/41
+             */
+            month_name = month_name_match[1];
+        }
+
+        var atdate = nextchange.getDate() + ' ' + month_name;
 
         var res = [];
 
