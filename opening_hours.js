@@ -3531,7 +3531,7 @@
             } else {
                 oh_mode = 0;
             }
-        } else if (oh_mode !== 0 && oh_mode !== 1 && oh_mode !== 2) {
+        } else if ([ 0, 1, 2 ].indexOf(oh_mode) === -1) {
             throw t('conf param mode invalid', { 'given': oh_mode, 'allowed': '[ 0, 1, 2 ]' });
         }
 
