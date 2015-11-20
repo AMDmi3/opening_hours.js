@@ -3511,6 +3511,7 @@
             oh_regex_key = getRegexKeyForKeyFromOsmDefaults(oh_key)
 
             if (oh_map_value
+                && typeof osm_tag_defaults[oh_regex_key] === 'object'
                 && typeof osm_tag_defaults[oh_regex_key]['map'] === 'object'
                 && typeof osm_tag_defaults[oh_regex_key]['map'][value] === 'string'
                 ) {
