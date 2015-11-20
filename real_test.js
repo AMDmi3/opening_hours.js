@@ -53,38 +53,18 @@ colors.setTheme({
     result: [ 'green', 'bold' ],
 });
 
-/* Also used by opening_hours_map/opening_hours_map.html */
 test_framework.config = {
-    'opening_hours:kitchen': {
-    },
-    'opening_hours:warm_kitchen': {
-    },
     'smoking_hours': {
         manually_ignored: [ 'yes' ],
     },
-    'collection_times': {
-        oh_mode: 2
-        /* oh_mode 2: "including the hyphen because there are post boxes which are
-         * emptied several (undefined) times or one (undefined) time in a certain time
-         * frame. This shall be covered also.".
-         * Ref: https://wiki.openstreetmap.org/wiki/Key:collection_times */
-    },
     'service_times': {
         manually_ignored: [ 'automatic' ],
-        oh_mode: 2,
     },
     'fee': {
         manually_ignored: [ 'yes', 'no', 'interval', 'unknown' ],
     },
     'lit': {
-        manually_ignored: [ 'interval', 'limited' ],
-        map: {
-            'yes'      : 'sunset-sunrise open "specified as yes: At night (unknown time schedule or daylight detection)"',
-            'automatic': 'unknown "specified as automatic: When someone enters the way the lights are turned on."',
-            'no'       : 'off "specified as no: There are no lights installed."',
-            // 'interval' : 'unknown "specified as interval"',
-            // 'limited'  : 'unknown "specified as limited"',
-        }
+        manually_ignored: [ 'yes', 'automatic', 'no', 'interval', 'limited' ],
     },
 }
 
@@ -112,15 +92,17 @@ var optimist = require('optimist')
     .usage('Usage: $0 export*.json [export*.json]')
     .describe('h', 'Display the usage')
     .describe('v', 'Verbose output')
+    .describe('d', 'Debug output')
     .describe('p', 'Generate a CSV file containing a overview of the following week showing how many facilities will be open for each hour of the week.')
     .describe('I', 'Ignore all bad values which are defined manually like the value "fixme". Does not include --ignore-bad-oh-values.')
     .describe('i', 'Ignore values which are not covered by the specification for opening_hours but might be used like "on" for the "lit" tag.'
         + ' The default is to not ignore any which will result in those values not being parsed as correct values.')
     .describe('m', 'Map values which would get ignored by the --ignore-bad-oh-values option to there meaning in the opening_hours syntax.'
         + ' For example, map "yes" to "sunset-sunrise open "specified as yes"".')
-    .boolean(['v', 'I', 'i', 'm'])
+    .boolean(['v', 'd', 'I', 'i', 'm'])
     .alias('h', 'help')
     .alias('v', 'verbose')
+    .alias('d', 'debug')
     .alias('I', 'ignore-manual-values')
     .alias('i', 'ignore-bad-oh-values')
     .alias('p', 'punchcard')
@@ -134,7 +116,7 @@ if (argv.help || argv._.length === 0) {
 }
 /* }}} */
 
-// test_framework.tag_key('opening_hours');
+// test_framework.tag_key_name('opening_hours');
 for (var i = 0; i < argv._.length; i++) {
     var filename = argv._[i];
     test_framework.json_file(filename);
@@ -158,22 +140,15 @@ function opening_hours_test() {
 
     this.config = {};
 
-    this.parse_tag = function (tagname, info, data) { /* {{{ */
-        var options = this.config[tagname];
+    this.parse_tag = function (tag_key_name, info, data) { /* {{{ */
+        var options = this.config[tag_key_name];
 
         var how_often_print_stats = 15000;
         var importance_threshold  = 30;
         var global_manually_ignored = [ 'fixme', 'FIXME' ];
 
             var ignored_values = [];
-            if (argv.m) {
-                // Dominates -i
-            } else if (argv.i && typeof options === 'object' && typeof options.map === 'object') {
-                for (var ignored_value in options.map) {
-                    ignored_values.push(ignored_value);
-                }
-            }
-            if (argv.I && typeof options === 'object' && typeof options.manually_ignored === 'object') {
+            if (argv['ignore-manual-values'] && typeof options === 'object' && typeof options.manually_ignored === 'object') {
                 for (var i = 0; i < global_manually_ignored.length; i++) {
                     ignored_values.push(global_manually_ignored[i]);
                 }
@@ -182,11 +157,7 @@ function opening_hours_test() {
                 }
             }
 
-            var oh_mode = 0;
-            if (typeof options === 'object' && typeof options.oh_mode === 'number')
-                oh_mode = options.oh_mode;
-
-            console.log('Parsing ' + tagname.blue.bold
+            console.log('Parsing ' + tag_key_name.blue.bold
                 + (ignored_values.length === 0 ? '' : ' (ignoring: ' + ignored_values.join(', ') + ')') + ' …');
 
             var success_differ       = 0; // increment only by one despite that the value might appears more than one time
@@ -231,22 +202,23 @@ function opening_hours_test() {
             var parsed_values = 0; // total number of values which are "parsed" (if one value appears more than one, it counts more than one)
             for (var i = 0; i < total_differ; i++) {
                 var oh_value = data.data[i].value;
-                if (typeof options === 'object' && typeof options.map === 'object') {
-                    if (argv.m) {
-                        for (org_value in options.map) {
-                            if (oh_value === org_value) {
-                                oh_value = options.map[org_value];
-                            }
-                        }
-                    }
-                }
                 if (indexOf.call(ignored_values, oh_value) === -1) {
                     var oh_crahsed = true,
                         oh_warnings = [],
                         oh_value_prettified,
                         oh;
+                    if (argv.debug) {
+                        console.info(oh_value);
+                    }
                     try {
-                        oh = new opening_hours(oh_value, nominatimTestJSON, oh_mode);
+                        oh = new opening_hours(
+                            oh_value,
+                            nominatimTestJSON,
+                            {
+                                'tag_key': tag_key_name,
+                                'map_value': argv['map-bad-oh-values'],
+                            }
+                        );
                         oh_warnings = oh.getWarnings();
                         oh_value_prettified = oh.prettifyValue();
 
@@ -270,16 +242,16 @@ function opening_hours_test() {
                         not_pretty_differ += Number(oh_value_prettified !== oh_value);
                         not_pretty += data.data[i].count * Number(oh_value_prettified !== oh_value);
                         // console.log('passed', oh_value);
-                        if (argv.p && (typeof(argv.p) === 'boolean' && tagname === 'opening_hours')) {
+                        if (argv.punchcard && tag_key_name === 'opening_hours') {
                             var check_date = new Date(cur_date.getFullYear(), cur_date.getMonth(), cur_date.getDate(), 0, 1, 0);
                             var iterator = oh.getIterator(check_date);
                             for (var t_offset = 0; t_offset <= 7 * 24; t_offset++) {
                                 if (iterator.getState()) {
                                     punchcard_data[check_date.getDay()][check_date.getHours()] += data.data[i].count;
-                                    // if (argv.v && check_date.getDay() === 3 && check_date.getHours() === 0) {
+                                    // if (argv.verbose && check_date.getDay() === 3 && check_date.getHours() === 0) {
                                         // punchcard_debug.push([data.data[i].count, oh_value]);
                                     // }
-                                    // if (argv.v && check_date.getDay() === 3 && check_date.getHours() === 1) {
+                                    // if (argv.verbose && check_date.getDay() === 3 && check_date.getHours() === 1) {
                                         // punchcard_debug2.push([data.data[i].count, oh_value]);
                                     // }
                                 }
@@ -321,13 +293,13 @@ function opening_hours_test() {
 
             /* Generate logs {{{ */
             /* Just `touch` the file that you want logs for. */
-            if (fs.existsSync('real_test.' + tagname + '.log')) {
+            if (fs.existsSync('real_test.' + tag_key_name + '.log')) {
                 try {
-                    fs.renameSync('real_test.' + tagname + '.log', 'real_test.last.' + tagname + '.log');
+                    fs.renameSync('real_test.' + tag_key_name + '.log', 'real_test.last.' + tag_key_name + '.log');
                 } catch (err) {
                     /* Ignore */
                 }
-                fs.writeFile('real_test.' + tagname + '.log', logfile_out_string, function(err) {
+                fs.writeFile('real_test.' + tag_key_name + '.log', logfile_out_string, function(err) {
                         if (err) {
                             throw(err);
                         }
@@ -339,7 +311,7 @@ function opening_hours_test() {
             case 'overpass':
                 var csv_filename = [
                      'export',
-                     tagname,
+                     tag_key_name,
                      info.key,
                      info.value,
                      'stats.csv'
@@ -352,13 +324,13 @@ function opening_hours_test() {
                 ].join('♡');
                 break;
             case 'taginfo':
-                var csv_filename = 'real_test.' + tagname + '.stats.csv';
+                var csv_filename = 'real_test.' + tag_key_name + '.stats.csv';
                 var csv_punchcard_filename = 'punchcard.csv';
                 break;
             default: throw('Unknown export_format.');
             }
 
-            if (argv.p && (typeof(argv.p) === 'boolean' && tagname === 'opening_hours')) {
+            if (argv.punchcard && tag_key_name === 'opening_hours') {
                 for (var i = 0; i < day_number_to_name.length; i++) {
                     for (var hours_per_day = 0; hours_per_day < 24; hours_per_day++) {
                         punchcard_data[i][hours_per_day] = (punchcard_data[i][hours_per_day] / total * 100).toFixed(2);
@@ -366,7 +338,7 @@ function opening_hours_test() {
                     punchcard_data_out[day_number_to_name[i]] = punchcard_data[i];
                     punchcard_csv += day_number_to_name[i].toString() + ',' + punchcard_data[i].join(',') + '\n';
                 }
-                if (argv.v) {
+                if (argv.verbose) {
                     console.log(punchcard_data_out);
                     // if (punchcard_debug.length > 0) {
                         // punchcard_debug = punchcard_debug.sort(Comparator);
@@ -393,7 +365,7 @@ function opening_hours_test() {
                 });
             }
 
-            if (info.export_format === 'overpass' || fs.existsSync('real_test.' + tagname + '.stats.csv')) { /* Generate stats {{{ */
+            if (info.export_format === 'overpass' || fs.existsSync('real_test.' + tag_key_name + '.stats.csv')) { /* Generate stats {{{ */
                 if (!fs.existsSync(csv_filename)) {
                     fs.closeSync(fs.openSync(csv_filename, 'w'));
                 }
@@ -451,8 +423,8 @@ function opening_hours_test() {
 
     } /* }}} */
 
-    this.tag_key = function (tag_key /* tag key, uses the data from the taginfo API */) { /* {{{ */
-        this.json_file('export.' + tag_key + '.json');
+    this.tag_key_name = function (tag_key_name /* tag key, uses the data from the taginfo API */) { /* {{{ */
+        this.json_file('export.' + tag_key_name + '.json');
     } /* }}} */
 
     this.json_file = function (filename /* file exported by the taginfo API */) { /* {{{ */
@@ -500,7 +472,7 @@ function opening_hours_test() {
 
         fs.readFile(filename, 'utf8', function (err, data) {
             if (err) {
-                console.error('Error for tag "' + tagname + '": ' + err);
+                console.error('Error for tag "' + tag_key_name + '": ' + err);
                 return;
             }
 
@@ -558,9 +530,9 @@ function opening_hours_test() {
 
             if (info.export_format === 'overpass') {
                 // console.log(JSON.stringify(taginfo_format, null, '    '));
-                Object.keys(taginfo_format).forEach(function (tag_key) {
+                Object.keys(taginfo_format).forEach(function (tag_key_name) {
                     // FIXME: no access to 'this' …
-                    test_framework.parse_tag(tag_key, info, taginfo_format[tag_key]);
+                    test_framework.parse_tag(tag_key_name, info, taginfo_format[tag_key_name]);
                 });
             } else {
                 test_framework.parse_tag(info.key, info, data);

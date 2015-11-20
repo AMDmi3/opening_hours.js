@@ -3361,6 +3361,10 @@
         var osm_tag_defaults = {
             'opening_hours'       :  { 'mode' :  0, 'warn_for_PH_missing' :  true, },
             'collection_times'    :  { 'mode' :  2, },
+            /* oh_mode 2: "including the hyphen because there are post boxes which are
+             * emptied several (undefined) times or one (undefined) time in a certain time
+             * frame. This shall be covered also.".
+             * Ref: https://wiki.openstreetmap.org/wiki/Key:collection_times */
             'opening_hours:.+'    :  { 'mode' :  0, },
             '.+:opening_hours'    :  { 'mode' :  0, },
             '.+:opening_hours:.+' :  { 'mode' :  0, },
