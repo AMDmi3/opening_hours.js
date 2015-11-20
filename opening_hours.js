@@ -3501,7 +3501,7 @@
                 oh_key = optional_conf_parm['tag_key'];
             }
             if (checkOptionalConfParm('map_value', 'boolean')) {
-                oh_map_value = true;
+                oh_map_value = optional_conf_parm.map_value;
             }
         } else if (typeof optional_conf_parm !== 'undefined') {
             throw t('optional conf parm type', { 'given': typeof(optional_conf_parm) });
