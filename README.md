@@ -472,6 +472,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 *   Supports public holidays (`open; PH off`, `PH 12:00-13:00`).
 
     * Currently Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored. The same applies for [Austria][PH-at]. Also supported:
+        * [Belgium][PH-be] (See [issue #115](https://github.com/ypid/opening_hours.js/issues/115) for details)
         * [France][PH-fr]
         * [Canada][PH-ca]
         * [Ukraine][PH-ua]
@@ -742,6 +743,10 @@ Contributor                                        | Contribution
 [MKnight](https://github.com/dex2000)              | HTML/CSS fixes, testing and suggesting new features … :smile:
 [Niels Elgaard Larsen](https://github.com/elgaard) | Public holidays for Denmark.
 [Adrian Fita](https://github.com/afita/)           | Public and school holidays for Romania.
+[sanderd17][] and [marcgemis][]                    | Public holidays for Belgium.
+
+[sanderd17]: https://github.com/sanderd17
+[marcgemis]: https://github.com/marcgemis
 
 ## Credits
 
@@ -788,6 +793,7 @@ Edit: This does also work on npmjs in this short version … -->
 
 [schulferien.org]: http://www.schulferien.org/iCal/
 
+[PH-be]: https://de.wikipedia.org/wiki/Feiertage_in_Belgien
 [PH-de]: https://de.wikipedia.org/wiki/Feiertage_in_Deutschland
 [PH-at]: https://de.wikipedia.org/wiki/Feiertage_in_%C3%96sterreich
 [PH-fr]: https://fr.wikipedia.org/wiki/F%EAtes_et_jours_f%E9ri%E9s_en_France
