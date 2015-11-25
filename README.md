@@ -744,6 +744,7 @@ Contributor                                        | Contribution
 [Niels Elgaard Larsen](https://github.com/elgaard) | Public holidays for Denmark.
 [Adrian Fita](https://github.com/afita/)           | Public and school holidays for Romania.
 [sanderd17][] and [marcgemis][]                    | Public holidays for Belgium.
+[marcgemis][]                                      | Dutch localization.
 
 [sanderd17]: https://github.com/sanderd17
 [marcgemis]: https://github.com/marcgemis
