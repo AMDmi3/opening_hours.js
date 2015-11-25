@@ -35,10 +35,12 @@
   - [Test it yourself (the geeky way)](#test-it-yourself-the-geeky-way)
 - [Performance](#performance)
 - [Used by other projects](#used-by-other-projects)
+  - [YoHours](#yohours)
 - [Related links](#related-links)
 - [ToDo](#todo)
 - [How to contribute](#how-to-contribute)
-  - [Translating](#translating)
+  - [Translating the evaluation tool and the map](#translating-the-evaluation-tool-and-the-map)
+  - [Translating error messages and warnings](#translating-error-messages-and-warnings)
   - [Holidays](#holidays-1)
   - [Core code](#core-code)
     - [Commit hooks](#commit-hooks)
@@ -661,13 +663,17 @@ List of features which can make writing easier:
 
 You can contribute in the usual manner as known from git (and GitHub). Just fork, change and make a pull request.
 
-### Translating
+### Translating the evaluation tool and the map
 
 This project uses http://i18next.com/ for translation.
 
 Translations can be made in the file [js/i18n-resources.js][ohlib.js/i18n-resources.js]. Just copy the whole English block, change the language code to the one you are adding and make your translation. You can open the [index.html](/index.html) to see the result of your work. ~~To complete your localization add the translated language name to the other languages~~ (you don’t have to do this anymore. Importing that form somewhere, WIP, see gen_word_error_correction.js). Week and month names are translated by [moment.js][moment-lib].
 
 Note that this resource file does also provide the localization for the [opening_hours_map]. This can also be tested by cloning the project and linking your modified opening_hours.js working copy to the opening_hours.js directory (after renaming it) inside the opening_hours_map project. Or just follow the installation instructions from the [opening_hours_map].
+
+### Translating error messages and warnings
+
+Translations for error messages and warnings for the opening_hours.js library can be made in the file [locales/core.js][ohlib.js/locales/core.js]. You are encouraged to test your translations. Checkout the [Makefile][ohlib.Makefile] and the [test framework][ohlib.test.js] for how this can be done.
 
 ### Holidays
 
@@ -783,7 +789,10 @@ Edit: This does also work on npmjs in this short version … -->
 [ohlib.library-api]: #library-api
 [ohlib.testing]: #testing
 
+[ohlib.js/locales/core.js]: /locales/core.js
 [ohlib.opening_hours.js]: /opening_hours.js
+[ohlib.test.js]: /test.js
+[ohlib.Makefile]: /Makefile
 [ohlib.js/i18n-resources.js]: /js/i18n-resources.js
 [ohlib.npmjs]: https://www.npmjs.org/package/opening_hours
 [ohlib.convert-ical-to-json]: /convert_ical_to_json
