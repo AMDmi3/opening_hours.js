@@ -20,7 +20,7 @@
      * :%s/\[\zs\([^ ]\)/ \1/e | %s/\([^ ]\)\]/\1 \]/e | %s/,\([^ ]\)/, \1/e
      */
     var holiday_definitions = {
-        'be': { // {{{
+        'be': { /* {{{ */
             'PH': { // https://nl.wikipedia.org/wiki/Feestdagen_in_Belgi%C3%AB
                 "Nieuwjaar - Jour de l'an"                                 : [ 1, 1 ],
                 "Paasmaandag - Lundi de Pâques"                            : [ 'easter', 1 ],
@@ -33,8 +33,8 @@
                 "Wapenstilstand - Armistice"                               : [ 11, 11 ],
                 "Kerstmis - Noël"                                          : [ 12, 25 ]
             }
-        }, // }}}
-        'fr': { // {{{
+        }, /* }}} */
+        'fr': { /* {{{ */
             'PH': { // https://fr.wikipedia.org/wiki/F%C3%AAtes_et_jours_f%C3%A9ri%C3%A9s_en_France
                 "Jour de l'an"                          : [  1,  1 ],
                 "Vendredi saint"                        : [  'easter', -2, [ 'Moselle', 'Bas-Rhin', 'Haut-Rhin', 'Guadeloupe', 'Martinique', 'Polynésie française' ] ],
@@ -59,8 +59,8 @@
                 "Noël"                                  : [ 12, 25 ],
                 "Saint-Étienne "                        : [ 12, 26, [ 'Moselle', 'Bas-Rhin', 'Haut-Rhin' ] ]
             },
-        }, // }}}
-        'de': { // {{{
+        }, /* }}} */
+        'de': { /* {{{ */
             'PH': { // https://de.wikipedia.org/wiki/Feiertage_in_Deutschland
                 'Neujahrstag'               : [  1,  1 ], // month 1, day 1, whole Germany
                 'Heilige Drei Könige'       : [  1,  6, [ 'Baden-Württemberg', 'Bayern', 'Sachsen-Anhalt'] ], // only in the specified states
@@ -1107,8 +1107,8 @@
                     },
                 ],
             },
-        }, // }}}
-        'at': { // {{{
+        }, /* }}} */
+        'at': { /* {{{ */
             'PH': { // https://de.wikipedia.org/wiki/Feiertage_in_%C3%96sterreich
                 'Neujahrstag'                : [  1,  1 ],
                 'Heilige Drei Könige'        : [  1,  6 ],
@@ -1133,8 +1133,8 @@
                 'Stefanitag'                 : [ 12, 26 ],
                 // 'Silvester'               : [ 12, 31 ],
             },
-        }, // }}}
-        'dk': { // {{{
+        }, /* }}} */
+        'dk': { /* {{{ */
             'PH': { // https://en.wikipedia.org/wiki/Public_holidays_in_Denmark
                 'Nytårsdag'                  : [  1,  1 ],
                 'Skærtorsdag'                : [ 'easter', -3 ],
@@ -1150,8 +1150,8 @@
                 'Juledag'                    : [ 12, 25 ],
                 '2. Juledag'                 : [ 12, 26 ],
             },
-        }, // }}}
-        'ca': { // {{{
+        }, /* }}} */
+        'ca': { /* {{{ */
             'PH': { // https://en.wikipedia.org/wiki/Public_holidays_in_Canada
                 "New Year's Day" : [  1,  1 ],
                 "Good Friday"    : [  'easter', -2 ],
@@ -1348,8 +1348,8 @@
                     "Boxing Day"      : [ 12, 26 ]
                 },
             },
-        }, // }}}
-        'ru': { // {{{
+        }, /* }}} */
+        'ru': { /* {{{ */
             'PH': { // https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%D0%B8_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8
                 "1. Новогодние каникулы":     [ 1, 1 ],
                 "2. Новогодние каникулы":     [ 1, 2 ],
@@ -1776,8 +1776,8 @@
                     "День Республики Коми":       [ 8, 22 ],
                 },
             },
-        }, // }}}
-        'ua': { // {{{
+        }, /* }}} */
+        'ua': { /* {{{ */
             'PH': { // https://uk.wikipedia.org/wiki/%D0%A1%D0%B2%D1%8F%D1%82%D0%B0_%D1%82%D0%B0_%D0%BF%D0%B0%D0%BC%27%D1%8F%D1%82%D0%BD%D1%96_%D0%B4%D0%BD%D1%96_%D0%B2_%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%96
                 "Новий рік"                 : [  1,  1 ],
                 "Різдво"                    : [  1,  7 ],
@@ -1789,8 +1789,8 @@
                 "День Конституції України"  : [  6, 28 ],
                 "День Незалежності України" : [  8, 24 ],
             }
-        }, // }}}
-        'us': { // {{{
+        }, /* }}} */
+        'us': { /* {{{ */
             'PH': { // https://en.wikipedia.org/wiki/Public_holidays_in_the_United_States
                 "New Year's Day"   : [ 1, 1 ],
                 "Memorial Day"     : [ "lastMayMonday", 0 ],
@@ -2649,8 +2649,8 @@
                     "Christmas Day"               : [ 12, 25 ]
                 }
             } /* }}} */
-        }, // }}}
-        'si': { // {{{
+        }, /* }}} */
+        'si': { /* {{{ */
             'PH': { // http://www.vlada.si/o_sloveniji/politicni_sistem/prazniki/
                 'novo leto'                                 : [  1,  1 ],
                 'Prešernov dan, slovenski kulturni praznik' : [  2,  8 ],
@@ -2667,8 +2667,8 @@
                 'božič'                                     : [ 12, 25 ],
                 'dan samostojnosti in enotnosti'            : [ 12, 26 ]
             }
-        }, // }}}
-        'it': { // {{{
+        }, /* }}} */
+        'it': { /* {{{ */
             'PH': { // http://www.governo.it/Presidenza/ufficio_cerimoniale/cerimoniale/giornate.html
                 'Capodanno'                                 : [  1,  1 ],
                 'Epifania'                                  : [  1,  6 ],
@@ -2684,8 +2684,8 @@
                 'Natale di Gesù'                            : [ 12, 25 ],
                 'Santo Stefano'                             : [ 12, 26 ],
             },
-        }, // }}}
-        'cz': { // {{{
+        }, /* }}} */
+        'cz': { /* {{{ */
             'PH': { // http://www.mpsv.cz/cs/74 or english: https://en.wikipedia.org/wiki/Public_holidays_in_the_Czech_Republic
                 'Den obnovy samostatného českého státu'          : [  1,  1 ],
                 'Velikonoční pondělí'                            : [ 'easter',  1 ],
@@ -2700,8 +2700,8 @@
                 '1. svátek vánoční'                              : [ 12, 25 ],
                 '2. svátek vánoční'                              : [ 12, 26 ],
             },
-        }, // }}}
-        'ro': { // {{{
+        }, /* }}} */
+        'ro': { /* {{{ */
             'PH': { // https://ro.wikipedia.org/wiki/S%C4%83rb%C4%83tori_publice_%C3%AEn_Rom%C3%A2nia#Zile_oficiale_de_s.C4.83rb.C4.83toare_.C3.AEn_care_nu_se_lucreaz.C4.83
                 'Anul Nou'                                       : [  1,  1 ],
                 'A doua zi de Anul Nou'                          : [  1,  2 ],
@@ -2739,9 +2739,9 @@
                     2015: [ 12, 19, /* to */  1,  3 ],
                 },
             ],
-        }, // }}}
+        }, /* }}} */
     };
-    // }}}
+    /* }}} */
 
     // error correction {{{
     // Initially taken form http://www.netzwolf.info/j/osm/time_domain.js
@@ -2851,7 +2851,7 @@
                  */
                 '7days':           'Mo-Su',
                 '7 days':          'Mo-Su',
-                // }}}
+                /* }}} */
                 '7 days a week':   'Mo-Su',
                 '7 days/week':       'Mo-Su',
                 '24 hours 7 days a week':   '24/7',
@@ -3004,7 +3004,7 @@
             },
         },
 
-        weekday: { // {{{ Good source: http://www.omniglot.com/language/time/days.htm */
+        weekday: { /* {{{ Good source: http://www.omniglot.com/language/time/days.htm */
             'default': {
                 'su': 0,
                 'mo': 1,
@@ -3196,7 +3196,7 @@
             },
         },
     };
-    // }}}
+    /* }}} */
 
     /* error and warning messages {{{ */
     var lang = {
@@ -3328,8 +3328,8 @@
         'open end': 'Specified as open end. Closing time was guessed.',
         'date parameter needed': 'Date parameter needed.',
     }
-    // }}}
-    // }}}
+    /* }}} */
+    /* }}} */
 
     // make the library accessible for the outside world {{{
     if (typeof exports === 'object') {
@@ -3347,7 +3347,7 @@
         // For browsers
         root.opening_hours = factory(root.SunCalc, root.moment, root.i18n, holiday_definitions, word_error_correction, lang);
     }
-    /// }}}
+    //* }}} */
 }(this, function (SunCalc, moment, i18n, holiday_definitions, word_error_correction, lang) {
 
     return function(value, nominatim_object, optional_conf_parm) {
@@ -3405,7 +3405,7 @@
         var library_name   = 'opening_hours.js';
         var repository_url = 'https://github.com/ypid/' + library_name;
         // var issues_url     = repository_url + '/issues?state=open';
-        // }}}
+        /* }}} */
 
         /* translation function {{{ */
         /* Roughly compatibly to i18next so we can replace everything by i18next include later
@@ -3786,7 +3786,7 @@
                 return nrule.substring(0, at) + ' <--- (' + message + ')';
             }
         }
-        // }}}
+        /* }}} */
 
         /* Format internal library error message. {{{
          *
@@ -3983,7 +3983,7 @@
 
             return all_tokens;
         }
-        // }}}
+        /* }}} */
 
         /* error correction/tolerance function {{{
          * Go through word_error_correction hash and get correct value back.
@@ -4038,7 +4038,7 @@
             }
             return undefined;
         }
-        // }}}
+        /* }}} */
 
         /* return warnings as list {{{
          *
@@ -4107,7 +4107,7 @@
                     } while (selector_start_end_type[1] < new_tokens[nrule][0].length);
                 }
                 // console.log('used_selectors: ' + JSON.stringify(used_selectors, null, '    '));
-                // }}}
+                /* }}} */
 
                 for (var nrule = 0; nrule < used_selectors.length; nrule++) {
 
@@ -4515,7 +4515,7 @@
                 return prettified_value;
             }
         }
-        // }}}
+        /* }}} */
 
         /* Check selector array of tokens for specific token name pattern. {{{
          *
@@ -4534,7 +4534,7 @@
 
             return true;
         }
-        // }}}
+        /* }}} */
 
         /* Generate selector wrapper with time offset {{{
          *
@@ -4552,7 +4552,7 @@
                 return [ res[0], new Date(res[1].getTime() - shift) ];
             };
         }
-        // }}}
+        /* }}} */
 
         /* Top-level parser {{{
          *
@@ -4690,7 +4690,7 @@
         }
         */
 
-        // }}}
+        /* }}} */
 
         // helper functions for sub parser {{{
 
@@ -4705,7 +4705,7 @@
         function dateAtDayMinutes(date, minutes) {
             return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, minutes);
         }
-        // }}}
+        /* }}} */
 
         /* For given date, returns date moved to the specific day of week {{{
          *
@@ -4717,7 +4717,7 @@
             var delta = weekday - date.getDay();
             return new Date(date.getFullYear(), date.getMonth(), date.getDate() + delta + (delta < 0 ? 7 : 0));
         }
-        // }}}
+        /* }}} */
 
         /* Function to determine whether an array contains a value {{{
          * Source: https://stackoverflow.com/a/1181586
@@ -4776,7 +4776,7 @@
 
             return at;
         }
-        // }}}
+        /* }}} */
 
         /* List parser for constrained weekdays in month range {{{
          * e.g. Su[-1] which selects the last Sunday of the month.
@@ -4812,7 +4812,7 @@
 
             return [ number, endat + 1 ];
         }
-        // }}}
+        /* }}} */
 
         // Check if period is ok. Period 0 or 1 don’t make much sense.
         function checkPeriod(at, period, period_type, parm_string) {
@@ -4850,7 +4850,7 @@
 
             return tmp_date;
         }
-        // }}}
+        /* }}} */
 
         /* Check if date is valid. {{{
          *
@@ -4874,8 +4874,8 @@
                 throw formatWarnErrorMessage(nrule, at, t('month feb', {'month': months[month]}));
             }
         }
-        // }}}
-        // }}}
+        /* }}} */
+        /* }}} */
 
         /* Time range parser (10:00-12:00,14:00-16:00) {{{
          *
@@ -5215,7 +5215,7 @@
 
             return at;
         }
-        // }}}
+        /* }}} */
 
         /* Helpers for time range parser {{{ */
 
@@ -5233,7 +5233,7 @@
                         'Minutes are greater than 59.');
             return tokens[at][0] * 60 + tokens[at+2][0];
         }
-        // }}}
+        /* }}} */
 
         /* Get time in minutes from "(sunrise-01:30)" {{{
          * Extract the added or subtracted time from "(sunrise-01:30)"
@@ -5454,7 +5454,7 @@
 
             return at;
         }
-        // }}}
+        /* }}} */
 
         /* Get the number of days a date should be moved (if any). {{{
          *
@@ -5482,7 +5482,7 @@
             }
             return add_days;
         }
-        // }}}
+        /* }}} */
 
         /* Holiday parser for public and school holidays (PH,SH) {{{
          *
@@ -5670,7 +5670,7 @@
 
             return (include_year ? date.getFullYear() * 10000 : 0) + date.getMonth() * 100 + date.getDate();
         }
-        // }}}
+        /* }}} */
 
         /* Return the school holiday definition e.g. [ 5, 25, to 6, 5 ], for the specified year {{{
          *
@@ -5905,8 +5905,8 @@
 
             return sorted_holidays;
         }
-        // }}}
-        // }}}
+        /* }}} */
+        /* }}} */
 
         /* Year range parser (2013,2016-2018,2020/2). {{{
          *
@@ -5954,7 +5954,7 @@
                         if (is_range && tokens[at+2][0] < new Date().getFullYear()) {
                             parsing_warnings.push([ nrule, at+2, t('year past') ]);
                         }
-                    // }}}
+                    /* }}} */
 
                     selectors.year.push(function(tokens, at, year_from, is_range, has_period, period) { return function(date) {
                         var ouryear = date.getFullYear();
@@ -5998,7 +5998,7 @@
 
             return at;
         }
-        // }}}
+        /* }}} */
 
         /* Week range parser (week 11-20, week 1-53/2). {{{
          *
@@ -6145,7 +6145,7 @@
             }
             throw formatLibraryBugMessage();
         }
-        // }}}
+        /* }}} */
 
         /* Month range parser (Jan,Feb-Mar). {{{
          *
@@ -6221,7 +6221,7 @@
         function dateAtNextMonth(date, month) {
             return new Date(date.getFullYear(), month < date.getMonth() ? month + 12 : month);
         }
-        // }}}
+        /* }}} */
 
         /* Month day range parser (Jan 26-31; Jan 26-Feb 26). {{{
          *
@@ -6364,7 +6364,7 @@
                             : at_sec_event_or_month + (has_event[1] ? 1 : 2))
                         + (typeof has_calc[1] === 'object' ? has_calc[1][1] : 0);
 
-                    // }}}
+                    /* }}} */
                     // Monthday range like Jan 26-31 {{{
                 } else if (has_month[0]) {
 
@@ -6406,7 +6406,7 @@
                         checkIfDateIsValid(month, range_from, nrule, at+1 + has_year);
                         checkIfDateIsValid(month, range_to - 1 /* added previously */,
                             nrule, at+has_year+(is_range ? 3 : 1));
-                        // }}}
+                        /* }}} */
 
                         var selector = function(year, has_year, month, range_from, range_to, period) { return function(date) {
                             var start_of_next_year = new Date(date.getFullYear() + 1, 0, 1);
@@ -6451,7 +6451,7 @@
                     while (matchTokens(tokens, at, ',', 'number'))
 
 
-                    // }}}
+                    /* }}} */
                     // Only event like easter {{{
                 } else if (has_event[0]) {
 
@@ -6486,7 +6486,7 @@
                         selectors.monthday.push(selector);
 
                     at += has_year[0] + has_event[0] + (typeof has_calc[0][1] === 'number' && has_calc[0][1] ? 3 : 0);
-                    // }}}
+                    /* }}} */
                 } else if (has_constrained_weekday[0]) {
                     at = parseMonthRange(tokens, at);
                 } else if (matchTokens(tokens, at, 'month')) {
@@ -6502,7 +6502,7 @@
 
             return at;
         }
-        // }}}
+        /* }}} */
 
         /* Main selector traversal function (return state array for date). {{{
          * Checks for given date which rule and those which state and comment applies.
@@ -6718,7 +6718,7 @@
             // console.log('changedate', changedate, resultstate, comment, match_rule);
             return [ resultstate, changedate, unknown, comment, match_rule ];
         };
-        // }}}
+        /* }}} */
 
         /* Generate prettified value for selector based on tokens. {{{
          *
@@ -6806,7 +6806,7 @@
             }
             return prettified_value;
         }
-        // }}}
+        /* }}} */
 
         //======================================================================
         // Public interface {{{
@@ -7128,4 +7128,4 @@
     };
 
 }));
-// vim: set ts=4 sw=4 tw=0 et foldmarker={{{,}}} foldlevel=0 foldmethod=marker :
+/* vim: set ts=4 sw=4 tw=0 et foldmarker={{{,}}} foldlevel=0 foldmethod=marker : */
