@@ -261,6 +261,7 @@ osm-tag-data-get-taginfo: $(OH_RELATED_TAGS)
 
 # Testing:
 export.happy_hours.json:
+export.opening_hours.json:
 export.lit.json:
 
 export.%.json:
