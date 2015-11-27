@@ -3813,7 +3813,7 @@
          *
          * :param value: Raw opening_hours value.
          * :returns: Tokenized list object. Complex structure. Check the
-         *        internal documentation in the doc directory for details.
+         *        internal documentation in the docs/ directory for details.
          */
         function tokenize(value) {
             var all_tokens       = [];
@@ -3828,7 +3828,7 @@
                     // Reserved keywords.
                     curr_rule_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase(), value.length ]);
                     value = value.substr(tmp[0].length);
-                } else if (tmp = value.match(/^(?:off\b|closed\b|open\b|unknown\b)/i)) {
+                } else if (tmp = value.match(/^(?:off|closed|open|unknown)\b/i)) {
                     // Reserved keywords.
                     curr_rule_tokens.push([tmp[0].toLowerCase(), 'state', value.length ]);
                     value = value.substr(tmp[0].length);
@@ -3937,18 +3937,19 @@
                     curr_rule_tokens.push([tmp[2], 'comment', value.length ]);
                     value = value.substr(tmp[0].length);
                 } else if (value.match(/^;/)) {
-                    // semicolon terminates rule
-                    // next tokens belong to a new rule
+                    // semicolon terminates rule.
+                    // Next token belong to a new rule.
                     all_tokens.push([ curr_rule_tokens, last_rule_fallback_terminated, value.length ]);
                     value = value.substr(1);
 
                     curr_rule_tokens = [];
                     last_rule_fallback_terminated = false;
                 } else if (value.match(/^\|\|/)) {
-                    // || terminates rule
-                    // Next tokens belong to a fallback rule.
-                    if (curr_rule_tokens.length === 0)
+                    // || terminates rule.
+                    // Next token belong to a fallback rule.
+                    if (curr_rule_tokens.length === 0) {
                         throw formatWarnErrorMessage(-1, value.length - 2, t('rule before fallback empty'));
+                    }
 
                     all_tokens.push([ curr_rule_tokens, last_rule_fallback_terminated, value.length ]);
                     curr_rule_tokens = [];
@@ -3965,9 +3966,10 @@
                     // whitespace is ignored
                     value = value.substr(tmp[0].length);
                 } else if (value.match(/^[:.]/)) {
-                    // time separator
-                    if (value[0] === '.' && !done_with_warnings)
+                    // Time separator (timesep).
+                    if (value[0] === '.' && !done_with_warnings) {
                         parsing_warnings.push([ -1, value.length - 1, t('hour min separator')]);
+                    }
                     curr_rule_tokens.push([ ':', 'timesep', value.length ]);
                     value = value.substr(1);
                 } else {
