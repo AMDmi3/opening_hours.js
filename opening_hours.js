@@ -8,7 +8,7 @@
 /* jshint boss: true */
 /* jshint loopfunc: true */
 
-(function (root, factory) {
+(function (root, factory) { 'use strict';
     /* constants (holiday_definitions, error correction, lang) {{{ */
     /* holiday_definitions {{{ */
     /*
