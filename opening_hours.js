@@ -3334,7 +3334,7 @@
     // make the library accessible for the outside world {{{
     if (typeof exports === 'object') {
         var moment, SunCalc, i18n;
-        // For nodejs
+        // For Node.js.
         SunCalc = root.SunCalc || require('suncalc');
         try { // as long as it is an optional dependency
             moment = root.moment || require('moment');
@@ -3344,7 +3344,7 @@
         } catch (error_pass) { error_pass }
         module.exports = factory(SunCalc, moment, i18n, holiday_definitions, word_error_correction, lang);
     } else {
-        // For browsers
+        // For browsers.
         root.opening_hours = factory(root.SunCalc, root.moment, root.i18n, holiday_definitions, word_error_correction, lang);
     }
     //* }}} */
@@ -3652,7 +3652,7 @@
 
                 next_rule_is_additional = continue_at === 0 ? false : true;
 
-                /* Optimal order of selectors for checking */
+                /* Optimal order of selectors for checking. */
                 var selector_elements = ['year', 'holiday', 'month', 'monthday', 'week', 'weekday'];
                 for (var selector_ind in selector_elements) {
                     if (selectors[selector_elements[selector_ind]].length > 0) {
@@ -3664,8 +3664,9 @@
                 // console.log('weekday: ' + JSON.stringify(selectors.weekday, null, '\t'));
                 rules.push(selectors);
 
-                // This handles selectors with time ranges wrapping over midnight (e.g. 10:00-02:00)
-                // it generates wrappers for all selectors and creates a new rule.
+                /* This handles selectors with time ranges wrapping over midnight (e.g. 10:00-02:00).
+                 * It generates wrappers for all selectors and creates a new rule.
+                 */
                 if (selectors.wraptime.length > 0) {
                     var wrapselectors = {
                         time: selectors.wraptime,

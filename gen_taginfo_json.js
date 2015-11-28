@@ -45,14 +45,14 @@ if (argv.help) {
 /* }}} */
 
 keys = [];
-fs.readFileSync(argv.k, 'utf8').split('\n').forEach(function (osm_tag_key) {
+fs.readFileSync(argv['key-file'], 'utf8').split('\n').forEach(function (osm_tag_key) {
     if (osm_tag_key.match(new RegExp('^[^#]'))) {
         keys.push(osm_tag_key)
     }
 });
 
-if (typeof argv.i === 'string') {
-    var template_file = JSON.parse(fs.readFileSync(argv.i, 'utf8'));
+if (typeof argv['template-file'] === 'string') {
+    var template_file = JSON.parse(fs.readFileSync(argv['template-file'], 'utf8'));
     var key_description;
     if (typeof template_file.tags === 'object' && typeof template_file.tags[0] === 'string') {
         key_description = template_file.tags[0];
