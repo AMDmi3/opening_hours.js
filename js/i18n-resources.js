@@ -11,6 +11,7 @@ var resources = { // English is fallback language.
                 "pt": "Portuguese",
                 "it": "Italian",
                 "uk": "Ukrainian",
+                "nl": "Dutch language",
                 "choose": "Choose Language",
             },
 
