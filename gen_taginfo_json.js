@@ -64,7 +64,7 @@ if (typeof argv['template-file'] === 'string') {
             'key': key,
         };
         if (typeof key_description === 'string') {
-            key_entry['description'] = key_description
+            key_entry['description'] = key_description;
         }
         template_file.tags.push(key_entry);
     }
