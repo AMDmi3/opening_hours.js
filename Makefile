@@ -106,9 +106,9 @@ release: package.json doctoc check-diff-uglifyjs-log check qa-source-code qa-htt
 
 .PHONY: clean
 clean: osm-tag-data-rm
-	rm --force *+deps.js *.min.js
-	rm --force README.html
-	rm --force taginfo_sources.json
+	rm -f *+deps.js *.min.js
+	rm -f README.html
+	rm -f taginfo_sources.json
 
 .PHONY: osm-tag-data-rm
 osm-tag-data-rm: osm-tag-data-taginfo-rm osm-tag-data-overpass-rm
@@ -244,7 +244,7 @@ check-package.json: package.json
 
 .PHONY: osm-tag-data-taginfo-rm
 osm-tag-data-taginfo-rm:
-	rm --force export.*.json
+	rm -f export.*.json
 
 .PHONY: osm-tag-data-update-taginfo
 osm-tag-data-update-taginfo: taginfo_sources.json osm-tag-data-taginfo-rm osm-tag-data-get-taginfo
@@ -342,7 +342,7 @@ export♡%.json: real_test.js $(OH_RELATED_TAGS)
 
 .PHONY: osm-tag-data-overpass-rm
 osm-tag-data-overpass-rm:
-	rm --force export♡*.json
+	rm -f export♡*.json
 
 .PHONY: osm-tag-data-overpass-kill-queries
 osm-tag-data-overpass-kill-queries:
