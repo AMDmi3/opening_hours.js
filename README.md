@@ -84,7 +84,7 @@ A mirror is setup up under: http://ypid.de/~osm/evaluation_tool/
 Just clone the repository:
 
 ```Shell
-git clone --recursive https://github.com/ypid/opening_hours.js.git
+git clone --recursive https://github.com/opening-hours/opening_hours.js.git
 ```
 
 and install it’s dependencies (execute inside the repository):
@@ -433,7 +433,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 *   **WARN:** Supports omitting time range (`Mo-Fr; Tu off`)
 
-    *A warning will be given as this is not very explcit. See [issue 49](https://github.com/ypid/opening_hours.js/issues/49).*
+    *A warning will be given as this is not very explcit. See [issue 49](https://github.com/opening-hours/opening_hours.js/issues/49).*
 
 *   **WARN:** Supports space as time interval separator, i.e. `Mo 12:00-14:00,16:00-20:00` and `Mo 12:00-14:00 16:00-20:00` are the same thing
 *   **WARN:** Supports dot as time separator (`12.00-16.00`)
@@ -474,14 +474,14 @@ Almost everything from opening_hours definition is supported, as well as some ex
 *   Supports public holidays (`open; PH off`, `PH 12:00-13:00`).
 
     * Currently Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored. The same applies for [Austria][PH-at]. Also supported:
-        * [Belgium][PH-be] (See [issue #115](https://github.com/ypid/opening_hours.js/issues/115) for details)
+        * [Belgium][PH-be] (See [issue #115](https://github.com/opening-hours/opening_hours.js/issues/115) for details)
         * [France][PH-fr]
         * [Canada][PH-ca]
         * [Ukraine][PH-ua]
         * [Slovenian][PH-si]
         * [Russian][PH-ru]
-        * [Italy][PH-it] (Without the Saint Patron day, see [comment](https://github.com/ypid/opening_hours.js/pull/74#issuecomment-76194891))
-        * [United states][PH-us] (Some special cases are [currently not handled](https://github.com/ypid/opening_hours.js/issues/69#issuecomment-74103181))
+        * [Italy][PH-it] (Without the Saint Patron day, see [comment](https://github.com/opening-hours/opening_hours.js/pull/74#issuecomment-76194891))
+        * [United states][PH-us] (Some special cases are [currently not handled](https://github.com/opening-hours/opening_hours.js/issues/69#issuecomment-74103181))
         * [Denmark][PH-dk]
         * [Czech Republic][PH-cz]
         * [Romania][PH-ro]
@@ -589,7 +589,7 @@ This script not only shows you if the found value can be processed with this lib
 It also offers filter options (e.g. only errors) and additional things like a link to [taginfo].
 
 Hint: If you want to do quality assurance on tags like opening_hours you can also use this script and enter a regex for values you would like to check and correct (if you have no particular case just enter a dot which matches any character which results in every value being selected). Now you see how many values match your search pattern. As you do QA you probably only want to see values which can not be evaluated. To do this enter the filter "failed".
-To improve the speed of fixing errors, a [feature](https://github.com/ypid/opening_hours.js/issues/29) was added to load those failed values in JOSM. To enable this, append " josm" to the input line. So you will have something like "failed josm" as argument. Now you can hit enter and go through the values.
+To improve the speed of fixing errors, a [feature](https://github.com/opening-hours/opening_hours.js/issues/29) was added to load those failed values in JOSM. To enable this, append " josm" to the input line. So you will have something like "failed josm" as argument. Now you can hit enter and go through the values.
 
 [taginfo]: https://taginfo.openstreetmap.org/
 
@@ -628,7 +628,7 @@ If you use this library please let me know …
 
 YoHours currently only checks with this lib if the opening_hours value can be evaluated at all and links to the [evaluation tool][ohlib.evaluation-tool] if yes. There might be more integration with YoHours and opening_hours.js in the future. See https://github.com/PanierAvide/panieravide.github.io/issues/2
 
-[opening_hours_map]: https://github.com/ypid/opening_hours_map
+[opening_hours_map]: https://github.com/opening-hours/opening_hours_map
 [pyopening_hours]: https://github.com/ypid/pyopening_hours
 [opening_hours_server.js]: https://github.com/ypid/opening_hours_server.js
 [opening_hours-statistics]: https://github.com/ypid/opening_hours-statistics
@@ -679,7 +679,7 @@ Translations for error messages and warnings for the opening_hours.js library ca
 
 Please do not open issues for missing holidays. It is obvious that there are more missing holidays then holidays which are defined in this library. Instead consider if you can add your missing holidays and send me a pull request or patch. If you are hitting a problem because some holidays depend on variable days or something like this, consider opening a unfinished PR so that the more complicated things can be discussed there.
 
-Holidays can be added to the file [opening_hours.js][ohlib.opening_hours.js]. Have a look at the current definitions for [other holidays][ohlib.holidays]. Holiday names should be in the local language. Note that you should include the definitions in order (see [#126](https://github.com/ypid/opening_hours.js/issues/126#issuecomment-156853794) for details). Please also add the source for this information (in form of an URL) as comment.
+Holidays can be added to the file [opening_hours.js][ohlib.opening_hours.js]. Have a look at the current definitions for [other holidays][ohlib.holidays]. Holiday names should be in the local language. Note that you should include the definitions in order (see [#126](https://github.com/opening-hours/opening_hours.js/issues/126#issuecomment-156853794) for details). Please also add the source for this information (in form of an URL) as comment.
 
 Please consider adding a test (with a time range of one year for example) to see if everything works as expected and to ensure that it will stay that way.
 See under [testing][ohlib.testing].
@@ -745,7 +745,7 @@ Contributor                                        | Contribution
 [maxerickson](https://github.com/maxerickson)      | Public holidays and tests for USA. He also wrote a Python script for testing the holiday JSON. See [us_holidays](https://github.com/maxerickson/us_holidays).
 [amenk](https://github.com/amenk)                  | General i18n support, German translations for error messages and localized pretty formating. Funded by [iMi digital](http://www.imi-digital.de/) and [AddisMap](http://www.addismap.com/).
 [edqd](https://github.com/edqd)                    | Public holidays for Czech Republic.
-[Simon Legner](https://github.com/simon04)         | [Browserified](https://github.com/ypid/opening_hours.js/pull/98) the library and made it work with JOSM.
+[Simon Legner](https://github.com/simon04)         | [Browserified](https://github.com/opening-hours/opening_hours.js/pull/98) the library and made it work with JOSM.
 [MKnight](https://github.com/dex2000)              | HTML/CSS fixes, testing and suggesting new features … :smile:
 [Niels Elgaard Larsen](https://github.com/elgaard) | Public holidays for Denmark.
 [Adrian Fita](https://github.com/afita/)           | Public and school holidays for Romania.

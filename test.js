@@ -654,7 +654,7 @@ test.addTest('Open end', [
         // '12:00-16:00,07:00+', // Fails. This is ok. Just put your time selectors in the correct order.
         '07:00+,12:00-16:00',
         '07:00+,12:00-13:00,13:00-16:00',
-        '07:00+,12:00-16:00; 16:00-24:00 closed "needed because of open end"', // Now obsolete: https://github.com/ypid/opening_hours.js/issues/48
+        '07:00+,12:00-16:00; 16:00-24:00 closed "needed because of open end"', // Now obsolete: https://github.com/opening-hours/opening_hours.js/issues/48
     ], '2012.10.01 0:00', '2012.10.02 5:00', [
         [ '2012.10.01 07:00', '2012.10.01 12:00', true,  'Specified as open end. Closing time was guessed.' ],
         [ '2012.10.01 12:00', '2012.10.01 16:00' ],
@@ -1057,7 +1057,7 @@ test.addTest('Variable days: school holidays', [
     ], 1000 * 60 * 60 * 24 * (4 + 12 + 12 + 1 + 31 + 13 + 4 + 15), 0, false, nominatimTestJSON, 'not only test');
 
 // http://www.schulferien.org/Kalender_mit_Ferien/kalender_2015_ferien_Baden_Wuerttemberg.html
-// https://github.com/ypid/opening_hours.js/issues/83
+// https://github.com/opening-hours/opening_hours.js/issues/83
 test.addTest('Variable days: school holidays', [
         'SH',
     ], '2015.01.05 1:00', '2015.01.05 5:00', [
@@ -3867,7 +3867,7 @@ test.addTest('Simplifed real world example: Was not processed right.', [
 //     ], '2013.08.01 0:00', '2013.10.08 0:00', [
 //     ], 1000 * 60 * 60 * (4 * 2 + 4 * 4), 0, false, {}, 'not last test');
 
-// https://github.com/ypid/opening_hours.js/issues/26 {{{
+// https://github.com/opening-hours/opening_hours.js/issues/26 {{{
 // Problem with wrap day in browser.
 test.addTest('Real world example: Was processed right form library.', [
         'Mo 19:00+; We 14:00+; Su 10:00+ || "Führung, Sonderführungen nach Vereinbarung."',
@@ -3896,7 +3896,7 @@ test.addTest('Real world example: Was processed right form library.', [
     ], 0, 1000 * 60 * 60 * (24 * 6 - 1), true, {}, 'not last test');
 // }}}
 
-// https://github.com/ypid/opening_hours.js/issues/27 {{{
+// https://github.com/opening-hours/opening_hours.js/issues/27 {{{
 // Problem in browser.
 //
 // https://www.openstreetmap.org/way/163756418/history
@@ -3958,7 +3958,7 @@ test.addTest('Based on real world example: Is processed right.', [
     ], 1000 * 60 * 60 * (8 * 7 + (31 + 30 + 31 + 31 + 30) * 24 + 8 * 7), 0, false, {}, 'not last test');
 // }}}
 
-// https://github.com/ypid/opening_hours.js/issues/43 {{{
+// https://github.com/opening-hours/opening_hours.js/issues/43 {{{
 test.addTest('Real world example: Was not processed right.', [
         'Mo-Fr 07:00-19:30; Sa-Su 08:00-19:30; 19:30-21:00 open "No new laundry loads in"; Nov Th[4] off; Dec 25 off',
     ], '2014.12.23 0:00', '2014.12.27 0:00', [
@@ -4232,7 +4232,7 @@ test.addTest('Real world example: Was not processed right', [
     ], '2014.01.01 0:00', '2016.01.01 0:00', [
     ], 0, 0, false, {}, 'not last test');
 
-/* https://github.com/ypid/opening_hours.js/issues/75 {{{ */
+/* https://github.com/opening-hours/opening_hours.js/issues/75 {{{ */
 test.addTest('Real world example: Problem with <additional_rule_separator> in holiday parser', [
         // 'PH, Aug-Sep 00:00-24:00', // Should fail.
         'PH; Aug-Sep 00:00-24:00',
@@ -4257,7 +4257,7 @@ test.addTest('Real world example: Problem with <additional_rule_separator> in ho
     ], 1000 * 60 * 60 * (24 * (1 + 1 + 6 + 5) + 3 + (24 - 3)), 1000 * 60 * 60 * (24 - 17 + 3), false, nominatimTestJSON, 'not last test');
 /* }}} */
 
-/* https://github.com/ypid/opening_hours.js/issues/87 {{{ */
+/* https://github.com/opening-hours/opening_hours.js/issues/87 {{{ */
 test.addTest('Real world example: Problem with daylight saving?', [
         'Mo-Su,PH 15:00-03:00; easter -2 days 15:00-24:00',
     ], '2015.03.29 0:00', '2015.04.05 0:00', [
@@ -4342,7 +4342,7 @@ test.addTest('Calculations based on variable events', [
 
 // additional rules {{{
 
-// for https://github.com/ypid/opening_hours.js/issues/16
+// for https://github.com/opening-hours/opening_hours.js/issues/16
 test.addTest('Additional rules with comment', [
         'Fr 08:00-12:00, Fr 12:00-16:00 open "Notfallsprechstunde"',
         'Fr 08:00-12:00 || Fr 12:00-16:00 open "Notfallsprechstunde"', // should mean the same

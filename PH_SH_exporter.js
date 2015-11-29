@@ -84,7 +84,7 @@ function write_config_file(filepath, oh_value, nominatim_object, from_date, to_d
     try {
         oh = new opening_hours(oh_value, nominatim_object);
     } catch (err) {
-        console.error('Something went wrong. Please file issue at https://github.com/ypid/opening_hours.js/issues');
+        console.error('Something went wrong. Please file a issue at https://github.com/opening-hours/opening_hours.js/issues');
         process.exit(0);
     }
 

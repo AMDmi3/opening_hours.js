@@ -15,7 +15,7 @@
 ## You should have received a copy of the GNU Affero General Public License
 ## along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-script_url="https://github.com/ypid/opening_hours.js/blob/master/PH_SH_batch_exporter.sh"
+script_url="https://github.com/opening-hours/opening_hours.js/blob/master/PH_SH_batch_exporter.sh"
 
 print_header()
 {

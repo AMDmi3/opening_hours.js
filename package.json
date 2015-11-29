@@ -3,16 +3,16 @@
     "main"       : "opening_hours.js",
     "description": "Library to parse and process opening_hours tag from OpenStreetMap data",
     "version"    : "3.3.0",
-    "homepage"   : "https://github.com/ypid/opening_hours.js",
+    "homepage"   : "https://github.com/opening-hours/opening_hours.js",
     "author"     : "Dmitry Marakasov <amdmi3@amdmi3.ru>",
     "maintainers": [
         "Robin Schneider <ypid@riseup.net>"
     ],
     "repository": {
         "type": "git",
-        "url" : "https://github.com/ypid/opening_hours.js"
+        "url" : "https://github.com/opening-hours/opening_hours.js"
     },
-    "bugs": "https://github.com/ypid/opening_hours.js/issues?state=open",
+    "bugs": "https://github.com/opening-hours/opening_hours.js/issues?state=open",
     "keywords": [
         "openstreetmap",
         "OSM",

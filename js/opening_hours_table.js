@@ -49,7 +49,7 @@ var OpeningHoursTable = {
         if (month_name_match && typeof month_name_match[1] === 'string') {
             /* The language has multiple words for the month (nominative, subjective).
              * Use the first one.
-             * https://github.com/ypid/opening_hours_map/issues/41
+             * https://github.com/opening-hours/opening_hours_map/issues/41
              */
             month_name = month_name_match[1];
         }
