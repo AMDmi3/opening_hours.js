@@ -82,8 +82,10 @@ benchmark: benchmark-opening_hours.min.js
 
 README.html: README.md
 
-taginfo.json: gen_taginfo_json.js related_tags.txt taginfo_template.json
-	$< --key-file related_tags.txt --template-file taginfo_template.json > "$@"
+taginfo.json: related_tags.txt gen_taginfo_json.js taginfo_template.json
+	gen_taginfo_json.js --key-file "$<" --template-file taginfo_template.json > "$@"
+	## Haxe implementation produces a different sorted JSON.
+	# haxe -main Gen_taginfo_json -lib mcli -neko Gen_taginfo_json.n && neko Gen_taginfo_json --key_file "$<" --template_file taginfo_template.json > "$@"
 
 .PHONY: doctoc
 doctoc:

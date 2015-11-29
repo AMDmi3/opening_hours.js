@@ -68,7 +68,7 @@ if (typeof argv['template-file'] === 'string') {
         }
         template_file.tags.push(key_entry);
     }
-    console.log(JSON.stringify(template_file, null, '\t'));
+    console.log(JSON.stringify(template_file, null, '    '));
 } else {
     console.log(keys);
 }

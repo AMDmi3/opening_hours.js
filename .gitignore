@@ -7,6 +7,9 @@ export*
 *.log
 *.json
 
+## Neko bytecode
+*.n
+
 !bower.json
 !taginfo.json
 !taginfo_template.json
