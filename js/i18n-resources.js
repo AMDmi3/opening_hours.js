@@ -238,8 +238,8 @@ var resources = { // English is fallback language.
                 "unknown": "onbekend",
                 "closed": "gesloten",
                 "comment": "commentaar",
-                "today": "morgen",
-                "tomorrow": "vandaag",
+                "today": "vandaag",
+                "tomorrow": "morgen",
                 // "on weekday": "on", // not needed in this context
                 "on weekday": " ",
                 "in duration": "in",
