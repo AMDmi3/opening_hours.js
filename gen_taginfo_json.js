@@ -27,12 +27,10 @@ var fs = require('fs');
 var optimist = require('optimist')
     .usage('Usage: $0 -')
     .describe('h', 'Display the usage')
-    .describe('v', 'Verbose output')
     .describe('k', 'File containing the list of supported keys')
     .demand('k')
     .describe('i', 'Template taginfo.json which is used to merge with the list of keys')
     .alias('h', 'help')
-    .alias('v', 'verbose')
     .alias('k', 'key-file')
     .alias('i', 'template-file');
 

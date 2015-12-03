@@ -1,49 +1,56 @@
 /**
-Generate taginfo.json for this project.
-See: https://wiki.openstreetmap.org/wiki/Taginfo/Projects
+ *
+ * @license AGPLv3 <https://www.gnu.org/licenses/agpl-3.0.html>
+ * @author Copyright (C) 2015 Robin Schneider <ypid@riseup.net>
+ *
+ * Written for: https://wiki.openstreetmap.org/wiki/Taginfo/Projects
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, version 3 of the
+ * License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ *  Generate taginfo.json for this project.
+ *  See: https://wiki.openstreetmap.org/wiki/Taginfo/Projects
 
-Confirmed working for targets:
-* Neko
-* Java
-* C++
-* PHP (also produces the exact same output as gen_taginfo_json.js does ;) )
+ *  Confirmed working for targets:
+ *  * Neko
+ *  * Java
+ *  * C++
+ *  * PHP (also produces the exact same output as gen_taginfo_json.js does ;) )
 
-Not working for:
-* Python
-* JavaScript
-**/
-/*
-haxe -main Gen_taginfo_json -lib mcli -neko Gen_taginfo_json.n && neko Gen_taginfo_json --key_file related_tags.txt --template_file taginfo_template.json > taginfo.json
-*/
-class Gen_taginfo_json extends mcli.CommandLine {
-    /**
-        Verbose output.
-    **/
-    public var verbose:Bool;
+ *  Not working for:
+ *  * Python3 (able to show help, `type object 'HxOverrides' has no attribute 'arrayGet'` error when trying to doing the real work)
+ *  * JavaScript (Sys implementation not yet complete: -lib nodejs)
 
-    /**
-        File containing the list of supported keys.
-    **/
-    public var key_file:String;
+ *  haxe -main Gen_taginfo_json -lib hxargs -neko Gen_taginfo_json.n && neko Gen_taginfo_json --key-file related_tags.txt --template-file taginfo_template.json > taginfo.json
+ */
+class Gen_taginfo_json {
+    private var key_file:String;
+    private var template_file:String;
+    private var help_text:String;
+    private var return_code = new Map<String, Int>();
 
-    /**
-        Template taginfo.json which is used to merge with the list of keys.
-    **/
-    public var template_file:String;
+    public function new() {
+        return_code.set('missing args', 1);
+    }
 
-    /**
-        Show this message.
-    **/
     public function help() {
-        Sys.println(this.showUsage());
+        Sys.println(help_text);
         Sys.exit(0);
     }
 
-    public function runDefault() {
-        if(key_file == null) {
-            Sys.println(this.showUsage());
-            Sys.println('Missing required arguments: --key_file');
-            Sys.exit(0);
+    public function gen_taginfo() {
+        if(this.key_file == null) {
+            throw('key_file is null but required by this function');
         }
 
         var keys = new Array<String>();
@@ -93,7 +100,39 @@ class Gen_taginfo_json extends mcli.CommandLine {
         }
     }
 
+    public function parse_args() {
+        var args = Sys.args();
+
+        var argHandler = hxargs.Args.generate([
+            @doc("Display this help and exit.")
+            ["-h", "--help"] => function() help(),
+
+            @doc("File containing the list of supported keys.")
+            ["-k", "--key-file"] => function(key_file:String) this.key_file = key_file,
+
+            @doc("Template taginfo.json which is used to merge with the list of keys.")
+            ["-i", "--template-file"] => function(template_file:String) this.template_file = template_file,
+
+            _ => function(arg:String) throw "Unknown argument: " +arg,
+        ]);
+
+        help_text = argHandler.getDoc();
+
+        if (args.length == 0) {
+            help();
+        }
+
+        argHandler.parse(args);
+
+        if(key_file == null) {
+            Sys.println('Missing required arguments: --key-file');
+            Sys.exit(return_code.get('missing args'));
+        }
+
+        this.gen_taginfo();
+    }
+
     public static function main() {
-        new mcli.Dispatch(Sys.args()).dispatch(new Gen_taginfo_json());
+        new Gen_taginfo_json().parse_args();
     }
 }
