@@ -1,5 +1,14 @@
 # opening_hours.js
 
+[![license NPM](https://img.shields.io/npm/l/opening_hours.svg)][ohlib.github]
+[![required Node.js version](https://img.shields.io/node/v/opening_hours.svg)][ohlib.github]
+[![version NPM](https://img.shields.io/npm/v/opening_hours.svg)][ohlib.npmjs]
+[![monthly downloads via NPM](https://img.shields.io/npm/dm/opening_hours.svg)][ohlib.npmjs]
+[![total downloads via NPM](https://img.shields.io/npm/dt/opening_hours.svg)][ohlib.npmjs]
+
+<!-- https://img.shields.io/github/license/opening-hours/opening_hours.js.svg -->
+<!-- https://img.shields.io/github/downloads/opening-hours/opening_hours.js/total.svg -->
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
@@ -761,6 +770,11 @@ Contributor                                        | Contribution
 * Also thanks to FOSSGIS for hosting a public instance of this service. See the [wiki][fossgis-project].
 * The [favicon.png](/img/favicon.png) is based on the file ic_action_add_alarm.png from the [Android Design Icons](https://developer.android.com/downloads/design/Android_Design_Icons_20131106.zip) which is licensed under [Creative Commons Attribution 2.5](https://creativecommons.org/licenses/by/2.5/). It represents a clock next to the most common opening_hours value (by far) which is `24/7` and a check mark.
 
+## Stats
+
+* [Issue Stats](http://issuestats.com/github/opening-hours/opening_hours.js)
+* [Open HUB](https://www.openhub.net/p/opening_hours)
+
 ## License
 
 opening_hours.js is published under the New (2-clause) BSD license.
@@ -795,6 +809,7 @@ Edit: This does also work on npmjs in this short version … -->
 [ohlib.Makefile]: /Makefile
 [ohlib.js/i18n-resources.js]: /js/i18n-resources.js
 [ohlib.npmjs]: https://www.npmjs.org/package/opening_hours
+[ohlib.github]: https://github.com/opening-hours/opening_hours.js
 [ohlib.convert-ical-to-json]: /convert_ical_to_json
 
 [moment-lib]: http://momentjs.com/
