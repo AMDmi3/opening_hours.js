@@ -3,7 +3,21 @@
  * @license AGPLv3 <https://www.gnu.org/licenses/agpl-3.0.html>
  * @author Copyright (C) 2015 Robin Schneider <ypid@riseup.net>
  *
- * Written for: https://wiki.openstreetmap.org/wiki/Taginfo/Projects
+ *  Generate taginfo.json for this project.
+ *  See: https://wiki.openstreetmap.org/wiki/Taginfo/Projects
+
+ *  haxe -main Gen_taginfo_json -lib hxargs -neko Gen_taginfo_json.n && neko Gen_taginfo_json --key-file related_tags.txt --template-file taginfo_template.json > taginfo.json
+
+ *  Confirmed working for targets:
+ *  * Neko
+ *  * Java
+ *  * C++
+ *  * PHP (also produces the exact same output as gen_taginfo_json.js does ;) )
+
+ *  Not working for:
+ *  * Python3 (able to show help, `type object 'HxOverrides' has no attribute 'arrayGet'` error when trying to doing the real work)
+ *  * JavaScript (Sys implementation not yet complete: -lib nodejs)
+ *
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,21 +32,11 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- *  Generate taginfo.json for this project.
- *  See: https://wiki.openstreetmap.org/wiki/Taginfo/Projects
-
- *  Confirmed working for targets:
- *  * Neko
- *  * Java
- *  * C++
- *  * PHP (also produces the exact same output as gen_taginfo_json.js does ;) )
-
- *  Not working for:
- *  * Python3 (able to show help, `type object 'HxOverrides' has no attribute 'arrayGet'` error when trying to doing the real work)
- *  * JavaScript (Sys implementation not yet complete: -lib nodejs)
-
- *  haxe -main Gen_taginfo_json -lib hxargs -neko Gen_taginfo_json.n && neko Gen_taginfo_json --key-file related_tags.txt --template-file taginfo_template.json > taginfo.json
  */
+
+import haxe.Json;
+import sys.io.File;
+
 class Gen_taginfo_json {
     private var key_file:String;
     private var template_file:String;
@@ -55,7 +59,7 @@ class Gen_taginfo_json {
 
         var keys = new Array<String>();
 
-        var key_fh = sys.io.File.read(key_file, false /* non-binary mode */);
+        var key_fh = File.read(key_file, false /* non-binary mode */);
         var osm_key_re = new EReg('^[\\w:_-]+$', "i");
         while (true) {
 
@@ -69,32 +73,33 @@ class Gen_taginfo_json {
         }
 
         if(template_file != null) {
-            var value = sys.io.File.getContent(this.template_file),
-                json = haxe.Json.parse(value);
+            var value = File.getContent(this.template_file),
+                template_data  = Json.parse(value);
             var key_description:String = "";
 
-            /* Copy JSON TObject to dynamic map because TObject is kind of static. */
-            var output_json = new Map<String, Dynamic>();
-            for (key in Reflect.fields(json)) {
-                output_json[key] = Reflect.getProperty(json, key);
+            /* Copy JSON TObject to dynamic map because TObject does not allow
+             * type change which is needed later in this code. */
+            var output_date = new Map<String, Dynamic>();
+            for (key in Reflect.fields(template_data)) {
+                output_date[key] = Reflect.getProperty(template_data, key);
             }
 
-            if (Std.is(output_json.get('tags')[0], String)) {
-                key_description = output_json.get('tags')[0];
-                output_json.remove('tags');
+            if (Std.is(output_date.get('tags')[0], String)) {
+                key_description = output_date.get('tags')[0];
+                output_date.remove('tags');
             }
-            output_json.set('tags', []);
+            output_date.set('tags', []);
             for (key in keys) {
                 var key_entry = new Map<String, String>();
                 key_entry['key'] = key;
                 if (key_description.length != 0) {
                     key_entry['description'] = key_description;
                 }
-                var tags = output_json.get('tags');
+                var tags = output_date.get('tags');
                 tags.push(key_entry);
-                output_json.set('tags', tags);
+                output_date.set('tags', tags);
             }
-            Sys.println(haxe.Json.stringify(output_json, null, '    '));
+            Sys.println(Json.stringify(output_date, null, '    '));
         } else {
             trace(keys.join(', '));
         }
