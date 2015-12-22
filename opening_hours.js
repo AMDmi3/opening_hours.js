@@ -1,8 +1,26 @@
 /*
  * @source: https://github.com/opening-hours/opening_hours.js/blob/master/opening_hours.js
  * @source: ./opening_hours.js
+ * Copyright (C) 2012-2013 Dmitry Marakasov
+ * Copyright (C) 2013-2016 Robin `ypid` Schneider
+ *
+ * opening_hours.js is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, version 3 of the License.
+ *
+ * opening_hours.js is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with opening_hours.js; if not, see
+ * <https://www.gnu.org/licenses/>.
  * For information see https://github.com/opening-hours/opening_hours.js
  * and the docs directory which contains internal documentation and design.
+ *
+ * Note that Dmitry Marakasov dual-licensed all his code under BSD 2-clause "Simplified" License.
+ * Check the README.md for more details.
  */
 /* jshint laxbreak: true */
 /* jshint boss: true */
