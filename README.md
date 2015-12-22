@@ -779,7 +779,7 @@ Contributor                                        | Contribution
 
 As of version 3.4, opening_hours.js is licensed under the [GNU Lesser General Public License v3.0](https://tldrlegal.com/license/gnu-lesser-general-public-license-v3-(lgpl-3)) only.
 
-Note that the original work from Dmitry Marakasov is published under the BSD 2-clause "Simplified" license which is included in this repository under the commit hash b2e11df02c76338a3a32ec0d4e964330d48bdd2d.
+Note that the original work from Dmitry Marakasov is published under the BSD 2-clause "Simplified" license which is included in this repository under the commit hash [b2e11df02c76338a3a32ec0d4e964330d48bdd2d](https://github.com/opening-hours/opening_hours.js/tree/b2e11df02c76338a3a32ec0d4e964330d48bdd2d).
 
 <!-- Links {{{ -->
 [Nominatim]: https://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding_.2F_Address_lookup
