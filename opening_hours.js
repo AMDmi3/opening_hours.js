@@ -1,6 +1,8 @@
 /*
  * @source: https://github.com/opening-hours/opening_hours.js/blob/master/opening_hours.js
  * @source: ./opening_hours.js
+ * @license: LGPL-3.0
+ *
  * Copyright (C) 2012-2013 Dmitry Marakasov
  * Copyright (C) 2013-2016 Robin `ypid` Schneider
  *
@@ -19,8 +21,11 @@
  * For information see https://github.com/opening-hours/opening_hours.js
  * and the docs directory which contains internal documentation and design.
  *
- * Note that Dmitry Marakasov dual-licensed all his code under BSD 2-clause "Simplified" License.
- * Check the README.md for more details.
+ * ---------------
+ * Copyright (C) 2012-2013 Dmitry Marakasov
+ *
+ * All work done by Dmitry Marakasov is additionally published under the New (2-clause) BSD license.
+ * Refer to the README.md and the reversion control history for more details.
  */
 /* jshint laxbreak: true */
 /* jshint boss: true */
