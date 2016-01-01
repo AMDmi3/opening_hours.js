@@ -52,8 +52,8 @@
                 "Bevreidingsdag"        : [ 5, 5 ],
                 "Hemelvaartsdag"        : [ 'easter', 39 ],
                 "Tweede Pinksterdag"    : [ 'easter', 50 ],
-                "Eerste Kerstdag"       : [ 12, 25 ]
-                "Tweede Kerstdag"       : [ 12, 26 ]
+                "Eerste Kerstdag"       : [ 12, 25 ],
+                "Tweede Kerstdag"       : [ 12, 26 ],
             }
         }, /* }}} */
         'be': { /* {{{ */
