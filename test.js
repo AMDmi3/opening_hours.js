@@ -28,6 +28,7 @@ if (argv.help) {
 var opening_hours = require('./' + argv['library-file']);
 var colors        = require('colors');
 var sprintf       = require('sprintf-js').sprintf;
+var timekeeper    = require('timekeeper');
 /* }}} */
 
 colors.setTheme({
@@ -37,6 +38,9 @@ colors.setTheme({
     crashed: [ 'magenta', 'bold' ] , // printed with console.error
     ignored: [ 'yellow' , 'bold' ] ,
 });
+
+/* Fake time to make "The year is in the past." test deterministic. */
+timekeeper.travel(new Date('Sat May 23 2015 23:23:23 GMT+0200 (CEST)')); // Travel to that date.
 
 var test = new opening_hours_test();
 
