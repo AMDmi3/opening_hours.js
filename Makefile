@@ -98,12 +98,12 @@ doctoc:
 release: package.json doctoc check-diff-uglifyjs-log check qa-source-code qa-https-everywhere
 	git status
 	read continue
-	editor "$<"
+	@echo Increase version.
 	jq --raw-output '.version' $<
 	read continue
 	$(MAKE) $(MAKE_OPTIONS) check-package.json
 	git commit --all --message="Released version $(shell jq --raw-output '.version' '$<')."
-	git tag --sign --local-user C505B5C93B0DB3D338A1B6005FE92C12EE88E1F0 "v$(jq --raw-output '.version' $<)"
+	git tag --sign --local-user C505B5C93B0DB3D338A1B6005FE92C12EE88E1F0 "v$(shell jq --raw-output '.version' $<)"
 	git push --follow-tags
 	npm publish
 	# $(MAKE) $(MAKE_OPTIONS) publish-website-on-all-servers
