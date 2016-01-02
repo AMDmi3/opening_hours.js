@@ -95,6 +95,7 @@ doctoc:
 
 .PHONY: release
 ## First source file is referenced!
+## Might be better: https://docs.npmjs.com/cli/version
 release: package.json doctoc check-diff-uglifyjs-log check qa-source-code qa-https-everywhere
 	git status
 	read continue
