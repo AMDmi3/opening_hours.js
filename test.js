@@ -67,7 +67,7 @@ var nominatimTestJSON_sunrise_below_default = {"place_id":"71977948","licence":"
 // Actual response: {"error":"Unable to geocode"}
 var nominatim_no_valid_address = {
     "place_id": "-966",
-    "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+    "licence": "Data © OpenStreetMap contributors, ODbL 1.0. https://www.openstreetmap.org/copyright",
     "osm_type": "way",
     "osm_id": "-42",
     "lat": "27.567",

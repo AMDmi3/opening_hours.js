@@ -22,7 +22,7 @@ var moment = require('moment');
 var CountryLanguage = require('country-language');
 var fs = require('fs');
 
-/* http://stackoverflow.com/a/1961068/2239985 */
+/* https://stackoverflow.com/a/1961068/2239985 */
 Array.prototype.getUnique = function(){
    var u = {}, a = [];
    for(var i = 0, l = this.length; i < l; ++i){

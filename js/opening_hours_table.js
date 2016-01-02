@@ -212,8 +212,8 @@ var OpeningHoursTable = {
                 + i18n.t('texts.will ' + it.getStateString(false), {
                     timestring: this.formatdate(prevdate, it.getDate(), true),
                     href: 'javascript:Evaluate(' + time_diff + ', false, \'' + value + '\')',
-                    comment: ((typeof it.getComment() == 'string' || typeof comment == 'string')
-                        ?  ', ' + i18n.t('words.comment') + ': ' + ((typeof it.getComment() == 'string') ? '"' + it.getComment() + '"' : i18n.t('words.undefined'))
+                    comment: ((typeof it.getComment() === 'string' || typeof comment === 'string')
+                        ?  ', ' + i18n.t('words.comment') + ': ' + ((typeof it.getComment() === 'string') ? '"' + it.getComment() + '"' : i18n.t('words.undefined'))
                         : ''),
                 }) + '</p>';
         }

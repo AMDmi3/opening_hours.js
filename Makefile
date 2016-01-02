@@ -43,6 +43,8 @@ MAKE_OPTIONS ?= --no-print-directory
 CHECK_LANG ?= 'en'
 ## }}}
 
+REPO_FILES ?= git ls-files -z | grep --null-data --invert-match '^submodules/' --null
+
 .PHONY: default
 default: list
 
@@ -146,12 +148,12 @@ run-interactive_testing: interactive_testing.js
 ## Source code QA {{{
 .PHONY: qa-source-code qa-https-everywhere
 qa-source-code:
-	git ls-files | egrep '\.js$$' | xargs sed -i 's/\([^=!]\)==\([^=]\)/\1===\2/g;s/\([^=!]\)!=\([^=]\)/\1!==\2/g;'
+	$(REPO_FILES) | egrep --null-data '\.js$$' --null | xargs -0 sed -i 's/\([^=!]\)==\([^=]\)/\1===\2/g;s/\([^=!]\)!=\([^=]\)/\1!==\2/g;'
 
 qa-https-everywhere:
-	git ls-files -z | xargs -0 sed -i 's#https://wiki.openstreetmap.org#https://wiki.openstreetmap.org#g;s#https://open.mapquestapi.com#https://open.mapquestapi.com#g;s#https://nominatim.openstreetmap.org#https://nominatim.openstreetmap.org#g;s#https://taginfo.openstreetmap.org#https://taginfo.openstreetmap.org#g;s#https://stackoverflow.com#https://stackoverflow.com#g;s#https://www.gnu.org/#https://www.gnu.org/#g;s#https://overpass-turbo.eu/#https://overpass-turbo.eu/#g;s#https://www.openstreetmap.org/#https://www.openstreetmap.org/#g;s#https://openstreetmap.org#https://openstreetmap.org#g;'
-	# git ls-files -z | xargs -0 sed -i 's#http://overpass-api.de/#https://overpass-api.de/#g;'
-	git ls-files -z | xargs -0 sed -i 's#http://\(\w\+\).wikipedia.org#https://\1.wikipedia.org#g;'
+	$(REPO_FILES) | xargs -0 sed --regexp-extended --in-place 's#http://(overpass-turbo\.eu|www\.gnu\.org|stackoverflow\.com|openstreetmap\.org|www\.openstreetmap\.org|nominatim\.openstreetmap\.org|taginfo\.openstreetmap\.org|wiki\.openstreetmap\.org)#https://\1#g;'
+	# $(REPO_FILES) | xargs -0 sed -i 's#http://overpass-api.de/#https://overpass-api.de/#g;'
+	$(REPO_FILES) | xargs -0 sed --regexp-extended --in-place 's#http://(\w+\.wikipedia\.org)#https://\1#g;'
 	test -f index.html && git checkout index.html
 	# ack 'http://'
 ## }}}
