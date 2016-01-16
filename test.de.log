@@ -1015,10 +1015,12 @@ With [1m[34mwarnings[39m[22m:
 "Full range" for "Dec-Nov": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Dec-Nov <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Full range" for "Jan 01-Dec 31": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
-"Full range" for "week 1-53": [1m[32mPASSED[39m[22m
+"Full range" for "Jan 01-Dec 31": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m weekstable which is ignored for now
 With [1m[34mwarnings[39m[22m:
-	*week 1-53 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 01-Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Full range" for "week 01-53": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*week 01-53 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We 00:00-24:00": [1m[32mPASSED[39m[22m
 "24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We 24/7": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1092,7 +1094,7 @@ With [1m[34mwarnings[39m[22m:
 "Fallback group rules (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || closed "should never appear"": [1m[32mPASSED[39m[22m
 "Fallback group rules (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || unknown "should never appear"": [1m[32mPASSED[39m[22m
 "Fallback group rules (unknown)" for "We-Fr 10:00-24:00 open "it is open" || "please call" || open "should never appear"": [1m[32mPASSED[39m[22m
-"Fallback group rules (unknown). Example for the tokenizer documentation." for "We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012 "please call"; Jan 1 open "should never appear"": [1m[32mPASSED[39m[22m
+"Fallback group rules (unknown). Example for the tokenizer documentation." for "We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012 "please call"; Jan 01 open "should never appear"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012  <--- (Das Jahr liegt in der Vergangenheit.)
 "Fallback group rules" for "We-Fr 10:00-24:00 open "first" || We "please call" || open "we are open!!!"": [1m[32mPASSED[39m[22m
@@ -1103,49 +1105,49 @@ With [1m[34mwarnings[39m[22m:
 "Fallback group rules, with some closed times" for "Mo,Tu,Th 09:00-12:00; Fr 14:00-17:30 || "Termine nach Vereinbarung"; We off": [1m[32mPASSED[39m[22m
 "Fallback group rules, with some closed times" for "Mo-Th 09:00-12:00; Fr 14:00-17:30 || "Termine nach Vereinbarung"; We off": [1m[32mPASSED[39m[22m
 "Fallback group rules, with some closed times" for "Mo-Th 09:00-12:00; Fr 14:00-17:30 || unknown "Termine nach Vereinbarung"; We off": [1m[32mPASSED[39m[22m
-"Week ranges" for "week 1,3 00:00-24:00": [1m[32mPASSED[39m[22m
-"Week ranges" for "week 1,3 00:00-24:00 || closed "should not change the test result"": [1m[32mPASSED[39m[22m
-"Week ranges" for "week 1,3: 00:00-24:00": [1m[32mPASSED[39m[22m
-"Week ranges" for "week 1,week 3: 00:00-24:00": [1m[32mPASSED[39m[22m
-"Week ranges" for "week 1: 00:00-24:00; week 3: 00:00-24:00": [1m[32mPASSED[39m[22m
-"Week ranges" for "week 1; week 3": [1m[32mPASSED[39m[22m
+"Week ranges" for "week 01,3 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week ranges" for "week 01,3 00:00-24:00 || closed "should not change the test result"": [1m[32mPASSED[39m[22m
+"Week ranges" for "week 01,3: 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week ranges" for "week 01,week 03: 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week ranges" for "week 01: 00:00-24:00; week 03: 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week ranges" for "week 01; week 03": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 1 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*week 1; week 3 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Week ranges" for "week 1-3/2 00:00-24:00": [1m[32mPASSED[39m[22m
-"Week ranges" for "week 2,4 00:00-24:00": [1m[32mPASSED[39m[22m
-"Week ranges" for "week 2-4/2 00:00-24:00": [1m[32mPASSED[39m[22m
-"Week range limit" for "week 2-53": [1m[32mPASSED[39m[22m
+	*week 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 01; week 03 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Week ranges" for "week 01-3/2 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week ranges" for "week 02,4 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week ranges" for "week 02-4/2 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week range limit" for "week 02-53": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 2-53 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Week range limit" for "week 2-53 00:00-24:00": [1m[32mPASSED[39m[22m
-"Week range full range" for "week 1-53": [1m[32mPASSED[39m[22m
+	*week 02-53 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Week range limit" for "week 02-53 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week range full range" for "week 01-53": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 1-53 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Week range full range" for "week 1-53 00:00-24:00": [1m[32mPASSED[39m[22m
-"Week range second week" for "week 2 00:00-24:00": [1m[32mPASSED[39m[22m
-"Week range" for "week 1-53/2 00:00-24:00": [1m[32mPASSED[39m[22m
-"Week range" for "week 1-53/2 00:00-24:00": [1m[32mPASSED[39m[22m
-"Week range" for "week 2-53/2 We; week 1-53/2 Sa 00:00-24:00": [1m[32mPASSED[39m[22m
+	*week 01-53 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Week range full range" for "week 01-53 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week range second week" for "week 02 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week range" for "week 01-53/2 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week range" for "week 01-53/2 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week range" for "week 02-53/2 We; week 01-53/2 Sa 00:00-24:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 2-53/2 We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Week range (beginning in last year)" for "week 4-16": [1m[32mPASSED[39m[22m
+	*week 02-53/2 We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Week range (beginning in last year)" for "week 04-16": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 4-16 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Week range (beginning in matching year)" for "week 4-16": [1m[32mPASSED[39m[22m
+	*week 04-16 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Week range (beginning in matching year)" for "week 04-16": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 4-16 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Week range first week" for "week 1": [1m[32mPASSED[39m[22m
+	*week 04-16 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Week range first week" for "week 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 1 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Week range first week" for "week 1": [1m[32mPASSED[39m[22m
+	*week 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Week range first week" for "week 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 1 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Week range first week" for "week 1 open": [1m[32mPASSED[39m[22m
+	*week 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Week range first week" for "week 01 open": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 1 open <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Week range first week" for "week 1 00:00-24:00": [1m[32mPASSED[39m[22m
-"Week range first week" for "week 1 00:00-23:59": [1m[32mPASSED[39m[22m
+	*week 01 open <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Week range first week" for "week 01 00:00-24:00": [1m[32mPASSED[39m[22m
+"Week range first week" for "week 01 00:00-23:59": [1m[32mPASSED[39m[22m
 "Only in one month of the year" for "Apr 08:00-12:00": [1m[32mPASSED[39m[22m
 "Only in one month of the year" for "Apr: 08:00-12:00": [1m[32mPASSED[39m[22m
 "Month ranges" for "Nov-Feb 00:00-24:00": [1m[32mPASSED[39m[22m
@@ -1153,9 +1155,9 @@ With [1m[34mwarnings[39m[22m:
 "Month ranges" for "Nov-Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Nov-Feb <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Month ranges" for "Nov-Feb 0-24": [1m[32mPASSED[39m[22m
+"Month ranges" for "Nov-Feb 00-24": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Nov-Feb 0-24 <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "00:00-24:00".)
+	*Nov-Feb 00-24 <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "00:00-24:00".)
 "Month ranges" for "Nov-Feb: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Month ranges" for "Jan,Feb,Nov,Dec 00:00-24:00": [1m[32mPASSED[39m[22m
 "Month ranges" for "00:00-24:00; Mar-Oct off": [1m[32mPASSED[39m[22m
@@ -1168,71 +1170,71 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*2012  <--- (Das Jahr liegt in der Vergangenheit.)
 	*2012 Nov-Nov <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Month ranges" for "Jan 1,Dec 24-25; Nov Th[4]": [1m[32mPASSED[39m[22m
+"Month ranges" for "Jan 01,Dec 24-25; Nov Th[4]": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 1,Dec 24-25 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*Jan 1,Dec 24-25; Nov Th[4] <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Month ranges" for "Jan 1,Dec 24,25; Nov Th[4]": [1m[32mPASSED[39m[22m
+	*Jan 01,Dec 24-25 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 01,Dec 24-25; Nov Th[4] <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Month ranges" for "Jan 01,Dec 24,25; Nov Th[4]": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 1,Dec 24,25 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*Jan 1,Dec 24,25; Nov Th[4] <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Month ranges" for "2012 Jan 1,2012 Dec 24-25; 2012 Nov Th[4]": [1m[32mPASSED[39m[22m
+	*Jan 01,Dec 24,25 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 01,Dec 24,25; Nov Th[4] <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Month ranges" for "2012 Jan 01,2012 Dec 24-25; 2012 Nov Th[4]": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2012 Jan 1,2012 Dec 24-25; 2012  <--- (Das Jahr liegt in der Vergangenheit.)
-	*2012 Jan 1,2012 Dec 24-25 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*2012 Jan 1,2012 Dec 24-25; 2012 Nov Th[4] <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Month ranges" for "Jan 1,Dec 11,Dec 15-17,Dec 19-23/2,Dec 24-25": [1m[32mPASSED[39m[22m
+	*2012 Jan 01,2012 Dec 24-25; 2012  <--- (Das Jahr liegt in der Vergangenheit.)
+	*2012 Jan 01,2012 Dec 24-25 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2012 Jan 01,2012 Dec 24-25; 2012 Nov Th[4] <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Month ranges" for "Jan 01,Dec 11,Dec 15-17,Dec 19-23/2,Dec 24-25": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 1,Dec 11,Dec 15-17,Dec 19-23/2,Dec 24-25 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Month ranges" for "Jan 1,Dec 11,15-17,19-23/2,24,25": [1m[32mPASSED[39m[22m
+	*Jan 01,Dec 11,Dec 15-17,Dec 19-23/2,Dec 24-25 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Month ranges" for "Jan 01,Dec 11,15-17,19-23/2,24,25": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 1,Dec 11,15-17,19-23/2,24,25 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Monthday ranges" for "Jan 23-31 00:00-24:00; Feb 1-12 00:00-24:00": [1m[32mPASSED[39m[22m
+	*Jan 01,Dec 11,15-17,19-23/2,24,25 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Monthday ranges" for "Jan 23-31 00:00-24:00; Feb 01-12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Jan 23-Feb 12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Jan 23-Feb 12: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "2012 Jan 23-2012 Feb 12 00:00-24:00": [1m[32mPASSED[39m[22m
-"Monthday ranges" for "Jan 31-Feb 1,Aug 00:00-24:00": [1m[32mPASSED[39m[22m
-"Monthday ranges" for "Jan 31-Feb 1,Aug: 00:00-24:00": [1m[32mPASSED[39m[22m
-"Monthday ranges" for "Aug,Jan 31-Feb 1": [1m[32mPASSED[39m[22m
+"Monthday ranges" for "Jan 31-Feb 01,Aug 00:00-24:00": [1m[32mPASSED[39m[22m
+"Monthday ranges" for "Jan 31-Feb 01,Aug: 00:00-24:00": [1m[32mPASSED[39m[22m
+"Monthday ranges" for "Aug,Jan 31-Feb 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Aug,Jan 31-Feb 1 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Monthday ranges" for "Jan 31-Feb 1; Aug": [1m[32mPASSED[39m[22m
+	*Aug,Jan 31-Feb 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Monthday ranges" for "Jan 31-Feb 01; Aug": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 31-Feb 1 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*Jan 31-Feb 1; Aug <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 31-Feb 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 31-Feb 01; Aug <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Monthday ranges" for "Jan 23,25": [1m[33mIGNORED[39m[22m, reason: not implemented yet
-"Monthday ranges" for "Dec 24,Jan 2: 18:00-22:00": [1m[32mPASSED[39m[22m
-"Monthday ranges" for "Dec 24,Jan 2: 18:00-22:00; Jan 20: off": [1m[32mPASSED[39m[22m
-"Monthday ranges" for "Dec 24,Jan 2 18:00-22:00": [1m[32mPASSED[39m[22m
-"Monthday ranges (with year)" for "2012 Jan 23-31 00:00-24:00; 2012 Feb 1-12 00:00-24:00": [1m[32mPASSED[39m[22m
-"Monthday ranges spanning year boundary" for "Dec 31-Jan 1": [1m[32mPASSED[39m[22m
+"Monthday ranges" for "Dec 24,Jan 02: 18:00-22:00": [1m[32mPASSED[39m[22m
+"Monthday ranges" for "Dec 24,Jan 02: 18:00-22:00; Jan 20: off": [1m[32mPASSED[39m[22m
+"Monthday ranges" for "Dec 24,Jan 02 18:00-22:00": [1m[32mPASSED[39m[22m
+"Monthday ranges (with year)" for "2012 Jan 23-31 00:00-24:00; 2012 Feb 01-12 00:00-24:00": [1m[32mPASSED[39m[22m
+"Monthday ranges spanning year boundary" for "Dec 31-Jan 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Dec 31-Jan 1 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Full day (with year)" for "2013 Dec 31,2014 Jan 5": [1m[32mPASSED[39m[22m
+	*Dec 31-Jan 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Full day (with year)" for "2013 Dec 31,2014 Jan 05": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2013 Dec 31,2014 Jan 5 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Full day (with year)" for "2013 Dec 31; 2014 Jan 5": [1m[32mPASSED[39m[22m
+	*2013 Dec 31,2014 Jan 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Full day (with year)" for "2013 Dec 31; 2014 Jan 05": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*2013 Dec 31; 2014 Jan 5 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Full day (with year)" for "2013/10 Dec 31; 2014/10 Jan 5": [1m[32mPASSED[39m[22m
+	*2013 Dec 31; 2014 Jan 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Full day (with year)" for "2013/10 Dec 31; 2014/10 Jan 05": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 <--- (Das Jahr liegt in der Vergangenheit.)
 	*2013/10 Dec 31; 2014 <--- (Das Jahr liegt in der Vergangenheit.)
 	*2013/10 Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*2013/10 Dec 31; 2014/10 Jan 5 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2013/10 Dec 31; 2014/10 Jan 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Date range which only applies for one year" for "2013 Dec 31": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Date range which only applies for one year" for "2013 Dec 31; 2014 Jan 5; 2014+ off": [1m[32mPASSED[39m[22m
+"Date range which only applies for one year" for "2013 Dec 31; 2014 Jan 05; 2014+ off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2013 Dec 31; 2014 Jan 5; 2014 <--- (Das Jahr liegt in der Vergangenheit.)
+	*2013 Dec 31; 2014 Jan 05; 2014 <--- (Das Jahr liegt in der Vergangenheit.)
 	*2013 Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*2013 Dec 31; 2014 Jan 5 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Monthday (with year) ranges spanning year boundary" for "2013 Dec 31-2014 Jan 2": [1m[32mPASSED[39m[22m
+	*2013 Dec 31; 2014 Jan 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Monthday (with year) ranges spanning year boundary" for "2013 Dec 31-2014 Jan 02": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2013 Dec 31-2014 Jan 2 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Monthday (with year) ranges spanning year boundary" for "open; 2010 Jan 1-2013 Dec 30 off; 2014 Jan 3-2016 Jan 1 off": [1m[32mPASSED[39m[22m
+	*2013 Dec 31-2014 Jan 02 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Monthday (with year) ranges spanning year boundary" for "open; 2010 Jan 01-2013 Dec 30 off; 2014 Jan 03-2016 Jan 01 off": [1m[32mPASSED[39m[22m
 "Monthday ranges with constrained weekday" for "Jan Su[2]-Jan 15": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan Su[2]-Jan 15 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
@@ -1258,7 +1260,7 @@ With [1m[34mwarnings[39m[22m:
 "Month ranges with year" for "2012 Jan 10-15,Jan 11": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2012 Jan 10-15,Jan 11 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Complex monthday ranges" for "Jan 23-31,Feb 1-12 00:00-24:00": [1m[32mPASSED[39m[22m
+"Complex monthday ranges" for "Jan 23-31,Feb 01-12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Complex monthday ranges" for "Jan 23-Feb 11,Feb 12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Leap year monthday" for "2016 Feb 29": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1277,38 +1279,38 @@ With [1m[34mwarnings[39m[22m:
 	*Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; 2008/4 Feb 29 open "last day in month (Feb, leap year)"; 2009 <--- (Das Jahr liegt in der Vergangenheit.)
 	*Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; 2008/4 Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010 <--- (Das Jahr liegt in der Vergangenheit.)
 	*Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; 2008/4 Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010/4,2011 <--- (Das Jahr liegt in der Vergangenheit.)
-"Periodical monthdays" for "Jan 1-31/8 00:00-24:00": [1m[32mPASSED[39m[22m
-"Periodical monthdays" for "Jan 1-31/8: 00:00-24:00": [1m[32mPASSED[39m[22m
-"Periodical monthdays" for "Jan 1-31/8": [1m[32mPASSED[39m[22m
+"Periodical monthdays" for "Jan 01-31/8 00:00-24:00": [1m[32mPASSED[39m[22m
+"Periodical monthdays" for "Jan 01-31/8: 00:00-24:00": [1m[32mPASSED[39m[22m
+"Periodical monthdays" for "Jan 01-31/8": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 1-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Periodical monthdays" for "2012 Jan 1-31/8": [1m[32mPASSED[39m[22m
+	*Jan 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Periodical monthdays" for "2012 Jan 01-31/8": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2012 Jan 1-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Periodical monthdays" for "2012 Jan 1-31/8; 2010 Dec 1-31/8": [1m[32mPASSED[39m[22m
+	*2012 Jan 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Periodical monthdays" for "2012 Jan 01-31/8; 2010 Dec 01-31/8": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2012 Jan 1-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*2012 Jan 1-31/8; 2010 Dec 1-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Periodical monthdays" for "2012 Jan 1-31/8; 2015 Dec 1-31/8": [1m[32mPASSED[39m[22m
+	*2012 Jan 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2012 Jan 01-31/8; 2010 Dec 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Periodical monthdays" for "2012 Jan 01-31/8; 2015 Dec 01-31/8": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2012 Jan 1-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*2012 Jan 1-31/8; 2015 Dec 1-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Periodical monthdays" for "2012 Jan 1-31/8; 2025 Dec 1-31/8": [1m[32mPASSED[39m[22m
+	*2012 Jan 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2012 Jan 01-31/8; 2015 Dec 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Periodical monthdays" for "2012 Jan 01-31/8; 2025 Dec 01-31/8": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2012 Jan 1-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*2012 Jan 1-31/8; 2025 Dec 1-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Periodical monthdays" for "2012 Jan 1-31/8: 00:00-24:00": [1m[32mPASSED[39m[22m
+	*2012 Jan 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2012 Jan 01-31/8; 2025 Dec 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Periodical monthdays" for "2012 Jan 01-31/8: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Periodical monthdays" for "Jan 10-31/7": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan 10-31/7 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1": [1m[32mPASSED[39m[22m
+"Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 <--- (Das Jahr liegt in der Vergangenheit.)
-	*2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1 Mo-Su": [1m[32mPASSED[39m[22m
+	*2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 Mo-Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 <--- (Das Jahr liegt in der Vergangenheit.)
-	*2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1 Mo-Su <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 Mo-Su <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Date range which only applies for specific year" for "2060+": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2060+ <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
@@ -1318,107 +1320,107 @@ With [1m[34mwarnings[39m[22m:
 "Date range which only applies for specific year" for "2012-2016": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2012-2016 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Selector combination" for "week 2 We": [1m[32mPASSED[39m[22m
+"Selector combination" for "week 02 We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 2 We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Selector combination" for "Jan 11-Jan 11 week 2": [1m[32mPASSED[39m[22m
+	*week 02 We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Selector combination" for "Jan 11-Jan 11 week 02": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 11-Jan 11 week 2 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Selector combination" for "Jan 11-Jan 11: week 2: 00:00-24:00": [1m[32mPASSED[39m[22m
+	*Jan 11-Jan 11 week 02 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Selector combination" for "Jan 11-Jan 11: week 02: 00:00-24:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan 11-Jan 11:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax Spezifikation um zu sehen wo es verwendet werden kann oder entferne es.)
-"Selector combination" for "Jan 11 week 2": [1m[32mPASSED[39m[22m
+"Selector combination" for "Jan 11 week 02": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 11 week 2 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Selector combination" for "Jan week 2": [1m[32mPASSED[39m[22m
+	*Jan 11 week 02 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Selector combination" for "Jan week 02": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan week 2 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Selector combination" for "Jan-Feb Jan 9-Jan 15": [1m[32mPASSED[39m[22m
+	*Jan week 02 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Selector combination" for "Jan-Feb Jan 09-Jan 15": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan-Feb Jan 9-Jan 15 <--- (Du hast 2 nicht verbundene Monate in einer Regel benutzt. Das ist vermutlich ein Fehler. Gleiche Selektoren können (und sollten) immer zusammen und durch Kommas getrennt geschrieben werden. Beispiel für Zeitspannen "12:00-13:00,15:00-18:00". Beispiel für Wochentage "Mo-We,Fr". Einzelne Regeln können mit ";" getrennt werden.)
-	*Jan-Feb Jan 9-Jan 15 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Selector combination" for "Jan-Feb Jan 9-15": [1m[32mPASSED[39m[22m
+	*Jan-Feb Jan 09-Jan 15 <--- (Du hast 2 nicht verbundene Monate in einer Regel benutzt. Das ist vermutlich ein Fehler. Gleiche Selektoren können (und sollten) immer zusammen und durch Kommas getrennt geschrieben werden. Beispiel für Zeitspannen "12:00-13:00,15:00-18:00". Beispiel für Wochentage "Mo-We,Fr". Einzelne Regeln können mit ";" getrennt werden.)
+	*Jan-Feb Jan 09-Jan 15 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Selector combination" for "Jan-Feb Jan 09-15": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan-Feb Jan 9-15 <--- (Du hast 2 nicht verbundene Monate in einer Regel benutzt. Das ist vermutlich ein Fehler. Gleiche Selektoren können (und sollten) immer zusammen und durch Kommas getrennt geschrieben werden. Beispiel für Zeitspannen "12:00-13:00,15:00-18:00". Beispiel für Wochentage "Mo-We,Fr". Einzelne Regeln können mit ";" getrennt werden.)
-	*Jan-Feb Jan 9-15 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan-Feb Jan 09-15 <--- (Du hast 2 nicht verbundene Monate in einer Regel benutzt. Das ist vermutlich ein Fehler. Gleiche Selektoren können (und sollten) immer zusammen und durch Kommas getrennt geschrieben werden. Beispiel für Zeitspannen "12:00-13:00,15:00-18:00". Beispiel für Wochentage "Mo-We,Fr". Einzelne Regeln können mit ";" getrennt werden.)
+	*Jan-Feb Jan 09-15 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector combination" for "Jan We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Selector combination" for "Jan 2-27 We": [1m[32mPASSED[39m[22m
+"Selector combination" for "Jan 02-27 We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 2-27 We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 02-27 We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector combination" for "Dec 30-Jan 27 We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Dec 30-Jan 27 We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Selector order" for "Feb week 5": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue Ignored but passes!
+"Selector order" for "Feb week 05": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue Ignored but passes!
 With [1m[34mwarnings[39m[22m:
-	*Feb week 5 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Selector order" for "Feb week 5": [1m[32mPASSED[39m[22m
+	*Feb week 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Selector order" for "Feb week 05": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb week 5 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Selector order" for "00:00-24:00 week 5 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+	*Feb week 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Selector order" for "00:00-24:00 week 05 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 5 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
-"Selector order" for "week 5 00:00-24:00 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+	*Feb week 05 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+"Selector order" for "week 05 00:00-24:00 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
-	*Feb week 5 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 5 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
-"Selector order" for "Feb week 5 00:00-24:00": [1m[32mPASSED[39m[22m
-"Selector order" for "Feb week 5: 00:00-24:00": [1m[32mPASSED[39m[22m
-"Selector order" for "Feb week 5 Mo-Su 00:00-24:00": [1m[32mPASSED[39m[22m
-"Selector order" for "Mo-Su week 5 Feb 00:00-24:00": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+	*Feb week 05 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
+	*Feb week 05 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+"Selector order" for "Feb week 05 00:00-24:00": [1m[32mPASSED[39m[22m
+"Selector order" for "Feb week 05: 00:00-24:00": [1m[32mPASSED[39m[22m
+"Selector order" for "Feb week 05 Mo-Su 00:00-24:00": [1m[32mPASSED[39m[22m
+"Selector order" for "Mo-Su week 05 Feb 00:00-24:00": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
-	*Feb week 5 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
-"Selector order" for "00:00-24:00 Mo-Su week 5 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+	*Feb week 05 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+"Selector order" for "00:00-24:00 Mo-Su week 05 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 5 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
-	*Feb week 5 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
-	*Feb week 5 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
-"Selector order" for "00:00-24:00 week 5 Mo-Su Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+	*Feb week 05 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
+	*Feb week 05 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
+	*Feb week 05 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+"Selector order" for "00:00-24:00 week 05 Mo-Su Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 5 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
-"Selector order" for "Mo-Su 00:00-24:00 week 5 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+	*Feb week 05 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+"Selector order" for "Mo-Su 00:00-24:00 week 05 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
-	*Feb week 5 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 5 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
-	*Feb week 5 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
-"Selector order" for "2012 00:00-24:00 week 5 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+	*Feb week 05 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
+	*Feb week 05 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
+	*Feb week 05 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+"Selector order" for "2012 00:00-24:00 week 05 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*2012  <--- (Das Jahr liegt in der Vergangenheit.)
 	*2012 Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*2012 Feb week 5 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
-"Selector order" for "00:00-24:00 2012 week 5 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+	*2012 Feb week 05 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+"Selector order" for "00:00-24:00 2012 week 05 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*00:00-24:00 2012  <--- (Das Jahr liegt in der Vergangenheit.)
 	*2012 <--- (Der Selektor "year" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
 	*2012 Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "year" getauscht.)
-	*2012 Feb week 5 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
-"Selector order" for "week 5 Feb 2012-2014": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+	*2012 Feb week 05 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+"Selector order" for "week 05 Feb 2012-2014": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*week 5 Feb 2012-2014 <--- (Das Jahr liegt in der Vergangenheit.)
-	*week 5 Feb 2012-2014 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 05 Feb 2012-2014 <--- (Das Jahr liegt in der Vergangenheit.)
+	*week 05 Feb 2012-2014 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 	*2012-2014 <--- (Der Selektor "year" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
-	*2012-2014 Feb week 5 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "year" getauscht.)
-"Selector order" for "Feb week 6": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue Ignored but passes!
+	*2012-2014 Feb week 05 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "year" getauscht.)
+"Selector order" for "Feb week 06": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue Ignored but passes!
 With [1m[34mwarnings[39m[22m:
-	*Feb week 6 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Selector order" for "Feb week 6": [1m[32mPASSED[39m[22m
+	*Feb week 06 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Selector order" for "Feb week 06": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb week 6 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Selector order" for "Feb week 6 open": [1m[32mPASSED[39m[22m
+	*Feb week 06 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Selector order" for "Feb week 06 open": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb week 6 open <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Selector order" for "open week 6 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+	*Feb week 06 open <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Selector order" for "open week 06 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*open week 6 Feb <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*open week 06 Feb <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "state" getauscht.)
-	*Feb week 6 open <--- (Der Selektor "state" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+	*Feb week 06 open <--- (Der Selektor "state" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
 "Additional comment "Nach Vereinbarung"" for "Mo-Fr 08:00-12:00 open "Kein Termin erforderlich", Mo-Fr 13:00-17:00 open "Nach Vereinbarung"": [1m[32mPASSED[39m[22m
 "Additional comment "Nach Vereinbarung"" for "Mo-Fr 08:00-12:00 open "Kein Termin erforderlich", Mo-Fr 13:00-17:00 open nach_vereinbarung": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1539,7 +1541,7 @@ With [1m[34mwarnings[39m[22m:
 	*Jun 15-Sep 15 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 	*Jun 15-Sep 15; Sep 16-Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Real world example: Was not processed right" for "Mo, Tu, We, Th, Fr, Su 11:00-01:00; Sa 11:00-02:00": [1m[35mCRASHED[39m[22m, reason: Fatal: infinite loop in nextChange
-"Real world example: Was not processed right." for "Jan Su[-2]-Jan Su[-1]: Fr-Su 12:00+; Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 1-Jul 31: Th-Su 12:00+; Aug 1-Nov 30,Dec: Tu-Su 12:00+; Dec 24-26,Dec 31: off": [1m[31mFAILED[39m[22m, bad intervals: 
+"Real world example: Was not processed right." for "Jan Su[-2]-Jan Su[-1]: Fr-Su 12:00+; Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 01-Jul 31: Th-Su 12:00+; Aug 01-Nov 30,Dec: Tu-Su 12:00+; Dec 24-26,Dec 31: off": [1m[31mFAILED[39m[22m, bad intervals: 
 [ '2014.11.29 12:00', '2014.11.30 00:00', true, 'Angegeben als "open end". Schließzeit wurde geraten.' ],
 [ '2014.11.30 12:00', '2014.12.01 00:00', true, 'Angegeben als "open end". Schließzeit wurde geraten.' ],
 [ '2014.12.02 12:00', '2014.12.03 00:00', true, 'Angegeben als "open end". Schließzeit wurde geraten.' ],
@@ -1589,7 +1591,7 @@ expected:
 [ '2014.12.27 12:00', '2014.12.28 00:00', true, 'Specified as open end. Closing time was guessed.' ],
 [ '2014.12.28 12:00', '2014.12.29 00:00', true, 'Specified as open end. Closing time was guessed.' ],
 [ '2014.12.30 12:00', '2014.12.31 00:00', true, 'Specified as open end. Closing time was guessed.' ],
-"Real world example: Was not processed right." for "Jan Su[-2]-Jan Su[-1],Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 1-Dec 31: Tu-Su 12:00+; Dec 24-26,Dec 31: off": [1m[31mFAILED[39m[22m, bad intervals: 
+"Real world example: Was not processed right." for "Jan Su[-2]-Jan Su[-1],Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 01-Dec 31: Tu-Su 12:00+; Dec 24-26,Dec 31: off": [1m[31mFAILED[39m[22m, bad intervals: 
 [ '2014.11.29 12:00', '2014.11.30 00:00', true, 'Angegeben als "open end". Schließzeit wurde geraten.' ],
 [ '2014.11.30 12:00', '2014.12.01 00:00', true, 'Angegeben als "open end". Schließzeit wurde geraten.' ],
 [ '2014.12.02 12:00', '2014.12.03 00:00', true, 'Angegeben als "open end". Schließzeit wurde geraten.' ],
@@ -1639,9 +1641,9 @@ expected:
 [ '2014.12.27 12:00', '2014.12.28 00:00', true, 'Specified as open end. Closing time was guessed.' ],
 [ '2014.12.28 12:00', '2014.12.29 00:00', true, 'Specified as open end. Closing time was guessed.' ],
 [ '2014.12.30 12:00', '2014.12.31 00:00', true, 'Specified as open end. Closing time was guessed.' ],
-"Simplifed real world example: Was not processed right." for "Nov 1-20,Dec": [1m[32mPASSED[39m[22m
+"Simplifed real world example: Was not processed right." for "Nov 01-20,Dec": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Nov 1-20,Dec <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Nov 01-20,Dec <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Real world example: Was processed right form library." for "Mo 19:00+; We 14:00+; Su 10:00+ || "Führung, Sonderführungen nach Vereinbarung."": [1m[31mFAILED[39m[22m, bad intervals: 
 [ '2014.01.06 00:00', '2014.01.06 19:00', true, 'Führung, Sonderführungen nach Vereinbarung.' ],
 [ '2014.01.06 19:00', '2014.01.07 05:00', true, 'Angegeben als "open end". Schließzeit wurde geraten.' ],
@@ -1763,9 +1765,9 @@ expected:
 With [1m[34mwarnings[39m[22m:
 	*easter <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Calculations based on variable events" for "easter +1 day open "Easter Monday"": [1m[32mPASSED[39m[22m
-"Calculations based on variable events" for "Apr 5-easter -1 day: open "Before easter"": [1m[32mPASSED[39m[22m
+"Calculations based on variable events" for "Apr 05-easter -1 day: open "Before easter"": [1m[32mPASSED[39m[22m
 "Calculations based on variable events" for "easter-Apr 20: open "Around easter"": [1m[32mPASSED[39m[22m
-"Calculations based on variable events" for "easter-Apr 2: open "Around easter"": [1m[32mPASSED[39m[22m
+"Calculations based on variable events" for "easter-Apr 02: open "Around easter"": [1m[32mPASSED[39m[22m
 "Calculations based on variable events" for "2012 easter -2 days-2012 easter +2 days: open "Around easter"": [1m[32mPASSED[39m[22m
 "Calculations based on variable events" for "easter -2 days-easter +2 days: open "Around easter"": [1m[32mPASSED[39m[22m
 "Calculations based on variable events" for "easter -2 days-easter +2 days open "Around easter"": [1m[32mPASSED[39m[22m
@@ -1795,8 +1797,8 @@ With [1m[34mwarnings[39m[22m:
 	*Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday[1] 07:30; school holidays Monday-Friday <--- (Please use the abbreviation "Fr" for "friday".)
 	*Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday[1] 07:30; school holidays Monday-Friday (sunrise+03:00); public holidays <--- (Please use notation "PH" for "public holidays".)
 "Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th,Fr 05:45; Mo[1] 07:30; SH Mo-Fr (sunrise+03:00); PH off": [1m[32mPASSED[39m[22m
-"Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th 05:45; week 1-53/2 Fr 07:05; week 2-53/2 Fr 05:45; SH Mo-Fr (sunrise+03:00); PH off": [1m[32mPASSED[39m[22m
-"Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th 05:45; week 1-53/2 Fr 07:05; week 2-53/2 Fr 05:45; SH Mo-Fr (sunrise+03:00); PH off; easter -2 days-easter +2 days off "My little break from work every year."; 2014 Sep 1-2014 Sep 7 off "My vacations …"": [1m[32mPASSED[39m[22m
+"Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th 05:45; week 01-53/2 Fr 07:05; week 02-53/2 Fr 05:45; SH Mo-Fr (sunrise+03:00); PH off": [1m[32mPASSED[39m[22m
+"Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th 05:45; week 01-53/2 Fr 07:05; week 02-53/2 Fr 05:45; SH Mo-Fr (sunrise+03:00); PH off; easter -2 days-easter +2 days off "My little break from work every year."; 2014 Sep 01-2014 Sep 07 off "My vacations …"": [1m[32mPASSED[39m[22m
 "Points in time, period times" for "Mo-Fr 10:00-16:00/01:30": [1m[32mPASSED[39m[22m
 "Points in time, period times" for "Mo-Fr 10:00-16:00/90": [1m[32mPASSED[39m[22m
 "Points in time, period times" for "Mo-Fr 10:00-16:00/90; Sa off "testing at end for parser"": [1m[32mPASSED[39m[22m
@@ -1809,7 +1811,7 @@ With [1m[34mwarnings[39m[22m:
 "Additional comments for unknown" for "Mo open "comment"; "I don’t know how to express easter": off": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Calculations based on month range" for "Mar Su[-1] - Dec 25-Su-28 days: 12:00-13:00": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Calculations based on month range" for "Mo-Fr 09:00-12:30; Sa 09:00-13:00; Dec 25-Su-28 days - Dec 24: Mo-Fr 09:00-16:00,Sa 09:00-16:00": [1m[33mIGNORED[39m[22m, reason: not implemented yet
-"Calculations based on month range" for "Mo-Su 10:00-01:00; Sep 15+Sa-Oct Su[1],Oct 1-3: Mo-Su 07:30-03:00": [1m[33mIGNORED[39m[22m, reason: not implemented yet
+"Calculations based on month range" for "Mo-Su 10:00-01:00; Sep 15+Sa-Oct Su[1],Oct 01-3: Mo-Su 07:30-03:00": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Error tolerance: case and whitespace" for "Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 "Error tolerance: case and whitespace" for "   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00	Off  ": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1910,9 +1912,9 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*täglich <--- (Bitte benutze die Schreibweise "Mo-Su" für "täglich".)
 	*täglich <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Error tolerance: Full range" for "week 1-53": [1m[32mPASSED[39m[22m
+"Error tolerance: Full range" for "week 01-53": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 1-53 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 01-53 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "24/7": [1m[32mPASSED[39m[22m
 "Error tolerance: Full range" for "always": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -2011,11 +2013,11 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*2013-2015/1 <--- (Bitte verwende keine year-Spannen mit Periode "1".)
 	*2013-2015/1 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Value not ideal (probably wrong). Should throw a warning." for "2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 01; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 <--- (Das Jahr liegt in der Vergangenheit.)
 	*2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1  <--- (Bitte verwende keine year-Spannen mit Periode "1".)
-	*2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo: 15:00-16:00 off; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax Spezifikation um zu sehen wo es verwendet werden kann oder entferne es.)
@@ -2042,10 +2044,10 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*Jan Dec <--- (Du hast 2 nicht verbundene Monate in einer Regel benutzt. Das ist vermutlich ein Fehler. Gleiche Selektoren können (und sollten) immer zusammen und durch Kommas getrennt geschrieben werden. Beispiel für Zeitspannen "12:00-13:00,15:00-18:00". Beispiel für Wochentage "Mo-We,Fr". Einzelne Regeln können mit ";" getrennt werden.)
 	*Jan Dec <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Value not ideal (probably wrong). Should throw a warning." for "Jan 1-22/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Jan 01-22/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 1-22/1 <--- (Bitte verwende keine day-Spannen mit Periode "1".)
-	*Jan 1-22/1 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 01-22/1 <--- (Bitte verwende keine day-Spannen mit Periode "1".)
+	*Jan 01-22/1 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for ""testing" "second comment"; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*"testing" "second comment" <--- (Du hast 2 Kommentare in einer Regel benutzt. Du kannst nur einen davon je Regel verwenden Einzelne Regeln können mit ";" getrennt werden.)
@@ -2094,10 +2096,10 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "sunrise-(sunset-00:00); 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*sunrise-(sunset-00:00 <--- (Das Hinzufügen von 0 in einer variablen Zeitberechnung ändert die variable Zeit nicht. Bitte entferne die Zeitberechnung (Beispiel: "sunrise-(sunset-00:00)").)
-"Value not ideal (probably wrong). Should throw a warning." for "Jun 2-20/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Jun 02-20/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jun 2-20/1 <--- (Bitte verwende keine day-Spannen mit Periode "1".)
-	*Jun 2-20/1 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jun 02-20/1 <--- (Bitte verwende keine day-Spannen mit Periode "1".)
+	*Jun 02-20/1 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "2014-2020/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2014-2020/1 <--- (Bitte verwende keine year-Spannen mit Periode "1".)
@@ -2125,55 +2127,55 @@ With [1m[34mwarnings[39m[22m:
 	*Sa 2200 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 	*2200 <--- (Der Selektor "year" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
 	*2200 Sa <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "year" getauscht.)
-"Value not ideal (probably wrong). Should throw a warning." for "Feb week 6": [1m[32mPASSED[39m[22m
+"Value not ideal (probably wrong). Should throw a warning." for "Feb week 06": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb week 6 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m
+	*Feb week 06 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 week 06 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 6 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
-"Value not ideal (probably wrong). Should throw a warning." for "week 6 00:00-24:00 Feb": [1m[32mPASSED[39m[22m
+	*Feb week 06 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+"Value not ideal (probably wrong). Should throw a warning." for "week 06 00:00-24:00 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
-	*Feb week 6 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 6 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
-"Value not ideal (probably wrong). Should throw a warning." for "Mo-Su week 6 Feb 00:00-24:00": [1m[32mPASSED[39m[22m
+	*Feb week 06 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
+	*Feb week 06 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+"Value not ideal (probably wrong). Should throw a warning." for "Mo-Su week 06 Feb 00:00-24:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
-	*Feb week 6 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
-"Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 Mo-Su week 6 Feb": [1m[32mPASSED[39m[22m
+	*Feb week 06 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+"Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 Mo-Su week 06 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 6 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
-	*Feb week 6 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
-	*Feb week 6 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
-"Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 week 6 Mo-Su Feb": [1m[32mPASSED[39m[22m
+	*Feb week 06 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
+	*Feb week 06 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
+	*Feb week 06 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+"Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 week 06 Mo-Su Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 6 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
-"Value not ideal (probably wrong). Should throw a warning." for "Mo-Su 00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m
+	*Feb week 06 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+"Value not ideal (probably wrong). Should throw a warning." for "Mo-Su 00:00-24:00 week 06 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
-	*Feb week 6 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 6 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
-	*Feb week 6 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
-"Value not ideal (probably wrong). Should throw a warning." for "2012 00:00-24:00 week 6 Feb": [1m[32mPASSED[39m[22m
+	*Feb week 06 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
+	*Feb week 06 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
+	*Feb week 06 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+"Value not ideal (probably wrong). Should throw a warning." for "2012 00:00-24:00 week 06 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2012  <--- (Das Jahr liegt in der Vergangenheit.)
 	*2012 Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*2012 Feb week 6 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
-"Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 2012 week 6 Feb": [1m[32mPASSED[39m[22m
+	*2012 Feb week 06 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+"Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 2012 week 06 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*00:00-24:00 2012  <--- (Das Jahr liegt in der Vergangenheit.)
 	*2012 <--- (Der Selektor "year" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
 	*2012 Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "year" getauscht.)
-	*2012 Feb week 6 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
-"Value not ideal (probably wrong). Should throw a warning." for "week 6 Feb 2012-2014": [1m[32mPASSED[39m[22m
+	*2012 Feb week 06 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+"Value not ideal (probably wrong). Should throw a warning." for "week 06 Feb 2012-2014": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 6 Feb 2012-2014 <--- (Das Jahr liegt in der Vergangenheit.)
-	*week 6 Feb 2012-2014 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 06 Feb 2012-2014 <--- (Das Jahr liegt in der Vergangenheit.)
+	*week 06 Feb 2012-2014 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 	*2012-2014 <--- (Der Selektor "year" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
-	*2012-2014 Feb week 6 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "year" getauscht.)
+	*2012-2014 Feb week 06 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "year" getauscht.)
 "Value not ideal (probably wrong). Should throw a warning." for "2012 Jan-Feb; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2012  <--- (Das Jahr liegt in der Vergangenheit.)
@@ -2241,10 +2243,10 @@ Der Wert enthält nichts, was ausgewertet werden könnte.
 "Incorrect syntax which should throw an error" for "Mo[2] - 7 days; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Mo[2] -  <--- (Unerwartetes Zeichen: "-" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) Mo[2] - 7 days <--- (Please use notation "Mo-Su" for "7 days".)
 
-"Incorrect syntax which should throw an error" for ":week 2-54 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for ":week 02-54 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 : <--- (Unerwartetes Zeichen: "timesep" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
-"Incorrect syntax which should throw an error" for ":::week 2-54 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for ":::week 02-54 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 : <--- (Unerwartetes Zeichen: "timesep" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
 "Incorrect syntax which should throw an error" for "week :2-54 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
@@ -2253,20 +2255,20 @@ week : <--- (Unerwartetes Token in Wochen-Spanne: timesep)
 "Incorrect syntax which should throw an error" for "week week": [1m[32mPASSED[39m[22m
 week week <--- (Unerwartetes Token in Wochen-Spanne: week)
 
-"Incorrect syntax which should throw an error" for "week week 5": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "week week 05": [1m[32mPASSED[39m[22m
 week week  <--- (Unerwartetes Token in Wochen-Spanne: week)
 
-"Incorrect syntax which should throw an error" for "week 0": [1m[32mPASSED[39m[22m
-week 0 <--- (Du hast eine Kalenderwoche kleiner 1 angegeben. Korrekte Angaben sind 1-53.)
+"Incorrect syntax which should throw an error" for "week 00": [1m[32mPASSED[39m[22m
+week 00 <--- (Du hast eine Kalenderwoche kleiner 1 angegeben. Korrekte Angaben sind 1-53.)
 
 "Incorrect syntax which should throw an error" for "week 54": [1m[32mPASSED[39m[22m
 week 54 <--- (Du hast eine Kalenderwoche größer als 53 angegeben. Korrekte Angaben sind 1-53.)
 
-"Incorrect syntax which should throw an error" for "week 1-54": [1m[32mPASSED[39m[22m
-week 1-54 <--- (Du hast eine Kalenderwoche größer als 53 angegeben. Korrekte Angaben sind 1-53.)
+"Incorrect syntax which should throw an error" for "week 01-54": [1m[32mPASSED[39m[22m
+week 01-54 <--- (Du hast eine Kalenderwoche größer als 53 angegeben. Korrekte Angaben sind 1-53.)
 
-"Incorrect syntax which should throw an error" for "week 0-54": [1m[32mPASSED[39m[22m
-week 0 <--- (Du hast eine Kalenderwoche kleiner 1 angegeben. Korrekte Angaben sind 1-53.)
+"Incorrect syntax which should throw an error" for "week 00-54": [1m[32mPASSED[39m[22m
+week 00 <--- (Du hast eine Kalenderwoche kleiner 1 angegeben. Korrekte Angaben sind 1-53.)
 
 "Incorrect syntax which should throw an error" for "week 40-30": [1m[32mPASSED[39m[22m
 week 40-30 <--- (Du hast eine Wochen-Spanne in umgekehrter Reihenfolge oder mehrere Jahr umfassende angegeben. Dies ist aktuell nicht unterstützt.)
@@ -2280,17 +2282,17 @@ week 30-40/27 <--- (Du hast eine Wochen-Periode größer als 26 angegeben. 26.5 
 "Incorrect syntax which should throw an error" for "week week 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 week week  <--- (Unerwartetes Token in Wochen-Spanne: week)
 
-"Incorrect syntax which should throw an error" for "week 2-53 00:00-24:00:; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-week 2-53 00:00-24:00: <--- (Unerwartetes Zeichen: "timesep" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
+"Incorrect syntax which should throw an error" for "week 02-53 00:00-24:00:; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+week 02-53 00:00-24:00: <--- (Unerwartetes Zeichen: "timesep" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
-"Incorrect syntax which should throw an error" for "week 2-53 00:00-24:00:::; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-week 2-53 00:00-24:00: <--- (Unerwartetes Zeichen: "timesep" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
+"Incorrect syntax which should throw an error" for "week 02-53 00:00-24:00:::; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+week 02-53 00:00-24:00: <--- (Unerwartetes Zeichen: "timesep" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
 
-"Incorrect syntax which should throw an error" for "week 2-53 00::00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-week 2-53 00: <--- (Missing minutes in time range after: "timesep")
+"Incorrect syntax which should throw an error" for "week 02-53 00::00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+week 02-53 00: <--- (Missing minutes in time range after: "timesep")
 
-"Incorrect syntax which should throw an error" for "week 2-52/2 We, week 1-53/2 Sa 0:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-week 2-52/2 We,  <--- (Eine weitere Regel an dieser Stelle ergibt keinen Sinn. Benutze einfach ";" als Trenner für Regeln. Siehe https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator)
+"Incorrect syntax which should throw an error" for "week 02-52/2 We, week 01-53/2 Sa 0:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+week 02-52/2 We,  <--- (Eine weitere Regel an dieser Stelle ergibt keinen Sinn. Benutze einfach ";" als Trenner für Regeln. Siehe https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator)
 
 "Incorrect syntax which should throw an error" for "(sunrise+01:00-sunset; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 (sunrise+01:00- <--- (Berechnung mit variabler Zeit hat nicht die korrekte Syntax. Fehlendes ")".)
@@ -2394,26 +2396,26 @@ Mo, <--- (Eine weitere Regel an dieser Stelle ergibt keinen Sinn. Benutze einfac
 "Incorrect syntax which should throw an error" for "12:00-15:00/1:; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 12:00-15:00/1: <--- (Die Zeitspannen-Periode geht nicht wie erwartet weiter. Beispiel "/01:30".)
 
-"Incorrect syntax which should throw an error" for "Jun 0-Aug 23; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 0 <--- (Die Tagangabe für Jun muss zwischen 1 und 31 liegen.)
+"Incorrect syntax which should throw an error" for "Jun 00-Aug 23; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Jun 00 <--- (Die Tagangabe für Jun muss zwischen 1 und 31 liegen.)
 
-"Incorrect syntax which should throw an error" for "Feb 30-Aug 2; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+"Incorrect syntax which should throw an error" for "Feb 30-Aug 02; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Feb 30 <--- ("Der Monat Feb hat entweder 28 oder 29 Tage (Schaltjahre).")
 
-"Incorrect syntax which should throw an error" for "Jun 2-Aug 42; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 2-Aug 42 <--- (Die Tagangabe für Aug muss zwischen 1 und 31 liegen.)
+"Incorrect syntax which should throw an error" for "Jun 02-Aug 42; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Jun 02-Aug 42 <--- (Die Tagangabe für Aug muss zwischen 1 und 31 liegen.)
 
-"Incorrect syntax which should throw an error" for "Jun 2-Aug 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 2-Aug 32 <--- (Die Tagangabe für Aug muss zwischen 1 und 31 liegen.)
+"Incorrect syntax which should throw an error" for "Jun 02-Aug 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Jun 02-Aug 32 <--- (Die Tagangabe für Aug muss zwischen 1 und 31 liegen.)
 
-"Incorrect syntax which should throw an error" for "Jun 2-32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 2-32 <--- (Die Tagangabe für Jun muss zwischen 1 und 31 liegen.)
+"Incorrect syntax which should throw an error" for "Jun 02-32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Jun 02-32 <--- (Die Tagangabe für Jun muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Jun 32-34; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Jun 32 <--- (Die Tagangabe für Jun muss zwischen 1 und 31 liegen.)
 
-"Incorrect syntax which should throw an error" for "Jun 2-32/2; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 2-32 <--- (Die Tagangabe für Jun muss zwischen 1 und 31 liegen.)
+"Incorrect syntax which should throw an error" for "Jun 02-32/2; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Jun 02-32 <--- (Die Tagangabe für Jun muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Jun 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Jun 32 <--- (Die Tagangabe für Jun muss zwischen 1 und 31 liegen.)
@@ -2421,8 +2423,8 @@ Jun 32 <--- (Die Tagangabe für Jun muss zwischen 1 und 31 liegen.)
 "Incorrect syntax which should throw an error" for "Jun 30-24; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Jun 30-24 <--- (Zeitspanne in falscher Reihenfolge. Begin ist größer als Ende.)
 
-"Incorrect syntax which should throw an error" for "Jun 2-20/0; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 2-20/0 <--- (Du kannst keine day-Spanne mit Periode "0" verwenden.)
+"Incorrect syntax which should throw an error" for "Jun 02-20/0; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Jun 02-20/0 <--- (Du kannst keine day-Spanne mit Periode "0" verwenden.)
 
 "Incorrect syntax which should throw an error" for "2014-2020/0; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 2014-2020/0 <--- (Du kannst keine year-Spanne mit Periode "0" verwenden.)
@@ -2514,12 +2516,12 @@ We,  <--- (Eine weitere Regel an dieser Stelle ergibt keinen Sinn. Benutze einfa
 "Incorrect syntax which should throw an error" for "2014, Aug Mo; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 2014,  <--- (Eine weitere Regel an dieser Stelle ergibt keinen Sinn. Benutze einfach ";" als Trenner für Regeln. Siehe https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator)
 
-"Incorrect syntax which should throw an error" for "week 5, Aug Mo; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-week 5,  <--- (Eine weitere Regel an dieser Stelle ergibt keinen Sinn. Benutze einfach ";" als Trenner für Regeln. Siehe https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator)
+"Incorrect syntax which should throw an error" for "week 05, Aug Mo; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+week 05,  <--- (Eine weitere Regel an dieser Stelle ergibt keinen Sinn. Benutze einfach ";" als Trenner für Regeln. Siehe https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:additional_rule_separator)
 
-"Incorrect syntax which should throw an error" for "Jun 2-5, week 5 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[31mFAILED[39m[22m
-"Incorrect syntax which should throw an error" for "Jan 0; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jan 0 <--- (Die Tagangabe für Jan muss zwischen 1 und 31 liegen.)
+"Incorrect syntax which should throw an error" for "Jun 02-5, week 05 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[31mFAILED[39m[22m
+"Incorrect syntax which should throw an error" for "Jan 00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+Jan 00 <--- (Die Tagangabe für Jan muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Jan 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Jan 32 <--- (Die Tagangabe für Jan muss zwischen 1 und 31 liegen.)
@@ -2753,7 +2755,7 @@ Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_
 "Test isEqualTo function" for "We-Fr 10:00-20:00; Mo 10:00-20:00": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Mo 10:00-20:00; We-Fr 10:00-20:00": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "open; closed; Mo 10:00-20:00; We-Fr 10:00-20:00": [1m[32mPASSED[39m[22m
-"Test isEqualTo function" for "Jan 1: open; closed; Mo 10:00-20:00; We-Fr 10:00-20:00": [1m[32mPASSED[39m[22m
+"Test isEqualTo function" for "Jan 01: open; closed; Mo 10:00-20:00; We-Fr 10:00-20:00": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m

@@ -2616,7 +2616,7 @@ test.addTest('Full range', [
         'Feb-Jan',
         'Dec-Nov',
         ignored('Jan 01-Dec 31', 'check for week stable not implemented'),
-        'week 1-53',
+        'week 01-53',
     ], '2012.10.01 0:00', '2012.10.08 0:00', [
         [ '2012.10.01 0:00', '2012.10.08 0:00' ],
     ], 1000 * 60 * 60 * 24 * 7, 0, true, nominatimTestJSON, 'not only test');
@@ -2768,7 +2768,7 @@ test.addTest('Fallback group rules (unknown)', [
     ], 1000 * 60 * 60 * 14 * 3, 1000 * 60 * 60 * (10 * 3 + 24 * (2 + 2)), true, {}, 'not last test');
 
 test.addTest('Fallback group rules (unknown). Example for the tokenizer documentation.', [
-        'We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012 "please call"; Jan 1 open "should never appear"',
+        'We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012 "please call"; Jan 01 open "should never appear"',
     ], '2012.10.01 0:00', '2012.10.08 0:00', [
         [ '2012.10.01 00:00', '2012.10.03 10:00', true,  'please call' ],
         [ '2012.10.03 10:00', '2012.10.04 00:00', false, 'it is open' ],
@@ -2850,14 +2850,14 @@ test.addTest('Fallback group rules, with some closed times', [
 
 // week ranges {{{
 test.addTest('Week ranges', [
-        'week 1,3 00:00-24:00',
-        'week 1,3 00:00-24:00 || closed "should not change the test result"',
+        'week 01,3 00:00-24:00',
+        'week 01,3 00:00-24:00 || closed "should not change the test result"',
         // because comments for closed states are not compared (not returned by the high-level API).
-        'week 1,3: 00:00-24:00',
-        'week 1,week 3: 00:00-24:00',
-        'week 1: 00:00-24:00; week 3: 00:00-24:00',
-        'week 1; week 3',
-        'week 1-3/2 00:00-24:00',
+        'week 01,3: 00:00-24:00',
+        'week 01,week 03: 00:00-24:00',
+        'week 01: 00:00-24:00; week 03: 00:00-24:00',
+        'week 01; week 03',
+        'week 01-3/2 00:00-24:00',
     ], '2012.01.01 0:00', '2013.01.01 0:00', [
         [ '2012.01.02 00:00', '2012.01.09 00:00' ],
         [ '2012.01.16 00:00', '2012.01.23 00:00' ],
@@ -2865,16 +2865,16 @@ test.addTest('Week ranges', [
     ], 1000 * 60 * 60 * 24 * (2 * 7 + 1), 0, false, {}, 'not last test');
 
 test.addTest('Week ranges', [
-        'week 2,4 00:00-24:00',
-        'week 2-4/2 00:00-24:00',
+        'week 02,4 00:00-24:00',
+        'week 02-4/2 00:00-24:00',
     ], '2012.01.01 0:00', '2013.01.01 0:00', [
         [ '2012.01.09 00:00', '2012.01.16 00:00' ],
         [ '2012.01.23 00:00', '2012.01.30 00:00' ],
     ], 1000 * 60 * 60 * 24 * (7 + 7), 0, false);
 
 test.addTest('Week range limit', [
-        'week 2-53',
-        'week 2-53 00:00-24:00',
+        'week 02-53',
+        'week 02-53 00:00-24:00',
     ], '2012.01.01 0:00', '2014.01.01 0:00', [
         [ '2012.01.01 00:00', '2012.01.02 00:00' ], // Checked against http://www.schulferien.org/kalenderwoche/kalenderwochen_2012.html
         [ '2012.01.09 00:00', '2012.12.31 00:00' ],
@@ -2882,14 +2882,14 @@ test.addTest('Week range limit', [
     ], 1000 * 60 * 60 * 24 * (365 * 2 - 2 * 7 - 2/* FIXME: ??? */ + /* 2012 is leap year */ 1), 0, false, {}, 'not only test');
 
 test.addTest('Week range full range', [
-        'week 1-53',
-        'week 1-53 00:00-24:00',
+        'week 01-53',
+        'week 01-53 00:00-24:00',
     ], '2012.01.01 0:00', '2014.01.01 0:00', [
         [ '2012.01.01 00:00', '2014.01.01 00:00' ],
     ], 1000 * 60 * 60 * 24 * (365 * 2 + /* 2012 is leap year */ 1), 0, true, {}, 'not last test');
 
 test.addTest('Week range second week', [
-        'week 2 00:00-24:00',
+        'week 02 00:00-24:00',
     ], '2012.01.01 0:00', '2014.01.01 0:00', [
         [ '2012.01.09 00:00', '2012.01.16 00:00' ],
         [ '2013.01.07 00:00', '2013.01.14 00:00' ],
@@ -2904,18 +2904,18 @@ var week_range_result = [
         [ '2012.02.13 00:00', '2012.02.20 00:00' ],
     ], 1000 * 60 * 60 * 24 * 7 * 4, 0 ];
 test.addTest('Week range', [
-        'week 1-53/2 00:00-24:00',
+        'week 01-53/2 00:00-24:00',
     ], '2011.12.30 0:00', '2012.02.22 0:00', week_range_result[0],
     week_range_result[1], week_range_result[2], false);
 
 test.addTest('Week range', [
-        'week 1-53/2 00:00-24:00',
+        'week 01-53/2 00:00-24:00',
     ], '2012.01.01 0:00', '2012.02.22 0:00', week_range_result[0],
     week_range_result[1], week_range_result[2], false, {}, 'not only test');
 })();
 
 test.addTest('Week range', [
-        'week 2-53/2 We; week 1-53/2 Sa 00:00-24:00',
+        'week 02-53/2 We; week 01-53/2 Sa 00:00-24:00',
     ], '2012.01.01 0:00', '2014.01.01 0:00', [
         /* Long test on per day base {{{ */
         [ '2012.01.07 00:00', '2012.01.08 00:00' ], // Sa, KW1
@@ -3038,26 +3038,26 @@ var week_range_result = [
     ], 1000 * 60 * 60 * (24 * 7 * 6 * (16 - 3) - /* daylight saving */ 6), 0 ];
 
 test.addTest('Week range (beginning in last year)', [
-        'week 4-16',
+        'week 04-16',
     ], '2011.12.30 0:00', '2018.01.01 0:00', week_range_result[0],
     week_range_result[1], week_range_result[2], false, {}, 'not only test');
 
 test.addTest('Week range (beginning in matching year)', [
-        'week 4-16',
+        'week 04-16',
     ], '2012.01.01 0:00', '2018.01.01 0:00', week_range_result[0],
     week_range_result[1], week_range_result[2], false, {}, 'not last test');
 })();
 
 test.addTest('Week range first week', [
-        'week 1',
+        'week 01',
     ], '2014.12.01 0:00', '2015.02.01 0:00', [
         [ '2014.12.29 00:00', '2015.01.05 00:00' ],
     ], 1000 * 60 * 60 * 24 * 7, 0, false, {}, 'not only test');
 
 test.addTest('Week range first week', [
-        'week 1',
-        'week 1 open',
-        'week 1 00:00-24:00',
+        'week 01',
+        'week 01 open',
+        'week 01 00:00-24:00',
     ], '2012.12.01 0:00', '2024.02.01 0:00', [
         [ '2012.12.31 00:00', '2013.01.07 00:00' ],
         [ '2013.12.30 00:00', '2014.01.06 00:00' ],
@@ -3075,7 +3075,7 @@ test.addTest('Week range first week', [
     ], 1000 * 60 * 60 * 24 * 7 * 12, 0, false, {}, 'not only test');
 
 test.addTest('Week range first week', [
-        'week 1 00:00-23:59',
+        'week 01 00:00-23:59',
     ], '2012.12.01 0:00', '2024.02.01 0:00', [
         /* Long test on per day base {{{ */
         [ '2012.12.31 00:00', '2012.12.31 23:59' ],
@@ -3182,7 +3182,7 @@ test.addTest('Month ranges', [
         'Nov-Feb 00:00-24:00',
         'Nov-Feb00:00-24:00',
         'Nov-Feb',
-        'Nov-Feb 0-24', // Do not use. Returns warning and corrected value.
+        'Nov-Feb 00-24', // Do not use. Returns warning and corrected value.
         'Nov-Feb: 00:00-24:00',
         'Jan,Feb,Nov,Dec 00:00-24:00',
         '00:00-24:00; Mar-Oct off',
@@ -3203,9 +3203,9 @@ test.addTest('Month ranges', [
 
 // monthday ranges {{{
 test.addTest('Month ranges', [
-        'Jan 1,Dec 24-25; Nov Th[4]',
-        'Jan 1,Dec 24,25; Nov Th[4]', // Was supported by time_domain as well.
-        '2012 Jan 1,2012 Dec 24-25; 2012 Nov Th[4]',
+        'Jan 01,Dec 24-25; Nov Th[4]',
+        'Jan 01,Dec 24,25; Nov Th[4]', // Was supported by time_domain as well.
+        '2012 Jan 01,2012 Dec 24-25; 2012 Nov Th[4]',
     ], '2012.01.01 0:00', '2013.01.01 0:00', [
         [ '2012.01.01 00:00', '2012.01.02 00:00' ],
         [ '2012.11.22 00:00', '2012.11.23 00:00' ],
@@ -3213,8 +3213,8 @@ test.addTest('Month ranges', [
     ], 1000 * 60 * 60 * 24 * 4, 0, false, {}, 'not last test');
 
 test.addTest('Month ranges', [
-        'Jan 1,Dec 11,Dec 15-17,Dec 19-23/2,Dec 24-25',
-        'Jan 1,Dec 11,15-17,19-23/2,24,25', // Was supported by time_domain as well.
+        'Jan 01,Dec 11,Dec 15-17,Dec 19-23/2,Dec 24-25',
+        'Jan 01,Dec 11,15-17,19-23/2,24,25', // Was supported by time_domain as well.
     ], '2012.01.01 0:00', '2013.01.01 0:00', [
         [ '2012.01.01 00:00', '2012.01.02 00:00' ],
         [ '2012.12.11 00:00', '2012.12.12 00:00' ],
@@ -3225,7 +3225,7 @@ test.addTest('Month ranges', [
     ], 1000 * 60 * 60 * 24 * (1 + 1 + 3 + 1 + 1 + 3), 0, false, {}, 'not last test');
 
 test.addTest('Monthday ranges', [
-        'Jan 23-31 00:00-24:00; Feb 1-12 00:00-24:00',
+        'Jan 23-31 00:00-24:00; Feb 01-12 00:00-24:00',
         'Jan 23-Feb 12 00:00-24:00',
         'Jan 23-Feb 12: 00:00-24:00',
         '2012 Jan 23-2012 Feb 12 00:00-24:00',
@@ -3234,10 +3234,10 @@ test.addTest('Monthday ranges', [
     ], 1000 * 60 * 60 * 24 * 21, 0, false);
 
 test.addTest('Monthday ranges', [
-        'Jan 31-Feb 1,Aug 00:00-24:00', // FIXME: Also fails in 9f323b9d06720b6efffc7420023e746ff8f1b309.
-        'Jan 31-Feb 1,Aug: 00:00-24:00',
-        'Aug,Jan 31-Feb 1',
-        'Jan 31-Feb 1; Aug',
+        'Jan 31-Feb 01,Aug 00:00-24:00', // FIXME: Also fails in 9f323b9d06720b6efffc7420023e746ff8f1b309.
+        'Jan 31-Feb 01,Aug: 00:00-24:00',
+        'Aug,Jan 31-Feb 01',
+        'Jan 31-Feb 01; Aug',
     ], '2012.01.01 0:00', '2013.01.01 0:00', [
         [ '2012.01.31 00:00', '2012.02.02 00:00' ],
         [ '2012.08.01 00:00', '2012.09.01 00:00' ],
@@ -3249,22 +3249,22 @@ test.addTest('Monthday ranges', [
     ], 1000 * 60 * 60 * 24 * 21, 0, false, {}, 'not last test');
 
 test.addTest('Monthday ranges', [
-        'Dec 24,Jan 2: 18:00-22:00',
-        'Dec 24,Jan 2: 18:00-22:00; Jan 20: off',
-        'Dec 24,Jan 2 18:00-22:00',
+        'Dec 24,Jan 02: 18:00-22:00',
+        'Dec 24,Jan 02: 18:00-22:00; Jan 20: off',
+        'Dec 24,Jan 02 18:00-22:00',
     ], '2012.01.01 0:00', '2013.01.01 0:00', [
         [ '2012.01.02 18:00', '2012.01.02 22:00' ],
         [ '2012.12.24 18:00', '2012.12.24 22:00' ],
     ], 1000 * 60 * 60 * (4 * 2), 0, false, {}, 'not last test');
 
 test.addTest('Monthday ranges (with year)', [
-        '2012 Jan 23-31 00:00-24:00; 2012 Feb 1-12 00:00-24:00',
+        '2012 Jan 23-31 00:00-24:00; 2012 Feb 01-12 00:00-24:00',
     ], '2012.01.01 0:00', '2015.01.01 0:00', [
         [ '2012.01.23 0:00', '2012.02.13 00:00' ],
     ], 1000 * 60 * 60 * 24 * 21, 0, false, {}, 'not last test');
 
 test.addTest('Monthday ranges spanning year boundary', [
-        'Dec 31-Jan 1',
+        'Dec 31-Jan 01',
     ], '2012.01.01 0:00', '2014.01.01 0:00', [
         [ '2012.01.01 0:00', '2012.01.02 00:00' ],
         [ '2012.12.31 0:00', '2013.01.02 00:00' ],
@@ -3272,9 +3272,9 @@ test.addTest('Monthday ranges spanning year boundary', [
     ], 1000 * 60 * 60 * 24 * 4, 0, false, {}, 'not last test');
 
 test.addTest('Full day (with year)', [
-        '2013 Dec 31,2014 Jan 5',
-        '2013 Dec 31; 2014 Jan 5',
-        '2013/10 Dec 31; 2014/10 Jan 5', // force to use parseYearRange
+        '2013 Dec 31,2014 Jan 05',
+        '2013 Dec 31; 2014 Jan 05',
+        '2013/10 Dec 31; 2014/10 Jan 05', // force to use parseYearRange
     ], '2011.01.01 0:00', '2015.01.01 0:00', [
         [ '2013.12.31 00:00', '2014.01.01 00:00' ],
         [ '2014.01.05 00:00', '2014.01.06 00:00' ],
@@ -3282,14 +3282,14 @@ test.addTest('Full day (with year)', [
 
 test.addTest('Date range which only applies for one year', [
         '2013 Dec 31',
-        '2013 Dec 31; 2014 Jan 5; 2014+ off',
+        '2013 Dec 31; 2014 Jan 05; 2014+ off',
     ], '2011.01.01 0:00', '2015.01.01 0:00', [
         [ '2013.12.31 0:00', '2014.01.01 00:00' ],
     ], 1000 * 60 * 60 * 24, 0, false);
 
 test.addTest('Monthday (with year) ranges spanning year boundary', [
-        '2013 Dec 31-2014 Jan 2',
-        'open; 2010 Jan 1-2013 Dec 30 off; 2014 Jan 3-2016 Jan 1 off',
+        '2013 Dec 31-2014 Jan 02',
+        'open; 2010 Jan 01-2013 Dec 30 off; 2014 Jan 03-2016 Jan 01 off',
     ], '2011.01.01 0:00', '2015.01.01 0:00', [
         [ '2013.12.31 0:00', '2014.01.03 00:00' ],
     ], 1000 * 60 * 60 * 24 * 3, 0, false, {}, 'not last test');
@@ -3355,7 +3355,7 @@ test.addTest('Month ranges with year', [
     ], 1000 * 60 * 60 * 24 * 6, 0, false, {}, 'not last test');
 
 test.addTest('Complex monthday ranges', [
-        'Jan 23-31,Feb 1-12 00:00-24:00',
+        'Jan 23-31,Feb 01-12 00:00-24:00',
         'Jan 23-Feb 11,Feb 12 00:00-24:00', // preferred
     ], '2012.01.01 0:00', '2013.01.01 0:00', [
         [ '2012.01.23 0:00', '2012.02.13 00:00' ],
@@ -3410,14 +3410,14 @@ test.addTest('Last day in month', [
 
 // periodical monthdays {{{
 test.addTest('Periodical monthdays', [
-        'Jan 1-31/8 00:00-24:00',
-        'Jan 1-31/8: 00:00-24:00',
-        'Jan 1-31/8',
-        '2012 Jan 1-31/8',
-        '2012 Jan 1-31/8; 2010 Dec 1-31/8',
-        '2012 Jan 1-31/8; 2015 Dec 1-31/8',
-        '2012 Jan 1-31/8; 2025 Dec 1-31/8',
-        '2012 Jan 1-31/8: 00:00-24:00',
+        'Jan 01-31/8 00:00-24:00',
+        'Jan 01-31/8: 00:00-24:00',
+        'Jan 01-31/8',
+        '2012 Jan 01-31/8',
+        '2012 Jan 01-31/8; 2010 Dec 01-31/8',
+        '2012 Jan 01-31/8; 2015 Dec 01-31/8',
+        '2012 Jan 01-31/8; 2025 Dec 01-31/8',
+        '2012 Jan 01-31/8: 00:00-24:00',
     ], '2012.01.01 0:00', '2013.01.01 0:00', [
         [ '2012.01.01 0:00', '2012.01.02 00:00' ],
         [ '2012.01.09 0:00', '2012.01.10 00:00' ],
@@ -3440,8 +3440,8 @@ test.addTest('Periodical monthdays', [
 // year ranges {{{
 test.addTest('Date range which only applies for specific year', [
         // FIXME
-        '2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1', // Used on the demo page.
-        '2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1 Mo-Su',
+        '2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01', // Used on the demo page.
+        '2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 Mo-Su',
     ], '2011.01.01 0:00', '2065.01.01 0:00', [
         [ '2013.01.01 00:00', '2013.01.02 00:00' ],
         [ '2015.01.01 00:00', '2015.01.02 00:00' ],
@@ -3484,25 +3484,25 @@ test.addTest('Date range which only applies for specific year', [
 
 // selector combination and order {{{
 test.addTest('Selector combination', [
-        'week 2 We',            // week + weekday
-        'Jan 11-Jan 11 week 2', // week + monthday
-        'Jan 11-Jan 11: week 2: 00:00-24:00', // week + monthday
-        'Jan 11 week 2',        // week + monthday
+        'week 02 We',            // week + weekday
+        'Jan 11-Jan 11 week 02', // week + monthday
+        'Jan 11-Jan 11: week 02: 00:00-24:00', // week + monthday
+        'Jan 11 week 02',        // week + monthday
     ], '2012.01.01 0:00', '2013.01.01 0:00', [
         [ '2012.01.11 0:00', '2012.01.12 00:00' ],
     ], 1000 * 60 * 60 * 24, 0, false, {}, 'not only test');
 
 test.addTest('Selector combination', [
-        'Jan week 2',           // week + month
-        'Jan-Feb Jan 9-Jan 15', // month + monthday
-        'Jan-Feb Jan 9-15',     // month + monthday
+        'Jan week 02',           // week + month
+        'Jan-Feb Jan 09-Jan 15', // month + monthday
+        'Jan-Feb Jan 09-15',     // month + monthday
     ], '2012.01.01 0:00', '2013.01.01 0:00', [
         [ '2012.01.09 0:00', '2012.01.16 00:00' ],
     ], 1000 * 60 * 60 * 24 * 7, 0, false, {}, 'not last test');
 
 test.addTest('Selector combination', [
         'Jan We',           // month + weekday
-        'Jan 2-27 We',      // weekday + monthday
+        'Jan 02-27 We',      // weekday + monthday
         'Dec 30-Jan 27 We', // weekday + monthday
     ], '2012.01.01 0:00', '2013.01.01 0:00', [
         [ '2012.01.04 0:00', '2012.01.05 00:00' ],
@@ -3514,29 +3514,29 @@ test.addTest('Selector combination', [
 test.addTest('Selector order', [
         // Result should not depend on selector order although there are some best practices:
         // Use the selector types which can cover the biggest range first e.g. year before month.
-        ignored('Feb week 5', 'prettifyValue'),
-        'Feb week 5',
-        ignored('00:00-24:00 week 5 Feb', 'prettifyValue'),
-        ignored('week 5 00:00-24:00 Feb', 'prettifyValue'),
-        'Feb week 5 00:00-24:00',
-        'Feb week 5: 00:00-24:00',
-        'Feb week 5 Mo-Su 00:00-24:00',
-        ignored('Mo-Su week 5 Feb 00:00-24:00', 'prettifyValue'),
-        ignored('00:00-24:00 Mo-Su week 5 Feb', 'prettifyValue'),
-        ignored('00:00-24:00 week 5 Mo-Su Feb', 'prettifyValue'),
-        ignored('Mo-Su 00:00-24:00 week 5 Feb', 'prettifyValue'),
-        ignored('2012 00:00-24:00 week 5 Feb', 'prettifyValue'),
-        ignored('00:00-24:00 2012 week 5 Feb', 'prettifyValue'),
-        ignored('week 5 Feb 2012-2014', 'prettifyValue'),
+        ignored('Feb week 05', 'prettifyValue'),
+        'Feb week 05',
+        ignored('00:00-24:00 week 05 Feb', 'prettifyValue'),
+        ignored('week 05 00:00-24:00 Feb', 'prettifyValue'),
+        'Feb week 05 00:00-24:00',
+        'Feb week 05: 00:00-24:00',
+        'Feb week 05 Mo-Su 00:00-24:00',
+        ignored('Mo-Su week 05 Feb 00:00-24:00', 'prettifyValue'),
+        ignored('00:00-24:00 Mo-Su week 05 Feb', 'prettifyValue'),
+        ignored('00:00-24:00 week 05 Mo-Su Feb', 'prettifyValue'),
+        ignored('Mo-Su 00:00-24:00 week 05 Feb', 'prettifyValue'),
+        ignored('2012 00:00-24:00 week 05 Feb', 'prettifyValue'),
+        ignored('00:00-24:00 2012 week 05 Feb', 'prettifyValue'),
+        ignored('week 05 Feb 2012-2014', 'prettifyValue'),
     ], '2012.01.01 0:00', '2013.01.01 0:00', [
         [ '2012.02.01 0:00', '2012.02.06 00:00' ],
     ], 1000 * 60 * 60 * 24 * 5, 0, false, {}, 'not last test');
 
 test.addTest('Selector order', [
-        ignored('Feb week 6', 'prettifyValue'),
-        'Feb week 6',
-        'Feb week 6 open',
-        ignored('open week 6 Feb', 'prettifyValue'), // not preferred
+        ignored('Feb week 06', 'prettifyValue'),
+        'Feb week 06',
+        'Feb week 06 open',
+        ignored('open week 06 Feb', 'prettifyValue'), // not preferred
     ], '2012.01.01 0:00', '2013.01.01 0:00', [
         [ '2012.02.06 0:00', '2012.02.13 00:00' ],
     ], 1000 * 60 * 60 * 24 * 7, 0, false, {}, 'not last test');
@@ -3769,7 +3769,7 @@ test.addTest('Real world example: Was not processed right (month range/monthday 
         'SH off; Mo-Sa 18:00+',
         // 'SH off; Mo-Sa 18:00-19:00',
         // 'PH off; Mo-Sa 18:00-19:00',
-        // 'Sep 1-14 "Sommerferien"; Mo-Sa 18:00+',
+        // 'Sep 01-14 "Sommerferien"; Mo-Sa 18:00+',
     ], '2014.09.01 0:00', '2014.09.21 0:00', [
         [ '2014.09.01 18:00', '2014.09.02 04:00', true, 'Specified as open end. Closing time was guessed.' ],
         [ '2014.09.02 18:00', '2014.09.03 04:00', true, 'Specified as open end. Closing time was guessed.' ],
@@ -3825,10 +3825,10 @@ test.addTest('Real world example: Was not processed right', [
 test.addTest('Real world example: Was not processed right.', [
         'Jan Su[-2]-Jan Su[-1]: Fr-Su 12:00+;'
         + ' Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+;'
-        + ' Mar 1-Jul 31: Th-Su 12:00+;'
-        + ' Aug 1-Nov 30,Dec: Tu-Su 12:00+;'
+        + ' Mar 01-Jul 31: Th-Su 12:00+;'
+        + ' Aug 01-Nov 30,Dec: Tu-Su 12:00+;'
         + ' Dec 24-26,Dec 31: off', // Original value.
-        'Jan Su[-2]-Jan Su[-1],Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 1-Dec 31: Tu-Su 12:00+; Dec 24-26,Dec 31: off'
+        'Jan Su[-2]-Jan Su[-1],Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 01-Dec 31: Tu-Su 12:00+; Dec 24-26,Dec 31: off'
         // Optimized value. Should mean the same.
     ], '2014.11.29 0:00', '2015.01.11 0:00', [
         [ '2014.11.29 12:00', '2014.11.30 00:00', true,  'Specified as open end. Closing time was guessed.' ],
@@ -3858,7 +3858,7 @@ test.addTest('Real world example: Was not processed right.', [
     ], 0, 1000 * 60 * 60 * 12 * 24, false, {}, 'not last test');
 
 test.addTest('Simplifed real world example: Was not processed right.', [
-        'Nov 1-20,Dec',
+        'Nov 01-20,Dec',
     ], '2014.01.01 0:00', '2015.01.02 0:00', [
         [ '2014.11.01 00:00', '2014.11.21 00:00' ],
         [ '2014.12.01 00:00', '2015.01.01 00:00' ],
@@ -4317,7 +4317,7 @@ test.addTest('Calculations based on variable events', [
     ], 1000 * 60 * 60 * 24 * 3, 0, false, nominatimTestJSON, 'not last test');
 
 test.addTest('Calculations based on variable events', [
-        'Apr 5-easter -1 day: open "Before easter"',
+        'Apr 05-easter -1 day: open "Before easter"',
     ], '2012.01.01 0:00', '2012.10.08 0:00', [
         [ '2012.04.05 00:00', '2012.04.07 00:00', false, 'Before easter' ],
     ], 1000 * 60 * 60 * 24 * 2, 0, false, nominatimTestJSON, 'not only test');
@@ -4329,7 +4329,7 @@ test.addTest('Calculations based on variable events', [
     ], 1000 * 60 * 60 * 24 * 13, 0, false, nominatimTestJSON, 'not last test');
 
 test.addTest('Calculations based on variable events', [
-        'easter-Apr 2: open "Around easter"',
+        'easter-Apr 02: open "Around easter"',
     ], '2012.01.01 0:00', '2012.10.08 0:00', [
         [ '2012.01.01 00:00', '2012.04.03 00:00', false, 'Around easter' ],
         [ '2012.04.08 00:00', '2012.10.08 00:00', false, 'Around easter' ],
@@ -4445,7 +4445,7 @@ test.addTest('Points in time, extrem example useful for ComplexAlarm', [
     ], 1000 * 60 * 4, 0, false, nominatimTestJSON, 'not only test', 1);
 
 test.addTest('Points in time, extrem example useful for ComplexAlarm', [
-        'Mo-We 07:00; Th 05:45; week 1-53/2 Fr 07:05; week 2-53/2 Fr 05:45; SH Mo-Fr (sunrise+03:00); PH off',
+        'Mo-We 07:00; Th 05:45; week 01-53/2 Fr 07:05; week 02-53/2 Fr 05:45; SH Mo-Fr (sunrise+03:00); PH off',
     ], '2014.08.25 0:00', '2014.11.01 0:00', [
         /* Long test on per day base {{{ */
         [ '2014.08.25 09:27', '2014.08.25 09:28', false, 'Sommerferien' ],
@@ -4503,7 +4503,7 @@ test.addTest('Points in time, extrem example useful for ComplexAlarm', [
     ], 1000 * 60 * 49, 0, false, nominatimTestJSON, 'not only test', 1);
 
 test.addTest('Points in time, extrem example useful for ComplexAlarm', [
-        'Mo-We 07:00; Th 05:45; week 1-53/2 Fr 07:05; week 2-53/2 Fr 05:45; SH Mo-Fr (sunrise+03:00); PH off; easter -2 days-easter +2 days off "My little break from work every year."; 2014 Sep 1-2014 Sep 7 off "My vacations …"',
+        'Mo-We 07:00; Th 05:45; week 01-53/2 Fr 07:05; week 02-53/2 Fr 05:45; SH Mo-Fr (sunrise+03:00); PH off; easter -2 days-easter +2 days off "My little break from work every year."; 2014 Sep 01-2014 Sep 07 off "My vacations …"',
     ], '2014.08.25 0:00', '2014.11.01 0:00', [
         /* Long test on per day base {{{ */
         [ '2014.08.25 09:27', '2014.08.25 09:28', false, 'Sommerferien' ],
@@ -4650,7 +4650,7 @@ test.addTest('Calculations based on month range', [
 
 // https://www.openstreetmap.org/node/844696052/history
 test.addTest('Calculations based on month range', [
-        ignored('Mo-Su 10:00-01:00; Sep 15+Sa-Oct Su[1],Oct 1-3: Mo-Su 07:30-03:00'),
+        ignored('Mo-Su 10:00-01:00; Sep 15+Sa-Oct Su[1],Oct 01-3: Mo-Su 07:30-03:00'),
     ], '2012.01.01 0:00', '2012.10.08 0:00', [
     ], 1000 * 60 * 60 * 24 * 13, 0, false, nominatimTestJSON, 'not only test');
 // }}}
@@ -4705,7 +4705,7 @@ test.addTest('Error tolerance: Full range', [
         '7 days a week',
         '7 days/week',
         'täglich',
-        'week 1-53',
+        'week 01-53',
     ], '2012.10.01 0:00', '2012.10.08 0:00', [
         [ '2012.10.01 0:00', '2012.10.08 0:00' ],
     ], 1000 * 60 * 60 * 24 * 7, 0, true, nominatimTestJSON, 'not only test');
@@ -4759,7 +4759,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
         '12.00-14:00' + value_suffix,
         '24/7; 12:00-14:00 off' + value_suffix, // see README
         '2013-2015/1' + value_suffix,
-        '2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 1' + value_suffix,
+        '2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 01' + value_suffix,
         'Mo: 15:00-16:00 off' + value_suffix, // The colon between weekday and time range is ignored. This is used in OSM.
         'Mo-Do 8:30-20:00 Fr 8:29-18:00' + value_suffix,
         'Mo 12:00-14:00 16:00-18:00 20:00-22:00' + value_suffix,
@@ -4772,7 +4772,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
         ignored('Jan,Sep,Jan' + value_suffix_to_disable_time_not_used),
         // }}}
         'Jan Dec' + value_suffix,
-        'Jan 1-22/1' + value_suffix, // period
+        'Jan 01-22/1' + value_suffix, // period
         // https://en.wikipedia.org/wiki/International_variation_in_quotation_marks
         '"testing" "second comment"' + value_suffix, // ": valid in opening_hours syntax
         '\'testing\'' + value_suffix,
@@ -4789,7 +4789,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
         'Jan 12:00-13:00 Mo 15:00-16:00' + value_suffix,
         'sunrise-(sunset-00:00)' + value_suffix,
         // 'easter + 353 days' + value_suffix, // Does throw an error, but at runtime when the problem occurs respectively with the call of getWarnings().
-        'Jun 2-20/1' + value_suffix,  // period is one
+        'Jun 02-20/1' + value_suffix,  // period is one
         '2014-2020/1' + value_suffix, // period is one
         '2014/1' + value_suffix,      // period is one
         'Mo-Sa 11:00-21:00 Su off' + value_suffix, // https://www.openstreetmap.org/way/228339826
@@ -4798,16 +4798,16 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
         '12:00-14:00 оff' + value_suffix, // Russian o
         'Sa 2200' + value_suffix, // Year (currently very unlikely but following the syntax specification it is a year) or wrong time?
         // Values are the test cases from 'selector order' tests. {{{
-        'Feb week 6',
-        '00:00-24:00 week 6 Feb',
-        'week 6 00:00-24:00 Feb',
-        'Mo-Su week 6 Feb 00:00-24:00',
-        '00:00-24:00 Mo-Su week 6 Feb',
-        '00:00-24:00 week 6 Mo-Su Feb',
-        'Mo-Su 00:00-24:00 week 6 Feb',
-        '2012 00:00-24:00 week 6 Feb',
-        '00:00-24:00 2012 week 6 Feb',
-        'week 6 Feb 2012-2014',
+        'Feb week 06',
+        '00:00-24:00 week 06 Feb',
+        'week 06 00:00-24:00 Feb',
+        'Mo-Su week 06 Feb 00:00-24:00',
+        '00:00-24:00 Mo-Su week 06 Feb',
+        '00:00-24:00 week 06 Mo-Su Feb',
+        'Mo-Su 00:00-24:00 week 06 Feb',
+        '2012 00:00-24:00 week 06 Feb',
+        '00:00-24:00 2012 week 06 Feb',
+        'week 06 Feb 2012-2014',
         // }}}
         /* No time selector used. {{{ */
         /* This test is currently only made for rules which evaluate to open.
@@ -4850,23 +4850,23 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
         // '12:00-14:00 ||',
         // }}}
         'Mo[2] - 7 days' + value_suffix,
-        ':week 2-54 00:00-24:00' + value_suffix,
-        ':::week 2-54 00:00-24:00' + value_suffix,
+        ':week 02-54 00:00-24:00' + value_suffix,
+        ':::week 02-54 00:00-24:00' + value_suffix,
         'week :2-54 00:00-24:00' + value_suffix,
         'week week',
-        'week week 5',
-        'week 0',
+        'week week 05',
+        'week 00',
         'week 54',
-        'week 1-54',
-        'week 0-54',
+        'week 01-54',
+        'week 00-54',
         'week 40-30',
         'week 30-40/1',
         'week 30-40/27',
         'week week 00:00-24:00' + value_suffix,
-        'week 2-53 00:00-24:00:' + value_suffix,
-        'week 2-53 00:00-24:00:::' + value_suffix,
-        'week 2-53 00::00-24:00' + value_suffix,
-        'week 2-52/2 We, week 1-53/2 Sa 0:00-24:00' + value_suffix, // See definition of fallback rules in the README.md: *additional rules*
+        'week 02-53 00:00-24:00:' + value_suffix,
+        'week 02-53 00:00-24:00:::' + value_suffix,
+        'week 02-53 00::00-24:00' + value_suffix,
+        'week 02-52/2 We, week 01-53/2 Sa 0:00-24:00' + value_suffix, // See definition of fallback rules in the README.md: *additional rules*
         '(sunrise+01:00-sunset' + value_suffix,
         '(sunrise+01::)-sunset' + value_suffix,
         '(sunrise)-sunset' + value_suffix,
@@ -4903,16 +4903,16 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
         '12:00-15:00/60' + value_suffix,
         '12:00-15:00/1:00' + value_suffix,
         '12:00-15:00/1:' + value_suffix,
-        'Jun 0-Aug 23' + value_suffix, // out of range
-        'Feb 30-Aug 2' + value_suffix, // out of range
-        'Jun 2-Aug 42' + value_suffix, // out of range
-        'Jun 2-Aug 32' + value_suffix, // out of range
-        'Jun 2-32' + value_suffix,     // out of range
+        'Jun 00-Aug 23' + value_suffix, // out of range
+        'Feb 30-Aug 02' + value_suffix, // out of range
+        'Jun 02-Aug 42' + value_suffix, // out of range
+        'Jun 02-Aug 32' + value_suffix, // out of range
+        'Jun 02-32' + value_suffix,     // out of range
         'Jun 32-34' + value_suffix,    // out of range
-        'Jun 2-32/2' + value_suffix,   // out of range
+        'Jun 02-32/2' + value_suffix,   // out of range
         'Jun 32' + value_suffix,       // out of range
         'Jun 30-24' + value_suffix,    // reverse
-        'Jun 2-20/0' + value_suffix,   // period is zero
+        'Jun 02-20/0' + value_suffix,   // period is zero
         '2014-2020/0' + value_suffix,  // period is zero
         '2014/0' + value_suffix,       // period is zero
         '2014-' + value_suffix,
@@ -4943,9 +4943,9 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
         'We off, Mo,Tu,Th-Su,PH, Jun-Aug We 11:00-14:00,17:00+' + value_suffix,
         'We, Aug Mo' + value_suffix,
         '2014, Aug Mo' + value_suffix,
-        'week 5, Aug Mo' + value_suffix,
-        'Jun 2-5, week 5 00:00-24:00' + value_suffix,
-        'Jan 0' + value_suffix,
+        'week 05, Aug Mo' + value_suffix,
+        'Jun 02-5, week 05 00:00-24:00' + value_suffix,
+        'Jan 00' + value_suffix,
         'Jan 32' + value_suffix,
         'Feb 30' + value_suffix,
         'Mar 32' + value_suffix,
@@ -5162,7 +5162,7 @@ test.addEqualTo('Test isEqualTo function', [
         'We-Fr 10:00-20:00; Mo 10:00-20:00',
         'closed; Mo 10:00-20:00; We-Fr 10:00-20:00',
         'open; closed; Mo 10:00-20:00; We-Fr 10:00-20:00',
-        'Jan 1: open; closed; Mo 10:00-20:00; We-Fr 10:00-20:00',
+        'Jan 01: open; closed; Mo 10:00-20:00; We-Fr 10:00-20:00',
     ], 'Mo-Fr 10:00-20:00; Tu off', [ true ]);
 
 test.addEqualTo('Test isEqualTo function', [
