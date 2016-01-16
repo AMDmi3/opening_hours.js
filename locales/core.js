@@ -76,7 +76,7 @@ var opening_hours_resources = { // English is fallback language.
                     + ' Wenn du dir im Unklaren bist, versuche die Öffnungszeit zu klären. Falls das nicht möglich ist, lass die Angabe weg und ignoriere diese Warnung.',
                 'public holiday part2': ' Leider ist der "tag key" (beispielsweise "opening_hours", or "lit") in opening_hours.js nicht bekannt.'
                     + ' Diese Warnung betrifft nur die Keys: __keys__. Falls deine Angabe nicht für einen dieser ist, ignoriere bitte folgenden Hinweis:',
-                'switched': 'Der Selektor "__first__" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit '
+                'switched': 'Der Selektor "__first__" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit'
                     + ' "__second__" getauscht.',
                 'no colon after': 'Bitte Benutze kein ":" nach dem Token __token__.',
                 'number -5 to 5': 'Zahl zwischen -5 und 5 (außer 0) erwartet.',

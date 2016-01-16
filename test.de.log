@@ -493,8 +493,8 @@ With [1m[34mwarnings[39m[22m:
 "PH: Only if PH is Wednesday" for " We,Fr: PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	* We,Fr: PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*PH <--- (Der Selektor "holiday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
-	*PH We,Fr <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "holiday" getauscht.)
+	*PH <--- (Der Selektor "holiday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "weekday" getauscht.)
+	*PH We,Fr <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "holiday" getauscht.)
 "SH" for "SH Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH Mo-Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
@@ -550,8 +550,8 @@ With [1m[34mwarnings[39m[22m:
 "Variable days: public holidays" for "Mo-We PH -1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-We PH -1 day <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*PH -1 day <--- (Der Selektor "holiday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
-	*PH -1 day Mo-We <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "holiday" getauscht.)
+	*PH -1 day <--- (Der Selektor "holiday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "weekday" getauscht.)
+	*PH -1 day Mo-We <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "holiday" getauscht.)
 "Variable days: public holidays" for "day before public holiday Mo-We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*day before public holiday <--- (Please use notation "PH -1 day" for "day before public holiday".)
@@ -1360,53 +1360,53 @@ With [1m[34mwarnings[39m[22m:
 	*Feb week 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector order" for "00:00-24:00 week 05 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 05 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
+	*Feb week 05 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "month" getauscht.)
 "Selector order" for "week 05 00:00-24:00 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
-	*Feb week 05 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 05 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "week" getauscht.)
+	*Feb week 05 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
+	*Feb week 05 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "month" getauscht.)
 "Selector order" for "Feb week 05 00:00-24:00": [1m[32mPASSED[39m[22m
 "Selector order" for "Feb week 05: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Selector order" for "Feb week 05 Mo-Su 00:00-24:00": [1m[32mPASSED[39m[22m
 "Selector order" for "Mo-Su week 05 Feb 00:00-24:00": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
-	*Feb week 05 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "weekday" getauscht.)
+	*Feb week 05 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "month" getauscht.)
 "Selector order" for "00:00-24:00 Mo-Su week 05 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 05 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
-	*Feb week 05 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
-	*Feb week 05 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
+	*Feb week 05 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "weekday" getauscht.)
+	*Feb week 05 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "week" getauscht.)
+	*Feb week 05 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "month" getauscht.)
 "Selector order" for "00:00-24:00 week 05 Mo-Su Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 05 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
+	*Feb week 05 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "month" getauscht.)
 "Selector order" for "Mo-Su 00:00-24:00 week 05 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
-	*Feb week 05 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 05 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
-	*Feb week 05 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "weekday" getauscht.)
+	*Feb week 05 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
+	*Feb week 05 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "week" getauscht.)
+	*Feb week 05 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "month" getauscht.)
 "Selector order" for "2012 00:00-24:00 week 05 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*2012  <--- (Das Jahr liegt in der Vergangenheit.)
-	*2012 Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*2012 Feb week 05 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+	*2012 Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
+	*2012 Feb week 05 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "month" getauscht.)
 "Selector order" for "00:00-24:00 2012 week 05 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*00:00-24:00 2012  <--- (Das Jahr liegt in der Vergangenheit.)
-	*2012 <--- (Der Selektor "year" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*2012 Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "year" getauscht.)
-	*2012 Feb week 05 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+	*2012 <--- (Der Selektor "year" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
+	*2012 Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "year" getauscht.)
+	*2012 Feb week 05 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "month" getauscht.)
 "Selector order" for "week 05 Feb 2012-2014": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*week 05 Feb 2012-2014 <--- (Das Jahr liegt in der Vergangenheit.)
 	*week 05 Feb 2012-2014 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*2012-2014 <--- (Der Selektor "year" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
-	*2012-2014 Feb week 05 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "year" getauscht.)
+	*2012-2014 <--- (Der Selektor "year" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "week" getauscht.)
+	*2012-2014 Feb week 05 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "year" getauscht.)
 "Selector order" for "Feb week 06": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue Ignored but passes!
 With [1m[34mwarnings[39m[22m:
 	*Feb week 06 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
@@ -1419,8 +1419,8 @@ With [1m[34mwarnings[39m[22m:
 "Selector order" for "open week 06 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*open week 06 Feb <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "state" getauscht.)
-	*Feb week 06 open <--- (Der Selektor "state" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "state" getauscht.)
+	*Feb week 06 open <--- (Der Selektor "state" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "month" getauscht.)
 "Additional comment "Nach Vereinbarung"" for "Mo-Fr 08:00-12:00 open "Kein Termin erforderlich", Mo-Fr 13:00-17:00 open "Nach Vereinbarung"": [1m[32mPASSED[39m[22m
 "Additional comment "Nach Vereinbarung"" for "Mo-Fr 08:00-12:00 open "Kein Termin erforderlich", Mo-Fr 13:00-17:00 open nach_vereinbarung": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1444,13 +1444,13 @@ With [1m[34mwarnings[39m[22m:
 "Date overwriting with additional comments for unknown " for "Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 "Maybe open. Call us."": [1m[32mPASSED[39m[22m
 "Date overwriting with additional comments for unknown " for "Mo-Fr 10:00-20:00 unknown "Maybe"; We "Maybe open. Call us." 10:00-16:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "comment" getauscht.)
-	*Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 "Maybe open. Call us." <--- (Der Selektor "comment" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
+	*Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "comment" getauscht.)
+	*Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 "Maybe open. Call us." <--- (Der Selektor "comment" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
 "Date overwriting with additional comments for unknown " for "Mo-Fr 10:00-20:00 unknown "Maybe"; "Maybe open. Call us." We 10:00-16:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-Fr 10:00-20:00 unknown "Maybe"; We <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "comment" getauscht.)
-	*Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
-	*Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 "Maybe open. Call us." <--- (Der Selektor "comment" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
+	*Mo-Fr 10:00-20:00 unknown "Maybe"; We <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "comment" getauscht.)
+	*Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "weekday" getauscht.)
+	*Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 "Maybe open. Call us." <--- (Der Selektor "comment" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
 "Additional comments with time ranges spanning midnight" for "22:00-26:00; We 12:00-14:00 unknown "Maybe open. Call us."": [1m[32mPASSED[39m[22m
 "Additional comments for closed with time ranges spanning midnight" for "22:00-26:00; We 12:00-14:00 off "Not open because we are too tired"": [1m[32mPASSED[39m[22m
 "Additional comments for closed with time ranges spanning midnight" for "22:00-26:00; We 12:00-14:00 closed "Not open because we are too tired"": [1m[32mPASSED[39m[22m
@@ -1819,8 +1819,8 @@ With [1m[34mwarnings[39m[22m:
 "Error tolerance: case and whitespace" for "   monday,    Tu, wE,   TH    12:00 - 20:00  ; Off 14:00-16:00	": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*   monday <--- (Please use the abbreviation "Mo" for "monday".)
-	*Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "state" getauscht.)
-	*Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off <--- (Der Selektor "state" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
+	*Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "state" getauscht.)
+	*Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off <--- (Der Selektor "state" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
 "Error tolerance: weekdays, months in different languages" for "Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 "Error tolerance: weekdays, months in different languages" for "mon, Dienstag, Mi, donnerstag 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -2125,57 +2125,57 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*Sa 2 <--- (Die Zahl 2200 wird als Jahr interpretiert. Vermutlich ist das nicht beabsichtigt. Uhrzeiten werden als "12:00" angegeben.)
 	*Sa 2200 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*2200 <--- (Der Selektor "year" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
-	*2200 Sa <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "year" getauscht.)
+	*2200 <--- (Der Selektor "year" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "weekday" getauscht.)
+	*2200 Sa <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "year" getauscht.)
 "Value not ideal (probably wrong). Should throw a warning." for "Feb week 06": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Feb week 06 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 week 06 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 06 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
+	*Feb week 06 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "month" getauscht.)
 "Value not ideal (probably wrong). Should throw a warning." for "week 06 00:00-24:00 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
-	*Feb week 06 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 06 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "week" getauscht.)
+	*Feb week 06 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
+	*Feb week 06 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "month" getauscht.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-Su week 06 Feb 00:00-24:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
-	*Feb week 06 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "weekday" getauscht.)
+	*Feb week 06 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "month" getauscht.)
 "Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 Mo-Su week 06 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 06 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
-	*Feb week 06 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
-	*Feb week 06 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
+	*Feb week 06 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "weekday" getauscht.)
+	*Feb week 06 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "week" getauscht.)
+	*Feb week 06 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "month" getauscht.)
 "Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 week 06 Mo-Su Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 06 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
+	*Feb week 06 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "month" getauscht.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-Su 00:00-24:00 week 06 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "weekday" getauscht.)
-	*Feb week 06 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*Feb week 06 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
-	*Feb week 06 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "weekday" getauscht.)
+	*Feb week 06 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
+	*Feb week 06 Mo-Su <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "week" getauscht.)
+	*Feb week 06 Mo-Su 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "month" getauscht.)
 "Value not ideal (probably wrong). Should throw a warning." for "2012 00:00-24:00 week 06 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2012  <--- (Das Jahr liegt in der Vergangenheit.)
-	*2012 Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*2012 Feb week 06 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+	*2012 Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
+	*2012 Feb week 06 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "month" getauscht.)
 "Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 2012 week 06 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*00:00-24:00 2012  <--- (Das Jahr liegt in der Vergangenheit.)
-	*2012 <--- (Der Selektor "year" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "time" getauscht.)
-	*2012 Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "year" getauscht.)
-	*2012 Feb week 06 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "month" getauscht.)
+	*2012 <--- (Der Selektor "year" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
+	*2012 Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "year" getauscht.)
+	*2012 Feb week 06 00:00-24:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "month" getauscht.)
 "Value not ideal (probably wrong). Should throw a warning." for "week 06 Feb 2012-2014": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*week 06 Feb 2012-2014 <--- (Das Jahr liegt in der Vergangenheit.)
 	*week 06 Feb 2012-2014 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*2012-2014 <--- (Der Selektor "year" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "week" getauscht.)
-	*2012-2014 Feb week 06 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit  "year" getauscht.)
+	*2012-2014 <--- (Der Selektor "year" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "week" getauscht.)
+	*2012-2014 Feb week 06 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "year" getauscht.)
 "Value not ideal (probably wrong). Should throw a warning." for "2012 Jan-Feb; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2012  <--- (Das Jahr liegt in der Vergangenheit.)
