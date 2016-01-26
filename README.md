@@ -121,13 +121,13 @@ This library is packaged with npm and is available under the name [opening_hours
 
 The version number consists of a major release, minor release and patch level (separated by a dot).
 
-For version 2.2.0 and all later, the following applies:
+For version 2.2.0 and all later, [Semantic Versioning](http://semver.org/spec/v2.0.0.html) is used:
 
 * The major release is only increased if the release breaks backward compatibility.
 * The minor release is increased if new features are added.
 * The patch level is increased to bundle a bunch of commits (minor changes like bug fixes and improvements) into a new tested version.
 
-Check [releases on GitHub] for a list of the releases and their changelog.
+Check [releases on GitHub] for a list of the releases and their Changelog.
 
 ## Synopsis
 
