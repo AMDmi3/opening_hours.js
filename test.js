@@ -2526,6 +2526,7 @@ test.addTest('Variable days: Czech Republic public holidays.', [
     'PH',
 ], '2015.01.01 0:00', '2015.12.31 23:59', [
     [ '2015.01.01 00:00', '2015.01.02 00:00', false, "Den obnovy samostatného českého státu" ],
+    [ '2015.04.03 00:00', '2015.04.04 00:00', false, 'Velký pátek' ],
     [ '2015.04.06 00:00', '2015.04.07 00:00', false, "Velikonoční pondělí" ],
     [ '2015.05.01 00:00', '2015.05.02 00:00', false, "Svátek práce" ],
     [ '2015.05.08 00:00', '2015.05.09 00:00', false, "Den vítězství" ],
@@ -2537,7 +2538,7 @@ test.addTest('Variable days: Czech Republic public holidays.', [
     [ '2015.12.24 00:00', '2015.12.25 00:00', false, "Štědrý den" ],
     [ '2015.12.25 00:00', '2015.12.26 00:00', false, "1. svátek vánoční" ],
     [ '2015.12.26 00:00', '2015.12.27 00:00', false, "2. svátek vánoční" ],
-], 1000 * 60 * 60 * 24 * (12 + 0), 0, false, nominatimTestJSON_czechRepublic, 'not last test');
+], 1000 * 60 * 60 * 24 * (13 + 0), 0, false, nominatimTestJSON_czechRepublic, 'not last test');
 /* }}} */
 
 // }}}
