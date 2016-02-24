@@ -2724,6 +2724,7 @@
         'cz': { /* {{{ */
             'PH': { // http://www.mpsv.cz/cs/74 or english: https://en.wikipedia.org/wiki/Public_holidays_in_the_Czech_Republic
                 'Den obnovy samostatného českého státu'          : [  1,  1 ],
+                "Velký pátek"                                    : [ 'easter', -2 ],
                 'Velikonoční pondělí'                            : [ 'easter',  1 ],
                 'Svátek práce'                                   : [  5,  1 ],
                 'Den vítězství'                                  : [  5,  8 ],
