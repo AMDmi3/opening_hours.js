@@ -197,10 +197,12 @@ var OpeningHoursTable = {
 
         output += '<p class="' + state_string_past + '">'
             + i18n.t('texts.' + state_string_past+ ' ' + (has_next_change ? 'now' : 'always'));
-        if (unknown) {
-            output += (typeof comment !== 'undefined' ? i18n.t('texts.depends on', { comment: '"' + comment + '"' }) : '');
-        } else {
-            output += (typeof comment !== 'undefined' ? ', ' + i18n.t('words.comment') + ': "' + comment + '"' : '');
+        if (typeof comment !== 'undefined') {
+            if (unknown) {
+                output += i18n.t('texts.depends on', { comment: '"' + comment + '"' });
+            } else {
+                output += ', ' + i18n.t('words.comment') + ': "' + comment + '"';
+            }
         }
         output += '</p>';
 
