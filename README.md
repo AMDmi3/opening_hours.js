@@ -763,10 +763,12 @@ Contributor                                        | Contribution
 [sanderd17][] and [marcgemis][]                    | Public holidays for Belgium.
 [marcgemis][]                                      | Dutch localization.
 [drMerry][]                                        | Public holidays for Netherlands.
+[ItsNotYou][]                                      | Introduced AMD.
 
 [sanderd17]: https://github.com/sanderd17
 [marcgemis]: https://github.com/marcgemis
 [drMerry]: https://github.com/drMerry
+[ItsNotYou]: https://github.com/ItsNotYou
 
 ## Credits
 
