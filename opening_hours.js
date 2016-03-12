@@ -3380,6 +3380,12 @@
             i18n = require('./locales/core');
         } catch (error_pass) { error_pass }
         module.exports = factory(SunCalc, moment, i18n, holiday_definitions, word_error_correction, lang);
+    } else if (typeof define === 'function' && define.amd) {
+        // amd define doesn't know optional dependencies
+        define(["suncalc", "moment", "./locales/core"], function(SunCalc, moment, i18n) {
+            root.opening_hours = factory(SunCalc, moment, i18n, holiday_definitions, word_error_correction, lang);
+            return root.opening_hours;
+        });
     } else {
         // For browsers.
         root.opening_hours = factory(root.SunCalc, root.moment, root.i18n, holiday_definitions, word_error_correction, lang);
