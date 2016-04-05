@@ -72,19 +72,19 @@
         }, /* }}} */
         'pl': { /* {{{ */
             'PH': { // https://pl.wikipedia.org/wiki/Dni_wolne_od_pracy_w_Polsce
-                "Nowy Rok"                                          : [ 1, 1 ],
-                "Święto Trzech Króli"                               : [ 1, 6 ],
-                "Wielkanoc"                                         : [ 'easter', 0 ],
-                "Lany Poniedziałek - drugi dzień Wielkiej Nocy"     : [ 'easter', 1 ],
-                "Pierwszy Maja"                                     : [ 5, 1 ],
-                "Trzeci Maja"                                       : [ 5, 3 ],
-                "Zielone Świątki"       			    : [ 'easter', 49 ],
-                "Boże Ciało"                     		    : [ 'easter', 60 ],
-		"Wniebowzięcie Najświętszej Maryi Panny"            : [ 8, 15 ],
-                "Wszystkich Świętych"                               : [ 11, 1 ],
-                "Święto Niepodległości"                             : [ 11, 11 ],
-                "pierwszy dzień Bożego Narodzenia"                  : [ 12, 25 ]
-                "drugi dzień Bożego Narodzenia"                     : [ 12, 26 ]
+                "Nowy Rok"                                      : [ 1, 1 ],
+                "Święto Trzech Króli"                           : [ 1, 6 ],
+                "Wielkanoc"                                     : [ 'easter', 0 ],
+                "Lany Poniedziałek - drugi dzień Wielkiej Nocy" : [ 'easter', 1 ],
+                "Pierwszy Maja"                                 : [ 5, 1 ],
+                "Trzeci Maja"                                   : [ 5, 3 ],
+                "Zielone Świątki"                               : [ 'easter', 49 ],
+                "Boże Ciało"                                    : [ 'easter', 60 ],
+		"Wniebowzięcie Najświętszej Maryi Panny"        : [ 8, 15 ],
+                "Wszystkich Świętych"                           : [ 11, 1 ],
+                "Święto Niepodległości"                         : [ 11, 11 ],
+                "pierwszy dzień Bożego Narodzenia"              : [ 12, 25 ]
+                "drugi dzień Bożego Narodzenia"                 : [ 12, 26 ]
             }
         }, /* }}} */
         'fr': { /* {{{ */
