@@ -2618,6 +2618,7 @@ test.addTest('Full range', [
         'Dec-Nov',
         ignored('Jan 01-Dec 31', 'check for week stable not implemented'),
         'week 01-53',
+        'Mo 00:00-24:00; Tu 00:00-24:00; We 00:00-24:00; Th 00:00-24:00; Fr 00:00-24:00; Sa 00:00-24:00; Su 00:00-24:00',
     ], '2012.10.01 0:00', '2012.10.08 0:00', [
         [ '2012.10.01 0:00', '2012.10.08 0:00' ],
     ], 1000 * 60 * 60 * 24 * 7, 0, true, nominatimTestJSON, 'not only test');

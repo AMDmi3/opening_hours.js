@@ -842,6 +842,7 @@ With [1m[34mwarnings[39m[22m:
 "Full range" for "week 01-53": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*week 01-53 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Full range" for "Mo 00:00-24:00; Tu 00:00-24:00; We 00:00-24:00; Th 00:00-24:00; Fr 00:00-24:00; Sa 00:00-24:00; Su 00:00-24:00": [1m[32mPASSED[39m[22m
 "24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We 00:00-24:00": [1m[32mPASSED[39m[22m
 "24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We 24/7": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -2346,7 +2347,7 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-881/892 tests passed.
+882/893 tests passed.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
