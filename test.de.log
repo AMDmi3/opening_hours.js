@@ -3,7 +3,7 @@
 "Time intervals" for "10:00-12:00,": [1m[32mPASSED[39m[22m
 "Time intervals" for "10:00-12:00;": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*10:00-12:00; <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel. Kann es sein, dass du ein Programmierer bist und das Hinzufügen eines Semikolons nach jedem Statement ist zwanghaft ;) ? Es ist so, dass das Semikolon in der opening_hours Syntax als Trenner für Regeln definiert ist. Bitte verzichte an dieser Stelle auf ein Semikolon.)
+	*10:00-12:00; <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel. Kann es sein, dass du ein Programmierer bist und das Hinzufügen eines Semikolons nach jedem Statement ist zwanghaft ;) ? Es ist so, dass das Semikolon in der opening_hours-Syntax als Trenner für Regeln definiert ist. Bitte verzichte an dieser Stelle auf ein Semikolon.)
 "Time intervals" for "10-12": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10-12 <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "10:00-12:00".)
@@ -22,18 +22,18 @@ With [1m[34mwarnings[39m[22m:
 	*always closed <--- (Please use notation "closed" for "always closed".)
 "Time zero intervals (always closed)" for "off; closed": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*off; closed <--- (Diese Regel, welche den Standard Status (d.h. geschlossen) für alle folgenden Regeln ändert, ist nicht die erste Regel. Diese Regel überschreibt alle vorherigen Regeln. Es kann legitim sein, den Standard Status z.B. auf geöffnet festzulegen und dann nur die Zeiten, zu denen geschlossen ist, anzugeben.)
+	*off; closed <--- (Diese Regel, welche den Standard-Status (d.h. geschlossen) für alle folgenden Regeln ändert, ist nicht die erste Regel. Diese Regel überschreibt alle vorherigen Regeln. Es kann legitim sein, den Standard-Status z.B. auf geöffnet festzulegen und dann nur die Zeiten, zu denen geschlossen ist, anzugeben.)
 "Time zero intervals (always closed)" for "24/7 closed "always closed"": [1m[32mPASSED[39m[22m
 "Time zero intervals (always closed)" for "24/7: closed "always closed"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*24/7:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax Spezifikation um zu sehen wo es verwendet werden kann oder entferne es.)
+	*24/7:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax-Spezifikation um zu sehen, wo es verwendet werden kann, oder entferne es.)
 "Time zero intervals (always closed)" for "24/7 closed: "always closed"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*24/7 closed:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax Spezifikation um zu sehen wo es verwendet werden kann oder entferne es.)
+	*24/7 closed:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax-Spezifikation um zu sehen, wo es verwendet werden kann, oder entferne es.)
 "Time zero intervals (always closed)" for "24/7: closed: "always closed"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*24/7:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax Spezifikation um zu sehen wo es verwendet werden kann oder entferne es.)
-	*24/7: closed:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax Spezifikation um zu sehen wo es verwendet werden kann oder entferne es.)
+	*24/7:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax-Spezifikation um zu sehen, wo es verwendet werden kann, oder entferne es.)
+	*24/7: closed:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax-Spezifikation um zu sehen, wo es verwendet werden kann, oder entferne es.)
 "Time zero intervals (always closed)" for "closed "always closed"": [1m[32mPASSED[39m[22m
 "Time zero intervals (always closed)" for "off "always closed"": [1m[32mPASSED[39m[22m
 "Time zero intervals (always closed)" for "00:00-24:00 closed": [1m[32mPASSED[39m[22m
@@ -42,8 +42,8 @@ With [1m[34mwarnings[39m[22m:
 "Error tolerance: dot as time separator" for "10:00-12:00": [1m[32mPASSED[39m[22m
 "Error tolerance: dot as time separator" for "10.00-12.00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*10. <--- (Bitte benutze ":" als Stunden/Minuten Trenner)
-	*10.00-12. <--- (Bitte benutze ":" als Stunden/Minuten Trenner)
+	*10. <--- (Bitte benutze ":" als Stunden/Minuten-Trenner)
+	*10.00-12. <--- (Bitte benutze ":" als Stunden/Minuten-Trenner)
 "Error tolerance: dot as time separator" for "10:00-14:00; 12:00-14:00 off": [1m[32mPASSED[39m[22m
 "Error tolerance: dot as time separator" for "10-14; 12-14 off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -51,10 +51,10 @@ With [1m[34mwarnings[39m[22m:
 	*10-14; 12-14  <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "12:00-14:00".)
 "Error tolerance: dot as time separator" for "10.00-14.00; 12.00-14.00 off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*10. <--- (Bitte benutze ":" als Stunden/Minuten Trenner)
-	*10.00-14. <--- (Bitte benutze ":" als Stunden/Minuten Trenner)
-	*10.00-14.00; 12. <--- (Bitte benutze ":" als Stunden/Minuten Trenner)
-	*10.00-14.00; 12.00-14. <--- (Bitte benutze ":" als Stunden/Minuten Trenner)
+	*10. <--- (Bitte benutze ":" als Stunden/Minuten-Trenner)
+	*10.00-14. <--- (Bitte benutze ":" als Stunden/Minuten-Trenner)
+	*10.00-14.00; 12. <--- (Bitte benutze ":" als Stunden/Minuten-Trenner)
+	*10.00-14.00; 12.00-14. <--- (Bitte benutze ":" als Stunden/Minuten-Trenner)
 "Error tolerance: Correctly handle pm time." for "10:00-12:00,13:00-20:00": [1m[32mPASSED[39m[22m
 "Error tolerance: Correctly handle pm time." for "10-12,13-20": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -78,9 +78,9 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*10:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
 	*10:00am-12:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10:00am-12:00am,1. <--- (Bitte benutze ":" als Stunden/Minuten Trenner)
+	*10:00am-12:00am,1. <--- (Bitte benutze ":" als Stunden/Minuten-Trenner)
 	*10:00am-12:00am,1.00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10:00am-12:00am,1.00pm-8. <--- (Bitte benutze ":" als Stunden/Minuten Trenner)
+	*10:00am-12:00am,1.00pm-8. <--- (Bitte benutze ":" als Stunden/Minuten-Trenner)
 	*10:00am-12:00am,1.00pm-8.00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
 "Error tolerance: Correctly handle pm time." for "13:00-20:00,10:00-12:00": [1m[32mPASSED[39m[22m
 "Error tolerance: Correctly handle pm time." for "1pm-8pm,10am-12am": [1m[32mPASSED[39m[22m
@@ -1032,7 +1032,7 @@ With [1m[34mwarnings[39m[22m:
 "24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We: open": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*Mo,We: open <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*Mo,We:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax Spezifikation um zu sehen wo es verwendet werden kann oder entferne es.)
+	*Mo,We:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax-Spezifikation um zu sehen, wo es verwendet werden kann, oder entferne es.)
 "24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo,We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
@@ -1329,7 +1329,7 @@ With [1m[34mwarnings[39m[22m:
 	*Jan 11-Jan 11 week 02 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector combination" for "Jan 11-Jan 11: week 02: 00:00-24:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 11-Jan 11:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax Spezifikation um zu sehen wo es verwendet werden kann oder entferne es.)
+	*Jan 11-Jan 11:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax-Spezifikation um zu sehen, wo es verwendet werden kann, oder entferne es.)
 "Selector combination" for "Jan 11 week 02": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan 11 week 02 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
@@ -1988,7 +1988,7 @@ With [1m[34mwarnings[39m[22m:
 "Time intervals (not specified/documented use of colon, please avoid this)" for "00:00-24:00; Mo 15:00-16:00 off": [1m[32mPASSED[39m[22m
 "Time intervals (not specified/documented use of colon, please avoid this)" for "00:00-24:00; Mo: 15:00-16:00 off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*00:00-24:00; Mo:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax Spezifikation um zu sehen wo es verwendet werden kann oder entferne es.)
+	*00:00-24:00; Mo:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax-Spezifikation um zu sehen, wo es verwendet werden kann, oder entferne es.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo[2] - 0 days; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo[2] - 0 days <--- (Addition von 0 verändert das Datum nicht. Bitte weglassen.)
@@ -2006,7 +2006,7 @@ With [1m[34mwarnings[39m[22m:
 	*8-18 <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "08:00-18:00".)
 "Value not ideal (probably wrong). Should throw a warning." for "12.00-14:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*12. <--- (Bitte benutze ":" als Stunden/Minuten Trenner)
+	*12. <--- (Bitte benutze ":" als Stunden/Minuten-Trenner)
 "Value not ideal (probably wrong). Should throw a warning." for "24/7; 12:00-14:00 off; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*24/7; 12:00-14:00 off; 00:23-00:42 unknown "warning at correct position?" <--- (Du hast 24/7 in einer Art verwendet, welche wahrscheinlich nicht als "24 Stunden, 7 Tage die Woche" interpretiert wird. Der Richtigkeit halber solltest du "open" oder "closed" für diese Regel verwenden und dann die Ausnahmen angeben um das selbe Ziel zu erreichen. So ist es klarer – zum Beispiel "open; Mo 12:00-14:00 off".)
@@ -2021,7 +2021,7 @@ With [1m[34mwarnings[39m[22m:
 	*2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo: 15:00-16:00 off; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax Spezifikation um zu sehen wo es verwendet werden kann oder entferne es.)
+	*Mo:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax-Spezifikation um zu sehen, wo es verwendet werden kann, oder entferne es.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-Do 8:30-20:00 Fr 8:29-18:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Do <--- (Bitte benutze die englische Abkürzung "Th" für "do".)
@@ -2201,7 +2201,7 @@ With [1m[34mwarnings[39m[22m:
 	*;;; open <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel.)
 "Value not ideal (probably wrong). Should throw a warning." for "open; 00:23-00:42 unknown "warning at correct position?";": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*open; 00:23-00:42 unknown "warning at correct position?"; <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel. Kann es sein, dass du ein Programmierer bist und das Hinzufügen eines Semikolons nach jedem Statement ist zwanghaft ;) ? Es ist so, dass das Semikolon in der opening_hours Syntax als Trenner für Regeln definiert ist. Bitte verzichte an dieser Stelle auf ein Semikolon.)
+	*open; 00:23-00:42 unknown "warning at correct position?"; <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel. Kann es sein, dass du ein Programmierer bist und das Hinzufügen eines Semikolons nach jedem Statement ist zwanghaft ;) ? Es ist so, dass das Semikolon in der opening_hours-Syntax als Trenner für Regeln definiert ist. Bitte verzichte an dieser Stelle auf ein Semikolon.)
 "Value not ideal (probably wrong). Should throw a warning." for "open; 00:23-00:42 unknown "warning at correct position?" ||": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*open; 00:23-00:42 unknown "warning at correct position?" || <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel.)
@@ -2210,10 +2210,10 @@ false
 
 "Value not ideal (probably wrong). Should throw a warning. warnings_severity: 5" for "Mo-Fr 08:00-16:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-Fr 08:00-16:00 <--- (Es wurde keine Regel für "PH" (feiertags) angegeben. Dies ist nicht sehr Aussagekräftig. Leider ist der "tag key" (beispielsweise "opening_hours", or "lit") in opening_hours.js nicht bekannt. Diese Warnung betrifft nur die Keys: opening_hours. Falls deine Angabe nicht für einen dieser ist, ignoriere bitte folgenden Hinweis: Bitte füge die Regel "PH off" an, wenn die Einrichtung an allen Feiertagen geschlossen ist oder schreibe "Sa,Su,PH 12:00-16:00" um auszudrücken, dass Samstags, Sonntags und feiertags von 12:00-16:00 geöffnet ist. Falls die Einrichtung täglich und an Feiertagen geöffnet ist, kann dies explizit mittels "Mo-Su,PH" ausgedrückt werden. Wenn du dir im Unklaren bist, versuche die Öffnungszeit zu klären. Falls das nicht möglich ist, lass die Angabe weg und ignoriere diese Warnung.)
+	*Mo-Fr 08:00-16:00 <--- (Es wurde keine Regel für "PH" (feiertags) angegeben. Dies ist nicht sehr aussagekräftig. Leider ist der "tag key" (beispielsweise "opening_hours", oder "lit") in opening_hours.js nicht bekannt. Diese Warnung betrifft nur die Keys: opening_hours. Falls deine Angabe nicht für einen dieser ist, ignoriere bitte folgenden Hinweis: Bitte füge die Regel "PH off" an, wenn die Einrichtung an allen Feiertagen geschlossen ist oder schreibe "Sa,Su,PH 12:00-16:00" um auszudrücken, dass Samstags, Sonntags und feiertags von 12:00-16:00 geöffnet ist. Falls die Einrichtung täglich und an Feiertagen geöffnet ist, kann dies explizit mittels "Mo-Su,PH" ausgedrückt werden. Wenn du dir im Unklaren bist, versuche die Öffnungszeit zu klären. Falls das nicht möglich ist, lass die Angabe weg und ignoriere diese Warnung.)
 "Value not ideal (probably wrong). Should throw a warning. warnings_severity: 5, "tag_key": "opening_hours"" for "Mo-Fr 08:00-16:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-Fr 08:00-16:00 <--- (Es wurde keine Regel für "PH" (feiertags) angegeben. Dies ist nicht sehr Aussagekräftig. Bitte füge die Regel "PH off" an, wenn die Einrichtung an allen Feiertagen geschlossen ist oder schreibe "Sa,Su,PH 12:00-16:00" um auszudrücken, dass Samstags, Sonntags und feiertags von 12:00-16:00 geöffnet ist. Falls die Einrichtung täglich und an Feiertagen geöffnet ist, kann dies explizit mittels "Mo-Su,PH" ausgedrückt werden. Wenn du dir im Unklaren bist, versuche die Öffnungszeit zu klären. Falls das nicht möglich ist, lass die Angabe weg und ignoriere diese Warnung.)
+	*Mo-Fr 08:00-16:00 <--- (Es wurde keine Regel für "PH" (feiertags) angegeben. Dies ist nicht sehr aussagekräftig. Bitte füge die Regel "PH off" an, wenn die Einrichtung an allen Feiertagen geschlossen ist oder schreibe "Sa,Su,PH 12:00-16:00" um auszudrücken, dass Samstags, Sonntags und feiertags von 12:00-16:00 geöffnet ist. Falls die Einrichtung täglich und an Feiertagen geöffnet ist, kann dies explizit mittels "Mo-Su,PH" ausgedrückt werden. Wenn du dir im Unklaren bist, versuche die Öffnungszeit zu klären. Falls das nicht möglich ist, lass die Angabe weg und ignoriere diese Warnung.)
 "Incorrect syntax which should throw an error" for "MON-FRI 5PM-12AM | SAT-SUN 12PM-12AM": [1m[32mPASSED[39m[22m
 MON-FRI 5PM-12AM |  <--- (Unerwartetes Zeichen: "|" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) MON <--- (Please use the abbreviation "Mo" for "mon".); MON-FRI <--- (Please use the abbreviation "Fr" for "fri".); MON-FRI 5PM <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM | SAT <--- (Please use the abbreviation "Sa" for "sat".); MON-FRI 5PM-12AM | SAT-SUN <--- (Please use the abbreviation "Su" for "sun".); MON-FRI 5PM-12AM | SAT-SUN 12PM <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM | SAT-SUN 12PM-12AM <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM  <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "17:00-12:00".)
 
@@ -2272,10 +2272,10 @@ week 01-54 <--- (Du hast eine Kalenderwoche größer als 53 angegeben. Korrekte 
 week 00 <--- (Du hast eine Kalenderwoche kleiner 1 angegeben. Korrekte Angaben sind 1-53.)
 
 "Incorrect syntax which should throw an error" for "week 40-30": [1m[32mPASSED[39m[22m
-week 40-30 <--- (Du hast eine Wochen-Spanne in umgekehrter Reihenfolge oder mehrere Jahr umfassende angegeben. Dies ist aktuell nicht unterstützt.)
+week 40-30 <--- (Du hast eine Wochen-Spanne in umgekehrter Reihenfolge oder mehrere Jahre umfassende angegeben. Dies ist aktuell nicht unterstützt.)
 
 "Incorrect syntax which should throw an error" for "week 30-40/1": [1m[32mPASSED[39m[22m
-week 30-40/1 <--- (Du hast eine Wochenperiode kleiner 2 angegeben. Wenn du die gesamte Spanne von 30 bis 40 angeben will, lasse "/1" einfach weg.)
+week 30-40/1 <--- (Du hast eine Wochenperiode kleiner 2 angegeben. Wenn du die gesamte Spanne von 30 bis 40 angeben willst, lasse "/1" einfach weg.)
 
 "Incorrect syntax which should throw an error" for "week 30-40/27": [1m[32mPASSED[39m[22m
 week 30-40/27 <--- (Du hast eine Wochen-Periode größer als 26 angegeben. 26.5 ist die Hälfte des Maximums von 53 Wochen pro Jahr. Damit würde eine Periode größer als 26 nur einmal pro Jahr auftreten. Bitte gibt den Wochen-Selektor als "week 30" an, wenn es das ist, was du ausdrücken möchtest.)
@@ -2314,10 +2314,10 @@ sunrise-( <--- (Die Zeitspanne geht nicht wie erwartet weiter)
 sunrise-sunset,( <--- (Missing variable time (e.g. sunrise) after: "(")
 
 "Incorrect syntax which should throw an error" for "dusk;dawn; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-dusk <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falscher OSM tag verwendet?)
+dusk <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falsches OSM-tag verwendet?)
 
 "Incorrect syntax which should throw an error" for "dusk; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-dusk <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falscher OSM tag verwendet?)
+dusk <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falsches OSM-tag verwendet?)
 
 "Incorrect syntax which should throw an error" for "27:00-29:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 27:00 <--- (Zeitspanne beginnt außerhalb des aktuellen Tages)
@@ -2326,13 +2326,13 @@ dusk <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um 
 14: <--- (Missing minutes in time range after: "timesep")
 
 "Incorrect syntax which should throw an error" for "14:00/; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-14:00/ <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falscher OSM tag verwendet?)
+14:00/ <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falsches OSM-tag verwendet?)
 
 "Incorrect syntax which should throw an error" for "14:00-/; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 14:00-/ <--- (Die Zeitspanne geht nicht wie erwartet weiter)
 
 "Incorrect syntax which should throw an error" for "14:00-16:00,.; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-14:00-16:00,. <--- (Unerwartetes Zeichen: "timesep" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 14:00-16:00,. <--- (Bitte benutze ":" als Stunden/Minuten Trenner)
+14:00-16:00,. <--- (Unerwartetes Zeichen: "timesep" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 14:00-16:00,. <--- (Bitte benutze ":" als Stunden/Minuten-Trenner)
 
 "Incorrect syntax which should throw an error" for "11; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 11 <--- (Unerwartetes Zeichen: "number" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
@@ -2341,7 +2341,7 @@ dusk <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um 
 11am <--- (Unerwartetes Zeichen: "number" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 11am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
 
 "Incorrect syntax which should throw an error" for "14:00-16:00,11:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-14:00-16:00,11:00 <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falscher OSM tag verwendet?)
+14:00-16:00,11:00 <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falsches OSM-tag verwendet?)
 
 "Incorrect syntax which should throw an error" for "21:00-22:60; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 21:00-22:60 <--- (Minutes are greater than 59.)
@@ -2398,31 +2398,31 @@ Mo, <--- (Eine weitere Regel an dieser Stelle ergibt keinen Sinn. Benutze einfac
 12:00-15:00/1: <--- (Die Zeitspannen-Periode geht nicht wie erwartet weiter. Beispiel "/01:30".)
 
 "Incorrect syntax which should throw an error" for "Jun 00-Aug 23; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 00 <--- (Die Tagangabe für Jun muss zwischen 1 und 31 liegen.)
+Jun 00 <--- (Die Tagesangabe für Jun muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Feb 30-Aug 02; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Feb 30 <--- ("Der Monat Feb hat entweder 28 oder 29 Tage (Schaltjahre).")
 
 "Incorrect syntax which should throw an error" for "Jun 02-Aug 42; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 02-Aug 42 <--- (Die Tagangabe für Aug muss zwischen 1 und 31 liegen.)
+Jun 02-Aug 42 <--- (Die Tagesangabe für Aug muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Jun 02-Aug 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 02-Aug 32 <--- (Die Tagangabe für Aug muss zwischen 1 und 31 liegen.)
+Jun 02-Aug 32 <--- (Die Tagesangabe für Aug muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Jun 02-32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 02-32 <--- (Die Tagangabe für Jun muss zwischen 1 und 31 liegen.)
+Jun 02-32 <--- (Die Tagesangabe für Jun muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Jun 32-34; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 32 <--- (Die Tagangabe für Jun muss zwischen 1 und 31 liegen.)
+Jun 32 <--- (Die Tagesangabe für Jun muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Jun 02-32/2; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 02-32 <--- (Die Tagangabe für Jun muss zwischen 1 und 31 liegen.)
+Jun 02-32 <--- (Die Tagesangabe für Jun muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Jun 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 32 <--- (Die Tagangabe für Jun muss zwischen 1 und 31 liegen.)
+Jun 32 <--- (Die Tagesangabe für Jun muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Jun 30-24; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jun 30-24 <--- (Zeitspanne in falscher Reihenfolge. Begin ist größer als Ende.)
+Jun 30-24 <--- (Zeitspanne in falscher Reihenfolge. Beginn ist größer als Ende.)
 
 "Incorrect syntax which should throw an error" for "Jun 02-20/0; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Jun 02-20/0 <--- (Du kannst keine day-Spanne mit Periode "0" verwenden.)
@@ -2470,7 +2470,7 @@ Jun 02-20/0 <--- (Du kannst keine day-Spanne mit Periode "0" verwenden.)
 Tu 23:59-48:00+ <--- (Zeitspanne welche mehrmals Mitternacht beinhaltet wird nicht unterstützt)
 
 "Incorrect syntax which should throw an error" for "12:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-12:00 <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falscher OSM tag verwendet?)
+12:00 <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falsches OSM-tag verwendet?)
 
 "Incorrect syntax which should throw an error" for "„testing„; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 „t <--- (Unerwartetes Zeichen: "„" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
@@ -2522,43 +2522,43 @@ week 05,  <--- (Eine weitere Regel an dieser Stelle ergibt keinen Sinn. Benutze 
 
 "Incorrect syntax which should throw an error" for "Jun 02-5, week 05 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[31mFAILED[39m[22m
 "Incorrect syntax which should throw an error" for "Jan 00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jan 00 <--- (Die Tagangabe für Jan muss zwischen 1 und 31 liegen.)
+Jan 00 <--- (Die Tagesangabe für Jan muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Jan 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jan 32 <--- (Die Tagangabe für Jan muss zwischen 1 und 31 liegen.)
+Jan 32 <--- (Die Tagesangabe für Jan muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Feb 30; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Feb 30 <--- ("Der Monat Feb hat entweder 28 oder 29 Tage (Schaltjahre).")
 
 "Incorrect syntax which should throw an error" for "Mar 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Mar 32 <--- (Die Tagangabe für Mar muss zwischen 1 und 31 liegen.)
+Mar 32 <--- (Die Tagesangabe für Mar muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Apr 31; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Apr 31 <--- (Der Monat Apr hat keine 31 Tage. Der letzte Tag von Apr ist Tag 30.)
 
 "Incorrect syntax which should throw an error" for "Mai 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Mai 32 <--- (Die Tagangabe für May muss zwischen 1 und 31 liegen.)
+Mai 32 <--- (Die Tagesangabe für May muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Jun 31; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Jun 31 <--- (Der Monat Jun hat keine 31 Tage. Der letzte Tag von Jun ist Tag 30.)
 
 "Incorrect syntax which should throw an error" for "Jul 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Jul 32 <--- (Die Tagangabe für Jul muss zwischen 1 und 31 liegen.)
+Jul 32 <--- (Die Tagesangabe für Jul muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Aug 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Aug 32 <--- (Die Tagangabe für Aug muss zwischen 1 und 31 liegen.)
+Aug 32 <--- (Die Tagesangabe für Aug muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Sep 31; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Sep 31 <--- (Der Monat Sep hat keine 31 Tage. Der letzte Tag von Sep ist Tag 30.)
 
 "Incorrect syntax which should throw an error" for "Oct 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Oct 32 <--- (Die Tagangabe für Oct muss zwischen 1 und 31 liegen.)
+Oct 32 <--- (Die Tagesangabe für Oct muss zwischen 1 und 31 liegen.)
 
 "Incorrect syntax which should throw an error" for "Nov 31; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Nov 31 <--- (Der Monat Nov hat keine 31 Tage. Der letzte Tag von Nov ist Tag 30.)
 
 "Incorrect syntax which should throw an error" for "Dec 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-Dec 32 <--- (Die Tagangabe für Dec muss zwischen 1 und 31 liegen.)
+Dec 32 <--- (Die Tagesangabe für Dec muss zwischen 1 und 31 liegen.)
 
 "Missing information (e.g. country or holidays not known to opening_hours.js)" for "PH": [1m[32mPASSED[39m[22m
 Der Ländercode fehlt. Dieser wird benötigt um die korrekten Feiertage zu bestimmen (siehe in der README wie dieser anzugeben ist)
@@ -2567,7 +2567,7 @@ Der Ländercode fehlt. Dieser wird benötigt um die korrekten Feiertage zu besti
 Der Ländercode fehlt. Dieser wird benötigt um die korrekten Feiertage zu bestimmen (siehe in der README wie dieser anzugeben ist)
 
 "opening_hours.js is in the wrong mode." for "Mo sunrise,sunset": [1m[32mPASSED[39m[22m
-Mo sunrise, <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falscher OSM tag verwendet?)
+Mo sunrise, <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falsches OSM-tag verwendet?)
 
 "opening_hours.js is in the wrong mode." for "Mo sunrise-(sunrise+01:00)/60": [1m[32mPASSED[39m[22m
 Mo sunrise-(sunrise+01:00)/60 <--- (opening_hours.js wurde im "Zeitspannen-Modus" aufgerufen. Zeitpunkt gefunden.)
@@ -2656,13 +2656,13 @@ Mon-Sun 14- <--- (Missing time separator in time range after: "number")
 8:am <--- (Missing minutes in time range after: "timesep")
 
 "Trying to trigger "Missing time separator in time range after" for mode === 0." for "Su 7:30,10;00,22:00": [1m[32mPASSED[39m[22m
-Su 7:30, <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falscher OSM tag verwendet?)
+Su 7:30, <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falsches OSM-tag verwendet?)
 
 "Trying to trigger "Missing time separator in time range after" for mode === 0." for "Su 7:30,10?00,22:00": [1m[32mPASSED[39m[22m
-Su 7:30, <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falscher OSM tag verwendet?)
+Su 7:30, <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falsches OSM-tag verwendet?)
 
 "Trying to trigger "Missing time separator in time range after" for mode === 0." for "Su 7:30,10i00,22:00": [1m[32mPASSED[39m[22m
-Su 7:30, <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falscher OSM tag verwendet?)
+Su 7:30, <--- (Erwarte Bindestrich (-) oder offenes Ende (+) in der Zeitspanne . Um mit Zeitpunkten zu arbeiten, muss der Modus für  opening_hours.js umgestellt werden. Vielleicht falsches OSM-tag verwendet?)
 
 "Trying to trigger "Missing time separator in time range after" for mode === 1." for "Su 7:30,10;00,22:00": [1m[32mPASSED[39m[22m
 Su 7:30,10 <--- (Missing time separator in time range after: "number")
@@ -2707,13 +2707,13 @@ Der Parameter optional_conf_parm["warnings_severity"] muss eine ganze Zahl zwisc
 Der optional_conf_parm["mode"] Parameter hat einen unbekannten Typ. Gegeben: object, erwartet: number.
 
 "Wrong constructor call should throw an error: mode: -1" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
-Der optional_conf_parm["mode"] Parameter ist eine ungültige Zahl. Gegeben: -1, erwartet: Eine der Zahlen: [ 0, 1, 2 ].
+Der optional_conf_parm["mode"]-Parameter ist eine ungültige Zahl. Gegeben: -1, erwartet: Eine der Zahlen: [ 0, 1, 2 ].
 
 "Wrong constructor call should throw an error: mode: 1.5" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
-Der optional_conf_parm["mode"] Parameter ist eine ungültige Zahl. Gegeben: 1.5, erwartet: Eine der Zahlen: [ 0, 1, 2 ].
+Der optional_conf_parm["mode"]-Parameter ist eine ungültige Zahl. Gegeben: 1.5, erwartet: Eine der Zahlen: [ 0, 1, 2 ].
 
 "Wrong constructor call should throw an error: mode: 4" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
-Der optional_conf_parm["mode"] Parameter ist eine ungültige Zahl. Gegeben: 4, erwartet: Eine der Zahlen: [ 0, 1, 2 ].
+Der optional_conf_parm["mode"]-Parameter ist eine ungültige Zahl. Gegeben: 4, erwartet: Eine der Zahlen: [ 0, 1, 2 ].
 
 "Wrong constructor call should throw an error: tag_key: [ "lit" ]" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 Der optional_conf_parm["tag_key"] Parameter hat einen unbekannten Typ. Gegeben: object, erwartet: string.
