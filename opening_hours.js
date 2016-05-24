@@ -35,6 +35,8 @@
     /* constants (holiday_definitions, error correction, lang) {{{ */
     /* holiday_definitions {{{ */
     /*
+     * Refer to /docs/holidays.md for documentation of the data format used.
+     *
      * The country code keys and the PH, SH keys are surrounded by '':
      * :%s/^\s\+\zs"\([^"]\+\)"\(: {\)/'\1'\2/
      * Fixed the indention with Vim Marco:
