@@ -51,7 +51,7 @@
   },
   "optionalDependencies": {
     "i18next-client": "1.11.1",
-    "moment": "2.10.6",
+    "moment": "^2.10.6",
     "country-language": "0.1.7"
   },
   "devDependencies": {
