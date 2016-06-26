@@ -357,6 +357,35 @@ var nominatimTestJSON_czechRepublic = {
 }
 /* }}} */
 
+/* Nominatim dictionary {{{ */
+var nominatim_resutls = {
+    'se': {
+        '_se': {
+            "_url": "https://nominatim.openstreetmap.org/reverse?format=json&lat=63.1151&lon=16.5767&zoom=18&addressdetails=1&accept-language=en",
+            "place_id": "144718067",
+            "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+            "osm_type": "relation",
+            "osm_id": "935558",
+            "lat": "63.167997",
+            "lon": "15.965908816134",
+            "display_name": "Ragunda, Jämtlands län, Norrland, Sweden",
+            "address": {
+                "county": "Ragunda",
+                "state": "Jämtlands län",
+                "country": "Sweden",
+                "country_code": "se"
+            },
+            "boundingbox": [
+                "62.8082014",
+                "63.5218885",
+                "15.2350864",
+                    "16.9987048"
+            ]
+        },
+    },
+}
+/* }}} */
+
 /* }}} */
 /* }}} */
 
@@ -2539,6 +2568,40 @@ test.addTest('Variable days: Czech Republic public holidays.', [
     [ '2015.12.25 00:00', '2015.12.26 00:00', false, "1. svátek vánoční" ],
     [ '2015.12.26 00:00', '2015.12.27 00:00', false, "2. svátek vánoční" ],
 ], 1000 * 60 * 60 * 24 * (13 + 0), 0, false, nominatimTestJSON_czechRepublic, 'not last test');
+/* }}} */
+
+/* Swedish holidays {{{ */
+test.addTest('Variable days: Swedish Republic public holidays.', [
+    'PH',
+], '2015.01.01 0:00', '2015.12.31 23:59', [
+    [ '2015.01.01 00:00', '2015.01.02 00:00', false, 'nyårsdagen' ],
+    [ '2015.01.06 00:00', '2015.01.07 00:00', false, 'trettondedag jul' ],
+    [ '2015.04.03 00:00', '2015.04.04 00:00', false, 'långfredagen' ],
+    [ '2015.04.05 00:00', '2015.04.06 00:00', false, 'påskdagen' ],
+    [ '2015.04.06 00:00', '2015.04.07 00:00', false, 'annandag påsk' ],
+    [ '2015.05.01 00:00', '2015.05.02 00:00', false, 'första maj' ],
+    [ '2015.05.24 00:00', '2015.05.25 00:00', false, 'pingstdagen' ],
+    [ '2015.06.06 00:00', '2015.06.07 00:00', false, 'nationaldagen' ],
+    [ '2015.06.20 00:00', '2015.06.21 00:00', false, 'midsommardagen' ],
+    [ '2015.10.31 00:00', '2015.11.01 00:00', false, 'alla helgons dag' ],
+    [ '2015.12.25 00:00', '2015.12.26 00:00', false, 'juldagen' ],
+    [ '2015.12.26 00:00', '2015.12.27 00:00', false, 'annandag jul' ],
+], 1000 * 60 * 60 * 24 * 12, 0, false, nominatim_resutls.se._se, 'not last test');
+
+test.addTest('Variable days: Weekday in given week.', [
+    'PH',
+], '2016.06.10 0:00', '2016.11.31 23:59', [
+    [ '2016.06.25 00:00', '2016.06.26 00:00', false, 'midsommardagen' ],
+    [ '2016.11.05 00:00', '2016.11.06 00:00', false, 'alla helgons dag' ],
+], 1000 * 60 * 60 * 24 * 2, 0, false, nominatim_resutls.se._se, 'not last test');
+
+test.addTest('Variable days: Weekday in given week.', [
+    'PH',
+], '2017.06.10 0:00', '2017.11.31 23:59', [
+    [ '2017.06.24 00:00', '2017.06.25 00:00', false, 'midsommardagen' ],
+    [ '2017.11.04 00:00', '2017.11.05 00:00', false, 'alla helgons dag' ],
+], 1000 * 60 * 60 * 24 * 2, 0, false, nominatim_resutls.se._se, 'not last test');
+
 /* }}} */
 
 // }}}

@@ -2796,6 +2796,26 @@
                 },
             ],
         }, /* }}} */
+        'se': { /* {{{ */
+            'PH': {
+                /*
+                 * http://www.riksdagen.se/sv/dokument-lagar/dokument/svensk-forfattningssamling/lag-1989253-om-allmanna-helgdagar_sfs-1989-253
+                 * https://en.wikipedia.org/wiki/Public_holidays_in_Sweden
+                 */
+                'nyårsdagen'        : [  1,  1 ],
+                'trettondedag jul'  : [  1,  6 ],
+                'långfredagen'      : [ 'easter',  -2 ],
+                'påskdagen'         : [ 'easter',  0 ],
+                'annandag påsk'     : [ 'easter',  1 ],
+                'första maj'        : [  5,  1 ],
+                'pingstdagen'       : [ 'easter', 49 ],
+                'nationaldagen'     : [  6,  6 ],
+                'midsommardagen'    : [ 'nextSaturday20Jun', 0 ],
+                'alla helgons dag'  : [ 'nextSaturday31Oct', 0 ],
+                'juldagen'          : [ 12, 25 ],
+                'annandag jul'      : [ 12, 26 ],
+            }
+        }, /* }}} */
     };
     /* }}} */
 
@@ -5843,7 +5863,7 @@
          * :returns: Hash of variables dates. Key is the name of the variable date. Value is the variable date date object.
          */
         function getMovableEventsForYear(year) {
-            // calculate easter
+            /* Calculate easter {{{ */
             var C = Math.floor(year/100);
             var N = year - 19*Math.floor(year/19);
             var K = Math.floor((C - 17)/25);
@@ -5855,8 +5875,9 @@
             var L = I - J;
             var M = 3 + Math.floor((L + 40)/44);
             var D = L + 28 - 31*Math.floor(M/4);
+            /* }}} */
 
-            // calculate orthodox easter
+            /* Calculate orthodox easter {{{ */
             var oA = year % 4;
             var oB = year % 7;
             var oC = year % 19;
@@ -5874,19 +5895,24 @@
                     oDate = new Date(year, 5-1, oF-26);
                 }
             }
+            /* }}} */
 
-            // calculate last Sunday in February
+            /* Calculate last Sunday in February {{{ */
             var lastFebruaryDay = new Date(year, 2, 0);
             var lastFebruarySunday = lastFebruaryDay.getDate() - lastFebruaryDay.getDay();
+            /* }}} */
 
-            // calculate Victoria Day. last Monday before or on May 24
+            /* Calculate Victoria Day. last Monday before or on May 24 {{{ */
             var may_24 = new Date(year, 4, 24);
             var victoriaDay = 24  - ((6 + may_24.getDay()) % 7);
+            /* }}} */
 
-            // calculate Canada Day. July 1st unless 1st is on Sunday, then July 2.
+            /* Calculate Canada Day. July 1st unless 1st is on Sunday, then July 2. {{{ */
             var july_1 = new Date(year, 6, 1);
             var canadaDay = july_1.getDay() === 0 ? 2 : 1;
+            /* }}} */
 
+            /* Helper functions {{{ */
             function firstWeekdayOfMonth(month, weekday){
                 var first = new Date(year, month, 1);
                 return 1 + ((7 + weekday - first.getDay()) % 7);
@@ -5894,37 +5920,46 @@
 
             function lastWeekdayOfMonth(month, weekday){
                 var last = new Date(year, month+1, 0);
-                var offset=((7 + last.getDay() - weekday) % 7);
+                var offset = ((7 + last.getDay() - weekday) % 7);
                 return last.getDate() - offset;
             }
 
+            function getDateOfWeekdayInDateRange(weekday, start_date){
+                var offset = Math.abs(start_date.getDay() - weekday);
+                start_date.setDate(start_date.getDate() + offset)
+                return start_date;
+            }
+            /* }}} */
+
             return {
-                'easter'                :  new Date(year, M - 1, D),
-                'orthodox easter'       :  oDate,
-                'victoriaDay'           :  new Date(year,  4, victoriaDay),
-                'canadaDay'             :  new Date(year,  6, canadaDay),
-                'firstJanuaryMonday'    :  new Date(year,  0, firstWeekdayOfMonth(0, 1)),
-                'firstFebruaryMonday'   :  new Date(year,  1, firstWeekdayOfMonth(1, 1)),
-                'lastFebruarySunday'    :  new Date(year,  1, lastFebruarySunday),
-                'firstMarchMonday'      :  new Date(year,  2, firstWeekdayOfMonth(2, 1)),
-                'firstAprilMonday'      :  new Date(year,  3, firstWeekdayOfMonth(3, 1)),
-                'firstMayMonday'        :  new Date(year,  4, firstWeekdayOfMonth(4, 1)),
-                'firstJuneMonday'       :  new Date(year,  5, firstWeekdayOfMonth(5, 1)),
-                'firstJulyMonday'       :  new Date(year,  6, firstWeekdayOfMonth(6, 1)),
-                'firstAugustMonday'     :  new Date(year,  7, firstWeekdayOfMonth(7, 1)),
-                'firstSeptemberMonday'  :  new Date(year,  8, firstWeekdayOfMonth(8, 1)),
-                'firstSeptemberSunday'  :  new Date(year,  8, firstWeekdayOfMonth(8, 0)),
-                'firstOctoberMonday'    :  new Date(year,  9, firstWeekdayOfMonth(9, 1)),
-                'firstNovemberMonday'   :  new Date(year, 10, firstWeekdayOfMonth(10, 1)),
-                'firstMarchTuesday'     :  new Date(year,  2, firstWeekdayOfMonth(2, 2)),
-                'firstAugustTuesday'    :  new Date(year,  7, firstWeekdayOfMonth(7, 2)),
-                'firstAugustFriday'     :  new Date(year,  7, firstWeekdayOfMonth(7, 5)),
-                'firstNovemberThursday' :  new Date(year, 10, firstWeekdayOfMonth(10, 4)),
-                'lastMayMonday'         :  new Date(year,  4, lastWeekdayOfMonth(4, 1)),
-                'lastMarchMonday'       :  new Date(year,  2, lastWeekdayOfMonth(2, 1)),
-                'lastAprilMonday'       :  new Date(year,  3, lastWeekdayOfMonth(3, 1)),
-                'lastAprilFriday'       :  new Date(year,  3, lastWeekdayOfMonth(3, 5)),
-                'lastOctoberFriday'     :  new Date(year,  9, lastWeekdayOfMonth(9, 5)),
+                'easter'                : new Date(year, M - 1, D),
+                'orthodox easter'       : oDate,
+                'victoriaDay'           : new Date(year,  4, victoriaDay),
+                'canadaDay'             : new Date(year,  6, canadaDay),
+                'firstJanuaryMonday'    : new Date(year,  0, firstWeekdayOfMonth(0, 1)),
+                'firstFebruaryMonday'   : new Date(year,  1, firstWeekdayOfMonth(1, 1)),
+                'lastFebruarySunday'    : new Date(year,  1, lastFebruarySunday),
+                'firstMarchMonday'      : new Date(year,  2, firstWeekdayOfMonth(2, 1)),
+                'firstAprilMonday'      : new Date(year,  3, firstWeekdayOfMonth(3, 1)),
+                'firstMayMonday'        : new Date(year,  4, firstWeekdayOfMonth(4, 1)),
+                'firstJuneMonday'       : new Date(year,  5, firstWeekdayOfMonth(5, 1)),
+                'firstJulyMonday'       : new Date(year,  6, firstWeekdayOfMonth(6, 1)),
+                'firstAugustMonday'     : new Date(year,  7, firstWeekdayOfMonth(7, 1)),
+                'firstSeptemberMonday'  : new Date(year,  8, firstWeekdayOfMonth(8, 1)),
+                'firstSeptemberSunday'  : new Date(year,  8, firstWeekdayOfMonth(8, 0)),
+                'firstOctoberMonday'    : new Date(year,  9, firstWeekdayOfMonth(9, 1)),
+                'firstNovemberMonday'   : new Date(year, 10, firstWeekdayOfMonth(10, 1)),
+                'firstMarchTuesday'     : new Date(year,  2, firstWeekdayOfMonth(2, 2)),
+                'firstAugustTuesday'    : new Date(year,  7, firstWeekdayOfMonth(7, 2)),
+                'firstAugustFriday'     : new Date(year,  7, firstWeekdayOfMonth(7, 5)),
+                'firstNovemberThursday' : new Date(year, 10, firstWeekdayOfMonth(10, 4)),
+                'lastMayMonday'         : new Date(year,  4, lastWeekdayOfMonth(4, 1)),
+                'lastMarchMonday'       : new Date(year,  2, lastWeekdayOfMonth(2, 1)),
+                'lastAprilMonday'       : new Date(year,  3, lastWeekdayOfMonth(3, 1)),
+                'lastAprilFriday'       : new Date(year,  3, lastWeekdayOfMonth(3, 5)),
+                'lastOctoberFriday'     : new Date(year,  9, lastWeekdayOfMonth(9, 5)),
+                'nextSaturday20Jun'     : getDateOfWeekdayInDateRange(6, new Date(year, 5, 20)),
+                'nextSaturday31Oct'     : getDateOfWeekdayInDateRange(6, new Date(year, 9, 31)),
             };
         }
         /* }}} */

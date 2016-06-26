@@ -497,6 +497,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
         * [Romania][PH-ro]
         * [Netherlands][PH-ne]
         * [Poland][PH-nl]
+        * [Sweden][PH-se]
     * **EXT:** Supports limited calculations based on public holidays (e.g. `Sa,PH -1 day open`). The only two possibilities are currently +1 and -1. All other cases are not handled. This seems to be enough because the only thing which is really used is -1.
 
 *   Support for school holidays (`SH 10:00-14:00`).
@@ -767,6 +768,7 @@ Contributor                                        | Contribution
 [marcgemis][]                                      | Dutch localization.
 [drMerry][]                                        | Public holidays for Netherlands.
 [endro][] and [Ryszard Mikke][rmikke]              | Public holidays for Poland.
+[Arvid Norlander][] and [Mikael Nordfeldth][]      | Public holidays for Sweden.
 [ItsNotYou][]                                      | Introduced AMD.
 
 [sanderd17]: https://github.com/sanderd17
@@ -775,6 +777,8 @@ Contributor                                        | Contribution
 [ItsNotYou]: https://github.com/ItsNotYou
 [endro]: https://github.com/endro
 [rmikke]: https://github.com/rmikke
+[Arvid Norlander]: https://github.com/VorpalBlade
+[Mikael Nordfeldth]: https://blog.mmn-o.se/
 
 ## Credits
 
@@ -847,4 +851,5 @@ Edit: This does also work on npmjs in this short version … -->
 [PH-ro]: https://en.wikipedia.org/wiki/Public_holidays_in_Romania#Official_non-working_holidays
 [PH-ne]: https://nl.wikipedia.org/wiki/Feestdagen_in_Nederland
 [PH-nl]: https://pl.wikipedia.org/wiki/Dni_wolne_od_pracy_w_Polsce
+[PH-se]: https://en.wikipedia.org/wiki/Public_holidays_in_Sweden
 <!-- }}} -->
