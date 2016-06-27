@@ -2571,7 +2571,7 @@ test.addTest('Variable days: Czech Republic public holidays.', [
 /* }}} */
 
 /* Swedish holidays {{{ */
-test.addTest('Variable days: Swedish Republic public holidays.', [
+test.addTest('Variable days: Swedish public holidays.', [
     'PH',
 ], '2015.01.01 0:00', '2015.12.31 23:59', [
     [ '2015.01.01 00:00', '2015.01.02 00:00', false, 'nyårsdagen' ],

@@ -766,7 +766,7 @@ With [1m[34mwarnings[39m[22m:
 "Variable days: Czech Republic public holidays." for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-"Variable days: Swedish Republic public holidays." for "PH": [1m[32mPASSED[39m[22m
+"Variable days: Swedish public holidays." for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Weekday in given week." for "PH": [1m[32mPASSED[39m[22m

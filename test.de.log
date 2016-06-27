@@ -945,7 +945,7 @@ With [1m[34mwarnings[39m[22m:
 "Variable days: Czech Republic public holidays." for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Variable days: Swedish Republic public holidays." for "PH": [1m[32mPASSED[39m[22m
+"Variable days: Swedish public holidays." for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Weekday in given week." for "PH": [1m[32mPASSED[39m[22m
