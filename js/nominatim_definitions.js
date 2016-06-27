@@ -63,7 +63,34 @@ exports.for_loc = {
                 "62.8082014",
                 "63.5218885",
                 "15.2350864",
-                    "16.9987048"
+                "16.9987048"
+            ]
+        },
+    },
+    'br': {
+        '_br': {
+            "_url": "https://nominatim.openstreetmap.org/reverse?format=json&lat=-10&lon=-52&zoom=18&addressdetails=1&accept-language=en",
+            "place_id": "116000235",
+            "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+            "osm_type": "way",
+            "osm_id": "242268712",
+            "lat": "-10.1425809",
+            "lon": "-51.9179115",
+            "display_name": "MT-430, Confresa, Microrregião do Norte Araguaia, Mesorregião Nordeste de Mato-Grosso, Mato Grosso, Central-West Region, Brazil",
+            "address": {
+                "road": "MT-430",
+                "town": "Confresa",
+                "county": "Microrregião do Norte Araguaia",
+                "state_district": "Mesorregião Nordeste de Mato-Grosso",
+                "state": "Mato Grosso",
+                "country": "Brazil",
+                "country_code": "br"
+            },
+            "boundingbox": [
+                "-10.4276788",
+                "-9.9747152",
+                "-52.0892082",
+                "-51.8810199"
             ]
         },
     },

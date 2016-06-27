@@ -2816,6 +2816,21 @@
                 'annandag jul'      : [ 12, 26 ],
             }
         }, /* }}} */
+        'br': { /* {{{ */
+            'PH': { // https://pt.wikipedia.org/wiki/Feriados_no_Brasil
+                "Ano Novo" : [ 1, 1 ],
+                "Carnaval" : [ 'easter', -47 ],
+                "Sexta-feira santa" : [ 'easter', -2 ],
+                "Tiradentes" : [ 4, 21 ],
+                "Dia do Trabalhador" : [ 5, 1 ],
+                "Corpus Christi" : [ 'easter', 60 ],
+                "Independência" : [ 9, 7 ],
+                "Nossa Senhora Aparecida" : [ 10, 12 ],
+                "Finados" : [ 11, 2 ],
+                "Proclamação da República" : [ 11, 15 ],
+                "Natal" : [ 12, 25 ],
+            }
+        }, /* }}} */
     };
     /* }}} */
 
