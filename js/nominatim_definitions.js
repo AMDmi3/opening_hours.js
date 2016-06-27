@@ -42,5 +42,29 @@ exports.for_loc = {
     },
     'ro' : { /* https://nominatim.openstreetmap.org/search?format=json&q=Romania&zoom=18&addressdetails=1&limit=1 */
         'ro' : {"place_id":"127691986","licence":"Data © OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"relation","osm_id":"90689","boundingbox":["43.618682","48.2653964","20.2619773","30.0454257"],"lat":"45.9852129","lon":"24.6859225","display_name":"România","class":"boundary","type":"administrative","importance":0.83930940399775,"icon":"https:\/\/nominatim.openstreetmap.org\/images\/mapicons\/poi_boundary_administrative.p.20.png","address":{"country":"România","country_code":"ro"}}
-    }
+    },
+    'se': {
+        '_se': {
+            "_url": "https://nominatim.openstreetmap.org/reverse?format=json&lat=63.1151&lon=16.5767&zoom=18&addressdetails=1&accept-language=en",
+            "place_id": "144718067",
+            "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+            "osm_type": "relation",
+            "osm_id": "935558",
+            "lat": "63.167997",
+            "lon": "15.965908816134",
+            "display_name": "Ragunda, Jämtlands län, Norrland, Sweden",
+            "address": {
+                "county": "Ragunda",
+                "state": "Jämtlands län",
+                "country": "Sweden",
+                "country_code": "se"
+            },
+            "boundingbox": [
+                "62.8082014",
+                "63.5218885",
+                "15.2350864",
+                    "16.9987048"
+            ]
+        },
+    },
 };
