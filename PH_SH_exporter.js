@@ -41,10 +41,12 @@ var optimist = require('optimist')
     // .default('p', true)
     .describe('s', 'Export school holidays. Can not be used together with --public-holidays.')
     .describe('c', 'Country (for which the holidays apply). Defaults to Germany.')
+    .describe('o', 'Omit hyphen in ISO 8061 dates.')
+    .default('o', false)
     .default('c', 'de')
     .describe('r', 'Region (for which the holidays apply). Defaults to Baden-Württemberg.')
     .default('r', 'bw')
-    .boolean(['p', 's'])
+    .boolean(['p', 's', ])
     .alias('h', 'help')
     .alias('v', 'verbose')
     .alias('f', 'from')
@@ -52,7 +54,8 @@ var optimist = require('optimist')
     .alias('p', 'public-holidays')
     .alias('s', 'school-holidays')
     .alias('c', 'country')
-    .alias('r', 'region');
+    .alias('r', 'region')
+    .alias('o', 'omit-date-hyphens');
 
 var argv = optimist.argv;
 
@@ -96,10 +99,10 @@ function write_config_file(filepath, oh_value, nominatim_object, from_date, to_d
         for (var i = 0; i < intervals.length; i++) {
             var holiday_entry = intervals[i];
             var output_line = [
-                getISODate(holiday_entry[0]),
+                getISODate(holiday_entry[0], 0, argv['omit-date-hyphens']),
             ];
             if (oh_value === 'SH') { /* Add end date */
-                output_line[0] += '-' + getISODate(holiday_entry[1], -1);
+                output_line[0] += '-' + getISODate(holiday_entry[1], -1, argv['omit-date-hyphens']);
             }
 
             output_line.push(holiday_entry[3]);
@@ -122,15 +125,19 @@ function pad(num, size) {
     return s;
 }
 
-function getISODate(date, day_offset) { /* Is a valid ISO 8601 date, but not so nice. */
+function getISODate(date, day_offset, omit_date_hyphens) { /* Is a valid ISO 8601 date, but not so nice. */
     /* Returns date as 20151231 */
     if (typeof day_offset !== 'number') {
         day_offset = 0;
     }
 
     date.setDate(date.getDate() + day_offset);
-    // Could use strftime node module but then I would have to make an own repository for this script :)
-    return String(date.getFullYear()) + pad(date.getMonth() + 1, 2) + pad(date.getDate(), 2);
+    if (omit_date_hyphens) {
+        // Could use strftime node module but then I would have to make an own repository for this script :)
+        return String(date.getFullYear()) + pad(date.getMonth() + 1, 2) + pad(date.getDate(), 2);
+    } else {
+        return date.toISOString().slice(0, 10)
+    }
 }
 
 /* }}} */
