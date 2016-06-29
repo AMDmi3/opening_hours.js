@@ -38,7 +38,8 @@ function dateAtWeek(date, week) {
 // }}}
 
 /*
- * The names of countries and states are localized in OSM and opening_hours.js (holidays) so we need to get the localized names from Nominatim as well.
+ * The names of countries and states are localized in OSM and opening_hours.js
+ * (holidays) so we need to get the localized names from Nominatim as well.
  */
 function reverseGeocodeLocation(query, guessed_language_for_location, on_success, on_error) {
     if (typeof on_error === 'undefined') {

@@ -2,11 +2,11 @@
 
 ## Deciding which holidays do apply
 
-Because each country/culture has it‘s own important dates/events, holidays are defined on a country level. The country wide definition can be overwritten as needed by more specific definitions. Because this library works with the OSM ecosystem, the source of those boundaries are based on OSM.
+Because each country/culture has it‘s own important dates/events, holidays are defined on a country level. The country wide definition can be overwritten as needed by more specific definitions. Because this library works with the OSM ecosystem, those boundaries are based on OSM.
 
 More specifically, the dataset on which a decision is made which holidays apply for a given location are determined using the information returned from [Nominatim](https://wiki.openstreetmap.org/wiki/Nominatim).
 
-Consider this Nominatim query: https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1
+Consider this Nominatim query: https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1&accept-language=de,en
 
 which returned the following JSON object:
 
@@ -18,7 +18,7 @@ which returned the following JSON object:
   "osm_id": "416578669",
   "lat": "49.5438327",
   "lon": "9.8155867",
-  "display_name": "K 2847, Lauda-Königshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-Württemberg, 97922, Germany",
+  "display_name": "K 2847, Lauda-Königshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-Württemberg, 97922, Deutschland",
   "address": {
     "road": "K 2847",
     "town": "Lauda-Königshofen",
@@ -26,7 +26,7 @@ which returned the following JSON object:
     "state_district": "Regierungsbezirk Stuttgart",
     "state": "Baden-Württemberg",
     "postcode": "97922",
-    "country": "Germany",
+    "country": "Deutschland",
     "country_code": "de"
   },
   "boundingbox": [
@@ -38,17 +38,20 @@ which returned the following JSON object:
 }
 ```
 
-as of 2016-05-24.
+as of 2016-06-29.
 
-For now it has been enough to make a decision using the fields `address.country_code` and `address.state` and thus only those two levels are supported right now in the data format used to specific holidays. But the other information is there when needed, just extend the data format and source code to make use of it.
+For now it has been enough to make a decision based on the fields `address.country_code` and `address.state` and thus only those two levels are supported right now in the data format used to specify holidays. But the other information is there when needed, just extend the data format and source code to make use of it.
 
 Note that you will need to use exactly the same values that Nominatim returns in the holiday definition data format which is described next.
+Also note that the data format is based on Nominatim results in local language so you will likely need to adjust the `accept-language` URL get parameter from the example.
+Refer to [Nominatim/Country Codes](https://wiki.openstreetmap.org/wiki/Nominatim/Country_Codes) for the country codes to language code mapping used for this specification.
 
 ## Holiday definition data format
 
-Data format version 1.0. The data format will probably need to be adopted to support more holiday definitions in the future.
+Data format version `2.0.0`. The data format will probably need to be adopted to support more holiday definitions in the future.
+The data format versioning complies with [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-Holidays for all countries are currently defined in the [opening_hours.js][ohlib.opening_hours.js] in the variable `holiday_definitions`.
+Holidays for all countries are currently defined in the [opening_hours.js][ohlib.opening_hours.js] file in the variable `holiday_definitions`.
 
 The `holiday_definitions` variable is a complex data structure. Lets take a look at an example:
 
@@ -75,12 +78,12 @@ var holiday_definitions = {
 };
 ```
 
-As you can see, our example contains `holiday_definitions` for the countries Poland and Germany. The dictionary keys of `holiday_definitions` correspond to the value of `address.country_code`. The dictionary of the country now either consist of `PH`, `SH` or the value of `address.state` (under the assumption that `address.state` will never be equal to `PH` or `SH`, probably a poor assumption, will need to be changed). When `PH` or `SH` is defined at this level it applies country wide. Those country wide definitions can be overwritten for a `address.state` by creating a additional dictionary with the name set to `address.state` and define `PH` or `SH` differently.
+As you can see, our example contains `holiday_definitions` for the countries Poland and Germany. The dictionary keys of `holiday_definitions` correspond to the value of `address.country_code`. The dictionary of the country now either consists of `PH`, `SH` or the value of `address.state` (under the assumption that `address.state` will never be equal to `PH` or `SH`, probably a poor assumption, will need to be changed). When `PH` or `SH` is defined at this level it applies country wide. Those country wide definitions can be overwritten for a `address.state` by creating a additional dictionary with the name set to `address.state` and define `PH` or `SH` accordingly.
 
-## Holiday definition data format: PH
+### Holiday definition data format: PH
 
 Now lets look at the public holiday (`PH`) definition in more detail. Each `PH` definition consists of a dictionary with holiday name as key and date definition as values (specifying one day).
-Holiday names should be in the local language. A date definition either consists of two integers representing month and day or the name of a movable event and the offset to that event. The movable events are defined in the `getMovableEventsForYear` function.
+Holiday names should be in the local language. A date definition either consists of two integers representing month and day or the name of a movable event and the offset to that event. The movable events and the formulas for calculating them for a given year are defined in the `getMovableEventsForYear` function.
 
 ```JavaScript
 {
@@ -127,18 +130,19 @@ Holiday names should be in the local language. A date definition either consists
 
 Note that the array of date definitions can hold an optional array of `address.state` strings. When this list is present, the holiday is only applied when `address.state` is contained in that array of strings.
 
-## Holiday definition data format: SH
+### Holiday definition data format: SH
 
-School holiday (`SH`) definitions look a little bit different. This is because one school holiday usually is more than one day and because `SH` are different for each year/can not mathematically calculated (at least the countries the @ypid has seen so far).
-This is not very nice, but as we are hackers, we can just grab this data, convert it into this format and now also have `SH` support. This is what @ypid has been doing for all states in Germany using the [convert_ical_to_json][ohlib.convert-ical-to-json] script.
+School holiday (`SH`) definitions look a little bit different. This is because school holidays usually spans multiple days and because `SH` are different for each year/can not be mathematically calculated (at least the countries that @ypid has seen so far).
+This is not very nice, but as we are hackers, we can just grab this data and convert it into the data format documented here. This is what @ypid has been doing for all states in Germany using the [convert_ical_to_json][ohlib.convert-ical-to-json] script.
 
-Now to the data format. It consists of an array of dictionaries. Each dictionary defines one school holiday. The `name` key defines the name of the school holiday, again preferably in local language. The integer keys (years) define time range definition for the given year.
+Now to the data format. It consists of an array of dictionaries. Each dictionary defines one school holiday. The `name` key defines the name of the school holiday, again preferably in local language. The integer keys define the year.
 The time range definition is an array consisting of a multiple of 4 integers.
 
-Meaning of the interes:
+Meaning of the integers:
 
-1 and 2.: Month and day of the first day of the school holiday.
-3 and 4.: Month and day of the last day of the school holiday.
+1 and 2: Month and day of the first day of the school holiday.
+
+3 and 4: Month and day of the last day of the school holiday.
 
 Multiple time ranges can be defined.
 
@@ -180,10 +184,10 @@ Multiple time ranges can be defined.
 }
 ```
 
-## Hints
+### Hints
 
 * Note that you should include the definitions in order (see [#126](https://github.com/opening-hours/opening_hours.js/issues/126#issuecomment-156853794) for details).
-* Please also add the source for this information (in form of an URL) as comment. Like shown in the examples above in form of URLs to Wikipedia.
+* Please also add the source for this information (in form of an URL) as comment. Like shown in the examples above. Usually Wikipedia in the local language is a great source.
 
 [ohlib.opening_hours.js]: /opening_hours.js
 [ohlib.convert-ical-to-json]: /convert_ical_to_json
