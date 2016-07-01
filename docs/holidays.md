@@ -4,9 +4,9 @@
 
 Because each country/culture has it‘s own important dates/events, holidays are defined on a country level. The country wide definition can be overwritten as needed by more specific definitions. Because this library works with the OSM ecosystem, those boundaries are based on OSM.
 
-More specifically, the dataset on which a decision is made which holidays apply for a given location are determined using the information returned from [Nominatim](https://wiki.openstreetmap.org/wiki/Nominatim).
+More specifically, the dataset on which a decision is made which holidays apply for a given location is based on the information returned from [Nominatim](https://wiki.openstreetmap.org/wiki/Nominatim).
 
-Consider this Nominatim query: https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1&accept-language=de,en
+Consider this [Nominatim reverse geocoding][] query: https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1&accept-language=de,en
 
 which returned the following JSON object:
 
@@ -40,15 +40,26 @@ which returned the following JSON object:
 
 as of 2016-06-29.
 
-For now it has been enough to make a decision based on the fields `address.country_code` and `address.state` and thus only those two levels are supported right now in the data format used to specify holidays. But the other information is there when needed, just extend the data format and source code to make use of it.
+For now it has been enough to make a decision based on the fields `address.country_code` and `address.state` and thus only those two levels are supported right now in the data format. But the other information is there when needed, just extend the data format and source code to make use of it.
 
 Note that you will need to use exactly the same values that Nominatim returns in the holiday definition data format which is described next.
 Also note that the data format is based on Nominatim results in local language so you will likely need to adjust the `accept-language` URL get parameter from the example.
 Refer to [Nominatim/Country Codes](https://wiki.openstreetmap.org/wiki/Nominatim/Country_Codes) for the country codes to language code mapping used for this specification.
 
+You can use http://www.openstreetmap.de/karte.html to get the coordinates for the regions you are defining holidays for. Just search the region and position the map view on that region. Then click on `Permalink` which will cause the URL in your address bar to include the latitude and longitude. Consider this example of a permalink:
+
+http://www.openstreetmap.de/karte.html?zoom=14&lat=49.5487429714954&lon=9.81602098644987&layers=000BTF
+
+You can now use the `&lat=49.5487429714954&lon=9.81602098644987` parameters and use them instead of the once in the example Nominatim query shown above. Note that you should include this Nominatim URL for each defined region using the `_nominatim_url` key (see below).
+The `_nominatim_url` is indented to allow convenient testing of the holiday definitions.
+
+You could also do a [Nominatim search][] directly using: https://nominatim.openstreetmap.org/search?format=json&country=Deutschland&state=Berlin&&zoom=18&addressdetails=1&limit=1&accept-language=de,en
+and then do the [Nominatim reverse geocoding][] using the returned coordinates. But note that the `_nominatim_url` needs to be
+a [Nominatim reverse geocoding][] query because of different attributes being returned.
+
 ## Holiday definition data format
 
-Data format version `2.0.0`. The data format will probably need to be adopted to support more holiday definitions in the future.
+Data format version `2.1.0`. The data format will probably need to be adopted to support more holiday definitions in the future.
 The data format versioning complies with [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 Holidays for all countries are currently defined in the [opening_hours.js][ohlib.opening_hours.js] file in the variable `holiday_definitions`.
@@ -58,11 +69,18 @@ The `holiday_definitions` variable is a complex data structure. Lets take a look
 ```JavaScript
 var holiday_definitions = {
     'pl': { /* {{{ */
+        '_nominatim_url': 'https://nominatim.openstreetmap.org/reverse?format=json&lat=53.4825&lon=18.75823&zoom=18&addressdetails=1&accept-language=pl,en',
+        // Somewhere in this country.
         'PH': {},
     }, /* }}} */
     'de': { /* {{{ */
+        '_nominatim_url': 'https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1&accept-language=de,en'
+        // Somewhere in this country.
         'PH': {},
         'Baden-Württemberg': { // does only apply in Baden-Württemberg
+            '_nominatim_url': 'https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1&accept-language=de,en'
+            // Somewhere in this state/region.
+
             // This more specific rule set overwrites the country wide one (they are just ignored).
             // You may use this instead of the country wide with some
             // additional holidays for some states, if one state
@@ -88,6 +106,7 @@ Holiday names should be in the local language. A date definition either consists
 ```JavaScript
 {
     'pl': { /* {{{ */
+        '_nominatim_url': 'https://nominatim.openstreetmap.org/reverse?format=json&lat=53.4825&lon=18.75823&zoom=18&addressdetails=1&accept-language=pl,en',
         'PH': { // https://pl.wikipedia.org/wiki/Dni_wolne_od_pracy_w_Polsce
             "Nowy Rok"                                      : [ 1, 1 ],
             "Święto Trzech Króli"                           : [ 1, 6 ],
@@ -105,6 +124,7 @@ Holiday names should be in the local language. A date definition either consists
         }
     }, /* }}} */
     'de': { /* {{{ */
+        '_nominatim_url': 'https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1&accept-language=de,en',
         'PH': { // https://de.wikipedia.org/wiki/Feiertage_in_Deutschland
             'Neujahrstag'               : [  1,  1 ], // month 1, day 1, whole Germany
             'Heilige Drei Könige'       : [  1,  6, [ 'Baden-Württemberg', 'Bayern', 'Sachsen-Anhalt'] ], // only in the specified states
@@ -191,3 +211,5 @@ Multiple time ranges can be defined.
 
 [ohlib.opening_hours.js]: /opening_hours.js
 [ohlib.convert-ical-to-json]: /convert_ical_to_json
+[Nominatim search]: https://wiki.openstreetmap.org/wiki/Nominatim#Search
+[Nominatim reverse geocoding]: https://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding
