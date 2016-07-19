@@ -635,6 +635,7 @@ Project                                                          | Additional In
 [opening_hours_server.js]                                        | A little server answering query‘s for opening_hours and check if they can be evaluated.
 [opening_hours-statistics]                                       | Visualization of the data quality and growth over time.
 [www.openstreetmap.hu](http://www.openstreetmap.hu/)             | old version of this library, see also https://github.com/AMDmi3/opening_hours.js/issues/19
+[osmopeninghours][]                                              | JavaScript library which provides a more abstract, specialized API and Italian localization. It returns a JavaScript object for a given time interval (see [example.json](https://github.com/digitalxmobile-dev/osmopeninghours/blob/master/example/example.json)).
 
 If you use this library please let me know …
 
@@ -647,6 +648,7 @@ YoHours currently only checks with this lib if the opening_hours value can be ev
 [opening_hours_server.js]: https://github.com/ypid/opening_hours_server.js
 [opening_hours-statistics]: https://github.com/ypid/opening_hours-statistics
 [YoHours]: http://github.pavie.info/yohours/
+[osmopeninghours]: https://github.com/digitalxmobile-dev/osmopeninghours
 
 ## Related links
 
