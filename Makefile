@@ -152,7 +152,7 @@ qa-source-code:
 	$(REPO_FILES) | egrep --null-data '\.js$$' --null | xargs -0 sed -i 's/\([^=!]\)==\([^=]\)/\1===\2/g;s/\([^=!]\)!=\([^=]\)/\1!==\2/g;'
 
 qa-https-everywhere:
-	$(REPO_FILES) | xargs -0 sed --regexp-extended --in-place 's#http://(overpass-turbo\.eu|www\.gnu\.org|stackoverflow\.com|openstreetmap\.org|www\.openstreetmap\.org|nominatim\.openstreetmap\.org|taginfo\.openstreetmap\.org|wiki\.openstreetmap\.org)#https://\1#g;'
+	$(REPO_FILES) | xargs -0 sed --regexp-extended --in-place 's#http://(overpass-turbo\.eu|www\.gnu\.org|stackoverflow\.com|openstreetmap\.org|www\.openstreetmap\.org|nominatim\.openstreetmap\.org|taginfo\.openstreetmap\.org|wiki\.openstreetmap\.org|josm.openstreetmap.de)#https://\1#g;'
 	# $(REPO_FILES) | xargs -0 sed -i 's#http://overpass-api.de/#https://overpass-api.de/#g;'
 	$(REPO_FILES) | xargs -0 sed --regexp-extended --in-place 's#http://(\w+\.wikipedia\.org)#https://\1#g;'
 	test -f index.html && git checkout index.html

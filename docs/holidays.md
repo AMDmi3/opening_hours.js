@@ -13,7 +13,7 @@ which returned the following JSON object:
 ```JSON
 {
   "place_id": "2614369044",
-  "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+  "licence": "Data © OpenStreetMap contributors, ODbL 1.0. https://www.openstreetmap.org/copyright",
   "osm_type": "way",
   "osm_id": "416578669",
   "lat": "49.5438327",

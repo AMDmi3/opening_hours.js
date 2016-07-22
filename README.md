@@ -627,7 +627,7 @@ Project                                                          | Additional In
 -------------                                                    | -------------
 [osm24.eu](https://github.com/dotevo/osm24)                      |
 [OpenBeerMap](https://openbeermap.github.io)                     | [issue for integration](https://github.com/OpenBeerMap/OpenBeerMap.github.io/issues/25)
-[JOSM](http://josm.openstreetmap.de/)                            | [ticket for integration](http://josm.openstreetmap.de/ticket/9157)
+[JOSM](https://josm.openstreetmap.de/)                           | [ticket for integration](https://josm.openstreetmap.de/ticket/9157)
 [opening_hours_map]                                              |
 [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours) |
 [YoHours][]                                                      | A simple editor for OpenStreetMap opening hours, [GitHub](https://github.com/PanierAvide/panieravide.github.io/tree/master/yohours)

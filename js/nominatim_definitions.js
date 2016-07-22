@@ -47,7 +47,7 @@ exports.for_loc = {
         '_se': {
             "_url": "https://nominatim.openstreetmap.org/reverse?format=json&lat=63.1151&lon=16.5767&zoom=18&addressdetails=1&accept-language=en",
             "place_id": "144718067",
-            "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+            "licence": "Data © OpenStreetMap contributors, ODbL 1.0. https://www.openstreetmap.org/copyright",
             "osm_type": "relation",
             "osm_id": "935558",
             "lat": "63.167997",
@@ -71,7 +71,7 @@ exports.for_loc = {
         '_br': {
             "_url": "https://nominatim.openstreetmap.org/reverse?format=json&lat=-10&lon=-52&zoom=18&addressdetails=1&accept-language=en",
             "place_id": "116000235",
-            "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+            "licence": "Data © OpenStreetMap contributors, ODbL 1.0. https://www.openstreetmap.org/copyright",
             "osm_type": "way",
             "osm_id": "242268712",
             "lat": "-10.1425809",
