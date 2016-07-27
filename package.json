@@ -46,14 +46,7 @@
     "interactive_testing": "make run-interactive_testing",
     "regex_search": "make run-regex_search"
   },
-  "dependencies": {
-    "suncalc": "^1.7.0"
-  },
-  "optionalDependencies": {
-    "i18next-client": "^1.11.1",
-    "moment": "^2.10.6",
-    "country-language": "^0.1.7"
-  },
+  "dependencies": {},
   "devDependencies": {
     "timekeeper": "^0.0.5",
     "colors": "^0.6.2",
@@ -65,6 +58,12 @@
     "optimist": "^0.6.1",
     "https": "^1.0.0",
     "package-json-validator": "^0.6.0"
+  },
+  "peerDependencies": {
+    "suncalc": "^1.7.0",
+    "i18next-client": "^1.11.1",
+    "moment": "^2.10.6",
+    "country-language": "^0.1.7"
   },
   "engines": {
     "node": "^0.10"
