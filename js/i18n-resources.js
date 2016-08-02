@@ -990,8 +990,8 @@ var resources = { // English is fallback language.
 };
 
 // Functions which generate localized HTML sections {{{
-function getUserSelectTranslateHTMLCode() { 
-  document.write('<span class="hd">');
+function getUserSelectTranslateHTMLCode() {
+    document.write('<span class="hd">');
     var res = i18n.t('lang.choose')
             + (i18n.lng() !== 'en' ? ' ('+ i18n.t('lang.choose', { lng: 'en' }) +')' : '' )
             + ':</span> ';

@@ -28,8 +28,8 @@ span.comment { background: #dddddd } /* Silver */
 
 noscript { color: #AA4400 }
 .hd {
-	display:block; 
-	color:#710B12;
-	}
-	.hd q {display:inline}
-#expression, #diff_value {width:100%}
+    display:block;
+    color:#710B12;
+}
+.hd q {display:inline}
+#expression, #diff_value { width:100% }
