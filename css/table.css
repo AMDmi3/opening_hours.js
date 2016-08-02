@@ -1,4 +1,7 @@
-tr.today td.day { text-decoration: underline }
+tr.today td.day {
+    text-decoration: underline; 
+    width: 16%
+}
 td {
     background: #E0E0E0;
     padding: 0 10px
