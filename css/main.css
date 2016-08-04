@@ -31,6 +31,6 @@ noscript { color: #AA4400 }
     display:block;
     color:#710B12;
 }
-.hd q {display:inline}
+.hd q { display:inline }
 #expression, #diff_value, .w100 { width:100% }
-.nostyle {border:none;}
+.nostyle { border:none }
