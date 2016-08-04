@@ -483,7 +483,7 @@ var resources = { // English is fallback language.
             "words": {
                 "modifier": "__name__ Regeleigenschaft",
                 "selector": "__name__ Bereichsdefinition",
-                "mode": "Auswerte Modus",
+                "mode": "Auswerte-Modus",
                 "green": "Grün",
                 "yellow": "Gelb",
                 "red": "Rot",
