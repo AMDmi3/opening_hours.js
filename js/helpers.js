@@ -201,12 +201,12 @@ function Evaluate (offset, reset) {
             get_internals: true,
         });
         // var prettified_newline_sep = oh.prettifyValue({ conf: { locale: i18n.lng(), rule_sep_string: '\n', print_semicolon: false } });
-        show_results.innerHTML = '<p>' + i18n.t('words.status') + ':<br />'
-            + '<input size="10" name="status" readonly="readonly" />'
-            + '<input size="60" name="comment" readonly="readonly" />'
-            + '</p>' + '<p>'
-            + i18n.t('texts.MatchingRule') + ':<br />'
-            + '<input style="width: 100%" name="MatchingRule" readonly="readonly" />'
+        show_results.innerHTML = '<p><span class="hd">' + i18n.t('words.status') + ':</span>'
+            + '<input class="nostyle" size="10" name="status" readonly="readonly" />'
+            + '<input class="nostyle" size="60" name="comment" readonly="readonly" />'
+            + '</p>' + '<p><span class="hd">'
+            + i18n.t('texts.MatchingRule') + ':</span>'
+            + '<input class="nostyle w100" name="MatchingRule" readonly="readonly" />'
             + '</p>';
         var used_selectors = { };
         var value_explanation =
