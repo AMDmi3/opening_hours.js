@@ -312,7 +312,7 @@ function Evaluate (offset, reset) {
 
 
         document.forms.check.elements['comment'].value = typeof it.getComment() !== 'undefined'
-            ? it.getComment() : '>>' + i18n.t('words.no') + ' ' + i18n.t('words.comment') + '<<';
+            ? it.getComment() : i18n.t('words.no') + ' ' + i18n.t('words.comment');
         document.forms.check.elements['status'].value = (it.getState() ? i18n.t('words.open')
             : (it.getUnknown() ? i18n.t('words.unknown') : i18n.t('words.closed')));
         var rule_index    = it.getMatchingRule();
