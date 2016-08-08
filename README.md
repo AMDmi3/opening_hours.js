@@ -201,7 +201,7 @@ function getReadableState(startString, endString, oh, past) {
 
 *   `var oh = new opening_hours('We 12:00-14:00', nominatim_object, mode);`
 
-    *   value (mandadory, type: string): Constructs opening_hours object, given the opening_hours tag value.
+    *   value (mandatory, type: string): Constructs opening_hours object, given the opening_hours tag value.
 
         Throws an error string if the expression is malformed or unsupported.
 
@@ -368,7 +368,7 @@ Here and below, unless noted otherwise, all arguments are expected to be and all
 
 *   `iterator.setDate(date);`
 
-    Set interator position to date.
+    Set iterator position to date.
 
 *   `var is_open = iterator.getState();`
 
@@ -443,7 +443,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 *   **WARN:** Supports omitting time range (`Mo-Fr; Tu off`)
 
-    *A warning will be given as this is not very explcit. See [issue 49](https://github.com/opening-hours/opening_hours.js/issues/49).*
+    *A warning will be given as this is not very explicit. See [issue 49](https://github.com/opening-hours/opening_hours.js/issues/49).*
 
 *   **WARN:** Supports space as time interval separator, i.e. `Mo 12:00-14:00,16:00-20:00` and `Mo 12:00-14:00 16:00-20:00` are the same thing
 *   **WARN:** Supports dot as time separator (`12.00-16.00`)
@@ -463,9 +463,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
     Open end applies until the end of the day if the opening time is before 17:00. If the opening time is between 17:00 and 21:59 the open end time ends 10 hours after the opening. And if the opening time is after 22:00 (including 22:00) the closing time will be interpreted as 8 hours after the opening time.
 
-*   `07:00+,12:00-16:00`: If an open end time is used in a way that the frist time range includes the second one (`07:00+` is interpreted as `07:00-24:00` and thus includes the complete `12:00-16:00` time selector), the second time selector cuts of the part which would follow after 16:00.
-
-[suncalc]: https://github.com/mourner/suncalc
+*   `07:00+,12:00-16:00`: If an open end time is used in a way that the first time range includes the second one (`07:00+` is interpreted as `07:00-24:00` and thus includes the complete `12:00-16:00` time selector), the second time selector cuts of the part which would follow after 16:00.
 
 ### Points in time
 
@@ -804,6 +802,7 @@ Note that the original work from Dmitry Marakasov is published under the BSD 2-c
 
 <!-- Links {{{ -->
 [Nominatim]: https://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding_.2F_Address_lookup
+[suncalc]: https://github.com/mourner/suncalc
 [fossgis-project]: https://wiki.openstreetmap.org/wiki/FOSSGIS/Server/Projects/opening_hours.js
 [issue-report]: /../../issues
 [releases on github]: /../../releases
