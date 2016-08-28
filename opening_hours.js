@@ -3839,7 +3839,7 @@
         'no holiday definition': 'There are no holidays (__name__) defined for country __cc__.',
         'no holiday definition state': 'There are no holidays (__name__) defined for country __cc__ and state __state__.',
         'no country code': 'Country code missing which is needed to select the correct holidays (see README how to provide it)',
-        'movable no formular': 'Movable day __name__ can not not be calculated.'
+        'movable no formula': 'Movable day __name__ can not not be calculated.'
             + ' Please add the formula how to calculate it.',
         'movable not in year': 'The movable day __name__ plus __days__'
             + ' days is not in the year of the movable day anymore. Currently not supported.',
@@ -6433,7 +6433,7 @@
                 if (typeof applying_holidays[holiday_name][0] === 'string') {
                     var selected_movableDay = movableDays[applying_holidays[holiday_name][0]];
                     if (!selected_movableDay)
-                        throw t('movable no formular', {'name': applying_holidays[holiday_name][0]});
+                        throw t('movable no formula', {'name': applying_holidays[holiday_name][0]});
                     next_holiday = new Date(selected_movableDay.getFullYear(),
                             selected_movableDay.getMonth(),
                             selected_movableDay.getDate()
@@ -7018,7 +7018,7 @@
                         var movableDays = getMovableEventsForYear((has_year ? tokens[at][0] : date.getFullYear()));
                         var event_date = movableDays[tokens[at+has_year][0]];
                         if (!event_date)
-                            throw t('movable no formular', {'name': tokens[at+has_year][0]});
+                            throw t('movable no formula', {'name': tokens[at+has_year][0]});
 
                         if (add_days[0]) {
                             event_date.setDate(event_date.getDate() + add_days[0]);

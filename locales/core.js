@@ -116,7 +116,7 @@
                     'no holiday definition': '__name__ ist für das Land __cc__ nicht definiert.',
                     'no holiday definition state': '__name__ ist für das Land __cc__ und Bundesland __state__ nicht definiert.',
                     'no country code': 'Der Ländercode fehlt. Dieser wird benötigt um die korrekten Feiertage zu bestimmen (siehe in der README wie dieser anzugeben ist)',
-                    'movable no formular': 'Der bewegliche Feiertag __name__ kann nicht berechnet werden.'
+                    'movable no formula': 'Der bewegliche Feiertag __name__ kann nicht berechnet werden.'
                         + ' Bitte füge eine entsprechende Formel hinzu.',
                     'movable not in year': 'Der bewegliche Feiertag __name__ plus __days__'
                         + ' Tage befindet sich nicht mehr im selben Jahr. Aktuell nicht unterstützt.',
