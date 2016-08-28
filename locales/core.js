@@ -113,8 +113,8 @@
                     'max differ': 'Es sollte keinen Grund geben, mehr als __maxdiffer__ Tage von einem __name__ abzuweichen. Wenn nötig, teile uns dies bitte mit …',
                     'adding 0': 'Addition von 0 verändert das Datum nicht. Bitte weglassen.',
                     'unexpected token holiday': 'Unerwarteter Token (in Feiertags-Auswertung): __token__',
-                    'no holiday defintion': '__name__ ist für das Land __cc__ nicht definiert.',
-                    'no holiday defintion state': '__name__ ist für das Land __cc__ und Bundesland __state__ nicht definiert.',
+                    'no holiday definition': '__name__ ist für das Land __cc__ nicht definiert.',
+                    'no holiday definition state': '__name__ ist für das Land __cc__ und Bundesland __state__ nicht definiert.',
                     'no country code': 'Der Ländercode fehlt. Dieser wird benötigt um die korrekten Feiertage zu bestimmen (siehe in der README wie dieser anzugeben ist)',
                     'movable no formular': 'Der bewegliche Feiertag __name__ kann nicht berechnet werden.'
                         + ' Bitte füge eine entsprechende Formel hinzu.',
