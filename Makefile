@@ -122,20 +122,6 @@ osm-tag-data-rm: osm-tag-data-taginfo-rm osm-tag-data-overpass-rm
 .PHONY: ready-for-hosting
 ready-for-hosting: dependencies-get opening_hours+deps.min.js
 
-## Publish {{{
-
-## Using Ansible with the https://github.com/ypid/ansible-synchronize role to update mirros.
-## This improves the update process significantly.
-
-# .PHONY: publish-website-on-all-servers
-# publish-website-on-all-servers: publish-website-on-ypid.de publish-website-on-openingh.openstreetmap.de
-
-# .PHONY: publish-website-on-openingh.openstreetmap.de
-# publish-website-on-openingh.openstreetmap.de:
-#     ssh gauss.osm.de './update'
-
-## }}}
-
 ## command line programs {{{
 .PHONY: run-regex_search
 run-regex_search: export.$(SEARCH).json interactive_testing.js regex_search.py

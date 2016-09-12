@@ -84,7 +84,7 @@ around-the-clock shop with some breaks.
 
 Please have a look at the [evaluation tool][] which can give you an impression how this library can be used and what it is capable of.
 
-~~A mirror is setup up under~~: http://ypid.de/~osm/evaluation_tool/ ([currently offline](https://github.com/opening-hours/opening_hours_map/issues/43))
+A mirror is setup up under: https://openingh.ypid.de/evaluation_tool/
 
 
 ## Install
