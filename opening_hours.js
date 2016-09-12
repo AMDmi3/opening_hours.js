@@ -3275,7 +3275,41 @@
                 }
             }, /* }}} */
         }, /* }}} */
-    };
+        'hu': { /* {{{ */
+            'PH': { // https://hu.wikipedia.org/wiki/Magyarorsz%C3%A1gi_%C3%BCnnepek_%C3%A9s_eml%C3%A9knapok_list%C3%A1ja
+                "újév"                                                     : [ 1, 1 ],
+                "az 1848-as forradalom ünnepe"                             : [ 3, 15 ],
+                "húsvétvasárnap"                                           : [ 'easter', 0 ],
+                "húsvéthétfő"                                              : [ 'easter', 1 ],
+                "pünkösdvasárnap"                                          : [ 'easter', 49 ],
+                "pünkösdhétfő"                                             : [ 'easter', 50 ],
+                "a munka ünnepe"                                           : [ 5, 1 ],
+                "az államalapítás ünnepe"                                  : [ 8, 20 ],
+                "az 1956-os forradalom ünnepe"                             : [ 10, 23 ],
+                "mindenszentek"                                            : [ 11, 1 ],
+                "karácsony"                                                : [ 12, 25 ],
+                "karácsony másnap"                                         : [ 12, 26 ],
+            },
+            'SH': [ 
+                {
+                    name: 'őszi szünet',
+                    2016: [  11, 2, /* to */  11,  4 ]
+                },
+                {
+                    name: 'téli szünet',
+                    2016: [  12, 22, /* to */  1, 2 ]
+                },
+                {
+                    name: 'tavaszi szünet',
+                    2017: [  4, 13, /* to */  4, 18 ]
+                },
+                {
+                    name: 'nyári szünet',
+                    2017: [  6, 16, /* to */  8, 31 ]
+                }
+            ]
+        }
+	};
     /* }}} */
 
     // error correction {{{
