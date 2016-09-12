@@ -497,6 +497,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
         * [Poland][PH-nl]
         * [Sweden][PH-se]
         * [Brazil][PH-br]
+        * [Hungary][PH-hu]
     * **EXT:** Supports limited calculations based on public holidays (e.g. `Sa,PH -1 day open`). The only two possibilities are currently +1 and -1. All other cases are not handled. This seems to be enough because the only thing which is really used is -1.
 
 *   Support for school holidays (`SH 10:00-14:00`).
