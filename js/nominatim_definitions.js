@@ -94,4 +94,33 @@ exports.for_loc = {
             ]
         },
     },
+    'hu': {
+        '_hu': {
+            "_url": "https://nominatim.openstreetmap.org/reverse?format=json&lat=47.4821&lon=19.0640&zoom=18&addressdetails=1&accept-language=en",
+            "place_id": "76509191",
+            "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+            "osm_type": "way",
+            "osm_id": "67327954",
+            "lat": "47.48146955",
+            "lon": "19.0639924870181",
+            "display_name": "Nehru part, Közraktár utca, Belső-Ferencváros, 9th district, Budapest, Central Hungary, Közép-Magyarország, 1092, Hungary",
+            "address": {
+                "park": "Nehru part",
+                "road": "Közraktár utca",
+                "suburb": "Belső-Ferencváros",
+                "city_district": "9th district",
+                "city": "Budapest",
+                "region": "Közép-Magyarország",
+                "postcode": "1092",
+                "country": "Hungary",
+                "country_code": "hu"
+            },
+            "boundingbox": [
+                "47.4799813",
+                "47.4829177",
+                "19.0619122",
+                    "19.0657089"
+            ],
+        },
+    },
 };
