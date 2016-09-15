@@ -105,6 +105,7 @@ doctoc:
 ## Might be better: https://docs.npmjs.com/cli/version
 release: package.json update-dependency-versions doctoc check-diff-uglifyjs-log check qa-source-code qa-https-everywhere
 	git status
+	@echo Update changelog.
 	read continue
 	@echo Increase version.
 	jq --raw-output '.version' $<
