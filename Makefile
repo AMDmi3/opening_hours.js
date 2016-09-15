@@ -57,14 +57,21 @@ list:
 ## }}}
 
 .PHONY: dependencies-get
+# npm-install-peers@0.1.0 does not work with NodeJs 0.10
 dependencies-get: package.json
 	git submodule update --init --recursive
 	npm install
+	jq -r '.peerDependencies | to_entries[] | .key + "@" + .value' package.json | xargs npm install
 	bower install
 
-.PHONY: dependencies-updateable
-dependencies-updateable: package.json
-	ncu --upgradeAll --packageFile "$<"
+# colors above v0.6.1 broke the 'bold' option. For what we need this package, v0.6.1 is more than sufficient.
+.PHONY: update-dependency-versions
+update-dependency-versions: package.json
+	npm-check-updates --reject colors --upgrade --packageFile "$<"
+
+.PHONY: list-dependency-versions
+list-dependency-versions: package.json
+	npm list | egrep '^.─'
 
 .PHONY: dependencies-user-wide-get
 dependencies-user-wide-get:
@@ -96,7 +103,7 @@ doctoc:
 .PHONY: release
 ## First source file is referenced!
 ## Might be better: https://docs.npmjs.com/cli/version
-release: package.json doctoc check-diff-uglifyjs-log check qa-source-code qa-https-everywhere
+release: package.json update-dependency-versions doctoc check-diff-uglifyjs-log check qa-source-code qa-https-everywhere
 	git status
 	read continue
 	@echo Increase version.
