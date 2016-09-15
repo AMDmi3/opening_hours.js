@@ -136,7 +136,9 @@ function getISODate(date, day_offset, omit_date_hyphens) { /* Is a valid ISO 860
         // Could use strftime node module but then I would have to make an own repository for this script :)
         return String(date.getFullYear()) + pad(date.getMonth() + 1, 2) + pad(date.getDate(), 2);
     } else {
-        return date.toISOString().slice(0, 10)
+        var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+        var localISOTime = (new Date(date - tzoffset)).toISOString();
+        return localISOTime.slice(0, 10)
     }
 }
 
