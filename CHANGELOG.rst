@@ -36,6 +36,7 @@ Fixed
 ~~~~~
 
 * Fixed timezone problem in ``PH_SH_exporter.js`` (local time was interpreted as UTC).
+* Fixed handling of legacy 12-hour clock format. ``12:xxAM`` and ``12:xxPM`` was handled incorrectly!
 
 
 v3.4.0_ - 2016-01-02

@@ -3452,8 +3452,10 @@
                 'оff':             'off', // Russian o
             }, 'Please use time format in 24 hours notation ("<ko>"). If PM is used you might have to convert the hours to the 24 hours notation.': {
                 'pm': '',
+                'p.m.': '',
                 'рм': '',
                 'am': '',
+                'a.m.': '',
                 'ам': '',
             }, 'Bitte verzichte auf "<ko>".': {
                 'uhr': '',
@@ -4424,10 +4426,10 @@
                     // special day name (holidays)
                     curr_rule_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
                     value = value.substr(2);
-                } else if (tmp = value.match(/^(&|_|→|–|−|—|ー|=|·|öffnungszeit(?:en)?:?|opening_hours\s*=|\?|~|～|：|°°|always (?:open|closed)|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|(:?bis|till?|-|–)? ?(?:open ?end|late)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|on work days?|sonntags?|(?:nur |an )?sonn-?(?:(?: und |\/)feiertag(?:s|en?)?)?|(?:an )?feiertag(?:s|en?)?|(?:nach|on|by) (?:appointments?|vereinbarung|absprache)|[_a-zäößàáéøčěíúýřПнВсо]+\b|à|á|mo|tu|we|th|fr|sa|su|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\.?/i)) {
+                } else if (tmp = value.match(/^(&|_|→|–|−|—|ー|=|·|öffnungszeit(?:en)?:?|opening_hours\s*=|\?|~|～|：|°°|always (?:open|closed)|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|(:?bis|till?|-|–)? ?(?:open ?end|late)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|on work days?|sonntags?|(?:nur |an )?sonn-?(?:(?: und |\/)feiertag(?:s|en?)?)?|(?:an )?feiertag(?:s|en?)?|(?:nach|on|by) (?:appointments?|vereinbarung|absprache)|p\.m\.|a\.m\.|[_a-zäößàáéøčěíúýřПнВсо]+\b|à|á|mo|tu|we|th|fr|sa|su|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\.?/i)) {
                     /* Handle all remaining words and specific other characters with error tolerance.
                      *
-                     * à|á: Word boundary does not work with unicode chars: 'test à test'.match(/\bà\b/i)
+                     * à|á: Word boundary does not work with Unicode chars: 'test à test'.match(/\bà\b/i)
                      * https://stackoverflow.com/questions/10590098/javascript-regexp-word-boundaries-unicode-characters
                      * Order in the regular expression capturing group is important in some cases.
                      *
@@ -4440,7 +4442,13 @@
                         curr_rule_tokens.push([ correct_val[0], correct_val[1], value.length ]);
                         value = value.substr(tmp[0].length);
                     } else if (typeof correct_val === 'string') {
-                        if (tmp[1].toLowerCase() === 'pm') {
+                        if (tmp[1].toLowerCase() === 'a.m.') {
+                            tmp[1] = 'am';
+                        }
+                        if (tmp[1].toLowerCase() === 'p.m.') {
+                            tmp[1] = 'pm';
+                        }
+                        if (tmp[1].toLowerCase() === 'am' || tmp[1].toLowerCase() === 'pm') {
                             var hours_token_at = curr_rule_tokens.length - 1;
                             var hours_token;
                             if (hours_token_at >= 0) {
@@ -4449,15 +4457,20 @@
                                             curr_rule_tokens, hours_token_at - 2,
                                             'number', 'timesep', 'number'
                                         )
-                                    ) {
+                                ) {
                                     hours_token_at -= 2;
                                     hours_token = curr_rule_tokens[hours_token_at];
                                 } else if (matchTokens(curr_rule_tokens, hours_token_at, 'number')) {
                                     hours_token = curr_rule_tokens[hours_token_at];
                                 }
 
-                                if (typeof hours_token === 'object' && hours_token[0] <= 12) {
-                                    hours_token[0] += 12;
+                                if (typeof hours_token === 'object') {
+                                    if (tmp[1].toLowerCase() === 'pm' && hours_token[0] < 12) {
+                                        hours_token[0] += 12;
+                                    }
+                                    if (tmp[1].toLowerCase() === 'am' && hours_token[0] == 12) {
+                                        hours_token[0] = 0;
+                                    }
                                     curr_rule_tokens[hours_token_at] = hours_token;
                                 }
                             }

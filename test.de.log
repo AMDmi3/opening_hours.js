@@ -60,43 +60,75 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*10-12 <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "10:00-12:00".)
 	*10-12,13-20 <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "13:00-20:00".)
-"Error tolerance: Correctly handle pm time." for "10am-12am,1pm-8pm": [1m[32mPASSED[39m[22m
+"Error tolerance: Correctly handle pm time." for "10am-12pm,1pm-8pm": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10am-12am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10am-12am,1pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10am-12am,1pm-8pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10am-12am <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "10:00-12:00".)
-	*10am-12am,1pm-8pm <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "13:00-20:00".)
-"Error tolerance: Correctly handle pm time." for "10:00am-12:00am,1:00pm-8:00pm": [1m[32mPASSED[39m[22m
+	*10am-12pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10am-12pm,1pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10am-12pm,1pm-8pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10am-12pm <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "10:00-12:00".)
+	*10am-12pm,1pm-8pm <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "13:00-20:00".)
+"Error tolerance: Correctly handle pm time." for "10:00am-12:00pm,1:00pm-8:00pm": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10:00am-12:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10:00am-12:00am,1:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10:00am-12:00am,1:00pm-8:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-"Error tolerance: Correctly handle pm time." for "10:00am-12:00am,1.00pm-8.00pm": [1m[32mPASSED[39m[22m
+	*10:00am-12:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00pm,1:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00pm,1:00pm-8:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+"Error tolerance: Correctly handle pm time." for "10:00am-12:00pm,1.00pm-8.00pm": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10:00am-12:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10:00am-12:00am,1. <--- (Bitte benutze ":" als Stunden/Minuten-Trenner)
-	*10:00am-12:00am,1.00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10:00am-12:00am,1.00pm-8. <--- (Bitte benutze ":" als Stunden/Minuten-Trenner)
-	*10:00am-12:00am,1.00pm-8.00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-"Error tolerance: Correctly handle pm time." for "13:00-20:00,10:00-12:00": [1m[32mPASSED[39m[22m
-"Error tolerance: Correctly handle pm time." for "1pm-8pm,10am-12am": [1m[32mPASSED[39m[22m
+	*10:00am-12:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00pm,1. <--- (Bitte benutze ":" als Stunden/Minuten-Trenner)
+	*10:00am-12:00pm,1.00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00pm,1.00pm-8. <--- (Bitte benutze ":" als Stunden/Minuten-Trenner)
+	*10:00am-12:00pm,1.00pm-8.00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+"Error tolerance: Correctly handle am/pm time." for "00:00-00:01": [1m[32mPASSED[39m[22m
+"Error tolerance: Correctly handle am/pm time." for "12:00am-12:01am": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*1pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*1pm-8pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*1pm-8pm,10am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*1pm-8pm,10am-12am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*1pm-8pm <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "13:00-20:00".)
-	*1pm-8pm,10am-12am <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "10:00-12:00".)
-"Error tolerance: Correctly handle pm time." for "1:00pm-8:00pm,10:00am-12:00am": [1m[32mPASSED[39m[22m
+	*12:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*12:00am-12:01am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+"Error tolerance: Correctly handle am/pm time." for "12:00 a.m. - 12:01am": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*1:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*1:00pm-8:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*1:00pm-8:00pm,10:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*1:00pm-8:00pm,10:00am-12:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*12:00 a.m. <--- (Please use time format in 24 hours notation ("a.m."). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*12:00 a.m. - 12:01am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+"Error tolerance: Correctly handle am/pm time." for "01:00-11:00": [1m[32mPASSED[39m[22m
+"Error tolerance: Correctly handle am/pm time." for "01:00am-11:00am": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*01:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*01:00am-11:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+"Error tolerance: Correctly handle am/pm time." for "01am-11am": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*01am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*01am-11am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*01am-11am <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "01:00-11:00".)
+"Error tolerance: Correctly handle am/pm time." for "11:59-12:00": [1m[32mPASSED[39m[22m
+"Error tolerance: Correctly handle am/pm time." for "11:59am-12:00pm": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*11:59am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*11:59am-12:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+"Error tolerance: Correctly handle am/pm time." for "11:59a.m.-12:00 p.m.": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*11:59a.m. <--- (Please use time format in 24 hours notation ("a.m."). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*11:59a.m.-12:00 p.m. <--- (Please use time format in 24 hours notation ("p.m."). If PM is used you might have to convert the hours to the 24 hours notation.)
+"Error tolerance: Correctly handle am/pm time." for "12:01-12:59": [1m[32mPASSED[39m[22m
+"Error tolerance: Correctly handle am/pm time." for "12:01pm-12:59pm": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*12:01pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*12:01pm-12:59pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+"Error tolerance: Correctly handle am/pm time." for "12:01p.m.-12:59 p.m.": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*12:01p.m. <--- (Please use time format in 24 hours notation ("p.m."). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*12:01p.m.-12:59 p.m. <--- (Please use time format in 24 hours notation ("p.m."). If PM is used you might have to convert the hours to the 24 hours notation.)
+"Error tolerance: Correctly handle am/pm time." for "13:00-13:01": [1m[32mPASSED[39m[22m
+"Error tolerance: Correctly handle am/pm time." for "01:00pm-01:01pm": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*01:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*01:00pm-01:01pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+"Error tolerance: Correctly handle am/pm time." for "23:00-23:59": [1m[32mPASSED[39m[22m
+"Error tolerance: Correctly handle am/pm time." for "11:00pm-11:59pm": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*11:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*11:00pm-11:59pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
 "Error tolerance: Time intervals, short time" for "Mo 07:00-18:00": [1m[32mPASSED[39m[22m
 "Error tolerance: Time intervals, short time" for "Montags 07:00-18:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -2223,12 +2255,6 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning. warnings_severity: 5, "tag_key": "opening_hours"" for "Mo-Fr 08:00-16:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Fr 08:00-16:00 <--- (Es wurde keine Regel für "PH" (feiertags) angegeben. Dies ist nicht sehr aussagekräftig. Bitte füge die Regel "PH off" an, wenn die Einrichtung an allen Feiertagen geschlossen ist oder schreibe "Sa,Su,PH 12:00-16:00" um auszudrücken, dass Samstags, Sonntags und feiertags von 12:00-16:00 geöffnet ist. Falls die Einrichtung täglich und an Feiertagen geöffnet ist, kann dies explizit mittels "Mo-Su,PH" ausgedrückt werden. Wenn du dir im Unklaren bist, versuche die Öffnungszeit zu klären. Falls das nicht möglich ist, lass die Angabe weg und ignoriere diese Warnung.)
-"Incorrect syntax which should throw an error" for "MON-FRI 5PM-12AM | SAT-SUN 12PM-12AM": [1m[32mPASSED[39m[22m
-MON-FRI 5PM-12AM |  <--- (Unerwartetes Zeichen: "|" Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) MON <--- (Please use the abbreviation "Mo" for "mon".); MON-FRI <--- (Please use the abbreviation "Fr" for "fri".); MON-FRI 5PM <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM | SAT <--- (Please use the abbreviation "Sa" for "sat".); MON-FRI 5PM-12AM | SAT-SUN <--- (Please use the abbreviation "Su" for "sun".); MON-FRI 5PM-12AM | SAT-SUN 12PM <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM | SAT-SUN 12PM-12AM <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.); MON-FRI 5PM-12AM  <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "17:00-12:00".)
-
-"Incorrect syntax which should throw an error" for "MON-FRI 5PM-12AM; SAT-SUN 12PM-12AM": [1m[32mPASSED[39m[22m
-MON-FRI 5PM-12AM; SAT-SUN 12PM <--- (Die Zeitspanne beginnt außerhalb des aktuellen Tages)
-
 "Incorrect syntax which should throw an error" for "Mo-Fr 17:00-12:00; Sa-Su 24:00-12:00": [1m[32mPASSED[39m[22m
 Mo-Fr 17:00-12:00; Sa-Su 24:00 <--- (Zeitspanne beginnt außerhalb des aktuellen Tages)
 
@@ -2770,7 +2796,7 @@ Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-851/903 tests passed.
+862/914 tests passed. 52 did not pass.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

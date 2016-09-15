@@ -467,9 +467,9 @@ test.addTest('Error tolerance: dot as time separator', [
 test.addTest('Error tolerance: Correctly handle pm time.', [
         '10:00-12:00,13:00-20:00',       // reference value for prettify
         '10-12,13-20',
-        '10am-12am,1pm-8pm',
-        '10:00am-12:00am,1:00pm-8:00pm',
-        '10:00am-12:00am,1.00pm-8.00pm',
+        '10am-12pm,1pm-8pm',
+        '10:00am-12:00pm,1:00pm-8:00pm',
+        '10:00am-12:00pm,1.00pm-8.00pm',
     ], '2012.10.01 0:00', '2012.10.03 0:00', [
         [ '2012.10.01 10:00', '2012.10.01 12:00' ],
         [ '2012.10.01 13:00', '2012.10.01 20:00' ],
@@ -477,17 +477,66 @@ test.addTest('Error tolerance: Correctly handle pm time.', [
         [ '2012.10.02 13:00', '2012.10.02 20:00' ],
     ], 1000 * 60 * 60 * (2 + 7) * 2, 0, true, {}, 'not last test');
 
-test.addTest('Error tolerance: Correctly handle pm time.', [
-        '13:00-20:00,10:00-12:00',       // reference value for prettify
-        '1pm-8pm,10am-12am',
-        // '1pm-8pm/10am-12am', // Can not be corrected as / is a valid token
-        '1:00pm-8:00pm,10:00am-12:00am',
+/* Legacy 12-hour clock am/pm format {{{ */
+
+/*
+ * https://en.wikipedia.org/wiki/12-hour_clock
+ * '1pm-8pm/10am-12am', // Can not be corrected as / is a valid token
+ */
+
+test.addTest('Error tolerance: Correctly handle am/pm time.', [
+        '00:00-00:01',       // reference value for prettify
+        '12:00am-12:01am',
+        '12:00 a.m. - 12:01am',
     ], '2012.10.01 0:00', '2012.10.03 0:00', [
-        [ '2012.10.01 10:00', '2012.10.01 12:00' ],
-        [ '2012.10.01 13:00', '2012.10.01 20:00' ],
-        [ '2012.10.02 10:00', '2012.10.02 12:00' ],
-        [ '2012.10.02 13:00', '2012.10.02 20:00' ],
-    ], 1000 * 60 * 60 * (2 + 7) * 2, 0, true, {}, 'not last test');
+        [ '2012.10.01 00:00', '2012.10.01 00:01' ],
+        [ '2012.10.02 00:00', '2012.10.02 00:01' ],
+    ], 1000 * 60 * 2, 0, true, {}, 'not only test');
+
+test.addTest('Error tolerance: Correctly handle am/pm time.', [
+        '01:00-11:00',       // reference value for prettify
+        '01:00am-11:00am',
+        '01am-11am',
+    ], '2012.10.01 0:00', '2012.10.03 0:00', [
+        [ '2012.10.01 01:00', '2012.10.01 11:00' ],
+        [ '2012.10.02 01:00', '2012.10.02 11:00' ],
+    ], 1000 * 60 * 60 * 10 * 2, 0, true, {}, 'not only test');
+
+test.addTest('Error tolerance: Correctly handle am/pm time.', [
+        '11:59-12:00',       // reference value for prettify
+        '11:59am-12:00pm',
+        '11:59a.m.-12:00 p.m.',
+    ], '2012.10.01 0:00', '2012.10.03 0:00', [
+        [ '2012.10.01 11:59', '2012.10.01 12:00' ],
+        [ '2012.10.02 11:59', '2012.10.02 12:00' ],
+    ], 1000 * 60 * 2, 0, true, {}, 'not only test');
+
+test.addTest('Error tolerance: Correctly handle am/pm time.', [
+        '12:01-12:59',       // reference value for prettify
+        '12:01pm-12:59pm',
+        '12:01p.m.-12:59 p.m.',
+    ], '2012.10.01 0:00', '2012.10.03 0:00', [
+        [ '2012.10.01 12:01', '2012.10.01 12:59' ],
+        [ '2012.10.02 12:01', '2012.10.02 12:59' ],
+    ], 1000 * 60 * 58 * 2, 0, true, {}, 'not only test');
+
+test.addTest('Error tolerance: Correctly handle am/pm time.', [
+        '13:00-13:01',       // reference value for prettify
+        '01:00pm-01:01pm',
+    ], '2012.10.01 0:00', '2012.10.03 0:00', [
+        [ '2012.10.01 13:00', '2012.10.01 13:01' ],
+        [ '2012.10.02 13:00', '2012.10.02 13:01' ],
+    ], 1000 * 60 * 2, 0, true, {}, 'not only test');
+
+test.addTest('Error tolerance: Correctly handle am/pm time.', [
+        '23:00-23:59',       // reference value for prettify
+        '11:00pm-11:59pm',
+    ], '2012.10.01 0:00', '2012.10.03 0:00', [
+        [ '2012.10.01 23:00', '2012.10.01 23:59' ],
+        [ '2012.10.02 23:00', '2012.10.02 23:59' ],
+    ], 1000 * 60 * 59 * 2, 0, true, {}, 'not only test');
+
+/* }}} */
 
 test.addTest('Error tolerance: Time intervals, short time', [
         'Mo 07:00-18:00', //reference value for prettify
@@ -4314,10 +4363,9 @@ test.addTest('Real world example: Problem with daylight saving?', [
 
 /* {{{ https://www.openstreetmap.org/node/3010451545 */
 test.addShouldFail('Incorrect syntax which should throw an error', [
-        'MON-FRI 5PM-12AM | SAT-SUN 12PM-12AM',  // Website.
-        'MON-FRI 5PM-12AM; SAT-SUN 12PM-12AM',   // Website, using valid <normal_rule_separator>.
-        'Mo-Fr 17:00-12:00; Sa-Su 24:00-12:00',  // Website, after cleanup and am/pm to normal time conversion.
-    ], nominatimTestJSON, 'not last test');
+        'Mo-Fr 17:00-12:00; Sa-Su 24:00-12:00',  // Website, after cleanup and *wrong* am/pm to normal time conversion.
+    ], nominatimTestJSON, 'not only test');
+
 test.addTest('Real world example: Was not processed right', [
         'Mo-Fr 17:00-12:00, Su-Mo 00:00-12:00', // Rewritten and fixed.
     ], '2014.08.25 0:00', '2014.09.02 0:00', [
@@ -5668,7 +5716,7 @@ function opening_hours_test() {
                 success++;
         }
 
-        console.warn(success + '/' + tests_length + ' tests passed.');
+        console.warn(success + '/' + tests_length + ' tests passed. ' + (tests_length - success) + " did not pass.");
         if (this.ignored.length) {
             console.warn(this.ignored.length + ' test' + (this.ignored.length === 1 ? ' was' : 's where') + ' (partly) ignored, sorted by commonness:');
             var ignored_categories = [];
