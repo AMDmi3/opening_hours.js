@@ -109,7 +109,7 @@ If you are a web developer and want to use this library you can do so by includi
 http://openingh.openstreetmap.de/opening_hours.js/opening_hours+deps.min.js
 ```
 
-To get started checkout the [simple_index.html](/simple_index.html) file.
+To get started checkout the [simple_index.html](/examples/simple_index.html) file.
 
 ### NodeJS developer
 

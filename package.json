@@ -21,6 +21,9 @@
   "license": "LGPL-3.0",
   "files": [
     "Makefile",
+    "CHANGELOG.rst",
+    "COPYING.LGPL-3.0",
+    "licenses/",
     "opening_hours.js",
     "opening_hours.min.js",
     "benchmark.js",
@@ -31,12 +34,13 @@
     "test.de.log",
     ".gitignore",
     "index.html",
-    "js",
+    "js/",
     "locales/core.js"
   ],
   "directories": {
-    "doc": "./docs",
-    "locales": "./locales"
+    "doc": "./docs/",
+    "example": "/examples/",
+    "locales": "./locales/"
   },
   "scripts": {
     "build": "make build",
