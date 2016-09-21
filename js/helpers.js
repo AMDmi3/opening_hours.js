@@ -15,7 +15,7 @@ var evaluation_tool_colors = {
 // FIXME: Warning in console. Encoding stuff.
 function josm(url_param) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:8111/' + url_param, true);      // true makes this call asynchronous
+    xhr.open('GET', 'https://localhost:8111/' + url_param, true);      // true makes this call asynchronous
     xhr.onreadystatechange = function () {    // need eventhandler since our call is async
         if ( xhr.status !== 200 ) {
             alert(i18n.t('texts.JOSM remote conn error'));

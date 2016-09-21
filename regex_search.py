@@ -29,7 +29,7 @@ class OpeningHoursRegexSearch: # {{{
         self.overpass_turbo_url = 'https://overpass-turbo.eu/' \
                 + '?template=key-value&key=%s&value=' % key
         self.taginfo_url = 'https://taginfo.openstreetmap.org/tags/%s=' % key
-        self.josm_remote_url = 'http://localhost:8111/import?url=%s' % (
+        self.josm_remote_url = 'https://localhost:8111/import?url=%s' % (
                 self._url_encode(u'https://overpass-api.de/api/xapi_meta?*[%s=' % key)
             )
 
