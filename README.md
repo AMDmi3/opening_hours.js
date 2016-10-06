@@ -11,7 +11,7 @@
 
 ## Summary
 
-[opening_hours][Key:opening_hours] tag is used in [OpenStreetMap](https://openstreetmap.org) project to describe time ranges when a specific facility (for example, a café) is open. As it has pretty complex syntax which requires special parsing and additional processing to extract some useful information (e.g. whether a facility is open at specific time, next time it's going to open/close, or a readable set of working hours), this library was written.
+The [opening_hours][Key:opening_hours] tag is used in [OpenStreetMap](https://openstreetmap.org) to describe time ranges when a facility (for example, a café) is open. As it has pretty complex syntax which requires special parsing and additional processing to extract some useful information (e.g. whether a facility is open at a specific time, next time it's going to open/close, or a readable set of working hours), this library is being developed.
 
 Examples of some complex opening_hours values:
 
@@ -20,7 +20,7 @@ Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off
 Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off
 ```
 
-a library which works from 12:00 to 18:00 on workdays except Wednesday, and from 12:00 to 17:00 on Saturday and public holidays. It also has breaks on third and last Thursday of each month.
+a library which is open from 12:00 to 18:00 on workdays (Mo-Fr) except Wednesday, and from 12:00 to 17:00 on Saturday and public holidays. It also has breaks on the third and last Thursday of each month.
 
 ```
 open; Tu-Su 08:30-09:00 off; Tu-Su,PH 14:00-14:30 off; Mo 08:00-13:00 off
@@ -620,7 +620,7 @@ On author's Intel Core i5-2540M CPU @ 2.60GHz (Linux: 3.16.0-4-amd64, nodejs: v0
 
 ## Used by other projects
 
-This library is used by the following projects:
+This library is known to the used by the following projects:
 
 Project                                                          | Additional Information
 -------------                                                    | -------------
@@ -632,11 +632,11 @@ Project                                                          | Additional In
 [YoHours][]                                                      | A simple editor for OpenStreetMap opening hours, [GitHub](https://github.com/PanierAvide/panieravide.github.io/tree/master/yohours)
 [pyopening_hours]                                                | python module for opening_hours.js
 [opening_hours_server.js]                                        | A little server answering query‘s for opening_hours and check if they can be evaluated.
-[opening_hours-statistics]                                       | Visualization of the data quality and growth over time.
+[opening_hours-statistics]                                       | Visualization of the data quality and growth over time in OSM.
 [www.openstreetmap.hu](http://www.openstreetmap.hu/)             | old version of this library, see also https://github.com/AMDmi3/opening_hours.js/issues/19
 [osmopeninghours][]                                              | JavaScript library which provides a more abstract, specialized API and Italian localization. It returns a JavaScript object for a given time interval (see [example.json](https://github.com/digitalxmobile-dev/osmopeninghours/blob/master/example/example.json)).
 
-If you use this library please let me know …
+If you use this library please let me know.
 
 ### YoHours
 
