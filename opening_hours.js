@@ -3279,6 +3279,7 @@
             'PH': { // https://hu.wikipedia.org/wiki/Magyarorsz%C3%A1gi_%C3%BCnnepek_%C3%A9s_eml%C3%A9knapok_list%C3%A1ja
                 "újév"                                                     : [ 1, 1 ],
                 "az 1848-as forradalom ünnepe"                             : [ 3, 15 ],
+                "nagypéntek"                                               : [ 'easter', -2 ],
                 "húsvétvasárnap"                                           : [ 'easter', 0 ],
                 "húsvéthétfő"                                              : [ 'easter', 1 ],
                 "pünkösdvasárnap"                                          : [ 'easter', 49 ],
