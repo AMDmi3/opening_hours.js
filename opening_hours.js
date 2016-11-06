@@ -3316,7 +3316,7 @@
                     2015: [  12, 21, /* to */ 12, 31 ],
                     2016: [  12, 22, /* to */  1,  2 ],
                 },
-            ],
+            ]
         }, /* }}} */
         'sk': { /* {{{ */
             'PH': { // https://sk.wikipedia.org/wiki/Zoznam_sviatkov_na_Slovensku or english: https://en.wikipedia.org/wiki/Public_holidays_in_Slovakia
