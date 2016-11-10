@@ -630,11 +630,11 @@ Project                                                          | Additional In
 [opening_hours_map]                                              |
 [ulm-opening-hours](https://github.com/cmichi/ulm-opening-hours) |
 [YoHours][]                                                      | A simple editor for OpenStreetMap opening hours, [GitHub](https://github.com/PanierAvide/panieravide.github.io/tree/master/yohours)
-[pyopening_hours]                                                | python module for opening_hours.js
 [opening_hours_server.js]                                        | A little server answering query‘s for opening_hours and check if they can be evaluated.
 [opening_hours-statistics]                                       | Visualization of the data quality and growth over time in OSM.
 [www.openstreetmap.hu](http://www.openstreetmap.hu/)             | old version of this library, see also https://github.com/AMDmi3/opening_hours.js/issues/19
 [osmopeninghours][]                                              | JavaScript library which provides a more abstract, specialized API and Italian localization. It returns a JavaScript object for a given time interval (see [example.json](https://github.com/digitalxmobile-dev/osmopeninghours/blob/master/example/example.json)).
+[ComplexAlarm](https://github.com/ypid/ComplexAlarm)             | Java/Android. Using the JS implementation through [js-evaluator-for-android](https://github.com/evgenyneu/js-evaluator-for-android).
 
 If you use this library please let me know.
 
@@ -648,6 +648,19 @@ YoHours currently only checks with this lib if the opening_hours value can be ev
 [opening_hours-statistics]: https://github.com/ypid/opening_hours-statistics
 [YoHours]: http://github.pavie.info/yohours/
 [osmopeninghours]: https://github.com/digitalxmobile-dev/osmopeninghours
+
+## Bindings and ports
+
+* Python: https://github.com/ypid/pyopening_hours (using the JS implementation through Python subprocess and JSON passing to a Node.JS process executing the JS implementation, access to the [simple API](https://github.com/ypid/opening_hours.js#simple-api))
+* Java/Nashorn: https://josm.openstreetmap.de/ticket/11755 (using the JS implementation through [Nashorn](http://openjdk.java.net/projects/nashorn/), Status: Nashorn provides access to all features of the JS implementation)
+- Java/Android: https://github.com/ypid/ComplexAlarm (using the JS implementation through [js-evaluator-for-android](https://github.com/evgenyneu/js-evaluator-for-android), Status: Library runs on Android, Return code/Result passing from JS to Java not yet clear/tested)
+
+## Other implementations
+
+* Java: https://github.com/simonpoole/OpeningHoursParser (Implementation using [JavaCC](https://de.wikipedia.org/wiki/JavaCC) as Lexer/Parser compiler generator, Status: Basic language features implemented)
+* PHP: https://github.com/kenguest/Services_Openstreetmap/blob/master/Services/OpenStreetMap/OpeningHours.php (reimplementation, Status: Basic language features implemented)
+* C: https://github.com/anthill/C_OpeningHours Implementation in C.
+* JavaScript: https://github.com/ubahnverleih/simple-opening-hours In the words of the author "It only supports the human readable parts and not this complete crazy overengineered specification." Only covers a very small subset of the spec and API, which is a design goal. There is no clear definition/spec what "simple" or "crazy" means (seems subjective and might change over time, ref: [open end syntax listed as TODO in the code](https://github.com/ubahnverleih/simple-opening-hours/blob/a81c9f2b260114be049e335b6a751977f9425919/src/simple-opening-hours.ts#L32)). Also refer to [issue 143](https://github.com/opening-hours/opening_hours.js/issues/143#issuecomment-259721731).
 
 ## Related links
 
