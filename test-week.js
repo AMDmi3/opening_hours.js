@@ -41,7 +41,7 @@ colors.setTheme({
 });
 
 /* Fake time to make "The year is in the past." test deterministic. */
-//timekeeper.travel(new Date('Sat May 23 2015 23:23:23 GMT+0200 (CEST)')); // Travel to that date.
+timekeeper.travel(new Date('Sat May 23 2015 23:23:23 GMT+0200 (CEST)')); // Travel to that date.
 
 var test = new opening_hours_test();
 
@@ -67,19 +67,19 @@ var nominatim_for_loc = require('./js/nominatim_definitions.js').for_loc;
  * warning.
  */
 
-var toTime = moment().add(1, 'day').hours(23).minutes(59).seconds(0).milliseconds(0);
-var isOddWeekStart = (moment().week() % 2 === 0) ? '01' : '02';
+var toTime = moment(new Date()).add(1, 'day').hours(23).minutes(59).seconds(0).milliseconds(0);
+var isOddWeekStart = (toTime % 2 === 0) ? '01' : '02';
 
 test.addTest('Week range. Working with Objects not Strings. from = new Date(Date())', [
     'week ' + isOddWeekStart + '-53/2 Mo-Su 07:30-08:00',
-], new Date(Date()), toTime.toDate(), [
-    [toTime.hours(7).minutes(30).toString(), toTime.hours(8).minutes(0).toString()],
+], moment(new Date()), toTime.toDate(), [
+    [toTime.hours(7).minutes(30).toDate(), toTime.hours(8).minutes(0).toDate()],
 ], 1800000, 0, false);
 
 test.addTest('Week range. Working with Objects not Strings. from = new Date()', [
     'week ' + isOddWeekStart + '-53/2 Mo-Su 07:30-08:00',
 ], new Date(), toTime, [
-    [toTime.hours(7).minutes(30).toString(), toTime.hours(8).minutes(0).toString()],
+    [toTime.hours(7).minutes(30).toDate(), toTime.hours(8).minutes(0).toDate()],
 ], 1800000, 0, false);
 
 process.exit(test.run() ? 0 : 1);
