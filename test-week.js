@@ -29,6 +29,7 @@ var opening_hours = require('./' + argv['library-file']);
 var colors = require('colors');
 var sprintf = require('sprintf-js').sprintf;
 var timekeeper = require('timekeeper');
+var moment = require('moment');
 /* }}} */
 
 colors.setTheme({
@@ -66,76 +67,19 @@ var nominatim_for_loc = require('./js/nominatim_definitions.js').for_loc;
  * warning.
  */
 
-var nominatimTestJSON_netherlands = {
-    "place_id": "143674528",
-    "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright",
-    "osm_type": "relation",
-    "osm_id": "47654",
-    "lat": "52.69012615",
-    "lon": "4.95206337708219",
-    "display_name": "Noord-Holland, Nederland, Koninkrijk der Nederlanden",
-    "address": {"state": "Noord-Holland", "country": "Koninkrijk der Nederlanden", "country_code": "nl"},
-    "boundingbox": ["52.165929", "53.2142748", "4.4776495", "5.3772598"]
-};
+var toTime = moment().add(1, 'day').hours(23).minutes(59).seconds(0).milliseconds(0);
+var isOddWeekStart = (moment().week() % 2 === 0) ? '01' : '02';
 
-/*test.addTest('Week range week without nominatim', [
-    'week 01-53/2 Tu 07:30-08:00',
-], '2016.11.07 16:59', '2016.11.08 16:59', [
-    ['2016.11.08 07:30', '2016.11.08 08:00'],
+test.addTest('Week range. Working with Objects not Strings. from = new Date(Date())', [
+    'week ' + isOddWeekStart + '-53/2 Mo-Su 07:30-08:00',
+], new Date(Date()), toTime.toDate(), [
+    [toTime.hours(7).minutes(30).toString(), toTime.hours(8).minutes(0).toString()],
 ], 1800000, 0, false);
 
-test.addTest('Week range week with nominatim', [
-    'week 01-53/2 Tu 07:30-08:00',
-], '2016.11.07 16:59', '2016.11.08 16:59', [
-    ['2016.11.08 07:30', '2016.11.08 08:00'],
-], 1800000, 0, false, nominatimTestJSON_netherlands);
-
-test.addTest('Week range week without nominatim. Date()', [
-    'week 01-53/2 Tu 07:30-08:00',
-], new Date('2016.11.07 16:59'), new Date('2016.11.08 16:59'), [
-    ['2016.11.08 07:30', '2016.11.08 08:00'],
-], 1800000, 0, false);
-
-test.addTest('Week range week with nominatim. Date()', [
-    'week 01-53/2 Tu 07:30-08:00',
-], new Date('2016.11.07 16:59'), new Date('2016.11.08 16:59'), [
-    ['2016.11.08 07:30', '2016.11.08 08:00'],
-], 1800000, 0, false, nominatimTestJSON_netherlands);*/
-
-/*test.addTest('Week range week without nominatim. Date(now)', [
-    'week 01-53/2 Fr 07:30-08:00',
-], new Date('2016.11.09 16:59'), new Date('2016.11.11 16:59'), [
-    ['2016.11.11 07:30', '2016.11.11 08:00'],
-], 1800000, 0, false);*/
-
-test.addTest('Week range week without nominatim. Date()', [
-    'week 01-53/2 Fr 07:30-08:00',
-], Date(), new Date('2016.11.11 23:59'), [
-    ['2016.11.11 07:30', '2016.11.11 08:00'],
-], 1800000, 0, false);
-
-test.addTest('Week range week without nominatim. new Date(Date())', [
-    'week 01-53/2 Fr 07:30-08:00',
-], new Date(Date()), new Date('2016.11.11 23:59'), [
-    ['2016.11.11 07:30', '2016.11.11 08:00'],
-], 1800000, 0, false);
-
-test.addTest('Week range week without nominatim. Date.toString()', [
-    'week 01-53/2 Fr 07:30-08:00',
-], Date.toString(), new Date('2016.11.11 23:59'), [
-    ['2016.11.11 07:30', '2016.11.11 08:00'],
-], 1800000, 0, false);
-
-test.addTest('Week range week without nominatim. new Date(Date.now())', [
-    'week 01-53/2 Fr 07:30-08:00',
-], new Date(Date.now()), new Date('2016.11.11 23:59'), [
-    ['2016.11.11 07:30', '2016.11.11 08:00'],
-], 1800000, 0, false);
-
-test.addTest('Week range week without nominatim. new Date()', [
-    'week 01-53/2 Fr 07:30-08:00',
-], new Date(), new Date('2016.11.11 23:59'), [
-    ['2016.11.11 07:30', '2016.11.11 08:00'],
+test.addTest('Week range. Working with Objects not Strings. from = new Date()', [
+    'week ' + isOddWeekStart + '-53/2 Mo-Su 07:30-08:00',
+], new Date(), toTime, [
+    [toTime.hours(7).minutes(30).toString(), toTime.hours(8).minutes(0).toString()],
 ], 1800000, 0, false);
 
 process.exit(test.run() ? 0 : 1);
