@@ -29,6 +29,7 @@ var opening_hours = require('./' + argv['library-file']);
 var colors        = require('colors');
 var sprintf       = require('sprintf-js').sprintf;
 var timekeeper    = require('timekeeper');
+var moment = require('moment');
 /* }}} */
 
 colors.setTheme({
@@ -3249,6 +3250,23 @@ test.addTest('Week range first week', [
         [ '2024.01.07 00:00', '2024.01.07 23:59' ],
         /* }}} */
     ], 1000 * 60 * (60 * 24 * 7 * 12 - 7 * 12), 0, false, {}, 'not last test');
+
+(function() {
+var toTime = moment().add(1, 'day').hours(23).minutes(59).seconds(0).milliseconds(0);
+var isOddWeekStart = (moment().week() % 2 === 0) ? '01' : '02';
+
+test.addTest('Week range. Working with Objects not Strings. from = new Date(Date())', [
+        'week ' + isOddWeekStart + '-53/2 Mo-Su 07:30-08:00',
+    ], new Date(Date()), toTime.toDate(), [
+        [toTime.hours(7).minutes(30).toString(), toTime.hours(8).minutes(0).toString()],
+    ], 1800000, 0, false);
+
+test.addTest('Week range. Working with Objects not Strings. from = new Date()', [
+        'week ' + isOddWeekStart + '-53/2 Mo-Su 07:30-08:00',
+    ], new Date(), toTime, [
+        [toTime.hours(7).minutes(30).toString(), toTime.hours(8).minutes(0).toString()],
+    ], 1800000, 0, false);
+}();
 // }}}
 
 // full months/month ranges {{{
@@ -5431,6 +5449,15 @@ function opening_hours_test() {
             expected_weekstable = test_data_object[7],
             nominatimJSON      = test_data_object[8],
             oh_mode             = test_data_object[9];
+
+        // fix from and to dates
+        if (!(from instanceof Date)) {
+            from = new Date(from);
+        }
+        if (!(to instanceof Date)) {
+            to = new Date(to);
+        }
+
         var ignored = typeof value !== 'string';
         if (ignored) {
             this.ignored.push(value);
@@ -5446,8 +5473,8 @@ function opening_hours_test() {
 
             warnings = oh.getWarnings();
 
-            intervals  = oh.getOpenIntervals(new Date(from), new Date(to));
-            durations  = oh.getOpenDuration(new Date(from), new Date(to));
+            intervals = oh.getOpenIntervals(from, to);
+            durations = oh.getOpenDuration(from, to);
             weekstable = oh.isWeekStable();
 
             var prettifyValue_argument_hash = {};
