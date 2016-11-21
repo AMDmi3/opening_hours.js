@@ -28,15 +28,19 @@ Added
 Changed
 ~~~~~~~
 
-* Made the evaluation tool prettier.
+* Make the evaluation tool prettier.
 * Use ``peerDependencies`` to allow dependency reuse by other npm packages.
 * Use caret ranges for all npm dependencies.
 
 Fixed
 ~~~~~
 
-* Fixed timezone problem in ``PH_SH_exporter.js`` (local time was interpreted as UTC).
-* Fixed handling of legacy 12-hour clock format. ``12:xxAM`` and ``12:xxPM`` was handled incorrectly!
+* Fix timezone problem in ``PH_SH_exporter.js`` (local time was interpreted as UTC).
+* Fix handling of legacy 12-hour clock format. ``12:xxAM`` and ``12:xxPM`` was handled incorrectly!
+* Fix the `getDateOfWeekdayInDateRange` helper function used to calculate PH of
+  Sweden and Germany Saxony. PH definitions using this functions might have
+  been wrong before.
+* Add missing "Buß- und Bettag" to the public holiday definition of Saxony Germany.
 
 
 v3.4.0_ - 2016-01-02
