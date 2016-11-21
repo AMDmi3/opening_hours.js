@@ -133,7 +133,7 @@
                 'Tag der Deutschen Einheit' : [ 10,  3 ],
                 'Reformationstag'           : [ 10, 31, [ 'Brandenburg', 'Mecklenburg-Vorpommern', 'Sachsen', 'Sachsen-Anhalt', 'Thüringen'] ],
                 'Allerheiligen'             : [ 11,  1, [ 'Baden-Württemberg', 'Bayern', 'Nordrhein-Westfalen', 'Rheinland-Pfalz', 'Saarland' ] ],
-                'Buß- und Bettag'           : [ nextWednesday16Nov, 0, [ 'Sachsen'] ],
+                'Buß- und Bettag'           : [ 'nextWednesday16Nov', 0, [ 'Sachsen'] ],
                 '1. Weihnachtstag'          : [ 12, 25 ],
                 '2. Weihnachtstag'          : [ 12, 26 ],
                 // 'Silvester'              : [ 12, 31 ], // for testing
