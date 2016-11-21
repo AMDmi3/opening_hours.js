@@ -6441,8 +6441,11 @@
             }
 
             function getDateOfWeekdayInDateRange(weekday, start_date){
-                var offset = Math.abs(start_date.getDay() - weekday);
-                start_date.setDate(start_date.getDate() + offset)
+                var days_to_dest_date = weekday - start_date.getDay();
+                if (days_to_dest_date < 0) {
+                    days_to_dest_date += 7;
+                }
+                start_date.setDate(start_date.getDate() + days_to_dest_date);
                 return start_date;
             }
             /* }}} */
