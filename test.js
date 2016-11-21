@@ -41,7 +41,8 @@ colors.setTheme({
 });
 
 /* Fake time to make "The year is in the past." test deterministic. */
-timekeeper.travel(new Date('Sat May 23 2015 23:23:23 GMT+0200 (CEST)')); // Travel to that date.
+var timekeeperTime = new Date('Sat May 23 2015 23:23:23 GMT+0200 (CEST)');
+timekeeper.travel(timekeeperTime); // Travel to that date.
 
 var test = new opening_hours_test();
 
@@ -3272,7 +3273,7 @@ test.addTest('Week range. Working with Objects not Strings. from = new Date()', 
     ], 1800000, 0, false);
 
 // re set the original fake value
-timekeeper.travel(new Date('Sat May 23 2015 23:23:23 GMT+0200 (CEST)')); // Travel to that date.
+timekeeper.travel(timekeeperTime); // Travel to that date.
 })();
 // }}}
 
