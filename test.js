@@ -3252,6 +3252,10 @@ test.addTest('Week range first week', [
     ], 1000 * 60 * (60 * 24 * 7 * 12 - 7 * 12), 0, false, {}, 'not last test');
 
 (function() {
+
+// timekeeper makes the Date() Object work. reset the timekeeper
+timekeeper.reset();
+
 var toTime = moment(new Date()).add(1, 'day').hours(23).minutes(59).seconds(0).milliseconds(0);
 var isOddWeekStart = (toTime % 2 === 0) ? '01' : '02';
 
@@ -3266,6 +3270,9 @@ test.addTest('Week range. Working with Objects not Strings. from = new Date()', 
     ], new Date(), toTime, [
         [toTime.hours(7).minutes(30).toDate(), toTime.hours(8).minutes(0).toDate()],
     ], 1800000, 0, false);
+
+// re set the original fake value
+timekeeper.travel(new Date('Sat May 23 2015 23:23:23 GMT+0200 (CEST)')); // Travel to that date.
 })();
 // }}}
 
