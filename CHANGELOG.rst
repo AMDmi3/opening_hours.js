@@ -40,6 +40,7 @@ Fixed
 * Fix the `getDateOfWeekdayInDateRange` helper function used to calculate PH of
   Sweden and Germany Saxony. PH definitions using this functions might have
   been wrong before.
+* Add missing "Buß- und Bettag" to the public holiday definition of Saxony Germany.
 
 
 v3.4.0_ - 2016-01-02
