@@ -133,6 +133,7 @@
                 'Tag der Deutschen Einheit' : [ 10,  3 ],
                 'Reformationstag'           : [ 10, 31, [ 'Brandenburg', 'Mecklenburg-Vorpommern', 'Sachsen', 'Sachsen-Anhalt', 'Thüringen'] ],
                 'Allerheiligen'             : [ 11,  1, [ 'Baden-Württemberg', 'Bayern', 'Nordrhein-Westfalen', 'Rheinland-Pfalz', 'Saarland' ] ],
+                'Buß- und Bettag'           : [ nextWednesday16Nov, 0, [ 'Sachsen'] ],
                 '1. Weihnachtstag'          : [ 12, 25 ],
                 '2. Weihnachtstag'          : [ 12, 26 ],
                 // 'Silvester'              : [ 12, 31 ], // for testing
@@ -6475,6 +6476,7 @@
                 'lastOctoberFriday'     : new Date(year,  9, lastWeekdayOfMonth(9, 5)),
                 'nextSaturday20Jun'     : getDateOfWeekdayInDateRange(6, new Date(year, 5, 20)),
                 'nextSaturday31Oct'     : getDateOfWeekdayInDateRange(6, new Date(year, 9, 31)),
+                'nextWednesday16Nov'    : getDateOfWeekdayInDateRange(3, new Date(year, 10, 16)),
             };
         }
         /* }}} */
