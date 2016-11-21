@@ -41,6 +41,9 @@ Fixed
   Sweden and Germany Saxony. PH definitions using this functions might have
   been wrong before.
 * Add missing "Buß- und Bettag" to the public holiday definition of Saxony Germany.
+* Fix timezone issue for `PH_SH_exporter.js` unless the ``--omit-date-hyphens`` option was given.
+  Exported dates which are in DST might be wrong when your system is in a
+  timezone with DST and DST was not active when you run the script.
 
 
 v3.4.0_ - 2016-01-02
