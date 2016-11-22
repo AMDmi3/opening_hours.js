@@ -3254,15 +3254,21 @@ test.addTest('Week range first week', [
 
 (function() {
 
-// timekeeper makes the Date() Object work. reset the timekeeper
+// timekeeper makes the Date() Object nonReactive. Reset the timekeeper
 timekeeper.reset();
 
 var toTime = moment(new Date()).add(1, 'day').hours(23).minutes(59).seconds(0).milliseconds(0);
 var isOddWeekStart = (toTime % 2 === 0) ? '01' : '02';
 
-test.addTest('Week range. Working with Objects not Strings. from = new Date(Date())', [
+test.addTest('Week range. Working with Objects not Strings. from = moment(new Date())', [
         'week ' + isOddWeekStart + '-53/2 Mo-Su 07:30-08:00',
     ], moment(new Date()), toTime.toDate(), [
+        [toTime.hours(7).minutes(30).toDate(), toTime.hours(8).minutes(0).toDate()],
+    ], 1800000, 0, false);
+
+test.addTest('Week range. Working with Objects not Strings. from = moment(new Date()).seconds(0).milliseconds(0)', [
+        'week ' + isOddWeekStart + '-53/2 Mo-Su 07:30-08:00',
+    ], moment(new Date()).seconds(0).milliseconds(0), toTime.toDate(), [
         [toTime.hours(7).minutes(30).toDate(), toTime.hours(8).minutes(0).toDate()],
     ], 1800000, 0, false);
 
@@ -3272,7 +3278,7 @@ test.addTest('Week range. Working with Objects not Strings. from = new Date()', 
         [toTime.hours(7).minutes(30).toDate(), toTime.hours(8).minutes(0).toDate()],
     ], 1800000, 0, false);
 
-// re set the original fake value
+// re Set the original fake value
 timekeeper.travel(timekeeperTime); // Travel to that date.
 })();
 // }}}
