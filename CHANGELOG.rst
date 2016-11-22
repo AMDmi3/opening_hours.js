@@ -8,8 +8,90 @@ and `human-readable changelog <http://keepachangelog.com/en/0.3.0/>`__.
 
 Note that most of the v2.X.Z releases have not been added to the changelog yet.
 
+Authors
+-------
+
+* [AMDmi3_] - Dmitry Marakasov (original author)
+* [ypid_] - Robin Schneider (author, maintainer)
+
+.. _AMDmi3: https://github.com/AMDmi3
 .. _ypid: https://me.ypid.de/
+
+Contributors
+------------
+
+* [putnik_] - Sergey Leschina
+* [Cactusbone_] - Charly Koza
+* [don-vip_] - Vincent Privat
+* [sesam_] - Simon B.
+* [NonnEmilia_]
+* [damjang_]
+* [jgpacker_] - João G. Packer
+* [openfirmware_] - James Badger
+* [burrbull_] - Zgarbul Andrey
+* [blorger_] - Blaž Lorger
+* [dmromanov_] - Dmitrii Romanov
+* [maxerickson_]
+* [amenk_] - Alexander Menk
+* [edqd_]
+* [simon04_] - Simon Legner
+* [MKnight_] - Michael Knight
+* [elgaard_] - Niels Elgaard Larsen
+* [afita_] - Adrian Fita
+* [sanderd17_]
+* [marcgemis_]
+* [drMerry_]
+* [endro_]
+* [rmikke_] - Ryszard Mikke
+* [VorpalBlade_] - Arvid Norlander
+* [mmn_] - Mikael Nordfeldth
+* [adrianojbr_]
+* [AndreasTUHU_]
+* [spawn-guy_] - Paul Rysiavets
+* [ItsNotYou_]
+
+Thanks very much to all contributors!
+
+.. _putnik: https://github.com/putnik
+.. _Cactusbone: https://github.com/Cactusbone
+.. _don-vip: https://github.com/don-vip
+.. _sesam: https://github.com/sesam
+.. _NonnEmilia: https://github.com/NonnEmilia
+.. _damjang: https://github.com/damjang
+.. _jgpacker: https://github.com/jgpacker
+.. _openfirmware: https://github.com/openfirmware
+.. _burrbull: https://github.com/burrbull
+.. _blorger: https://github.com/blorger
+.. _dmromanov: https://github.com/dmromanov
+.. _maxerickson: https://github.com/maxerickson
+.. _amenk: https://github.com/amenk
+.. _edqd: https://github.com/edqd
+.. _simon04: https://github.com/simon04
+.. _MKnight: https://github.com/dex2000
+.. _elgaard: https://github.com/elgaard
+.. _afita: https://github.com/afita
+.. _sanderd17: https://github.com/sanderd17
+.. _marcgemis: https://github.com/marcgemis
+.. _drMerry: https://github.com/drMerry
+.. _endro: https://github.com/endro
+.. _rmikke: https://github.com/rmikke
+.. _VorpalBlade: https://github.com/VorpalBlade
+.. _mmn: https://blog.mmn-o.se/
+.. _adrianojbr: https://github.com/adrianojbr
+.. _AndreasTUHU: https://github.com/AndreasTUHU
+.. _ItsNotYou: https://github.com/ItsNotYou
 .. _spawn-guy: https://github.com/spawn-guy
+
+Supporters
+~~~~~~~~~~
+
+* `iMi digital`_
+* AddisMap_
+
+Thanks for helping by allowing employees to work on the project during work hours!
+
+.. _iMi digital: http://www.imi-digital.de/
+.. _AddisMap: https://www.addismap.com/
 
 master_ - unreleased
 --------------------
@@ -21,11 +103,18 @@ master_ - unreleased
 Added
 ~~~~~
 
-* Public holiday definitions added: Brazil, Sweden, Poland, Czech, Hungary
-* School holiday definitions added: Hungary
-* Changelog file.
-* Holidays definition documentation 2.1.0.
-* AMD with RequireJS.
+* Public holiday definitions added:
+
+  * Brazil [adrianojbr_]
+  * Sweden [VorpalBlade_, mmn_, ypid_]
+  * Poland [endro_, rmikke_]
+  * Czech
+  * Hungary [AndreasTUHU_]
+
+* School holiday definitions added: Hungary [AndreasTUHU_]
+* Changelog file. [ypid_]
+* Holidays definition documentation 2.1.0. [ypid_]
+* AMD with RequireJS. [ItsNotYou_]
 
 Changed
 ~~~~~~~
@@ -60,11 +149,18 @@ v3.4.0_ - 2016-01-02
 Added
 ~~~~~
 
-* Public holiday definitions added: Danish, Belgium, Romania and Netherlands
-* School holiday definitions added: Romania
-* Localizations added: Dutch
+* Public holiday definitions added:
+
+  * Danish
+  * Belgium [sanderd17_, marcgemis_]
+  * Romania [afita_]
+  * Netherlands [drMerry_]
+  * Denmark [elgaard_]
+
+* School holiday definitions added: Romania [afita_]
+* Localizations added: Dutch [marcgemis_]
 * Added simple HTML usage example for using the library in a website.
-* Browserified the library
+* Browserified the library. [simon04_]
 
 Changed
 ~~~~~~~
@@ -93,9 +189,9 @@ v3.3.0_ - 2015-08-02
 Added
 ~~~~~
 
-* Public holiday definitions added: Czech Republic
-* Support for localized error and warning messages.
-* Support to localize oh.prettifyValue opening_hours value.
+* Public holiday definitions added: Czech Republic [edqd_]
+* Support for localized error and warning messages. [amenk_ funded by `iMi digital`_ and AddisMap_]
+* Support to localize oh.prettifyValue opening_hours value. [amenk_ funded by `iMi digital`_ and AddisMap_]
 * Wrote SH_batch_exporter.sh and added support to write (SH) definitions for all states in Germany.
 * Added more tests to the test framework.
 
@@ -150,7 +246,7 @@ v3.1.1_ - 2015-04-12
 Added
 ~~~~~
 
-* Public holiday definitions added: Italian
+* Public holiday definitions added: Italian [damjang_, ypid_]
 * Added support to use data from the Overpass API to generate statistics.
 
 Changed
@@ -170,7 +266,9 @@ v3.1.0_ - 2015-02-15
 Added
 ~~~~~
 
-* Public holiday definitions added: USA
+* Public holiday definitions added:
+
+  * USA and python script for testing the holiday JSON (ref: `us_holidays <https://github.com/maxerickson/us_holidays>`_) [maxerickson_]
 
 Fixed
 ~~~~~
@@ -206,7 +304,7 @@ v3.0.1_ - 2015-01-24
 Added
 ~~~~~
 
-* Public holiday definitions added: Russian
+* Public holiday definitions added: Russian [dmromanov_]
 * Improved error tolerance for values ``bis open end`` and ``Sonn- und Feiertags``.
 * real_test.js: Added the following OSM tags to the evaluation:
 
@@ -292,7 +390,60 @@ Fixed
 * Fixed bug in test framework.
 
 
+v2.1.8_ - 2014-04-26
+--------------------
+
+.. _v2.1.8: https://github.com/opening-hours/opening_hours.js/compare/v2.1.7...v2.1.8
+
+Added
+~~~~~
+
+* Public holiday definitions added: Canadian [openfirmware_], Ukraine [burrbull_], Slovenian [blorger_]
+* Localizations added: Ukrainian [burrbull_]
+
+Fixed
+~~~~~
+
+* Localizations fixed: Russian [openfirmware_]
+
+
+v2.1.0_ - 2014-03-03
+--------------------
+
+.. _v2.1.0: https://github.com/opening-hours/opening_hours.js/compare/v2.0.0...v2.1.0
+
+Added
+~~~~~
+
+* Public holiday definitions added: French [don-vip_]
+* Localizations added: French [don-vip_], Ukrainian [jgpacker_], Italian [NonnEmilia_]
+
+Fixed
+~~~~~
+
+* Docs: Improved understandability of overlapping rules in README.md. [sesam_]
+
+
+v2.0.0_ - 2013-10-27
+--------------------
+
+.. _v2.0.0: https://github.com/opening-hours/opening_hours.js/compare/v1.0.0...v2.0.0
+
+Added
+~~~~~
+
+* ``package.json`` file. [Cactusbone_]
+
+
 v1.0.0 - 2013-01-12
 -------------------
 
-* Initial coding and design.
+Added
+~~~~~
+
+* Initial coding and design. [AMDmi3_]
+
+Changed
+~~~~~~~
+
+* demo page (now called evaluation tool) improvements. [putnik_]
