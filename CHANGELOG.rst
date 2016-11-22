@@ -47,8 +47,12 @@ Contributors
 * [mmn_] - Mikael Nordfeldth
 * [adrianojbr_]
 * [AndreasTUHU_]
+* [mkyral_] - Marián Kyral
+* [pke_] - Philipp Kursawe
 * [spawn-guy_] - Paul Rysiavets
+* [bugvillage_]
 * [ItsNotYou_]
+* [chiak597_]
 
 Thanks very much to all contributors!
 
@@ -79,8 +83,12 @@ Thanks very much to all contributors!
 .. _mmn: https://blog.mmn-o.se/
 .. _adrianojbr: https://github.com/adrianojbr
 .. _AndreasTUHU: https://github.com/AndreasTUHU
+.. _mkyral: https://github.com/mkyral
+.. _pke: https://github.com/pke
+.. _bugvillage: https://github.com/bugvillage
 .. _ItsNotYou: https://github.com/ItsNotYou
 .. _spawn-guy: https://github.com/spawn-guy
+.. _chiak597: https://github.com/chiak597
 
 Supporters
 ~~~~~~~~~~
@@ -108,7 +116,7 @@ Added
   * Brazil [adrianojbr_]
   * Sweden [VorpalBlade_, mmn_, ypid_]
   * Poland [endro_, rmikke_]
-  * Czech
+  * Czech [mkyral_]
   * Hungary [AndreasTUHU_]
 
 * School holiday definitions added: Hungary [AndreasTUHU_]
@@ -119,22 +127,25 @@ Added
 Changed
 ~~~~~~~
 
-* Make the evaluation tool prettier.
-* Use ``peerDependencies`` to allow dependency reuse by other npm packages.
-* Use caret ranges for all npm dependencies.
+* Make the evaluation tool prettier. [MKnight_]
+* Use ``peerDependencies`` to allow dependency reuse by other npm packages. [pke_, ypid_]
+* Use caret ranges for all npm dependencies. [ypid_, pke_]
 
 Fixed
 ~~~~~
 
-* Fix timezone problem in ``PH_SH_exporter.js`` (local time was interpreted as UTC).
-* Fix handling of legacy 12-hour clock format. ``12:xxAM`` and ``12:xxPM`` was handled incorrectly!
-* Fix the `getDateOfWeekdayInDateRange` helper function used to calculate PH of
-  Sweden and Germany Saxony. PH definitions using this functions might have
-  been wrong before.
-* Add missing "Buß- und Bettag" to the public holiday definition of Saxony Germany.
+* Public holiday definitions fixed:
+
+  * Germany, Saxony: Add missing "Buß- und Bettag" to the public holiday definition of  [bugvillage_, ypid_]
+  * Fix the `getDateOfWeekdayInDateRange` helper function used to calculate PH of
+    Sweden and Germany Saxony. PH definitions using this functions might have
+    been wrong before. [ypid_]
+
+* Fix timezone problem in ``PH_SH_exporter.js`` (local time was interpreted as UTC). [ypid_]
+* Fix handling of legacy 12-hour clock format. ``12:xxAM`` and ``12:xxPM`` was handled incorrectly! [ypid_]
 * Fix timezone issue for `PH_SH_exporter.js` unless the ``--omit-date-hyphens`` option was given.
   Exported dates which are in DST might be wrong when your system is in a
-  timezone with DST and DST was not active when you run the script.
+  timezone with DST and DST was not active when you run the script. [ypid_]
 * Fix current week number calculation which was caused by incorrect use of
   ``new Date()`` which is a "Reactive" variable. [spawn-guy_]
 
@@ -151,32 +162,32 @@ Added
 
 * Public holiday definitions added:
 
-  * Danish
+  * Danish [elgaard_]
+  * Denmark [elgaard_]
   * Belgium [sanderd17_, marcgemis_]
   * Romania [afita_]
   * Netherlands [drMerry_]
-  * Denmark [elgaard_]
 
 * School holiday definitions added: Romania [afita_]
 * Localizations added: Dutch [marcgemis_]
-* Added simple HTML usage example for using the library in a website.
+* Added simple HTML usage example for using the library in a website. [ypid_]
 * Browserified the library. [simon04_]
+* ``oh.isEqualTo``: Implemented check if two oh objects have the same meaning (are equal). [ypid_]
+* Expose ``oh.isEqualTo`` in the evaluation tool. [ypid_]
 
 Changed
 ~~~~~~~
 
-* Changed license to LGPL-3.0
-* No global locale change.
-* ``oh.isEqualTo``: Implemented check if two oh objects have the same meaning (are equal).
-* Refer to YoHours in the evaluation tool.
-* Expose ``oh.isEqualTo`` in the evaluation tool.
+* Changed license to LGPL-3.0. [ypid_]
+* Refer to YoHours in the evaluation tool. [ypid_]
 
-* Use HTTPS everywhere (in the documentation and in code comments).
+* Use HTTPS everywhere (in the documentation and in code comments). [ypid_]
 
 Fixed
 ~~~~~
 
-* Lots of small bugs and typos fixes.
+* Lots of small bugs and typos fixes. [ypid_]
+* No global locale change. [ypid_]
 
 
 v3.3.0_ - 2015-08-02
@@ -192,8 +203,8 @@ Added
 * Public holiday definitions added: Czech Republic [edqd_]
 * Support for localized error and warning messages. [amenk_ funded by `iMi digital`_ and AddisMap_]
 * Support to localize oh.prettifyValue opening_hours value. [amenk_ funded by `iMi digital`_ and AddisMap_]
-* Wrote SH_batch_exporter.sh and added support to write (SH) definitions for all states in Germany.
-* Added more tests to the test framework.
+* Wrote SH_batch_exporter.sh and added support to write (SH) definitions for all states in Germany. [ypid_]
+* Added more tests to the test framework. [ypid_]
 
 Changed
 ~~~~~~~
