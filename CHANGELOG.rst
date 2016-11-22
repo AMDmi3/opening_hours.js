@@ -8,6 +8,8 @@ and `human-readable changelog <http://keepachangelog.com/en/0.3.0/>`__.
 
 Note that most of the v2.X.Z releases have not been added to the changelog yet.
 
+.. _ypid: https://me.ypid.de/
+.. _spawn-guy: https://github.com/spawn-guy
 
 master_ - unreleased
 --------------------
@@ -44,6 +46,8 @@ Fixed
 * Fix timezone issue for `PH_SH_exporter.js` unless the ``--omit-date-hyphens`` option was given.
   Exported dates which are in DST might be wrong when your system is in a
   timezone with DST and DST was not active when you run the script.
+* Fix current week number calculation which was caused by incorrect use of
+  ``new Date()`` which is a "Reactive" variable. [spawn-guy_]
 
 
 v3.4.0_ - 2016-01-02

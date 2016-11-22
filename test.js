@@ -29,6 +29,7 @@ var opening_hours = require('./' + argv['library-file']);
 var colors        = require('colors');
 var sprintf       = require('sprintf-js').sprintf;
 var timekeeper    = require('timekeeper');
+var moment = require('moment');
 /* }}} */
 
 colors.setTheme({
@@ -40,7 +41,8 @@ colors.setTheme({
 });
 
 /* Fake time to make "The year is in the past." test deterministic. */
-timekeeper.travel(new Date('Sat May 23 2015 23:23:23 GMT+0200 (CEST)')); // Travel to that date.
+var timekeeperTime = new Date('Sat May 23 2015 23:23:23 GMT+0200 (CEST)');
+timekeeper.travel(timekeeperTime); // Travel to that date.
 
 var test = new opening_hours_test();
 
@@ -3249,6 +3251,36 @@ test.addTest('Week range first week', [
         [ '2024.01.07 00:00', '2024.01.07 23:59' ],
         /* }}} */
     ], 1000 * 60 * (60 * 24 * 7 * 12 - 7 * 12), 0, false, {}, 'not last test');
+
+(function() {
+
+// timekeeper makes the Date() Object nonReactive. Reset the timekeeper
+timekeeper.reset();
+
+var toTime = moment(new Date()).add(1, 'day').hours(23).minutes(59).seconds(0).milliseconds(0);
+var isOddWeekStart = (toTime % 2 === 0) ? '01' : '02';
+
+test.addTest('Week range. Working with Objects not Strings. from = moment(new Date())', [
+        'week ' + isOddWeekStart + '-53/2 Mo-Su 07:30-08:00',
+    ], moment(new Date()), toTime.toDate(), [
+        [toTime.hours(7).minutes(30).toDate(), toTime.hours(8).minutes(0).toDate()],
+    ], 1800000, 0, false);
+
+test.addTest('Week range. Working with Objects not Strings. from = moment(new Date()).seconds(0).milliseconds(0)', [
+        'week ' + isOddWeekStart + '-53/2 Mo-Su 07:30-08:00',
+    ], moment(new Date()).seconds(0).milliseconds(0), toTime.toDate(), [
+        [toTime.hours(7).minutes(30).toDate(), toTime.hours(8).minutes(0).toDate()],
+    ], 1800000, 0, false);
+
+test.addTest('Week range. Working with Objects not Strings. from = new Date()', [
+        'week ' + isOddWeekStart + '-53/2 Mo-Su 07:30-08:00',
+    ], new Date(), toTime, [
+        [toTime.hours(7).minutes(30).toDate(), toTime.hours(8).minutes(0).toDate()],
+    ], 1800000, 0, false);
+
+// re Set the original fake value
+timekeeper.travel(timekeeperTime); // Travel to that date.
+})();
 // }}}
 
 // full months/month ranges {{{
@@ -5431,6 +5463,15 @@ function opening_hours_test() {
             expected_weekstable = test_data_object[7],
             nominatimJSON      = test_data_object[8],
             oh_mode             = test_data_object[9];
+
+        // fix from and to dates
+        if (!(from instanceof Date)) {
+            from = new Date(from);
+        }
+        if (!(to instanceof Date)) {
+            to = new Date(to);
+        }
+
         var ignored = typeof value !== 'string';
         if (ignored) {
             this.ignored.push(value);
@@ -5446,8 +5487,8 @@ function opening_hours_test() {
 
             warnings = oh.getWarnings();
 
-            intervals  = oh.getOpenIntervals(new Date(from), new Date(to));
-            durations  = oh.getOpenDuration(new Date(from), new Date(to));
+            intervals = oh.getOpenIntervals(from, to);
+            durations = oh.getOpenDuration(from, to);
             weekstable = oh.isWeekStable();
 
             var prettifyValue_argument_hash = {};
