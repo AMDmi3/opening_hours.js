@@ -118,6 +118,7 @@ Added
   * Poland [endro_, rmikke_]
   * Czech [mkyral_]
   * Hungary [AndreasTUHU_]
+  * Slovakia [chiak597_]
 
 * School holiday definitions added: Hungary [AndreasTUHU_]
 * Changelog file. [ypid_]
