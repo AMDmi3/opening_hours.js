@@ -804,7 +804,7 @@ Edit: This does also work on npmjs in this short version … -->
 [ohlib.evaluation-tool]: #evaluation-tool
 [ohlib.library-api]: #library-api
 [ohlib.testing]: #testing
-[ohlib.docs.holiday]: /docs/holidays.md
+[ohlib.docs.holiday]: /holidays/README.md
 
 [ohlib.js/locales/core.js]: /locales/core.js
 [ohlib.opening_hours.js]: /opening_hours.js
