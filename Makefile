@@ -491,10 +491,13 @@ osm-tag-data-gen-stats-sort:
 	done
 ## }}}
 
-opening_hours+deps.js:
+.PHONY: opening_hours.js
+opening_hours.js:
+	DEPS=NO ./node_modules/.bin/rollup -c
 
-%+deps.js: %.js
-	./node_modules/.bin/browserify --require moment --require i18next-client --require "./$<:opening_hours" --outfile "$@"
+.PHONY: opening_hours+deps.js
+opening_hours+deps.js:
+	DEPS=YES ./node_modules/.bin/rollup -c
 
 uglifyjs.log: opening_hours.js
 	uglifyjs "$<" --lint 1>/dev/zero 2>uglifyjs.log

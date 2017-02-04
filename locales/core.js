@@ -1,5 +1,3 @@
-(function (root, factory) { 'use strict';
-
     var opening_hours_resources = { // English is fallback language.
         en: { /* {{{ */
             opening_hours: {
@@ -149,19 +147,8 @@
         }, /* }}} */
     };
 
-    // requires i18next v1, see i18n.isInitialized()
-    if (typeof require === 'function' && typeof module !== 'undefined') {
-        var i18n = require('i18next-client');
-        factory(i18n, opening_hours_resources);
-        module.exports = i18n;
-    } else if (typeof define === 'function' && define.amd) {
-        define(['i18next-client'], function(i18n) {
-            factory(i18n, opening_hours_resources);
-            return i18n;
-        });
-    }
-
-}(this, function (i18n, opening_hours_resources) {
+    import i18n from 'i18next-client';
+    export default i18n;
 
     if (!i18n.isInitialized()) {
         i18n.init({
@@ -179,5 +166,3 @@
 
         }
     }
-
-}));
