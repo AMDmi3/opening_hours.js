@@ -3260,6 +3260,9 @@ timekeeper.reset();
 var toTime = moment(new Date()).add(1, 'day').hours(23).minutes(59).seconds(0).milliseconds(0);
 var isOddWeekStart = (toTime % 2 === 0) ? '01' : '02';
 
+/*
+ * Temporally disabled as they are not deterministic. Waiting for feedback:
+ * https://github.com/opening-hours/opening_hours.js/pull/191
 test.addTest('Week range. Working with Objects not Strings. from = moment(new Date())', [
         'week ' + isOddWeekStart + '-53/2 Mo-Su 07:30-08:00',
     ], moment(new Date()), toTime.toDate(), [
@@ -3277,6 +3280,7 @@ test.addTest('Week range. Working with Objects not Strings. from = new Date()', 
     ], new Date(), toTime, [
         [toTime.hours(7).minutes(30).toDate(), toTime.hours(8).minutes(0).toDate()],
     ], 1800000, 0, false);
+*/
 
 // re Set the original fake value
 timekeeper.travel(timekeeperTime); // Travel to that date.
