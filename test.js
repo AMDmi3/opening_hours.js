@@ -3263,6 +3263,12 @@ var isOddWeekStart = (toTime % 2 === 0) ? '01' : '02';
 /*
  * Temporally disabled as they are not deterministic. Waiting for feedback:
  * https://github.com/opening-hours/opening_hours.js/pull/191
+ *
+ * ignored('week ' + isOddWeekStart + '-53/2 Mo-Su 07:30-08:00', 'notDeterministic'),
+ * could be used to ignore the test but the problem is as the tests are not
+ * deterministic and the test log is compared, it potentially would still
+ * break the tests.
+ *
 test.addTest('Week range. Working with Objects not Strings. from = moment(new Date())', [
         'week ' + isOddWeekStart + '-53/2 Mo-Su 07:30-08:00',
     ], moment(new Date()), toTime.toDate(), [
@@ -3938,9 +3944,20 @@ test.addTest('Real world example: Was not processed right (month range/monthday 
 /* }}} */
 
 test.addTest('Real world example: Was not processed right', [
+        'Mo,Tu,We,Th,Fr,Su 11:00-01:00; Sa 11:00-02:00',
         'Mo, Tu, We, Th, Fr, Su 11:00-01:00; Sa 11:00-02:00',
-    ], '2014.01.01 0:00', '2016.01.01 0:00', [
-    ], 0, 0, false, {}, 'not last test');
+    ], '2014.01.01 0:00', '2014.01.10 0:00', [
+        [ '2014.01.01 00:00', '2014.01.01 01:00' ], // We
+        [ '2014.01.01 11:00', '2014.01.02 01:00' ],
+        [ '2014.01.02 11:00', '2014.01.03 01:00' ], // Th
+        [ '2014.01.03 11:00', '2014.01.04 00:00' ], // Fr
+        [ '2014.01.04 11:00', '2014.01.05 02:00' ], // Sa
+        [ '2014.01.05 11:00', '2014.01.06 01:00' ], // Su
+        [ '2014.01.06 11:00', '2014.01.07 01:00' ], // Mo
+        [ '2014.01.07 11:00', '2014.01.08 01:00' ], // Tu
+        [ '2014.01.08 11:00', '2014.01.09 01:00' ], // We
+        [ '2014.01.09 11:00', '2014.01.10 00:00' ], // Th
+    ], 1000 * 60 * 60 * (1 + 14 * 2 + 13 + 15 + 14 * 4 + 13), 0, true, {}, 'not last test');
 
 // problem with combined monthday and month selector {{{
 test.addTest('Real world example: Was not processed right.', [

@@ -124,6 +124,8 @@ Added
 * Changelog file. [ypid_]
 * Holidays definition documentation 2.1.0. [ypid_]
 * AMD with RequireJS. [ItsNotYou_]
+* Test the package on Travis CI against a version matrix (refer to
+  ``.travis.yml`` for details). [ypid_]
 
 Changed
 ~~~~~~~
@@ -131,6 +133,7 @@ Changed
 * Make the evaluation tool prettier. [MKnight_]
 * Use ``peerDependencies`` to allow dependency reuse by other npm packages. [pke_, ypid_]
 * Use caret ranges for all npm dependencies. [ypid_, pke_]
+* Increased NodeJS version requirement to `0.12.3` which fixes one test case. [ypid_]
 
 Fixed
 ~~~~~

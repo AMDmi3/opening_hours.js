@@ -1582,7 +1582,8 @@ expected:
 With [1m[34mwarnings[39m[22m:
 	*Jun 15-Sep 15 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 	*Jun 15-Sep 15; Sep 16-Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Real world example: Was not processed right" for "Mo, Tu, We, Th, Fr, Su 11:00-01:00; Sa 11:00-02:00": [1m[35mCRASHED[39m[22m, reason: Fatal: infinite loop in nextChange
+"Real world example: Was not processed right" for "Mo,Tu,We,Th,Fr,Su 11:00-01:00; Sa 11:00-02:00": [1m[32mPASSED[39m[22m
+"Real world example: Was not processed right" for "Mo, Tu, We, Th, Fr, Su 11:00-01:00; Sa 11:00-02:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right." for "Jan Su[-2]-Jan Su[-1]: Fr-Su 12:00+; Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 01-Jul 31: Th-Su 12:00+; Aug 01-Nov 30,Dec: Tu-Su 12:00+; Dec 24-26,Dec 31: off": [1m[31mFAILED[39m[22m, bad intervals: 
 [ '2014.11.29 12:00', '2014.11.30 00:00', true, 'Angegeben als "open end". Schließzeit wurde geraten.' ],
 [ '2014.11.30 12:00', '2014.12.01 00:00', true, 'Angegeben als "open end". Schließzeit wurde geraten.' ],
@@ -2796,7 +2797,7 @@ Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-862/914 tests passed. 52 did not pass.
+864/915 tests passed. 51 did not pass.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

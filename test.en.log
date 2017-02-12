@@ -1351,7 +1351,8 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*Jun 15-Sep 15 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 	*Jun 15-Sep 15; Sep 16-Dec 31 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-"Real world example: Was not processed right" for "Mo, Tu, We, Th, Fr, Su 11:00-01:00; Sa 11:00-02:00": [1m[35mCRASHED[39m[22m, reason: Fatal: infinite loop in nextChange
+"Real world example: Was not processed right" for "Mo,Tu,We,Th,Fr,Su 11:00-01:00; Sa 11:00-02:00": [1m[32mPASSED[39m[22m
+"Real world example: Was not processed right" for "Mo, Tu, We, Th, Fr, Su 11:00-01:00; Sa 11:00-02:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right." for "Jan Su[-2]-Jan Su[-1]: Fr-Su 12:00+; Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 01-Jul 31: Th-Su 12:00+; Aug 01-Nov 30,Dec: Tu-Su 12:00+; Dec 24-26,Dec 31: off": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right." for "Jan Su[-2]-Jan Su[-1],Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 01-Dec 31: Tu-Su 12:00+; Dec 24-26,Dec 31: off": [1m[32mPASSED[39m[22m
 "Simplifed real world example: Was not processed right." for "Nov 01-20,Dec": [1m[32mPASSED[39m[22m
@@ -2382,7 +2383,7 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-896/907 tests passed. 11 did not pass.
+898/908 tests passed. 10 did not pass.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

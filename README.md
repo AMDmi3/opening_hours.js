@@ -1,5 +1,6 @@
 # opening_hours.js
 
+[![Build Status](https://travis-ci.org/opening-hours/opening_hours.js.svg?branch=master)](https://travis-ci.org/opening-hours/opening_hours.js)
 [![license NPM](https://img.shields.io/npm/l/opening_hours.svg)][ohlib.github]
 [![required Node.js version](https://img.shields.io/node/v/opening_hours.svg)][ohlib.github]
 [![version NPM](https://img.shields.io/npm/v/opening_hours.svg)][ohlib.npmjs]

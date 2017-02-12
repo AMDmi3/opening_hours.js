@@ -1,19 +1,10 @@
-## http://docs.travis-ci.com/user/languages/javascript-with-nodejs/
-
-sudo: false
+## https://docs.travis-ci.com/user/languages/javascript-with-nodejs/
 
 language: 'node_js'
-
-## There is a big diff in the test log on Travis CI, disabling testing for now.
-## https://travis-ci.org/ypid/opening_hours.js/jobs/85907522
-
 node_js:
-  ## Fails to install some dependencies.
-  # - '0.8'
-
-  - '0.10'
-  - '0.11'
+  - '0.12.3'
   - '0.12'
-  - '4.0'
-  - '4.1'
-  - 'stable'
+  - '4'
+  - '5'
+  - '6'
+  - 'node'
