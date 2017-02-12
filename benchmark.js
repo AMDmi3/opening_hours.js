@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env nodejs
 
 /* Required modules {{{ */
 var opening_hours_lib = process.argv[2];
