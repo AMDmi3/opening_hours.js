@@ -40,6 +40,10 @@ colors.setTheme({
     ignored: [ 'yellow' , 'bold' ] ,
 });
 
+// Because of DST and such things, the timezone needs to be set to
+// Europe/Berlin for some tests to be reproducible.
+process.env.TZ = 'Europe/Berlin';
+
 /* Fake time to make "The year is in the past." test deterministic. */
 var timekeeperTime = new Date('Sat May 23 2015 23:23:23 GMT+0200 (CEST)');
 timekeeper.travel(timekeeperTime); // Travel to that date.
