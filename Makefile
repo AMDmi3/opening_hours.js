@@ -87,7 +87,7 @@ build: opening_hours.min.js
 check: check-diff check-package.json
 
 .PHONY: check-full
-check-full: check-diff-all check-package.json
+check-full: clean check-diff-all check-package.json
 
 .PHONY: benchmark
 benchmark: benchmark-opening_hours.min.js
