@@ -8,3 +8,9 @@ node_js:
   - '5'
   - '6'
   - 'node'
+
+install:
+  - 'make dependencies-get'
+
+script:
+  - "make NODEJS=node check-full"

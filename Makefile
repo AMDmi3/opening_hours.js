@@ -1,6 +1,8 @@
+## vim: foldmarker={{{,}}} foldlevel=0 foldmethod=marker spell:
+
 ## Variables {{{
-SHELL   := /bin/bash
-NODE    ?= nodejs
+SHELL   := /bin/bash -o nounset -o pipefail -o errexit
+NODEJS  ?= nodejs
 SEARCH  ?= opening_hours
 VERBOSE ?= 1
 RELEASE_OPENPGP_FINGERPRINT ?= C505B5C93B0DB3D338A1B6005FE92C12EE88E1F0
@@ -61,9 +63,9 @@ list:
 # npm-install-peers@0.1.0 does not work with NodeJs 0.10
 dependencies-get: package.json
 	git submodule update --init --recursive
-	npm install
 	jq -r '.peerDependencies | to_entries[] | .key + "@" + .value' package.json | xargs npm install
-	bower install
+	npm install
+	./node_modules/bower/bin/bower install
 
 # colors above v0.6.1 broke the 'bold' option. For what we need this package, v0.6.1 is more than sufficient.
 .PHONY: update-dependency-versions
@@ -85,7 +87,7 @@ build: opening_hours.min.js
 check: check-diff check-package.json
 
 .PHONY: check-full
-check-full: check-diff-all check-package.json
+check-full: clean check-diff-all check-package.json
 
 .PHONY: benchmark
 benchmark: benchmark-opening_hours.min.js
@@ -134,11 +136,11 @@ ready-for-hosting: dependencies-get opening_hours+deps.min.js
 ## command line programs {{{
 .PHONY: run-regex_search
 run-regex_search: export.$(SEARCH).json interactive_testing.js regex_search.py
-	$(NODE) ./regex_search.py "$<"
+	$(NODEJS) ./regex_search.py "$<"
 
 .PHONY: run-interactive_testing
 run-interactive_testing: interactive_testing.js
-	$(NODE) "$<" --locale $(CHECK_LANG)
+	$(NODEJS) "$<" --locale "$(CHECK_LANG)"
 ## }}}
 
 ## Source code QA {{{
@@ -189,15 +191,13 @@ check-opening_hours.js:
 check-opening_hours.min.js:
 
 check-%.js: %.js test.js
-	-$(NODE) test.js "./$<"
+	$(NODEJS) test.js "./$<"
 
 check-diff-all-opening_hours.js:
 check-diff-all-opening_hours.min.js:
 
 check-diff-all-%.js: %.js test.js
-	@for lang in en de; do \
-		$(MAKE) $(MAKE_OPTIONS) CHECK_LANG=$$lang check-diff-opening_hours.js; \
-	done
+	@echo -n "en de" | xargs --delimiter ' ' --max-args=1 -I '{}' $(MAKE) $(MAKE_OPTIONS) "CHECK_LANG={}" check-diff-opening_hours.js
 
 .SILENT: check-diff-opening_hours.js check-diff-opening_hours.min.js
 check-diff-en-opening_hours.js: check-diff-opening_hours.js
@@ -205,22 +205,20 @@ check-diff-de-opening_hours.js:
 	$(MAKE) $(MAKE_OPTIONS) CHECK_LANG=de check-diff-opening_hours.js
 
 check-diff-%.js: %.js test.js
-	$(NODE) test.js --library-file "$<" --locale $(CHECK_LANG) 1> test.$(CHECK_LANG).log 2>&1; \
-	git diff --quiet --exit-code HEAD -- test.$(CHECK_LANG).log; \
-	if [ "$$?" == "0" ]; then \
+	rm -rf "test.$(CHECK_LANG).log"
+	$(NODEJS) test.js --library-file "$<" --locale $(CHECK_LANG) 1> test.$(CHECK_LANG).log 2>&1 || true; \
+	if git diff --quiet --exit-code HEAD -- test.$(CHECK_LANG).log; then \
 		echo "Test results for $< ($(CHECK_LANG)) are exactly the same as on developemt system. So far, so good ;)"; \
 	else \
 		echo "Test results for $< ($(CHECK_LANG)) produced a different output then the output of the current HEAD. Checkout the following diff."; \
 	fi
-	git --no-pager diff -- test.$(CHECK_LANG).log
-	## This would allow no diff at all which means no changes to the test framework …
-	# git --no-pager diff --exit-code -- test.$(CHECK_LANG).log
+	git --no-pager diff --exit-code -- test.$(CHECK_LANG).log
 
 .PHONY: osm-tag-data-taginfo-check
 osm-tag-data-taginfo-check: real_test.js opening_hours.js osm-tag-data-get-taginfo
-	$(NODE) ./check_for_new_taginfo_data.js --exit-code-not-new 0
+	$(NODEJS) ./check_for_new_taginfo_data.js --exit-code-not-new 0
 	@grep -v '^#' $(OH_RELATED_TAGS) | while read key; do \
-		$(NODE) "$<" $(REAL_TEST_OPTIONS) --map-bad-oh-values --ignore-manual-values "export.$$key.json"; \
+		$(NODEJS) "$<" $(REAL_TEST_OPTIONS) --map-bad-oh-values --ignore-manual-values "export.$$key.json"; \
 	done
 
 .PHONY: osm-tag-data-update-check
@@ -232,7 +230,7 @@ benchmark-opening_hours.min.js:
 
 # .PHONY: benchmark
 benchmark-%.js: %.js benchmark.js
-	$(NODE) ./benchmark.js "$<"
+	$(NODEJS) ./benchmark.js "./$<"
 
 .PHONY: check-package.json
 check-package.json: package.json
@@ -252,7 +250,7 @@ osm-tag-data-update-taginfo: taginfo_sources.json osm-tag-data-taginfo-rm osm-ta
 ## Always refresh
 .PHONY: taginfo_sources.json
 taginfo_sources.json:
-	$(NODE) ./check_for_new_taginfo_data.js
+	$(NODEJS) ./check_for_new_taginfo_data.js
 
 .PHONY: osm-tag-data-get-taginfo
 osm-tag-data-get-taginfo: $(OH_RELATED_TAGS)
@@ -310,7 +308,7 @@ export♡%.json: real_test.js $(OH_RELATED_TAGS)
 			echo "[out:json][timeout:$(OVERPASS_QUERY_TIMEOUT)];"; \
 			echo "area[\"type\"=\"boundary\"][\"$$boundary_key\"=\"$$boundary_value\"];"; \
 			echo 'foreach('; \
-			for type in node way; do \
+			for type in NODEJS way; do \
 			if [ "$(OVERPASS_QUERY_USE_REGEX)" -eq "1" ]; then \
 				echo -n "    $$type(area)[~\"^("; \
 				(grep -v '^#' $(OH_RELATED_TAGS) | while read key; do \
@@ -330,7 +328,7 @@ export♡%.json: real_test.js $(OH_RELATED_TAGS)
 			fi; \
 			time wget $(WGET_OPTIONS) --post-file="$(TMP_QUERY)" --output-document="$(shell echo "$@" | sed 's/\\//g' )" "$(API_URL_OVERPASS)/interpreter" 2>&1; \
 			if [ "$$?" != "0" ]; then exit 1; fi; \
-			$(NODE) "$<" $(REAL_TEST_OPTIONS) --map-bad-oh-values "$(shell echo "$@" | sed 's/\\//g' )"; \
+			$(NODEJS) "$<" $(REAL_TEST_OPTIONS) --map-bad-oh-values "$(shell echo "$@" | sed 's/\\//g' )"; \
 			find . -name "export♡*♡$$boundary_key♡$$boundary_value♡stats.csv" | while read file; do \
 				sort --numeric-sort "$$file" > "$$file.tmp" && \
 				mv "$$file.tmp" "$$file"; \
