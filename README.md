@@ -64,6 +64,8 @@ around-the-clock shop with some breaks.
 - [Performance](#performance)
 - [Used by other projects](#used-by-other-projects)
   - [YoHours](#yohours)
+- [Bindings and ports](#bindings-and-ports)
+- [Other implementations](#other-implementations)
 - [Related links](#related-links)
 - [ToDo](#todo)
 - [How to contribute](#how-to-contribute)
