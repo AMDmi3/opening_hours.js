@@ -98,7 +98,7 @@ exports.for_loc = {
         '_hu': {
             "_url": "https://nominatim.openstreetmap.org/reverse?format=json&lat=47.4821&lon=19.0640&zoom=18&addressdetails=1&accept-language=en",
             "place_id": "76509191",
-            "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+            "licence": "Data © OpenStreetMap contributors, ODbL 1.0. https://www.openstreetmap.org/copyright",
             "osm_type": "way",
             "osm_id": "67327954",
             "lat": "47.48146955",
@@ -124,6 +124,6 @@ exports.for_loc = {
         },
     },
     'sk' : { /* https://nominatim.openstreetmap.org/search?format=json&q=Slovakia&zoom=18&addressdetails=1&limit=1 */
-        'sk' : {"place_id":"158550995","licence":"Data © OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"relation","osm_id":"14296","boundingbox":["47.7314286","49.6138162","16.8331891","22.56571"],"lat":"48.7411522","lon":"19.4528646","display_name":"Slovensko","class":"boundary","type":"administrative","importance":0.79910907103218,"icon":"https:\/\/nominatim.openstreetmap.org\/images\/mapicons\/poi_boundary_administrative.p.20.png","address":{"country":"Slovensko","country_code":"sk"}}
+        'sk' : {"place_id":"158550995","licence":"Data © OpenStreetMap contributors, ODbL 1.0. https:\/\/www.openstreetmap.org\/copyright","osm_type":"relation","osm_id":"14296","boundingbox":["47.7314286","49.6138162","16.8331891","22.56571"],"lat":"48.7411522","lon":"19.4528646","display_name":"Slovensko","class":"boundary","type":"administrative","importance":0.79910907103218,"icon":"https:\/\/nominatim.openstreetmap.org\/images\/mapicons\/poi_boundary_administrative.p.20.png","address":{"country":"Slovensko","country_code":"sk"}}
     }
 };

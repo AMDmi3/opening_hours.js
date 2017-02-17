@@ -150,7 +150,7 @@ qa-source-code:
 
 qa-https-everywhere:
 	$(REPO_FILES) | xargs -0 sed --regexp-extended --in-place 's#http(:\\?/\\?/)(overpass-turbo\.eu|www\.gnu\.org|stackoverflow\.com|openstreetmap\.org|www\.openstreetmap\.org|nominatim\.openstreetmap\.org|taginfo\.openstreetmap\.org|wiki\.openstreetmap\.org|josm.openstreetmap.de|www.openstreetmap.org\\/copyright)#https\1\2#g;'
-	$(REPO_FILES) | xargs -0 sed -i 's#http://overpass-api.de/#https://overpass-api.de/#g;'
+	$(REPO_FILES) | xargs -0 sed -i 's#https://overpass-api.de/#https://overpass-api.de/#g;'
 	$(REPO_FILES) | xargs -0 sed --regexp-extended --in-place 's#http://(\w+\.wikipedia\.org)#https://\1#g;'
 	test -f index.html && git checkout index.html
 	# ack 'http://'
