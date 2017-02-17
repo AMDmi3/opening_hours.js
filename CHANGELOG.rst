@@ -109,7 +109,7 @@ master_ - unreleased
 `v3.6.0 milestone <https://github.com/opening-hours/opening_hours.js/issues?q=milestone%3Av3.6.0+is%3Aclosed>`__
 
 
-v3.5.0_ - 2017-02-07
+v3.5.0_ - 2017-02-17
 --------------------
 
 .. _v3.5.0: https://github.com/opening-hours/opening_hours.js/compare/v3.4.0...v3.5.0
