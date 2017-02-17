@@ -4489,7 +4489,7 @@
                                     if (tmp[1].toLowerCase() === 'pm' && hours_token[0] < 12) {
                                         hours_token[0] += 12;
                                     }
-                                    if (tmp[1].toLowerCase() === 'am' && hours_token[0] == 12) {
+                                    if (tmp[1].toLowerCase() === 'am' && hours_token[0] === 12) {
                                         hours_token[0] = 0;
                                     }
                                     curr_rule_tokens[hours_token_at] = hours_token;

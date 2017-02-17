@@ -64,6 +64,8 @@ around-the-clock shop with some breaks.
 - [Performance](#performance)
 - [Used by other projects](#used-by-other-projects)
   - [YoHours](#yohours)
+- [Bindings and ports](#bindings-and-ports)
+- [Other implementations](#other-implementations)
 - [Related links](#related-links)
 - [ToDo](#todo)
 - [How to contribute](#how-to-contribute)
@@ -813,7 +815,7 @@ Edit: This does also work on npmjs in this short version … -->
 [ohlib.github]: https://github.com/opening-hours/opening_hours.js
 [ohlib.convert-ical-to-json]: /convert_ical_to_json
 
-[moment-lib]: http://momentjs.com/
+[moment-lib]: https://momentjs.com/
 
 [evaluation tool]: http://openingh.openstreetmap.de/evaluation_tool/
 
