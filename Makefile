@@ -232,14 +232,14 @@ check-package.json: package.json
 .PHONY: release-versionbump
 release-versionbump: package.json CHANGELOG.rst
 	editor $?
-	sh -c 'git commit --all --message="Release version $(shell jq --raw-output '.version' '$<')"'
+	sh -c 'git commit --all --message "Release version $$(jq --raw-output '.version' '$<')"'
 
 .PHONY: release-prepare
 release-prepare: package.json taginfo.json update-dependency-versions doctoc check-diff-uglifyjs-log check qa-source-code qa-https-everywhere
 
 .PHONY: release-local
-release-local: release-versionbump check-package.json
-	git tag --sign --local-user "$(RELEASE_OPENPGP_FINGERPRINT)" "v$(shell jq --raw-output '.version' $<)"
+release-local: package.json release-versionbump check-package.json
+	git tag --sign --local-user "$(RELEASE_OPENPGP_FINGERPRINT)" --message "Released version $(shell jq --raw-output '.version' $<)" "v$(shell jq --raw-output '.version' $<)"
 
 .PHONY: release-publish
 ## First source file is referenced!
