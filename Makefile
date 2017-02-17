@@ -59,6 +59,30 @@ list:
 	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | sed 's/^/    /'
 ## }}}
 
+## defaults {{{
+.PHONY: build
+build: opening_hours.min.js
+
+.PHONY: check
+check: check-diff check-package.json
+
+.PHONY: check-full
+check-full: clean check-diff-all check-package.json
+
+.PHONY: benchmark
+benchmark: benchmark-opening_hours.min.js
+
+.PHONY: clean
+clean: osm-tag-data-rm
+	rm -f *+deps.js *.min.js
+	rm -f README.html
+	rm -f taginfo_sources.json
+
+.PHONY: osm-tag-data-rm
+osm-tag-data-rm: osm-tag-data-taginfo-rm osm-tag-data-overpass-rm
+## }}}
+
+## dependencies {{{
 .PHONY: dependencies-get
 # npm-install-peers@0.1.0 does not work with NodeJs 0.10
 dependencies-get: package.json
@@ -79,55 +103,20 @@ list-dependency-versions: package.json
 .PHONY: dependencies-user-wide-get
 dependencies-user-wide-get:
 	npm install --global doctoc npm-check-updates
-
-.PHONY: build
-build: opening_hours.min.js
-
-.PHONY: check
-check: check-diff check-package.json
-
-.PHONY: check-full
-check-full: clean check-diff-all check-package.json
-
-.PHONY: benchmark
-benchmark: benchmark-opening_hours.min.js
-
-README.html: README.md
+## }}}
 
 taginfo.json: related_tags.txt gen_taginfo_json.js taginfo_template.json
 	gen_taginfo_json.js --key-file "$<" --template-file taginfo_template.json > "$@"
 	## Haxe implementation produces a different sorted JSON.
 	# haxe -main Gen_taginfo_json -lib mcli -neko Gen_taginfo_json.n && neko Gen_taginfo_json --key_file "$<" --template_file taginfo_template.json > "$@"
 
+## docs {{{
+README.html: README.md
+
 .PHONY: doctoc
 doctoc:
 	doctoc README.md --title '**Table of Contents**'
-
-.PHONY: release
-## First source file is referenced!
-## Might be better: https://docs.npmjs.com/cli/version
-release: package.json update-dependency-versions doctoc check-diff-uglifyjs-log check qa-source-code qa-https-everywhere
-	git status
-	@echo Update changelog.
-	read continue
-	@echo Increase version.
-	jq --raw-output '.version' $<
-	read continue
-	$(MAKE) $(MAKE_OPTIONS) check-package.json
-	git commit --all --message="Release version $(shell jq --raw-output '.version' '$<')"
-	git tag --sign --local-user "$(RELEASE_OPENPGP_FINGERPRINT)" "v$(shell jq --raw-output '.version' $<)"
-	git push --follow-tags
-	npm publish
-	# $(MAKE) $(MAKE_OPTIONS) publish-website-on-all-servers
-
-.PHONY: clean
-clean: osm-tag-data-rm
-	rm -f *+deps.js *.min.js
-	rm -f README.html
-	rm -f taginfo_sources.json
-
-.PHONY: osm-tag-data-rm
-osm-tag-data-rm: osm-tag-data-taginfo-rm osm-tag-data-overpass-rm
+## }}}
 
 ## Build files which are needed to host the evaluation tool on a webserver.
 .PHONY: ready-for-hosting
@@ -149,8 +138,8 @@ qa-source-code:
 	$(REPO_FILES) | egrep --null-data '\.js$$' --null | xargs -0 sed -i 's/\([^=!]\)==\([^=]\)/\1===\2/g;s/\([^=!]\)!=\([^=]\)/\1!==\2/g;'
 
 qa-https-everywhere:
-	$(REPO_FILES) | xargs -0 sed --regexp-extended --in-place 's#http(:\\?/\\?/)(overpass-turbo\.eu|www\.gnu\.org|stackoverflow\.com|openstreetmap\.org|www\.openstreetmap\.org|nominatim\.openstreetmap\.org|taginfo\.openstreetmap\.org|wiki\.openstreetmap\.org|josm.openstreetmap.de|www.openstreetmap.org\\/copyright)#https\1\2#g;'
-	$(REPO_FILES) | xargs -0 sed -i 's#https://overpass-api.de/#https://overpass-api.de/#g;'
+	$(REPO_FILES) | xargs -0 sed --regexp-extended --in-place 's#http(:\\?/\\?/)(momentjs\.com|overpass-turbo\.eu|www\.gnu\.org|stackoverflow\.com|openstreetmap\.org|www\.openstreetmap\.org|nominatim\.openstreetmap\.org|taginfo\.openstreetmap\.org|wiki\.openstreetmap\.org|josm.openstreetmap.de|www.openstreetmap.org\\/copyright)#https\1\2#g;'
+	$(REPO_FILES) | xargs -0 sed -i 's#http://overpass-api\.de#https://overpass-api.de#g;'
 	$(REPO_FILES) | xargs -0 sed --regexp-extended --in-place 's#http://(\w+\.wikipedia\.org)#https://\1#g;'
 	test -f index.html && git checkout index.html
 	# ack 'http://'
@@ -175,7 +164,7 @@ check-diff: check-diff-all-opening_hours.js
 check-diff-uglifyjs-log: uglifyjs.log
 	git --no-pager diff -- "$<"
 	git diff --quiet --exit-code HEAD -- "$<" || read fnord; \
-	if [ "$$fnord" == "b" ]; then \
+	if [ "$${fnord:-}" == "b" ]; then \
 		exit 1; \
 	fi
 
@@ -236,6 +225,32 @@ benchmark-%.js: %.js benchmark.js
 check-package.json: package.json
 	pjv --warnings --recommendations --filename "$<"
 
+## }}}
+
+## release {{{
+
+.PHONY: release-versionbump
+release-versionbump: package.json CHANGELOG.rst
+	editor $?
+	sh -c 'git commit --all --message="Release version $(shell jq --raw-output '.version' '$<')"'
+
+.PHONY: release-prepare
+release-prepare: package.json taginfo.json update-dependency-versions doctoc check-diff-uglifyjs-log check qa-source-code qa-https-everywhere
+
+.PHONY: release-local
+release-local: release-versionbump check-package.json
+	git tag --sign --local-user "$(RELEASE_OPENPGP_FINGERPRINT)" "v$(shell jq --raw-output '.version' $<)"
+
+.PHONY: release-publish
+## First source file is referenced!
+## Might be better: https://docs.npmjs.com/cli/version
+release-publish:
+	git push --follow-tags
+	npm publish
+	# $(MAKE) $(MAKE_OPTIONS) publish-website-on-all-servers
+
+.PHONY: release
+release: release-prepare release-local release-publish
 ## }}}
 
 ## OSM data from taginfo {{{
