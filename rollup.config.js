@@ -9,7 +9,8 @@ const dependencies = process.env.DEPS === 'YES';
 export default {
     banner: banner,
     entry: './index',
-    format: 'cjs',
+    format: 'umd',
+    moduleName: 'opening_hours',
     plugins: dependencies ? [
         nodeResolve(),
         common(),
