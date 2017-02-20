@@ -89,7 +89,6 @@ dependencies-get: package.json
 	git submodule update --init --recursive
 	jq -r '.peerDependencies | to_entries[] | .key + "@" + .value' package.json | xargs npm install
 	npm install
-	./node_modules/bower/bin/bower install
 
 # colors above v0.6.1 broke the 'bold' option. For what we need this package, v0.6.1 is more than sufficient.
 .PHONY: update-dependency-versions
