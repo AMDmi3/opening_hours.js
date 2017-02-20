@@ -108,6 +108,14 @@ master_ - unreleased
 
 `v3.6.0 milestone <https://github.com/opening-hours/opening_hours.js/issues?q=milestone%3Av3.6.0+is%3Aclosed>`__
 
+Changed
+~~~~~~~
+
+* Migrated to use `ES2015 modules`_ and rollup_ for module bundling [simon04_]
+
+.. _ES2015 modules: http://exploringjs.com/es6/ch_modules.html
+.. _rollup: http://rollupjs.org/
+
 
 v3.5.0_ - 2017-02-17
 --------------------
