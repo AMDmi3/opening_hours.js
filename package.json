@@ -52,6 +52,7 @@
     "rollup": "^0.41.4",
     "rollup-plugin-commonjs": "^7.0.0",
     "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-yaml": "^1.0.0",
     "line-reader": "^0.4.0",
     "optimist": "^0.6.1",
     "package-json-validator": "^0.6.0",
