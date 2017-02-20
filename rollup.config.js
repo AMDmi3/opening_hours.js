@@ -3,8 +3,8 @@ import common from 'rollup-plugin-commonjs';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import yaml from 'rollup-plugin-yaml';
 
-const banner = readFileSync('./banner.js', 'utf-8');
-const dependencies = process.env.DEPS === 'YES';
+var banner = readFileSync('./banner.js', 'utf-8');
+var dependencies = process.env.DEPS === 'YES';
 
 export default {
     banner: banner,
