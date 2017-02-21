@@ -21,11 +21,11 @@
     // Credits go to Netzwolf.
     //
     // Key to word_error_correction is the token name except wrong_words
-    import word_error_correction from './locales/word_error_correction';
+    import word_error_correction from './locales/word_error_correction.yaml';
     /* }}} */
 
     /* error and warning messages {{{ */
-    import lang from './locales/lang';
+    import lang from './locales/lang.yaml';
     /* }}} */
 
     import moment from 'moment';
