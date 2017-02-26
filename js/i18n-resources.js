@@ -1024,7 +1024,7 @@ if (!i18n.isInitialized()) {
     }, translatePage);
 } else {
     // compat with an app that already initializes i18n
-    for (lang in resources) {
+    for (var lang in resources) {
         i18n.addResourceBundle(lang, 'translation', resources[lang]['translation'], true);
     }
 }
