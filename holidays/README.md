@@ -160,6 +160,9 @@ SH:
 
 Note that the 4-digit keys define the year are in fact strings. This is done for compatibility reasons.
 
+Also note that past year definitions can be removed from the definition as long as the SH dataset can be regenerated as a whole by Free Software without depending on none-cached resources and as long as the unit tests pass which might where written against previous holidays.
+Two years in the past should be more then enough for the typical use cases of the library. In the far future, a compile time option might be provided to make this configurable to also make historian’s happy.
+
 ### Hints
 
 * Note that you should include the definitions in order (see [#126](https://github.com/opening-hours/opening_hours.js/issues/126#issuecomment-156853794) for details).
