@@ -1,3 +1,5 @@
+---
+
 wrong_words:
   'Assuming "<ok>" for "<ko>".':
     daytime: sunrise-sunset
@@ -12,15 +14,15 @@ wrong_words:
     frühjahr: Mar-May
     sommer: Jun-Aug
     herbst: Sep-Nov
-    #winter: Dec-Feb # Same as in English.
+    # winter: Dec-Feb # Same as in English.
   'Bitte benutze die englische Schreibweise "<ok>" für "<ko>".':
     'werktags?': Mo-Fr
   'Bitte benutze "<ok>" für "<ko>". Beispiel: "Mo-Fr 08:00-12:00; Tu off".':
-    'ruhetage?': off
-    'geschlossen': off
-    'geschl': off
+    'ruhetage?': 'off'
+    'geschlossen': 'off'
+    'geschl': 'off'
   'Neem de engelse afkorting "<ok>" voor "<ko>" alstublieft.':
-    gesloten: off
+    gesloten: 'off'
     feestdag: PH
     feestdagen: PH
   'Assuming "<ok>" for "<ko>". Please avoid using "workday": https://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays':
@@ -30,7 +32,7 @@ wrong_words:
     'weekdays?': Mo-Fr
     'vardagar': Mo-Fr
   'Please use something like "Mo off" instead "<ko>".':
-    except: off
+    except: 'off'
   'Please omit "<ko>" or use a colon instead: "12:00-14:00".':
     h: ""
   'Please omit "<ko>".':
@@ -102,7 +104,7 @@ wrong_words:
     'daylight': sunrise-sunset
     '(?:on|by)?(?:_| )?appointments?': '"on appointment"'
   'Please use notation "<ok>" for "<ko>". Those characters look very similar but are not the same!':
-    оff: off
+    оff: 'off'
   'Please use time format in 24 hours notation ("<ko>"). If PM is used you might have to convert the hours to the 24 hours notation.':
     pm: ""
     p.m.: ""
@@ -154,7 +156,7 @@ wrong_words:
   'Bitte benutze die englische Abkürzung "<ok>" für "<ko>".':
     '(?:an )?feiertag(?:s|en?)?': PH
   'S''il vous plaît utiliser "<ok>" pour "<ko>".':
-    fermé: off
+    fermé: 'off'
     et: ','
     à: '-'
     'jours fériés': PH
@@ -173,7 +175,7 @@ month:
     nov: 10
     dec: 11
   'Please use the English abbreviation "<ok>" for "<ko>".':
-    jänner: 0 # Austria
+    jänner: 0  # Austria
     january: 0
     february: 1
     march: 2
@@ -224,7 +226,7 @@ calcday:
   default:
     day: day
     days: days
-weekday: # Good source: http://www.omniglot.com/language/time/days.htm
+weekday:  # Good source: http://www.omniglot.com/language/time/days.htm
   default:
     su: 0
     mo: 1
@@ -242,7 +244,7 @@ weekday: # Good source: http://www.omniglot.com/language/time/days.htm
     sundays?: 0
     mon: 1
     mondays?: 1
-    tues?: 2 # Used here:  http://www.westerhambeauty.co.uk/contact.php
+    tues?: 2  # Used here:  http://www.westerhambeauty.co.uk/contact.php
     tuesdays?: 2
     weds?: 3
     wednesdays?: 3
@@ -384,11 +386,11 @@ weekday: # Good source: http://www.omniglot.com/language/time/days.htm
     søndag: 0
     mandag: 1
     tirsdag: 2
-    onsdag: 3 # Same in Swedish
+    onsdag: 3  # Same in Swedish
     torsdag: 4
     fredag: 5
     lørdag: 6
-timevar: # Special time variables which actual value depends on the date and the position of the facility.
+timevar:  # Special time variables which actual value depends on the date and the position of the facility.
   default:
     sunrise: sunrise
     sunset: sunset
@@ -401,7 +403,7 @@ timevar: # Special time variables which actual value depends on the date and the
     abenddämmerung: dusk
     sonnenaufgang: sunrise
     sonnenuntergang: sunset
-event: # variable events
+event:  # variable events
   default:
     easter: easter
   'Bitte benutze die Schreibweise "<ok>" für "<ko>".':

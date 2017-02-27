@@ -2314,7 +2314,7 @@ week 40-30 <--- (Du hast eine Wochen-Spanne in umgekehrter Reihenfolge oder mehr
 week 30-40/1 <--- (Du hast eine Wochenperiode kleiner 2 angegeben. Wenn du die gesamte Spanne von 30 bis 40 angeben willst, lasse "/1" einfach weg.)
 
 "Incorrect syntax which should throw an error" for "week 30-40/27": [1m[32mPASSED[39m[22m
-week 30-40/27 <--- (Du hast eine Wochen-Periode größer als 26 angegeben. 26.5 ist die Hälfte des Maximums von 53 Wochen pro Jahr. Damit würde eine Periode größer als 26 nur einmal pro Jahr auftreten. Bitte gibt den Wochen-Selektor als "week 30" an, wenn es das ist, was du ausdrücken möchtest.)
+week 30-40/27 <--- (Du hast eine Wochen-Periode größer als 26 angegeben. 26,5 ist die Hälfte des Maximums von 53 Wochen pro Jahr. Damit würde eine Periode größer als 26 nur einmal pro Jahr auftreten. Bitte gibt den Wochen-Selektor als "week 30" an, wenn es das ist, was du ausdrücken möchtest.)
 
 "Incorrect syntax which should throw an error" for "week week 00:00-24:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 week week  <--- (Unerwartetes Token in Wochen-Spanne: week)
@@ -2731,13 +2731,13 @@ The optional_conf_parm parameter is of unknown type. Given string
 Der optional_conf_parm["warnings_severity"] Parameter hat einen unbekannten Typ. Gegeben: object, erwartet: number.
 
 "Wrong constructor call should throw an error: warnings_severity: -1" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
-Der Parameter optional_conf_parm["warnings_severity"] muss eine ganze Zahl zwischen (einschließlich) 0 und (einschließlich) 7 sein. Gegeben: -1 , erwartet: Eine der Zahlen: [ 0, 1, 2, 3, 4, 5, 6, 7 ].
+Der Parameter optional_conf_parm["warnings_severity"] muss eine ganze Zahl zwischen (einschließlich) 0 und (einschließlich) 7 sein. Gegeben: -1, erwartet: Eine der Zahlen: [ 0, 1, 2, 3, 4, 5, 6, 7 ].
 
 "Wrong constructor call should throw an error: warnings_severity: 4.5" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
-Der Parameter optional_conf_parm["warnings_severity"] muss eine ganze Zahl zwischen (einschließlich) 0 und (einschließlich) 7 sein. Gegeben: 4.5 , erwartet: Eine der Zahlen: [ 0, 1, 2, 3, 4, 5, 6, 7 ].
+Der Parameter optional_conf_parm["warnings_severity"] muss eine ganze Zahl zwischen (einschließlich) 0 und (einschließlich) 7 sein. Gegeben: 4.5, erwartet: Eine der Zahlen: [ 0, 1, 2, 3, 4, 5, 6, 7 ].
 
 "Wrong constructor call should throw an error: warnings_severity: 8" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
-Der Parameter optional_conf_parm["warnings_severity"] muss eine ganze Zahl zwischen (einschließlich) 0 und (einschließlich) 7 sein. Gegeben: 8 , erwartet: Eine der Zahlen: [ 0, 1, 2, 3, 4, 5, 6, 7 ].
+Der Parameter optional_conf_parm["warnings_severity"] muss eine ganze Zahl zwischen (einschließlich) 0 und (einschließlich) 7 sein. Gegeben: 8, erwartet: Eine der Zahlen: [ 0, 1, 2, 3, 4, 5, 6, 7 ].
 
 "Wrong constructor call should throw an error: mode: [ 1 ]" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
 Der optional_conf_parm["mode"] Parameter hat einen unbekannten Typ. Gegeben: object, erwartet: number.

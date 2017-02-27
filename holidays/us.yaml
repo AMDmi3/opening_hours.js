@@ -1,4 +1,6 @@
-PH: # https://en.wikipedia.org/wiki/Public_holidays_in_the_United_States
+---
+
+PH:  # https://en.wikipedia.org/wiki/Public_holidays_in_the_United_States
   'New Year''s Day': [1, 1]
   'Memorial Day': [lastMayMonday, 0]
   'Independence Day': [7, 4]
@@ -7,7 +9,7 @@ PH: # https://en.wikipedia.org/wiki/Public_holidays_in_the_United_States
   'Thanksgiving': [firstNovemberThursday, 21]
   'Christmas Day': [12, 25]
 Alabama:
-  PH: # http://www.archives.alabama.gov/intro/holidays.html
+  PH:  # http://www.archives.alabama.gov/intro/holidays.html
     'New Year''s Day': [1, 1]
     'Robert E. Lee/Martin Luther King Birthday': [firstJanuaryMonday, 14]
     'George Washington/Thomas Jefferson Birthday': [firstFebruaryMonday, 14]
@@ -125,7 +127,7 @@ Delaware:
     'Christmas Day': [12, 25]
     'Emancipation Day': [4, 16]
 Florida:
-  PH: # http://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&Search_String=&URL=0100-0199/0110/Sections/0110.117.html
+  PH:  # http://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&Search_String=&URL=0100-0199/0110/Sections/0110.117.html
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
     'Memorial Day': [lastMayMonday, 0]
@@ -722,7 +724,7 @@ Washington:
     'West Virginia Day': [6, 20]
     'Lincoln''s Day': [firstNovemberThursday, 22]
 Wisconsin:
-  PH: # http://docs.legis.wisconsin.gov/statutes/statutes/995/20
+  PH:  # http://docs.legis.wisconsin.gov/statutes/statutes/995/20
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
     'Washington''s Birthday': [firstFebruaryMonday, 14]
