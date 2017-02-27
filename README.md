@@ -505,12 +505,10 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 *   Support for school holidays (`SH 10:00-14:00`).
 
-    * Germany is supported based on ical files from [schulferien.org].
+    * Germany, see [hc]
     * Also supported:
 
         * Romania
-
-    * To update the school holiday definition or add definitions for other countries the script [convert_ical_to_json][ohlib.convert-ical-to-json] can be used (probably includes a little bit of adjustment of the script) to generate JSON definition based on ical calendar files, which can then be added to the library.
 
 *   There can be two cases which need to be separated (this applies for PH and SH):
 
@@ -813,7 +811,8 @@ Edit: This does also work on npmjs in this short version … -->
 [ohlib.js/i18n-resources.js]: /js/i18n-resources.js
 [ohlib.npmjs]: https://www.npmjs.org/package/opening_hours
 [ohlib.github]: https://github.com/opening-hours/opening_hours.js
-[ohlib.convert-ical-to-json]: /convert_ical_to_json
+
+[hc]: https://gitlab.com/ypid/hc
 
 [moment-lib]: https://momentjs.com/
 
