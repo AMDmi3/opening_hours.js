@@ -1,0 +1,26 @@
+---
+
+# https://fr.wikipedia.org/wiki/F%C3%AAtes_et_jours_f%C3%A9ri%C3%A9s_en_France
+PH:
+  'Jour de l''an': [1, 1]
+  'Vendredi saint': [easter, -2, [Moselle, Bas-Rhin, Haut-Rhin, Guadeloupe, Martinique, 'Polynésie française']]
+  'Lundi de Pâques': [easter, 1]
+  'Saint-Pierre-Chanel': [4, 28, [Wallis-et-Futuna]]
+  'Fête du Travail': [5, 1]
+  'Fête de la Victoire': [5, 8]
+  'Abolition de l''esclavage (Martinique)': [5, 22, [Martinique]]
+  'Abolition de l''esclavage (Guadeloupe)': [5, 27, [Guadeloupe]]
+  'Jeudi de l''Ascension': [easter, 39]
+  'Lundi de Pentecôte': [easter, 50]
+  'Abolition de l''esclavage (Guyane)': [6, 10, [Guyane]]
+  'Fête de l''autonomie': [6, 29, ['Polynésie française']]
+  'Fête nationale': [7, 14]
+  'Fête Victor Schoelcher': [7, 21, [Guadeloupe, Martinique]]
+  'Fête du Territoire': [7, 29, [Wallis-et-Futuna]]
+  'Assomption': [8, 15]
+  'Fête de la citoyenneté': [9, 24, [Nouvelle-Calédonie]]
+  'Toussaint': [11, 1]
+  'Armistice': [11, 11]
+  'Abolition de l''esclavage (Réunion)': [12, 20, [Réunion]]
+  'Noël': [12, 25]
+  'Saint-Étienne ': [12, 26, [Moselle, Bas-Rhin, Haut-Rhin]]

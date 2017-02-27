@@ -15,6 +15,7 @@ export*
 !taginfo_template.json
 !uglifyjs.log
 
+opening_hours.js
 opening_hours.min.js
 opening_hours+deps.js
 opening_hours+deps.min.js

@@ -67,7 +67,7 @@ build: opening_hours.min.js
 check: check-diff check-package.json
 
 .PHONY: check-full
-check-full: clean check-diff-all check-package.json
+check-full: clean check-diff-all check-package.json check-yaml
 
 .PHONY: benchmark
 benchmark: benchmark-opening_hours.min.js
@@ -89,7 +89,7 @@ dependencies-get: package.json
 	git submodule update --init --recursive
 	jq -r '.peerDependencies | to_entries[] | .key + "@" + .value' package.json | xargs npm install
 	npm install
-	./node_modules/bower/bin/bower install
+	pip install --user yamllint
 
 # colors above v0.6.1 broke the 'bold' option. For what we need this package, v0.6.1 is more than sufficient.
 .PHONY: update-dependency-versions
@@ -135,12 +135,12 @@ run-interactive_testing: interactive_testing.js
 ## Source code QA {{{
 .PHONY: qa-source-code qa-https-everywhere
 qa-source-code:
-	$(REPO_FILES) | egrep --null-data '\.js$$' --null | xargs -0 sed -i 's/\([^=!]\)==\([^=]\)/\1===\2/g;s/\([^=!]\)!=\([^=]\)/\1!==\2/g;'
+	$(REPO_FILES) | egrep --null-data '\.js$$' --null | xargs --null sed -i 's/\([^=!]\)==\([^=]\)/\1===\2/g;s/\([^=!]\)!=\([^=]\)/\1!==\2/g;'
 
 qa-https-everywhere:
-	$(REPO_FILES) | xargs -0 sed --regexp-extended --in-place 's#http(:\\?/\\?/)(momentjs\.com|overpass-turbo\.eu|www\.gnu\.org|stackoverflow\.com|openstreetmap\.org|www\.openstreetmap\.org|nominatim\.openstreetmap\.org|taginfo\.openstreetmap\.org|wiki\.openstreetmap\.org|josm.openstreetmap.de|www.openstreetmap.org\\/copyright)#https\1\2#g;'
-	$(REPO_FILES) | xargs -0 sed -i 's#http://overpass-api\.de#https://overpass-api.de#g;'
-	$(REPO_FILES) | xargs -0 sed --regexp-extended --in-place 's#http://(\w+\.wikipedia\.org)#https://\1#g;'
+	$(REPO_FILES) | xargs --null sed --regexp-extended --in-place 's#http(:\\?/\\?/)(momentjs\.com|overpass-turbo\.eu|www\.gnu\.org|stackoverflow\.com|openstreetmap\.org|www\.openstreetmap\.org|nominatim\.openstreetmap\.org|taginfo\.openstreetmap\.org|wiki\.openstreetmap\.org|josm.openstreetmap.de|www.openstreetmap.org\\/copyright)#https\1\2#g;'
+	$(REPO_FILES) | xargs --null sed -i 's#http://overpass-api\.de#https://overpass-api.de#g;'
+	$(REPO_FILES) | xargs --null sed --regexp-extended --in-place 's#http://(\w+\.wikipedia\.org)#https://\1#g;'
 	test -f index.html && git checkout index.html
 	# ack 'http://'
 ## }}}
@@ -224,6 +224,10 @@ benchmark-%.js: %.js benchmark.js
 .PHONY: check-package.json
 check-package.json: package.json
 	pjv --warnings --recommendations --filename "$<"
+
+.PHONY: check-yaml
+check-yaml:
+	$(REPO_FILES) | xargs --null -I '{}' find '{}' -type f -regextype posix-extended -regex '.*\.(yml|yaml)$$' -print0 | xargs --null yamllint --strict
 
 ## }}}
 
@@ -491,10 +495,13 @@ osm-tag-data-gen-stats-sort:
 	done
 ## }}}
 
-opening_hours+deps.js:
+.PHONY: opening_hours.js
+opening_hours.js:
+	DEPS=NO ./node_modules/.bin/rollup -c
 
-%+deps.js: %.js
-	./node_modules/.bin/browserify --require moment --require i18next-client --require "./$<:opening_hours" --outfile "$@"
+.PHONY: opening_hours+deps.js
+opening_hours+deps.js:
+	DEPS=YES ./node_modules/.bin/rollup -c
 
 uglifyjs.log: opening_hours.js
 	uglifyjs "$<" --lint 1>/dev/zero 2>uglifyjs.log
