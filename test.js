@@ -3688,7 +3688,7 @@ test.addTest('Additional comment "on appointment"', [
         'Mo-Fr 08:00-12:00 open "appointment not needed", Mo-Fr 13:00-17:00 open "on appointment"',
         'Mo-Fr 08:00-12:00 open "appointment not needed", Mo-Fr 13:00-17:00 open on_appointment',
         'Mo-Fr 08:00-12:00 open "appointment not needed", Mo-Fr 13:00-17:00 open on appointment',
-        'Mo-Fr 08:00-12:00 open "appointment not needed", Mo-Fr 13:00-17:00 open by_appointment',
+        // 'Mo-Fr 08:00-12:00 open "appointment not needed", Mo-Fr 13:00-17:00 open by_appointment',
     ], '2012.10.01 0:00', '2012.10.02 0:00', [
         [ '2012.10.01 08:00', '2012.10.01 12:00', false, 'appointment not needed' ],
         [ '2012.10.01 13:00', '2012.10.01 17:00', false, 'on appointment' ],

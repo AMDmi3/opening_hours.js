@@ -102,7 +102,8 @@ wrong_words:
     'school ?holidays?': SH
     'weekends?': 'Sa,Su'
     'daylight': sunrise-sunset
-    '(?:on|by)?(?:_| )?appointments?': '"on appointment"'
+    'on(?:_| )?appointments?': '"on appointment"'
+    'by(?:_| )?appointments?': '"by appointment"'
   'Please use notation "<ok>" for "<ko>". Those characters look very similar but are not the same!':
     оff: 'off'
   'Please use time format in 24 hours notation ("<ko>"). If PM is used you might have to convert the hours to the 24 hours notation.':

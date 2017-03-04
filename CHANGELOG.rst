@@ -113,6 +113,12 @@ Changed
 
 * Migrated to use `ES2015 modules`_ and rollup_ for module bundling [simon04_]
 
+* Input tolerance: For a value such as ``Mo-Fr 08:00-12:00 by_appointment`` the
+  tool did previously suggest to use ``Mo-Fr 08:00-12:00 "on appointment"`` but
+  as whether to use ``by appointment`` or ``on appointment`` is not defined the
+  tool now just uses the already given variant (``Mo-Fr 08:00-12:00 "by
+  appointment"`` in this case). [ypid_]
+
 .. _ES2015 modules: http://exploringjs.com/es6/ch_modules.html
 .. _rollup: http://rollupjs.org/
 
