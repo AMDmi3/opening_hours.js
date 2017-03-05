@@ -138,7 +138,7 @@ qa-source-code:
 	$(REPO_FILES) | egrep --null-data '\.js$$' --null | xargs --null sed -i 's/\([^=!]\)==\([^=]\)/\1===\2/g;s/\([^=!]\)!=\([^=]\)/\1!==\2/g;'
 
 qa-https-everywhere:
-	$(REPO_FILES) | xargs --null sed --regexp-extended --in-place 's#http(:\\?/\\?/)(momentjs\.com|overpass-turbo\.eu|www\.gnu\.org|stackoverflow\.com|openstreetmap\.org|www\.openstreetmap\.org|nominatim\.openstreetmap\.org|taginfo\.openstreetmap\.org|wiki\.openstreetmap\.org|josm.openstreetmap.de|www.openstreetmap.org\\/copyright)#https\1\2#g;'
+	$(REPO_FILES) | xargs --null sed --regexp-extended --in-place 's#http(:\\?/\\?/)(momentjs\.com|overpass-turbo\.eu|www\.gnu\.org|stackoverflow\.com|(:?www\.)?openstreetmap\.(org|de)|nominatim\.openstreetmap\.org|taginfo\.openstreetmap\.org|wiki\.openstreetmap\.org|josm.openstreetmap.de|www.openstreetmap.org\\/copyright)#https\1\2#g;'
 	$(REPO_FILES) | xargs --null sed -i 's#http://overpass-api\.de#https://overpass-api.de#g;'
 	$(REPO_FILES) | xargs --null sed --regexp-extended --in-place 's#http://(\w+\.wikipedia\.org)#https://\1#g;'
 	test -f index.html && git checkout index.html
@@ -201,7 +201,7 @@ check-diff-%.js: %.js test.js
 	else \
 		echo "Test results for $< ($(CHECK_LANG)) produced a different output then the output of the current HEAD. Checkout the following diff."; \
 	fi
-	git --no-pager diff --exit-code -- test.$(CHECK_LANG).log
+	git --no-pager diff --exit-code -- "test.$(CHECK_LANG).log"
 
 .PHONY: osm-tag-data-taginfo-check
 osm-tag-data-taginfo-check: real_test.js opening_hours.js osm-tag-data-get-taginfo

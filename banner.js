@@ -4,7 +4,7 @@
  * @license: LGPL-3.0
  *
  * Copyright (C) 2012-2013 Dmitry Marakasov
- * Copyright (C) 2013-2016 Robin `ypid` Schneider
+ * Copyright (C) 2013-2017 Robin `ypid` Schneider
  *
  * opening_hours.js is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by the

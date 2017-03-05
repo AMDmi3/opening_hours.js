@@ -22,7 +22,7 @@
   "files": [
     "Makefile",
     "CHANGELOG.rst",
-    "COPYING.LGPL-3.0",
+    "LICENSE",
     "licenses/",
     "opening_hours.js",
     "js/",
