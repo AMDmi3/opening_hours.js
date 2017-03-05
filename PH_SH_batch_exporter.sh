@@ -1,6 +1,6 @@
 #!/bin/bash
 ## @license AGPLv3 <https://www.gnu.org/licenses/agpl-3.0.html>
-## @author Copyright (C) 2015 Robin Schneider <ypid@riseup.net>
+## @author Copyright (C) 2015-2017 Robin Schneider <ypid@riseup.net>
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Affero General Public License as
@@ -25,24 +25,36 @@ print_header()
     echo "# Diese Datei wurde durch das Skript ${script_url} erzeugt."
     echo "# Nicht von Hand editieren ;-)"
 }
+gen_sh() {
+    local state="${1}"
+    local from="${2}"
+    local to="${3}"
+
+    local filepath="ferien_${state}.conf"
+    echo "Generating $filepath …"
+    ./PH_SH_exporter.js /tmp/PH_SH_export.list --from "$from" --to "$to" --school-holidays --state "$state" --omit-date-hyphens
+    (
+        print_header
+        cat /tmp/PH_SH_export.list
+    ) > "$filepath"
+}
+
+for state in by be bb hb hh he mv ni nw rp sn
+do
+    gen_sh "$state" "$(date +%Y)" "2023"
+done
+
+# Only defined until 2019, lazy …
+for state in bw st
+do
+    gen_sh "$state" "$(date +%Y)" "2019"
+done
 
 for state in bw by be bb hb hh he mv ni nw rp sn st sl sh th
 do
     filepath="feiertage_${state}.conf"
     echo "Generating $filepath …"
     ./PH_SH_exporter.js /tmp/PH_SH_export.list --from 2013 --to 2042 --public-holidays --state $state --omit-date-hyphens
-    (
-        print_header
-        cat /tmp/PH_SH_export.list
-    ) > $filepath
-done
-
-## FIXME: Triggers a bug in opening_hours.js: sl sh th
-for state in bw by be bb hb hh he mv ni nw rp sn st
-do
-    filepath="ferien_${state}.conf"
-    echo "Generating $filepath …"
-    ./PH_SH_exporter.js /tmp/PH_SH_export.list --from 2013 --to 2016 --school-holidays --state $state --omit-date-hyphens
     (
         print_header
         cat /tmp/PH_SH_export.list

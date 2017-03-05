@@ -759,7 +759,7 @@ test.addTest('Variable days: school holidays', [
         [ '2015-01-05 01:00', '2015-01-05 05:00', false, 'Weihnachtsferien' ],
     ], 1000 * 60 * 60 * 4, 0, false, nominatim_default, 'not only test');
 
-test.addTest('Variable days: school holidays', [
+test.addTest('Variable days: Germany school holidays', [
         'SH',
     ], '2014-01-01 0:00', '2015-01-10 0:00', [
         [ '2014-01-01 00:00', '2014-01-04 00:00', false, 'Weihnachtsferien' ], // 3
@@ -772,6 +772,49 @@ test.addTest('Variable days: school holidays', [
         [ '2014-10-27 00:00', '2014-11-09 00:00', false, 'Herbstferien' ],     // 5 + 8
         [ '2014-12-22 00:00', '2015-01-06 00:00', false, 'Weihnachtsferien' ], // 10 + 5
     ], 1000 * 60 * 60 * 24 * (3 + 2 + 20 + 1 + 1 + 1 + (1 + 31 + 10) + (5 + 8) + (10 + 5)), 0, false, nominatim_by_loc.de_hb, 'not last test');
+
+test.addTest('Variable days: Germany school holidays. Rheinland-Pfalz', [
+        'SH',
+    ], '2016-01-10 0:00', '2023-12-30 0:00', [
+        [ '2016-03-18 00:00', '2016-04-02 00:00', false, 'Osterferien' ],
+        [ '2016-07-18 00:00', '2016-08-27 00:00', false, 'Sommerferien' ],
+        [ '2016-10-10 00:00', '2016-10-22 00:00', false, 'Herbstferien' ],
+        [ '2016-12-22 00:00', '2017-01-07 00:00', false, 'Weihnachtsferien' ],
+        [ '2017-04-10 00:00', '2017-04-22 00:00', false, 'Osterferien' ],
+        [ '2017-07-03 00:00', '2017-08-12 00:00', false, 'Sommerferien' ],
+        [ '2017-10-02 00:00', '2017-10-14 00:00', false, 'Herbstferien' ],
+        [ '2017-12-22 00:00', '2018-01-10 00:00', false, 'Weihnachtsferien' ],
+        [ '2018-03-26 00:00', '2018-04-07 00:00', false, 'Osterferien' ],
+        [ '2018-06-25 00:00', '2018-08-04 00:00', false, 'Sommerferien' ],
+        [ '2018-10-01 00:00', '2018-10-13 00:00', false, 'Herbstferien' ],
+        [ '2018-12-20 00:00', '2019-01-05 00:00', false, 'Weihnachtsferien' ],
+        [ '2019-02-25 00:00', '2019-03-02 00:00', false, 'Winterferien' ],
+        [ '2019-04-23 00:00', '2019-05-01 00:00', false, 'Osterferien' ],
+        [ '2019-07-01 00:00', '2019-08-10 00:00', false, 'Sommerferien' ],
+        [ '2019-09-30 00:00', '2019-10-12 00:00', false, 'Herbstferien' ],
+        [ '2019-12-23 00:00', '2020-01-07 00:00', false, 'Weihnachtsferien' ],
+        [ '2020-02-17 00:00', '2020-02-22 00:00', false, 'Winterferien' ],
+        [ '2020-04-09 00:00', '2020-04-18 00:00', false, 'Osterferien' ],
+        [ '2020-07-06 00:00', '2020-08-15 00:00', false, 'Sommerferien' ],
+        [ '2020-10-12 00:00', '2020-10-24 00:00', false, 'Herbstferien' ],
+        [ '2020-12-21 00:00', '2021-01-01 00:00', false, 'Weihnachtsferien' ],
+        [ '2021-03-29 00:00', '2021-04-07 00:00', false, 'Osterferien' ],
+        [ '2021-05-25 00:00', '2021-06-03 00:00', false, 'Pfingstferien' ],
+        [ '2021-07-19 00:00', '2021-08-28 00:00', false, 'Sommerferien' ],
+        [ '2021-10-11 00:00', '2021-10-23 00:00', false, 'Herbstferien' ],
+        [ '2021-12-23 00:00', '2022-01-01 00:00', false, 'Weihnachtsferien' ],
+        [ '2022-02-21 00:00', '2022-02-26 00:00', false, 'Winterferien' ],
+        [ '2022-04-13 00:00', '2022-04-23 00:00', false, 'Osterferien' ],
+        [ '2022-07-25 00:00', '2022-09-03 00:00', false, 'Sommerferien' ],
+        [ '2022-10-17 00:00', '2022-11-01 00:00', false, 'Herbstferien' ],
+        [ '2022-12-23 00:00', '2023-01-03 00:00', false, 'Weihnachtsferien' ],
+        [ '2023-04-03 00:00', '2023-04-07 00:00', false, 'Osterferien' ],
+        [ '2023-05-30 00:00', '2023-06-08 00:00', false, 'Pfingstferien' ],
+        [ '2023-07-24 00:00', '2023-09-02 00:00', false, 'Sommerferien' ],
+        [ '2023-10-16 00:00', '2023-10-28 00:00', false, 'Herbstferien' ],
+        [ '2023-12-27 00:00', '2023-12-30 00:00', false, 'Weihnachtsferien' ],
+    ], 54518400000, 0, false, nominatim_by_loc.de_rp, 'not only test');
+
 /* }}} */
 
 /* Holidays combined with other features {{{ */

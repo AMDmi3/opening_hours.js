@@ -115,6 +115,9 @@ Changed
 * Update to holiday definition format 2.2.0. Holidays are now maintained in
   YAML files, one for each country. [ypid_]
 * Rework the way Nominatim responses which are used for testing are handled. [ypid_]
+* Allow "gaps" in school holiday definitions. This became necessary because
+  countries/states might add/remove holidays like winter holidays from one year
+  to another. [ypid_]
 
 * Input tolerance: For a value such as ``Mo-Fr 08:00-12:00 by_appointment`` the
   tool did previously suggest to use ``Mo-Fr 08:00-12:00 "on appointment"`` but
@@ -129,6 +132,10 @@ Fixed
 ~~~~~
 
 * Fix Russian public holiday definitions. Regions where not in local language and thus not matched properly. [ypid_]
+* Fix school holiday selector code which caused the main selector traversal
+  function to not advance any further (returning closed for all following dates) after the
+  school holiday selector code hitting a holiday definition ending on the last
+  day of the year. [ypid_]
 
 
 v3.5.0_ - 2017-02-17
