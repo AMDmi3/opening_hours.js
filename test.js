@@ -60,13 +60,13 @@ var test = new opening_hours_test();
 
 // Nominatim data {{{
 
-let nominatim_by_loc = {};
-for (let nominatim_file of glob.sync("holidays/nominatim_cache/*.yaml")) {
-    let country_state = nominatim_file.match(/^.*\/([^/]*)\.yaml$/)[1];
+var nominatim_by_loc = {};
+for (var nominatim_file of glob.sync("holidays/nominatim_cache/*.yaml")) {
+    var country_state = nominatim_file.match(/^.*\/([^/]*)\.yaml$/)[1];
     nominatim_by_loc[country_state] = yaml.safeLoad(fs.readFileSync(nominatim_file));
 }
 
-let nominatim_default = nominatim_by_loc.de_bw;
+var nominatim_default = nominatim_by_loc.de_bw;
 
 // https://nominatim.openstreetmap.org/reverse?format=json&lat=60.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1
 var nominatim_sunrise_below = {
