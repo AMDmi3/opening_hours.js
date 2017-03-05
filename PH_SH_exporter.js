@@ -1,7 +1,7 @@
 #!/usr/bin/env nodejs
 /* Info, license and author {{{
  * @license AGPLv3 <https://www.gnu.org/licenses/agpl-3.0.html>
- * @author Copyright (C) 2015 Robin Schneider <ypid@riseup.net>
+ * @author Copyright (C) 2015-2017 Robin Schneider <ypid@riseup.net>
  *
  * Written for: https://github.com/anschuetz/linuxmuster/issues/1#issuecomment-110888829
  *
@@ -22,10 +22,8 @@
 /* Required modules {{{ */
 var opening_hours = require('./opening_hours.js');
 var fs            = require('fs');
-/* }}} */
-
-/* Constants {{{ */
-var nominatim_object = require('./js/nominatim_definitions.js').for_loc;
+var glob          = require('glob');
+var yaml          = require('js-yaml');
 /* }}} */
 
 /* Parameter handling {{{ */
@@ -44,8 +42,7 @@ var optimist = require('optimist')
     .describe('o', 'Omit hyphen in ISO 8061 dates.')
     .default('o', false)
     .default('c', 'de')
-    .describe('r', 'Region (for which the holidays apply). Defaults to Baden-Württemberg.')
-    .default('r', 'bw')
+    .describe('r', 'Region (for which the holidays apply). If not given, the country wide definition is used.')
     .boolean(['p', 's', ])
     .alias('h', 'help')
     .alias('v', 'verbose')
@@ -54,7 +51,7 @@ var optimist = require('optimist')
     .alias('p', ['public-holidays', 'ph'])
     .alias('s', ['school-holidays', 'sh'])
     .alias('c', 'country')
-    .alias('r', 'region')
+    .alias('r', 'state')
     .alias('o', 'omit-date-hyphens');
 
 var argv = optimist.argv;
@@ -67,11 +64,22 @@ if (argv.help || argv._.length === 0) {
 /* Error handling {{{ */
 if (argv['public-holidays'] && argv['school-holidays']) {
     console.error("--school-holidays and --public-holidays can not be used together.");
-    process.exit(0);
+    process.exit(1);
 }
-if (typeof nominatim_object[argv.country] !== 'object' || typeof nominatim_object[argv.country][argv.region] !== 'object') {
-    console.error(argv.country + ", " + argv.region + " is currently not supported.");
-    process.exit(0);
+if (!(argv['public-holidays'] || argv['school-holidays'])) {
+    console.error("Either --school-holidays or --public-holidays has to be specified.");
+    process.exit(1);
+}
+let nominatim_by_loc = {};
+for (let nominatim_file of glob.sync("holidays/nominatim_cache/*.yaml")) {
+    let country_state = nominatim_file.match(/^.*\/([^/]*)\.yaml$/)[1];
+    nominatim_by_loc[country_state] = yaml.safeLoad(fs.readFileSync(nominatim_file));
+}
+const nominatim_data = nominatim_by_loc[argv.country + '_' + argv.state] || nominatim_by_loc[argv.country];
+
+if (typeof nominatim_data !== 'object') {
+    console.error(argv.country + (", " + argv.state ? typeof nominatim_data !== 'object' : '') + " is currently not supported.");
+    process.exit(1);
 }
 
 /* }}} */
@@ -81,11 +89,11 @@ var filepath = argv._[0];
 
 var oh_value = argv['public-holidays'] ? 'PH' : 'SH';
 
-write_config_file(filepath, oh_value, nominatim_object[argv.country][argv.region], new Date(argv.from, 0, 1), new Date(argv.to + 1, 0, 1));
+write_config_file(filepath, oh_value, nominatim_data, new Date(argv.from, 0, 1), new Date(argv.to + 1, 0, 1));
 
-function write_config_file(filepath, oh_value, nominatim_object, from_date, to_date) {
+function write_config_file(filepath, oh_value, nominatim_data, from_date, to_date) {
     try {
-        oh = new opening_hours(oh_value, nominatim_object);
+        oh = new opening_hours(oh_value, nominatim_data);
     } catch (err) {
         console.error('Something went wrong. Please file a issue at https://github.com/opening-hours/opening_hours.js/issues');
         process.exit(0);

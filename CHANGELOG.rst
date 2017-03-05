@@ -112,6 +112,9 @@ Changed
 ~~~~~~~
 
 * Migrated to use `ES2015 modules`_ and rollup_ for module bundling [simon04_]
+* Update to holiday definition format 2.2.0. Holidays are now maintained in
+  YAML files, one for each country. [ypid_]
+* Rework the way Nominatim responses which are used for testing are handled. [ypid_]
 
 * Input tolerance: For a value such as ``Mo-Fr 08:00-12:00 by_appointment`` the
   tool did previously suggest to use ``Mo-Fr 08:00-12:00 "on appointment"`` but
@@ -121,6 +124,11 @@ Changed
 
 .. _ES2015 modules: http://exploringjs.com/es6/ch_modules.html
 .. _rollup: http://rollupjs.org/
+
+Fixed
+~~~~~
+
+* Fix Russian public holiday definitions. Regions where not in local language and thus not matched properly. [ypid_]
 
 
 v3.5.0_ - 2017-02-17

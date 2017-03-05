@@ -652,7 +652,7 @@ YoHours currently only checks with this lib if the opening_hours value can be ev
 
 ## Bindings and ports
 
-* Python: https://github.com/ypid/pyopening_hours (using the JS implementation through Python subprocess and JSON passing to a Node.JS process executing the JS implementation, access to the [simple API](https://github.com/ypid/opening_hours.js#simple-api))
+* Python: https://github.com/ypid/pyopening_hours (using the JS implementation through Python subprocess and JSON passing to a Node.JS process executing the JS implementation, access to the [simple API](https://github.com/opening-hours/opening_hours.js#simple-api))
 * Java/Nashorn: https://josm.openstreetmap.de/ticket/11755 (using the JS implementation through [Nashorn](http://openjdk.java.net/projects/nashorn/), Status: Nashorn provides access to all features of the JS implementation)
 - Java/Android: https://github.com/ypid/ComplexAlarm (using the JS implementation through [js-evaluator-for-android](https://github.com/evgenyneu/js-evaluator-for-android), Status: Library runs on Android, Return code/Result passing from JS to Java not yet clear/tested)
 
@@ -715,7 +715,7 @@ Please refer to the [holiday documentation][ohlib.docs.holiday] for more details
 Please consider adding a test (with a time range of one year for example) to see if everything works as expected and to ensure that it will stay that way.
 See under [testing][ohlib.testing].
 
-In case your holiday definition does only change the `holiday_definitions` variable (and not core code) it is also ok to test the definition using the `PH_SH_exporter.js` script. In that case writing a test is not required but still appreciated. Example: `./PH_SH_exporter.js --verbose --from=2016 --to=2016 --public-holidays --country dk --region dk /tmp/dk_holidays.txt`
+In case your holiday definition does only change the `holiday_definitions` variable (and not core code) it is also ok to test the definition using the `PH_SH_exporter.js` script. In that case writing a test is not required but still appreciated. Example: `./PH_SH_exporter.js --verbose --from=2016 --to=2016 --public-holidays --country dk --state dk /tmp/dk_holidays.txt`
 
 ### Core code
 

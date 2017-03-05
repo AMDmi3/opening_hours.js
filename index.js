@@ -85,7 +85,7 @@
         // var msec_in_week   = msec_in_day * 7;
 
         var library_name   = 'opening_hours.js';
-        var repository_url = 'https://github.com/ypid/' + library_name;
+        var repository_url = 'https://github.com/opening-hours/' + library_name;
         // var issues_url     = repository_url + '/issues?state=open';
         /* }}} */
 
@@ -2386,7 +2386,6 @@
                         throw formatLibraryBugMessage(t('no SH definition', {
                             'name': SH_hash.name,
                             'year': year,
-                            'repository_url': repository_url,
                         }), 'library bug PR only');
                     } else {
                         return undefined;

@@ -23,7 +23,8 @@ PH:  # https://de.wikipedia.org/wiki/Feiertage_in_Deutschland
 
 # Everything below is generated and kept up-to-date by hc.
 Baden-Württemberg:
-  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487&lon=9.8160&zoom=18&addressdetails=1&accept-language=de,en'
+  _state_code: bw
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487429714954&lon=9.81602098644987&zoom=18&addressdetails=1'
   SH:
     - name: Osterferien
       '2012': [4, 2, 4, 13]
@@ -80,6 +81,8 @@ Baden-Württemberg:
       '2019': [12, 23, 1, 4]
 
 Bayern:
+  _state_code: by
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=48.9467562&lon=11.4038717&zoom=18&addressdetails=1&accept-language=de,en'
   SH:
     - name: Winterferien
       '2012': [2, 20, 2, 24]
@@ -166,6 +169,8 @@ Bayern:
       '2023': [12, 23, 1, 5]
 
 Berlin:
+  _state_code: be
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=52.5170365&lon=13.3888599&zoom=18&addressdetails=1&accept-language=de,en'
   SH:
     - name: Winterferien
       '2012': [1, 30, 2, 4]
@@ -252,6 +257,8 @@ Berlin:
       '2023': [12, 23, 1, 5]
 
 Brandenburg:
+  _state_code: bb
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=52.8455492&lon=13.2461296&zoom=18&addressdetails=1&accept-language=de,en'
   SH:
     - name: Winterferien
       '2012': [1, 30, 2, 4]
@@ -338,6 +345,8 @@ Brandenburg:
       '2023': [12, 23, 1, 5]
 
 Bremen:
+  _state_code: hb
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=53.0758196&lon=8.8071646&zoom=18&addressdetails=1&accept-language=de,en'
   SH:
     - name: Winterferien
       '2012': [1, 30, 1, 31]
@@ -424,6 +433,8 @@ Bremen:
       '2023': [12, 23, 1, 5]
 
 Hamburg:
+  _state_code: hh
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=53.5437641&lon=10.0099133&zoom=18&addressdetails=1&accept-language=de,en'
   SH:
     - name: Winterferien
       '2012': [1, 30, 1, 30]
@@ -510,6 +521,8 @@ Hamburg:
       '2023': [12, 22, 1, 5]
 
 Hessen:
+  _state_code: he
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=50.6118537&lon=9.1909725&zoom=18&addressdetails=1&accept-language=de,en'
   SH:
     - name: Osterferien
       '2012': [4, 2, 4, 14]
@@ -568,6 +581,8 @@ Hessen:
       '2023': [12, 27, 1, 13]
 
 Mecklenburg-Vorpommern:
+  _state_code: mv
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=53.7735234&lon=12.5755746&zoom=18&addressdetails=1&accept-language=de,en'
   SH:
     - name: Winterferien
       '2012': [2, 6, 2, 17]
@@ -654,6 +669,8 @@ Mecklenburg-Vorpommern:
       '2023': [12, 21, 1, 3]
 
 Niedersachsen:
+  _state_code: ni
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=52.6368397&lon=9.8456838&zoom=18&addressdetails=1&accept-language=de,en'
   SH:
     - name: Winterferien
       '2012': [1, 30, 1, 31]
@@ -740,6 +757,8 @@ Niedersachsen:
       '2023': [12, 27, 1, 5]
 
 Nordrhein-Westfalen:
+  _state_code: nw
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=51.4785568&lon=7.5533645&zoom=18&addressdetails=1&accept-language=de,en'
   SH:
     - name: Osterferien
       '2012': [4, 2, 4, 14]
@@ -811,6 +830,8 @@ Nordrhein-Westfalen:
       '2023': [12, 21, 1, 5]
 
 Rheinland-Pfalz:
+  _state_code: rp
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=49.7497346&lon=7.4396553&zoom=18&addressdetails=1&accept-language=de,en'
   SH:
     - name: Winterferien
       '2019': [2, 25, 3, 1]
@@ -877,6 +898,8 @@ Rheinland-Pfalz:
       '2023': [12, 27, 1, 5]
 
 Saarland:
+  _state_code: sl
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=49.4173988&lon=6.9805789&zoom=18&addressdetails=1&accept-language=de,en'
   SH:
     - name: Winterferien
       '2012': [2, 20, 2, 25]
@@ -954,6 +977,8 @@ Saarland:
       '2023': [12, 21, 1, 2]
 
 Sachsen:
+  _state_code: sn
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=50.9295798&lon=13.4585052&zoom=18&addressdetails=1&accept-language=de,en'
   SH:
     - name: Winterferien
       '2012': [2, 13, 2, 25]
@@ -1040,6 +1065,8 @@ Sachsen:
       '2023': [12, 23, 1, 2]
 
 Sachsen-Anhalt:
+  _state_code: st
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=51.908526&lon=11.4939134&zoom=18&addressdetails=1&accept-language=de,en'
   SH:
     - name: Winterferien
       '2012': [2, 4, 2, 11]
@@ -1106,6 +1133,8 @@ Sachsen-Anhalt:
       '2019': [12, 23, 1, 4]
 
 Schleswig-Holstein:
+  _state_code: sh
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=54.1853998&lon=9.8220089&zoom=18&addressdetails=1&accept-language=de,en'
   SH:
     - name: Osterferien
       '2012': [3, 30, 4, 13]
@@ -1178,6 +1207,8 @@ Schleswig-Holstein:
       '2023': [12, 27, 1, 6]
 
 Thüringen:
+  _state_code: th
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=50.7333163&lon=11.0747905&zoom=18&addressdetails=1&accept-language=de,en'
   SH:
     - name: Winterferien
       '2012': [2, 6, 2, 11]

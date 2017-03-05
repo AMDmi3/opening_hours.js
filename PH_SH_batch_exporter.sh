@@ -30,7 +30,7 @@ for state in bw by be bb hb hh he mv ni nw rp sn st sl sh th
 do
     filepath="feiertage_${state}.conf"
     echo "Generating $filepath …"
-    ./PH_SH_exporter.js /tmp/PH_SH_export.list --from 2013 --until 2042 --public-holidays --region $state --omit-date-hyphens
+    ./PH_SH_exporter.js /tmp/PH_SH_export.list --from 2013 --to 2042 --public-holidays --state $state --omit-date-hyphens
     (
         print_header
         cat /tmp/PH_SH_export.list
@@ -42,7 +42,7 @@ for state in bw by be bb hb hh he mv ni nw rp sn st
 do
     filepath="ferien_${state}.conf"
     echo "Generating $filepath …"
-    ./PH_SH_exporter.js /tmp/PH_SH_export.list --from 2013 --until 2016 --school-holidays --region $state --omit-date-hyphens
+    ./PH_SH_exporter.js /tmp/PH_SH_export.list --from 2013 --to 2016 --school-holidays --state $state --omit-date-hyphens
     (
         print_header
         cat /tmp/PH_SH_export.list

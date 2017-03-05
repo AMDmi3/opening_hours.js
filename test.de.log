@@ -480,11 +480,32 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*daylight <--- (Please use notation "sunrise-sunset" for "daylight".)
 "Variable times calculation with coordinates" for "(sunrise+02:00)-sunset": [1m[32mPASSED[39m[22m
-"Variable times which moves over fix end time" for "sunrise-08:02": [1m[32mPASSED[39m[22m
+"Variable times which moves over fix end time" for "sunrise-08:02": [1m[31mFAILED[39m[22m, bad duration(s): 1860000,0, expected 1800000,0, bad intervals: 
+[ '2013.01.27 08:01', '2013.01.27 08:02', false, undefined ],
+[ '2013.01.28 08:00', '2013.01.28 08:02', false, undefined ],
+[ '2013.01.29 07:59', '2013.01.29 08:02', false, undefined ],
+[ '2013.01.30 07:58', '2013.01.30 08:02', false, undefined ],
+[ '2013.01.31 07:56', '2013.01.31 08:02', false, undefined ],
+[ '2013.02.01 07:55', '2013.02.01 08:02', false, undefined ],
+[ '2013.02.02 07:54', '2013.02.02 08:02', false, undefined ],
+expected:
+[ '2013.01.28 08:00', '2013.01.28 08:02', false, undefined ],
+[ '2013.01.29 07:59', '2013.01.29 08:02', false, undefined ],
+[ '2013.01.30 07:58', '2013.01.30 08:02', false, undefined ],
+[ '2013.01.31 07:56', '2013.01.31 08:02', false, undefined ],
+[ '2013.02.01 07:55', '2013.02.01 08:02', false, undefined ],
+[ '2013.02.02 07:54', '2013.02.02 08:02', false, undefined ],
 "Variable times which moves over fix end time" for "sunrise-08:00": [1m[32mPASSED[39m[22m
 "Variable times which moves over fix end time" for "sunrise-07:58": [1m[32mPASSED[39m[22m
 "Variable times which moves over fix end time" for "sunrise-06:00": [1m[32mPASSED[39m[22m
-"Variable times which moves over fix end time" for "sunrise-05:59": [1m[32mPASSED[39m[22m
+"Variable times which moves over fix end time" for "sunrise-05:59": [1m[31mFAILED[39m[22m, bad duration(s): 158220000,0, expected 158160000,0, bad intervals: 
+[ '2013.01.26 00:00', '2013.01.26 05:59', false, undefined ],
+[ '2013.01.26 08:01', '2013.01.27 05:59', false, undefined ],
+[ '2013.01.27 08:00', '2013.01.28 00:00', false, undefined ],
+expected:
+[ '2013.01.26 00:00', '2013.01.26 05:59', false, undefined ],
+[ '2013.01.26 08:02', '2013.01.27 05:59', false, undefined ],
+[ '2013.01.27 08:00', '2013.01.28 00:00', false, undefined ],
 "Variable times which moves over fix end time" for "sunrise-06:00": [1m[32mPASSED[39m[22m
 "Variable times which moves over fix end time" for "sunrise-05:59": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Variable times spanning midnight" for "sunset-sunrise": [1m[32mPASSED[39m[22m
@@ -1711,9 +1732,9 @@ expected:
 "Based on real world example: Is processed right." for "Apr-Oct: Sa-Su 08:00-15:00, May-Sep: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Based on real world example: Is processed right." for "Apr-Oct: Sa-Su 08:00-15:00; May-Sep: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right." for "Mo-Fr 07:00-19:30; Sa-Su 08:00-19:30; 19:30-21:00 open "No new laundry loads in"; Nov Th[4] off; Dec 25 off": [1m[32mPASSED[39m[22m
-Bei der Auswertung des Wertes "Jan off; Feb off; Mar off; Apr Tu-Su 10:00-14:30, May Tu-Su 10:00-14:30; Jun Tu-Su 09:00-16:00; Jul Tu-Su 10:00-17:00; Aug Tu-Su 10:00-17:00; Sep Tu-Su 10:00-14:30; Oct Tu-Su 10:00-14:30 Nov off; Dec off" ist ein Fehler aufgetreten. Bitte melde diesen Fehler oder korrigiere diesen mittels eines Pull Requests oder Patches: https://github.com/ypid/opening_hours.js. Bug in warning generation code which could not determine the exact position of the warning or error in value.
+Bei der Auswertung des Wertes "Jan off; Feb off; Mar off; Apr Tu-Su 10:00-14:30, May Tu-Su 10:00-14:30; Jun Tu-Su 09:00-16:00; Jul Tu-Su 10:00-17:00; Aug Tu-Su 10:00-17:00; Sep Tu-Su 10:00-14:30; Oct Tu-Su 10:00-14:30 Nov off; Dec off" ist ein Fehler aufgetreten. Bitte melde diesen Fehler oder korrigiere diesen mittels eines Pull Requests oder Patches: https://github.com/opening-hours/opening_hours.js. Bug in warning generation code which could not determine the exact position of the warning or error in value.
 tokens[nrule][2] is undefined. This is ok if nrule is the last rule.
-Bei der Auswertung des Wertes "Jan off; Feb off; Mar off; Apr Tu-Su 10:00-14:30, May Tu-Su 10:00-14:30; Jun Tu-Su 09:00-16:00; Jul Tu-Su 10:00-17:00; Aug Tu-Su 10:00-17:00; Sep Tu-Su 10:00-14:30; Oct Tu-Su 10:00-14:30 Nov off; Dec off" ist ein Fehler aufgetreten. Bitte melde diesen Fehler oder korrigiere diesen mittels eines Pull Requests oder Patches: https://github.com/ypid/opening_hours.js. Bug in warning generation code which could not determine the exact position of the warning or error in value.
+Bei der Auswertung des Wertes "Jan off; Feb off; Mar off; Apr Tu-Su 10:00-14:30, May Tu-Su 10:00-14:30; Jun Tu-Su 09:00-16:00; Jul Tu-Su 10:00-17:00; Aug Tu-Su 10:00-17:00; Sep Tu-Su 10:00-14:30; Oct Tu-Su 10:00-14:30 Nov off; Dec off" ist ein Fehler aufgetreten. Bitte melde diesen Fehler oder korrigiere diesen mittels eines Pull Requests oder Patches: https://github.com/opening-hours/opening_hours.js. Bug in warning generation code which could not determine the exact position of the warning or error in value.
 tokens[nrule][2] is undefined. This is ok if nrule is the last rule.
 "Real world example: Was not processed right" for "Jan off; Feb off; Mar off; Apr Tu-Su 10:00-14:30, May Tu-Su 10:00-14:30; Jun Tu-Su 09:00-16:00; Jul Tu-Su 10:00-17:00; Aug Tu-Su 10:00-17:00; Sep Tu-Su 10:00-14:30; Oct Tu-Su 10:00-14:30 Nov off; Dec off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1837,8 +1858,196 @@ With [1m[34mwarnings[39m[22m:
 	*Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday[1] 07:30; school holidays Monday-Friday <--- (Please use the abbreviation "Fr" for "friday".)
 	*Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday[1] 07:30; school holidays Monday-Friday (sunrise+03:00); public holidays <--- (Please use notation "PH" for "public holidays".)
 "Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th,Fr 05:45; Mo[1] 07:30; SH Mo-Fr (sunrise+03:00); PH off": [1m[32mPASSED[39m[22m
-"Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th 05:45; week 01-53/2 Fr 07:05; week 02-53/2 Fr 05:45; SH Mo-Fr (sunrise+03:00); PH off": [1m[32mPASSED[39m[22m
-"Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th 05:45; week 01-53/2 Fr 07:05; week 02-53/2 Fr 05:45; SH Mo-Fr (sunrise+03:00); PH off; easter -2 days-easter +2 days off "My little break from work every year."; 2014 Sep 01-2014 Sep 07 off "My vacations …"": [1m[32mPASSED[39m[22m
+"Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th 05:45; week 01-53/2 Fr 07:05; week 02-53/2 Fr 05:45; SH Mo-Fr (sunrise+03:00); PH off": [1m[31mFAILED[39m[22m, bad intervals: 
+[ '2014.08.25 09:27', '2014.08.25 09:28', false, 'Sommerferien' ],
+[ '2014.08.26 09:28', '2014.08.26 09:29', false, 'Sommerferien' ],
+[ '2014.08.27 09:30', '2014.08.27 09:31', false, 'Sommerferien' ],
+[ '2014.08.28 09:31', '2014.08.28 09:32', false, 'Sommerferien' ],
+[ '2014.08.29 09:33', '2014.08.29 09:34', false, 'Sommerferien' ],
+[ '2014.09.01 09:37', '2014.09.01 09:38', false, 'Sommerferien' ],
+[ '2014.09.02 09:39', '2014.09.02 09:40', false, 'Sommerferien' ],
+[ '2014.09.03 09:40', '2014.09.03 09:41', false, 'Sommerferien' ],
+[ '2014.09.04 09:41', '2014.09.04 09:42', false, 'Sommerferien' ],
+[ '2014.09.05 09:43', '2014.09.05 09:44', false, 'Sommerferien' ],
+[ '2014.09.08 09:47', '2014.09.08 09:48', false, 'Sommerferien' ],
+[ '2014.09.09 09:49', '2014.09.09 09:50', false, 'Sommerferien' ],
+[ '2014.09.10 09:50', '2014.09.10 09:51', false, 'Sommerferien' ],
+[ '2014.09.11 09:52', '2014.09.11 09:53', false, 'Sommerferien' ],
+[ '2014.09.12 09:53', '2014.09.12 09:54', false, 'Sommerferien' ],
+[ '2014.09.15 07:00', '2014.09.15 07:01', false, undefined ],
+[ '2014.09.16 07:00', '2014.09.16 07:01', false, undefined ],
+[ '2014.09.17 07:00', '2014.09.17 07:01', false, undefined ],
+[ '2014.09.18 05:45', '2014.09.18 05:46', false, undefined ],
+[ '2014.09.19 05:45', '2014.09.19 05:46', false, undefined ],
+[ '2014.09.22 07:00', '2014.09.22 07:01', false, undefined ],
+[ '2014.09.23 07:00', '2014.09.23 07:01', false, undefined ],
+[ '2014.09.24 07:00', '2014.09.24 07:01', false, undefined ],
+[ '2014.09.25 05:45', '2014.09.25 05:46', false, undefined ],
+[ '2014.09.26 07:05', '2014.09.26 07:06', false, undefined ],
+[ '2014.09.29 07:00', '2014.09.29 07:01', false, undefined ],
+[ '2014.09.30 07:00', '2014.09.30 07:01', false, undefined ],
+[ '2014.10.01 07:00', '2014.10.01 07:01', false, undefined ],
+[ '2014.10.02 05:45', '2014.10.02 05:46', false, undefined ],
+[ '2014.10.06 07:00', '2014.10.06 07:01', false, undefined ],
+[ '2014.10.07 07:00', '2014.10.07 07:01', false, undefined ],
+[ '2014.10.08 07:00', '2014.10.08 07:01', false, undefined ],
+[ '2014.10.09 05:45', '2014.10.09 05:46', false, undefined ],
+[ '2014.10.10 07:05', '2014.10.10 07:06', false, undefined ],
+[ '2014.10.13 07:00', '2014.10.13 07:01', false, undefined ],
+[ '2014.10.14 07:00', '2014.10.14 07:01', false, undefined ],
+[ '2014.10.15 07:00', '2014.10.15 07:01', false, undefined ],
+[ '2014.10.16 05:45', '2014.10.16 05:46', false, undefined ],
+[ '2014.10.17 05:45', '2014.10.17 05:46', false, undefined ],
+[ '2014.10.20 07:00', '2014.10.20 07:01', false, undefined ],
+[ '2014.10.21 07:00', '2014.10.21 07:01', false, undefined ],
+[ '2014.10.22 07:00', '2014.10.22 07:01', false, undefined ],
+[ '2014.10.23 05:45', '2014.10.23 05:46', false, undefined ],
+[ '2014.10.24 07:05', '2014.10.24 07:06', false, undefined ],
+[ '2014.10.27 10:01', '2014.10.27 10:02', false, 'Herbstferien' ],
+[ '2014.10.28 10:03', '2014.10.28 10:04', false, 'Herbstferien' ],
+[ '2014.10.29 10:05', '2014.10.29 10:06', false, 'Herbstferien' ],
+[ '2014.10.30 10:06', '2014.10.30 10:07', false, 'Herbstferien' ],
+[ '2014.10.31 05:45', '2014.10.31 05:46', false, undefined ],
+expected:
+[ '2014.08.25 09:27', '2014.08.25 09:28', false, 'Sommerferien' ],
+[ '2014.08.26 09:28', '2014.08.26 09:29', false, 'Sommerferien' ],
+[ '2014.08.27 09:30', '2014.08.27 09:31', false, 'Sommerferien' ],
+[ '2014.08.28 09:31', '2014.08.28 09:32', false, 'Sommerferien' ],
+[ '2014.08.29 09:33', '2014.08.29 09:34', false, 'Sommerferien' ],
+[ '2014.09.01 09:37', '2014.09.01 09:38', false, 'Sommerferien' ],
+[ '2014.09.02 09:39', '2014.09.02 09:40', false, 'Sommerferien' ],
+[ '2014.09.03 09:40', '2014.09.03 09:41', false, 'Sommerferien' ],
+[ '2014.09.04 09:42', '2014.09.04 09:43', false, 'Sommerferien' ],
+[ '2014.09.05 09:43', '2014.09.05 09:44', false, 'Sommerferien' ],
+[ '2014.09.08 09:47', '2014.09.08 09:48', false, 'Sommerferien' ],
+[ '2014.09.09 09:49', '2014.09.09 09:50', false, 'Sommerferien' ],
+[ '2014.09.10 09:50', '2014.09.10 09:51', false, 'Sommerferien' ],
+[ '2014.09.11 09:52', '2014.09.11 09:53', false, 'Sommerferien' ],
+[ '2014.09.12 09:53', '2014.09.12 09:54', false, 'Sommerferien' ],
+[ '2014.09.15 07:00', '2014.09.15 07:01', false, undefined ],
+[ '2014.09.16 07:00', '2014.09.16 07:01', false, undefined ],
+[ '2014.09.17 07:00', '2014.09.17 07:01', false, undefined ],
+[ '2014.09.18 05:45', '2014.09.18 05:46', false, undefined ],
+[ '2014.09.19 05:45', '2014.09.19 05:46', false, undefined ],
+[ '2014.09.22 07:00', '2014.09.22 07:01', false, undefined ],
+[ '2014.09.23 07:00', '2014.09.23 07:01', false, undefined ],
+[ '2014.09.24 07:00', '2014.09.24 07:01', false, undefined ],
+[ '2014.09.25 05:45', '2014.09.25 05:46', false, undefined ],
+[ '2014.09.26 07:05', '2014.09.26 07:06', false, undefined ],
+[ '2014.09.29 07:00', '2014.09.29 07:01', false, undefined ],
+[ '2014.09.30 07:00', '2014.09.30 07:01', false, undefined ],
+[ '2014.10.01 07:00', '2014.10.01 07:01', false, undefined ],
+[ '2014.10.02 05:45', '2014.10.02 05:46', false, undefined ],
+[ '2014.10.06 07:00', '2014.10.06 07:01', false, undefined ],
+[ '2014.10.07 07:00', '2014.10.07 07:01', false, undefined ],
+[ '2014.10.08 07:00', '2014.10.08 07:01', false, undefined ],
+[ '2014.10.09 05:45', '2014.10.09 05:46', false, undefined ],
+[ '2014.10.10 07:05', '2014.10.10 07:06', false, undefined ],
+[ '2014.10.13 07:00', '2014.10.13 07:01', false, undefined ],
+[ '2014.10.14 07:00', '2014.10.14 07:01', false, undefined ],
+[ '2014.10.15 07:00', '2014.10.15 07:01', false, undefined ],
+[ '2014.10.16 05:45', '2014.10.16 05:46', false, undefined ],
+[ '2014.10.17 05:45', '2014.10.17 05:46', false, undefined ],
+[ '2014.10.20 07:00', '2014.10.20 07:01', false, undefined ],
+[ '2014.10.21 07:00', '2014.10.21 07:01', false, undefined ],
+[ '2014.10.22 07:00', '2014.10.22 07:01', false, undefined ],
+[ '2014.10.23 05:45', '2014.10.23 05:46', false, undefined ],
+[ '2014.10.24 07:05', '2014.10.24 07:06', false, undefined ],
+[ '2014.10.27 10:02', '2014.10.27 10:03', false, 'Herbstferien' ],
+[ '2014.10.28 10:03', '2014.10.28 10:04', false, 'Herbstferien' ],
+[ '2014.10.29 10:05', '2014.10.29 10:06', false, 'Herbstferien' ],
+[ '2014.10.30 10:06', '2014.10.30 10:07', false, 'Herbstferien' ],
+[ '2014.10.31 05:45', '2014.10.31 05:46', false, undefined ],
+"Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th 05:45; week 01-53/2 Fr 07:05; week 02-53/2 Fr 05:45; SH Mo-Fr (sunrise+03:00); PH off; easter -2 days-easter +2 days off "My little break from work every year."; 2014 Sep 01-2014 Sep 07 off "My vacations …"": [1m[31mFAILED[39m[22m, bad intervals: 
+[ '2014.08.25 09:27', '2014.08.25 09:28', false, 'Sommerferien' ],
+[ '2014.08.26 09:28', '2014.08.26 09:29', false, 'Sommerferien' ],
+[ '2014.08.27 09:30', '2014.08.27 09:31', false, 'Sommerferien' ],
+[ '2014.08.28 09:31', '2014.08.28 09:32', false, 'Sommerferien' ],
+[ '2014.08.29 09:33', '2014.08.29 09:34', false, 'Sommerferien' ],
+[ '2014.09.08 09:47', '2014.09.08 09:48', false, 'Sommerferien' ],
+[ '2014.09.09 09:49', '2014.09.09 09:50', false, 'Sommerferien' ],
+[ '2014.09.10 09:50', '2014.09.10 09:51', false, 'Sommerferien' ],
+[ '2014.09.11 09:52', '2014.09.11 09:53', false, 'Sommerferien' ],
+[ '2014.09.12 09:53', '2014.09.12 09:54', false, 'Sommerferien' ],
+[ '2014.09.15 07:00', '2014.09.15 07:01', false, undefined ],
+[ '2014.09.16 07:00', '2014.09.16 07:01', false, undefined ],
+[ '2014.09.17 07:00', '2014.09.17 07:01', false, undefined ],
+[ '2014.09.18 05:45', '2014.09.18 05:46', false, undefined ],
+[ '2014.09.19 05:45', '2014.09.19 05:46', false, undefined ],
+[ '2014.09.22 07:00', '2014.09.22 07:01', false, undefined ],
+[ '2014.09.23 07:00', '2014.09.23 07:01', false, undefined ],
+[ '2014.09.24 07:00', '2014.09.24 07:01', false, undefined ],
+[ '2014.09.25 05:45', '2014.09.25 05:46', false, undefined ],
+[ '2014.09.26 07:05', '2014.09.26 07:06', false, undefined ],
+[ '2014.09.29 07:00', '2014.09.29 07:01', false, undefined ],
+[ '2014.09.30 07:00', '2014.09.30 07:01', false, undefined ],
+[ '2014.10.01 07:00', '2014.10.01 07:01', false, undefined ],
+[ '2014.10.02 05:45', '2014.10.02 05:46', false, undefined ],
+[ '2014.10.06 07:00', '2014.10.06 07:01', false, undefined ],
+[ '2014.10.07 07:00', '2014.10.07 07:01', false, undefined ],
+[ '2014.10.08 07:00', '2014.10.08 07:01', false, undefined ],
+[ '2014.10.09 05:45', '2014.10.09 05:46', false, undefined ],
+[ '2014.10.10 07:05', '2014.10.10 07:06', false, undefined ],
+[ '2014.10.13 07:00', '2014.10.13 07:01', false, undefined ],
+[ '2014.10.14 07:00', '2014.10.14 07:01', false, undefined ],
+[ '2014.10.15 07:00', '2014.10.15 07:01', false, undefined ],
+[ '2014.10.16 05:45', '2014.10.16 05:46', false, undefined ],
+[ '2014.10.17 05:45', '2014.10.17 05:46', false, undefined ],
+[ '2014.10.20 07:00', '2014.10.20 07:01', false, undefined ],
+[ '2014.10.21 07:00', '2014.10.21 07:01', false, undefined ],
+[ '2014.10.22 07:00', '2014.10.22 07:01', false, undefined ],
+[ '2014.10.23 05:45', '2014.10.23 05:46', false, undefined ],
+[ '2014.10.24 07:05', '2014.10.24 07:06', false, undefined ],
+[ '2014.10.27 10:01', '2014.10.27 10:02', false, 'Herbstferien' ],
+[ '2014.10.28 10:03', '2014.10.28 10:04', false, 'Herbstferien' ],
+[ '2014.10.29 10:05', '2014.10.29 10:06', false, 'Herbstferien' ],
+[ '2014.10.30 10:06', '2014.10.30 10:07', false, 'Herbstferien' ],
+[ '2014.10.31 05:45', '2014.10.31 05:46', false, undefined ],
+expected:
+[ '2014.08.25 09:27', '2014.08.25 09:28', false, 'Sommerferien' ],
+[ '2014.08.26 09:28', '2014.08.26 09:29', false, 'Sommerferien' ],
+[ '2014.08.27 09:30', '2014.08.27 09:31', false, 'Sommerferien' ],
+[ '2014.08.28 09:31', '2014.08.28 09:32', false, 'Sommerferien' ],
+[ '2014.08.29 09:33', '2014.08.29 09:34', false, 'Sommerferien' ],
+[ '2014.09.08 09:47', '2014.09.08 09:48', false, 'Sommerferien' ],
+[ '2014.09.09 09:49', '2014.09.09 09:50', false, 'Sommerferien' ],
+[ '2014.09.10 09:50', '2014.09.10 09:51', false, 'Sommerferien' ],
+[ '2014.09.11 09:52', '2014.09.11 09:53', false, 'Sommerferien' ],
+[ '2014.09.12 09:53', '2014.09.12 09:54', false, 'Sommerferien' ],
+[ '2014.09.15 07:00', '2014.09.15 07:01', false, undefined ],
+[ '2014.09.16 07:00', '2014.09.16 07:01', false, undefined ],
+[ '2014.09.17 07:00', '2014.09.17 07:01', false, undefined ],
+[ '2014.09.18 05:45', '2014.09.18 05:46', false, undefined ],
+[ '2014.09.19 05:45', '2014.09.19 05:46', false, undefined ],
+[ '2014.09.22 07:00', '2014.09.22 07:01', false, undefined ],
+[ '2014.09.23 07:00', '2014.09.23 07:01', false, undefined ],
+[ '2014.09.24 07:00', '2014.09.24 07:01', false, undefined ],
+[ '2014.09.25 05:45', '2014.09.25 05:46', false, undefined ],
+[ '2014.09.26 07:05', '2014.09.26 07:06', false, undefined ],
+[ '2014.09.29 07:00', '2014.09.29 07:01', false, undefined ],
+[ '2014.09.30 07:00', '2014.09.30 07:01', false, undefined ],
+[ '2014.10.01 07:00', '2014.10.01 07:01', false, undefined ],
+[ '2014.10.02 05:45', '2014.10.02 05:46', false, undefined ],
+[ '2014.10.06 07:00', '2014.10.06 07:01', false, undefined ],
+[ '2014.10.07 07:00', '2014.10.07 07:01', false, undefined ],
+[ '2014.10.08 07:00', '2014.10.08 07:01', false, undefined ],
+[ '2014.10.09 05:45', '2014.10.09 05:46', false, undefined ],
+[ '2014.10.10 07:05', '2014.10.10 07:06', false, undefined ],
+[ '2014.10.13 07:00', '2014.10.13 07:01', false, undefined ],
+[ '2014.10.14 07:00', '2014.10.14 07:01', false, undefined ],
+[ '2014.10.15 07:00', '2014.10.15 07:01', false, undefined ],
+[ '2014.10.16 05:45', '2014.10.16 05:46', false, undefined ],
+[ '2014.10.17 05:45', '2014.10.17 05:46', false, undefined ],
+[ '2014.10.20 07:00', '2014.10.20 07:01', false, undefined ],
+[ '2014.10.21 07:00', '2014.10.21 07:01', false, undefined ],
+[ '2014.10.22 07:00', '2014.10.22 07:01', false, undefined ],
+[ '2014.10.23 05:45', '2014.10.23 05:46', false, undefined ],
+[ '2014.10.24 07:05', '2014.10.24 07:06', false, undefined ],
+[ '2014.10.27 10:02', '2014.10.27 10:03', false, 'Herbstferien' ],
+[ '2014.10.28 10:03', '2014.10.28 10:04', false, 'Herbstferien' ],
+[ '2014.10.29 10:05', '2014.10.29 10:06', false, 'Herbstferien' ],
+[ '2014.10.30 10:06', '2014.10.30 10:07', false, 'Herbstferien' ],
+[ '2014.10.31 05:45', '2014.10.31 05:46', false, undefined ],
 "Points in time, period times" for "Mo-Fr 10:00-16:00/01:30": [1m[32mPASSED[39m[22m
 "Points in time, period times" for "Mo-Fr 10:00-16:00/90": [1m[32mPASSED[39m[22m
 "Points in time, period times" for "Mo-Fr 10:00-16:00/90; Sa off "testing at end for parser"": [1m[32mPASSED[39m[22m
@@ -2653,13 +2862,13 @@ sunrise-( <--- (Die Zeitspanne geht nicht wie erwartet weiter)
 "Time range does not continue as expected for mode === 2." for "sunrise-sunset,(; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 sunrise-sunset,( <--- (Missing variable time (e.g. sunrise) after: "(")
 
-Bei der Auswertung des Wertes "Mo-Fr 10:00-20:00; PH off" ist ein Fehler aufgetreten. Du kannst dies korrigieren, indem du das Problem löst und in Form eines Pull Requests oder Patches zum Projekt beiträgst: https://github.com/ypid/opening_hours.js. PH ist für das Land none nicht definiert.
+Bei der Auswertung des Wertes "Mo-Fr 10:00-20:00; PH off" ist ein Fehler aufgetreten. Du kannst dies korrigieren, indem du das Problem löst und in Form eines Pull Requests oder Patches zum Projekt beiträgst: https://github.com/opening-hours/opening_hours.js. PH ist für das Land none nicht definiert.
 "PH with non-existing address." for "Mo-Fr 10:00-20:00; PH off": [1m[32mPASSED[39m[22m
-Bei der Auswertung des Wertes "Mo-Fr 10:00-20:00; PH off" ist ein Fehler aufgetreten. Du kannst dies korrigieren, indem du das Problem löst und in Form eines Pull Requests oder Patches zum Projekt beiträgst: https://github.com/ypid/opening_hours.js. PH ist für das Land none nicht definiert.
+Bei der Auswertung des Wertes "Mo-Fr 10:00-20:00; PH off" ist ein Fehler aufgetreten. Du kannst dies korrigieren, indem du das Problem löst und in Form eines Pull Requests oder Patches zum Projekt beiträgst: https://github.com/opening-hours/opening_hours.js. PH ist für das Land none nicht definiert.
 
-Bei der Auswertung des Wertes "Mo-Fr 10:00-20:00; SH off" ist ein Fehler aufgetreten. Du kannst dies korrigieren, indem du das Problem löst und in Form eines Pull Requests oder Patches zum Projekt beiträgst: https://github.com/ypid/opening_hours.js. SH ist für das Land none nicht definiert.
+Bei der Auswertung des Wertes "Mo-Fr 10:00-20:00; SH off" ist ein Fehler aufgetreten. Du kannst dies korrigieren, indem du das Problem löst und in Form eines Pull Requests oder Patches zum Projekt beiträgst: https://github.com/opening-hours/opening_hours.js. SH ist für das Land none nicht definiert.
 "SH with non-existing address." for "Mo-Fr 10:00-20:00; SH off": [1m[32mPASSED[39m[22m
-Bei der Auswertung des Wertes "Mo-Fr 10:00-20:00; SH off" ist ein Fehler aufgetreten. Du kannst dies korrigieren, indem du das Problem löst und in Form eines Pull Requests oder Patches zum Projekt beiträgst: https://github.com/ypid/opening_hours.js. SH ist für das Land none nicht definiert.
+Bei der Auswertung des Wertes "Mo-Fr 10:00-20:00; SH off" ist ein Fehler aufgetreten. Du kannst dies korrigieren, indem du das Problem löst und in Form eines Pull Requests oder Patches zum Projekt beiträgst: https://github.com/opening-hours/opening_hours.js. SH ist für das Land none nicht definiert.
 
 "Trying to trigger "Missing minutes in time range after" for mode === 0." for "Mon-Sun 14-": [1m[32mPASSED[39m[22m
 Mon-Sun 14- <--- (Missing time separator in time range after: "number")
@@ -2715,10 +2924,10 @@ Su 7:30,10 <--- (Missing time separator in time range after: "number")
 "Trying to trigger "Missing time separator in time range after" for mode === 2." for "Su 7:30,10i00,22:00": [1m[32mPASSED[39m[22m
 Su 7:30,10i <--- (Missing time separator in time range after: "number")
 
-"Wrong constructor call should throw an error: nominatimJSON: string" for "1": [1m[32mPASSED[39m[22m
+"Wrong constructor call should throw an error: nominatim_data: string" for "1": [1m[32mPASSED[39m[22m
 Der Wert (erster Parameter) ist kein String
 
-"Wrong constructor call should throw an error: nominatimJSON: string" for "Mo-Fr 08:00-16:00": [1m[32mPASSED[39m[22m
+"Wrong constructor call should throw an error: nominatim_data: string" for "Mo-Fr 08:00-16:00": [1m[32mPASSED[39m[22m
 The nominatim_object parameter is of unknown type. Given string, expected object.
 
 "Wrong constructor call should throw an error: "string"" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
