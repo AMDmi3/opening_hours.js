@@ -484,7 +484,9 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 *   Supports public holidays (`open; PH off`, `PH 12:00-13:00`).
 
-    * Currently Germany (including the little variations between confederations) is supported. Note that there are a few [footnotes][PH-de] which are ignored. The same applies for [Austria][PH-at]. Also supported:
+    * Countries with PH definition:
+        * [Germany][PH-de] ([footnotes][PH-de] are ignored)
+        * [Austria][PH-at] ([footnotes][PH-at] are ignored)
         * [Belgium][PH-be] (See [issue #115](https://github.com/opening-hours/opening_hours.js/issues/115) for details)
         * [France][PH-fr]
         * [Canada][PH-ca]
@@ -501,14 +503,16 @@ Almost everything from opening_hours definition is supported, as well as some ex
         * [Sweden][PH-se]
         * [Brazil][PH-br]
         * [Hungary][PH-hu]
+
     * **EXT:** Supports limited calculations based on public holidays (e.g. `Sa,PH -1 day open`). The only two possibilities are currently +1 and -1. All other cases are not handled. This seems to be enough because the only thing which is really used is -1.
 
 *   Support for school holidays (`SH 10:00-14:00`).
 
-    * Germany, see [hc]
-    * Also supported:
+    * Countries with PH definition:
 
+        * Germany, see [hc]
         * Romania
+        * Hungary
 
 *   There can be two cases which need to be separated (this applies for PH and SH):
 
@@ -517,7 +521,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 *   If there is no comment specified by the rule, the name of the holiday is used as comment.
 
-*   To evaluate the correct holidays, the country code and the state (could be omitted but this will probably result in less exactitude) are required which are included in the JSON returned by [Nominatim] \(see in the [Library API][ohlib.library-api] how to provide it\).
+*   To evaluate the correct holidays, the country code and the state (could be omitted but this will probably result in less correctness) are required which are included in the JSON returned by [Nominatim] \(see in the [Library API][ohlib.library-api] how to provide it\).
 
 *   If your country or state is missing or wrong you can [add it][ohlib.contribute.holidays] or open an [issue][issue-report] (and point to a definition of the holidays).
 
@@ -756,7 +760,7 @@ The opening brackets `{{{` (and the corresponding closing onces) are used to fol
 Autor                                         | Contact            | Note
 -------------                                 | -------------      | -------------
 [Dmitry Marakasov](https://github.com/AMDmi3) | <amdmi3@amdmi3.ru> | Initial coding and design and all basic features like time ranges, week ranges, month ranges and week ranges.
-[Robin Schneider](https://github.com/ypid)    | <ypid@riseup.net>  | Maintainer (since September 2013). Added support for years, holidays, unknown, comments, open end, fallback/additional rules (and more), wrote getWarnings, prettifyValue, translated demo page to English and German and extended it to enter values yourself (now called [evaluation tool][ohlib.evaluation-tool]).
+[Robin Schneider](https://me.ypid.de/)        | <ypid@riseup.net>  | Maintainer (since September 2013). Added support for years, holidays, unknown, comments, open end, fallback/additional rules (and more), wrote getWarnings, prettifyValue, translated demo page to English and German and extended it to enter values yourself (now called [evaluation tool][ohlib.evaluation-tool]).
 
 ## Contributors
 
