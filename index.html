@@ -3,6 +3,7 @@
     <head><!-- {{{ -->
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
         <meta name="referrer" content="no-referrer">
+        <title>opening_hours evaluation tool</title>
         <link rel="icon" type="image/png" href="img/favicon.png">
         <link rel="stylesheet" href="css/main.css"/>
         <link rel="stylesheet" href="css/table.css"/>
@@ -23,7 +24,9 @@
         <script type="text/javascript">
             var YoHoursChecker = new YoHoursChecker();
 
-            document.write('<title>' + i18n.t('texts.title') + '</title>');
+            if (document.title !== i18n.t('texts.title')) {
+                document.title = i18n.t('texts.title');
+            }
 
             // default values {{{
             var default_lat = 48.7769;
