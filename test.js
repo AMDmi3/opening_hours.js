@@ -105,49 +105,6 @@ var nominatim_no_valid_address = {
     }
 };
 
-// https://nominatim.openstreetmap.org/reverse?format=json&lat=59.9179&lon=30.3058&zoom=18&addressdetails=1&accept-language=en
-nominatim_by_loc.ru_state_unknown = {
-    "address": {
-        // "city": "Saint Petersburg",
-        "country": "Russian Federation",
-        "country_code": "ru",
-        // "house_number": "126",
-        // "postcode": "190000",
-        // "road": "Fontanka River Embankment",
-        // "state": "Saint Petersburg",
-        // "state_district": "\u0410\u0434\u043c\u0438\u0440\u0430\u043b\u0442\u0435\u0439\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-        // "suburb": "Kolomna"
-    },
-    "display_name": "126, Fontanka River Embankment, Kolomna, Saint Petersburg, \u0410\u0434\u043c\u0438\u0440\u0430\u043b\u0442\u0435\u0439\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d, Saint Petersburg, Northwestern Federal District, 190000, Russian Federation",
-    "lat": "59.9180615",
-    "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. https://www.openstreetmap.org/copyright",
-    "lon": "30.3059528150966",
-    "osm_id": "1122295",
-    "osm_type": "relation",
-    "place_id": "158850652"
-};
-
-nominatim_by_loc.us_state_unknown = {
-    "address": {
-        "country": "United States of America",
-        "country_code": "us",
-        // "city": "Washington",
-        // "county": "District of Columbia",
-        // "information": "White House Visitor Center",
-        // "neighbourhood": "Franklin McPherson Square",
-        // "postcode": "20500",
-        // "road": "Ellipse Road Northwest",
-        // "suburb": "Southwest Waterfront"
-    },
-    // "display_name": "White House Visitor Center, Ellipse Road Northwest, Franklin McPherson Square, Southwest Waterfront, Washington, District of Columbia, 20500, United States of America",
-    "lat": "38.895048",
-    "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. https://www.openstreetmap.org/copyright",
-    "lon": "-77.035046",
-    "osm_id": "2525694724",
-    "osm_type": "node",
-    "place_id": "25998054"
-};
-
 /* }}} */
 
 var sane_value_suffix = '; 00:23-00:42 closed "warning at correct position?"';
@@ -1044,7 +1001,7 @@ test.addTest('Variable days: Russian common public holidays', [
     [ '2014.05.09 00:00', '2014.05.10 00:00', false, 'День Победы' ],
     [ '2014.06.12 00:00', '2014.06.13 00:00', false, 'День России' ],
     [ '2014.11.04 00:00', '2014.11.05 00:00', false, 'День народного единства' ],
-], 1000 * 60 * 60 * 24 * (14 + 0), 0, false, nominatim_by_loc.ru_state_unknown, 'not last test');
+], 1000 * 60 * 60 * 24 * (14 + 0), 0, false, nominatim_by_loc.ru, 'not last test');
 
 test.addTest('Variable days: Russian public holidays. Republic of Tatarstan', [
     'PH',
@@ -1469,7 +1426,7 @@ test.addTest('Variable days: United States common public holidays', [
     [ '2014.11.11 00:00', '2014.11.12 00:00', false, "Veterans Day" ],
     [ '2014.11.27 00:00', '2014.11.28 00:00', false, "Thanksgiving" ],
     [ '2014.12.25 00:00', '2014.12.26 00:00', false, "Christmas Day" ],
-], 1000 * 60 * 60 * 24 * (7 + 0), 0, false, nominatim_by_loc.us_state_unknown, 'not last test');
+], 1000 * 60 * 60 * 24 * (7 + 0), 0, false, nominatim_by_loc.us, 'not last test');
 
 test.addTest('Variable days: United States public holidays. Alabama', [
     'PH',

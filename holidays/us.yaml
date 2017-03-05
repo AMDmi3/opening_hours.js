@@ -1,5 +1,7 @@
 ---
 
+_nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=32.3673&lon=-86.2983&zoom=18&addressdetails=1&accept-language=en'
+
 PH:  # https://en.wikipedia.org/wiki/Public_holidays_in_the_United_States
   'New Year''s Day': [1, 1]
   'Memorial Day': [lastMayMonday, 0]
