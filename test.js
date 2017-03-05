@@ -704,6 +704,8 @@ test.addTest('Variable times spanning midnight', [
 // }}}
 
 // holidays {{{
+
+/* Germany {{{ */
 test.addTest('Variable days: public holidays', [
         'PH',
         'holiday',         // Throws a warning.
@@ -737,6 +739,42 @@ test.addTest('Variable days: public holidays', [
         [ '2014.12.26 00:00', '2014.12.27 00:00', false, '2. Weihnachtstag' ],
     ], 1000 * 60 * 60 * 24 * (20 + 2 * 2), 0, false, nominatim_default, 'not only test');
 
+// http://www.schulferien.org/Kalender_mit_Ferien/kalender_2014_ferien_Baden_Wuerttemberg.html
+test.addTest('Variable days: school holidays', [
+        'SH',
+    ], '2014.01.01 0:00', '2015.02.01 0:00', [
+        [ '2014.01.01 00:00', '2014.01.05 00:00', false, 'Weihnachtsferien' ],
+        [ '2014.04.14 00:00', '2014.04.26 00:00', false, 'Osterferien' ],
+        [ '2014.06.10 00:00', '2014.06.22 00:00', false, 'Pfingstferien' ],
+        [ '2014.07.31 00:00', '2014.09.14 00:00', false, 'Sommerferien' ],
+        [ '2014.10.27 00:00', '2014.10.31 00:00', false, 'Herbstferien' ],
+        [ '2014.12.22 00:00', '2015.01.06 00:00', false, 'Weihnachtsferien' ],
+    ], 1000 * 60 * 60 * 24 * (4 + 12 + 12 + 1 + 31 + 13 + 4 + 15), 0, false, nominatim_default, 'not only test');
+
+// http://www.schulferien.org/Kalender_mit_Ferien/kalender_2015_ferien_Baden_Wuerttemberg.html
+// https://github.com/opening-hours/opening_hours.js/issues/83
+test.addTest('Variable days: school holidays', [
+        'SH',
+    ], '2015.01.05 1:00', '2015.01.05 5:00', [
+        [ '2015.01.05 01:00', '2015.01.05 05:00', false, 'Weihnachtsferien' ],
+    ], 1000 * 60 * 60 * 4, 0, false, nominatim_default, 'not only test');
+
+test.addTest('Variable days: school holidays', [
+        'SH',
+    ], '2014.01.01 0:00', '2015.01.10 0:00', [
+        [ '2014.01.01 00:00', '2014.01.04 00:00', false, 'Weihnachtsferien' ], // 3
+        [ '2014.01.30 00:00', '2014.02.01 00:00', false, 'Winterferien' ],     // 2
+        [ '2014.04.03 00:00', '2014.04.23 00:00', false, 'Osterferien' ],      // 20
+        [ '2014.05.02 00:00', '2014.05.03 00:00', false, 'Osterferien' ],      // 1
+        [ '2014.05.30 00:00', '2014.05.31 00:00', false, 'Pfingstferien' ],    // 1
+        [ '2014.06.10 00:00', '2014.06.11 00:00', false, 'Pfingstferien' ],    // 1
+        [ '2014.07.31 00:00', '2014.09.11 00:00', false, 'Sommerferien' ],     // 1 + 31 + 10
+        [ '2014.10.27 00:00', '2014.11.09 00:00', false, 'Herbstferien' ],     // 5 + 8
+        [ '2014.12.22 00:00', '2015.01.06 00:00', false, 'Weihnachtsferien' ], // 10 + 5
+    ], 1000 * 60 * 60 * 24 * (3 + 2 + 20 + 1 + 1 + 1 + (1 + 31 + 10) + (5 + 8) + (10 + 5)), 0, false, nominatim_by_loc.de_hb, 'not last test');
+/* }}} */
+
+/* Holidays combined with other features {{{ */
 test.addTest('Variable days: public holidays', [
         'open; PH off',
         // 'PH off; 24/7', // should not be the same if following the rules
@@ -844,26 +882,6 @@ test.addTest('Variable days: public holidays', [
         [ '2015.01.05 00:00', '2015.01.06 00:00', false, 'Day before Heilige Drei Könige' ],
     ], 1000 * 60 * 60 * 24 * (3 + 2), 0, false, nominatim_default, 'not last test');
 
-// http://www.schulferien.org/Kalender_mit_Ferien/kalender_2014_ferien_Baden_Wuerttemberg.html
-test.addTest('Variable days: school holidays', [
-        'SH',
-    ], '2014.01.01 0:00', '2015.02.01 0:00', [
-        [ '2014.01.01 00:00', '2014.01.05 00:00', false, 'Weihnachtsferien' ],
-        [ '2014.04.14 00:00', '2014.04.26 00:00', false, 'Osterferien' ],
-        [ '2014.06.10 00:00', '2014.06.22 00:00', false, 'Pfingstferien' ],
-        [ '2014.07.31 00:00', '2014.09.14 00:00', false, 'Sommerferien' ],
-        [ '2014.10.27 00:00', '2014.10.31 00:00', false, 'Herbstferien' ],
-        [ '2014.12.22 00:00', '2015.01.06 00:00', false, 'Weihnachtsferien' ],
-    ], 1000 * 60 * 60 * 24 * (4 + 12 + 12 + 1 + 31 + 13 + 4 + 15), 0, false, nominatim_default, 'not only test');
-
-// http://www.schulferien.org/Kalender_mit_Ferien/kalender_2015_ferien_Baden_Wuerttemberg.html
-// https://github.com/opening-hours/opening_hours.js/issues/83
-test.addTest('Variable days: school holidays', [
-        'SH',
-    ], '2015.01.05 1:00', '2015.01.05 5:00', [
-        [ '2015.01.05 01:00', '2015.01.05 05:00', false, 'Weihnachtsferien' ],
-    ], 1000 * 60 * 60 * 4, 0, false, nominatim_default, 'not only test');
-
 test.addTest('Variable days: school holiday', [
         'open; SH off',
     ], '2014.01.01 0:00', '2014.06.15 0:00', [
@@ -871,20 +889,6 @@ test.addTest('Variable days: school holiday', [
         [ '2014.04.26 00:00', '2014.06.10 00:00' ],
     ], 1000 * 60 * 60 * 24 * (31 - 5 + 28 + 31 + 14 + 4 + 31 + 10) -(/* daylight saving time CEST */ 1000 * 60 * 60),
         0, false, nominatim_default, 'not last test');
-
-test.addTest('Variable days: school holidays', [
-        'SH',
-    ], '2014.01.01 0:00', '2015.01.10 0:00', [
-        [ '2014.01.01 00:00', '2014.01.04 00:00', false, 'Weihnachtsferien' ], // 3
-        [ '2014.01.30 00:00', '2014.02.01 00:00', false, 'Winterferien' ],     // 2
-        [ '2014.04.03 00:00', '2014.04.23 00:00', false, 'Osterferien' ],      // 20
-        [ '2014.05.02 00:00', '2014.05.03 00:00', false, 'Osterferien' ],      // 1
-        [ '2014.05.30 00:00', '2014.05.31 00:00', false, 'Pfingstferien' ],    // 1
-        [ '2014.06.10 00:00', '2014.06.11 00:00', false, 'Pfingstferien' ],    // 1
-        [ '2014.07.31 00:00', '2014.09.11 00:00', false, 'Sommerferien' ],     // 1 + 31 + 10
-        [ '2014.10.27 00:00', '2014.11.09 00:00', false, 'Herbstferien' ],     // 5 + 8
-        [ '2014.12.22 00:00', '2015.01.06 00:00', false, 'Weihnachtsferien' ], // 10 + 5
-    ], 1000 * 60 * 60 * 24 * (3 + 2 + 20 + 1 + 1 + 1 + (1 + 31 + 10) + (5 + 8) + (10 + 5)), 0, false, nominatim_by_loc.de_hb, 'not last test');
 
 test.addTest('SH: Only if SH is Wednesday', [
         'SH We',
@@ -944,6 +948,14 @@ test.addTest('Variable days: Everyday including public holidays', [
         [ '2014.01.07 00:00', '2014.01.15 00:00' ],
     ], 1000 * 60 * 60 * 24 * 14, 0, false, nominatim_default, 'not last test');
 
+test.addTest('SH(summer holiday) workaround', [
+        'Jul-Sep SH',
+    ], '2015.01.01 0:00', '2016.01.01 0:00', [
+        [ '2015.07.30 00:00', '2015.09.13 00:00', false, 'Sommerferien' ],
+    ], 1000 * 60 * 60 * 24 * (2 + 31 + 12), 0, false, nominatim_default, 'not only test');
+/* }}} */
+
+/* Italy {{{ */
 test.addTest('Variable days: Italian public holidays', [
         'PH',
     ], '2014.01.01 0:00', '2014.12.31 23:59', [
@@ -961,12 +973,7 @@ test.addTest('Variable days: Italian public holidays', [
         [ '2014.12.25 00:00', '2014.12.26 00:00', false, 'Natale di Gesù' ],
         [ '2014.12.26 00:00', '2014.12.27 00:00', false, 'Santo Stefano' ],
     ], 1000 * 60 * 60 * 24 * 13, 0, false, nominatim_by_loc.it, 'not last test');
-
-test.addTest('SH(summer holiday) workaround', [
-        'Jul-Sep SH',
-    ], '2015.01.01 0:00', '2016.01.01 0:00', [
-        [ '2015.07.30 00:00', '2015.09.13 00:00', false, 'Sommerferien' ],
-    ], 1000 * 60 * 60 * 24 * (2 + 31 + 12), 0, false, nominatim_default, 'not only test');
+/* }}} */
 
 /* Romania {{{ */
 test.addTest('SH for Romania', [

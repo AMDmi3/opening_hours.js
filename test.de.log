@@ -533,6 +533,15 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*public holiday <--- (Please use notation "PH" for "public holiday".)
 	*public holiday <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Variable days: school holidays" for "SH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*SH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Variable days: school holidays" for "SH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*SH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Variable days: school holidays" for "SH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*SH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "open; PH off": [1m[32mPASSED[39m[22m
 "Variable days: public holidays (with time range)" for "PH 12:00-13:00": [1m[32mPASSED[39m[22m
 "Variable days: public holidays (with time range)" for "PH 12:00-13:00 open "this comment should override the holiday name which is returned as comment if PH matches."": [1m[32mPASSED[39m[22m
@@ -653,16 +662,7 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*one day before public holiday <--- (Please use notation "PH -1 day" for "one day before public holiday".)
 	*one day before public holiday <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Variable days: school holidays" for "SH": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*SH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Variable days: school holidays" for "SH": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*SH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holiday" for "open; SH off": [1m[32mPASSED[39m[22m
-"Variable days: school holidays" for "SH": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*SH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "SH: Only if SH is Wednesday" for "SH We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
@@ -764,12 +764,12 @@ With [1m[34mwarnings[39m[22m:
 "Variable days: Everyday including public holidays" for "PH,Mo-Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH,Mo-Su <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"Variable days: Italian public holidays" for "PH": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "SH(summer holiday) workaround" for "Jul-Sep SH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jul-Sep SH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+"Variable days: Italian public holidays" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "SH for Romania" for "SH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)

@@ -354,6 +354,15 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*public holiday <--- (Please use notation "PH" for "public holiday".)
 	*public holiday <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: school holidays" for "SH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*SH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: school holidays" for "SH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*SH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: school holidays" for "SH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*SH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "open; PH off": [1m[32mPASSED[39m[22m
 "Variable days: public holidays (with time range)" for "PH 12:00-13:00": [1m[32mPASSED[39m[22m
 "Variable days: public holidays (with time range)" for "PH 12:00-13:00 open "this comment should override the holiday name which is returned as comment if PH matches."": [1m[32mPASSED[39m[22m
@@ -474,16 +483,7 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*one day before public holiday <--- (Please use notation "PH -1 day" for "one day before public holiday".)
 	*one day before public holiday <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-"Variable days: school holidays" for "SH": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*SH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-"Variable days: school holidays" for "SH": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*SH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holiday" for "open; SH off": [1m[32mPASSED[39m[22m
-"Variable days: school holidays" for "SH": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*SH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH: Only if SH is Wednesday" for "SH We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
@@ -585,12 +585,12 @@ With [1m[34mwarnings[39m[22m:
 "Variable days: Everyday including public holidays" for "PH,Mo-Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH,Mo-Su <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-"Variable days: Italian public holidays" for "PH": [1m[32mPASSED[39m[22m
-With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH(summer holiday) workaround" for "Jul-Sep SH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jul-Sep SH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Variable days: Italian public holidays" for "PH": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH for Romania" for "SH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
