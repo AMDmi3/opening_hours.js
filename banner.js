@@ -1,6 +1,6 @@
 /*
- * @source: https://github.com/opening-hours/opening_hours.js/blob/master/opening_hours.js
- * @source: ./opening_hours.js
+ * @source: https://github.com/opening-hours/opening_hours.js/blob/master/index.js
+ * @source: ./index.js
  * @license: LGPL-3.0
  *
  * Copyright (C) 2012-2013 Dmitry Marakasov
