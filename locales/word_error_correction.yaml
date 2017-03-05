@@ -1,5 +1,9 @@
 ---
 
+# Key is the token name except wrong_words.
+
+# Initially taken form http://www.netzwolf.info/j/osm/time_domain.js Credits go to Netzwolf.
+
 wrong_words:
   'Assuming "<ok>" for "<ko>".':
     daytime: sunrise-sunset

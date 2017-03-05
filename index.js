@@ -2,31 +2,9 @@
 /* jshint boss: true */
 /* jshint loopfunc: true */
 
-/* constants (holiday_definitions, error correction, lang) {{{ */
-/* holiday_definitions {{{ */
-/*
- * Refer to /holidays/README.md for documentation of the data format used.
- *
- * The country code keys and the PH, SH keys are surrounded by '':
- * :%s/^\s\+\zs"\([^"]\+\)"\(: {\)/'\1'\2/
- * Fixed the indention with Vim Marco:
- * /'PH'<cr>f{jVk%k,a:
- * Fixed spacing in parenthesis:
- * :%s/\[\zs\([^ ]\)/ \1/e | %s/\([^ ]\)\]/\1 \]/e | %s/,\([^ ]\)/, \1/e
- */
 import * as holiday_definitions from './holidays/index';
-
-// error correction {{{
-// Initially taken form http://www.netzwolf.info/j/osm/time_domain.js
-// Credits go to Netzwolf.
-//
-// Key to word_error_correction is the token name except wrong_words
 import word_error_correction from './locales/word_error_correction.yaml';
-/* }}} */
-
-/* error and warning messages {{{ */
 import lang from './locales/lang.yaml';
-/* }}} */
 
 import moment from 'moment';
 import SunCalc from 'suncalc';
