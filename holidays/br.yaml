@@ -1,5 +1,7 @@
 ---
 
+_nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=-10&lon=-52&zoom=18&addressdetails=1&accept-language=pt,en'
+
 PH:  # https://pt.wikipedia.org/wiki/Feriados_no_Brasil
   'Ano Novo': [1, 1]
   'Carnaval': [easter, -47]

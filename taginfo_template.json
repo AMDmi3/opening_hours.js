@@ -1,11 +1,11 @@
 {
     "data_format": 1,
-    "data_url": "https://raw.githubusercontent.com/ypid/opening_hours.js/master/taginfo.json",
+    "data_url": "https://raw.githubusercontent.com/opening-hours/opening_hours.js/master/taginfo.json",
     "project": {
         "name": "opening_hours evaluation tool",
         "description": "Advanced opening_hours testing tool",
         "project_url": "http://openingh.openstreetmap.de/evaluation_tool/",
-        "doc_url": "https://github.com/ypid/opening_hours.js",
+        "doc_url": "https://github.com/opening-hours/opening_hours.js",
         "icon_url": "http://openingh.openstreetmap.de/evaluation_tool/favicon.png",
         "contact_name": "Robin Schneider",
         "contact_email": "ypid@riseup.net"

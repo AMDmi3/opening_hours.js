@@ -85,7 +85,7 @@
         // var msec_in_week   = msec_in_day * 7;
 
         var library_name   = 'opening_hours.js';
-        var repository_url = 'https://github.com/ypid/' + library_name;
+        var repository_url = 'https://github.com/opening-hours/' + library_name;
         // var issues_url     = repository_url + '/issues?state=open';
         /* }}} */
 
@@ -2270,13 +2270,18 @@
                             // Iterate over holiday array containing the different holiday ranges.
                             for (var i = 0; i < applying_holidays.length; i++) {
 
-                                var holiday = getSHForYear(applying_holidays[i], date.getFullYear());
+                                var holiday = getSHForYear(applying_holidays[i], date.getFullYear(), false);
+                                if (typeof holiday === 'undefined') {
+                                    continue;
+                                }
 
                                 for (var h = 0; h < holiday.length; h+=4) {
                                     var holiday_to_plus = new Date(date.getFullYear(), holiday[2+h] - 1, holiday[3+h] + 1);
                                     var holiday_from = (holiday[0+h] - 1) * 100 + holiday[1+h];
                                     var holiday_to   = (holiday[2+h] - 1) * 100 + holiday[3+h];
                                     holiday_to_plus  = getValueForDate(holiday_to_plus);
+
+                                    // console.log(`holiday_from: ${holiday_from}, holiday_to: ${holiday_to}, holiday_to_plus: ${holiday_to_plus}`);
 
                                     var holiday_ends_next_year = holiday_to < holiday_from;
 
@@ -2291,17 +2296,18 @@
                                                 + last_year_holiday[last_year_holiday.length - 1]; // e.g. 0005
                                             // console.log(last_year_holiday_from, last_year_holiday_to);
 
-                                            if (last_year_holiday_from > last_year_holiday_to && date_num <= last_year_holiday_to)
+                                            if (last_year_holiday_from > last_year_holiday_to && date_num <= last_year_holiday_to) {
                                                 return [ true, new Date(date.getFullYear(),
                                                     last_year_holiday[last_year_holiday.length - 2] - 1,
                                                     last_year_holiday[last_year_holiday.length - 1] + 1),
                                                     applying_holidays[applying_holidays.length - 1].name ];
-                                            else
+                                            } else {
                                                 return [ false, new Date(date.getFullYear(), holiday[0+h] - 1, holiday[1+h]) ];
-                                        } else { // school holidays for last year are not defined.
+                                            }
+                                        } else { /* School holidays for last year are not defined. */
                                             return [ false, new Date(date.getFullYear(), holiday[0+h] - 1, holiday[1+h]) ];
                                         }
-                                    } else if (holiday_from <= date_num && (date_num < holiday_to_plus || holiday_ends_next_year)) {
+                                    } else if (holiday_from <= date_num && (date_num <= holiday_to || holiday_ends_next_year)) {
                                         return [ true, new Date(date.getFullYear() + holiday_ends_next_year, holiday[2+h] - 1, holiday[3+h] + 1),
                                             applying_holidays[i].name ];
                                     } else if (holiday_to_plus === date_num) { // selected holiday end is equal to month and day
@@ -2309,18 +2315,22 @@
                                             h += 4;
                                             return [ false, new Date(date.getFullYear(), holiday[0+h] - 1, holiday[1+h]) ];
                                         } else {
-                                            if (i + 1 === applying_holidays.length) { // last holidays are handled, continue all over again
-                                                var holiday = getSHForYear(applying_holidays[0], date.getFullYear() + 1);
-                                                return [ false, new Date(date.getFullYear() + !holiday_ends_next_year, holiday[0+h] - 1, holiday[1+h]) ];
-                                            } else { // return the start of the next holidays
-                                                    var holiday = getSHForYear(applying_holidays[i+1], date.getFullYear());
-                                                    return [ false, new Date(date.getFullYear(), holiday[0] - 1, holiday[1]) ];
-                                            }
+                                            /* Because not all school holidays
+                                             * have to apply each year this
+                                             * part has been simplified which
+                                             * makes the implementation abit
+                                             * less efficient but reduces
+                                             * complexity.
+                                             */
+                                            return [ false, new Date(date.getFullYear(), holiday[2+h] - 1, holiday[3+h] + 2) ];
                                         }
                                     }
                                 }
                             }
-                            return [ false ];
+                            throw formatLibraryBugMessage(t('no SH definition', {
+                                'name': '',
+                                'year': date.getFullYear(),
+                            }), 'library bug PR only');
                         }}(applying_holidays);
 
                         if (push_to_weekday)
@@ -2370,7 +2380,7 @@
          *
          * :param SH_hash:
          * :param year: Year as integer.
-         * :param fatal: Defines the behavior in case no definition is find. Throw an error if set to true. Return return undefined.
+         * :param fatal: Defines the behavior in case no definition is find. Throw an error if set to true. Return return undefined otherwise.
          * :returns: school holidays for the given year.
          */
         function getSHForYear(SH_hash, year, fatal) {
@@ -2384,9 +2394,8 @@
                 if (typeof holiday === 'undefined') {
                     if (fatal) {
                         throw formatLibraryBugMessage(t('no SH definition', {
-                            'name': SH_hash.name,
+                            'name': SH_hash.name + ' ',
                             'year': year,
-                            'repository_url': repository_url,
                         }), 'library bug PR only');
                     } else {
                         return undefined;
@@ -2631,7 +2640,7 @@
             tokens[at][3] = 'year';
             for (; at < tokens.length; at++) {
                 if (matchTokens(tokens, at, 'year')) {
-                    var is_range   = false,
+                    var is_range = false,
                         has_period,
                         period;
                     if (matchTokens(tokens, at+1, '-', 'year', '/', 'number')) {
@@ -3808,11 +3817,11 @@
                         }
 
                         // console.log('\n' + 'previous check time:', prevstate[1]
-                            // + ', current check time:',
-                            // // (state[1].getHours() < 10 ? '0' : '') + state[1].getHours() +
-                            // // ':'+(state[1].getMinutes() < 10 ? '0' : '')+ state[1].getMinutes(), state[1].getDate(),
-                            // state[1],
-                            // (state[0] ? 'open' : (state[2] ? 'unknown' : 'closed')) + ', comment:', state[3]);
+                        //     + ', current check time:',
+                        //     // (state[1].getHours() < 10 ? '0' : '') + state[1].getHours() +
+                        //     // ':'+(state[1].getMinutes() < 10 ? '0' : '')+ state[1].getMinutes(), state[1].getDate(),
+                        //     state[1],
+                        //     (state[0] ? 'open' : (state[2] ? 'unknown' : 'closed')) + ', comment:', state[3]);
 
                         if (state[1].getTime() <= prevstate[1].getTime()) {
                             /* We're going backwards or staying at the same time.
@@ -3822,13 +3831,14 @@
                         }
 
                         if (state[1].getTime() >= datelimit.getTime()) {
-                            /* Don't advance beyond limits (same as open range) */
+                            /* Don't advance beyond limits. */
                             return false;
                         }
 
                         // do advance
                         prevstate = state;
                         state = oh.getStatePair(prevstate[1]);
+                        // console.log(state);
                     } while (state[0] === prevstate[0] && state[2] === prevstate[2] && state[3] === prevstate[3]);
                     return true;
                 };

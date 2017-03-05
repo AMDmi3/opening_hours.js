@@ -6,7 +6,7 @@
 
 Because each country/culture has it‘s own important dates/events, holidays are defined on a country level. The country wide definition can be overwritten as needed by more specific definitions. Because this library works with the OSM ecosystem, those boundaries are based on OSM.
 
-More specifically, the dataset on which a decision is made which holidays apply for a given location is based on the information returned from [Nominatim](https://wiki.openstreetmap.org/wiki/Nominatim).
+More specifically, the dataset on which a decision is made which holidays apply for a given location is based on [Nominatim](https://wiki.openstreetmap.org/wiki/Nominatim).
 
 Consider this [Nominatim reverse geocoding][] query: https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487&lon=9.8160&zoom=18&addressdetails=1&accept-language=de,en
 
@@ -45,23 +45,23 @@ as of 2016-06-29.
 For now it has been enough to make a decision based on the fields `address.country_code` and `address.state` and thus only those two levels are supported right now in the data format. But the other information is there when needed, just extend the data format and source code to make use of it.
 
 Note that you will need to use exactly the same values that Nominatim returns in the holiday definition data format which is described next.
-Also note that the data format is based on Nominatim results in local language so you will likely need to adjust the `accept-language` URL get parameter from the example.
+Also note that the definition is based on Nominatim results in local language so you will likely need to adjust the `accept-language` URL get parameter from the example.
 Refer to [Nominatim/Country Codes](https://wiki.openstreetmap.org/wiki/Nominatim/Country_Codes) for the country codes to language code mapping used for this specification.
 
-You can use https://www.openstreetmap.org to get the coordinates for the regions you are defining holidays for. Just search the region and position the map view on that region. Copy the latitude and longitude from the address bar. Consider this example of a permalink:
+You can use https://www.openstreetmap.org to get the coordinates for the states you are defining holidays for. Just search the state and position the map view on that state. Copy the latitude and longitude from the address bar. Consider this example of a permalink:
 
 https://www.openstreetmap.org/#map=15/49.5487/9.8160
 
-You can now use the `&lat=49.5487&lon=9.8160` parameters and use them instead of the once in the example Nominatim query shown above. Note that you should include this Nominatim URL for each defined region using the `_nominatim_url` key (see below).
+You can now use the `&lat=49.5487&lon=9.8160` parameters and use them instead of the once in the example Nominatim query shown above. Note that you should include this Nominatim URL for each defined state using the `_nominatim_url` key (see below).
 The `_nominatim_url` is intended to make testing of the holiday definitions easier.
 
 You could also do a [Nominatim search][] directly using: https://nominatim.openstreetmap.org/search?format=json&country=Deutschland&state=Berlin&&zoom=18&addressdetails=1&limit=1&accept-language=de,en
 and then do the [Nominatim reverse geocoding][] using the returned coordinates. But note that the `_nominatim_url` needs to be
 a [Nominatim reverse geocoding][] query because of different attributes being returned.
 
-## Holiday definition data format
+## Holiday definition format
 
-Data format version `2.2.0`. The data format will probably need to be adopted to support more holiday definitions in the future.
+Data format version `2.2.0`. The data format will probably need to be adapted to support more holiday definitions in the future.
 The data format versioning complies with [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 Each country has it’s own [YAML] file below [./holidays/][ohlib.holidays] with
@@ -78,8 +78,13 @@ _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=49.
 PH: {}  # https://de.wikipedia.org/wiki/Feiertage_in_Deutschland
 
 Baden-Württemberg:  # Does only apply in Baden-Württemberg
+  _state_code: bw
+  # Short string which can be used to refer to this entry in the test framework.
+  # Needs to be unique for the country wide definition.
+  # Should be specified when a commonly known code exists for the country/state.
+
   _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487&lon=9.8160&zoom=18&addressdetails=1&accept-language=de,en'
-  # Somewhere in this state/region.
+  # Somewhere in this state/state.
 
   # PH: {}
   # This more specific rule set overwrites the country wide one (they are just ignored).
@@ -94,7 +99,7 @@ The dictionary of the country either consists of `PH`, `SH` or the value of `add
 
 Note that the data format versions below 2.2.0 used JSON as data serialization language. The data structure remains the same as 2.1.0 however.
 
-### Holiday definition data format: PH
+### Holiday definition format: PH
 
 Now lets look at the public holiday (`PH`) definition in more detail. Each `PH` definition consists of a dictionary with holiday name as key and date definition as values (specifying one day).
 Holiday names should be in the local language. A date definition either consists of two integers representing month and day or the name of a movable event and the offset to that event. The movable events and the formulas for calculating them for a given year are defined in the `getMovableEventsForYear` function.
@@ -122,7 +127,7 @@ PH:  # https://de.wikipedia.org/wiki/Feiertage_in_Deutschland
 
 Note that the array of date definitions can hold an optional array of `address.state` strings. When this list is present, the holiday is only applied when `address.state` is found in that array of strings.
 
-### Holiday definition data format: SH
+### Holiday definition format: SH
 
 School holiday (`SH`) definitions look a little bit different. This is because school holidays usually spans multiple days and because `SH` are different for each year/can not be mathematically calculated (at least the countries that @ypid has seen so far).
 This is not very nice, but as we are hackers, we can just grab the data and convert it into the data format documented here. This is what @ypid has been doing for all states in Germany using the [hc] tool which was developed for use with this library and which fellows might find useful to convert holidays for other countries as well.

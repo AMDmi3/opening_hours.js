@@ -1,5 +1,7 @@
 ---
 
+_nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=32.3673&lon=-86.2983&zoom=18&addressdetails=1&accept-language=en'
+
 PH:  # https://en.wikipedia.org/wiki/Public_holidays_in_the_United_States
   'New Year''s Day': [1, 1]
   'Memorial Day': [lastMayMonday, 0]
@@ -9,6 +11,8 @@ PH:  # https://en.wikipedia.org/wiki/Public_holidays_in_the_United_States
   'Thanksgiving': [firstNovemberThursday, 21]
   'Christmas Day': [12, 25]
 Alabama:
+  _state_code: al
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=32.3673&lon=-86.2983&zoom=18&addressdetails=1&accept-language=en'
   PH:  # http://www.archives.alabama.gov/intro/holidays.html
     'New Year''s Day': [1, 1]
     'Robert E. Lee/Martin Luther King Birthday': [firstJanuaryMonday, 14]
@@ -23,6 +27,8 @@ Alabama:
     'Confederate Memorial Day': [firstAprilMonday, 21]
     'Jefferson Davis'' Birthday': [firstJuneMonday, 0]
 Alaska:
+  _state_code: ak
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=64.5082&lon=-165.4066&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -36,6 +42,8 @@ Alaska:
     'Seward''s Day': [lastMarchMonday, 0]
     'Alaska Day': [10, 18]
 Arizona:
+  _state_code: az
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=34.9378&lon=-109.7565&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Dr. Martin Luther King Jr./Civil Rights Day': [firstJanuaryMonday, 14]
@@ -48,6 +56,8 @@ Arizona:
     'Thanksgiving': [firstNovemberThursday, 21]
     'Christmas Day': [12, 25]
 Arkansas:
+  _state_code: ar
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=34.74610&lon=-92.29054&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Dr. Martin Luther King Jr. and Robert E. Lee''s Birthdays': [firstJanuaryMonday, 14]
@@ -61,6 +71,8 @@ Arkansas:
     'Christmas Eve': [12, 24]
     'Christmas Day': [12, 25]
 California:
+  _state_code: ca
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=40.8001&lon=-124.1698&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -74,6 +86,8 @@ California:
     'Christmas Day': [12, 25]
     'César Chávez Day': [3, 31]
 Colorado:
+  _state_code: co
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=39.1804&lon=-106.8218&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -86,6 +100,8 @@ Colorado:
     'Thanksgiving': [firstNovemberThursday, 21]
     'Christmas Day': [12, 25]
 Connecticut:
+  _state_code: ct
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=41.9111&lon=-72.16014&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -100,6 +116,8 @@ Connecticut:
     'Lincoln''s Birthday': [2, 12]
     'Good Friday': [easter, -2]
 Delaware:
+  _state_code: de
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=38.7113&lon=-75.0978&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -114,6 +132,8 @@ Delaware:
     'Christmas Day': [12, 25]
     'Good Friday': [easter, -2]
 'District of Columbia':
+  _state_code: dc
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=38.8953&lon=-77.0356&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -127,6 +147,8 @@ Delaware:
     'Christmas Day': [12, 25]
     'Emancipation Day': [4, 16]
 Florida:
+  _state_code: fl
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=25.7720&lon=-80.1324&zoom=18&addressdetails=1&accept-language=en'
   PH:  # http://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&Search_String=&URL=0100-0199/0110/Sections/0110.117.html
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -138,6 +160,8 @@ Florida:
     'Friday after Thanksgiving': [firstNovemberThursday, 22]
     'Christmas Day': [12, 25]
 Georgia:
+  _state_code: ga
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=31.0823&lon=-81.4192&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -152,6 +176,8 @@ Georgia:
     'Christmas Day': [12, 25]
     'Confederate Memorial Day': [lastAprilMonday, 0]
 Guam:
+  _state_code: gu
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=13.4311&lon=144.6549&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -169,6 +195,8 @@ Guam:
     'Lady of Camarin Day': [12, 8]
     'Christmas Day': [12, 25]
 Hawaii:
+  _state_code: hi
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=19.6423&lon=-155.4837&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -184,6 +212,8 @@ Hawaii:
     'Statehood Day': [firstAugustFriday, 14]
     'Election Day': [firstNovemberMonday, 1]
 Idaho:
+  _state_code: id
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=47.6710&lon=-116.7671&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr.-Idaho Human Rights Day': [firstJanuaryMonday, 14]
@@ -196,6 +226,8 @@ Idaho:
     'Thanksgiving': [firstNovemberThursday, 21]
     'Christmas Day': [12, 25]
 Illinois:
+  _state_code: il
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=42.05202&lon=-87.67594&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -211,6 +243,8 @@ Illinois:
     'Casimir Pulaski Day': [firstMarchMonday, 0]
     'Election Day': [firstNovemberMonday, 1]
 Indiana:
+  _state_code: in
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=40.4179&lon=-86.8969&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -227,6 +261,8 @@ Indiana:
     'Primary Election Day': [firstMayMonday, 1]
     'Election Day': [firstNovemberMonday, 1]
 Iowa:
+  _state_code: ia
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=41.9747&lon=-91.6760&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -240,6 +276,8 @@ Iowa:
     'Christmas Day': [12, 25]
     'Lincoln''s Birthday': [2, 12]
 Kansas:
+  _state_code: ks
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=37.6888&lon=-97.3271&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -252,6 +290,8 @@ Kansas:
     'Thanksgiving': [firstNovemberThursday, 21]
     'Christmas Day': [12, 25]
 Kentucky:
+  _state_code: ky
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=36.8446&lon=-83.3196&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -267,6 +307,8 @@ Kentucky:
     'New Year''s Eve': [12, 31]
     'Good Friday': [easter, -2]
 Louisiana:
+  _state_code: la
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=30.1800&lon=-90.1787&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -282,6 +324,8 @@ Louisiana:
     'Good Friday': [easter, -2]
     'Election Day': [firstNovemberMonday, 1]
 Maine:
+  _state_code: me
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=44.7903&lon=-68.7829&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -295,6 +339,8 @@ Maine:
     'Christmas Day': [12, 25]
     'Patriots'' Day': [firstAprilMonday, 14]
 Maryland:
+  _state_code: md
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=38.3206&lon=-75.6213&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -308,6 +354,8 @@ Maryland:
     'Native American Heritage Day': [firstNovemberThursday, 22]
     'Christmas Day': [12, 25]
 Massachusetts:
+  _state_code: ma
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=42.3550&lon=-71.0645&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -321,6 +369,8 @@ Massachusetts:
     'Christmas Day': [12, 25]
     'Patriots'' Day': [firstAprilMonday, 14]
 Michigan:
+  _state_code: mi
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=42.7153&lon=-84.4995&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -335,6 +385,8 @@ Michigan:
     'Christmas Day': [12, 25]
     'New Year''s Eve': [12, 31]
 Minnesota:
+  _state_code: mn
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=47.8278&lon=-90.0484&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -347,6 +399,8 @@ Minnesota:
     'Thanksgiving': [firstNovemberThursday, 21]
     'Christmas Day': [12, 25]
 Mississippi:
+  _state_code: ms
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=30.3986&lon=-88.8820&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King''s and Robert E. Lee''s Birthdays': [firstJanuaryMonday, 14]
@@ -360,6 +414,8 @@ Mississippi:
     'Christmas Day': [12, 25]
     'Confederate Memorial Day': [lastAprilMonday, 0]
 Missouri:
+  _state_code: mo
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=37.0799&lon=-94.5060&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -373,6 +429,8 @@ Missouri:
     'Christmas Day': [12, 25]
     'Truman Day': [5, 8]
 Montana:
+  _state_code: mt
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=48.3866&lon=-115.5498&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -388,6 +446,8 @@ Montana:
     'Christmas Eve': [12, 24]
     'New Year''s Eve': [12, 31]
 Nebraska:
+  _state_code: ne
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=41.2587&lon=-95.9374&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -401,6 +461,8 @@ Nebraska:
     'Christmas Day': [12, 25]
     'Arbor Day': [lastAprilFriday, 0]
 Nevada:
+  _state_code: nv
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=36.1215&lon=-115.1704&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -414,6 +476,8 @@ Nevada:
     'Nevada Day': [lastOctoberFriday, 0]
     'Family Day': [firstNovemberThursday, 22]
 'New Hampshire':
+  _state_code: nh
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=43.5628&lon=-71.9447&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Civil Rights Day': [firstJanuaryMonday, 14]
@@ -428,6 +492,8 @@ Nevada:
     'Christmas Day': [12, 25]
     'Election Day': [firstNovemberMonday, 1]
 'New Jersey':
+  _state_code: nj
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=39.9475&lon=-75.1066&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -443,6 +509,8 @@ Nevada:
     'Good Friday': [easter, -2]
     'Election Day': [firstNovemberMonday, 1]
 'New Mexico':
+  _state_code: nm
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=34.0790&lon=-107.6179&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -455,6 +523,8 @@ Nevada:
     'Day after Thanksgiving': [firstNovemberThursday, 22]
     'Christmas Day': [12, 25]
 'New York':
+  _state_code: ny
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=42.8126&lon=-73.9379&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -469,6 +539,8 @@ Nevada:
     'Lincoln''s Birthday': [2, 12]
     'Election Day': [firstNovemberMonday, 1]
 'North Carolina':
+  _state_code: nc
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=35.7802&lon=-78.6394&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -485,6 +557,8 @@ Nevada:
     'Day after Christmas': [12, 26]
     'Good Friday': [easter, -2]
 'North Dakota':
+  _state_code: nd
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=48.1459&lon=-103.6232&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -497,6 +571,8 @@ Nevada:
     'Thanksgiving': [firstNovemberThursday, 21]
     'Christmas Day': [12, 25]
 Ohio:
+  _state_code: oh
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=41.4846&lon=-82.6852&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -509,6 +585,8 @@ Ohio:
     'Thanksgiving': [firstNovemberThursday, 21]
     'Christmas Day': [12, 25]
 Oklahoma:
+  _state_code: ok
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=36.0514&lon=-95.7892&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -522,6 +600,8 @@ Oklahoma:
     'Day after Thanksgiving': [firstNovemberThursday, 22]
     'Christmas Day': [12, 25]
 Oregon:
+  _state_code: or
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=45.3732&lon=-121.6959&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -534,6 +614,8 @@ Oregon:
     'Thanksgiving': [firstNovemberThursday, 21]
     'Christmas Day': [12, 25]
 Pennsylvania:
+  _state_code: pa
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=40.3340&lon=-75.9300&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -547,6 +629,8 @@ Pennsylvania:
     'Christmas Day': [12, 25]
     'Flag Day': [6, 14]
 'Puerto Rico':
+  _state_code: pr
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=18.4364&lon=-66.1188&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'Día de Año Nuevo': [1, 1]
     'Día de Reyes': [1, 6]
@@ -568,6 +652,8 @@ Pennsylvania:
     'Noche Buena': [12, 24]
     'Día de Navidad': [12, 25]
 'Rhode Island':
+  _state_code: ri
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=41.8251&lon=-71.4194&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -581,6 +667,8 @@ Pennsylvania:
     'Christmas Day': [12, 25]
     'Victory Day': [firstAugustMonday, 7]
 'South Carolina':
+  _state_code: sc
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=32.7878&lon=-79.9392&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -594,6 +682,8 @@ Pennsylvania:
     'Christmas Day': [12, 25]
     'Confederate Memorial Day': [5, 10]
 'South Dakota':
+  _state_code: sd
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=43.7148&lon=-98.0249&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -606,6 +696,8 @@ Pennsylvania:
     'Thanksgiving': [firstNovemberThursday, 21]
     'Christmas Day': [12, 25]
 Tennessee:
+  _state_code: tn
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=35.1438&lon=-90.0231&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -620,6 +712,8 @@ Tennessee:
     'Christmas Day': [12, 25]
     'Good Friday': [easter, -2]
 Texas:
+  _state_code: tx
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=30.2655&lon=-97.7559&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -635,6 +729,8 @@ Texas:
     'Christmas Day': [12, 25]
     'Day after Christmas': [12, 26]
 'United States Virgin Islands':
+  _state_code: vi
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=18.3433&lon=-64.9347&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -658,6 +754,8 @@ Texas:
     'Christmas Second Day': [12, 26]
     'New Year''s Eve': [12, 31]
 Utah:
+  _state_code: ut
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=40.5888&lon=-111.6378&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -671,6 +769,8 @@ Utah:
     'Christmas Day': [12, 25]
     'Pioneer Day': [7, 24]
 Vermont:
+  _state_code: vt
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=44.2597&lon=-72.5800&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -685,6 +785,8 @@ Vermont:
     'Town Meeting Day': [firstMarchTuesday, 0]
     'Battle of Bennington': [firstAugustMonday, 14]
 Virginia:
+  _state_code: va
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=36.9454&lon=-76.2888&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Lee-Jackson Day': [firstJanuaryMonday, 11]
@@ -698,6 +800,8 @@ Virginia:
     'Thanksgiving': [firstNovemberThursday, 21]
     'Christmas Day': [12, 25]
 Washington:
+  _state_code: wa
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=46.8598&lon=-121.7256&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -710,6 +814,8 @@ Washington:
     'Thanksgiving': [firstNovemberThursday, 21]
     'Christmas Day': [12, 25]
 'West Virginia':
+  _state_code: wv
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=38.3686&lon=-81.6070&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -724,6 +830,8 @@ Washington:
     'West Virginia Day': [6, 20]
     'Lincoln''s Day': [firstNovemberThursday, 22]
 Wisconsin:
+  _state_code: wi
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=45.8719&lon=-89.6930&zoom=18&addressdetails=1&accept-language=en'
   PH:  # http://docs.legis.wisconsin.gov/statutes/statutes/995/20
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]
@@ -738,6 +846,8 @@ Wisconsin:
     'Primary Election Day': [firstAugustTuesday, 7]
     'Election Day': [firstNovemberMonday, 1]
 Wyoming:
+  _state_code: wy
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=42.8590&lon=-106.3126&zoom=18&addressdetails=1&accept-language=en'
   PH:
     'New Year''s Day': [1, 1]
     'Martin Luther King, Jr. Day': [firstJanuaryMonday, 14]

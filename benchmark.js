@@ -33,7 +33,7 @@ for (var t = 0; t < tests; t++) {
     var oh = new opening_hours(test_value);
     var before = new Date();
     for (var i = 0; i < iterations; i++) {
-        oh.getOpenIntervals(new Date('2012.01.01 00:00'), new Date('2012.01.07 00:00'));
+        oh.getOpenIntervals(new Date('2012-01-01 00:00'), new Date('2012-01-07 00:00'));
     }
     var delta = (new Date()).getTime() - before.getTime();
 

@@ -1,5 +1,7 @@
 ---
 
+_nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=55.7780&lon=49.1303&zoom=18&addressdetails=1&accept-language=ru,en'
+
 PH:  # https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%D0%B8_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8
   '1. Новогодние каникулы': [1, 1]
   '2. Новогодние каникулы': [1, 2]
@@ -15,7 +17,9 @@ PH:  # https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%
   'Праздник Весны и Труда': [5, 1]
   'День народного единства': [11, 4]
   'День России': [6, 12]
-Tatarstan:
+Татарстан:
+  _state_code: tatarstan
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=55.7780&lon=49.1303&zoom=18&addressdetails=1&accept-language=ru,en'
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
@@ -36,7 +40,9 @@ Tatarstan:
     'День Республики Татарстан': [8, 30]
     'Курбан-байрам': [10, 4]
     'День Конституции Республики Татарстан': [11, 6]
-Bashkortostan:
+Башкортостан:
+  _state_code: bashkortostan
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=54.1264&lon=56.5797&zoom=18&addressdetails=1&accept-language=ru,en'
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
@@ -57,7 +63,9 @@ Bashkortostan:
     'Курбан-байрам': [10, 4]
     'День Республики Башкирии': [10, 11]
     'День Конституции Башкортостана': [12, 24]
-Chuvashia:
+Чувашия:
+  _state_code: chuvashia
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=55.4871&lon=47.1659&zoom=18&addressdetails=1&accept-language=ru,en'
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
@@ -75,7 +83,9 @@ Chuvashia:
     'День России': [6, 12]
     # local
     'День Чувашской республики': [6, 24]
-'Sakha Republic':
+'Республика Саха (Якутия)':
+  _state_code: sakha
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=62.1010&lon=129.7176&zoom=18&addressdetails=1&accept-language=ru,en'
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
@@ -95,7 +105,9 @@ Chuvashia:
     # local
     'Ысыах': [6, 23]
     'День государственности Республики Саха': [9, 27]
-'Republic of Kalmykia':
+'Калмыкия':
+  _state_code: kalmykia
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=46.524&lon=44.731&zoom=18&addressdetails=1&accept-language=ru,en'
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
@@ -117,7 +129,9 @@ Chuvashia:
     'День рождения Будды Шакьямун': [6, 6]
     'Зул': [12, 15]
     'День памяти жертв депортации калмыцкого народа': [12, 28]
-Buryatia:
+'Республика Бурятия':
+  _state_code: buryatia
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=52.014&lon=109.366&zoom=18&addressdetails=1&accept-language=ru,en'
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
@@ -135,7 +149,9 @@ Buryatia:
     'День России': [6, 12]
     # local
     'Сагаалган': [1, 14]
-'Republic of Karelia':
+'Республика Карелия':
+  _state_code: karelia
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=63.832&lon=33.626&zoom=18&addressdetails=1&accept-language=ru,en'
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
@@ -154,7 +170,9 @@ Buryatia:
     # local
     'День Республики Карелия': [6, 8]
     'День освобождения Карелии от фашистских захватчиков': [9, 30]
-'Удмуртская республика':
+'Приволжский федеральный округ':
+  _state_code: udmurtia
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=56.8642&lon=53.2054&zoom=18&addressdetails=1&accept-language=ru,en'
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
@@ -172,7 +190,9 @@ Buryatia:
     'День России': [6, 12]
     # local
     'День Государственности Удмуртской Республики': [5, 31]
-Adygea:
+'Адыгея':
+  _state_code: adygea
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=44.60627&lon=40.10432&zoom=18&addressdetails=1&accept-language=ru,us'
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
@@ -192,7 +212,9 @@ Adygea:
     'Ураза-байрам': [7, 28]
     'Курбан-байрам': [10, 4]
     'День образования Республики Адыгея': [10, 5]
-'Republic of Dagestan':
+'Дагестан':
+  _state_code: dagestan
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=43.118&lon=46.959&zoom=18&addressdetails=1&accept-language=ru,en'
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
@@ -213,7 +235,9 @@ Adygea:
     'Ураза-байрам': [7, 28]
     'День единства народов Дагестана': [9, 15]
     'Курбан-байрам': [10, 4]
-Ingushetia:
+Ингушетия:
+  _state_code: ingushetia
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=43.1171&lon=44.8626&zoom=18&addressdetails=1&accept-language=ru,en'
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
@@ -233,7 +257,9 @@ Ingushetia:
     'День образования Республики Ингушетия': [6, 4]
     'Ураза-байрам': [7, 28]
     'Курбан-байрам': [10, 4]
-'Карачаево-Черкесская республика':
+'Карачаево-Черкесия':
+  _state_code: karachay_cherkess
+  _nominatim_url: https://nominatim.openstreetmap.org/reverse?format=json&lat=43.7916&lon=41.7268&zoom=18&addressdetails=1&accept-language=ru,en
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
@@ -253,7 +279,9 @@ Ingushetia:
     'День возрождения карачаевского народа': [5, 3]
     'Ураза-байрам': [7, 28]
     'Курбан-байрам': [10, 4]
-'Chechen Republic':
+Чечня:
+  _state_code: chechnya
+  _nominatim_url: https://nominatim.openstreetmap.org/reverse?format=json&lat=43.451&lon=45.700&zoom=18&addressdetails=1&accept-language=ru,en
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
@@ -273,7 +301,9 @@ Ingushetia:
     'День мира в Чеченской Республике': [4, 16]
     'Ураза-байрам': [7, 28]
     'Курбан-байрам': [10, 4]
-'Кабардино-Балкарская республика':
+'Кабардино-Балкария':
+  _state_code: kabardino_balkaria
+  _nominatim_url: https://nominatim.openstreetmap.org/reverse?format=json&lat=43.497&lon=43.423&zoom=18&addressdetails=1&accept-language=ru,en
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
@@ -295,7 +325,9 @@ Ingushetia:
     'Ураза-байрам': [7, 28]
     'День государственности Кабардино-Балкарской Республики': [9, 1]
     'Курбан-байрам': [10, 4]
-'Altai Republic':
+'Республика Алтай':
+  _state_code: altai
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=50.900&lon=86.899&zoom=18&addressdetails=1&accept-language=ru,en'
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
@@ -313,7 +345,9 @@ Ingushetia:
     'День России': [6, 12]
     # local
     'Чага-Байрам': [1, 14]
-Tuva:
+'Республика Тыва':
+  _state_code: tuva
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=51.781&lon=94.033&zoom=18&addressdetails=1&accept-language=ru,en'
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
@@ -332,7 +366,9 @@ Tuva:
     # local
     'Народный праздник Шагаа': [1, 14]
     'День Республики Тыва': [8, 15]
-'Saratov Oblast':
+'Саратовская область':
+  _state_code: saratov
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=51.335&lon=46.668&zoom=18&addressdetails=1&accept-language=ru,en'
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
@@ -350,7 +386,9 @@ Tuva:
     'День России': [6, 12]
     # local
     'Радоница': [4, 29]
-'Bryansk Oblast':
+'Брянская область':
+  _state_code: bryansk
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=52.952&lon=33.283&zoom=18&addressdetails=1&accept-language=ru,en'
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
@@ -369,7 +407,9 @@ Tuva:
     # local
     'Радоница': [4, 29]
     'День освобождения города Брянска': [9, 17]
-'Komi Republic':
+'Республика Коми':
+  _state_code: komi
+  _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=64.191&lon=55.826&zoom=18&addressdetails=1&accept-language=ru,en'
   PH:
     '1. Новогодние каникулы': [1, 1]
     '2. Новогодние каникулы': [1, 2]
