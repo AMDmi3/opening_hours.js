@@ -114,7 +114,7 @@ Changed
 * Migrated to use `ES2015 modules`_ and rollup_ for module bundling [simon04_]
 * Update to holiday definition format 2.2.0. Holidays are now maintained in
   YAML files, one for each country. [ypid_]
-* Rework the way Nominatim responses which are used for testing are handled. [ypid_]
+* Rework the way Nominatim responses are handled (used for testing). [ypid_]
 * Allow "gaps" in school holiday definitions. This became necessary because
   countries/states might add/remove holidays like winter holidays from one year
   to another. [ypid_]
@@ -134,7 +134,7 @@ Fixed
 * Fix Russian public holiday definitions. Regions where not in local language and thus not matched properly. [ypid_]
 * Fix school holiday selector code which caused the main selector traversal
   function to not advance any further (returning closed for all following dates) after the
-  school holiday selector code hitting a holiday definition ending on the last
+  school holiday selector code hit a holiday definition ending on the last
   day of the year. [ypid_]
 
 
