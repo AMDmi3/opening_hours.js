@@ -128,7 +128,7 @@ run-regex_search: export.$(SEARCH).json interactive_testing.js regex_search.py
 	$(NODEJS) ./regex_search.py "$<"
 
 .PHONY: run-interactive_testing
-run-interactive_testing: interactive_testing.js
+run-interactive_testing: interactive_testing.js opening_hours.js
 	$(NODEJS) "$<" --locale "$(CHECK_LANG)"
 ## }}}
 

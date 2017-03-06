@@ -517,13 +517,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     curr_rule_tokens.push([ correct_val[0], correct_val[1], value.length ]);
                     value = value.substr(tmp[0].length);
                 } else if (typeof correct_val === 'string') {
-                    if (tmp[1].toLowerCase() === 'a.m.') {
-                        tmp[1] = 'am';
-                    }
-                    if (tmp[1].toLowerCase() === 'p.m.') {
-                        tmp[1] = 'pm';
-                    }
-                    if (tmp[1].toLowerCase() === 'am' || tmp[1].toLowerCase() === 'pm') {
+                    if (correct_val === 'am' || correct_val === 'pm') {
                         var hours_token_at = curr_rule_tokens.length - 1;
                         var hours_token;
                         if (hours_token_at >= 0) {
@@ -540,15 +534,16 @@ export default function(value, nominatim_object, optional_conf_parm) {
                             }
 
                             if (typeof hours_token === 'object') {
-                                if (tmp[1].toLowerCase() === 'pm' && hours_token[0] < 12) {
+                                if (correct_val === 'pm' && hours_token[0] < 12) {
                                     hours_token[0] += 12;
                                 }
-                                if (tmp[1].toLowerCase() === 'am' && hours_token[0] === 12) {
+                                if (correct_val === 'am' && hours_token[0] === 12) {
                                     hours_token[0] = 0;
                                 }
                                 curr_rule_tokens[hours_token_at] = hours_token;
                             }
                         }
+                        correct_val = '';
                     }
                     var correct_tokens = tokenize(correct_val)[0];
                     if (correct_tokens[1] === true) { // last_rule_fallback_terminated
@@ -699,10 +694,11 @@ export default function(value, nominatim_object, optional_conf_parm) {
                                 throw formatLibraryBugMessage('Please also include the stacktrace.');
                             }
                             if (token_name !== 'timevar') {
-                                // FIXME
-                                // Everything else than timevar:
-                                // E.g. 'Mo' start with a upper case letter.
-                                // It just looks better.
+                                /* Everything else than timevar:
+                                 * Start with a upper case letter.
+                                 * E.g. 'mo' → 'Mo'
+                                 * It just looks better.
+                                 */
                                 correct_abbr = correct_abbr.charAt(0).toUpperCase()
                                     + correct_abbr.slice(1);
                             }
