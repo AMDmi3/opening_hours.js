@@ -483,24 +483,45 @@ export default function(value, nominatim_object, optional_conf_parm) {
         var last_rule_fallback_terminated = false;
 
         while (value !== '') {
+            /* Ordered after likelihood of input for performance reasons.
+             * Also, error tolerance happens is supposed to happen at the end.
+             */
             // console.log("Parsing value: " + value);
             var tmp;
-            if (tmp = value.match(/^week\b/i)) {
-                // Reserved keywords.
-                curr_rule_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase(), value.length ]);
-                value = value.substr(tmp[0].length);
-            } else if (tmp = value.match(/^(?:off|closed|open|unknown)\b/i)) {
-                // Reserved keywords.
-                curr_rule_tokens.push([tmp[0].toLowerCase(), 'state', value.length ]);
+            if (tmp = value.match(/^\s+/)) {
+                // whitespace is ignored
                 value = value.substr(tmp[0].length);
             } else if (tmp = value.match(/^24\/7/i)) {
                 // Reserved keyword.
                 curr_rule_tokens.push([tmp[0], tmp[0], value.length ]);
                 value = value.substr(tmp[0].length);
+            } else if (value.match(/^;/)) {
+                // semicolon terminates rule.
+                // Next token belong to a new rule.
+                all_tokens.push([ curr_rule_tokens, last_rule_fallback_terminated, value.length ]);
+                value = value.substr(1);
+
+                curr_rule_tokens = [];
+                last_rule_fallback_terminated = false;
+            } else if (value.match(/^[:.]/)) {
+                // Time separator (timesep).
+                if (value[0] === '.' && !done_with_warnings) {
+                    parsing_warnings.push([ -1, value.length - 1, t('hour min separator')]);
+                }
+                curr_rule_tokens.push([ ':', 'timesep', value.length ]);
+                value = value.substr(1);
+            } else if (tmp = value.match(/^(?:off|closed|open|unknown)\b/i)) {
+                // Reserved keywords.
+                curr_rule_tokens.push([tmp[0].toLowerCase(), 'state', value.length ]);
+                value = value.substr(tmp[0].length);
             } else if (tmp = value.match(/^(?:PH|SH)/i)) {
                 // special day name (holidays)
                 curr_rule_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
                 value = value.substr(2);
+            } else if (tmp = value.match(/^week\b/i)) {
+                // Reserved keywords.
+                curr_rule_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase(), value.length ]);
+                value = value.substr(tmp[0].length);
             } else if (tmp = value.match(/^(&|_|→|–|−|—|ー|=|·|öffnungszeit(?:en)?:?|opening_hours\s*=|\?|~|～|：|°°|always (?:open|closed)|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|(:?bis|till?|-|–)? ?(?:open ?end|late)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|on work days?|sonntags?|(?:nur |an )?sonn-?(?:(?: und |\/)feiertag(?:s|en?)?)?|(?:an )?feiertag(?:s|en?)?|(?:nach|on|by) (?:appointments?|vereinbarung|absprache)|p\.m\.|a\.m\.|[_a-zäößàáéøčěíúýřПнВсо]+\b|à|á|mo|tu|we|th|fr|sa|su|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\.?/i)) {
                 /* Handle all remaining words and specific other characters with error tolerance.
                  *
@@ -575,6 +596,20 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 }
 
                 value = value.substr(tmp[0].length);
+            } else if (value.match(/^\|\|/)) {
+                // || terminates rule.
+                // Next token belong to a fallback rule.
+                if (curr_rule_tokens.length === 0) {
+                    throw formatWarnErrorMessage(-1, value.length - 2, t('rule before fallback empty'));
+                }
+
+                all_tokens.push([ curr_rule_tokens, last_rule_fallback_terminated, value.length ]);
+                curr_rule_tokens = [];
+                // curr_rule_tokens = [ [ '||', 'rule separator', value.length  ] ];
+                // FIXME: Use this. Unknown bug needs to be solved in the process.
+                value = value.substr(2);
+
+                last_rule_fallback_terminated = true;
             } else if (tmp = value.match(/^"([^"]+)"/)) {
                 // Comment following the specification.
                 // Any character is allowed inside the comment except " itself.
@@ -603,41 +638,9 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 }
                 curr_rule_tokens.push([tmp[2], 'comment', value.length ]);
                 value = value.substr(tmp[0].length);
-            } else if (value.match(/^;/)) {
-                // semicolon terminates rule.
-                // Next token belong to a new rule.
-                all_tokens.push([ curr_rule_tokens, last_rule_fallback_terminated, value.length ]);
-                value = value.substr(1);
-
-                curr_rule_tokens = [];
-                last_rule_fallback_terminated = false;
-            } else if (value.match(/^\|\|/)) {
-                // || terminates rule.
-                // Next token belong to a fallback rule.
-                if (curr_rule_tokens.length === 0) {
-                    throw formatWarnErrorMessage(-1, value.length - 2, t('rule before fallback empty'));
-                }
-
-                all_tokens.push([ curr_rule_tokens, last_rule_fallback_terminated, value.length ]);
-                curr_rule_tokens = [];
-                // curr_rule_tokens = [ [ '||', 'rule separator', value.length  ] ];
-                // FIXME: Use this. Unknown bug needs to be solved in the process.
-                value = value.substr(2);
-
-                last_rule_fallback_terminated = true;
             } else if (value.match(/^(?:␣|\s)/)) {
                 // Using "␣" as space is not expected to be a normal
                 // mistake. Just ignore it to make using taginfo easier.
-                value = value.substr(1);
-            } else if (tmp = value.match(/^\s+/)) {
-                // whitespace is ignored
-                value = value.substr(tmp[0].length);
-            } else if (value.match(/^[:.]/)) {
-                // Time separator (timesep).
-                if (value[0] === '.' && !done_with_warnings) {
-                    parsing_warnings.push([ -1, value.length - 1, t('hour min separator')]);
-                }
-                curr_rule_tokens.push([ ':', 'timesep', value.length ]);
                 value = value.substr(1);
             } else {
                 // other single-character tokens
