@@ -655,12 +655,12 @@ export default function(value, nominatim_object, optional_conf_parm) {
     /* error correction/tolerance function {{{
      * Go through word_error_correction hash and get correct value back.
      *
-     * :param word: Wrong Word or character.
+     * :param word: Wrong word or character.
      * :param value_length: Current value_length (used for warnings).
      * :returns:
      *        * (valid) opening_hours sub string.
      *        * object with [ internal_value, token_name ] if value is correct.
-     *        * undefined if word could not be found (and thus is not be corrected).
+     *        * undefined if word could not be found (and thus is not corrected).
      */
     function returnCorrectWordOrToken(word, value_length) {
         for (var token_name in word_error_correction) {
@@ -683,7 +683,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                             }
                             return val;
                         } else {
-                            // Get correct string value from the 'default' hash and generate warning.
+                            // Get correct string value from the 'default' hash or generate warning.
                             var correct_abbr;
                             for (correct_abbr in word_error_correction[token_name]['default']) {
                                 if (word_error_correction[token_name]['default'][correct_abbr] === val) {
