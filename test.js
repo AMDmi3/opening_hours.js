@@ -5057,7 +5057,7 @@ test.addPrettifyValue('Compare prettifyValue', [
         'Mo',
         'Mon',
         'Montag',
-    ], 'all', 'Mo');
+    ], 'all', 'Mo', 'not last test');
 
 test.addPrettifyValue('Compare prettifyValue', [
         'Tu',

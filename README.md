@@ -621,7 +621,7 @@ Testing is much easier by now. Have a look at the [evaluation tool][ohlib.evalua
 
 Simple node.js based benchmark is bundled. You can run it with `node benchmark.js` or with `make benchmark`.
 
-The library allows ~1500/sec constructor calls and ~9000/sec openIntervals() calls with one week period on author's Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz and running NodeJS 7.7.1, Linux 4.4.38-11.pvops.qubes virtualized with Xen/Qubes OS). This may further improve in future.
+The library allows ~9k/sec constructor calls and ~9k/sec openIntervals() calls with one week period on author's Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz running NodeJS 7.7.1, Linux 4.4.38-11 virtualized under Xen/Qubes OS). This may further improve in future.
 
 
 ## Used by other projects

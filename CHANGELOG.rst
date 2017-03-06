@@ -132,6 +132,8 @@ Changed
 
 * Make error tolerance warnings translatable. [ypid_]
 
+* Improved performance of common constructor calls by factor 6! [ypid_]
+
 .. _ES2015 modules: http://exploringjs.com/es6/ch_modules.html
 .. _rollup: http://rollupjs.org/
 
