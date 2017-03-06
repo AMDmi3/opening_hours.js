@@ -228,7 +228,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
     }
 
     var parsing_warnings = []; // Elements are fed into function formatWarnErrorMessage(nrule, at, message)
-    var done_with_warnings = false; // The functions which throw warnings can be called multiple times.
+    var done_with_warnings = false; // The functions which returns warnings can be called multiple times.
     var done_with_selector_reordering = false;
     var done_with_selector_reordering_warnings = false;
     var tokens = tokenize(value);
@@ -676,32 +676,43 @@ export default function(value, nominatim_object, optional_conf_parm) {
                         if (comment === 'default') {
                             // Return internal representation of word.
                             return [ val, token_name ];
-                        } else if (token_name === 'wrong_words' && !done_with_warnings) {
+                        } else if (token_name === 'wrong_words') {
                             // Replace wrong words or characters with correct ones.
                             // This will return a string which is then being tokenized.
-                            parsing_warnings.push([ -1, value_length - word.length,
-                                comment.replace(/<ko>/, word).replace(/<ok>/, val) ]);
+                            if (!done_with_warnings) {
+                                parsing_warnings.push([
+                                    -1,
+                                    value_length - word.length,
+                                    t(comment, {'ko': word, 'ok': val}),
+                                ]);
+                            }
                             return val;
                         } else {
                             // Get correct string value from the 'default' hash and generate warning.
                             var correct_abbr;
                             for (correct_abbr in word_error_correction[token_name]['default']) {
-                                if (word_error_correction[token_name]['default'][correct_abbr] === val)
+                                if (word_error_correction[token_name]['default'][correct_abbr] === val) {
                                     break;
+                                }
                             }
                             if (typeof correct_abbr === 'undefined') {
                                 throw formatLibraryBugMessage('Please also include the stacktrace.');
                             }
                             if (token_name !== 'timevar') {
+                                // FIXME
                                 // Everything else than timevar:
                                 // E.g. 'Mo' start with a upper case letter.
                                 // It just looks better.
                                 correct_abbr = correct_abbr.charAt(0).toUpperCase()
                                     + correct_abbr.slice(1);
                             }
-                            if (!done_with_warnings)
-                                parsing_warnings.push([ -1, value_length - word.length,
-                                    comment.replace(/<ko>/, word).replace(/<ok>/, correct_abbr) ]);
+                            if (!done_with_warnings) {
+                                parsing_warnings.push([
+                                    -1,
+                                    value_length - word.length,
+                                    t(comment, {'ko': word, 'ok': correct_abbr}),
+                                ]);
+                            }
                             return [ val, token_name ];
                         }
                     }

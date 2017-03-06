@@ -108,6 +108,11 @@ master_ - unreleased
 
 `v3.6.0 milestone <https://github.com/opening-hours/opening_hours.js/issues?q=milestone%3Av3.6.0+is%3Aclosed>`__
 
+Added
+~~~~~
+
+* Translate error tolerance warnings into German. [ypid_]
+
 Changed
 ~~~~~~~
 
@@ -125,6 +130,8 @@ Changed
   tool now just uses the already given variant (``Mo-Fr 08:00-12:00 "by
   appointment"`` in this case). [ypid_]
 
+* Make error tolerance warnings translatable. [ypid_]
+
 .. _ES2015 modules: http://exploringjs.com/es6/ch_modules.html
 .. _rollup: http://rollupjs.org/
 
@@ -136,6 +143,8 @@ Fixed
   function to not advance any further (returning closed for all following dates) after the
   school holiday selector code hit a holiday definition ending on the last
   day of the year. [ypid_]
+* Fix ``check-diff-%.js`` Makefile target. :command:`git diff` might not have
+  shown changes or returned with an error before. [ypid_]
 
 
 v3.5.0_ - 2017-02-17

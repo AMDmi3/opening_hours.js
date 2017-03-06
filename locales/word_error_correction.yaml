@@ -5,7 +5,7 @@
 # Initially taken form http://www.netzwolf.info/j/osm/time_domain.js Credits go to Netzwolf.
 
 wrong_words:
-  'Assuming "<ok>" for "<ko>".':
+  'assuming ok for ko':
     daytime: sunrise-sunset
     spring: Mar-May
     summer: Jun-Aug
@@ -13,53 +13,57 @@ wrong_words:
     winter: Dec-Feb
     _: '-'
     '=': '-'
-  '"<ko>" wird als "<ok>" interpertiert.':
     frühling: Mar-May
     frühjahr: Mar-May
     sommer: Jun-Aug
     herbst: Sep-Nov
     # winter: Dec-Feb # Same as in English.
-  'Bitte benutze die englische Schreibweise "<ok>" für "<ko>".':
-    'werktags?': Mo-Fr
-  'Bitte benutze "<ok>" für "<ko>". Beispiel: "Mo-Fr 08:00-12:00; Tu off".':
-    'ruhetage?': 'off'
-    'geschlossen': 'off'
-    'geschl': 'off'
-  'Neem de engelse afkorting "<ok>" voor "<ko>" alstublieft.':
     gesloten: 'off'
     feestdag: PH
     feestdagen: PH
-  'Assuming "<ok>" for "<ko>". Please avoid using "workday": https://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays':
+  'please use English written ok for ko':
+    '(?:an )?feiertag(?:s|en?)?': PH
+  'please use off for ko':
+    'ruhetage?': 'off'
+    'geschlossen': 'off'
+    'geschl': 'off'
+    except: 'off'
+  'please use off for workday':
     # Used around 260 times but the problem is, that work day might be different in other countries.
     'wd': Mo-Fr
     'on work days?': Mo-Fr
     'weekdays?': Mo-Fr
+    'werktags?': Mo-Fr
     'vardagar': Mo-Fr
-  'Please use something like "Mo off" instead "<ko>".':
-    except: 'off'
-  'Please omit "<ko>" or use a colon instead: "12:00-14:00".':
+  'omit hour keyword':
     h: ""
-  'Please omit "<ko>".':
+  'omit ko':
     season: ""
     hs: ""
     hrs: ""
     hours: ""
-  'Please omit "<ko>". The key must not be in the value.':
+    uhr: ""
+    geöffnet: ""
+    zwischen: ""
+    ist: ""
+    durchgehend: ""
+    'öffnungszeit(?:en)?:?': ""
+  'omit tag key':
     'opening_hours\s*=': ""
-  'Please omit "<ko>". You might want to express open end which can be specified as "12:00+" for example.':
+  'omit wrong keyword open end':
     from: ""
-  'You can use notation "<ok>" for "<ko>" in the case that you want to express open end times. Example: "12:00+".':
+    ab: ""
+    von: ""
+  'assuming open end for ko':
     '(:?bis|till?|-|–)? ?(?:open ?end|late)': +
-  'Please use notation "<ok>" for "<ko>". If the times are unsure or vary consider a comment e.g. 12:00-14:00 "only on sunshine".':
+  'please use ok for uncertainty':
     '~': '-'
     ～: '-'
-  'Please use notation "<ok>" for "<ko>". Fallback rule: 12:00-14:00 || "call us"':
+  'please use fallback rule':
     otherwise: '||'
-  'You can use notation "<ok>" for "?" temporally if the syntax will still be valid.':
-    '\?': 'unknown "please add this if known"'
-  'Please use notation "<ok>" for "<ko>". Although using "–" is typographical correct, the opening_hours syntax is defined with the normal hyphen. Correct typography should be done on application level …':
-    –: '-'
-  'Please use notation "<ok>" for "<ko>".':
+  'please use ok for missing data':
+    '\?': ''
+  'please use ok for ko':
     →: '-'
     −: '-'
     —: '-'
@@ -78,6 +82,7 @@ wrong_words:
     'and': ','
     '&': ','
     ：: ':'
+    '''': '"'
     °°: ':00'
     'always': 24/7
     'always open': 24/7
@@ -108,40 +113,37 @@ wrong_words:
     'daylight': sunrise-sunset
     'on(?:_| )?appointments?': '"on appointment"'
     'by(?:_| )?appointments?': '"by appointment"'
-  'Please use notation "<ok>" for "<ko>". Those characters look very similar but are not the same!':
+    'nach(?: |_)vereinbarung': '"Nach Vereinbarung"'
+    'nach(?: |_)absprache': '"Nach Absprache"'
+    'bis': '-'
+    'täglich': Mo-Su
+    '(?:schul)?ferien': SH
+    '(?:an|nur)? ?sonn-?(?: und |/)feiertag(?:s|en?)?': 'PH,Su'
+    und: ','
+    u: ','
+    auch: ','
+    fermé: 'off'
+    et: ','
+    à: '-'
+    'jours fériés': PH
+  'please use ok for similar looking ko':
     оff: 'off'
-  'Please use time format in 24 hours notation ("<ko>"). If PM is used you might have to convert the hours to the 24 hours notation.':
+  'please use 24 hours time for ko':
+    # FIXME, hook into converter
     pm: ""
     p.m.: ""
     рм: ""
     am: ""
     a.m.: ""
     ам: ""
-  'Bitte verzichte auf "<ko>".':
-    uhr: ""
-    geöffnet: ""
-    zwischen: ""
-    ist: ""
-    durchgehend: ""
-    'öffnungszeit(?:en)?:?': ""
-  'Bitte verzichte auf "<ko>". Sie möchten eventuell eine Öffnungszeit ohne vorgegebenes Ende (Open End) angeben. Beispiel: "12:00+"':
-    ab: ""
-    von: ""
-  'Es sieht so aus also möchten Sie zusätzliche Einschränkungen für eine Öffnungszeit geben. Falls sich dies nicht mit der Syntax ausdrücken lässt können Kommentare verwendet werden. Zusätzlich sollte eventuell das Schlüsselwort `open` benutzt werden. Bitte probiere "<ok>" für "<ko>".':
+  'please use restriction comment time for ko':
     damen: 'open "Damen"'
     herren: 'open "Herren"'
-  'Bitte benutze die Schreibweise "<ok>" für "<ko>".':
-    'bis': '-'
-    'täglich': Mo-Su
-    '(?:schul)?ferien': SH
-    '(?:an|nur)? ?sonn-?(?: und |/)feiertag(?:s|en?)?': 'PH,Su'
-    'nach(?: |_)vereinbarung': '"Nach Vereinbarung"'
-    'nach(?: |_)absprache': '"Nach Absprache"'
-  'Bitte benutze die Schreibweise "<ok>" für "<ko>". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: https://wiki.openstreetmap.org/wiki/DE:Key:opening_hours/specification.':
+  'please use ok for typographically correct':
+    –: '-'
     „: '"'
     “: '"'
     ”: '"'
-  'Please use notation "<ok>" for "<ko>". The used quote signs might be typographically correct but are not defined in the specification. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.':
     «: '"'
     »: '"'
     ‚: '"'
@@ -151,20 +153,6 @@ wrong_words:
     」: '"'
     『: '"'
     』: '"'
-  'Please use notation "<ok>" for "<ko>". The used quote signs are not defined in the specification. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.':
-    '''': '"'
-  'You might want to use comments instead of brackets (which are not valid in this context). If you do, replace "<ok>" with "<ko>".':
-  'Bitte benutze die Schreibweise "<ok>" als Ersatz für "<ko>".':
-    und: ','
-    u: ','
-    auch: ','
-  'Bitte benutze die englische Abkürzung "<ok>" für "<ko>".':
-    '(?:an )?feiertag(?:s|en?)?': PH
-  'S''il vous plaît utiliser "<ok>" pour "<ko>".':
-    fermé: 'off'
-    et: ','
-    à: '-'
-    'jours fériés': PH
 month:
   default:
     jan: 0
@@ -179,7 +167,7 @@ month:
     oct: 9
     nov: 10
     dec: 11
-  'Please use the English abbreviation "<ok>" for "<ko>".':
+  'please use English abbreviation ok for ko':
     jänner: 0  # Austria
     january: 0
     february: 1
@@ -193,7 +181,8 @@ month:
     october: 9
     november: 10
     december: 11
-  'Bitte benutze die englische Abkürzung "<ok>" für "<ko>".':
+
+    # German
     januar: 0
     februar: 1
     märz?: 2
@@ -205,14 +194,15 @@ month:
     oktober: 9
     dez: 11
     dezember: 11
-  'S''il vous plaît utiliser l''abréviation "<ok>" pour "<ko>".':
+
+    # French
     janvier: 0
     février: 1
     fév: 1
     mars: 2
     avril: 3
     avr: 3
-    mai: 4
+    # mai: 4
     juin: 5
     juillet: 6
     août: 7
@@ -221,7 +211,8 @@ month:
     octobre: 9
     novembre: 10
     décembre: 11
-  'Neem de engelse afkorting "<ok>" voor "<ko>" alstublieft.':
+
+    # Dutch
     januari: 0
     februari: 1
     maart: 2
@@ -240,11 +231,11 @@ weekday:  # Good source: http://www.omniglot.com/language/time/days.htm
     th: 4
     fr: 5
     sa: 6
-  'Assuming "<ok>" for "<ko>"':
+  'assuming ok for ko':
     m: 1
     w: 3
     f: 5
-  'Please use the abbreviation "<ok>" for "<ko>".':
+  'please use English abbreviation ok for ko':
     sun: 0
     sundays?: 0
     mon: 1
@@ -260,9 +251,8 @@ weekday:  # Good source: http://www.omniglot.com/language/time/days.htm
     fridays?: 5
     sat: 6
     saturdays?: 6
-  'Bitte benutze die englische Abkürzung "<ok>" für "<ko>". Could also mean Saturday in Polish …':
-    so: 0
-  'Bitte benutze die englische Abkürzung "<ok>" für "<ko>".':
+
+    # German
     son: 0
     sonn-: 0
     sonntags?: 0
@@ -279,7 +269,8 @@ weekday:  # Good source: http://www.omniglot.com/language/time/days.htm
     freitags?: 5
     sam: 6
     samstags?: 6
-  'S''il vous plaît utiliser l''abréviation "<ok>" pour "<ko>".':
+
+    # French
     dim: 0
     dimanche: 0
     lun?: 1
@@ -292,7 +283,8 @@ weekday:  # Good source: http://www.omniglot.com/language/time/days.htm
     ven?: 5
     vendredi: 5
     samedi: 6
-  'Neem de engelse afkorting "<ok>" voor "<ko>" alstublieft.':
+
+    # Dutch
     zon?: 0
     zontag: 0
     zondag: 0
@@ -306,7 +298,8 @@ weekday:  # Good source: http://www.omniglot.com/language/time/days.htm
     vrijdag: 5
     zat?: 6
     zaterdag: 6
-  'Please use the English abbreviation "<ok>" for "<ko>".':
+
+    # Czech
     neděle: 0
     ne: 0
     pondělí: 1
@@ -320,7 +313,8 @@ weekday:  # Good source: http://www.omniglot.com/language/time/days.htm
     pátek: 5
     pá: 5
     sobota: 6
-  'Please use the English abbreviation "<ok>" (Spanish) for "<ko>".':
+
+    # Spanish
     martes: 0
     miércoles: 1
     jueves: 2
@@ -328,7 +322,8 @@ weekday:  # Good source: http://www.omniglot.com/language/time/days.htm
     sábado: 4
     domingo: 5
     lunes: 6
-  'Please use the English abbreviation "<ok>" (Indonesian) for "<ko>".':
+
+    # Indonesian
     selasa: 0
     rabu: 1
     kami: 2
@@ -336,7 +331,8 @@ weekday:  # Good source: http://www.omniglot.com/language/time/days.htm
     sabtu: 4
     minggu: 5
     senin: 6
-  'Please use the English abbreviation "<ok>" (Swedish) for "<ko>".':
+
+    # Swedish
     söndag: 0
     söndagar: 0
     måndag: 1
@@ -347,7 +343,8 @@ weekday:  # Good source: http://www.omniglot.com/language/time/days.htm
     fredag: 5
     lördag: 6
     lördagar: 6
-  'Please use the English abbreviation "<ok>" (Polish) for "<ko>".':
+
+    # Polish
     niedziela: 0
     niedz: 0
     n: 0
@@ -368,9 +365,10 @@ weekday:  # Good source: http://www.omniglot.com/language/time/days.htm
     piątek: 5
     piatek: 5
     pt: 5
-    sobota: 6
+    # sobota: 6
     sob: 6
-  'Please use the English abbreviation "<ok>" (Russian) for "<ko>".':
+
+    # Russian
     воскресенье: 0
     Вс: 0
     'voskresen''ye': 0
@@ -387,23 +385,28 @@ weekday:  # Good source: http://www.omniglot.com/language/time/days.htm
     pyatnitsa: 5
     суббота: 6
     subbota: 6
-  'Please use the English abbreviation "<ok>" (Danish) for "<ko>".':
+
+    # Danish
     søndag: 0
     mandag: 1
     tirsdag: 2
-    onsdag: 3  # Same in Swedish
-    torsdag: 4
-    fredag: 5
+    # onsdag: 3  # Same in Swedish
+    # torsdag: 4
+    # fredag: 5
     lørdag: 6
+
+  'please use English abbreviation ok for so':
+    so: 0
 timevar:  # Special time variables which actual value depends on the date and the position of the facility.
   default:
     sunrise: sunrise
     sunset: sunset
     dawn: dawn
     dusk: dusk
-  'Please use notation "<ok>" for "<ko>".':
+  'please use ok for ko':
     sundown: sunset
-  'Bitte benutze die Schreibweise "<ok>" für "<ko>".':
+
+    # German
     morgendämmerung: dawn
     abenddämmerung: dusk
     sonnenaufgang: sunrise
@@ -411,5 +414,6 @@ timevar:  # Special time variables which actual value depends on the date and th
 event:  # variable events
   default:
     easter: easter
-  'Bitte benutze die Schreibweise "<ok>" für "<ko>".':
+  'please use ok for ko':
+    # German
     ostern: easter
