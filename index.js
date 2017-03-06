@@ -20,6 +20,40 @@ export default function(value, nominatim_object, optional_conf_parm) {
     };
     var months   = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     var weekdays = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+    var string_to_token_map = {
+        'su': [ 0, 'weekday' ],
+        'mo': [ 1, 'weekday' ],
+        'tu': [ 2, 'weekday' ],
+        'we': [ 3, 'weekday' ],
+        'th': [ 4, 'weekday' ],
+        'fr': [ 5, 'weekday' ],
+        'sa': [ 6, 'weekday' ],
+        'jan': [  0, 'month' ],
+        'feb': [  1, 'month' ],
+        'mar': [  2, 'month' ],
+        'apr': [  3, 'month' ],
+        'may': [  4, 'month' ],
+        'jun': [  5, 'month' ],
+        'jul': [  6, 'month' ],
+        'aug': [  7, 'month' ],
+        'sep': [  8, 'month' ],
+        'oct': [  9, 'month' ],
+        'nov': [ 10, 'month' ],
+        'dec': [ 11, 'month' ],
+        'day': [ 'day', 'calcday' ],
+        'days': [ 'days', 'calcday' ],
+        'sunrise': [ 'sunrise', 'timevar' ],
+        'sunset': [ 'sunset', 'timevar' ],
+        'dawn': [ 'dawn', 'timevar' ],
+        'dusk': [ 'dusk', 'timevar' ],
+        'easter': [ 'easter', 'event' ],
+        'week': [ 'week', 'week' ],
+        'open': [ 'open', 'state' ],
+        'closed': [ 'closed', 'state' ],
+        'off': [ 'off', 'state' ],
+        'unknown': [ 'unknown', 'state' ],
+    }
+
     var default_prettify_conf = {
         // Update README.md if changed.
         'zero_pad_hour': true,           // enforce ("%02d", hour)
@@ -223,12 +257,12 @@ export default function(value, nominatim_object, optional_conf_parm) {
     if (typeof value !== 'string') {
         throw t('no string');
     }
-    if (value.match(/^(?:\s*;?\s*)+$/)) {
+    if (/^(?:\s*;?\s*)+$/.test(value)) {
         throw t('nothing');
     }
 
     var parsing_warnings = []; // Elements are fed into function formatWarnErrorMessage(nrule, at, message)
-    var done_with_warnings = false; // The functions which throw warnings can be called multiple times.
+    var done_with_warnings = false; // The functions which returns warnings can be called multiple times.
     var done_with_selector_reordering = false;
     var done_with_selector_reordering_warnings = false;
     var tokens = tokenize(value);
@@ -370,7 +404,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
             if (key === osm_key) { // Exact match.
                 regex_key = osm_key;
                 break;
-            } else if (key.match(osm_key)) {
+            } else if (new RegExp(osm_key).test(key)) {
                 regex_key = osm_key;
             }
         }
@@ -483,20 +517,40 @@ export default function(value, nominatim_object, optional_conf_parm) {
         var last_rule_fallback_terminated = false;
 
         while (value !== '') {
+            /* Ordered after likelihood of input for performance reasons.
+             * Also, error tolerance happens is supposed to happen at the end.
+             */
             // console.log("Parsing value: " + value);
-            var tmp;
-            if (tmp = value.match(/^week\b/i)) {
-                // Reserved keywords.
-                curr_rule_tokens.push([tmp[0].toLowerCase(), tmp[0].toLowerCase(), value.length ]);
+            var tmp = value.match(/^([a-z]{2,})\b((:?[.]| before| after)?)/i);
+            var token_from_map = undefined;
+            if (tmp && tmp[2] === '') {
+                token_from_map = string_to_token_map[tmp[1].toLowerCase()];
+            }
+            if (typeof token_from_map === 'object') {
+                curr_rule_tokens.push(token_from_map.concat([value.length]));
+                value = value.substr(tmp[1].length);
+            } else if (tmp = value.match(/^\s+/)) {
+                // whitespace is ignored
                 value = value.substr(tmp[0].length);
-            } else if (tmp = value.match(/^(?:off|closed|open|unknown)\b/i)) {
-                // Reserved keywords.
-                curr_rule_tokens.push([tmp[0].toLowerCase(), 'state', value.length ]);
-                value = value.substr(tmp[0].length);
-            } else if (tmp = value.match(/^24\/7/i)) {
+            } else if (tmp = value.match(/^24\/7/)) {
                 // Reserved keyword.
                 curr_rule_tokens.push([tmp[0], tmp[0], value.length ]);
                 value = value.substr(tmp[0].length);
+            } else if (/^;/.test(value)) {
+                // semicolon terminates rule.
+                // Next token belong to a new rule.
+                all_tokens.push([ curr_rule_tokens, last_rule_fallback_terminated, value.length ]);
+                value = value.substr(1);
+
+                curr_rule_tokens = [];
+                last_rule_fallback_terminated = false;
+            } else if (/^[:.]/.test(value)) {
+                // Time separator (timesep).
+                if (value[0] === '.' && !done_with_warnings) {
+                    parsing_warnings.push([ -1, value.length - 1, t('hour min separator')]);
+                }
+                curr_rule_tokens.push([ ':', 'timesep', value.length ]);
+                value = value.substr(1);
             } else if (tmp = value.match(/^(?:PH|SH)/i)) {
                 // special day name (holidays)
                 curr_rule_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
@@ -517,13 +571,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     curr_rule_tokens.push([ correct_val[0], correct_val[1], value.length ]);
                     value = value.substr(tmp[0].length);
                 } else if (typeof correct_val === 'string') {
-                    if (tmp[1].toLowerCase() === 'a.m.') {
-                        tmp[1] = 'am';
-                    }
-                    if (tmp[1].toLowerCase() === 'p.m.') {
-                        tmp[1] = 'pm';
-                    }
-                    if (tmp[1].toLowerCase() === 'am' || tmp[1].toLowerCase() === 'pm') {
+                    if (correct_val === 'am' || correct_val === 'pm') {
                         var hours_token_at = curr_rule_tokens.length - 1;
                         var hours_token;
                         if (hours_token_at >= 0) {
@@ -540,15 +588,16 @@ export default function(value, nominatim_object, optional_conf_parm) {
                             }
 
                             if (typeof hours_token === 'object') {
-                                if (tmp[1].toLowerCase() === 'pm' && hours_token[0] < 12) {
+                                if (correct_val === 'pm' && hours_token[0] < 12) {
                                     hours_token[0] += 12;
                                 }
-                                if (tmp[1].toLowerCase() === 'am' && hours_token[0] === 12) {
+                                if (correct_val === 'am' && hours_token[0] === 12) {
                                     hours_token[0] = 0;
                                 }
                                 curr_rule_tokens[hours_token_at] = hours_token;
                             }
                         }
+                        correct_val = '';
                     }
                     var correct_tokens = tokenize(correct_val)[0];
                     if (correct_tokens[1] === true) { // last_rule_fallback_terminated
@@ -580,6 +629,20 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 }
 
                 value = value.substr(tmp[0].length);
+            } else if (/^\|\|/.test(value)) {
+                // || terminates rule.
+                // Next token belong to a fallback rule.
+                if (curr_rule_tokens.length === 0) {
+                    throw formatWarnErrorMessage(-1, value.length - 2, t('rule before fallback empty'));
+                }
+
+                all_tokens.push([ curr_rule_tokens, last_rule_fallback_terminated, value.length ]);
+                curr_rule_tokens = [];
+                // curr_rule_tokens = [ [ '||', 'rule separator', value.length  ] ];
+                // FIXME: Use this. Unknown bug needs to be solved in the process.
+                value = value.substr(2);
+
+                last_rule_fallback_terminated = true;
             } else if (tmp = value.match(/^"([^"]+)"/)) {
                 // Comment following the specification.
                 // Any character is allowed inside the comment except " itself.
@@ -608,41 +671,9 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 }
                 curr_rule_tokens.push([tmp[2], 'comment', value.length ]);
                 value = value.substr(tmp[0].length);
-            } else if (value.match(/^;/)) {
-                // semicolon terminates rule.
-                // Next token belong to a new rule.
-                all_tokens.push([ curr_rule_tokens, last_rule_fallback_terminated, value.length ]);
-                value = value.substr(1);
-
-                curr_rule_tokens = [];
-                last_rule_fallback_terminated = false;
-            } else if (value.match(/^\|\|/)) {
-                // || terminates rule.
-                // Next token belong to a fallback rule.
-                if (curr_rule_tokens.length === 0) {
-                    throw formatWarnErrorMessage(-1, value.length - 2, t('rule before fallback empty'));
-                }
-
-                all_tokens.push([ curr_rule_tokens, last_rule_fallback_terminated, value.length ]);
-                curr_rule_tokens = [];
-                // curr_rule_tokens = [ [ '||', 'rule separator', value.length  ] ];
-                // FIXME: Use this. Unknown bug needs to be solved in the process.
-                value = value.substr(2);
-
-                last_rule_fallback_terminated = true;
-            } else if (value.match(/^(?:␣|\s)/)) {
+            } else if (/^(?:␣|\s)/.test(value)) {
                 // Using "␣" as space is not expected to be a normal
                 // mistake. Just ignore it to make using taginfo easier.
-                value = value.substr(1);
-            } else if (tmp = value.match(/^\s+/)) {
-                // whitespace is ignored
-                value = value.substr(tmp[0].length);
-            } else if (value.match(/^[:.]/)) {
-                // Time separator (timesep).
-                if (value[0] === '.' && !done_with_warnings) {
-                    parsing_warnings.push([ -1, value.length - 1, t('hour min separator')]);
-                }
-                curr_rule_tokens.push([ ':', 'timesep', value.length ]);
                 value = value.substr(1);
             } else {
                 // other single-character tokens
@@ -660,51 +691,32 @@ export default function(value, nominatim_object, optional_conf_parm) {
     /* error correction/tolerance function {{{
      * Go through word_error_correction hash and get correct value back.
      *
-     * :param word: Wrong Word or character.
+     * :param word: Wrong word or character.
      * :param value_length: Current value_length (used for warnings).
      * :returns:
      *        * (valid) opening_hours sub string.
      *        * object with [ internal_value, token_name ] if value is correct.
-     *        * undefined if word could not be found (and thus is not be corrected).
+     *        * undefined if word could not be found (and thus is not corrected).
      */
     function returnCorrectWordOrToken(word, value_length) {
-        for (var token_name in word_error_correction) {
-            for (var comment in word_error_correction[token_name]) {
-                for (var old_val in word_error_correction[token_name][comment]) {
-                    if (word.match(new RegExp('^' + old_val + '$'))) {
-                        var val = word_error_correction[token_name][comment][old_val];
-                        if (comment === 'default') {
-                            // Return internal representation of word.
-                            return [ val, token_name ];
-                        } else if (token_name === 'wrong_words' && !done_with_warnings) {
-                            // Replace wrong words or characters with correct ones.
-                            // This will return a string which is then being tokenized.
-                            parsing_warnings.push([ -1, value_length - word.length,
-                                comment.replace(/<ko>/, word).replace(/<ok>/, val) ]);
-                            return val;
-                        } else {
-                            // Get correct string value from the 'default' hash and generate warning.
-                            var correct_abbr;
-                            for (correct_abbr in word_error_correction[token_name]['default']) {
-                                if (word_error_correction[token_name]['default'][correct_abbr] === val)
-                                    break;
-                            }
-                            if (typeof correct_abbr === 'undefined') {
-                                throw formatLibraryBugMessage('Please also include the stacktrace.');
-                            }
-                            if (token_name !== 'timevar') {
-                                // Everything else than timevar:
-                                // E.g. 'Mo' start with a upper case letter.
-                                // It just looks better.
-                                correct_abbr = correct_abbr.charAt(0).toUpperCase()
-                                    + correct_abbr.slice(1);
-                            }
-                            if (!done_with_warnings)
-                                parsing_warnings.push([ -1, value_length - word.length,
-                                    comment.replace(/<ko>/, word).replace(/<ok>/, correct_abbr) ]);
-                            return [ val, token_name ];
-                        }
+        var token_from_map = string_to_token_map[word];
+        if (typeof token_from_map === 'object') {
+            return token_from_map;
+        }
+        for (var comment in word_error_correction) {
+            for (var old_val in word_error_correction[comment]) {
+                if (new RegExp('^' + old_val + '$').test(word)) {
+                    var val = word_error_correction[comment][old_val];
+                    // Replace wrong words or characters with correct ones.
+                    // This will return a string which is then being tokenized.
+                    if (!done_with_warnings) {
+                        parsing_warnings.push([
+                            -1,
+                            value_length - word.length,
+                            t(comment, {'ko': word, 'ok': val}),
+                        ]);
                     }
+                    return val;
                 }
             }
         }
@@ -791,10 +803,10 @@ export default function(value, nominatim_object, optional_conf_parm) {
                             t('use multi', {
                                 'count': used_selectors[nrule][selector_type].length,
                                 'part2': (
-                                    selector_type.match(/^(?:comment|state)/) ?
+                                    /^(?:comment|state)/.test(selector_type) ?
                                         t('selector multi 2a', {'what': (selector_type === 'state' ? t('selector state'): t('comments'))})
                                         :
-                                        t('selector multi 2b', {'what': t(selector_type + (selector_type.match(/^(?:month|weekday)$/) ? 's' : ' ranges'))})
+                                        t('selector multi 2b', {'what': t(selector_type + (/^(?:month|weekday)$/.test(selector_type) ? 's' : ' ranges'))})
                                 )
                             })]
                         );

@@ -128,7 +128,7 @@ run-regex_search: export.$(SEARCH).json interactive_testing.js regex_search.py
 	$(NODEJS) ./regex_search.py "$<"
 
 .PHONY: run-interactive_testing
-run-interactive_testing: interactive_testing.js
+run-interactive_testing: interactive_testing.js opening_hours.js
 	$(NODEJS) "$<" --locale "$(CHECK_LANG)"
 ## }}}
 
@@ -196,12 +196,12 @@ check-diff-de-opening_hours.js:
 check-diff-%.js: %.js test.js
 	rm -rf "test.$(CHECK_LANG).log"
 	$(NODEJS) test.js --library-file "$<" --locale $(CHECK_LANG) 1> test.$(CHECK_LANG).log 2>&1 || true; \
-	if git diff --quiet --exit-code HEAD -- test.$(CHECK_LANG).log; then \
+	if git diff --quiet --exit-code HEAD -- "test.$(CHECK_LANG).log"; then \
 		echo "Test results for $< ($(CHECK_LANG)) are exactly the same as on developemt system. So far, so good ;)"; \
 	else \
 		echo "Test results for $< ($(CHECK_LANG)) produced a different output then the output of the current HEAD. Checkout the following diff."; \
 	fi
-	git --no-pager diff --exit-code -- "test.$(CHECK_LANG).log"
+	sh -c 'git --no-pager diff --exit-code -- "test.$(CHECK_LANG).log"'
 
 .PHONY: osm-tag-data-taginfo-check
 osm-tag-data-taginfo-check: real_test.js opening_hours.js osm-tag-data-get-taginfo

@@ -109,7 +109,36 @@ de:
       day range reverse: "Zeitspanne in falscher Reihenfolge. Beginn ist größer als Ende."
       open end: "Angegeben als \"open end\". Schließzeit wurde geraten."
       date parameter needed: "Datumsparameter nötig."
+      'assuming ok for ko': '"__ko__" wird als "__ok__" interpretiert.'
+      'please use ok for ko': 'Bitte verwende "__ok__" anstelle von "__ko__".'
+      'please use ok for similar looking ko': 'Please use notation "__ok__" for "__ko__". Those characters look very similar but are not the same!'
+      'please use English written ok for ko': 'Bitte benutze die englische Schreibweise "__ok__" für "__ko__".'
+      'please use English abbreviation ok for ko': 'Bitte benutze die englische Abkürzung "__ok__" für "__ko__".'
+      'please use English abbreviation ok for so': 'Bitte benutze die englische Abkürzung "__ok__" für "__ko__". Beachte das Samstag in Polnisch gemeint sein kann.'
+      'please use off for ko': 'Bitte benutze "__ok__" für "__ko__". Beispiel: "Mo-Fr 08:00-12:00; Tu off".'
+      'please use off for workday': '"__ko__" wird als "__ok__" interpretiert. Werktag sollte nicht verwendet werden. Siehe https://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays'
+      'omit hour keyword': 'Bitte lasse "__ko__" weg oder verwende einen Doppelpunkt. Beispiel: "12:00-14:00".'
+      'omit ko': 'Bitte verzichte auf "__ko__".'
+      'omit tag key': 'Bitte lasse "__ko__" weg. Der Tag Schlüssel darf nicht im Tag Wert sein.'
+      'omit wrong keyword open end': 'Bitte lasse "__ko__" weg. Falls du "open end" ausdrücken möchtest verwende bitte ein "+". Beispiel: "12:00+".'
+      'assuming open end for ko': '"__ko__" wird als "__ok__" ("open end") interpretiert. Example: "12:00+".'
+      'please use ok for uncertainty': 'Bitte verwende "__ok__" für "__ko__". Falls der begründete Verdacht der Ungewissheit vorliegt ziehe die Verwendung eines Kommentars in Betracht. Beispiel: 12:00-14:00 "only on sunshine".'
+      'please use fallback rule': 'Bitte verwende "__ok__" (Fallback Regel) für "__ko__". Beispiel: Mo-Fr 12:00-14:00; PH off || "nach Vereinbarung"'
+      'please use ok for missing data': 'Bitte verwende eine FIXME Notiz.'
+      'please use 24 hours time for ko': 'Bitte verwende 24 Stunden Zeitangaben anstelle der veralteten 12 Stunden Variante. Falls die 12 Stunden Variante verwendet wird ist eventuelle eine Konvertierung notwendig.'
+      'please use restriction comment time for ko': 'Es sieht so aus also möchtest du zusätzliche Einschränkungen für eine Öffnungszeit geben. Falls sich dies nicht mit der Syntax ausdrücken lässt können Kommentare verwendet werden. Zusätzlich sollte eventuell das Schlüsselwort `open` benutzt werden. Beispiel: open "Nur Frauen".'
+      'please use ok for typographically correct': 'Bitte verwende "__ok__" für "__ko__". Auch wenn "__ko__" typografisch korrekt ist, ist dies in der opening_hours Syntax nicht definiert. Korrekte Typographie sollte auf Anwendungsebene sichergestellt werden …'
     pretty:
       'off': "geschlossen"
       SH: "Schulferien"
       PH: "Feiertags"
+fr:
+  opening_hours:
+    texts:
+      'assuming ok for ko': 'S''il vous plaît utiliser "<ok>" pour "<ko>".'
+      'please use ok for ko': 'S''il vous plaît utiliser "__ok__" pour "__ko__".'
+      'please use English abbreviation ok for ko': 'S''il vous plaît utiliser l''abréviation "__ok__" pour "__ko__".'
+nl:
+  opening_hours:
+    texts:
+      'please use English abbreviation ok for ko': 'Neem de engelse afkorting "__ok__" voor "__ko__" alstublieft.'

@@ -62,77 +62,77 @@ With [1m[34mwarnings[39m[22m:
 	*10-12,13-20 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead "13:00-20:00".)
 "Error tolerance: Correctly handle pm time." for "10am-12pm,1pm-8pm": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*10am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10am-12pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10am-12pm,1pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10am-12pm,1pm-8pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10am <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*10am-12pm <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*10am-12pm,1pm <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*10am-12pm,1pm-8pm <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
 	*10am-12pm <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead "10:00-12:00".)
 	*10am-12pm,1pm-8pm <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead "13:00-20:00".)
 "Error tolerance: Correctly handle pm time." for "10:00am-12:00pm,1:00pm-8:00pm": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*10:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10:00am-12:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10:00am-12:00pm,1:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10:00am-12:00pm,1:00pm-8:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00pm <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00pm,1:00pm <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00pm,1:00pm-8:00pm <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
 "Error tolerance: Correctly handle pm time." for "10:00am-12:00pm,1.00pm-8.00pm": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*10:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10:00am-12:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00pm <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
 	*10:00am-12:00pm,1. <--- (Please use ":" as hour/minute-separator)
-	*10:00am-12:00pm,1.00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00pm,1.00pm <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
 	*10:00am-12:00pm,1.00pm-8. <--- (Please use ":" as hour/minute-separator)
-	*10:00am-12:00pm,1.00pm-8.00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00pm,1.00pm-8.00pm <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
 "Error tolerance: Correctly handle am/pm time." for "00:00-00:01": [1m[32mPASSED[39m[22m
 "Error tolerance: Correctly handle am/pm time." for "12:00am-12:01am": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*12:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*12:00am-12:01am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*12:00am <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*12:00am-12:01am <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
 "Error tolerance: Correctly handle am/pm time." for "12:00 a.m. - 12:01am": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*12:00 a.m. <--- (Please use time format in 24 hours notation ("a.m."). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*12:00 a.m. - 12:01am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*12:00 a.m. <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*12:00 a.m. - 12:01am <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
 "Error tolerance: Correctly handle am/pm time." for "01:00-11:00": [1m[32mPASSED[39m[22m
 "Error tolerance: Correctly handle am/pm time." for "01:00am-11:00am": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*01:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*01:00am-11:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*01:00am <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*01:00am-11:00am <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
 "Error tolerance: Correctly handle am/pm time." for "01am-11am": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*01am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*01am-11am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*01am <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*01am-11am <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
 	*01am-11am <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead "01:00-11:00".)
 "Error tolerance: Correctly handle am/pm time." for "11:59-12:00": [1m[32mPASSED[39m[22m
 "Error tolerance: Correctly handle am/pm time." for "11:59am-12:00pm": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*11:59am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*11:59am-12:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*11:59am <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*11:59am-12:00pm <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
 "Error tolerance: Correctly handle am/pm time." for "11:59a.m.-12:00 p.m.": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*11:59a.m. <--- (Please use time format in 24 hours notation ("a.m."). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*11:59a.m.-12:00 p.m. <--- (Please use time format in 24 hours notation ("p.m."). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*11:59a.m. <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*11:59a.m.-12:00 p.m. <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
 "Error tolerance: Correctly handle am/pm time." for "12:01-12:59": [1m[32mPASSED[39m[22m
 "Error tolerance: Correctly handle am/pm time." for "12:01pm-12:59pm": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*12:01pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*12:01pm-12:59pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*12:01pm <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*12:01pm-12:59pm <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
 "Error tolerance: Correctly handle am/pm time." for "12:01p.m.-12:59 p.m.": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*12:01p.m. <--- (Please use time format in 24 hours notation ("p.m."). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*12:01p.m.-12:59 p.m. <--- (Please use time format in 24 hours notation ("p.m."). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*12:01p.m. <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*12:01p.m.-12:59 p.m. <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
 "Error tolerance: Correctly handle am/pm time." for "13:00-13:01": [1m[32mPASSED[39m[22m
 "Error tolerance: Correctly handle am/pm time." for "01:00pm-01:01pm": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*01:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*01:00pm-01:01pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*01:00pm <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*01:00pm-01:01pm <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
 "Error tolerance: Correctly handle am/pm time." for "23:00-23:59": [1m[32mPASSED[39m[22m
 "Error tolerance: Correctly handle am/pm time." for "11:00pm-11:59pm": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*11:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*11:00pm-11:59pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*11:00pm <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*11:00pm-11:59pm <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
 "Error tolerance: Time intervals, short time" for "Mo 07:00-18:00": [1m[32mPASSED[39m[22m
 "Error tolerance: Time intervals, short time" for "Montags 07:00-18:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Montags <--- (Bitte benutze die englische Abkürzung "Mo" für "montags".)
+	*Montags <--- (Please use the English abbreviation "Mo" for "montags".)
 "Error tolerance: Time intervals, short time" for "Mo 7-18": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo 7-18 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead "07:00-18:00".)
@@ -143,7 +143,7 @@ With [1m[34mwarnings[39m[22m:
 	*Mo 12:00→ <--- (Please use notation "-" for "→".)
 "Error tolerance: Time range" for "Mo 12:00–14:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo 12:00– <--- (Please use notation "-" for "–". Although using "–" is typographical correct, the opening_hours syntax is defined with the normal hyphen. Correct typography should be done on application level …)
+	*Mo 12:00– <--- (Please use notation "-" for "–". Although using "–" is typographical correct, it is not defined in the opening_hours syntax. Correct typography should be done on application level …)
 "Error tolerance: Time range" for "Mo 12:00−14:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo 12:00− <--- (Please use notation "-" for "−".)
@@ -176,7 +176,7 @@ With [1m[34mwarnings[39m[22m:
 	*Mo 12:00 ás <--- (Please use notation "-" for "ás".)
 "Error tolerance: Time range" for "Mo 12:00 à 14:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo 12:00 à <--- (S'il vous plaît utiliser "-" pour "à".)
+	*Mo 12:00 à <--- (Please use notation "-" for "à".)
 "Error tolerance: Time range" for "Mo 12:00 às 14:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo 12:00 às <--- (Please use notation "-" for "às".)
@@ -197,10 +197,10 @@ With [1m[34mwarnings[39m[22m:
 	*Mo 12:00 through <--- (Please use notation "-" for "through".)
 "Error tolerance: Time range" for "Mo 12:00~14:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo 12:00~ <--- (Please use notation "-" for "~". If the times are unsure or vary consider a comment e.g. 12:00-14:00 "only on sunshine".)
+	*Mo 12:00~ <--- (Please use notation "-" for "~". If there is reason to suspect uncertainty consider adding a comment. Example: 12:00-14:00 "only on sunshine".)
 "Error tolerance: Time range" for "Mo 12:00～14:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo 12:00～ <--- (Please use notation "-" for "～". If the times are unsure or vary consider a comment e.g. 12:00-14:00 "only on sunshine".)
+	*Mo 12:00～ <--- (Please use notation "-" for "～". If there is reason to suspect uncertainty consider adding a comment. Example: 12:00-14:00 "only on sunshine".)
 "Error tolerance: Time range" for "Mo 12:00-14：00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo 12:00-14： <--- (Please use notation ":" for "：".)
@@ -229,22 +229,22 @@ With [1m[34mwarnings[39m[22m:
 "Open end" for "17:00+": [1m[32mPASSED[39m[22m
 "Open end" for "17:00-late": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*17:00-late <--- (You can use notation "+" for "-late" in the case that you want to express open end times. Example: "12:00+".)
+	*17:00-late <--- (Assuming "+" (open end time) for "-late". Example: "12:00+".)
 "Open end" for "17:00 til late": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*17:00 til late <--- (You can use notation "+" for "til late" in the case that you want to express open end times. Example: "12:00+".)
+	*17:00 til late <--- (Assuming "+" (open end time) for "til late". Example: "12:00+".)
 "Open end" for "17:00 till late": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*17:00 till late <--- (You can use notation "+" for "till late" in the case that you want to express open end times. Example: "12:00+".)
+	*17:00 till late <--- (Assuming "+" (open end time) for "till late". Example: "12:00+".)
 "Open end" for "17:00 bis Open End": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*17:00 bis Open End <--- (You can use notation "+" for "bis open end" in the case that you want to express open end times. Example: "12:00+".)
+	*17:00 bis Open End <--- (Assuming "+" (open end time) for "bis open end". Example: "12:00+".)
 "Open end" for "17:00-open end": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*17:00-open end <--- (You can use notation "+" for "-open end" in the case that you want to express open end times. Example: "12:00+".)
+	*17:00-open end <--- (Assuming "+" (open end time) for "-open end". Example: "12:00+".)
 "Open end" for "17:00-openend": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*17:00-openend <--- (You can use notation "+" for "-openend" in the case that you want to express open end times. Example: "12:00+".)
+	*17:00-openend <--- (Assuming "+" (open end time) for "-openend". Example: "12:00+".)
 "Open end" for "17:00+; 15:00-16:00 off": [1m[32mPASSED[39m[22m
 "Open end" for "15:00-16:00 off; 17:00+": [1m[32mPASSED[39m[22m
 "Open end, variable time" for "sunrise+": [1m[32mPASSED[39m[22m
@@ -386,11 +386,11 @@ With [1m[34mwarnings[39m[22m:
 	*SH Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH" for "Schulferien Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Schulferien <--- (Bitte benutze die Schreibweise "SH" für "schulferien".)
+	*Schulferien <--- (Please use notation "SH" for "schulferien".)
 	*Schulferien Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH" for "Ferien Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Ferien <--- (Bitte benutze die Schreibweise "SH" für "ferien".)
+	*Ferien <--- (Please use notation "SH" for "ferien".)
 	*Ferien Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH" for "schoolholiday Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -539,48 +539,48 @@ With [1m[34mwarnings[39m[22m:
 	*PH,Su,SH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH,Sonntag und an Feiertagen": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*SH,Sonntag <--- (Bitte benutze die englische Abkürzung "Su" für "sonntag".)
-	*SH,Sonntag und <--- (Bitte benutze die Schreibweise "," als Ersatz für "und".)
-	*SH,Sonntag und an Feiertagen <--- (Bitte benutze die englische Abkürzung "PH" für "an feiertagen".)
+	*SH,Sonntag <--- (Please use the English abbreviation "Su" for "sonntag".)
+	*SH,Sonntag und <--- (Please use notation "," for "und".)
+	*SH,Sonntag und an Feiertagen <--- (Please use the English written "PH" for "an feiertagen".)
 	*SH,Sonntag und an Feiertagen <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH,Sonn und Feiertag": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*SH,Sonn und Feiertag <--- (Bitte benutze die Schreibweise "PH,Su" für "sonn und feiertag".)
+	*SH,Sonn und Feiertag <--- (Please use notation "PH,Su" for "sonn und feiertag".)
 	*SH,Sonn und Feiertag <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH,Sonn und Feiertags": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*SH,Sonn und Feiertags <--- (Bitte benutze die Schreibweise "PH,Su" für "sonn und feiertags".)
+	*SH,Sonn und Feiertags <--- (Please use notation "PH,Su" for "sonn und feiertags".)
 	*SH,Sonn und Feiertags <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH,Sonn- und Feiertags": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*SH,Sonn- und Feiertags <--- (Bitte benutze die Schreibweise "PH,Su" für "sonn- und feiertags".)
+	*SH,Sonn- und Feiertags <--- (Please use notation "PH,Su" for "sonn- und feiertags".)
 	*SH,Sonn- und Feiertags <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH,Sonn- und Feiertage": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*SH,Sonn- und Feiertage <--- (Bitte benutze die Schreibweise "PH,Su" für "sonn- und feiertage".)
+	*SH,Sonn- und Feiertage <--- (Please use notation "PH,Su" for "sonn- und feiertage".)
 	*SH,Sonn- und Feiertage <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH,Sonn-/Feiertag": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*SH,Sonn-/Feiertag <--- (Bitte benutze die Schreibweise "PH,Su" für "sonn-/feiertag".)
+	*SH,Sonn-/Feiertag <--- (Please use notation "PH,Su" for "sonn-/feiertag".)
 	*SH,Sonn-/Feiertag <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH,Sonn-/Feiertags": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*SH,Sonn-/Feiertags <--- (Bitte benutze die Schreibweise "PH,Su" für "sonn-/feiertags".)
+	*SH,Sonn-/Feiertags <--- (Please use notation "PH,Su" for "sonn-/feiertags".)
 	*SH,Sonn-/Feiertags <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH und nur Sonn-/Feiertags": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*SH und <--- (Bitte benutze die Schreibweise "," als Ersatz für "und".)
-	*SH und nur Sonn-/Feiertags <--- (Bitte benutze die Schreibweise "PH,Su" für "nur sonn-/feiertags".)
+	*SH und <--- (Please use notation "," for "und".)
+	*SH und nur Sonn-/Feiertags <--- (Please use notation "PH,Su" for "nur sonn-/feiertags".)
 	*SH und nur Sonn-/Feiertags <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH und Sonn-/Feiertags": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*SH und <--- (Bitte benutze die Schreibweise "," als Ersatz für "und".)
-	*SH und Sonn-/Feiertags <--- (Bitte benutze die Schreibweise "PH,Su" für "sonn-/feiertags".)
+	*SH und <--- (Please use notation "," for "und".)
+	*SH und Sonn-/Feiertags <--- (Please use notation "PH,Su" for "sonn-/feiertags".)
 	*SH und Sonn-/Feiertags <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH und an Sonn- und Feiertagen": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*SH und <--- (Bitte benutze die Schreibweise "," als Ersatz für "und".)
-	*SH und an Sonn- und Feiertagen <--- (Bitte benutze die Schreibweise "PH,Su" für "an sonn- und feiertagen".)
+	*SH und <--- (Please use notation "," for "und".)
+	*SH und an Sonn- und Feiertagen <--- (Please use notation "PH,Su" for "an sonn- und feiertagen".)
 	*SH und an Sonn- und Feiertagen <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Everyday including public holidays" for "Mo-Su,PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1311,10 +1311,10 @@ With [1m[34mwarnings[39m[22m:
 "Additional comment "Nach Vereinbarung"" for "Mo-Fr 08:00-12:00 open "Kein Termin erforderlich", Mo-Fr 13:00-17:00 open "Nach Vereinbarung"": [1m[32mPASSED[39m[22m
 "Additional comment "Nach Vereinbarung"" for "Mo-Fr 08:00-12:00 open "Kein Termin erforderlich", Mo-Fr 13:00-17:00 open nach_vereinbarung": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-Fr 08:00-12:00 open "Kein Termin erforderlich", Mo-Fr 13:00-17:00 open nach_vereinbarung <--- (Bitte benutze die Schreibweise ""Nach Vereinbarung"" für "nach_vereinbarung".)
+	*Mo-Fr 08:00-12:00 open "Kein Termin erforderlich", Mo-Fr 13:00-17:00 open nach_vereinbarung <--- (Please use notation ""Nach Vereinbarung"" for "nach_vereinbarung".)
 "Additional comment "Nach Vereinbarung"" for "Mo-Fr 08:00-12:00 open "Kein Termin erforderlich", Mo-Fr 13:00-17:00 open nach Vereinbarung": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-Fr 08:00-12:00 open "Kein Termin erforderlich", Mo-Fr 13:00-17:00 open nach Vereinbarung <--- (Bitte benutze die Schreibweise ""Nach Vereinbarung"" für "nach vereinbarung".)
+	*Mo-Fr 08:00-12:00 open "Kein Termin erforderlich", Mo-Fr 13:00-17:00 open nach Vereinbarung <--- (Please use notation ""Nach Vereinbarung"" for "nach vereinbarung".)
 "Additional comment "on appointment"" for "Mo-Fr 08:00-12:00 open "appointment not needed", Mo-Fr 13:00-17:00 open "on appointment"": [1m[32mPASSED[39m[22m
 "Additional comment "on appointment"" for "Mo-Fr 08:00-12:00 open "appointment not needed", Mo-Fr 13:00-17:00 open on_appointment": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1358,7 +1358,7 @@ With [1m[34mwarnings[39m[22m:
 "Real world example: Was not processed right." for "Mo off, Tu 14:00-18:00, We-Sa 10:00-18:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right." for "Mo geschl., Tu 14:00-18:00, We-Sa 10:00-18:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo geschl <--- (Bitte benutze "off" für "geschl". Beispiel: "Mo-Fr 08:00-12:00; Tu off".)
+	*Mo geschl <--- (Please use "off" for "geschl". Example: "Mo-Fr 08:00-12:00; Tu off".)
 "Real world example: Was not processed right." for "Mo: geschlossen, Di: 14-18Uhr, Mi-Sa: 10-18Uhr": [1m[35mCRASHED[39m[22m, reason: TypeError: Cannot read property '0' of undefined
 "Real world example: Was not processed right." for "Mo off; Tu 14:00-18:00; We-Sa 10:00-18:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right (month range/monthday range)" for "Aug,Dec 25-easter": [1m[32mPASSED[39m[22m
@@ -1409,11 +1409,11 @@ With [1m[34mwarnings[39m[22m:
 	*We off; Mo,Tu,Th-Su,PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Real world example: Problem with <additional_rule_separator> in holiday parser" for "We off; Mo,Tu,Th-Su,PH; Sommer We 11:00-14:00,17:00+": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*We off; Mo,Tu,Th-Su,PH; Sommer <--- ("sommer" wird als "Jun-Aug" interpertiert.)
+	*We off; Mo,Tu,Th-Su,PH; Sommer <--- (Assuming "Jun-Aug" for "sommer".)
 	*We off; Mo,Tu,Th-Su,PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Real world example: Problem with <additional_rule_separator> in holiday parser" for "We off; Mo,Tu,Th-Su,PH; sommer We 11:00-14:00,17:00+": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*We off; Mo,Tu,Th-Su,PH; sommer <--- ("sommer" wird als "Jun-Aug" interpertiert.)
+	*We off; Mo,Tu,Th-Su,PH; sommer <--- (Assuming "Jun-Aug" for "sommer".)
 	*We off; Mo,Tu,Th-Su,PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Real world example: Problem with <additional_rule_separator> in holiday parser" for "Mo,Tu,Th-Su,PH 00:00-24:00; Jun-Aug We 11:00-14:00,17:00+": [1m[32mPASSED[39m[22m
 "Real world example: Problem with daylight saving?" for "Mo-Su,PH 15:00-03:00; easter -2 days 15:00-24:00": [1m[32mPASSED[39m[22m
@@ -1444,14 +1444,14 @@ With [1m[34mwarnings[39m[22m:
 "Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th,Fr 05:45; Mo[1] 07:30; SH Mo-Fr (sunrise+03:00); PH off": [1m[32mPASSED[39m[22m
 "Points in time, extrem example useful for ComplexAlarm" for "Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday[1] 07:30; school holidays Monday-Friday (sunrise+03:00); public holidays off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Monday <--- (Please use the abbreviation "Mo" for "monday".)
-	*Monday-Wednesday <--- (Please use the abbreviation "We" for "wednesday".)
-	*Monday-Wednesday 07:00; Thursday <--- (Please use the abbreviation "Th" for "thursday".)
-	*Monday-Wednesday 07:00; Thursday,Friday <--- (Please use the abbreviation "Fr" for "friday".)
-	*Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday <--- (Please use the abbreviation "Mo" for "monday".)
+	*Monday <--- (Please use the English abbreviation "Mo" for "monday".)
+	*Monday-Wednesday <--- (Please use the English abbreviation "We" for "wednesday".)
+	*Monday-Wednesday 07:00; Thursday <--- (Please use the English abbreviation "Th" for "thursday".)
+	*Monday-Wednesday 07:00; Thursday,Friday <--- (Please use the English abbreviation "Fr" for "friday".)
+	*Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday <--- (Please use the English abbreviation "Mo" for "monday".)
 	*Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday[1] 07:30; school holidays <--- (Please use notation "SH" for "school holidays".)
-	*Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday[1] 07:30; school holidays Monday <--- (Please use the abbreviation "Mo" for "monday".)
-	*Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday[1] 07:30; school holidays Monday-Friday <--- (Please use the abbreviation "Fr" for "friday".)
+	*Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday[1] 07:30; school holidays Monday <--- (Please use the English abbreviation "Mo" for "monday".)
+	*Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday[1] 07:30; school holidays Monday-Friday <--- (Please use the English abbreviation "Fr" for "friday".)
 	*Monday-Wednesday 07:00; Thursday,Friday 05:45; Monday[1] 07:30; school holidays Monday-Friday (sunrise+03:00); public holidays <--- (Please use notation "PH" for "public holidays".)
 "Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th,Fr 05:45; Mo[1] 07:30; SH Mo-Fr (sunrise+03:00); PH off": [1m[32mPASSED[39m[22m
 "Points in time, extrem example useful for ComplexAlarm" for "Mo-We 07:00; Th 05:45; week 01-53/2 Fr 07:05; week 02-53/2 Fr 05:45; SH Mo-Fr (sunrise+03:00); PH off": [1m[31mFAILED[39m[22m, bad intervals: 
@@ -1660,54 +1660,54 @@ expected:
 "Error tolerance: case and whitespace" for "Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 "Error tolerance: case and whitespace" for "   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00	Off  ": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*   monday <--- (Please use the abbreviation "Mo" for "monday".)
+	*   monday <--- (Please use the English abbreviation "Mo" for "monday".)
 "Error tolerance: case and whitespace" for "   monday,    Tu, wE,   TH    12:00 - 20:00  ; Off 14:00-16:00	": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*   monday <--- (Please use the abbreviation "Mo" for "monday".)
+	*   monday <--- (Please use the English abbreviation "Mo" for "monday".)
 	*Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 <--- (The selector "time" was switched with the selector "state" for readablitity and compatibiltity reasons.)
 	*Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off <--- (The selector "state" was switched with the selector "time" for readablitity and compatibiltity reasons.)
 "Error tolerance: weekdays, months in different languages" for "Mo,Tu,We,Th 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 "Error tolerance: weekdays, months in different languages" for "mon, Dienstag, Mi, donnerstag 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*mon <--- (Please use the abbreviation "Mo" for "mon".)
-	*mon, Dienstag <--- (Bitte benutze die englische Abkürzung "Tu" für "dienstag".)
-	*mon, Dienstag, Mi <--- (Bitte benutze die englische Abkürzung "We" für "mi".)
-	*mon, Dienstag, Mi, donnerstag <--- (Bitte benutze die englische Abkürzung "Th" für "donnerstag".)
+	*mon <--- (Please use the English abbreviation "Mo" for "mon".)
+	*mon, Dienstag <--- (Please use the English abbreviation "Tu" for "dienstag".)
+	*mon, Dienstag, Mi <--- (Please use the English abbreviation "We" for "mi".)
+	*mon, Dienstag, Mi, donnerstag <--- (Please use the English abbreviation "Th" for "donnerstag".)
 "Error tolerance: weekdays, months in different languages" for "mon, Tuesday, wed, Thursday 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*mon <--- (Please use the abbreviation "Mo" for "mon".)
-	*mon, Tuesday <--- (Please use the abbreviation "Tu" for "tuesday".)
-	*mon, Tuesday, wed <--- (Please use the abbreviation "We" for "wed".)
-	*mon, Tuesday, wed, Thursday <--- (Please use the abbreviation "Th" for "thursday".)
+	*mon <--- (Please use the English abbreviation "Mo" for "mon".)
+	*mon, Tuesday <--- (Please use the English abbreviation "Tu" for "tuesday".)
+	*mon, Tuesday, wed <--- (Please use the English abbreviation "We" for "wed".)
+	*mon, Tuesday, wed, Thursday <--- (Please use the English abbreviation "Th" for "thursday".)
 "Error tolerance: weekdays, months in different languages" for "mon., Tuesday, wed., Thursday. 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*mon <--- (Please use the abbreviation "Mo" for "mon".)
-	*mon., Tuesday <--- (Please use the abbreviation "Tu" for "tuesday".)
-	*mon., Tuesday, wed <--- (Please use the abbreviation "We" for "wed".)
-	*mon., Tuesday, wed., Thursday <--- (Please use the abbreviation "Th" for "thursday".)
+	*mon <--- (Please use the English abbreviation "Mo" for "mon".)
+	*mon., Tuesday <--- (Please use the English abbreviation "Tu" for "tuesday".)
+	*mon., Tuesday, wed <--- (Please use the English abbreviation "We" for "wed".)
+	*mon., Tuesday, wed., Thursday <--- (Please use the English abbreviation "Th" for "thursday".)
 "Error tolerance: Full range" for "Mo-Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Su <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "Montag-Sonntag": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Montag <--- (Bitte benutze die englische Abkürzung "Mo" für "montag".)
-	*Montag-Sonntag <--- (Bitte benutze die englische Abkürzung "Su" für "sonntag".)
+	*Montag <--- (Please use the English abbreviation "Mo" for "montag".)
+	*Montag-Sonntag <--- (Please use the English abbreviation "Su" for "sonntag".)
 	*Montag-Sonntag <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "Montags bis sonntags": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Montags <--- (Bitte benutze die englische Abkürzung "Mo" für "montags".)
-	*Montags bis <--- (Bitte benutze die Schreibweise "-" für "bis".)
-	*Montags bis sonntags <--- (Bitte benutze die englische Abkürzung "Su" für "sonntags".)
+	*Montags <--- (Please use the English abbreviation "Mo" for "montags".)
+	*Montags bis <--- (Please use notation "-" for "bis".)
+	*Montags bis sonntags <--- (Please use the English abbreviation "Su" for "sonntags".)
 	*Montags bis sonntags <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "Montag-Sonntags": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Montag <--- (Bitte benutze die englische Abkürzung "Mo" für "montag".)
-	*Montag-Sonntags <--- (Bitte benutze die englische Abkürzung "Su" für "sonntags".)
+	*Montag <--- (Please use the English abbreviation "Mo" for "montag".)
+	*Montag-Sonntags <--- (Please use the English abbreviation "Su" for "sonntags".)
 	*Montag-Sonntags <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "monday-sunday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*monday <--- (Please use the abbreviation "Mo" for "monday".)
-	*monday-sunday <--- (Please use the abbreviation "Su" for "sunday".)
+	*monday <--- (Please use the English abbreviation "Mo" for "monday".)
+	*monday-sunday <--- (Please use the English abbreviation "Su" for "sunday".)
 	*monday-sunday <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "daily": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1755,7 +1755,7 @@ With [1m[34mwarnings[39m[22m:
 	*7 days/week <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "täglich": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*täglich <--- (Bitte benutze die Schreibweise "Mo-Su" für "täglich".)
+	*täglich <--- (Please use notation "Mo-Su" for "täglich".)
 	*täglich <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "week 01-53": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1773,47 +1773,47 @@ With [1m[34mwarnings[39m[22m:
 "Error tolerance: Full range" for "nonstop geöffnet": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*nonstop <--- (Please use notation "24/7" for "nonstop".)
-	*nonstop geöffnet <--- (Bitte verzichte auf "geöffnet".)
+	*nonstop geöffnet <--- (Please omit "geöffnet".)
 "Error tolerance: Full range" for "opening_hours=nonstop geöffnet": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*opening_hours= <--- (Please omit "opening_hours=". The key must not be in the value.)
+	*opening_hours= <--- (Please omit "opening_hours=". The tag key must not be in the tag value.)
 	*opening_hours=nonstop <--- (Please use notation "24/7" for "nonstop".)
-	*opening_hours=nonstop geöffnet <--- (Bitte verzichte auf "geöffnet".)
+	*opening_hours=nonstop geöffnet <--- (Please omit "geöffnet".)
 "Error tolerance: Full range" for "opening_hours =nonstop geöffnet": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*opening_hours = <--- (Please omit "opening_hours =". The key must not be in the value.)
+	*opening_hours = <--- (Please omit "opening_hours =". The tag key must not be in the tag value.)
 	*opening_hours =nonstop <--- (Please use notation "24/7" for "nonstop".)
-	*opening_hours =nonstop geöffnet <--- (Bitte verzichte auf "geöffnet".)
+	*opening_hours =nonstop geöffnet <--- (Please omit "geöffnet".)
 "Error tolerance: Full range" for "opening_hours 	 =nonstop geöffnet": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*opening_hours 	 = <--- (Please omit "opening_hours 	 =". The key must not be in the value.)
+	*opening_hours 	 = <--- (Please omit "opening_hours 	 =". The tag key must not be in the tag value.)
 	*opening_hours 	 =nonstop <--- (Please use notation "24/7" for "nonstop".)
-	*opening_hours 	 =nonstop geöffnet <--- (Bitte verzichte auf "geöffnet".)
+	*opening_hours 	 =nonstop geöffnet <--- (Please omit "geöffnet".)
 "Error tolerance: Full range" for "opening_hours = nonstop geöffnet": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*opening_hours = <--- (Please omit "opening_hours =". The key must not be in the value.)
+	*opening_hours = <--- (Please omit "opening_hours =". The tag key must not be in the tag value.)
 	*opening_hours = nonstop <--- (Please use notation "24/7" for "nonstop".)
-	*opening_hours = nonstop geöffnet <--- (Bitte verzichte auf "geöffnet".)
+	*opening_hours = nonstop geöffnet <--- (Please omit "geöffnet".)
 "Error tolerance: Full range" for "Öffnungszeit nonstop geöffnet": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Öffnungszeit <--- (Bitte verzichte auf "öffnungszeit".)
+	*Öffnungszeit <--- (Please omit "öffnungszeit".)
 	*Öffnungszeit nonstop <--- (Please use notation "24/7" for "nonstop".)
-	*Öffnungszeit nonstop geöffnet <--- (Bitte verzichte auf "geöffnet".)
+	*Öffnungszeit nonstop geöffnet <--- (Please omit "geöffnet".)
 "Error tolerance: Full range" for "Öffnungszeit: nonstop geöffnet": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Öffnungszeit: <--- (Bitte verzichte auf "öffnungszeit:".)
+	*Öffnungszeit: <--- (Please omit "öffnungszeit:".)
 	*Öffnungszeit: nonstop <--- (Please use notation "24/7" for "nonstop".)
-	*Öffnungszeit: nonstop geöffnet <--- (Bitte verzichte auf "geöffnet".)
+	*Öffnungszeit: nonstop geöffnet <--- (Please omit "geöffnet".)
 "Error tolerance: Full range" for "Öffnungszeiten nonstop geöffnet": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Öffnungszeiten <--- (Bitte verzichte auf "öffnungszeiten".)
+	*Öffnungszeiten <--- (Please omit "öffnungszeiten".)
 	*Öffnungszeiten nonstop <--- (Please use notation "24/7" for "nonstop".)
-	*Öffnungszeiten nonstop geöffnet <--- (Bitte verzichte auf "geöffnet".)
+	*Öffnungszeiten nonstop geöffnet <--- (Please omit "geöffnet".)
 "Error tolerance: Full range" for "Öffnungszeiten: nonstop geöffnet": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Öffnungszeiten: <--- (Bitte verzichte auf "öffnungszeiten:".)
+	*Öffnungszeiten: <--- (Please omit "öffnungszeiten:".)
 	*Öffnungszeiten: nonstop <--- (Please use notation "24/7" for "nonstop".)
-	*Öffnungszeiten: nonstop geöffnet <--- (Bitte verzichte auf "geöffnet".)
+	*Öffnungszeiten: nonstop geöffnet <--- (Please omit "geöffnet".)
 "Error tolerance: Full range" for "24x7": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*24x7 <--- (Please use notation "24/7" for "24x7".)
@@ -1843,7 +1843,7 @@ With [1m[34mwarnings[39m[22m:
 	*Mo&Th <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mon; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mon <--- (Please use the abbreviation "Mo" for "mon".)
+	*Mon <--- (Please use the English abbreviation "Mo" for "mon".)
 	*Mon <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "8-18; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1868,7 +1868,7 @@ With [1m[34mwarnings[39m[22m:
 	*Mo:  <--- (You have used the optional symbol <separator_for_readability> in the wrong place. Please check the syntax specification to see where it could be used or remove it.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-Do 8:30-20:00 Fr 8:29-18:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-Do <--- (Bitte benutze die englische Abkürzung "Th" für "do".)
+	*Mo-Do <--- (Please use the English abbreviation "Th" for "do".)
 	*Mo-Do 8:30-20:00 Fr  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 	*Mo-Do 8:30-20:00 Fr 8:29-18:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo 12:00-14:00 16:00-18:00 20:00-22:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
@@ -1876,7 +1876,7 @@ With [1m[34mwarnings[39m[22m:
 	*Mo 12:00-14:00 16:00-18:00 20:00-22:00 <--- (You have used 3 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-So 08:00-22:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-So <--- (Bitte benutze die englische Abkürzung "Su" für "so". Could also mean Saturday in Polish …)
+	*Mo-So <--- (Please use the English abbreviation "Su" for "so". Note that it might also mean Saturday in Polish.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo Tu Fr; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo Tu Fr <--- (You have used 3 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
@@ -1898,43 +1898,43 @@ With [1m[34mwarnings[39m[22m:
 	*"testing" "second comment" <--- (You have used 2 comments in one rule. You may only use one in one rule. Rules can be separated by ";".)
 "Value not ideal (probably wrong). Should throw a warning." for "'testing'; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*' <--- (Please use notation """ for "'". The used quote signs are not defined in the specification. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.)
-	*'testing' <--- (Please use notation """ for "'". The used quote signs are not defined in the specification. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.)
+	*' <--- (Please use notation """ for "'".)
+	*'testing' <--- (Please use notation """ for "'".)
 "Value not ideal (probably wrong). Should throw a warning." for "„testing"; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*„ <--- (Bitte benutze die Schreibweise """ für "„". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: https://wiki.openstreetmap.org/wiki/DE:Key:opening_hours/specification.)
+	*„ <--- (Please use notation """ for "„". Although using "„" is typographical correct, it is not defined in the opening_hours syntax. Correct typography should be done on application level …)
 "Value not ideal (probably wrong). Should throw a warning." for "„testing“; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*„ <--- (Bitte benutze die Schreibweise """ für "„". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: https://wiki.openstreetmap.org/wiki/DE:Key:opening_hours/specification.)
-	*„testing“ <--- (Bitte benutze die Schreibweise """ für "“". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: https://wiki.openstreetmap.org/wiki/DE:Key:opening_hours/specification.)
+	*„ <--- (Please use notation """ for "„". Although using "„" is typographical correct, it is not defined in the opening_hours syntax. Correct typography should be done on application level …)
+	*„testing“ <--- (Please use notation """ for "“". Although using "“" is typographical correct, it is not defined in the opening_hours syntax. Correct typography should be done on application level …)
 "Value not ideal (probably wrong). Should throw a warning." for "“testing”; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*“ <--- (Bitte benutze die Schreibweise """ für "“". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: https://wiki.openstreetmap.org/wiki/DE:Key:opening_hours/specification.)
-	*“testing” <--- (Bitte benutze die Schreibweise """ für "”". Es ist war typografisch korrekt aber laut der Spezifikation für opening_hours nicht erlaubt. Siehe auch: https://wiki.openstreetmap.org/wiki/DE:Key:opening_hours/specification.)
+	*“ <--- (Please use notation """ for "“". Although using "“" is typographical correct, it is not defined in the opening_hours syntax. Correct typography should be done on application level …)
+	*“testing” <--- (Please use notation """ for "”". Although using "”" is typographical correct, it is not defined in the opening_hours syntax. Correct typography should be done on application level …)
 "Value not ideal (probably wrong). Should throw a warning." for "«testing»; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*« <--- (Please use notation """ for "«". The used quote signs might be typographically correct but are not defined in the specification. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.)
-	*«testing» <--- (Please use notation """ for "»". The used quote signs might be typographically correct but are not defined in the specification. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.)
+	*« <--- (Please use notation """ for "«". Although using "«" is typographical correct, it is not defined in the opening_hours syntax. Correct typography should be done on application level …)
+	*«testing» <--- (Please use notation """ for "»". Although using "»" is typographical correct, it is not defined in the opening_hours syntax. Correct typography should be done on application level …)
 "Value not ideal (probably wrong). Should throw a warning." for "「testing」; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*「 <--- (Please use notation """ for "「". The used quote signs might be typographically correct but are not defined in the specification. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.)
-	*「testing」 <--- (Please use notation """ for "」". The used quote signs might be typographically correct but are not defined in the specification. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.)
+	*「 <--- (Please use notation """ for "「". Although using "「" is typographical correct, it is not defined in the opening_hours syntax. Correct typography should be done on application level …)
+	*「testing」 <--- (Please use notation """ for "」". Although using "」" is typographical correct, it is not defined in the opening_hours syntax. Correct typography should be done on application level …)
 "Value not ideal (probably wrong). Should throw a warning." for "『testing』; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*『 <--- (Please use notation """ for "『". The used quote signs might be typographically correct but are not defined in the specification. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.)
-	*『testing』 <--- (Please use notation """ for "』". The used quote signs might be typographically correct but are not defined in the specification. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.)
+	*『 <--- (Please use notation """ for "『". Although using "『" is typographical correct, it is not defined in the opening_hours syntax. Correct typography should be done on application level …)
+	*『testing』 <--- (Please use notation """ for "』". Although using "』" is typographical correct, it is not defined in the opening_hours syntax. Correct typography should be done on application level …)
 "Value not ideal (probably wrong). Should throw a warning." for "‚testing‘; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*‚ <--- (Please use notation """ for "‚". The used quote signs might be typographically correct but are not defined in the specification. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.)
-	*‚testing‘ <--- (Please use notation """ for "‘". The used quote signs might be typographically correct but are not defined in the specification. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.)
+	*‚ <--- (Please use notation """ for "‚". Although using "‚" is typographical correct, it is not defined in the opening_hours syntax. Correct typography should be done on application level …)
+	*‚testing‘ <--- (Please use notation """ for "‘". Although using "‘" is typographical correct, it is not defined in the opening_hours syntax. Correct typography should be done on application level …)
 "Value not ideal (probably wrong). Should throw a warning." for "‘testing‘; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*‘ <--- (Please use notation """ for "‘". The used quote signs might be typographically correct but are not defined in the specification. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.)
-	*‘testing‘ <--- (Please use notation """ for "‘". The used quote signs might be typographically correct but are not defined in the specification. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.)
+	*‘ <--- (Please use notation """ for "‘". Although using "‘" is typographical correct, it is not defined in the opening_hours syntax. Correct typography should be done on application level …)
+	*‘testing‘ <--- (Please use notation """ for "‘". Although using "‘" is typographical correct, it is not defined in the opening_hours syntax. Correct typography should be done on application level …)
 "Value not ideal (probably wrong). Should throw a warning." for "’testing’; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*’ <--- (Please use notation """ for "’". The used quote signs might be typographically correct but are not defined in the specification. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.)
-	*’testing’ <--- (Please use notation """ for "’". The used quote signs might be typographically correct but are not defined in the specification. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification.)
+	*’ <--- (Please use notation """ for "’". Although using "’" is typographical correct, it is not defined in the opening_hours syntax. Correct typography should be done on application level …)
+	*’testing’ <--- (Please use notation """ for "’". Although using "’" is typographical correct, it is not defined in the opening_hours syntax. Correct typography should be done on application level …)
 "Value not ideal (probably wrong). Should throw a warning." for "Jan 12:00-13:00 Mo 15:00-16:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan 12:00-13:00 Mo 15:00-16:00 <--- (You have used 2 not connected time ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
@@ -1959,10 +1959,10 @@ With [1m[34mwarnings[39m[22m:
 	*Mo-Sa 11:00-21:00 Su  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
 "Value not ideal (probably wrong). Should throw a warning." for "10:00am-12:00am,1:00pm-8:00pm; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*10:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10:00am-12:00am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10:00am-12:00am,1:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
-	*10:00am-12:00am,1:00pm-8:00pm <--- (Please use time format in 24 hours notation ("pm"). If PM is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00am <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00am,1:00pm <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
+	*10:00am-12:00am,1:00pm-8:00pm <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
 "Value not ideal (probably wrong). Should throw a warning." for "12:00-14:00 оff; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*12:00-14:00 оff <--- (Please use notation "off" for "оff". Those characters look very similar but are not the same!)
@@ -2062,7 +2062,7 @@ With [1m[34mwarnings[39m[22m:
 Mo-Fr 17:00-12:00; Sa-Su 24:00 <--- (Time range starts outside of the current day)
 
 "Incorrect syntax which should throw an error" for "sdasdlasdj a3reaw": [1m[32mPASSED[39m[22m
-sd <--- (Unexpected token: "s" This means that the syntax is not valid at that point or it is currently not supported.) sdasdlasdj a3reaw <--- (Assuming "We" for "w")
+sd <--- (Unexpected token: "s" This means that the syntax is not valid at that point or it is currently not supported.) sdasdlasdj a3reaw <--- (Assuming "We" for "w".)
 
 "Incorrect syntax which should throw an error" for "": [1m[32mPASSED[39m[22m
 The value contains nothing meaningful which can be parsed.
@@ -2176,7 +2176,7 @@ dusk <--- (hyphen (-) or open end (+) in time range expected. For working with p
 11 <--- (Unexpected token: "number" This means that the syntax is not valid at that point or it is currently not supported.) 
 
 "Incorrect syntax which should throw an error" for "11am; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-11am <--- (Unexpected token: "number" This means that the syntax is not valid at that point or it is currently not supported.) 11am <--- (Please use time format in 24 hours notation ("am"). If PM is used you might have to convert the hours to the 24 hours notation.)
+11am <--- (Unexpected token: "number" This means that the syntax is not valid at that point or it is currently not supported.) 11am <--- (Please use time format in 24 hours notation instead of the legacy 12 hours variant. If the 12 hours variant is used you might have to convert the hours to the 24 hours notation.)
 
 "Incorrect syntax which should throw an error" for "14:00-16:00,11:00; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 14:00-16:00,11:00 <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)
@@ -2332,10 +2332,10 @@ Tu 23:59-48:00+ <--- (Time spanning more than two midnights not supported)
 』t <--- (Unexpected token: "』" This means that the syntax is not valid at that point or it is currently not supported.) 
 
 "Incorrect syntax which should throw an error" for "』testing"; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-』t <--- (Unexpected token: "』" This means that the syntax is not valid at that point or it is currently not supported.) 』testing"; 00:23-00:42 unknown "warning at correct position <--- (Please use the English abbreviation "Su" (Polish) for "n".); 』testing"; 00:23-00:42 unknown "warning at correct position? <--- (You can use notation "unknown "please add this if known"" for "?" temporally if the syntax will still be valid.)
+』t <--- (Unexpected token: "』" This means that the syntax is not valid at that point or it is currently not supported.) 』testing"; 00:23-00:42 unknown "warning at correct position <--- (Please use the English abbreviation "Su" for "n".); 』testing"; 00:23-00:42 unknown "warning at correct position? <--- (Please consider adding a FIXME tag instead.)
 
 "Incorrect syntax which should throw an error" for ""testing«; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
-"testing«; 00:23-00:42 unknown "wa <--- (Unexpected token: "w" This means that the syntax is not valid at that point or it is currently not supported.) "testing«; 00:23-00:42 unknown "warning at correct position <--- (Please use the English abbreviation "Su" (Polish) for "n".); "testing«; 00:23-00:42 unknown "warning at correct position? <--- (You can use notation "unknown "please add this if known"" for "?" temporally if the syntax will still be valid.)
+"testing«; 00:23-00:42 unknown "wa <--- (Unexpected token: "w" This means that the syntax is not valid at that point or it is currently not supported.) "testing«; 00:23-00:42 unknown "warning at correct position <--- (Please use the English abbreviation "Su" for "n".); "testing«; 00:23-00:42 unknown "warning at correct position? <--- (Please consider adding a FIXME tag instead.)
 
 "Incorrect syntax which should throw an error" for " || open; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
  || <--- (Rule before fallback rule does not contain anything useful)
@@ -2506,7 +2506,7 @@ Su 7:30, <--- (hyphen (-) or open end (+) in time range expected. For working wi
 Su 7:30,10 <--- (Missing time separator in time range after: "number")
 
 "Trying to trigger "Missing time separator in time range after" for mode === 1." for "Su 7:30,10?00,22:00": [1m[32mPASSED[39m[22m
-Su 7:30,10 <--- (Missing time separator in time range after: "number")
+Su 7:30,10?00 <--- (Missing time separator in time range after: "number")
 
 "Trying to trigger "Missing time separator in time range after" for mode === 1." for "Su 7:30,10i00,22:00": [1m[32mPASSED[39m[22m
 Su 7:30,10i <--- (Missing time separator in time range after: "number")
@@ -2515,7 +2515,7 @@ Su 7:30,10i <--- (Missing time separator in time range after: "number")
 Su 7:30,10 <--- (Missing time separator in time range after: "number")
 
 "Trying to trigger "Missing time separator in time range after" for mode === 2." for "Su 7:30,10?00,22:00": [1m[32mPASSED[39m[22m
-Su 7:30,10 <--- (Missing time separator in time range after: "number")
+Su 7:30,10?00 <--- (Missing time separator in time range after: "number")
 
 "Trying to trigger "Missing time separator in time range after" for mode === 2." for "Su 7:30,10i00,22:00": [1m[32mPASSED[39m[22m
 Su 7:30,10i <--- (Missing time separator in time range after: "number")
