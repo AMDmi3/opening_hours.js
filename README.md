@@ -12,7 +12,7 @@
 
 ## Summary
 
-The [opening_hours][Key:opening_hours] tag is used in [OpenStreetMap](https://openstreetmap.org) to describe time ranges when a facility (for example, a café) is open. As it has pretty complex syntax which requires special parsing and additional processing to extract some useful information (e.g. whether a facility is open at a specific time, next time it's going to open/close, or a readable set of working hours), this library is being developed.
+The [opening_hours][Key:opening_hours] tag is used in [OpenStreetMap](https://openstreetmap.org) to describe time ranges when a facility (for example, a café) is open. As it has pretty [complex syntax][oh:specification] which requires special parsing and additional processing to extract some useful information (e.g. whether a facility is open at a specific time, next time it's going to open/close, or a readable set of working hours), this library is being developed.
 
 Examples of some complex opening_hours values:
 
@@ -621,7 +621,7 @@ Testing is much easier by now. Have a look at the [evaluation tool][ohlib.evalua
 
 Simple node.js based benchmark is bundled. You can run it with `node benchmark.js` or with `make benchmark`.
 
-The library allows ~9k/sec constructor calls and ~9k/sec openIntervals() calls with one week period on author's Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz running NodeJS 7.7.1, Linux 4.4.38-11 virtualized under Xen/Qubes OS). This may further improve in future.
+The library allows ~9k/sec constructor calls and ~9k/sec openIntervals() calls with one week period on author's Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz running NodeJS 7.7.1, Linux 4.4.38-11 virtualized under Xen/Qubes OS). This may further improve in the future.
 
 
 ## Used by other projects
