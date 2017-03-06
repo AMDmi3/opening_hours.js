@@ -26,7 +26,7 @@ for (var t = 0; t < tests; t++) {
     console.log(iterations + ' iterations done in ' + delta + ' ms (' + (iterations/delta*1000).toFixed(2) + ' n/sec)');
 }
 
-iterations = 20000;
+iterations = 2000;
 
 console.log('Checking:');
 for (var t = 0; t < tests; t++) {

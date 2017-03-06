@@ -257,7 +257,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
     if (typeof value !== 'string') {
         throw t('no string');
     }
-    if (value.match(/^(?:\s*;?\s*)+$/)) {
+    if (/^(?:\s*;?\s*)+$/.test(value)) {
         throw t('nothing');
     }
 
@@ -404,7 +404,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
             if (key === osm_key) { // Exact match.
                 regex_key = osm_key;
                 break;
-            } else if (key.match(osm_key)) {
+            } else if (new RegExp(osm_key).test(key)) {
                 regex_key = osm_key;
             }
         }
@@ -536,7 +536,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 // Reserved keyword.
                 curr_rule_tokens.push([tmp[0], tmp[0], value.length ]);
                 value = value.substr(tmp[0].length);
-            } else if (value.match(/^;/)) {
+            } else if (/^;/.test(value)) {
                 // semicolon terminates rule.
                 // Next token belong to a new rule.
                 all_tokens.push([ curr_rule_tokens, last_rule_fallback_terminated, value.length ]);
@@ -544,7 +544,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
 
                 curr_rule_tokens = [];
                 last_rule_fallback_terminated = false;
-            } else if (value.match(/^[:.]/)) {
+            } else if (/^[:.]/.test(value)) {
                 // Time separator (timesep).
                 if (value[0] === '.' && !done_with_warnings) {
                     parsing_warnings.push([ -1, value.length - 1, t('hour min separator')]);
@@ -629,7 +629,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 }
 
                 value = value.substr(tmp[0].length);
-            } else if (value.match(/^\|\|/)) {
+            } else if (/^\|\|/.test(value)) {
                 // || terminates rule.
                 // Next token belong to a fallback rule.
                 if (curr_rule_tokens.length === 0) {
@@ -671,7 +671,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 }
                 curr_rule_tokens.push([tmp[2], 'comment', value.length ]);
                 value = value.substr(tmp[0].length);
-            } else if (value.match(/^(?:␣|\s)/)) {
+            } else if (/^(?:␣|\s)/.test(value)) {
                 // Using "␣" as space is not expected to be a normal
                 // mistake. Just ignore it to make using taginfo easier.
                 value = value.substr(1);
@@ -705,7 +705,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
         }
         for (var comment in word_error_correction) {
             for (var old_val in word_error_correction[comment]) {
-                if (word.match(new RegExp('^' + old_val + '$'))) {
+                if (new RegExp('^' + old_val + '$').test(word)) {
                     var val = word_error_correction[comment][old_val];
                     // Replace wrong words or characters with correct ones.
                     // This will return a string which is then being tokenized.
@@ -803,10 +803,10 @@ export default function(value, nominatim_object, optional_conf_parm) {
                             t('use multi', {
                                 'count': used_selectors[nrule][selector_type].length,
                                 'part2': (
-                                    selector_type.match(/^(?:comment|state)/) ?
+                                    /^(?:comment|state)/.test(selector_type) ?
                                         t('selector multi 2a', {'what': (selector_type === 'state' ? t('selector state'): t('comments'))})
                                         :
-                                        t('selector multi 2b', {'what': t(selector_type + (selector_type.match(/^(?:month|weekday)$/) ? 's' : ' ranges'))})
+                                        t('selector multi 2b', {'what': t(selector_type + (/^(?:month|weekday)$/.test(selector_type) ? 's' : ' ranges'))})
                                 )
                             })]
                         );
