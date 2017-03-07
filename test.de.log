@@ -1547,6 +1547,7 @@ With [1m[34mwarnings[39m[22m:
 "Real world example: Was not processed right." for "Mo geschl., Tu 14:00-18:00, We-Sa 10:00-18:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo geschl <--- (Bitte benutze "off" für "geschl". Beispiel: "Mo-Fr 08:00-12:00; Tu off".)
+	*Mo geschl. <--- (Bitte verzichte auf ".".)
 "Real world example: Was not processed right." for "Mo: geschlossen, Di: 14-18Uhr, Mi-Sa: 10-18Uhr": [1m[35mCRASHED[39m[22m, reason: TypeError: Cannot read property '0' of undefined
 "Real world example: Was not processed right." for "Mo off; Tu 14:00-18:00; We-Sa 10:00-18:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right (month range/monthday range)" for "Aug,Dec 25-easter": [1m[32mPASSED[39m[22m
@@ -1852,7 +1853,11 @@ With [1m[34mwarnings[39m[22m:
 "Points in time with month, mode 1" for "Apr 08:00": [1m[32mPASSED[39m[22m
 "Points in time with month, mode 1" for "Apr: 08:00": [1m[32mPASSED[39m[22m
 "Points in time with month, mode 1" for "Apr. 08:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Apr. <--- (Bitte verzichte auf ".".)
 "Points in time with month, mode 1" for "Apr.: 08:00": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*Apr. <--- (Bitte verzichte auf ".".)
 "Points in time, mode 2" for "Mo sunrise,sunset": [1m[32mPASSED[39m[22m
 "Points in time, mode 2" for "Mo (sunrise+01:00)": [1m[32mPASSED[39m[22m
 "Points in time and times ranges, mode 2" for "Mo 12:00,13:00-14:00": [1m[32mPASSED[39m[22m
@@ -2098,9 +2103,12 @@ With [1m[34mwarnings[39m[22m:
 "Error tolerance: weekdays, months in different languages" for "mon., Tuesday, wed., Thursday. 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*mon <--- (Bitte benutze die englische Abkürzung "Mo" für "mon".)
+	*mon. <--- (Bitte verzichte auf ".".)
 	*mon., Tuesday <--- (Bitte benutze die englische Abkürzung "Tu" für "tuesday".)
 	*mon., Tuesday, wed <--- (Bitte benutze die englische Abkürzung "We" für "wed".)
+	*mon., Tuesday, wed. <--- (Bitte verzichte auf ".".)
 	*mon., Tuesday, wed., Thursday <--- (Bitte benutze die englische Abkürzung "Th" für "thursday".)
+	*mon., Tuesday, wed., Thursday. <--- (Bitte verzichte auf ".".)
 "Error tolerance: Full range" for "Mo-Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Su <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)

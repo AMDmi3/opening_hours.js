@@ -150,7 +150,7 @@ test.addTest('Time intervals', [
     ], 1000 * 60 * 60 * 2 * 7, 0, true, {}, 'not last test');
 
 test.addTest('Time intervals', [
-        '24/7; Mo 15:00-16:00 off', // throws a warning, use next value which is equal.
+        '24/7; Mo 15:00-16:00 off', // throws a warning, use next value which is evaluated the same but is more logical.
         'open; Mo 15:00-16:00 off',
         '00:00-24:00; Mo 15:00-16:00 off',
     ], '2012-10-01 0:00', '2012-10-08 0:00', [

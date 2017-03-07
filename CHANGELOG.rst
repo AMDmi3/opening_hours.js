@@ -112,6 +112,7 @@ Added
 ~~~~~
 
 * Translate error tolerance warnings into German. [ypid_]
+* Add additional warnings. [ypid_]
 
 Changed
 ~~~~~~~
