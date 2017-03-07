@@ -64,7 +64,7 @@ list:
 build: opening_hours.min.js
 
 .PHONY: check
-check: check-diff check-package.json
+check: qa-quick check-diff check-package.json
 
 .PHONY: check-full
 check-full: clean check-diff-all check-package.json check-yaml
@@ -133,10 +133,18 @@ run-interactive_testing: interactive_testing.js opening_hours.js
 ## }}}
 
 ## Source code QA {{{
-.PHONY: qa-source-code qa-https-everywhere
+.PHONY: qa-quick
+qa-quick: qa-phrases-to-avoid
+
+.PHONY: qa-phrases-to-avoid
+qa-phrases-to-avoid:
+	! git grep --ignore-case 'input[ ]tolerance'
+
+.PHONY: qa-source-code
 qa-source-code:
 	$(REPO_FILES) | egrep --null-data '\.js$$' --null | xargs --null sed -i 's/\([^=!]\)==\([^=]\)/\1===\2/g;s/\([^=!]\)!=\([^=]\)/\1!==\2/g;'
 
+.PHONY: qa-https-everywhere
 qa-https-everywhere:
 	$(REPO_FILES) | xargs --null sed --regexp-extended --in-place 's#http(:\\?/\\?/)(momentjs\.com|overpass-turbo\.eu|www\.gnu\.org|stackoverflow\.com|(:?www\.)?openstreetmap\.(org|de)|nominatim\.openstreetmap\.org|taginfo\.openstreetmap\.org|wiki\.openstreetmap\.org|josm.openstreetmap.de|www.openstreetmap.org\\/copyright)#https\1\2#g;'
 	$(REPO_FILES) | xargs --null sed -i 's#http://overpass-api\.de#https://overpass-api.de#g;'

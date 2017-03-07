@@ -257,7 +257,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
     if (typeof value !== 'string') {
         throw t('no string');
     }
-    if (/^(?:\s*;?\s*)+$/.test(value)) {
+    if (/^(?:\s*;?)+$/.test(value)) {
         throw t('nothing');
     }
 
@@ -437,12 +437,13 @@ export default function(value, nominatim_object, optional_conf_parm) {
      * :returns: String with position of the warning or error marked for the user.
      */
     function formatWarnErrorMessage(nrule, at, message) {
+        // console.log(`Called formatWarnErrorMessage: ${nrule}, ${at}, ${message}`);
         // FIXME: Change to new_tokens.
         if (typeof nrule === 'number') {
             var pos = 0;
             if (nrule === -1) { // Usage of rule index not required because we do have access to value.length.
                 pos = value.length - at;
-            } else { // Issue accrued at a later time, position in string needs to be reconstructed.
+            } else { // Issue occurred at a later time, position in string needs to be reconstructed.
                 if (typeof tokens[nrule][0][at] === 'undefined') {
                     if (typeof tokens[nrule][0] && at === -1) {
                         pos = value.length;
@@ -460,7 +461,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                             // Fallback: Point to last token in the rule which caused the problem.
                             // Run real_test regularly to fix the problem before a user is confronted with it.
                             pos -= tokens[nrule][2];
-                            console.warn('Last token for rule: ' + tokens[nrule]);
+                            console.warn('Last token for rule: ' + JSON.stringify(tokens[nrule]));
                             console.log(value.substring(0, pos) + ' <--- (' + message + ')');
                             console.log('\n');
                         } {
@@ -504,7 +505,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
         return message;
     } /* }}} */
 
-    /* Tokenize input stream. {{{
+    /* Tokenize input stream {{{
      *
      * :param value: Raw opening_hours value.
      * :returns: Tokenized list object. Complex structure. Check the
@@ -518,10 +519,10 @@ export default function(value, nominatim_object, optional_conf_parm) {
 
         while (value !== '') {
             /* Ordered after likelihood of input for performance reasons.
-             * Also, error tolerance happens is supposed to happen at the end.
+             * Also, error tolerance is supposed to happen at the end.
              */
             // console.log("Parsing value: " + value);
-            var tmp = value.match(/^([a-z]{2,})\b((:?[.]| before| after)?)/i);
+            var tmp = value.match(/^([a-z]{2,})\b((?:[.]| before| after)?)/i);
             var token_from_map = undefined;
             if (tmp && tmp[2] === '') {
                 token_from_map = string_to_token_map[tmp[1].toLowerCase()];
@@ -555,7 +556,41 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 // special day name (holidays)
                 curr_rule_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
                 value = value.substr(2);
-            } else if (tmp = value.match(/^(&|_|→|–|−|—|ー|=|·|öffnungszeit(?:en)?:?|opening_hours\s*=|\?|~|～|：|°°|always (?:open|closed)|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|(:?bis|till?|-|–)? ?(?:open ?end|late)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|on work days?|sonntags?|(?:nur |an )?sonn-?(?:(?: und |\/)feiertag(?:s|en?)?)?|(?:an )?feiertag(?:s|en?)?|(?:nach|on|by) (?:appointments?|vereinbarung|absprache)|p\.m\.|a\.m\.|[_a-zäößàáéøčěíúýřПнВсо]+\b|à|á|mo|tu|we|th|fr|sa|su|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\.?/i)) {
+            } else if (tmp = value.match(/^[°\u2070-\u209F\u00B2\u00B3\u00B9]{1,2}/)) {
+                var unicode_code_point_to_digit = {
+                    176: 0,
+                    0x2070: 0,
+                    185: 1,
+                    178: 2,
+                    179: 3,
+                }
+                var regular_number = tmp[0].split('').map(function (ch) {
+                    var code_point = ch.charCodeAt(0);
+                    if (typeof unicode_code_point_to_digit[code_point] === 'number') {
+                        return unicode_code_point_to_digit[code_point];
+                    } else if (0x2074 <= code_point && code_point <= 0x2079) {
+                        return code_point - 0x2070;
+                    } else if (0x2080 <= code_point && code_point <= 0x2089) {
+                        return code_point - 0x2080;
+                    }
+                }).join('');
+                var ok = '';
+                if (curr_rule_tokens.length > 0 && matchTokens(curr_rule_tokens, curr_rule_tokens.length-1, 'number')) {
+                    ok += ':';
+                }
+                ok += regular_number;
+                if (!done_with_warnings) {
+                    for (var i = 0; i <= tmp[0].length; i++) {
+                        if (value.charCodeAt(i) == 176) {
+                            parsing_warnings.push([ -1, value.length - (1 + i),
+                                    t('rant degree sign used for zero')]);
+                        }
+                    }
+                    parsing_warnings.push([ -1, value.length - tmp[0].length,
+                            t('please use ok for ko', {'ko': tmp[0], 'ok': ok})]);
+                }
+                value = ok + value.substr(tmp[0].length);
+            } else if (tmp = value.match(/^(&|_|→|–|−|—|ー|=|·|öffnungszeit(?:en)?:?|opening_hours\s*=|\?|~|～|：|always (?:open|closed)|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|(?:bis|till?|-|–)? ?(?:open ?end|late)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|on work days?|sonntags?|(?:nur |an )?sonn-?(?:(?: und |\/)feiertag(?:s|en?)?)?|(?:an )?feiertag(?:s|en?)?|(?:nach|on|by) (?:appointments?|vereinbarung|absprache)|p\.m\.|a\.m\.|[_a-zäößàáéøčěíúýřПнВсо]+\b|à|á|mo|tu|we|th|fr|sa|su|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)(\.?)/i)) {
                 /* Handle all remaining words and specific other characters with error tolerance.
                  *
                  * à|á: Word boundary does not work with Unicode chars: 'test à test'.match(/\bà\b/i)
@@ -612,23 +647,29 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     // value = correct_val + value.substr(tmp[0].length);
                     // Does not work because it would generate the wrong length for formatWarnErrorMessage.
                 } else {
-                    // other single-character tokens
+                    // No correction available. Insert as single character token and let the parser handle the error.
                     curr_rule_tokens.push([value[0].toLowerCase(), value[0].toLowerCase(), value.length - 1 ]);
                     value = value.substr(1);
                 }
-            } else if (tmp = value.match(/^\d+/)) {
+                if (typeof tmp[2] === 'string' && tmp[2] !== '' && !done_with_warnings) {
+                    parsing_warnings.push([ -1, value.length, t('omit ko', {'ko': tmp[2]})]);
+                }
+            } else if (tmp = value.match(/^(\d+)(?:([.])([^\d]))?/)) {
                 // number
-                if (Number(tmp[0]) > 1900) { // Assumed to be a year number.
-                    curr_rule_tokens.push([Number(tmp[0]), 'year', value.length ]);
-                    if (Number(tmp[0]) >= 2100) // Probably an error
+                if (Number(tmp[1]) > 1900) { // Assumed to be a year number.
+                    curr_rule_tokens.push([Number(tmp[1]), 'year', value.length ]);
+                    if (Number(tmp[1]) >= 2100) // Probably an error
                         parsing_warnings.push([ -1, value.length - 1,
-                                t('interpreted as year', {number:  Number(tmp[0])})
+                                t('interpreted as year', {number:  Number(tmp[1])})
                         ]);
                 } else {
-                    curr_rule_tokens.push([Number(tmp[0]), 'number', value.length ]);
+                    curr_rule_tokens.push([Number(tmp[1]), 'number', value.length ]);
                 }
 
-                value = value.substr(tmp[0].length);
+                value = value.substr(tmp[1].length + (typeof tmp[2] === 'string' ? tmp[2].length : 0));
+                if (typeof tmp[2] === 'string' && tmp[2] !== '' && !done_with_warnings) {
+                    parsing_warnings.push([ -1, value.length, t('omit ko', {'ko': tmp[2]})]);
+                }
             } else if (/^\|\|/.test(value)) {
                 // || terminates rule.
                 // Next token belong to a fallback rule.
@@ -1212,8 +1253,9 @@ export default function(value, nominatim_object, optional_conf_parm) {
         if (at + arguments.length - 2 > tokens.length)
             return false;
         for (var i = 0; i < arguments.length - 2; i++) {
-            if (tokens[at + i][1] !== arguments[i + 2])
+            if (tokens[at + i][1] !== arguments[i + 2]) {
                 return false;
+            }
         }
 
         return true;
@@ -1839,7 +1881,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 if (!done_with_warnings)
                     parsing_warnings.push([nrule, at + 2, t('without minutes', {
                         'syntax': (tokens[at][0]   < 10 ? '0' : '') + tokens[at][0]   + ':00-'
-                            + (tokens[at+2][0] < 10 ? '0' : '') + tokens[at+2][0] + ':00'
+                                + (tokens[at+2][0] < 10 ? '0' : '') + tokens[at+2][0] + ':00'
                     })]);
 
                 if (minutes_from >= minutes_in_day)
@@ -1998,8 +2040,13 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     }
                 });
 
-                if (!matchTokens(tokens, endat, ']'))
-                    throw formatWarnErrorMessage(nrule, endat, t('] or more numbers'));
+                if (!matchTokens(tokens, endat, ']')) {
+                    throw formatWarnErrorMessage(
+                        nrule,
+                        endat + (typeof tokens[endat] === 'object' ? 0 : -1),
+                        t('] or more numbers')
+                    );
+                }
 
                 var add_days = getMoveDays(tokens, endat+1, 6, 'constrained weekdays');
                 week_stable = false;
@@ -2132,8 +2179,9 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 throw formatWarnErrorMessage(nrule, at, t('unexpected token weekday range', {'token': tokens[at][1]}));
             }
 
-            if (!matchTokens(tokens, at, ','))
+            if (!matchTokens(tokens, at, ',')) {
                 break;
+            }
         }
 
         return at;

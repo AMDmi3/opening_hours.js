@@ -46,6 +46,11 @@ function reverseGeocodeLocation(query, guessed_language_for_location, on_success
         on_error = function() { };
     }
 
+    if (query === '&lat=48.7769&lon=9.1844') {
+        /* Cached response to avoid two queries for each usage of the tool. */
+        return on_success({"place_id":"159221147","licence":"Data © OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"relation","osm_id":"62611","lat":"48.6296972","lon":"9.1949534","display_name":"Baden-Württemberg, Deutschland","address":{"state":"Baden-Württemberg","country":"Deutschland","country_code":"de"},"boundingbox":["47.5324787","49.7912941","7.5117461","10.4955731"]});
+    }
+
     var nominatim_api_url_template_query = nominatim_api_url
         + '?format=json'
         + query

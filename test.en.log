@@ -206,7 +206,55 @@ With [1m[34mwarnings[39m[22m:
 	*Mo 12:00-14： <--- (Please use notation ":" for "：".)
 "Error tolerance: Time range" for "Mo 12°°-14:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*Mo 12° <--- (Note that this is not a (superscript) zero but a degree sign which is misused as zero. A superscript zero is defined in Unicode (°) and would have been more appropriate/uniform here. But note that the use of none-ASCII digits is not allowed.)
+	*Mo 12°° <--- (Note that this is not a (superscript) zero but a degree sign which is misused as zero. A superscript zero is defined in Unicode (°) and would have been more appropriate/uniform here. But note that the use of none-ASCII digits is not allowed.)
 	*Mo 12°° <--- (Please use notation ":00" for "°°".)
+"Error tolerance: Time range" for "Mo 00:30-14:09; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+"Error tolerance: Time range" for "Mo 00³°-14:09; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 00³° <--- (Note that this is not a (superscript) zero but a degree sign which is misused as zero. A superscript zero is defined in Unicode (°) and would have been more appropriate/uniform here. But note that the use of none-ASCII digits is not allowed.)
+	*Mo 00³° <--- (Please use notation ":30" for "³°".)
+"Error tolerance: Time range" for "Mo 00:³°-14:09; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 00:³° <--- (Note that this is not a (superscript) zero but a degree sign which is misused as zero. A superscript zero is defined in Unicode (°) and would have been more appropriate/uniform here. But note that the use of none-ASCII digits is not allowed.)
+	*Mo 00:³° <--- (Please use notation "30" for "³°".)
+"Error tolerance: Time range" for "Mo °°³°-14:09; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo ° <--- (Note that this is not a (superscript) zero but a degree sign which is misused as zero. A superscript zero is defined in Unicode (°) and would have been more appropriate/uniform here. But note that the use of none-ASCII digits is not allowed.)
+	*Mo °° <--- (Note that this is not a (superscript) zero but a degree sign which is misused as zero. A superscript zero is defined in Unicode (°) and would have been more appropriate/uniform here. But note that the use of none-ASCII digits is not allowed.)
+	*Mo °° <--- (Please use notation "00" for "°°".)
+	*Mo °°³° <--- (Note that this is not a (superscript) zero but a degree sign which is misused as zero. A superscript zero is defined in Unicode (°) and would have been more appropriate/uniform here. But note that the use of none-ASCII digits is not allowed.)
+	*Mo °°³° <--- (Please use notation ":30" for "³°".)
+"Error tolerance: Time range" for "Mo ⁰⁰:³⁰-¹⁴:⁰⁹; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo ⁰⁰ <--- (Please use notation "00" for "⁰⁰".)
+	*Mo ⁰⁰:³⁰ <--- (Please use notation "30" for "³⁰".)
+	*Mo ⁰⁰:³⁰-¹⁴ <--- (Please use notation "14" for "¹⁴".)
+	*Mo ⁰⁰:³⁰-¹⁴:⁰⁹ <--- (Please use notation "09" for "⁰⁹".)
+"Error tolerance: Time range" for "Mo ₀₀₃₀-₁₄⁰⁹; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo ₀₀ <--- (Please use notation "00" for "₀₀".)
+	*Mo ₀₀₃₀ <--- (Please use notation ":30" for "₃₀".)
+	*Mo ₀₀₃₀-₁₄ <--- (Please use notation "14" for "₁₄".)
+	*Mo ₀₀₃₀-₁₄⁰⁹ <--- (Please use notation ":09" for "⁰⁹".)
+"Error tolerance: Time range" for "Mo ₀₀:₃₀-₁₄:₀₉; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo ₀₀ <--- (Please use notation "00" for "₀₀".)
+	*Mo ₀₀:₃₀ <--- (Please use notation "30" for "₃₀".)
+	*Mo ₀₀:₃₀-₁₄ <--- (Please use notation "14" for "₁₄".)
+	*Mo ₀₀:₃₀-₁₄:₀₉ <--- (Please use notation "09" for "₀₉".)
+"Error tolerance: Time range" for "Mo ₀:₃₀-₁₄:₀₉; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo ₀ <--- (Please use notation "0" for "₀".)
+	*Mo ₀:₃₀ <--- (Please use notation "30" for "₃₀".)
+	*Mo ₀:₃₀-₁₄ <--- (Please use notation "14" for "₁₄".)
+	*Mo ₀:₃₀-₁₄:₀₉ <--- (Please use notation "09" for "₀₉".)
+"Error tolerance: Time range" for "Mo ₀:₃₀-₁₄:₉; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo ₀ <--- (Please use notation "0" for "₀".)
+	*Mo ₀:₃₀ <--- (Please use notation "30" for "₃₀".)
+	*Mo ₀:₃₀-₁₄ <--- (Please use notation "14" for "₁₄".)
+	*Mo ₀:₃₀-₁₄:₉ <--- (Please use notation "9" for "₉".)
 "Time ranges spanning midnight" for "22:00-02:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight" for "22:00-26:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight" for "22-2": [1m[32mPASSED[39m[22m
@@ -1061,6 +1109,12 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*Jan 01,Dec 24-25 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 	*Jan 01,Dec 24-25; Nov Th[4] <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Month ranges" for "Jan 01,Dec 24.-25.; Nov Th[4]": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Jan 01,Dec 24. <--- (Please omit ".".)
+	*Jan 01,Dec 24.-25. <--- (Please omit ".".)
+	*Jan 01,Dec 24.-25. <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 01,Dec 24.-25.; Nov Th[4] <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Month ranges" for "Jan 01,Dec 24,25; Nov Th[4]": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan 01,Dec 24,25 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
@@ -1093,6 +1147,9 @@ With [1m[34mwarnings[39m[22m:
 "Monthday ranges" for "Dec 24,Jan 02: 18:00-22:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Dec 24,Jan 02: 18:00-22:00; Jan 20: off": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Dec 24,Jan 02 18:00-22:00": [1m[32mPASSED[39m[22m
+"Monthday ranges" for "Dec 24.,Jan 02: 18:00-22:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Dec 24. <--- (Please omit ".".)
 "Monthday ranges (with year)" for "2012 Jan 23-31 00:00-24:00; 2012 Feb 01-12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges spanning year boundary" for "Dec 31-Jan 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1359,6 +1416,7 @@ With [1m[34mwarnings[39m[22m:
 "Real world example: Was not processed right." for "Mo geschl., Tu 14:00-18:00, We-Sa 10:00-18:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo geschl <--- (Please use "off" for "geschl". Example: "Mo-Fr 08:00-12:00; Tu off".)
+	*Mo geschl. <--- (Please omit ".".)
 "Real world example: Was not processed right." for "Mo: geschlossen, Di: 14-18Uhr, Mi-Sa: 10-18Uhr": [1m[35mCRASHED[39m[22m, reason: TypeError: Cannot read property '0' of undefined
 "Real world example: Was not processed right." for "Mo off; Tu 14:00-18:00; We-Sa 10:00-18:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right (month range/monthday range)" for "Aug,Dec 25-easter": [1m[32mPASSED[39m[22m
@@ -1436,7 +1494,11 @@ With [1m[34mwarnings[39m[22m:
 "Points in time with month, mode 1" for "Apr 08:00": [1m[32mPASSED[39m[22m
 "Points in time with month, mode 1" for "Apr: 08:00": [1m[32mPASSED[39m[22m
 "Points in time with month, mode 1" for "Apr. 08:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Apr. <--- (Please omit ".".)
 "Points in time with month, mode 1" for "Apr.: 08:00": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
+With [1m[34mwarnings[39m[22m:
+	*Apr. <--- (Please omit ".".)
 "Points in time, mode 2" for "Mo sunrise,sunset": [1m[32mPASSED[39m[22m
 "Points in time, mode 2" for "Mo (sunrise+01:00)": [1m[32mPASSED[39m[22m
 "Points in time and times ranges, mode 2" for "Mo 12:00,13:00-14:00": [1m[32mPASSED[39m[22m
@@ -1682,9 +1744,12 @@ With [1m[34mwarnings[39m[22m:
 "Error tolerance: weekdays, months in different languages" for "mon., Tuesday, wed., Thursday. 12:00-20:00; 14:00-16:00 off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*mon <--- (Please use the English abbreviation "Mo" for "mon".)
+	*mon. <--- (Please omit ".".)
 	*mon., Tuesday <--- (Please use the English abbreviation "Tu" for "tuesday".)
 	*mon., Tuesday, wed <--- (Please use the English abbreviation "We" for "wed".)
+	*mon., Tuesday, wed. <--- (Please omit ".".)
 	*mon., Tuesday, wed., Thursday <--- (Please use the English abbreviation "Th" for "thursday".)
+	*mon., Tuesday, wed., Thursday. <--- (Please omit ".".)
 "Error tolerance: Full range" for "Mo-Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Su <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
@@ -2592,7 +2657,7 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-894/908 tests passed. 14 did not pass.
+905/919 tests passed. 14 did not pass.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
