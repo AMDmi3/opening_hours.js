@@ -117,7 +117,7 @@ de:
       'please use English abbreviation ok for ko': 'Bitte benutze die englische Abkürzung "__ok__" für "__ko__".'
       'please use English abbreviation ok for so': 'Bitte benutze die englische Abkürzung "__ok__" für "__ko__". Beachte das Samstag in Polnisch gemeint sein kann.'
       'please use off for ko': 'Bitte benutze "__ok__" für "__ko__". Beispiel: "Mo-Fr 08:00-12:00; Tu off".'
-      'please use off for workday': '"__ko__" wird als "__ok__" interpretiert. Werktag sollte nicht verwendet werden. Siehe https://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays'
+      'please use ok for workday': '"__ko__" wird als "__ok__" interpretiert. Werktag sollte nicht verwendet werden. Siehe https://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays'
       'omit hour keyword': 'Bitte lasse "__ko__" weg oder verwende einen Doppelpunkt. Beispiel: "12:00-14:00".'
       'omit ko': 'Bitte verzichte auf "__ko__".'
       'omit tag key': 'Bitte lasse "__ko__" weg. Der Tag Schlüssel darf nicht im Tag Wert sein.'

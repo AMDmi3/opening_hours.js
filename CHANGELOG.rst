@@ -138,6 +138,9 @@ Changed
   tool now just uses the already given variant (``Mo-Fr 08:00-12:00 "by
   appointment"`` in this case). [ypid_]
 
+* Error tolerance: Interpret the German :regexp:`werktags?` as ``Mo-Sa`` instead of ``Mo-Fr``.
+  Ref: `§ 3 Bundesurlaubsgesetz (BUrlG) <https://www.gesetze-im-internet.de/burlg/__3.html>`_. [ypid_]
+
 * Make error tolerance warnings translatable. [ypid_]
 
 * Improved performance of common constructor calls by factor 6! [ypid_]

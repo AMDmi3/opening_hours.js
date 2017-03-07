@@ -32,12 +32,13 @@
   'geschlossen': 'off'
   'geschl': 'off'
   except: 'off'
-'please use off for workday':
+'please use ok for workday':
   # Used around 260 times but the problem is, that work day might be different in other countries.
   'wd': Mo-Fr
   'on work days?': Mo-Fr
   'weekdays?': Mo-Fr
-  'werktags?': Mo-Fr
+  # https://www.gesetze-im-internet.de/burlg/__3.html
+  'werktags?': Mo-Sa
   'vardagar': Mo-Fr
 'omit hour keyword':
   h: ""
