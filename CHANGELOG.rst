@@ -124,7 +124,7 @@ Changed
   countries/states might add/remove holidays like winter holidays from one year
   to another. [ypid_]
 
-* Input tolerance: For a value such as ``Mo-Fr 08:00-12:00 by_appointment`` the
+* Error tolerance: For a value such as ``Mo-Fr 08:00-12:00 by_appointment`` the
   tool did previously suggest to use ``Mo-Fr 08:00-12:00 "on appointment"`` but
   as whether to use ``by appointment`` or ``on appointment`` is not defined the
   tool now just uses the already given variant (``Mo-Fr 08:00-12:00 "by
@@ -133,6 +133,7 @@ Changed
 * Make error tolerance warnings translatable. [ypid_]
 
 * Improved performance of common constructor calls by factor 6! [ypid_]
+* Extend error tolerance. [ypid_]
 
 .. _ES2015 modules: http://exploringjs.com/es6/ch_modules.html
 .. _rollup: http://rollupjs.org/

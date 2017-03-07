@@ -3126,6 +3126,7 @@ test.addTest('Month ranges', [
 // monthday ranges {{{
 test.addTest('Month ranges', [
         'Jan 01,Dec 24-25; Nov Th[4]',
+        'Jan 01,Dec 24.-25.; Nov Th[4]',
         'Jan 01,Dec 24,25; Nov Th[4]', // Was supported by time_domain as well.
         '2012 Jan 01,2012 Dec 24-25; 2012 Nov Th[4]',
     ], '2012-01-01 0:00', '2013-01-01 0:00', [
@@ -3174,6 +3175,7 @@ test.addTest('Monthday ranges', [
         'Dec 24,Jan 02: 18:00-22:00',
         'Dec 24,Jan 02: 18:00-22:00; Jan 20: off',
         'Dec 24,Jan 02 18:00-22:00',
+        'Dec 24.,Jan 02: 18:00-22:00',
     ], '2012-01-01 0:00', '2013-01-01 0:00', [
         [ '2012-01-02 18:00', '2012-01-02 22:00' ],
         [ '2012-12-24 18:00', '2012-12-24 22:00' ],

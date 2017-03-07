@@ -1061,6 +1061,12 @@ With [1m[34mwarnings[39m[22m:
 With [1m[34mwarnings[39m[22m:
 	*Jan 01,Dec 24-25 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 	*Jan 01,Dec 24-25; Nov Th[4] <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+"Month ranges" for "Jan 01,Dec 24.-25.; Nov Th[4]": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Jan 01,Dec 24. <--- (Please omit ".".)
+	*Jan 01,Dec 24.-25. <--- (Please omit ".".)
+	*Jan 01,Dec 24.-25. <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 01,Dec 24.-25.; Nov Th[4] <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
 "Month ranges" for "Jan 01,Dec 24,25; Nov Th[4]": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan 01,Dec 24,25 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
@@ -1093,6 +1099,9 @@ With [1m[34mwarnings[39m[22m:
 "Monthday ranges" for "Dec 24,Jan 02: 18:00-22:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Dec 24,Jan 02: 18:00-22:00; Jan 20: off": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Dec 24,Jan 02 18:00-22:00": [1m[32mPASSED[39m[22m
+"Monthday ranges" for "Dec 24.,Jan 02: 18:00-22:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Dec 24. <--- (Please omit ".".)
 "Monthday ranges (with year)" for "2012 Jan 23-31 00:00-24:00; 2012 Feb 01-12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges spanning year boundary" for "Dec 31-Jan 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -2592,7 +2601,7 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-894/908 tests passed. 14 did not pass.
+896/910 tests passed. 14 did not pass.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

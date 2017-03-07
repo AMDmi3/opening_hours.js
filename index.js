@@ -437,12 +437,13 @@ export default function(value, nominatim_object, optional_conf_parm) {
      * :returns: String with position of the warning or error marked for the user.
      */
     function formatWarnErrorMessage(nrule, at, message) {
+        // console.log(`Called formatWarnErrorMessage: ${nrule}, ${at}, ${message}`);
         // FIXME: Change to new_tokens.
         if (typeof nrule === 'number') {
             var pos = 0;
             if (nrule === -1) { // Usage of rule index not required because we do have access to value.length.
                 pos = value.length - at;
-            } else { // Issue accrued at a later time, position in string needs to be reconstructed.
+            } else { // Issue occurred at a later time, position in string needs to be reconstructed.
                 if (typeof tokens[nrule][0][at] === 'undefined') {
                     if (typeof tokens[nrule][0] && at === -1) {
                         pos = value.length;
@@ -460,7 +461,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                             // Fallback: Point to last token in the rule which caused the problem.
                             // Run real_test regularly to fix the problem before a user is confronted with it.
                             pos -= tokens[nrule][2];
-                            console.warn('Last token for rule: ' + tokens[nrule]);
+                            console.warn('Last token for rule: ' + JSON.stringify(tokens[nrule]));
                             console.log(value.substring(0, pos) + ' <--- (' + message + ')');
                             console.log('\n');
                         } {
@@ -616,19 +617,22 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     curr_rule_tokens.push([value[0].toLowerCase(), value[0].toLowerCase(), value.length - 1 ]);
                     value = value.substr(1);
                 }
-            } else if (tmp = value.match(/^\d+/)) {
+            } else if (tmp = value.match(/^(\d+)(?:([.])([^\d]))?/)) {
                 // number
-                if (Number(tmp[0]) > 1900) { // Assumed to be a year number.
-                    curr_rule_tokens.push([Number(tmp[0]), 'year', value.length ]);
-                    if (Number(tmp[0]) >= 2100) // Probably an error
+                if (Number(tmp[1]) > 1900) { // Assumed to be a year number.
+                    curr_rule_tokens.push([Number(tmp[1]), 'year', value.length ]);
+                    if (Number(tmp[1]) >= 2100) // Probably an error
                         parsing_warnings.push([ -1, value.length - 1,
-                                t('interpreted as year', {number:  Number(tmp[0])})
+                                t('interpreted as year', {number:  Number(tmp[1])})
                         ]);
                 } else {
-                    curr_rule_tokens.push([Number(tmp[0]), 'number', value.length ]);
+                    curr_rule_tokens.push([Number(tmp[1]), 'number', value.length ]);
                 }
 
-                value = value.substr(tmp[0].length);
+                value = value.substr(tmp[1].length + (typeof tmp[2] === 'string' ? tmp[2].length : 0));
+                if (typeof tmp[2] === 'string' && tmp[2] !== '' && !done_with_warnings) {
+                    parsing_warnings.push([ -1, value.length, t('omit ko', {'ko': tmp[2]})]);
+                }
             } else if (/^\|\|/.test(value)) {
                 // || terminates rule.
                 // Next token belong to a fallback rule.
@@ -1212,8 +1216,9 @@ export default function(value, nominatim_object, optional_conf_parm) {
         if (at + arguments.length - 2 > tokens.length)
             return false;
         for (var i = 0; i < arguments.length - 2; i++) {
-            if (tokens[at + i][1] !== arguments[i + 2])
+            if (tokens[at + i][1] !== arguments[i + 2]) {
                 return false;
+            }
         }
 
         return true;
@@ -1998,8 +2003,13 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     }
                 });
 
-                if (!matchTokens(tokens, endat, ']'))
-                    throw formatWarnErrorMessage(nrule, endat, t('] or more numbers'));
+                if (!matchTokens(tokens, endat, ']')) {
+                    throw formatWarnErrorMessage(
+                        nrule,
+                        endat + (typeof tokens[endat] === 'object' ? 0 : -1),
+                        t('] or more numbers')
+                    );
+                }
 
                 var add_days = getMoveDays(tokens, endat+1, 6, 'constrained weekdays');
                 week_stable = false;
@@ -2132,8 +2142,9 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 throw formatWarnErrorMessage(nrule, at, t('unexpected token weekday range', {'token': tokens[at][1]}));
             }
 
-            if (!matchTokens(tokens, at, ','))
+            if (!matchTokens(tokens, at, ',')) {
                 break;
+            }
         }
 
         return at;
