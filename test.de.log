@@ -206,7 +206,55 @@ With [1m[34mwarnings[39m[22m:
 	*Mo 12:00-14： <--- (Bitte verwende ":" anstelle von "：".)
 "Error tolerance: Time range" for "Mo 12°°-14:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*Mo 12° <--- (Beachte das dies ein Gradzeichen ist, welches als (hochgestellte) Null missbraucht wurde. Eine hochgestellte Null ist in Unicode definiert (°) und wäre angebrachter/einheitlicher an dieser Stelle. Allerdings ist die Verwendung von nicht ASCII Ziffern nicht erlaubt.)
+	*Mo 12°° <--- (Beachte das dies ein Gradzeichen ist, welches als (hochgestellte) Null missbraucht wurde. Eine hochgestellte Null ist in Unicode definiert (°) und wäre angebrachter/einheitlicher an dieser Stelle. Allerdings ist die Verwendung von nicht ASCII Ziffern nicht erlaubt.)
 	*Mo 12°° <--- (Bitte verwende ":00" anstelle von "°°".)
+"Error tolerance: Time range" for "Mo 00:30-14:09; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+"Error tolerance: Time range" for "Mo 00³°-14:09; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 00³° <--- (Beachte das dies ein Gradzeichen ist, welches als (hochgestellte) Null missbraucht wurde. Eine hochgestellte Null ist in Unicode definiert (°) und wäre angebrachter/einheitlicher an dieser Stelle. Allerdings ist die Verwendung von nicht ASCII Ziffern nicht erlaubt.)
+	*Mo 00³° <--- (Bitte verwende ":30" anstelle von "³°".)
+"Error tolerance: Time range" for "Mo 00:³°-14:09; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 00:³° <--- (Beachte das dies ein Gradzeichen ist, welches als (hochgestellte) Null missbraucht wurde. Eine hochgestellte Null ist in Unicode definiert (°) und wäre angebrachter/einheitlicher an dieser Stelle. Allerdings ist die Verwendung von nicht ASCII Ziffern nicht erlaubt.)
+	*Mo 00:³° <--- (Bitte verwende "30" anstelle von "³°".)
+"Error tolerance: Time range" for "Mo °°³°-14:09; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo ° <--- (Beachte das dies ein Gradzeichen ist, welches als (hochgestellte) Null missbraucht wurde. Eine hochgestellte Null ist in Unicode definiert (°) und wäre angebrachter/einheitlicher an dieser Stelle. Allerdings ist die Verwendung von nicht ASCII Ziffern nicht erlaubt.)
+	*Mo °° <--- (Beachte das dies ein Gradzeichen ist, welches als (hochgestellte) Null missbraucht wurde. Eine hochgestellte Null ist in Unicode definiert (°) und wäre angebrachter/einheitlicher an dieser Stelle. Allerdings ist die Verwendung von nicht ASCII Ziffern nicht erlaubt.)
+	*Mo °° <--- (Bitte verwende "00" anstelle von "°°".)
+	*Mo °°³° <--- (Beachte das dies ein Gradzeichen ist, welches als (hochgestellte) Null missbraucht wurde. Eine hochgestellte Null ist in Unicode definiert (°) und wäre angebrachter/einheitlicher an dieser Stelle. Allerdings ist die Verwendung von nicht ASCII Ziffern nicht erlaubt.)
+	*Mo °°³° <--- (Bitte verwende ":30" anstelle von "³°".)
+"Error tolerance: Time range" for "Mo ⁰⁰:³⁰-¹⁴:⁰⁹; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo ⁰⁰ <--- (Bitte verwende "00" anstelle von "⁰⁰".)
+	*Mo ⁰⁰:³⁰ <--- (Bitte verwende "30" anstelle von "³⁰".)
+	*Mo ⁰⁰:³⁰-¹⁴ <--- (Bitte verwende "14" anstelle von "¹⁴".)
+	*Mo ⁰⁰:³⁰-¹⁴:⁰⁹ <--- (Bitte verwende "09" anstelle von "⁰⁹".)
+"Error tolerance: Time range" for "Mo ₀₀₃₀-₁₄⁰⁹; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo ₀₀ <--- (Bitte verwende "00" anstelle von "₀₀".)
+	*Mo ₀₀₃₀ <--- (Bitte verwende ":30" anstelle von "₃₀".)
+	*Mo ₀₀₃₀-₁₄ <--- (Bitte verwende "14" anstelle von "₁₄".)
+	*Mo ₀₀₃₀-₁₄⁰⁹ <--- (Bitte verwende ":09" anstelle von "⁰⁹".)
+"Error tolerance: Time range" for "Mo ₀₀:₃₀-₁₄:₀₉; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo ₀₀ <--- (Bitte verwende "00" anstelle von "₀₀".)
+	*Mo ₀₀:₃₀ <--- (Bitte verwende "30" anstelle von "₃₀".)
+	*Mo ₀₀:₃₀-₁₄ <--- (Bitte verwende "14" anstelle von "₁₄".)
+	*Mo ₀₀:₃₀-₁₄:₀₉ <--- (Bitte verwende "09" anstelle von "₀₉".)
+"Error tolerance: Time range" for "Mo ₀:₃₀-₁₄:₀₉; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo ₀ <--- (Bitte verwende "0" anstelle von "₀".)
+	*Mo ₀:₃₀ <--- (Bitte verwende "30" anstelle von "₃₀".)
+	*Mo ₀:₃₀-₁₄ <--- (Bitte verwende "14" anstelle von "₁₄".)
+	*Mo ₀:₃₀-₁₄:₀₉ <--- (Bitte verwende "09" anstelle von "₀₉".)
+"Error tolerance: Time range" for "Mo ₀:₃₀-₁₄:₉; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo ₀ <--- (Bitte verwende "0" anstelle von "₀".)
+	*Mo ₀:₃₀ <--- (Bitte verwende "30" anstelle von "₃₀".)
+	*Mo ₀:₃₀-₁₄ <--- (Bitte verwende "14" anstelle von "₁₄".)
+	*Mo ₀:₃₀-₁₄:₉ <--- (Bitte verwende "9" anstelle von "₉".)
 "Time ranges spanning midnight" for "22:00-02:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight" for "22:00-26:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight" for "22-2": [1m[32mPASSED[39m[22m
@@ -3023,7 +3071,7 @@ Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-862/917 tests passed. 55 did not pass.
+871/926 tests passed. 55 did not pass.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

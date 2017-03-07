@@ -112,6 +112,7 @@ de:
       'assuming ok for ko': '"__ko__" wird als "__ok__" interpretiert.'
       'please use ok for ko': 'Bitte verwende "__ok__" anstelle von "__ko__".'
       'please use ok for similar looking ko': 'Please use notation "__ok__" for "__ko__". Those characters look very similar but are not the same!'
+      'rant degree sign used for zero': 'Beachte das dies ein Gradzeichen ist, welches als (hochgestellte) Null missbraucht wurde. Eine hochgestellte Null ist in Unicode definiert (°) und wäre angebrachter/einheitlicher an dieser Stelle. Allerdings ist die Verwendung von nicht ASCII Ziffern nicht erlaubt.'
       'please use English written ok for ko': 'Bitte benutze die englische Schreibweise "__ok__" für "__ko__".'
       'please use English abbreviation ok for ko': 'Bitte benutze die englische Abkürzung "__ok__" für "__ko__".'
       'please use English abbreviation ok for so': 'Bitte benutze die englische Abkürzung "__ok__" für "__ko__". Beachte das Samstag in Polnisch gemeint sein kann.'

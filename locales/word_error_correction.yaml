@@ -23,6 +23,8 @@
   m: Mo
   w: We
   f: Fr
+  # TODO: Needs code refactor to support this.
+  # außer: '; off'
 'please use English written ok for ko':
   '(?:an )?feiertag(?:s|en?)?': PH
 'please use off for ko':
@@ -85,7 +87,6 @@
   '&': ','
   ：: ':'
   '''': '"'
-  °°: ':00'
   'always': 24/7
   'always open': 24/7
   'always closed': closed

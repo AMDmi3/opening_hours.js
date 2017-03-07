@@ -206,7 +206,55 @@ With [1m[34mwarnings[39m[22m:
 	*Mo 12:00-14： <--- (Please use notation ":" for "：".)
 "Error tolerance: Time range" for "Mo 12°°-14:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*Mo 12° <--- (Note that this is not a (superscript) zero but a degree sign which is misused as zero. A superscript zero is defined in Unicode (°) and would have been more appropriate/uniform here. But note that the use of none-ASCII digits is not allowed.)
+	*Mo 12°° <--- (Note that this is not a (superscript) zero but a degree sign which is misused as zero. A superscript zero is defined in Unicode (°) and would have been more appropriate/uniform here. But note that the use of none-ASCII digits is not allowed.)
 	*Mo 12°° <--- (Please use notation ":00" for "°°".)
+"Error tolerance: Time range" for "Mo 00:30-14:09; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+"Error tolerance: Time range" for "Mo 00³°-14:09; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 00³° <--- (Note that this is not a (superscript) zero but a degree sign which is misused as zero. A superscript zero is defined in Unicode (°) and would have been more appropriate/uniform here. But note that the use of none-ASCII digits is not allowed.)
+	*Mo 00³° <--- (Please use notation ":30" for "³°".)
+"Error tolerance: Time range" for "Mo 00:³°-14:09; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo 00:³° <--- (Note that this is not a (superscript) zero but a degree sign which is misused as zero. A superscript zero is defined in Unicode (°) and would have been more appropriate/uniform here. But note that the use of none-ASCII digits is not allowed.)
+	*Mo 00:³° <--- (Please use notation "30" for "³°".)
+"Error tolerance: Time range" for "Mo °°³°-14:09; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo ° <--- (Note that this is not a (superscript) zero but a degree sign which is misused as zero. A superscript zero is defined in Unicode (°) and would have been more appropriate/uniform here. But note that the use of none-ASCII digits is not allowed.)
+	*Mo °° <--- (Note that this is not a (superscript) zero but a degree sign which is misused as zero. A superscript zero is defined in Unicode (°) and would have been more appropriate/uniform here. But note that the use of none-ASCII digits is not allowed.)
+	*Mo °° <--- (Please use notation "00" for "°°".)
+	*Mo °°³° <--- (Note that this is not a (superscript) zero but a degree sign which is misused as zero. A superscript zero is defined in Unicode (°) and would have been more appropriate/uniform here. But note that the use of none-ASCII digits is not allowed.)
+	*Mo °°³° <--- (Please use notation ":30" for "³°".)
+"Error tolerance: Time range" for "Mo ⁰⁰:³⁰-¹⁴:⁰⁹; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo ⁰⁰ <--- (Please use notation "00" for "⁰⁰".)
+	*Mo ⁰⁰:³⁰ <--- (Please use notation "30" for "³⁰".)
+	*Mo ⁰⁰:³⁰-¹⁴ <--- (Please use notation "14" for "¹⁴".)
+	*Mo ⁰⁰:³⁰-¹⁴:⁰⁹ <--- (Please use notation "09" for "⁰⁹".)
+"Error tolerance: Time range" for "Mo ₀₀₃₀-₁₄⁰⁹; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo ₀₀ <--- (Please use notation "00" for "₀₀".)
+	*Mo ₀₀₃₀ <--- (Please use notation ":30" for "₃₀".)
+	*Mo ₀₀₃₀-₁₄ <--- (Please use notation "14" for "₁₄".)
+	*Mo ₀₀₃₀-₁₄⁰⁹ <--- (Please use notation ":09" for "⁰⁹".)
+"Error tolerance: Time range" for "Mo ₀₀:₃₀-₁₄:₀₉; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo ₀₀ <--- (Please use notation "00" for "₀₀".)
+	*Mo ₀₀:₃₀ <--- (Please use notation "30" for "₃₀".)
+	*Mo ₀₀:₃₀-₁₄ <--- (Please use notation "14" for "₁₄".)
+	*Mo ₀₀:₃₀-₁₄:₀₉ <--- (Please use notation "09" for "₀₉".)
+"Error tolerance: Time range" for "Mo ₀:₃₀-₁₄:₀₉; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo ₀ <--- (Please use notation "0" for "₀".)
+	*Mo ₀:₃₀ <--- (Please use notation "30" for "₃₀".)
+	*Mo ₀:₃₀-₁₄ <--- (Please use notation "14" for "₁₄".)
+	*Mo ₀:₃₀-₁₄:₀₉ <--- (Please use notation "09" for "₀₉".)
+"Error tolerance: Time range" for "Mo ₀:₃₀-₁₄:₉; 00:01-00:02 closed "warning at correct position?"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo ₀ <--- (Please use notation "0" for "₀".)
+	*Mo ₀:₃₀ <--- (Please use notation "30" for "₃₀".)
+	*Mo ₀:₃₀-₁₄ <--- (Please use notation "14" for "₁₄".)
+	*Mo ₀:₃₀-₁₄:₉ <--- (Please use notation "9" for "₉".)
 "Time ranges spanning midnight" for "22:00-02:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight" for "22:00-26:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight" for "22-2": [1m[32mPASSED[39m[22m
@@ -2609,7 +2657,7 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-896/910 tests passed. 14 did not pass.
+905/919 tests passed. 14 did not pass.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

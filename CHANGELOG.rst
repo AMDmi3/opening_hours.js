@@ -112,7 +112,14 @@ Added
 ~~~~~
 
 * Translate error tolerance warnings into German. [ypid_]
-* Add additional warnings. [ypid_]
+* Add additional warnings:
+
+  * Misused ``.`` character. [ypid_]
+
+* Extend error tolerance:
+
+  * Handle super/subscript digits properly e. g. ``Mo 00³°-¹⁴:⁰⁹``. [ypid_]
+  * Handle misused ``.`` character following a number. [ypid_]
 
 Changed
 ~~~~~~~
@@ -134,7 +141,6 @@ Changed
 * Make error tolerance warnings translatable. [ypid_]
 
 * Improved performance of common constructor calls by factor 6! [ypid_]
-* Extend error tolerance. [ypid_]
 
 .. _ES2015 modules: http://exploringjs.com/es6/ch_modules.html
 .. _rollup: http://rollupjs.org/

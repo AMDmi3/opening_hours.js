@@ -87,6 +87,7 @@
 'assuming ok for ko': 'Assuming "__ok__" for "__ko__".'
 'please use ok for ko': 'Please use notation "__ok__" for "__ko__".'
 'please use ok for similar looking ko': 'Please use notation "__ok__" for "__ko__". Those characters look very similar but are not the same!'
+'rant degree sign used for zero': 'Note that this is not a (superscript) zero but a degree sign which is misused as zero. A superscript zero is defined in Unicode (°) and would have been more appropriate/uniform here. But note that the use of none-ASCII digits is not allowed.'
 'please use English written ok for ko': 'Please use the English written "__ok__" for "__ko__".'
 'please use English abbreviation ok for ko': 'Please use the English abbreviation "__ok__" for "__ko__".'
 'please use English abbreviation ok for so': 'Please use the English abbreviation "__ok__" for "__ko__". Note that it might also mean Saturday in Polish.'

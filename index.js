@@ -257,7 +257,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
     if (typeof value !== 'string') {
         throw t('no string');
     }
-    if (/^(?:\s*;?\s*)+$/.test(value)) {
+    if (/^(?:\s*;?)+$/.test(value)) {
         throw t('nothing');
     }
 
@@ -505,7 +505,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
         return message;
     } /* }}} */
 
-    /* Tokenize input stream. {{{
+    /* Tokenize input stream {{{
      *
      * :param value: Raw opening_hours value.
      * :returns: Tokenized list object. Complex structure. Check the
@@ -519,7 +519,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
 
         while (value !== '') {
             /* Ordered after likelihood of input for performance reasons.
-             * Also, error tolerance happens is supposed to happen at the end.
+             * Also, error tolerance is supposed to happen at the end.
              */
             // console.log("Parsing value: " + value);
             var tmp = value.match(/^([a-z]{2,})\b((:?[.]| before| after)?)/i);
@@ -556,7 +556,41 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 // special day name (holidays)
                 curr_rule_tokens.push([tmp[0].toUpperCase(), 'holiday', value.length ]);
                 value = value.substr(2);
-            } else if (tmp = value.match(/^(&|_|→|–|−|—|ー|=|·|öffnungszeit(?:en)?:?|opening_hours\s*=|\?|~|～|：|°°|always (?:open|closed)|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|(?:bis|till?|-|–)? ?(?:open ?end|late)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|on work days?|sonntags?|(?:nur |an )?sonn-?(?:(?: und |\/)feiertag(?:s|en?)?)?|(?:an )?feiertag(?:s|en?)?|(?:nach|on|by) (?:appointments?|vereinbarung|absprache)|p\.m\.|a\.m\.|[_a-zäößàáéøčěíúýřПнВсо]+\b|à|á|mo|tu|we|th|fr|sa|su|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)(\.?)/i)) {
+            } else if (tmp = value.match(/^[°\u2070-\u209F\u00B2\u00B3\u00B9]{1,2}/)) {
+                var unicode_code_point_to_digit = {
+                    176: 0,
+                    0x2070: 0,
+                    185: 1,
+                    178: 2,
+                    179: 3,
+                }
+                var regular_number = tmp[0].split('').map(function (ch) {
+                    var code_point = ch.charCodeAt(0);
+                    if (typeof unicode_code_point_to_digit[code_point] === 'number') {
+                        return unicode_code_point_to_digit[code_point];
+                    } else if (0x2074 <= code_point && code_point <= 0x2079) {
+                        return code_point - 0x2070;
+                    } else if (0x2080 <= code_point && code_point <= 0x2089) {
+                        return code_point - 0x2080;
+                    }
+                }).join('');
+                var ok = '';
+                if (curr_rule_tokens.length > 0 && matchTokens(curr_rule_tokens, curr_rule_tokens.length-1, 'number')) {
+                    ok += ':';
+                }
+                ok += regular_number;
+                if (!done_with_warnings) {
+                    for (var i = 0; i <= tmp[0].length; i++) {
+                        if (value.charCodeAt(i) == 176) {
+                            parsing_warnings.push([ -1, value.length - (1 + i),
+                                    t('rant degree sign used for zero')]);
+                        }
+                    }
+                    parsing_warnings.push([ -1, value.length - tmp[0].length,
+                            t('please use ok for ko', {'ko': tmp[0], 'ok': ok})]);
+                }
+                value = ok + value.substr(tmp[0].length);
+            } else if (tmp = value.match(/^(&|_|→|–|−|—|ー|=|·|öffnungszeit(?:en)?:?|opening_hours\s*=|\?|~|～|：|always (?:open|closed)|24x7|24 hours 7 days a week|24 hours|7 ?days(?:(?: a |\/)week)?|7j?\/7|all days?|every day|(?:bis|till?|-|–)? ?(?:open ?end|late)|(?:(?:one )?day (?:before|after) )?(?:school|public) holidays?|days?\b|до|рм|ам|jours fériés|on work days?|sonntags?|(?:nur |an )?sonn-?(?:(?: und |\/)feiertag(?:s|en?)?)?|(?:an )?feiertag(?:s|en?)?|(?:nach|on|by) (?:appointments?|vereinbarung|absprache)|p\.m\.|a\.m\.|[_a-zäößàáéøčěíúýřПнВсо]+\b|à|á|mo|tu|we|th|fr|sa|su|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)(\.?)/i)) {
                 /* Handle all remaining words and specific other characters with error tolerance.
                  *
                  * à|á: Word boundary does not work with Unicode chars: 'test à test'.match(/\bà\b/i)
@@ -1847,7 +1881,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 if (!done_with_warnings)
                     parsing_warnings.push([nrule, at + 2, t('without minutes', {
                         'syntax': (tokens[at][0]   < 10 ? '0' : '') + tokens[at][0]   + ':00-'
-                            + (tokens[at+2][0] < 10 ? '0' : '') + tokens[at+2][0] + ':00'
+                                + (tokens[at+2][0] < 10 ? '0' : '') + tokens[at+2][0] + ':00'
                     })]);
 
                 if (minutes_from >= minutes_in_day)

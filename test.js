@@ -107,7 +107,7 @@ var nominatim_no_valid_address = {
 
 /* }}} */
 
-var sane_value_suffix = '; 00:23-00:42 closed "warning at correct position?"';
+var sane_value_suffix = '; 00:01-00:02 closed "warning at correct position?"';
 // Suffix to add to values to make the value more complex and to spot problems
 // easier without changing there meaning (in most cases).
 var value_suffix = '; 00:23-00:42 unknown "warning at correct position?"';
@@ -322,6 +322,20 @@ test.addTest('Error tolerance: Time range', [
     ], '2012-10-01 0:00', '2012-10-08 0:00', [
         [ '2012-10-01 12:00', '2012-10-01 14:00' ],
     ], 1000 * 60 * 60 * 2, 0, true, {}, 'not only test');
+
+test.addTest('Error tolerance: Time range', [
+        'Mo 00:30-14:09' + sane_value_suffix, // reference value for prettify
+        'Mo 00³°-14:09' + sane_value_suffix,
+        'Mo 00:³°-14:09' + sane_value_suffix,
+        'Mo °°³°-14:09' + sane_value_suffix,
+        'Mo ⁰⁰:³⁰-¹⁴:⁰⁹' + sane_value_suffix,
+        'Mo ₀₀₃₀-₁₄⁰⁹' + sane_value_suffix,
+        'Mo ₀₀:₃₀-₁₄:₀₉' + sane_value_suffix,
+        'Mo ₀:₃₀-₁₄:₀₉' + sane_value_suffix,
+        'Mo ₀:₃₀-₁₄:₉' + sane_value_suffix,
+    ], '2012-10-01 0:00', '2012-10-08 0:00', [
+        [ '2012-10-01 00:30', '2012-10-01 14:09' ],
+    ], 1000 * 60 * (60 * 13 + 39), 0, true, {}, 'not only test');
 // }}}
 
 // time range spanning midnight {{{
@@ -3562,7 +3576,7 @@ test.addTest('Additional comments combined with months', [
     ], 7948800000, 2682000000, false, {}, 'not last test');
 // }}}
 
-// real world examples, mainly values which caused a problem {{{
+// real world examples, mainly values which caused an issue {{{
 test.addTest('Complex example used in README', [
         value_perfectly_valid[1], // preferred because more explicit
         '00:00-24:00; Tu-Su,PH 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off',
@@ -4665,6 +4679,15 @@ test.addTest('Error tolerance: Full range', [
     ], '2012-10-01 0:00', '2012-10-08 0:00', [
         [ '2012-10-01 0:00', '2012-10-08 0:00' ],
     ], 1000 * 60 * 60 * 24 * 7, 0, true, nominatim_default, 'not only test', { 'warnings_severity': 5 } );
+
+// TODO: Needs code refactor to support this.
+// test.addTest('Error tolerance: Split rule into two rules', [
+//         'Mo-Su; Su off',
+//         'Täglich außer sonntags',
+//     ], '2014-01-01 0:00', '2014-01-10 0:00', [
+//         [ '2014-01-01 00:00', '2014-01-05 00:00' ],
+//         [ '2014-01-06 00:00', '2014-01-10 00:00' ],
+//     ], 1000 * 60 * 60 * 24 * 8, 0, true, {}, 'not only test');
 // }}}
 
 // values which should return a warning {{{
