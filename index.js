@@ -522,7 +522,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
              * Also, error tolerance is supposed to happen at the end.
              */
             // console.log("Parsing value: " + value);
-            var tmp = value.match(/^([a-z]{2,})\b((:?[.]| before| after)?)/i);
+            var tmp = value.match(/^([a-z]{2,})\b((?:[.]| before| after)?)/i);
             var token_from_map = undefined;
             if (tmp && tmp[2] === '') {
                 token_from_map = string_to_token_map[tmp[1].toLowerCase()];

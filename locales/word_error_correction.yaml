@@ -59,7 +59,7 @@
   ab: ""
   von: ""
 'assuming open end for ko':
-  '(:?bis|till?|-|–)? ?(?:open ?end|late)': +
+  '(?:bis|till?|-|–)? ?(?:open ?end|late)': +
 'please use ok for uncertainty':
   '~': '-'
   ～: '-'
