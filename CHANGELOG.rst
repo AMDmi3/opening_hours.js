@@ -122,6 +122,13 @@ Added
 * Add additional warnings:
 
   * Misused ``.`` character. [ypid_]
+  * Potentially missing use of ``<additional_rule_separator>`` if the previous
+    rule has a time range which wraps over midnight and the current rule
+    matches one of the following days of the previous rule.
+    One that the warning is not emitted in case wide range selectors are used
+    in both involved rules to avoid a false positive warning where the two
+    rules would never match days directly following each other.
+    Nevertheless this check has false positives and which can be ignored in cases mentioned in the warning. [ypid_]
 
 * Extend error tolerance:
 

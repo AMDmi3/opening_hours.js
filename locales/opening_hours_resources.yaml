@@ -49,6 +49,11 @@ de:
         Wenn du dir im Unklaren bist, versuche die Öffnungszeit zu klären.
         Falls das nicht möglich ist, lass die Angabe weg und ignoriere diese Warnung.
       public holiday part2: " Leider ist der \"tag key\" (beispielsweise \"opening_hours\", oder \"lit\") in opening_hours.js nicht bekannt. Diese Warnung betrifft nur die Keys: __keys__. Falls deine Angabe nicht für einen dieser ist, ignoriere bitte folgenden Hinweis:"
+      'additional_rule_separator not used after time wrapping midnight': >-
+        Diese Regel überschreibt Teile der vorherigen Regel.
+        Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben.
+        Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest.
+        Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.
       switched: "Der Selektor \"__first__\" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit \"__second__\" getauscht."
       no colon after: "Bitte Benutze kein \":\" nach dem Token __token__."
       number -5 to 5: "Zahl zwischen -5 und 5 (außer 0) erwartet."

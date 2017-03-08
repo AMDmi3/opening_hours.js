@@ -271,6 +271,11 @@ export default function(value, nominatim_object, optional_conf_parm) {
     var week_stable = true;
 
     var rules = [];
+    var rule_infos = {};
+    /* Not reliable because tokens != new_tokens */
+    // for (var nrule = 0; nrule < tokens.length; nrule++) {
+    //     rule_infos[nrule] = {};
+    // }
     var new_tokens = [];
 
     for (var nrule = 0; nrule < tokens.length; nrule++) {
@@ -431,12 +436,16 @@ export default function(value, nominatim_object, optional_conf_parm) {
 
     /* Format warning or error message for the user. {{{
      *
-     * :param nrule: Rule number starting with zero.
+     * :param nrule: Rule number starting with 0.
      * :param at: Token position at which the issue occurred.
      * :param message: Human readable string with the message.
+     * :param tokens_to_use: List of token objects.
      * :returns: String with position of the warning or error marked for the user.
      */
-    function formatWarnErrorMessage(nrule, at, message) {
+    function formatWarnErrorMessage(nrule, at, message, tokens_to_use) {
+        if (typeof tokens_to_use === 'undefined') {
+            tokens_to_use = tokens;
+        }
         // console.log(`Called formatWarnErrorMessage: ${nrule}, ${at}, ${message}`);
         // FIXME: Change to new_tokens.
         if (typeof nrule === 'number') {
@@ -444,36 +453,36 @@ export default function(value, nominatim_object, optional_conf_parm) {
             if (nrule === -1) { // Usage of rule index not required because we do have access to value.length.
                 pos = value.length - at;
             } else { // Issue occurred at a later time, position in string needs to be reconstructed.
-                if (typeof tokens[nrule][0][at] === 'undefined') {
-                    if (typeof tokens[nrule][0] && at === -1) {
+                if (typeof tokens_to_use[nrule][0][at] === 'undefined') {
+                    if (typeof tokens_to_use[nrule][0] && at === -1) {
                         pos = value.length;
-                        if (typeof tokens[nrule+1] === 'object' && typeof tokens[nrule+1][2] === 'number') {
-                            pos -= tokens[nrule+1][2];
-                        } else if (typeof tokens[nrule][2] === 'number') {
-                            pos -= tokens[nrule][2];
+                        if (typeof tokens_to_use[nrule+1] === 'object' && typeof tokens_to_use[nrule+1][2] === 'number') {
+                            pos -= tokens_to_use[nrule+1][2];
+                        } else if (typeof tokens_to_use[nrule][2] === 'number') {
+                            pos -= tokens_to_use[nrule][2];
                         }
                     } else {
                         // Given position is invalid.
                         //
                         formatLibraryBugMessage('Bug in warning generation code which could not determine the exact position of the warning or error in value.');
                         pos = value.length;
-                        if (typeof tokens[nrule][2] === 'number') {
+                        if (typeof tokens_to_use[nrule][2] === 'number') {
                             // Fallback: Point to last token in the rule which caused the problem.
                             // Run real_test regularly to fix the problem before a user is confronted with it.
-                            pos -= tokens[nrule][2];
-                            console.warn('Last token for rule: ' + JSON.stringify(tokens[nrule]));
+                            pos -= tokens_to_use[nrule][2];
+                            console.warn('Last token for rule: ' + JSON.stringify(tokens_to_use[nrule]));
                             console.log(value.substring(0, pos) + ' <--- (' + message + ')');
                             console.log('\n');
                         } {
-                            console.warn('tokens[nrule][2] is undefined. This is ok if nrule is the last rule.');
+                            console.warn('tokens_to_use[nrule][2] is undefined. This is ok if nrule is the last rule.');
                         }
                     }
                 } else {
                     pos = value.length;
-                    if (typeof tokens[nrule][0][at+1] === 'object') {
-                        pos -= tokens[nrule][0][at+1][2];
-                    } else if (typeof tokens[nrule][2] === 'number') {
-                        pos -= tokens[nrule][2];
+                    if (typeof tokens_to_use[nrule][0][at+1] === 'object') {
+                        pos -= tokens_to_use[nrule][0][at+1][2];
+                    } else if (typeof tokens_to_use[nrule][2] === 'number') {
+                        pos -= tokens_to_use[nrule][2];
                     }
                 }
             }
@@ -832,6 +841,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 } while (selector_start_end_type[1] < new_tokens[nrule][0].length);
             }
             // console.log('used_selectors: ' + JSON.stringify(used_selectors, null, '    '));
+            // console.log('used_selectors_types_array: ' + JSON.stringify(used_selectors_types_array, null, '    '));
             /* }}} */
 
             for (var nrule = 0; nrule < used_selectors.length; nrule++) {
@@ -905,6 +915,54 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     }
                 }
                 /* }}} */
+                /* Check for missing use of <additional_rule_separator> for time wrapping midnight {{{ */
+                if (typeof rule_infos[nrule] === 'object'
+                        && typeof rule_infos[nrule]['time_wraps_over_midnight'] === 'boolean'
+                        && rule_infos[nrule]['time_wraps_over_midnight'] === true
+                        && typeof used_selectors[nrule+1] === 'object'
+                        && typeof used_selectors[nrule+1]['rule separator'] === 'undefined' // Not an additional rule
+                        && new_tokens[nrule+1][1] === false // Not a fallback rule
+                        ) {
+
+                    var rules_too_complex = [ nrule, nrule+1 ].map(function (nrule){
+                        for (var i = 0; i < wide_range_selector_order.length - 1; i++) {
+                            if (typeof used_selectors[nrule][wide_range_selector_order[i]] === 'object') {
+                                return true;
+                            }
+                        }
+                        return false;
+                    });
+                    var rules_too_complex_count = rules_too_complex.filter(function (el){ return el; }).length;
+                    var next_rule_selects_next_day = false;
+                    if (
+                            typeof rule_infos[nrule] === 'object'
+                            && typeof rule_infos[nrule] === 'object'
+                            && typeof rule_infos[nrule]['week_days'] === 'object'
+                            && typeof rule_infos[nrule+1] === 'object'
+                            && typeof rule_infos[nrule+1]['week_days'] === 'object'
+                            ) {
+                        for (var i = 0; i < rule_infos[nrule]['week_days'].length; i++) {
+                            var week_day = rule_infos[nrule]['week_days'][i];
+                                // console.log(rule_infos[nrule+1]['week_days']);
+                                // console.log(week_day);
+                            if (rule_infos[nrule+1]['week_days'].indexOf(week_day === 6 ? 0 : week_day+1) !== -1) {
+                                next_rule_selects_next_day = true;
+                                break;
+                            }
+                        }
+                    } else {
+                        next_rule_selects_next_day = true;
+                    }
+                    // console.log(rule_infos);
+                    // console.log(next_rule_selects_next_day);
+                    if (rules_too_complex_count < 2 && next_rule_selects_next_day) {
+                        parsing_warnings.push([nrule+1, new_tokens[nrule+1][0].length - 1,
+                            t('additional_rule_separator not used after time wrapping midnight'),
+                            new_tokens
+                        ]);
+                    }
+                }
+                /* }}} */
 
                 /* FIXME: Enable (currently disabled): Check if rule with closed|off modifier is additional {{{ */
                 if (typeof new_tokens[nrule][0][0] === 'object'
@@ -918,9 +976,10 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 ) {
 
                     // parsing_warnings.push([nrule, new_tokens[nrule][0].length - 1,
-                        // "This rule will be evaluated as closed but it was specified as additional rule."
-                        // + " It is enough to specify this rule as normal rule using the \";\" character."
-                        // + " See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:rule_modifier:closed."
+                    //     "This rule will be evaluated as closed but it was specified as additional rule."
+                    //     + " It is enough to specify this rule as normal rule using \";\" as rule separator."
+                    //     + " See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:rule_modifier:closed.",
+                    //     new_tokens
                     // ]);
                 }
                 /* }}} */
@@ -973,7 +1032,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
         var warnings = [];
         // FIXME: Sort based on parsing_warnings[1], tricky …
         for (var i = 0; i < parsing_warnings.length; i++) {
-            warnings.push( formatWarnErrorMessage(parsing_warnings[i][0], parsing_warnings[i][1], parsing_warnings[i][2]) );
+            warnings.push( formatWarnErrorMessage(parsing_warnings[i][0], parsing_warnings[i][1], parsing_warnings[i][2], parsing_warnings[i][3]) );
         }
         return warnings;
     }
@@ -1296,7 +1355,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
         while (at < tokens.length) {
             // console.log('Parsing at position', at +':', tokens[at]);
             if (matchTokens(tokens, at, 'weekday')) {
-                at = parseWeekdayRange(tokens, at, selectors);
+                at = parseWeekdayRange(tokens, at, selectors, undefined, nrule);
             } else if (matchTokens(tokens, at, '24/7')) {
                 selectors.time.push(function() { return [true]; });
                 // Not needed. If there is no selector it automatically matches everything.
@@ -1346,7 +1405,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     || matchTokens(tokens, at, '(', 'timevar')
                     || matchTokens(tokens, at, 'number', '-')) {
 
-                at = parseTimeRange(tokens, at, selectors, false);
+                at = parseTimeRange(tokens, at, selectors, false, nrule);
                 last_selector = [at , 'time'];
 
             } else if (matchTokens(tokens, at, 'state')) {
@@ -1582,6 +1641,8 @@ export default function(value, nominatim_object, optional_conf_parm) {
      *
      * :param month: Month as integer starting with zero.
      * :param date: Day of month as integer.
+     * :param nrule: Rule number starting with 0.
+     * :param at: Position at which the matching should begin.
      * :returns: undefined. There is no real return value. This function just throws an exception if something is wrong.
      */
     function checkIfDateIsValid(month, day, nrule, at) {
@@ -1609,11 +1670,12 @@ export default function(value, nominatim_object, optional_conf_parm) {
      * :param at: Position where to start.
      * :param selectors: Reference to selector object.
      * :param extended_open_end: Used for combined time range with open end.
+     * :param nrule: Rule number starting with 0.
      * extended_open_end: <time> - <time> +
      *        parameter at is here A (if extended_open_end is true)
      * :returns: Position at which the token does not belong to the selector anymore.
      */
-    function parseTimeRange(tokens, at, selectors, extended_open_end) {
+    function parseTimeRange(tokens, at, selectors, extended_open_end, nrule) {
         if (!extended_open_end)
             tokens[at][3] = 'time';
 
@@ -1730,7 +1792,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
 
                     is_point_in_time = true;
                 } else if (matchTokens(tokens, at, '+')) {
-                    parseTimeRange(tokens, at_end_time, selectors, minutes_to < minutes_from ? 1 : true);
+                    parseTimeRange(tokens, at_end_time, selectors, minutes_to < minutes_from ? 1 : true, nrule);
                     at++;
                 } else if (oh_mode === 1 && !is_point_in_time) {
                     throw formatWarnErrorMessage(nrule, at_end_time,
@@ -1802,39 +1864,45 @@ export default function(value, nominatim_object, optional_conf_parm) {
                             }
                         }}(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period, extended_open_end));
 
-                        selectors.wraptime.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, point_in_time_period, extended_open_end) { return function(date) {
-                            var ourminutes = date.getHours() * 60 + date.getMinutes();
-
-                            if (timevar_string[0]) {
-                                var date_from = SunCalc.getTimes(date, lat, lon)[timevar_string[0]];
-                                minutes_from  = date_from.getHours() * 60 + date_from.getMinutes() + timevar_add[0];
+                        if (minutes_to - minutes_in_day > 0) {
+                            if (typeof rule_infos[nrule] === 'undefined') {
+                                rule_infos[nrule] = {};
                             }
-                            if (timevar_string[1]) {
-                                var date_to = SunCalc.getTimes(date, lat, lon)[timevar_string[1]];
-                                minutes_to  = date_to.getHours() * 60 + date_to.getMinutes() + timevar_add[1];
-                                // minutes_in_day does not need to be added.
-                                // For normal times in it was added in: if (minutes_to < // minutes_from)
-                                // above the selector construction and
-                                // subtracted in the selector construction call
-                                // which returns the selector function.
-                            }
+                            rule_infos[nrule]['time_wraps_over_midnight'] = true;
+                            selectors.wraptime.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, point_in_time_period, extended_open_end) { return function(date) {
+                                var ourminutes = date.getHours() * 60 + date.getMinutes();
 
-                            if (typeof point_in_time_period === 'number') {
-                                if (ourminutes <= minutes_to) {
-                                    for (var cur_min = 0; ourminutes + point_in_time_period >= cur_min; cur_min += point_in_time_period) {
-                                        if (cur_min === ourminutes) {
-                                            return [true, dateAtDayMinutes(date, ourminutes + 1)];
-                                        } else if (ourminutes < cur_min) {
-                                            return [false, dateAtDayMinutes(date, cur_min)];
+                                if (timevar_string[0]) {
+                                    var date_from = SunCalc.getTimes(date, lat, lon)[timevar_string[0]];
+                                    minutes_from  = date_from.getHours() * 60 + date_from.getMinutes() + timevar_add[0];
+                                }
+                                if (timevar_string[1]) {
+                                    var date_to = SunCalc.getTimes(date, lat, lon)[timevar_string[1]];
+                                    minutes_to  = date_to.getHours() * 60 + date_to.getMinutes() + timevar_add[1];
+                                    // minutes_in_day does not need to be added.
+                                    // For normal times in it was added in: if (minutes_to < // minutes_from)
+                                    // above the selector construction and
+                                    // subtracted in the selector construction call
+                                    // which returns the selector function.
+                                }
+
+                                if (typeof point_in_time_period === 'number') {
+                                    if (ourminutes <= minutes_to) {
+                                        for (var cur_min = 0; ourminutes + point_in_time_period >= cur_min; cur_min += point_in_time_period) {
+                                            if (cur_min === ourminutes) {
+                                                return [true, dateAtDayMinutes(date, ourminutes + 1)];
+                                            } else if (ourminutes < cur_min) {
+                                                return [false, dateAtDayMinutes(date, cur_min)];
+                                            }
                                         }
                                     }
+                                } else {
+                                    if (ourminutes < minutes_to)
+                                        return [true, dateAtDayMinutes(date, minutes_to), has_open_end, extended_open_end];
                                 }
-                            } else {
-                                if (ourminutes < minutes_to)
-                                    return [true, dateAtDayMinutes(date, minutes_to), has_open_end, extended_open_end];
-                            }
-                            return [false, undefined];
-                        }}(minutes_from, minutes_to - minutes_in_day, timevar_string, timevar_add, has_open_end, point_in_time_period, extended_open_end));
+                                return [false, undefined];
+                            }}(minutes_from, minutes_to - minutes_in_day, timevar_string, timevar_add, has_open_end, point_in_time_period, extended_open_end));
+                        }
                     } else {
                         selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period) { return function(date) {
                             var ourminutes = date.getHours() * 60 + date.getMinutes();
@@ -1901,15 +1969,21 @@ export default function(value, nominatim_object, optional_conf_parm) {
                             return [true, dateAtDayMinutes(date, minutes_to)];
                     }}(minutes_from, minutes_to));
 
-                    selectors.wraptime.push(function(minutes_to) { return function(date) {
-                        var ourminutes = date.getHours() * 60 + date.getMinutes();
-
-                        if (ourminutes < minutes_to) {
-                            return [true, dateAtDayMinutes(date, minutes_to)];
-                        } else {
-                            return [false, undefined];
+                    if (minutes_to - minutes_in_day > 0) {
+                        if (typeof rule_infos[nrule] === 'undefined') {
+                            rule_infos[nrule] = {};
                         }
-                    }}(minutes_to - minutes_in_day));
+                        rule_infos[nrule]['time_wraps_over_midnight'] = true;
+                        selectors.wraptime.push(function(minutes_to) { return function(date) {
+                            var ourminutes = date.getHours() * 60 + date.getMinutes();
+
+                            if (ourminutes < minutes_to) {
+                                return [true, dateAtDayMinutes(date, minutes_to)];
+                            } else {
+                                return [false, undefined];
+                            }
+                        }}(minutes_to - minutes_in_day));
+                    }
                 } else {
                     selectors.time.push(function(minutes_from, minutes_to) { return function(date) {
                         var ourminutes = date.getHours() * 60 + date.getMinutes();
@@ -2002,9 +2076,10 @@ export default function(value, nominatim_object, optional_conf_parm) {
      * :param tokens: List of token objects.
      * :param at: Position where the weekday tokens could be.
      * :param selectors: Reference to selector object.
+     * :param nrule: Rule number starting with 0.
      * :returns: Position at which the token does not belong to the selector anymore.
      */
-    function parseWeekdayRange(tokens, at, selectors, in_holiday_selector) {
+    function parseWeekdayRange(tokens, at, selectors, in_holiday_selector, nrule) {
         if (!in_holiday_selector) {
             in_holiday_selector = true;
             tokens[at][3] = 'weekday';
@@ -2148,6 +2223,17 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     weekday_to = weekday_from - 1;
                     weekday_from = tmp + 1;
                     inside = false;
+                }
+                var weekday_list = Array.apply(0, Array(weekday_to - weekday_from + 1)).map(function (_, index) {
+                    return index + weekday_to;
+                });
+                if (typeof rule_infos[nrule] === 'undefined') {
+                    rule_infos[nrule] = {};
+                }
+                if (typeof rule_infos[nrule]['week_days'] === 'object') {
+                    Array.prototype.push.apply(rule_infos[nrule]['week_days'], weekday_list);
+                } else {
+                    rule_infos[nrule]['week_days'] = weekday_list;
                 }
 
                 if (weekday_to < weekday_from) { // handle full range
@@ -2378,7 +2464,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     at += 1; // FIXME: test
                 }
             } else if (matchTokens(tokens, at, 'weekday')) {
-                return parseWeekdayRange(tokens, at, selectors, true);
+                return parseWeekdayRange(tokens, at, selectors, true, nrule);
             } else if (matchTokens(tokens, at - 1, ',')) { // additional rule
                 throw formatWarnErrorMessage(
                     nrule,

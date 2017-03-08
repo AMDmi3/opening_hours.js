@@ -267,7 +267,11 @@ With [1m[34mwarnings[39m[22m:
 "Time ranges spanning midnight" for "We 22:00-22:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight" for "We22:00-22:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight with date overwriting" for "22:00-02:00; Tu 12:00-14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*22:00-02:00; Tu 12:00-14:00 <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
 "Time ranges spanning midnight with date overwriting" for "22:00-02:00; Tu12:00-14:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*22:00-02:00; Tu12:00-14:00 <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
 "Time ranges spanning midnight with date overwriting (complex real world example)" for "Su-Tu 11:00-01:00, We-Th 11:00-03:00, Fr 11:00-06:00, Sa 11:00-07:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight with date overwriting (complex real world example)" for "Su-Tu 11:00-01:00, We-Th11:00-03:00, Fr 11:00-06:00, Sa 11:00-07:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight (maximum supported)" for "Tu 23:59-48:00": [1m[32mPASSED[39m[22m
@@ -339,6 +343,8 @@ With [1m[34mwarnings[39m[22m:
 expected:
 [ '2012-10-01 00:00', '2012-10-01 03:00', true, 'Specified as open end. Closing time was guessed.' ],
 [ '2012-10-01 17:00', '2012-10-02 00:00', true, 'Specified as open end. Closing time was guessed.' ],
+With [1m[34mwarnings[39m[22m:
+	*17:00+; 15:00-16:00 off <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
 "Open end" for "15:00-16:00 off; 17:00+": [1m[31mFAILED[39m[22m, bad intervals: 
 [ '2012-10-01 00:00', '2012-10-01 03:00', true, 'Angegeben als "open end". Schließzeit wurde geraten.' ],
 [ '2012-10-01 17:00', '2012-10-02 00:00', true, 'Angegeben als "open end". Schließzeit wurde geraten.' ],
@@ -405,7 +411,11 @@ expected:
 [ '2012-10-01 07:00', '2012-10-01 13:00', true, 'Specified as open end. Closing time was guessed.' ],
 [ '2012-10-01 13:00', '2012-10-01 16:00', false, undefined ],
 "Open end" for "17:00+,13:00-02:00; 02:00-03:00 closed "needed because of open end"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*17:00+,13:00-02:00; 02:00-03:00 closed "needed because of open end" <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
 "Open end" for "17:00+,13:00-02:00; 02:00-03:00 closed "needed because of open end"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*17:00+,13:00-02:00; 02:00-03:00 closed "needed because of open end" <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
 "Open end" for "13:00-17:00+": [1m[31mFAILED[39m[22m, bad intervals: 
 [ '2012-10-01 00:00', '2012-10-01 03:00', true, 'Angegeben als "open end". Schließzeit wurde geraten.' ],
 [ '2012-10-01 13:00', '2012-10-01 17:00', false, undefined ],
@@ -500,6 +510,8 @@ expected:
 [ '2012-10-06 00:00', '2012-10-06 05:00', true, 'Specified as open end. Closing time was guessed.' ],
 [ '2012-10-06 07:29', '2012-10-06 19:50', false, undefined ],
 [ '2012-10-06 19:50', '2012-10-07 00:00', true, 'Specified as open end. Closing time was guessed.' ],
+With [1m[34mwarnings[39m[22m:
+	*sunrise-(sunset+01:00)+; Su off <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
 "variable time range followed by open end, day wrap and different states" for "Fr 11:00-24:00+ open "geöffnet täglich von 11:00 Uhr bis tief in die Nacht"": [1m[32mPASSED[39m[22m
 "variable time range followed by open end, day wrap and different states" for "Fr 11:00-24:00+ open"geöffnet täglich von 11:00 Uhr bis tief in die Nacht"": [1m[32mPASSED[39m[22m
 "variable time range followed by open end, day wrap and different states" for "Fr 11:00-24:00+open "geöffnet täglich von 11:00 Uhr bis tief in die Nacht"": [1m[32mPASSED[39m[22m
@@ -1572,8 +1584,14 @@ With [1m[34mwarnings[39m[22m:
 	*Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 <--- (Der Selektor "time" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "weekday" getauscht.)
 	*Mo-Fr 10:00-20:00 unknown "Maybe"; We 10:00-16:00 "Maybe open. Call us." <--- (Der Selektor "comment" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
 "Additional comments with time ranges spanning midnight" for "22:00-26:00; We 12:00-14:00 unknown "Maybe open. Call us."": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*22:00-26:00; We 12:00-14:00 unknown "Maybe open. Call us." <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
 "Additional comments for closed with time ranges spanning midnight" for "22:00-26:00; We 12:00-14:00 off "Not open because we are too tired"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*22:00-26:00; We 12:00-14:00 off "Not open because we are too tired" <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
 "Additional comments for closed with time ranges spanning midnight" for "22:00-26:00; We 12:00-14:00 closed "Not open because we are too tired"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*22:00-26:00; We 12:00-14:00 closed "Not open because we are too tired" <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
 "Additional comments combined with additional rules" for "Mo 12:00-14:00 open "female only", Mo 14:00-16:00 open "male only"": [1m[32mPASSED[39m[22m
 "Additional comments combined with months" for "Apr-Sep; Oct-Dec "on request"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1618,6 +1636,8 @@ expected:
 [ '2014-09-18 18:00', '2014-09-19 04:00', true, 'Specified as open end. Closing time was guessed.' ],
 [ '2014-09-19 18:00', '2014-09-20 04:00', true, 'Specified as open end. Closing time was guessed.' ],
 [ '2014-09-20 18:00', '2014-09-21 00:00', true, 'Specified as open end. Closing time was guessed.' ],
+With [1m[34mwarnings[39m[22m:
+	*Mo-Sa 18:00+; SH off <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
 "Real world example: Was not processed right (month range/monthday range)" for "SH off; Mo-Sa 18:00+": [1m[31mFAILED[39m[22m, bad intervals: 
 [ '2014-09-01 18:00', '2014-09-02 04:00', true, 'Angegeben als "open end". Schließzeit wurde geraten.' ],
 [ '2014-09-02 18:00', '2014-09-03 04:00', true, 'Angegeben als "open end". Schließzeit wurde geraten.' ],
@@ -1662,7 +1682,11 @@ With [1m[34mwarnings[39m[22m:
 	*Jun 15-Sep 15 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 	*Jun 15-Sep 15; Sep 16-Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Real world example: Was not processed right" for "Mo,Tu,We,Th,Fr,Su 11:00-01:00; Sa 11:00-02:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo,Tu,We,Th,Fr,Su 11:00-01:00; Sa 11:00-02:00 <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
 "Real world example: Was not processed right" for "Mo, Tu, We, Th, Fr, Su 11:00-01:00; Sa 11:00-02:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo, Tu, We, Th, Fr, Su 11:00-01:00; Sa 11:00-02:00 <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
 "Real world example: Was not processed right." for "Jan Su[-2]-Jan Su[-1]: Fr-Su 12:00+; Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 01-Jul 31: Th-Su 12:00+; Aug 01-Nov 30,Dec: Tu-Su 12:00+; Dec 24-26,Dec 31: off": [1m[31mFAILED[39m[22m, bad intervals: 
 [ '2014-11-29 12:00', '2014-11-30 00:00', true, 'Angegeben als "open end". Schließzeit wurde geraten.' ],
 [ '2014-11-30 12:00', '2014-12-01 00:00', true, 'Angegeben als "open end". Schließzeit wurde geraten.' ],
@@ -1794,9 +1818,9 @@ expected:
 "Based on real world example: Is processed right." for "Apr-Oct: Sa-Su 08:00-15:00; May-Sep: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right." for "Mo-Fr 07:00-19:30; Sa-Su 08:00-19:30; 19:30-21:00 open "No new laundry loads in"; Nov Th[4] off; Dec 25 off": [1m[32mPASSED[39m[22m
 Bei der Auswertung des Wertes "Jan off; Feb off; Mar off; Apr Tu-Su 10:00-14:30, May Tu-Su 10:00-14:30; Jun Tu-Su 09:00-16:00; Jul Tu-Su 10:00-17:00; Aug Tu-Su 10:00-17:00; Sep Tu-Su 10:00-14:30; Oct Tu-Su 10:00-14:30 Nov off; Dec off" ist ein Fehler aufgetreten. Bitte melde diesen Fehler oder korrigiere diesen mittels eines Pull Requests oder Patches: https://github.com/opening-hours/opening_hours.js. Bug in warning generation code which could not determine the exact position of the warning or error in value.
-tokens[nrule][2] is undefined. This is ok if nrule is the last rule.
+tokens_to_use[nrule][2] is undefined. This is ok if nrule is the last rule.
 Bei der Auswertung des Wertes "Jan off; Feb off; Mar off; Apr Tu-Su 10:00-14:30, May Tu-Su 10:00-14:30; Jun Tu-Su 09:00-16:00; Jul Tu-Su 10:00-17:00; Aug Tu-Su 10:00-17:00; Sep Tu-Su 10:00-14:30; Oct Tu-Su 10:00-14:30 Nov off; Dec off" ist ein Fehler aufgetreten. Bitte melde diesen Fehler oder korrigiere diesen mittels eines Pull Requests oder Patches: https://github.com/opening-hours/opening_hours.js. Bug in warning generation code which could not determine the exact position of the warning or error in value.
-tokens[nrule][2] is undefined. This is ok if nrule is the last rule.
+tokens_to_use[nrule][2] is undefined. This is ok if nrule is the last rule.
 "Real world example: Was not processed right" for "Jan off; Feb off; Mar off; Apr Tu-Su 10:00-14:30, May Tu-Su 10:00-14:30; Jun Tu-Su 09:00-16:00; Jul Tu-Su 10:00-17:00; Aug Tu-Su 10:00-17:00; Sep Tu-Su 10:00-14:30; Oct Tu-Su 10:00-14:30 Nov off; Dec off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan off; Feb off; Mar off; Apr Tu-Su 10:00-14:30, May Tu-Su 10:00-14:30; Jun Tu-Su 09:00-16:00; Jul Tu-Su 10:00-17:00; Aug Tu-Su 10:00-17:00; Sep Tu-Su 10:00-14:30; Oct Tu-Su 10:00-14:30 Nov off; Dec off <--- (Du hast 2 nicht verbundene Monate in einer Regel benutzt. Das ist vermutlich ein Fehler. Gleiche Selektoren können (und sollten) immer zusammen und durch Kommas getrennt geschrieben werden. Beispiel für Zeitspannen "12:00-13:00,15:00-18:00". Beispiel für Wochentage "Mo-We,Fr". Einzelne Regeln können mit ";" getrennt werden.)
@@ -1882,6 +1906,8 @@ expected:
 [ '2015-06-04 03:00', '2015-06-05 00:00', false, 'Fronleichnam' ],
 [ '2015-06-05 00:00', '2015-06-10 00:00', false, undefined ],
 "Real world example: Problem with daylight saving?" for "Mo-Su,PH 15:00-03:00; easter -2 days 15:00-24:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Su,PH 15:00-03:00; easter -2 days 15:00-24:00 <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
 "Real world example: Was not processed right" for "Mo-Fr 17:00-12:00, Su-Mo 00:00-12:00": [1m[32mPASSED[39m[22m
 "Variable events" for "easter": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -2524,6 +2550,9 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "We 12:00-18:00,": [1m[31mFAILED[39m[22m
 false
 
+"Value not ideal (probably wrong). Should throw a warning." for "Fr 22:00-04:00; Sa 21:00-04:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Fr 22:00-04:00; Sa 21:00-04:00 <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
 "Value not ideal (probably wrong). Should throw a warning. warnings_severity: 5" for "Mo-Fr 08:00-16:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Fr 08:00-16:00 <--- (Es wurde keine Regel für "PH" (feiertags) angegeben. Dies ist nicht sehr aussagekräftig. Leider ist der "tag key" (beispielsweise "opening_hours", oder "lit") in opening_hours.js nicht bekannt. Diese Warnung betrifft nur die Keys: opening_hours. Falls deine Angabe nicht für einen dieser ist, ignoriere bitte folgenden Hinweis: Bitte füge die Regel "PH off" an, wenn die Einrichtung an allen Feiertagen geschlossen ist oder schreibe "Sa,Su,PH 12:00-16:00" um auszudrücken, dass Samstags, Sonntags und feiertags von 12:00-16:00 geöffnet ist. Falls die Einrichtung täglich und an Feiertagen geöffnet ist, kann dies explizit mittels "Mo-Su,PH" ausgedrückt werden. Wenn du dir im Unklaren bist, versuche die Öffnungszeit zu klären. Falls das nicht möglich ist, lass die Angabe weg und ignoriere diese Warnung.)
@@ -3071,7 +3100,7 @@ Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-871/926 tests passed. 55 did not pass.
+872/927 tests passed. 55 did not pass.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
