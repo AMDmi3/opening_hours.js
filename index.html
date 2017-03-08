@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="css/main.css"/>
         <link rel="stylesheet" href="css/table.css"/>
         <!-- Javascript {{{ -->
+        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="opening_hours+deps.min.js"></script>
         <script type="text/javascript" src="node_modules/i18next-client/i18next.min.js"></script>
         <script type="text/javascript" src="node_modules/moment/min/moment-with-locales.min.js"></script>
@@ -19,7 +20,6 @@
             var YoHours = function() {};
             // Needed by YoHours modul.js
         </script>
-        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="submodules/panieravide.github.io/yohours/js/model.js"></script>
         <script type="text/javascript">
             var YoHoursChecker = new YoHoursChecker();
@@ -113,6 +113,9 @@
                 </p>
 
                 <p>
+                    <div id="permalink" class="permalink">
+                        <a href="#" onclick="permalink();return false">permalink</a>,
+                    </div>
                     <script type="text/javascript">
                         document.write('<span class="hd">' + i18n.t('texts.value for') + ' <q>opening_hours</q>:'
                                 + '</span>');
@@ -135,9 +138,6 @@
                         onblur="Evaluate()"
                     />
                 </p>
-                <div class="permalink">
-                    <a href="#" onclick="permalink();return false">permalink</a>
-                </div>
                 <!-- }}} -->
 
                 <div id="show_warnings_or_errors">

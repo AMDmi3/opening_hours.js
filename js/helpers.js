@@ -102,7 +102,6 @@ function toggle(control){
 }
 /* }}} */
 
-/* JS for user testing stuff {{{ */
 function copyToClipboard(text) {
     window.prompt('Copy to clipboard: Ctrl+C, Enter', text);
 }
@@ -367,7 +366,11 @@ function permalink () {
     var lon = document.getElementById('lon').value;
     var mode = document.getElementById('mode').selectedIndex;
 
-    var search='?EXP='+encodeURIComponent(exp)+'&DATE='+date.getTime() +'&lat='+lat+'&lon='+lon+'&mode='+mode;
+    var search='?EXP='+encodeURIComponent(exp)+'&lat='+lat+'&lon='+lon+'&mode='+mode;
+
+    if (document.getElementById('permalink-include-timestamp').checked) {
+        search += '&DATE='+date.getTime();
+    }
 
     location = location.protocol+'//'+location.host+location.pathname+search;
 }
@@ -433,3 +436,21 @@ window.onload = function () {
     };
 };
 /* }}} */
+
+$(document).ready(function () {
+    var permalink = document.getElementById('permalink');
+
+    var checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.name = 'name';
+    checkbox.value = 'value';
+    checkbox.id = 'permalink-include-timestamp';
+    checkbox.checked = true;
+
+    var label = document.createElement('label')
+    label.htmlFor = 'permalink-include-timestamp';
+    label.appendChild(document.createTextNode(i18n.t('texts.include timestamp?')));
+
+    permalink.appendChild(label);
+    permalink.appendChild(checkbox);
+});
