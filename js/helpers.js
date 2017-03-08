@@ -362,17 +362,21 @@ function newValue(value) {
 
 function permalink () {
     var exp = document.getElementById('expression').value;
+    var diff_value = document.getElementById('diff_value').value;
     var lat = document.getElementById('lat').value;
     var lon = document.getElementById('lon').value;
     var mode = document.getElementById('mode').selectedIndex;
 
-    var search='?EXP='+encodeURIComponent(exp)+'&lat='+lat+'&lon='+lon+'&mode='+mode;
+    var permalink_url_query='?EXP='+encodeURIComponent(exp)+'&lat='+lat+'&lon='+lon+'&mode='+mode;
 
     if (document.getElementById('permalink-include-timestamp').checked) {
-        search += '&DATE='+date.getTime();
+        permalink_url_query += '&DATE='+date.getTime();
+    }
+    if (diff_value !== '') {
+        permalink_url_query += '&diff_value='+encodeURIComponent(diff_value);
     }
 
-    location = location.protocol+'//'+location.host+location.pathname+search;
+    location = location.protocol+'//'+location.host+location.pathname+permalink_url_query;
 }
 
 function setCurrentPosition() {
@@ -400,6 +404,9 @@ window.onload = function () {
     }
     if (typeof params['EXP'] !== 'undefined') {
         document.forms.check.elements['expression'].value = decodeURIComponent(params['EXP']);
+    }
+    if (typeof params['diff_value'] !== 'undefined') {
+        document.forms.check.elements['diff_value'].value = decodeURIComponent(params['diff_value']);
     }
     if (typeof params['lat'] !== 'undefined') {
         document.forms.check.elements['lat'].value = decodeURIComponent(params['lat']);
