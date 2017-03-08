@@ -6,6 +6,7 @@ export {default as cz} from "./cz.yaml";
 export {default as de} from "./de.yaml";
 export {default as dk} from "./dk.yaml";
 export {default as fr} from "./fr.yaml";
+export {default as gb} from "./gb.yaml";
 export {default as hu} from "./hu.yaml";
 export {default as it} from "./it.yaml";
 export {default as nl} from "./nl.yaml";
