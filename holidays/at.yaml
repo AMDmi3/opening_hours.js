@@ -1,25 +1,152 @@
 ---
 
+_nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=48.2083537&lon=16.3725042&zoom=18&addressdetails=1&accept-language=de,en'
+
 PH:  # https://de.wikipedia.org/wiki/Feiertage_in_%C3%96sterreich
   'Neujahrstag': [1, 1]
   'Heilige Drei Könige': [1, 6]
-  # 'Josef': [3, 19, [Kärnten, Steiermark, Tirol, Vorarlberg]]
-  # 'Karfreitag': [easter, -2]
   'Ostermontag': [easter, 1]
   'Staatsfeiertag': [5, 1]
-  # Florian: [5, 4, [Oberösterreich]]
   'Christi Himmelfahrt': [easter, 39]
   'Pfingstmontag': [easter, 50]
   'Fronleichnam': [easter, 60]
   'Mariä Himmelfahrt': [8, 15]
-  # 'Rupert': [9, 24, [Salzburg]]
-  # 'Tag der Volksabstimmung': [10, 10, [Kärnten]]
   'Nationalfeiertag': [10, 26]
   'Allerheiligen': [11, 1]
-  # 'Martin': [11, 11, [Burgenland]]
-  # 'Leopold': [11, 15, [Niederösterreich, Wien]]
   'Mariä Empfängnis': [12, 8]
-  # 'Heiliger Abend': [12, 24]
   'Christtag': [12, 25]
   'Stefanitag': [12, 26]
-  # 'Silvester': [12, 31]
+SH:  # https://www.help.gv.at/Portal.Node/hlpd/public/content/11/Seite.17602001.html
+  - name: Allerseelen
+    '2016': [11, 2]
+    '2017': [11, 2]
+    '2018': [11, 2]
+  - name: Weihnachtsferien
+    '2016': [12, 24, 1, 7]
+    '2017': [12, 24, 1, 6]
+    '2018': [12, 24, 1, 6]
+  - name: Osterferien
+    '2016': [4, 8, 4, 18]
+    '2017': [3, 24, 4, 3]
+    '2018': [4, 13, 4, 23]
+  - name: Pfingstferien
+    '2016': [6, 3, 6, 6]
+    '2017': [5, 19, 5, 22]
+    '2018': [6, 8, 6, 11]
+
+Burgenland:
+  _state_code: AT-1
+  SH:
+    - name: Sommerferien
+      '2016': [7, 2, 9, 3]
+      '2017': [7, 1, 9, 3]
+      '2018': [6, 30, 9, 2]
+      '2019': [6, 29, 9, 1]
+    - name: Semesterferien
+      '2016': [2, 6, 2, 11]
+      '2017': [2, 5, 2, 10]
+      '2018': [2, 4, 2, 9]
+
+Kärnten:
+  _state_code: AT-2
+  SH:
+    - name: Sommerferien
+      '2016': [7, 9, 9, 10]
+      '2017': [7, 8, 9, 10]
+      '2018': [7, 7, 9, 9]
+      '2019': [7, 6, 9, 8]
+    - name: Semesterferien
+      '2016': [2, 13, 2, 18]
+      '2017': [2, 12, 2, 17]
+      '2018': [2, 11, 2, 10]
+
+Niederösterreich:
+  _state_code: AT-3
+  SH:
+    - name: Sommerferien
+      '2016': [7, 2, 9, 3]
+      '2017': [7, 1, 9, 3]
+      '2018': [6, 30, 9, 2]
+      '2019': [6, 29, 9, 1]
+    - name: Semesterferien
+      '2016': [2, 6, 2, 11]
+      '2017': [2, 5, 2, 10]
+      '2018': [2, 4, 2, 9]
+
+Oberösterreich:
+  _state_code: AT-4
+  SH:
+    - name: Sommerferien
+      '2016': [7, 9, 9, 10]
+      '2017': [7, 8, 9, 10]
+      '2018': [7, 7, 9, 9]
+      '2019': [7, 6, 9, 8]
+    - name: Semesterferien
+      '2016': [2, 20, 2, 25]
+      '2017': [2, 19, 2, 24]
+      '2018': [2, 18, 2, 23]
+
+Salzburg:
+  _state_code: AT-5
+  SH:
+    - name: Sommerferien
+      '2016': [7, 9, 9, 10]
+      '2017': [7, 8, 9, 10]
+      '2018': [7, 7, 9, 9]
+      '2019': [7, 6, 9, 8]
+    - name: Semesterferien
+      '2016': [2, 13, 2, 18]
+      '2017': [2, 12, 2, 17]
+      '2018': [2, 11, 2, 10]
+
+Steiermark:
+  _state_code: AT-6
+  SH:
+    - name: Sommerferien
+      '2016': [7, 9, 9, 10]
+      '2017': [7, 8, 9, 10]
+      '2018': [7, 7, 9, 9]
+      '2019': [7, 6, 9, 8]
+    - name: Semesterferien
+      '2016': [2, 20, 2, 25]
+      '2017': [2, 19, 2, 24]
+      '2018': [2, 18, 2, 23]
+
+Tirol:
+  _state_code: AT-7
+  SH:
+    - name: Sommerferien
+      '2016': [7, 9, 9, 10]
+      '2017': [7, 8, 9, 10]
+      '2018': [7, 7, 9, 9]
+      '2019': [7, 6, 9, 8]
+    - name: Semesterferien
+      '2016': [2, 13, 2, 18]
+      '2017': [2, 12, 2, 17]
+      '2018': [2, 11, 2, 10]
+
+Vorarlberg:
+  _state_code: AT-8
+  SH:
+    - name: Sommerferien
+      '2016': [7, 9, 9, 10]
+      '2017': [7, 8, 9, 10]
+      '2018': [7, 7, 9, 9]
+      '2019': [7, 6, 9, 8]
+    - name: Semesterferien
+      '2016': [2, 13, 2, 18]
+      '2017': [2, 12, 2, 17]
+      '2018': [2, 11, 2, 10]
+
+Wien:
+  _state_code: AT-9
+  SH:
+    - name: Sommerferien
+      '2016': [7, 2, 9, 3]
+      '2017': [7, 1, 9, 3]
+      '2018': [6, 30, 9, 2]
+      '2019': [6, 29, 9, 1]
+    - name: Semesterferien
+      '2016': [2, 6, 2, 11]
+      '2017': [2, 5, 2, 10]
+      '2018': [2, 4, 2, 9]
