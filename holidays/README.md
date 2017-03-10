@@ -1,5 +1,3 @@
----
-
 # holidays
 
 ## Deciding which holidays do apply
