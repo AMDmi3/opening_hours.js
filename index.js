@@ -2577,7 +2577,28 @@ export default function(value, nominatim_object, optional_conf_parm) {
                      * use it and ignore lesser specific ones (for the
                      * country)
                      */
-                    return holiday_definitions[location_cc][location_state][type_of_holidays];
+                    var holidays_by_name = {};
+                    var country_holidays = holiday_definitions[location_cc][type_of_holidays];
+                    var state_holidays = holiday_definitions[location_cc][location_state][type_of_holidays];
+                    if (type_of_holidays === 'PH') {
+                        return holiday_definitions[location_cc][location_state][type_of_holidays];
+                        Object.keys(country_holidays || {}).forEach(function(k) {
+                            holidays_by_name[k] = country_holidays[k];
+                        });
+                        Object.keys(state_holidays).forEach(function(k) {
+                            holidays_by_name[k] = state_holidays[k];
+                        });
+                    } else {
+                        (country_holidays || []).forEach(function(holiday) {
+                            holidays_by_name[holiday.name] = holiday;
+                        });
+                        state_holidays.forEach(function(holiday) {
+                            holidays_by_name[holiday.name] = holiday;
+                        });
+                    }
+                    return Object.keys(holidays_by_name).map(function(k) {
+                        return holidays_by_name[k];
+                    });
 
                 } else if (holiday_definitions[location_cc][type_of_holidays]) {
                     /* Holidays are defined country wide. Some
