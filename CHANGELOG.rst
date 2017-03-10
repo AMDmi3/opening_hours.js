@@ -53,6 +53,7 @@ Contributors
 * [bugvillage_]
 * [ItsNotYou_]
 * [chiak597_]
+* [skifans_] - Alex
 
 Thanks very much to all contributors!
 
