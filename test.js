@@ -4785,6 +4785,9 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
         // because of the way error tolerance is implemented.
         'We 12:00-18:00,',
         'Fr 22:00-04:00; Sa 21:00-04:00',
+        'Su 22:00-04:00; Mo 21:00-04:00',
+        'Th 22:00-04:00, Fr 22:00-04:00; Sa 21:00-04:00',
+        'We 22:00-04:00, Fr 22:00-04:00; Sa 21:00-04:00, Mo 21:00-04:00',
     ], nominatim_default, 'not only test');
 
 test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning. warnings_severity: 5', [
