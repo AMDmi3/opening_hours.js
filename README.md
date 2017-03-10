@@ -513,6 +513,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
     * Countries with SH definition:
 
         * Germany, see [hc]
+        * Austria
         * Romania
         * Hungary
 
