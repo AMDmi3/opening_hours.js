@@ -89,6 +89,7 @@ Thanks very much to all contributors!
 .. _ItsNotYou: https://github.com/ItsNotYou
 .. _spawn-guy: https://github.com/spawn-guy
 .. _chiak597: https://github.com/chiak597
+.. _skifans: https://github.com/skifans
 
 Supporters
 ~~~~~~~~~~
@@ -110,6 +111,10 @@ master_ - unreleased
 
 Added
 ~~~~~
+
+* Public holiday definitions added:
+
+  * England and Wales [skifans_, simon04_]
 
 * Translate error tolerance warnings into German. [ypid_]
 * Add additional warnings:
