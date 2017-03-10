@@ -963,8 +963,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     }
                 }
                 /* }}} */
-
-                /* FIXME: Enable (currently disabled): Check if rule with closed|off modifier is additional {{{ */
+                /* Check if rule with closed|off modifier is additional {{{ */
                 if (typeof new_tokens[nrule][0][0] === 'object'
                         && new_tokens[nrule][0][0][0] === ','
                         && new_tokens[nrule][0][0][1] === 'rule separator'
@@ -975,12 +974,10 @@ export default function(value, nominatim_object, optional_conf_parm) {
                            )
                 ) {
 
-                    // parsing_warnings.push([nrule, new_tokens[nrule][0].length - 1,
-                    //     "This rule will be evaluated as closed but it was specified as additional rule."
-                    //     + " It is enough to specify this rule as normal rule using \";\" as rule separator."
-                    //     + " See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:rule_modifier:closed.",
-                    //     new_tokens
-                    // ]);
+                    parsing_warnings.push([nrule, new_tokens[nrule][0].length - 1,
+                        t('additional rule which evaluates to closed'),
+                        new_tokens
+                    ]);
                 }
                 /* }}} */
 

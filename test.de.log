@@ -1223,8 +1223,11 @@ With [1m[34mwarnings[39m[22m:
 "Fallback group rules (unknown). Example for the tokenizer documentation." for "We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012 "please call"; Jan 01 open "should never appear"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012  <--- (Das Jahr liegt in der Vergangenheit.)
+	*We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday."  <--- (Diese Regel wird als geschlossen Ausgewertet aber wurde als additive Regel angegeben. Sie sollte als normale Regel mittels ";" definiert sein. This rule will be evaluated as closed but it was specified as additional rule. Siehe https://wiki.openstreetmap.org/wiki/DE:Key:opening_hours/specification#explain:rule_modifier:closed.)
 "Fallback group rules" for "We-Fr 10:00-24:00 open "first" || We "please call" || open "we are open!!!"": [1m[32mPASSED[39m[22m
 "Fallback group rules" for "Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00, PH off || Tu 06:00-06:00 open "Notdienst"": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00, PH off  <--- (Diese Regel wird als geschlossen Ausgewertet aber wurde als additive Regel angegeben. Sie sollte als normale Regel mittels ";" definiert sein. This rule will be evaluated as closed but it was specified as additional rule. Siehe https://wiki.openstreetmap.org/wiki/DE:Key:opening_hours/specification#explain:rule_modifier:closed.)
 "Fallback group rules" for "Mo-Fr 08:00-12:00,14:00-18:00; Sa 09:00-13:00; PH off || Tu 06:00-06:00 open "Notdienst"": [1m[32mPASSED[39m[22m
 "Fallback group rules" for "Mo-Fr 08:00-11:00 || Th-Sa 12:00-13:00 open "Emergency only"": [1m[32mPASSED[39m[22m
 "Fallback group rules" for "Mo-Fr 08:00-11:00, Th-Sa 12:00-13:00 open "Emergency only"": [1m[32mPASSED[39m[22m

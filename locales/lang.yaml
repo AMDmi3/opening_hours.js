@@ -36,6 +36,10 @@
   This happens because normal rules apply to the whole day and overwrite any definition made by previous rules.
   You can make this rule an additional rule by using a "," instead of the normal ";" to separate the rules.
   Note that the overwriting can also be desirable in which case you can ignore this warning.
+'additional rule which evaluates to closed': >-
+  This rule will be evaluated as closed but it was specified as additional rule.
+  It should be specified as normal rule using ";" as rule separator.
+  See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:rule_modifier:closed.
 'switched': 'The selector "__first__" was switched with the selector "__second__" for readablitity and compatibiltity reasons.'
 'no colon after': 'Please don’t use ":" after __token__.'
 'number -5 to 5': 'Number between -5 and 5 (except 0) expected.'
