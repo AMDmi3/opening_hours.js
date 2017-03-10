@@ -1223,11 +1223,11 @@ With [1m[34mwarnings[39m[22m:
 "Fallback group rules (unknown). Example for the tokenizer documentation." for "We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012 "please call"; Jan 01 open "should never appear"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday." || 2012  <--- (Das Jahr liegt in der Vergangenheit.)
-	*We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday."  <--- (Diese Regel wird als geschlossen Ausgewertet aber wurde als additive Regel angegeben. Sie sollte als normale Regel mittels ";" definiert sein. This rule will be evaluated as closed but it was specified as additional rule. Siehe https://wiki.openstreetmap.org/wiki/DE:Key:opening_hours/specification#explain:rule_modifier:closed.)
+	*We-Fr 10:00-24:00 open "it is open", Mo closed "It‘s monday."  <--- (Diese Regel wird als geschlossen ausgewertet aber wurde als additive Regel angegeben. Sie sollte als normale Regel mittels ";" definiert sein. Siehe https://wiki.openstreetmap.org/wiki/DE:Key:opening_hours/specification#explain:rule_modifier:closed.)
 "Fallback group rules" for "We-Fr 10:00-24:00 open "first" || We "please call" || open "we are open!!!"": [1m[32mPASSED[39m[22m
 "Fallback group rules" for "Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00, PH off || Tu 06:00-06:00 open "Notdienst"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00, PH off  <--- (Diese Regel wird als geschlossen Ausgewertet aber wurde als additive Regel angegeben. Sie sollte als normale Regel mittels ";" definiert sein. This rule will be evaluated as closed but it was specified as additional rule. Siehe https://wiki.openstreetmap.org/wiki/DE:Key:opening_hours/specification#explain:rule_modifier:closed.)
+	*Mo-Fr 08:00-12:00,14:00-18:00, Sa 09:00-13:00, PH off  <--- (Diese Regel wird als geschlossen ausgewertet aber wurde als additive Regel angegeben. Sie sollte als normale Regel mittels ";" definiert sein. Siehe https://wiki.openstreetmap.org/wiki/DE:Key:opening_hours/specification#explain:rule_modifier:closed.)
 "Fallback group rules" for "Mo-Fr 08:00-12:00,14:00-18:00; Sa 09:00-13:00; PH off || Tu 06:00-06:00 open "Notdienst"": [1m[32mPASSED[39m[22m
 "Fallback group rules" for "Mo-Fr 08:00-11:00 || Th-Sa 12:00-13:00 open "Emergency only"": [1m[32mPASSED[39m[22m
 "Fallback group rules" for "Mo-Fr 08:00-11:00, Th-Sa 12:00-13:00 open "Emergency only"": [1m[32mPASSED[39m[22m
@@ -2565,6 +2565,9 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "We 22:00-04:00, Fr 22:00-04:00; Sa 21:00-04:00, Mo 21:00-04:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*We 22:00-04:00, Fr 22:00-04:00; Sa 21:00-04:00, Mo 21:00-04:00 <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
+"Value not ideal (probably wrong). Should throw a warning." for "Mo-Fr 10:00-20:00, We off": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Fr 10:00-20:00, We off <--- (Diese Regel wird als geschlossen ausgewertet aber wurde als additive Regel angegeben. Sie sollte als normale Regel mittels ";" definiert sein. Siehe https://wiki.openstreetmap.org/wiki/DE:Key:opening_hours/specification#explain:rule_modifier:closed.)
 "Value not ideal (probably wrong). Should throw a warning. warnings_severity: 5" for "Mo-Fr 08:00-16:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Fr 08:00-16:00 <--- (Es wurde keine Regel für "PH" (feiertags) angegeben. Dies ist nicht sehr aussagekräftig. Leider ist der "tag key" (beispielsweise "opening_hours", oder "lit") in opening_hours.js nicht bekannt. Diese Warnung betrifft nur die Keys: opening_hours. Falls deine Angabe nicht für einen dieser ist, ignoriere bitte folgenden Hinweis: Bitte füge die Regel "PH off" an, wenn die Einrichtung an allen Feiertagen geschlossen ist oder schreibe "Sa,Su,PH 12:00-16:00" um auszudrücken, dass Samstags, Sonntags und feiertags von 12:00-16:00 geöffnet ist. Falls die Einrichtung täglich und an Feiertagen geöffnet ist, kann dies explizit mittels "Mo-Su,PH" ausgedrückt werden. Wenn du dir im Unklaren bist, versuche die Öffnungszeit zu klären. Falls das nicht möglich ist, lass die Angabe weg und ignoriere diese Warnung.)
@@ -3112,7 +3115,7 @@ Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-875/930 tests passed. 55 did not pass.
+876/931 tests passed. 55 did not pass.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
