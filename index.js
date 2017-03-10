@@ -2618,6 +2618,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
             'lastMarchMonday'       : new Date(year,  2, lastWeekdayOfMonth(2, 1)),
             'lastAprilMonday'       : new Date(year,  3, lastWeekdayOfMonth(3, 1)),
             'lastAprilFriday'       : new Date(year,  3, lastWeekdayOfMonth(3, 5)),
+            'lastAugustMonday'      : new Date(year,  7, lastWeekdayOfMonth(7, 1)),
             'lastOctoberFriday'     : new Date(year,  9, lastWeekdayOfMonth(9, 5)),
             'nextSaturday20Jun'     : getDateOfWeekdayInDateRange(6, new Date(year, 5, 20)),
             'nextSaturday31Oct'     : getDateOfWeekdayInDateRange(6, new Date(year, 9, 31)),

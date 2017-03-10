@@ -503,6 +503,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
         * [Sweden][PH-se]
         * [Brazil][PH-br]
         * [Hungary][PH-hu]
+        * [England and Wales][PH-gb]
 
     * **EXT:** Supports limited calculations based on public holidays (e.g. `Sa,PH -1 day open`). The only two possibilities are currently +1 and -1. All other cases are not handled. This seems to be enough because the only thing which is really used is -1.
 
@@ -843,5 +844,6 @@ Edit: This does also work on npmjs in this short version … -->
 [PH-se]: https://en.wikipedia.org/wiki/Public_holidays_in_Sweden
 [PH-br]: https://pt.wikipedia.org/wiki/Feriados_no_Brasil
 [PH-hu]: https://en.wikipedia.org/wiki/Public_holidays_in_Hungary
+[PH-gb]: https://www.gov.uk/bank-holidays#england-and-wales
 
 <!-- }}} -->
