@@ -1259,11 +1259,9 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 }
             }
 
-            prettified_value += prettified_group_value.map(
-                function (array) {
-                    return array[1];
-                }
-            ).join(' ');
+            prettified_value += prettified_group_value.map(function (array) {
+                return array[1];
+            }).join(' ');
 
             prettified_value_array.push( prettified_group_value );
 
@@ -1403,7 +1401,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     || matchTokens(tokens, at, 'number', '-')) {
 
                 at = parseTimeRange(tokens, at, selectors, false, nrule);
-                last_selector = [at , 'time'];
+                last_selector = [ at, 'time' ];
 
             } else if (matchTokens(tokens, at, 'state')) {
 
@@ -1943,11 +1941,12 @@ export default function(value, nominatim_object, optional_conf_parm) {
             } else if (matchTokens(tokens, at, 'number', '-', 'number')) { // "Mo 09-18" (Please don’t use this) -> "Mo 09:00-18:00".
                 minutes_from = tokens[at][0]   * 60;
                 minutes_to   = tokens[at+2][0] * 60;
-                if (!done_with_warnings)
+                if (!done_with_warnings) {
                     parsing_warnings.push([nrule, at + 2, t('without minutes', {
                         'syntax': (tokens[at][0]   < 10 ? '0' : '') + tokens[at][0]   + ':00-'
                                 + (tokens[at+2][0] < 10 ? '0' : '') + tokens[at+2][0] + ':00'
                     })]);
+                }
 
                 if (minutes_from >= minutes_in_day)
                     throw formatWarnErrorMessage(nrule, at, t('outside day'));
