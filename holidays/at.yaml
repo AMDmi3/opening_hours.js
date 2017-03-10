@@ -35,7 +35,7 @@ SH:  # https://www.help.gv.at/Portal.Node/hlpd/public/content/11/Seite.17602001.
     '2018': [6, 8, 6, 11]
 
 Burgenland:
-  _state_code: AT-1
+  _state_code: 1  # https://en.wikipedia.org/wiki/ISO_3166-2:AT
   SH:
     - name: Sommerferien
       '2016': [7, 2, 9, 3]
@@ -48,7 +48,7 @@ Burgenland:
       '2018': [2, 4, 2, 9]
 
 Kärnten:
-  _state_code: AT-2
+  _state_code: 2
   SH:
     - name: Sommerferien
       '2016': [7, 9, 9, 10]
@@ -61,7 +61,7 @@ Kärnten:
       '2018': [2, 11, 2, 10]
 
 Niederösterreich:
-  _state_code: AT-3
+  _state_code: 3
   SH:
     - name: Sommerferien
       '2016': [7, 2, 9, 3]
@@ -74,7 +74,7 @@ Niederösterreich:
       '2018': [2, 4, 2, 9]
 
 Oberösterreich:
-  _state_code: AT-4
+  _state_code: 4
   SH:
     - name: Sommerferien
       '2016': [7, 9, 9, 10]
@@ -87,7 +87,7 @@ Oberösterreich:
       '2018': [2, 18, 2, 23]
 
 Salzburg:
-  _state_code: AT-5
+  _state_code: 5
   SH:
     - name: Sommerferien
       '2016': [7, 9, 9, 10]
@@ -100,7 +100,7 @@ Salzburg:
       '2018': [2, 11, 2, 10]
 
 Steiermark:
-  _state_code: AT-6
+  _state_code: 6
   SH:
     - name: Sommerferien
       '2016': [7, 9, 9, 10]
@@ -113,7 +113,7 @@ Steiermark:
       '2018': [2, 18, 2, 23]
 
 Tirol:
-  _state_code: AT-7
+  _state_code: 7
   SH:
     - name: Sommerferien
       '2016': [7, 9, 9, 10]
@@ -126,7 +126,7 @@ Tirol:
       '2018': [2, 11, 2, 10]
 
 Vorarlberg:
-  _state_code: AT-8
+  _state_code: 8
   SH:
     - name: Sommerferien
       '2016': [7, 9, 9, 10]
@@ -139,7 +139,7 @@ Vorarlberg:
       '2018': [2, 11, 2, 10]
 
 Wien:
-  _state_code: AT-9
+  _state_code: 9
   SH:
     - name: Sommerferien
       '2016': [7, 2, 9, 3]
