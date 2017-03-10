@@ -1,6 +1,8 @@
 "Time intervals" for "10:00-12:00": [1m[32mPASSED[39m[22m
 "Time intervals" for "08:00-09:00; 10:00-12:00": [1m[32mPASSED[39m[22m
 "Time intervals" for "10:00-12:00,": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*10:00-12:00, <--- (The value ends with ",". Please either continue after "," or remove ",".)
 "Time intervals" for "10:00-12:00;": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10:00-12:00; <--- (This rule does not contain anything useful. Please remove this empty rule. Might it be possible that you are a programmer and adding a semicolon after each statement is hardwired in your muscle memory ;) ? The thing is that the semicolon in the opening_hours syntax is defined as rule separator. So for compatibility reasons you should omit this last semicolon.)
@@ -2143,9 +2145,9 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "open; 00:23-00:42 unknown "warning at correct position?" ||": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*open; 00:23-00:42 unknown "warning at correct position?" || <--- (This rule does not contain anything useful. Please remove this empty rule.)
-"Value not ideal (probably wrong). Should throw a warning." for "We 12:00-18:00,": [1m[31mFAILED[39m[22m
-false
-
+"Value not ideal (probably wrong). Should throw a warning." for "We 12:00-18:00,": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*We 12:00-18:00, <--- (The value ends with ",". Please either continue after "," or remove ",".)
 "Value not ideal (probably wrong). Should throw a warning." for "Fr 22:00-04:00; Sa 21:00-04:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Fr 22:00-04:00; Sa 21:00-04:00 <--- (This rule overwrites parts of the previous rule. This happens because normal rules apply to the whole day and overwrite any definition made by previous rules. You can make this rule an additional rule by using a "," instead of the normal ";" to separate the rules. Note that the overwriting can also be desirable in which case you can ignore this warning.)
@@ -2507,6 +2509,9 @@ Nov 31 <--- (Month Nov doesn't have 31 days. The last day of Nov is day 30.)
 "Incorrect syntax which should throw an error" for "Dec 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Dec 32 <--- (The day for Dec must be between 1 and 31.)
 
+"Incorrect syntax which should throw an error" for "We 12:00-18:00,,,,,,; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+We 12:00-18:00,, <--- (Unexpected token: "," This means that the syntax is not valid at that point or it is currently not supported.) 
+
 "Missing information (e.g. country or holidays not known to opening_hours.js)" for "PH": [1m[32mPASSED[39m[22m
 Country code missing which is needed to select the correct holidays (see README how to provide it)
 
@@ -2686,6 +2691,8 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Compare prettifyValue" for "Mo": [1m[32mPASSED[39m[22m
 "Compare prettifyValue" for "Mon": [1m[32mPASSED[39m[22m
 "Compare prettifyValue" for "Montag": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "We 12:00-18:00;": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "We 12:00-18:00,": [1m[32mPASSED[39m[22m
 "Test isEqualTo function: Full range" for "open": [1m[32mPASSED[39m[22m
 "Test isEqualTo function: Full range" for "24/7": [1m[32mPASSED[39m[22m
 "Test isEqualTo function: Full range" for "2000-2100": [1m[32mPASSED[39m[22m
@@ -2701,7 +2708,7 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-910/924 tests passed. 14 did not pass.
+914/927 tests passed. 13 did not pass.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

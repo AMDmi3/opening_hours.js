@@ -4,6 +4,7 @@
 'no string': 'The value (first parameter) is not a string.'
 'nothing': 'The value contains nothing meaningful which can be parsed.'
 'nothing useful': 'This rule does not contain anything useful. Please remove this empty rule.'
+'value ends with token': 'The value ends with "__token__". Please either continue after "__token__" or remove "__token__".'
 'programmers joke': 'Might it be possible that you are a programmer and adding a semicolon after each statement is hardwired in your muscle memory ;) ? The thing is that the semicolon in the opening_hours syntax is defined as rule separator. So for compatibility reasons you should omit this last semicolon.'
 'interpreted as year': 'The number __number__ will be interpreted as year. This is probably not intended. Times can be specified as "12:00".'
 'rule before fallback empty': 'Rule before fallback rule does not contain anything useful'

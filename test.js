@@ -4920,6 +4920,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
         'Oct 32' + value_suffix,
         'Nov 31' + value_suffix,
         'Dec 32' + value_suffix,
+        'We 12:00-18:00,,,,,,' + value_suffix,
     ], nominatim_default, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not known to opening_hours.js)', [
@@ -5107,6 +5108,14 @@ test.addPrettifyValue('Compare prettifyValue', [
 test.addPrettifyValue('Compare prettifyValue', [
         'SH',
     ], 'de', 'Schulferien');
+
+test.addPrettifyValue('Compare prettifyValue', [
+        'We 12:00-18:00;',
+    ], 'all', 'We 12:00-18:00', 'not only test');
+
+test.addPrettifyValue('Compare prettifyValue', [
+        'We 12:00-18:00,',
+    ], 'all', 'We 12:00-18:00', 'not last test');
 /* }}} */
 
 /* isEqualTo {{{ */

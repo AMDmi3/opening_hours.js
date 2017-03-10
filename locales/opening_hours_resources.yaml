@@ -13,6 +13,9 @@ de:
       no string: "Der Wert (erster Parameter) ist kein String"
       nothing: "Der Wert enthält nichts, was ausgewertet werden könnte."
       nothing useful: "Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel."
+      'value ends with token': >-
+        Der Wert endet mit "__token__".
+        Bitte ergänze den Wert nach "__token__" oder lösche "__token__".
       programmers joke: >-
         Kann es sein, dass du ein Programmierer bist und das Hinzufügen eines Semikolons nach jedem Statement ist zwanghaft ;) ?
         Es ist so, dass das Semikolon in der opening_hours-Syntax als Trenner für Regeln definiert ist.

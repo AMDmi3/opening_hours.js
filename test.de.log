@@ -1,6 +1,8 @@
 "Time intervals" for "10:00-12:00": [1m[32mPASSED[39m[22m
 "Time intervals" for "08:00-09:00; 10:00-12:00": [1m[32mPASSED[39m[22m
 "Time intervals" for "10:00-12:00,": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*10:00-12:00, <--- (Der Wert endet mit ",". Bitte ergänze den Wert nach "," oder lösche ",".)
 "Time intervals" for "10:00-12:00;": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*10:00-12:00; <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel. Kann es sein, dass du ein Programmierer bist und das Hinzufügen eines Semikolons nach jedem Statement ist zwanghaft ;) ? Es ist so, dass das Semikolon in der opening_hours-Syntax als Trenner für Regeln definiert ist. Bitte verzichte an dieser Stelle auf ein Semikolon.)
@@ -2550,9 +2552,9 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "open; 00:23-00:42 unknown "warning at correct position?" ||": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*open; 00:23-00:42 unknown "warning at correct position?" || <--- (Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel.)
-"Value not ideal (probably wrong). Should throw a warning." for "We 12:00-18:00,": [1m[31mFAILED[39m[22m
-false
-
+"Value not ideal (probably wrong). Should throw a warning." for "We 12:00-18:00,": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*We 12:00-18:00, <--- (Der Wert endet mit ",". Bitte ergänze den Wert nach "," oder lösche ",".)
 "Value not ideal (probably wrong). Should throw a warning." for "Fr 22:00-04:00; Sa 21:00-04:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Fr 22:00-04:00; Sa 21:00-04:00 <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
@@ -2914,6 +2916,9 @@ Nov 31 <--- (Der Monat Nov hat keine 31 Tage. Der letzte Tag von Nov ist Tag 30.
 "Incorrect syntax which should throw an error" for "Dec 32; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 Dec 32 <--- (Die Tagesangabe für Dec muss zwischen 1 und 31 liegen.)
 
+"Incorrect syntax which should throw an error" for "We 12:00-18:00,,,,,,; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
+We 12:00-18:00,, <--- (Unerwartetes Zeichen: "," Das bedeutet, dass die Syntax an dieser Stelle nicht erkannt werden konnte.) 
+
 "Missing information (e.g. country or holidays not known to opening_hours.js)" for "PH": [1m[32mPASSED[39m[22m
 Der Ländercode fehlt. Dieser wird benötigt um die korrekten Feiertage zu bestimmen (siehe in der README wie dieser anzugeben ist)
 
@@ -3100,6 +3105,8 @@ Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_
 "Compare prettifyValue" for "märz": [1m[32mPASSED[39m[22m
 "Compare prettifyValue" for "mär": [1m[32mPASSED[39m[22m
 "Compare prettifyValue" for "SH": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "We 12:00-18:00;": [1m[32mPASSED[39m[22m
+"Compare prettifyValue" for "We 12:00-18:00,": [1m[32mPASSED[39m[22m
 "Test isEqualTo function: Full range" for "open": [1m[32mPASSED[39m[22m
 "Test isEqualTo function: Full range" for "24/7": [1m[32mPASSED[39m[22m
 "Test isEqualTo function: Full range" for "2000-2100": [1m[32mPASSED[39m[22m
@@ -3115,7 +3122,7 @@ Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-876/931 tests passed. 55 did not pass.
+880/934 tests passed. 54 did not pass.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

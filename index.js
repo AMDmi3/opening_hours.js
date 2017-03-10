@@ -2005,8 +2005,13 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 return [ at ];
             }
 
-            if (!matchTokens(tokens, at, ','))
+            if (!matchTokens(tokens, at, ',')) {
                 break;
+            }
+
+            if (typeof tokens[at+1] === 'undefined' && !done_with_warnings) {
+                parsing_warnings.push([nrule, at, t('value ends with token', { 'token': tokens[at][1] }) ]);
+            }
         }
 
         return at;
@@ -3642,6 +3647,10 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     && selector_type === 'weekday'
                     && tokens[at][0] === ':') {
                 // Do nothing.
+            } else if (at === selector_end
+                    && selector_type === 'time'
+                    && tokens[at][0] === ',') {
+                /* Remove trailing , which is ignored in parseTimeRange. */
             } else {
                 prettified_value += tokens[at][0].toString();
             }
