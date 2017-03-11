@@ -5112,11 +5112,16 @@ test.addPrettifyValue('Compare prettifyValue', [
 
 test.addPrettifyValue('Compare prettifyValue', [
         'We 12:00-18:00;',
+        'We 12:00-18:00; ',
     ], 'all', 'We 12:00-18:00', 'not only test');
 
 test.addPrettifyValue('Compare prettifyValue', [
         'We 12:00-18:00,',
     ], 'all', 'We 12:00-18:00', 'not last test');
+
+test.addPrettifyValue('Compare prettifyValue', [
+        'Mo: 7-18; ',
+    ], 'all', 'Mo 07:00-18:00', 'not last test');
 /* }}} */
 
 /* isEqualTo {{{ */
