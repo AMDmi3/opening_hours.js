@@ -117,31 +117,32 @@ Added
 
   * England and Wales [skifans_, simon04_]
 
-* School holiday definitions added: Germany 2017 until 2024 [ypid_]
+* School holiday definitions added: Germany 2017 until 2024. [ypid_]
 * Translate error tolerance warnings into German. [ypid_]
 * Add additional warnings:
 
-  * Misused ``.`` character. [ypid_]
-  * Trailing ``,`` after time selector. [ypid_]
-  * Additional rule which evaluates to closed. [ypid_]
-  * Value consists of multiple rules each only using a time selector. [ypid]
+  * Misused ``.`` character. Example: ``Jan 01,Dec 24.-25.``. [ypid_]
+  * Trailing ``,`` after time selector. Example: ``We 12:00-18:00,``. [ypid_]
+  * Additional rule which evaluates to closed. Example: ``Mo-Fr 10:00-20:00, We off``. [ypid_]
+  * Value consists of multiple rules each only using a time selector. Example: ``11:30-14:30;17:30-23:00``. [ypid]
   * Potentially missing use of ``<additional_rule_separator>`` if the previous
     rule has a time range which wraps over midnight and the current rule
     matches one of the following days of the previous rule.
     One that the warning is not emitted in case wide range selectors are used
     in both involved rules to avoid a false positive warning where the two
     rules would never match days directly following each other.
-    Nevertheless this check has false positives and which can be ignored in cases mentioned in the warning. [ypid_]
+    Nevertheless this check has false positives and which can be ignored in cases mentioned in the warning.
+    Example: ``Fr 22:00-04:00; Sa 21:00-04:00`` [ypid_]
 
 * Extend error tolerance:
 
-  * Handle super/subscript digits properly e. g. ``Mo 00³°-¹⁴:⁰⁹``. [ypid_]
-  * Handle misused ``.`` character following a number. [ypid_]
+  * Handle super/subscript digits properly. Example: ``Mo 00³°-¹⁴:⁰⁹``. [ypid_]
+  * Handle misused ``.`` character following a number. Example: ``Jan 01,Dec 24.-25.``. [ypid_]
 
 Changed
 ~~~~~~~
 
-* Migrated to use `ES2015 modules`_ and rollup_ for module bundling [simon04_]
+* Migrated to use `ES2015 modules`_ and rollup_ for module bundling. [simon04_]
 * Update to holiday definition format 2.2.0. Holidays are now maintained in
   YAML files, one for each country. [ypid_]
 * Rework the way Nominatim responses are handled (used for testing). [ypid_]
