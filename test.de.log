@@ -2569,6 +2569,19 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "We 22:00-04:00, Fr 22:00-04:00; Sa 21:00-04:00, Mo 21:00-04:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*We 22:00-04:00, Fr 22:00-04:00; Sa 21:00-04:00, Mo 21:00-04:00 <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
+"Value not ideal (probably wrong). Should throw a warning." for "Mo-Su 09:00-01:00; PH 08:00-02:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Su 09:00-01:00; PH 08:00-02:00 <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
+"Value not ideal (probably wrong). Should throw a warning." for "2015 Mo-Su 09:00-01:00; PH 08:00-02:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*2015 Mo-Su 09:00-01:00; PH 08:00-02:00 <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
+"Value not ideal (probably wrong). Should throw a warning." for "2015 Mo 09:00-01:00; PH Tu 08:00-02:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*2015 Mo 09:00-01:00; PH Tu 08:00-02:00 <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
+"Value not ideal (probably wrong). Should throw a warning." for "Mo-Su 09:00-01:00; 2014 PH 08:00-02:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Su 09:00-01:00; 2014  <--- (Das Jahr liegt in der Vergangenheit.)
+	*Mo-Su 09:00-01:00; 2014 PH 08:00-02:00 <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-Fr 10:00-20:00, We off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Fr 10:00-20:00, We off <--- (Diese Regel wird als geschlossen ausgewertet aber wurde als additive Regel angegeben. Sie sollte als normale Regel mittels ";" definiert sein. Siehe https://wiki.openstreetmap.org/wiki/DE:Key:opening_hours/specification#explain:rule_modifier:closed.)
@@ -3129,7 +3142,7 @@ Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-883/937 tests passed. 54 did not pass.
+887/941 tests passed. 54 did not pass.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

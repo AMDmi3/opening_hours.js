@@ -2162,6 +2162,19 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "We 22:00-04:00, Fr 22:00-04:00; Sa 21:00-04:00, Mo 21:00-04:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*We 22:00-04:00, Fr 22:00-04:00; Sa 21:00-04:00, Mo 21:00-04:00 <--- (This rule overwrites parts of the previous rule. This happens because normal rules apply to the whole day and overwrite any definition made by previous rules. You can make this rule an additional rule by using a "," instead of the normal ";" to separate the rules. Note that the overwriting can also be desirable in which case you can ignore this warning.)
+"Value not ideal (probably wrong). Should throw a warning." for "Mo-Su 09:00-01:00; PH 08:00-02:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Su 09:00-01:00; PH 08:00-02:00 <--- (This rule overwrites parts of the previous rule. This happens because normal rules apply to the whole day and overwrite any definition made by previous rules. You can make this rule an additional rule by using a "," instead of the normal ";" to separate the rules. Note that the overwriting can also be desirable in which case you can ignore this warning.)
+"Value not ideal (probably wrong). Should throw a warning." for "2015 Mo-Su 09:00-01:00; PH 08:00-02:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*2015 Mo-Su 09:00-01:00; PH 08:00-02:00 <--- (This rule overwrites parts of the previous rule. This happens because normal rules apply to the whole day and overwrite any definition made by previous rules. You can make this rule an additional rule by using a "," instead of the normal ";" to separate the rules. Note that the overwriting can also be desirable in which case you can ignore this warning.)
+"Value not ideal (probably wrong). Should throw a warning." for "2015 Mo 09:00-01:00; PH Tu 08:00-02:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*2015 Mo 09:00-01:00; PH Tu 08:00-02:00 <--- (This rule overwrites parts of the previous rule. This happens because normal rules apply to the whole day and overwrite any definition made by previous rules. You can make this rule an additional rule by using a "," instead of the normal ";" to separate the rules. Note that the overwriting can also be desirable in which case you can ignore this warning.)
+"Value not ideal (probably wrong). Should throw a warning." for "Mo-Su 09:00-01:00; 2014 PH 08:00-02:00": [1m[32mPASSED[39m[22m
+With [1m[34mwarnings[39m[22m:
+	*Mo-Su 09:00-01:00; 2014  <--- (The year is in the past.)
+	*Mo-Su 09:00-01:00; 2014 PH 08:00-02:00 <--- (This rule overwrites parts of the previous rule. This happens because normal rules apply to the whole day and overwrite any definition made by previous rules. You can make this rule an additional rule by using a "," instead of the normal ";" to separate the rules. Note that the overwriting can also be desirable in which case you can ignore this warning.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-Fr 10:00-20:00, We off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Fr 10:00-20:00, We off <--- (This rule will be evaluated as closed but it was specified as additional rule. It should be specified as normal rule using ";" as rule separator. See https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification#explain:rule_modifier:closed.)
@@ -2715,7 +2728,7 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-917/930 tests passed. 13 did not pass.
+921/934 tests passed. 13 did not pass.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet
