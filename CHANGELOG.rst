@@ -124,6 +124,7 @@ Added
   * Misused ``.`` character. [ypid_]
   * Trailing ``,`` after time selector. [ypid_]
   * Additional rule which evaluates to closed. [ypid_]
+  * Value consists of multiple rules each only using a time selector. [ypid]
   * Potentially missing use of ``<additional_rule_separator>`` if the previous
     rule has a time range which wraps over midnight and the current rule
     matches one of the following days of the previous rule.

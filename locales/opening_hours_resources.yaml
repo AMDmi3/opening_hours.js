@@ -13,6 +13,9 @@ de:
       no string: "Der Wert (erster Parameter) ist kein String"
       nothing: "Der Wert enthält nichts, was ausgewertet werden könnte."
       nothing useful: "Diese Regel enthält nichts nützliches. Bitte entferne diese leere Regel."
+      'combine rules': >-
+        Getrennte Regeln erkannt welche jeweils nur aus einer Zeit Bereichsdefinition bestehen.
+        Diese Regeln sollten mittels "__ok__" zu einer Regel kombiniert werden.
       'value ends with token': >-
         Der Wert endet mit "__token__".
         Bitte ergänze den Wert nach "__token__" oder lösche "__token__".

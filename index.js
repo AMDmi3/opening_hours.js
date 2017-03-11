@@ -1022,6 +1022,18 @@ export default function(value, nominatim_object, optional_conf_parm) {
             }
             /* }}} */
 
+            /* Check if value consists of multiple rules each only using a time selector {{{ */
+            if (used_selectors_types_array.length > 1
+                    &&  used_selectors_types_array.filter(function (el){
+                            return el.length === 1 && el[0] === 'time';
+                        }).length === used_selectors_types_array.length
+                    ) {
+                parsing_warnings.push([ -1, 0,
+                    t('combine rules', { 'ok': ',' }),
+                ]);
+            }
+            /* }}} */
+
             prettifyValue();
         }
         done_with_warnings = true;
