@@ -1,6 +1,6 @@
 ---
 
-_nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=48.2083537&lon=16.3725042&zoom=18&addressdetails=1&accept-language=de,en'
+_nominatim_url: https://nominatim.openstreetmap.org/reverse?format=json&lon=16.3725042&lat=48.2083537&zoom=18&addressdetails=1&accept-language=de,en
 
 PH:  # https://de.wikipedia.org/wiki/Feiertage_in_%C3%96sterreich
   'Neujahrstag': [1, 1]
@@ -36,6 +36,7 @@ SH:  # https://www.help.gv.at/Portal.Node/hlpd/public/content/11/Seite.17602001.
 
 Burgenland:
   _state_code: 1  # https://en.wikipedia.org/wiki/ISO_3166-2:AT
+  _nominatim_url: https://nominatim.openstreetmap.org/reverse?format=json&lon=16.518888888&lat=47.845555555&zoom=18&addressdetails=1&accept-language=de,en
   SH:
     - name: Sommerferien
       '2016': [7, 2, 9, 3]
@@ -49,6 +50,7 @@ Burgenland:
 
 Kärnten:
   _state_code: 2
+  _nominatim_url: https://nominatim.openstreetmap.org/reverse?format=json&lon=14.3&lat=46.616666666&zoom=18&addressdetails=1&accept-language=de,en
   SH:
     - name: Sommerferien
       '2016': [7, 9, 9, 10]
@@ -62,6 +64,7 @@ Kärnten:
 
 Niederösterreich:
   _state_code: 3
+  _nominatim_url: https://nominatim.openstreetmap.org/reverse?format=json&lon=15.616666666&lat=48.2&zoom=18&addressdetails=1&accept-language=de,en
   SH:
     - name: Sommerferien
       '2016': [7, 2, 9, 3]
@@ -75,6 +78,7 @@ Niederösterreich:
 
 Oberösterreich:
   _state_code: 4
+  _nominatim_url: https://nominatim.openstreetmap.org/reverse?format=json&lon=14.283333333&lat=48.3&zoom=18&addressdetails=1&accept-language=de,en
   SH:
     - name: Sommerferien
       '2016': [7, 9, 9, 10]
@@ -88,6 +92,7 @@ Oberösterreich:
 
 Salzburg:
   _state_code: 5
+  _nominatim_url: https://nominatim.openstreetmap.org/reverse?format=json&lon=13.033333333&lat=47.8&zoom=18&addressdetails=1&accept-language=de,en
   SH:
     - name: Sommerferien
       '2016': [7, 9, 9, 10]
@@ -101,6 +106,7 @@ Salzburg:
 
 Steiermark:
   _state_code: 6
+  _nominatim_url: https://nominatim.openstreetmap.org/reverse?format=json&lon=15.433333333&lat=47.066666666&zoom=18&addressdetails=1&accept-language=de,en
   SH:
     - name: Sommerferien
       '2016': [7, 9, 9, 10]
@@ -114,6 +120,7 @@ Steiermark:
 
 Tirol:
   _state_code: 7
+  _nominatim_url: https://nominatim.openstreetmap.org/reverse?format=json&lon=11.383333333&lat=47.266666666&zoom=18&addressdetails=1&accept-language=de,en
   SH:
     - name: Sommerferien
       '2016': [7, 9, 9, 10]
@@ -127,6 +134,7 @@ Tirol:
 
 Vorarlberg:
   _state_code: 8
+  _nominatim_url: https://nominatim.openstreetmap.org/reverse?format=json&lon=9.749166666&lat=47.505&zoom=18&addressdetails=1&accept-language=de,en
   SH:
     - name: Sommerferien
       '2016': [7, 9, 9, 10]
@@ -140,6 +148,7 @@ Vorarlberg:
 
 Wien:
   _state_code: 9
+  _nominatim_url: https://nominatim.openstreetmap.org/reverse?format=json&lon=16.3725042&lat=48.2083537&zoom=18&addressdetails=1&accept-language=de,en
   SH:
     - name: Sommerferien
       '2016': [7, 2, 9, 3]
