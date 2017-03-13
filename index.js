@@ -2581,13 +2581,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     var country_holidays = holiday_definitions[location_cc][type_of_holidays];
                     var state_holidays = holiday_definitions[location_cc][location_state][type_of_holidays];
                     if (type_of_holidays === 'PH') {
-                        return holiday_definitions[location_cc][location_state][type_of_holidays];
-                        Object.keys(country_holidays || {}).forEach(function(k) {
-                            holidays_by_name[k] = country_holidays[k];
-                        });
-                        Object.keys(state_holidays).forEach(function(k) {
-                            holidays_by_name[k] = state_holidays[k];
-                        });
+                        return state_holidays;
                     } else {
                         (country_holidays || []).forEach(function(holiday) {
                             holidays_by_name[holiday.name] = holiday;
