@@ -112,10 +112,10 @@
                     </script>
                 </p>
 
+                <div id="permalink" class="permalink">
+                    <a href="#" onclick="permalink();return false">permalink</a>,
+                </div>
                 <p>
-                    <div id="permalink" class="permalink">
-                        <a href="#" onclick="permalink();return false">permalink</a>,
-                    </div>
                     <script type="text/javascript">
                         document.write('<span class="hd">' + i18n.t('texts.value for') + ' <q>opening_hours</q>:'
                                 + '</span>');
@@ -134,7 +134,6 @@
                         id="diff_value"
                         type="text"
                         onKeyUp="return submitenter(this,event)"
-
                         onblur="Evaluate()"
                     />
                 </p>
