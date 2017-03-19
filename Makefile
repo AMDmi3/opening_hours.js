@@ -246,7 +246,7 @@ check-html:
 ## release {{{
 
 .PHONY: release-versionbump
-release-versionbump: package.json CHANGELOG.rst
+release-versionbump: package.json bower.json CHANGELOG.rst
 	editor $?
 	sh -c 'git commit --all --message "Release version $$(jq --raw-output '.version' '$<')"'
 
