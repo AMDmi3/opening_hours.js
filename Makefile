@@ -67,7 +67,7 @@ build: opening_hours.min.js
 check: qa-quick check-diff check-package.json
 
 .PHONY: check-full
-check-full: clean check-diff-all check-package.json check-yaml
+check-full: clean check-diff-all check-package.json check-yaml check-html
 
 .PHONY: benchmark
 benchmark: benchmark-opening_hours.min.js
@@ -237,12 +237,16 @@ check-package.json: package.json
 check-yaml:
 	$(REPO_FILES) | xargs --null -I '{}' find '{}' -type f -regextype posix-extended -regex '.*\.(yml|yaml)$$' -print0 | xargs --null yamllint --strict
 
+.PHONY: check-html
+check-html:
+	html5validator --show-warnings --root . --blacklist node_modules submodules
+
 ## }}}
 
 ## release {{{
 
 .PHONY: release-versionbump
-release-versionbump: package.json CHANGELOG.rst
+release-versionbump: package.json bower.json CHANGELOG.rst
 	editor $?
 	sh -c 'git commit --all --message "Release version $$(jq --raw-output '.version' '$<')"'
 

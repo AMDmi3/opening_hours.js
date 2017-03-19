@@ -4784,6 +4784,16 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning.', 
         // 'Mo 12:00-14:00 und nach Vereinbarung' // Not easily correctable
         // because of the way error tolerance is implemented.
         'We 12:00-18:00,',
+        'Fr 22:00-04:00; Sa 21:00-04:00',
+        'Su 22:00-04:00; Mo 21:00-04:00',
+        'Th 22:00-04:00, Fr 22:00-04:00; Sa 21:00-04:00',
+        'We 22:00-04:00, Fr 22:00-04:00; Sa 21:00-04:00, Mo 21:00-04:00',
+        'Mo-Su 09:00-01:00; PH 08:00-02:00',
+        '2015 Mo-Su 09:00-01:00; PH 08:00-02:00',
+        '2015 Mo 09:00-01:00; PH Tu 08:00-02:00',
+        'Mo-Su 09:00-01:00; 2014 PH 08:00-02:00',
+        'Mo-Fr 10:00-20:00, We off',
+        '11:30-14:30;17:30-23:00'
     ], nominatim_default, 'not only test');
 
 test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning. warnings_severity: 5', [
@@ -4915,6 +4925,7 @@ test.addShouldFail('Incorrect syntax which should throw an error', [
         'Oct 32' + value_suffix,
         'Nov 31' + value_suffix,
         'Dec 32' + value_suffix,
+        'We 12:00-18:00,,,,,,' + value_suffix,
     ], nominatim_default, 'not last test');
 
 test.addShouldFail('Missing information (e.g. country or holidays not known to opening_hours.js)', [
@@ -5102,6 +5113,19 @@ test.addPrettifyValue('Compare prettifyValue', [
 test.addPrettifyValue('Compare prettifyValue', [
         'SH',
     ], 'de', 'Schulferien');
+
+test.addPrettifyValue('Compare prettifyValue', [
+        'We 12:00-18:00;',
+        'We 12:00-18:00; ',
+    ], 'all', 'We 12:00-18:00', 'not only test');
+
+test.addPrettifyValue('Compare prettifyValue', [
+        'We 12:00-18:00,',
+    ], 'all', 'We 12:00-18:00', 'not last test');
+
+test.addPrettifyValue('Compare prettifyValue', [
+        'Mo: 7-18; ',
+    ], 'all', 'Mo 07:00-18:00', 'not last test');
 /* }}} */
 
 /* isEqualTo {{{ */
