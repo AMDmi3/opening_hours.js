@@ -353,12 +353,12 @@ export default function(value, nominatim_object, optional_conf_parm) {
 
             /* Optimal order of selectors for checking. */
             var selector_elements = ['year', 'holiday', 'month', 'monthday', 'week', 'weekday'];
-            for (var selector_ind in selector_elements) {
-                if (selectors[selector_elements[selector_ind]].length > 0) {
-                    selectors.date.push(selectors[selector_elements[selector_ind]]);
-                    selectors[selector_elements[selector_ind]] = [];
+            selector_elements.forEach(function (element) {
+                if (selectors[element].length > 0) {
+                    selectors.date.push(selectors[element]);
+                    selectors[element] = [];
                 }
-            }
+            });
 
             // console.log('weekday: ' + JSON.stringify(selectors.weekday, null, '\t'));
             rules.push(selectors);
@@ -404,15 +404,21 @@ export default function(value, nominatim_object, optional_conf_parm) {
      */
     function getRegexKeyForKeyFromOsmDefaults(key) {
         var regex_key;
+        var exact_match = false;
 
-        for (var osm_key in osm_tag_defaults) {
+        Object.keys(osm_tag_defaults).forEach(function (osm_key) {
+            if (exact_match === true) {
+                return;
+            }
             if (key === osm_key) { // Exact match.
                 regex_key = osm_key;
-                break;
+                // We can't just return here as some old browsers
+                // don't interpret it as a final return (like a loop break)
+                exact_match = true;
             } else if (new RegExp(osm_key).test(key)) {
                 regex_key = osm_key;
             }
-        }
+        });
         return regex_key;
     }
     /* }}} */
@@ -749,12 +755,19 @@ export default function(value, nominatim_object, optional_conf_parm) {
      *        * undefined if word could not be found (and thus is not corrected).
      */
     function returnCorrectWordOrToken(word, value_length) {
+        var correctWordOrToken;
         var token_from_map = string_to_token_map[word];
         if (typeof token_from_map === 'object') {
             return token_from_map;
         }
-        for (var comment in word_error_correction) {
-            for (var old_val in word_error_correction[comment]) {
+        Object.keys(word_error_correction).forEach(function (comment) {
+            if (correctWordOrToken) {
+                return;
+            }
+            Object.keys(word_error_correction[comment]).forEach(function (old_val) {
+                if (correctWordOrToken) {
+                    return;
+                }
                 if (new RegExp('^' + old_val + '$').test(word)) {
                     var val = word_error_correction[comment][old_val];
                     // Replace wrong words or characters with correct ones.
@@ -766,11 +779,11 @@ export default function(value, nominatim_object, optional_conf_parm) {
                             t(comment, {'ko': word, 'ok': val}),
                         ]);
                     }
-                    return val;
+                    correctWordOrToken = val;
                 }
-            }
-        }
-        return undefined;
+            });
+        });
+        return correctWordOrToken;
     }
     /* }}} */
 
@@ -847,7 +860,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
             for (var nrule = 0; nrule < used_selectors.length; nrule++) {
 
                 /* Check if more than one not connected selector of the same type is used in one rule {{{ */
-                for (var selector_type in used_selectors[nrule]) {
+                Object.keys(used_selectors[nrule]).forEach(function (selector_type) {
                     // console.log(selector_type + ' use at: ' + used_selectors[nrule][selector_type].length);
                     if (used_selectors[nrule][selector_type].length > 1) {
                         parsing_warnings.push([nrule, used_selectors[nrule][selector_type][used_selectors[nrule][selector_type].length - 1],
@@ -863,13 +876,12 @@ export default function(value, nominatim_object, optional_conf_parm) {
                         );
                         done_with_selector_reordering = true; // Correcting the selector order makes no sense if this kind of issue exists.
                     }
-                }
+                });
                 /* }}} */
                 /* Check if change default state rule is not the first rule {{{ */
                 if (   typeof used_selectors[nrule].state === 'object'
                     && Object.keys(used_selectors[nrule]).length === 1
                 ) {
-
                     if (nrule !== 0) {
                         parsing_warnings.push([nrule, new_tokens[nrule][0].length - 1, t('default state')]);
                     }
@@ -1009,11 +1021,11 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 ) {
 
                 var keys_with_warn_for_PH_missing = [];
-                for (var key in osm_tag_defaults) {
+                Object.keys(osm_tag_defaults).forEach(function (key) {
                     if (osm_tag_defaults[key]['warn_for_PH_missing']) {
                         keys_with_warn_for_PH_missing.push(key);
                     }
-                }
+                });
                 parsing_warnings.push([ -1, 0,
                     t('public holiday', { 'part2': (typeof oh_key !== 'string'
                         ? t('public holiday part2', {'keys': keys_with_warn_for_PH_missing.join(', ')}) : '')})
@@ -1150,11 +1162,11 @@ export default function(value, nominatim_object, optional_conf_parm) {
 
         }
 
-        for (var key in default_prettify_conf) {
+        Object.keys(default_prettify_conf).forEach(function (key) {
             if (typeof user_conf[key] === 'undefined') {
                 user_conf[key] = default_prettify_conf[key];
             }
-        }
+        });
 
         if (typeof moment !== 'undefined' && typeof user_conf['locale'] === 'string' && user_conf['locale'] !== 'en') {
             // FIXME: Does not work?
@@ -1255,13 +1267,13 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 for (var i = 0; i < prettified_group_value.length; i++) {
                     var type = prettified_group_value[i][0][2];
                     if (type === 'weekday') {
-                        for(var key in weekdays_en) {
-                            prettified_group_value[i][1] = prettified_group_value[i][1].replace(new RegExp(weekdays_en[key], 'g'), weekdays_local[key]);
-                        }
+                        weekdays_en.forEach(function (weekday, key) {
+                            prettified_group_value[i][1] = prettified_group_value[i][1].replace(new RegExp(weekday, 'g'), weekdays_local[key]);
+                        });
                     } else if (type === 'month') {
-                        for(var key in months_en) {
-                            prettified_group_value[i][1] = prettified_group_value[i][1].replace(new RegExp(months_en[key], 'g'), months_local[key]);
-                        }
+                        months_en.forEach(function (month, key) {
+                            prettified_group_value[i][1] = prettified_group_value[i][1].replace(new RegExp(month, 'g'), months_local[key]);
+                        });
                     } else {
                         prettified_group_value[i][1] = i18n.t(['opening_hours:pretty.' + prettified_group_value[i][1], prettified_group_value[i][1]]);
                     }
@@ -2574,7 +2586,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     var matching_holiday = {}; /* Holidays in the country-wide scope can be limited to certain states. */
                     switch (type_of_holidays) {
                         case 'PH':
-                            for (var holiday_name in applying_holidays_for_country) {
+                            Object.keys(applying_holidays_for_country).forEach(function (holiday_name) {
                                 if (typeof applying_holidays_for_country[holiday_name][2] === 'object') {
                                     if (-1 !== applying_holidays_for_country[holiday_name][2].indexOf(location_state)) {
                                         matching_holiday[holiday_name] = applying_holidays_for_country[holiday_name];
@@ -2582,7 +2594,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                                 } else {
                                     matching_holiday[holiday_name] = applying_holidays_for_country[holiday_name];
                                 }
-                            }
+                            });
                             break;
                         case 'SH':
                             matching_holiday = applying_holidays_for_country;
@@ -2732,7 +2744,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
         var sorted_holidays = [];
         var next_holiday;
 
-        for (var holiday_name in applying_holidays) {
+        Object.keys(applying_holidays).forEach(function (holiday_name) {
             if (typeof applying_holidays[holiday_name][0] === 'string') {
                 var selected_movableDay = movableDays[applying_holidays[holiday_name][0]];
                 if (!selected_movableDay)
@@ -2755,7 +2767,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 next_holiday.setDate(next_holiday.getDate() + add_days[0]);
 
             sorted_holidays.push([ next_holiday, holiday_name ]);
-        }
+        });
 
         sorted_holidays = sorted_holidays.sort(function(a,b){
             if (a[0].getTime() < b[0].getTime()) return -1;
