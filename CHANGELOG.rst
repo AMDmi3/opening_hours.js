@@ -54,6 +54,7 @@ Contributors
 * [ItsNotYou_]
 * [chiak597_]
 * [skifans_] - Alex
+* [shouze_] - Sébastien HOUZÉ
 
 Thanks very much to all contributors!
 
@@ -91,6 +92,7 @@ Thanks very much to all contributors!
 .. _spawn-guy: https://github.com/spawn-guy
 .. _chiak597: https://github.com/chiak597
 .. _skifans: https://github.com/skifans
+.. _shouze: https://github.com/shouze
 
 Supporters
 ~~~~~~~~~~
@@ -176,6 +178,7 @@ Fixed
   day of the year. [ypid_]
 * Fix ``check-diff-%.js`` Makefile target. :command:`git diff` might not have
   shown changes or returned with an error before. [ypid_]
+* Fix support for legacy browsers (IE) with using proper for...in loops. [shouze_]
 
 
 v3.5.0_ - 2017-02-17
