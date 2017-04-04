@@ -509,7 +509,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 *   Support for school holidays (`SH 10:00-14:00`).
 
-    * Countries with PH definition:
+    * Countries with SH definition:
 
         * Germany, see [hc]
         * Romania
