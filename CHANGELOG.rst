@@ -119,6 +119,8 @@ Added
 
   * England and Wales [skifans_, simon04_]
 
+* Added Easter Sunday to Slovak holidays. [chiak597_]
+
 * School holiday definitions added: Germany 2017 until 2024. [ypid_]
 * Translate error tolerance warnings into German. [ypid_]
 * Add additional warnings:
