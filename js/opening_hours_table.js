@@ -10,9 +10,6 @@ var OpeningHoursTable = {
         var now_daystart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         var nextdays = (nextchange.getTime() - now_daystart.getTime()) / 1000 / 60 / 60 / 24;
 
-        // var now_moment        = moment(now);
-        // var nextchange_moment = moment(now);
-
         var timediff = '';
 
         var delta = Math.floor((nextchange.getTime() - now.getTime()) / 1000 / 60); // delta is minutes
