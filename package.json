@@ -54,13 +54,13 @@
     "line-reader": "^0.4.0",
     "optimist": "^0.6.1",
     "package-json-validator": "^0.6.1",
-    "rollup": "^0.41.4",
-    "rollup-plugin-commonjs": "^7.0.0",
-    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup": "^0.42.0",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-yaml": "^1.0.0",
     "sprintf-js": "^1.0.3",
     "timekeeper": "^1.0.0",
-    "uglify-js": "^2.8.7"
+    "uglify-js": "^3.0.15"
   },
   "peerDependencies": {
     "i18next-client": "^1.11.1",
