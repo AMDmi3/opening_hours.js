@@ -58,7 +58,7 @@
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-yaml": "^1.0.0",
-    "sprintf-js": "^1.0.3",
+    "sprintf-js": "1.0.3",
     "timekeeper": "^1.0.0",
     "uglify-js": "^3.0.15"
   },
