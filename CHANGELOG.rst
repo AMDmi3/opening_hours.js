@@ -55,6 +55,7 @@ Contributors
 * [chiak597_]
 * [skifans_] - Alex
 * [shouze_] - Sébastien HOUZÉ
+* [Gazer75_]
 
 Thanks very much to all contributors!
 
@@ -93,6 +94,7 @@ Thanks very much to all contributors!
 .. _chiak597: https://github.com/chiak597
 .. _skifans: https://github.com/skifans
 .. _shouze: https://github.com/shouze
+.. _Gazer75: https://github.com/Gazer75
 
 Supporters
 ~~~~~~~~~~
@@ -118,6 +120,7 @@ Added
 * Public holiday definitions added:
 
   * England and Wales [skifans_, simon04_]
+  * Norway [Gazer75_]
 
 * Added Easter Sunday to Slovak holidays. [chiak597_]
 
