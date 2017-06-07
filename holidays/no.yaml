@@ -9,7 +9,7 @@ PH:  # https://en.wikipedia.org/wiki/Public_holidays_in_Norway
   'Påskedag': [easter, 0]
   '2. Påskedag': [easter, 1]
   '1. Mai': [1, 5]
-  'Grunnlovsdagen': [17, 5]
+  'Grunnlovsdagen': [5, 17]
   'Kristi Himmelfartsdag': [easter, 39]
   'Pinsedag': [easter, 49]
   '2. Pinsedag': [easter, 50]
