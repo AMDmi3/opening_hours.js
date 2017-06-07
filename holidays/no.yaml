@@ -1,0 +1,17 @@
+---
+
+_nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=61.0&lon=8.0&zoom=8&addressdetails=1&accept-language=no,en'
+
+PH:  # https://en.wikipedia.org/wiki/Public_holidays_in_Norway
+  'Nyttårsdag': [1, 1]
+  'Skjærtorsdag': [easter, -3]
+  'Langfredag': [easter, -2]
+  'Påskedag': [easter, 0]
+  '2. Påskedag': [easter, 1]
+  '1. Mai': [5, 1]
+  'Grunnlovsdagen': [5, 17]
+  'Kristi Himmelfartsdag': [easter, 39]
+  'Pinsedag': [easter, 49]
+  '2. Pinsedag': [easter, 50]
+  'Juledag': [12, 25]
+  '2. Juledag': [12, 26]
