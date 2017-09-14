@@ -686,10 +686,12 @@ List of features which can make writing easier:
 
 * `May-Aug: (Mo-Th 9:00-20:00; Fr 11:00-22:00; Sa-Su 11:00-20:00)`
 
-*   Last day of the month. Better syntax needed? Can be expressed with (but not perfect, it will fail for some leap years):
+*   Last day of the month.
     ```
-    Jan 01 - 1 day,Feb 01 -1 day,Mar 01 -1 day,Apr 01 -1 day,May 01 -1 day,Jun 01 -1 day,Jul 01 -1 day,Aug 01 -1 day,Sep 01 -1 day,Oct 01 -1 day,Nov 01 -1 day,Dec 01 -1 day open
+    Jan 31,Feb 01 -1 day,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open
     ```
+
+    Better syntax needed? This example is valid even if the evaluation tool does not agree. It simily does not yet implement this.
 
     Ref and source: https://forum.openstreetmap.org/viewtopic.php?pid=663026#p663026
 
