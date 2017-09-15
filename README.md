@@ -688,7 +688,7 @@ List of features which can make writing easier:
 
 *   Last day of the month.
     ```
-    Jan 31,Feb 01 -1 day,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open
+    Jan 31,Mar 01 -1 day,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open
     ```
 
     Better syntax needed? This example is valid even if the evaluation tool does not agree. It simily does not yet implement this.
