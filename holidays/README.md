@@ -170,6 +170,7 @@ Two years in the past should be more then enough for the typical use cases of th
 
 * Note that you should include the definitions in order (see [#126](https://github.com/opening-hours/opening_hours.js/issues/126#issuecomment-156853794) for details).
 * Please also add the source for this information (in form of an URL) as comment. Like shown in the examples above. Usually Wikipedia in the local language is a great source.
+* You can use `make check-holidays` to check all regions of all countries.
 
 [ohlib.holidays]: https://github.com/opening-hours/opening_hours.js/tree/master/holidays
 [ohlib.holidays.de.yaml]: https://github.com/opening-hours/opening_hours.js/blob/master/holidays/de.yaml

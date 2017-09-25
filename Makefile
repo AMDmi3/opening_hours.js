@@ -233,6 +233,17 @@ benchmark-%.js: %.js benchmark.js
 check-package.json: package.json
 	pjv --warnings --recommendations --filename "$<"
 
+.PHONY: check-holidays
+check-holidays:
+	@for def_file in ./holidays/*.yaml; do \
+		country=$${def_file#./holidays/}; \
+		country=$${country%.yaml}; \
+		for region in $$(cat "$$def_file" | yq '. | values |  .[]._state_code? | select(. != null)' --raw-output); do \
+			echo "$$country - $$region: "; \
+			./PH_SH_exporter.js --from 2017 --to 2017 /tmp/out -c "$$country" -p -v -r "$$region"; \
+		done \
+	done
+
 .PHONY: check-yaml
 check-yaml:
 	$(REPO_FILES) | xargs --null -I '{}' find '{}' -type f -regextype posix-extended -regex '.*\.(yml|yaml)$$' -print0 | xargs --null yamllint --strict
@@ -251,7 +262,7 @@ release-versionbump: package.json bower.json CHANGELOG.rst
 	sh -c 'git commit --all --message "Release version $$(jq --raw-output '.version' '$<')"'
 
 .PHONY: release-prepare
-release-prepare: package.json taginfo.json update-dependency-versions doctoc check-diff-uglifyjs-log check qa-source-code qa-https-everywhere
+release-prepare: package.json taginfo.json check-holidays update-dependency-versions doctoc check-diff-uglifyjs-log check qa-source-code qa-https-everywhere
 
 .PHONY: release-local
 release-local: package.json release-versionbump check-package.json
