@@ -79,7 +79,7 @@ Queensland:
     'Queens Birthday': [firstOctoberMonday, 0]
     'Christmas Day': [12, 25]
     'Boxing Day': [12, 26]
-  
+
 'South Australia':
   _state_code: sa
   _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=-34.9285&lon=138.6007&zoom=16&addressdetails=1&accept-language=en'
