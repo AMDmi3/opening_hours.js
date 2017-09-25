@@ -29,7 +29,8 @@ if sys.version_info[0] == 2:
     from io import open
 
 from ruamel import yaml
-import requests
+#  import requests
+import urllib.request
 
 from hc.yaml import dump_holidays_as_yaml
 
@@ -64,7 +65,10 @@ def handle_nominatim_url(nominatim_url, country_holiday_def_file, state=None):
 
     if not os.path.exists(nominatim_file):
         LOG.info('Writing file {}'.format(nominatim_file))
-        nominatim_data = json.loads(requests.get(nominatim_url).text)
+        LOG.info('Loading {}'.format(nominatim_url))
+        # Caused http.client.BadStatusLine exception with wired encoding in them multiple times.
+        #  nominatim_data = json.loads(requests.get(nominatim_url).text)
+        nominatim_data = json.loads(urllib.request.urlopen(nominatim_url).read().decode('utf-8'))
         nominatim_data = OrderedDict(sorted(
             nominatim_data.items(),
             key=lambda k: NOMINATIM_SORTING.get(k[0], k[0])))
