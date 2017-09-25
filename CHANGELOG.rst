@@ -56,6 +56,7 @@ Contributors
 * [skifans_] - Alex
 * [shouze_] - Sébastien HOUZÉ
 * [Gazer75_]
+* [yourock17_]
 
 Thanks very much to all contributors!
 
@@ -95,6 +96,7 @@ Thanks very much to all contributors!
 .. _skifans: https://github.com/skifans
 .. _shouze: https://github.com/shouze
 .. _Gazer75: https://github.com/Gazer75
+.. _yourock17: https://github.com/yourock17
 
 Supporters
 ~~~~~~~~~~
@@ -121,6 +123,7 @@ Added
 
   * England and Wales [skifans_, simon04_]
   * Norway [Gazer75_]
+  * Australia [yourock17_, ypid_]
 
 * Added Easter Sunday to Slovak holidays. [chiak597_]
 
