@@ -25,8 +25,10 @@ PH:
     'Easter Sunday': [easter, 0]
     'Easter Monday': [easter, 1]
     'ANZAC Day': [4, 25]
+     # Reconciliation day is recently new https://www.cmtedd.act.gov.au/open_government/inform/act_government_media_releases/rachel-stephen-smith-mla-media-releases/2017/reconciliation-day-public-holiday-an-australian-first
+    'Reconciliation Day': [lastMayMonday, 0]
     'Queens Birthday': [firstJuneMonday, 7]
-    'Family and Community Day': [lastSeptemberMonday, -7]
+    'Family and Community Day': [lastSeptemberMonday, 0]
     'Labour Day': [firstOctoberMonday, 0]
     'Christmas Day': [12, 25]
     'Boxing Day': [12, 26]
@@ -74,7 +76,7 @@ Queensland:
     'Easter Monday': [easter, 1]
     'ANZAC Day': [4, 25]
     'Labour Day': [firstMayMonday, 0]
-    'Queens Birthday': [firstOctoberMonday, 7]
+    'Queens Birthday': [firstOctoberMonday, 0]
     'Christmas Day': [12, 25]
     'Boxing Day': [12, 26]
   
@@ -90,7 +92,7 @@ Queensland:
     'Easter Monday': [easter, 1]
     'ANZAC Day': [4, 25]
     'Queens Birthday': [firstJuneMonday, 7]
-    'Labour Day': [firstOctoberMonday, 7]
+    'Labour Day': [firstOctoberMonday, 0]
     'Christmas Day': [12, 25]
     'Boxing Day': [12, 26]
 
@@ -122,7 +124,7 @@ Victoria:
     'ANZAC Day': [4, 25]
     'Queens Birthday': [firstJuneMonday, 7]
     'AFL Grand Final': [lastSeptemberFriday, 0]
-    'Melbourne Cup': [firstSeptemberTuesday, 0]
+    'Melbourne Cup': [firstNovemberTuesday, 0]
     'Christmas Day': [12, 25]
     'Boxing Day': [12, 26]
 
