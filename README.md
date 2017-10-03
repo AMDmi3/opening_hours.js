@@ -485,25 +485,26 @@ Almost everything from opening_hours definition is supported, as well as some ex
 *   Supports public holidays (`open; PH off`, `PH 12:00-13:00`).
 
     * Countries with PH definition:
-        * [Germany][PH-de] ([footnotes][PH-de] are ignored)
+        * [Australia][PH-au]
         * [Austria][PH-at] ([footnotes][PH-at] are ignored)
         * [Belgium][PH-be] (See [issue #115](https://github.com/opening-hours/opening_hours.js/issues/115) for details)
-        * [France][PH-fr]
+        * [Brazil][PH-br]
         * [Canada][PH-ca]
-        * [Ukraine][PH-ua]
-        * [Slovenian][PH-si]
-        * [Russian][PH-ru]
-        * [Italy][PH-it] (Without the Saint Patron day, see [comment](https://github.com/opening-hours/opening_hours.js/pull/74#issuecomment-76194891))
-        * [United states][PH-us] (Some special cases are [currently not handled](https://github.com/opening-hours/opening_hours.js/issues/69#issuecomment-74103181))
-        * [Denmark][PH-dk]
         * [Czech Republic][PH-cz]
-        * [Romania][PH-ro]
+        * [Denmark][PH-dk]
+        * [England and Wales][PH-gb]
+        * [France][PH-fr]
+        * [Germany][PH-de] ([footnotes][PH-de] are ignored)
+        * [Hungary][PH-hu]
+        * [Italy][PH-it] (Without the Saint Patron day, see [comment](https://github.com/opening-hours/opening_hours.js/pull/74#issuecomment-76194891))
         * [Netherlands][PH-ne]
         * [Poland][PH-nl]
+        * [Romania][PH-ro]
+        * [Russian][PH-ru]
+        * [Slovenian][PH-si]
         * [Sweden][PH-se]
-        * [Brazil][PH-br]
-        * [Hungary][PH-hu]
-        * [England and Wales][PH-gb]
+        * [Ukraine][PH-ua]
+        * [United states][PH-us] (Some special cases are [currently not handled](https://github.com/opening-hours/opening_hours.js/issues/69#issuecomment-74103181))
 
     * **EXT:** Supports limited calculations based on public holidays (e.g. `Sa,PH -1 day open`). The only two possibilities are currently +1 and -1. All other cases are not handled. This seems to be enough because the only thing which is really used is -1.
 
@@ -846,5 +847,6 @@ Edit: This does also work on npmjs in this short version … -->
 [PH-br]: https://pt.wikipedia.org/wiki/Feriados_no_Brasil
 [PH-hu]: https://en.wikipedia.org/wiki/Public_holidays_in_Hungary
 [PH-gb]: https://www.gov.uk/bank-holidays#england-and-wales
+[PH-au]: https://en.wikipedia.org/wiki/Public_holidays_in_Australia
 
 <!-- }}} -->
