@@ -409,7 +409,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
 
 **WARN** indicates that the syntax element is evaluated correctly, but there is a better way to express this. A warning will be shown.
 
-*   See the [formal specification][oh:specification] as of version `0.5.0`.
+*   See the [formal specification][oh:specification] as of version `0.6.0`.
 
 *   Opening hours consist of multiple rules separated by semicolon (`Mo 10:00-20:00; Tu 12:00-18:00`) or by other separators as follows.
 
