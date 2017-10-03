@@ -3912,8 +3912,9 @@ test.addTest('Based on real world example: Is processed right.', [
 // }}}
 
 // https://github.com/opening-hours/opening_hours.js/issues/43 {{{
+// https://www.openstreetmap.org/way/242311985
 test.addTest('Real world example: Was not processed right.', [
-        'Mo-Fr 07:00-19:30; Sa-Su 08:00-19:30; 19:30-21:00 open "No new laundry loads in"; Nov Th[4] off; Dec 25 off',
+        'Mo-Fr 07:00-19:30; Sa-Su 08:00-19:30 open, 19:30-21:00 open "No new laundry loads in"; Nov Th[4] off; Dec 25 off',
     ], '2014-12-23 0:00', '2014-12-27 0:00', [
         [ '2014-12-23 07:00', '2014-12-23 19:30' ], // Tu
         [ '2014-12-23 19:30', '2014-12-23 21:00', false, 'No new laundry loads in' ],
