@@ -292,8 +292,12 @@ export default function(value, nominatim_object, optional_conf_parm) {
         var continue_at = 0;
         var next_rule_is_additional = false;
         do {
-            if (continue_at === tokens[nrule][0].length) break;
-            // Additional rule does contain nothing useful e.g. second rule of '10:00-12:00,' (empty) which needs to be handled.
+            if (continue_at === tokens[nrule][0].length) {
+                /* Additional rule does contain nothing useful e.g. second rule
+                 * of '10:00-12:00,' (empty) which needs to be handled.
+                  */
+                break;
+            }
 
             var rule = {
                 // Time selectors
@@ -359,7 +363,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 }
             });
 
-            // console.log('weekday: ' + JSON.stringify(rule.weekday, null, '\t'));
+            // console.log('Rule: ' + JSON.stringify(rule, null, '    '));
             rules.push(rule);
 
             /* This handles selectors with time ranges wrapping over midnight (e.g. 10:00-02:00).
