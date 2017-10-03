@@ -84,12 +84,22 @@ osm-tag-data-rm: osm-tag-data-taginfo-rm osm-tag-data-overpass-rm
 
 ## dependencies {{{
 .PHONY: dependencies-get
-# npm-install-peers@0.1.0 does not work with NodeJs 0.10
-dependencies-get: package.json
+dependencies-get: package.json dependencies-patch-legacy
 	git submodule update --init --recursive
-	npm-install-peers
 	npm install
+	if [[ "$${TRAVIS_NODE_VERSION:-probably_newer}" =~ ^0.12 ]]; then \
+		jq -r '.peerDependencies | to_entries[] | .key + "@" + .value' package.json | xargs npm install --no-save; \
+	else \
+		npm-install-peers; \
+	fi
 	pip install --user yamllint
+
+.PHONY: dependencies-patch-legacy
+dependencies-patch-legacy: package.json
+	if [[ "$${TRAVIS_NODE_VERSION:-probably_newer}" =~ ^0.12 ]]; then \
+		echo "Support on best effort base!"; \
+		jq '.devDependencies.rollup = "^0.42.0" | .devDependencies["sprintf-js"] = "1.0.3"' package.json > package-patched.json && mv package-patched.json package.json; \
+	fi
 
 # colors above v0.6.1 broke the 'bold' option. For what we need this package, v0.6.1 is more than sufficient.
 .PHONY: update-dependency-versions

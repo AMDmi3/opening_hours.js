@@ -10,7 +10,10 @@ node_js:
   - '5'
   - '6'
   - '7'
-  - 'node'
+
+  # Seems NodeJS v8 support is currently broken for some reason:
+  # https://travis-ci.org/opening-hours/opening_hours.js/jobs/282669934#L665-L677
+  # - 'node'
 
 install:
   - 'make dependencies-user-wide-get'
