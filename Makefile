@@ -87,7 +87,7 @@ osm-tag-data-rm: osm-tag-data-taginfo-rm osm-tag-data-overpass-rm
 # npm-install-peers@0.1.0 does not work with NodeJs 0.10
 dependencies-get: package.json
 	git submodule update --init --recursive
-	jq -r '.peerDependencies | to_entries[] | .key + "@" + .value' package.json | xargs npm install
+	npm-install-peers
 	npm install
 	pip install --user yamllint
 
@@ -102,7 +102,7 @@ list-dependency-versions: package.json
 
 .PHONY: dependencies-user-wide-get
 dependencies-user-wide-get:
-	npm install --global doctoc npm-check-updates
+	npm install --global doctoc npm-check-updates npm-install-peers
 ## }}}
 
 taginfo.json: related_tags.txt gen_taginfo_json.js taginfo_template.json
