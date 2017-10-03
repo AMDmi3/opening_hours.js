@@ -11,7 +11,7 @@ import SunCalc from 'suncalc';
 import i18n from './locales/core';
 
 export default function(value, nominatim_object, optional_conf_parm) {
-    // short constants {{{
+    // Short constants {{{
     var word_value_replacement = { // If the correct values can not be calculated.
         dawn    : 60 * 5 + 30,
         sunrise : 60 * 6,
@@ -101,7 +101,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
     // var issues_url     = repository_url + '/issues?state=open';
     /* }}} */
 
-    /* translation function {{{ */
+    /* Translation function {{{ */
     /* Roughly compatibly to i18next so we can replace everything by i18next include later
      * sprintf support
      */
@@ -295,7 +295,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
             if (continue_at === tokens[nrule][0].length) break;
             // Additional rule does contain nothing useful e.g. second rule of '10:00-12:00,' (empty) which needs to be handled.
 
-            var selectors = {
+            var rule = {
                 // Time selectors
                 time: [],
 
@@ -321,8 +321,8 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 build_from_token_rule: undefined,
             };
 
-            selectors.build_from_token_rule = [ nrule, continue_at, new_tokens.length ];
-            continue_at = parseGroup(tokens[nrule][0], continue_at, selectors, nrule);
+            rule.build_from_token_rule = [ nrule, continue_at, new_tokens.length ];
+            continue_at = parseGroup(tokens[nrule][0], continue_at, rule, nrule);
             if (typeof continue_at === 'object') {
                 continue_at = continue_at[0];
             } else {
@@ -334,7 +334,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
             new_tokens.push(
                 [
                     tokens[nrule][0].slice(
-                        selectors.build_from_token_rule[1],
+                        rule.build_from_token_rule[1],
                         continue_at === 0
                             ? tokens[nrule][0].length
                             : continue_at
@@ -351,39 +351,38 @@ export default function(value, nominatim_object, optional_conf_parm) {
 
             next_rule_is_additional = continue_at === 0 ? false : true;
 
-            /* Optimal order of selectors for checking. */
-            var selector_elements = ['year', 'holiday', 'month', 'monthday', 'week', 'weekday'];
-            selector_elements.forEach(function (element) {
-                if (selectors[element].length > 0) {
-                    selectors.date.push(selectors[element]);
-                    selectors[element] = [];
+            var optimal_selector_order = ['year', 'holiday', 'month', 'monthday', 'week', 'weekday'];
+            optimal_selector_order.forEach(function (element) {
+                if (rule[element].length > 0) {
+                    rule.date.push(rule[element]);
+                    rule[element] = [];
                 }
             });
 
-            // console.log('weekday: ' + JSON.stringify(selectors.weekday, null, '\t'));
-            rules.push(selectors);
+            // console.log('weekday: ' + JSON.stringify(rule.weekday, null, '\t'));
+            rules.push(rule);
 
             /* This handles selectors with time ranges wrapping over midnight (e.g. 10:00-02:00).
              * It generates wrappers for all selectors and creates a new rule.
              */
-            if (selectors.wraptime.length > 0) {
+            if (rule.wraptime.length > 0) {
                 var wrapselectors = {
-                    time: selectors.wraptime,
+                    time: rule.wraptime,
                     date: [],
 
-                    meaning: selectors.meaning,
-                    unknown: selectors.unknown,
-                    comment: selectors.comment,
+                    meaning: rule.meaning,
+                    unknown: rule.unknown,
+                    comment: rule.comment,
 
                     wrapped: true,
-                    build_from_token_rule: selectors.build_from_token_rule,
+                    build_from_token_rule: rule.build_from_token_rule,
                 };
 
-                for (var dselg = 0; dselg < selectors.date.length; dselg++) {
+                for (var dselg = 0; dselg < rule.date.length; dselg++) {
                     wrapselectors.date.push([]);
-                    for (var dsel = 0; dsel < selectors.date[dselg].length; dsel++) {
+                    for (var dsel = 0; dsel < rule.date[dselg].length; dsel++) {
                         wrapselectors.date[wrapselectors.date.length-1].push(
-                                generateDateShifter(selectors.date[dselg][dsel], -msec_in_day)
+                                generateDateShifter(rule.date[dselg][dsel], -msec_in_day)
                             );
                     }
                 }
@@ -1362,11 +1361,11 @@ export default function(value, nominatim_object, optional_conf_parm) {
      *
      * :param tokens: List of token objects.
      * :param at: Position where to start.
-     * :param selectors: Reference to selector object.
+     * :param rule: Reference to rule object.
      * :param nrule: Rule number starting with 0.
      * :returns: See selector code.
      */
-    function parseGroup(tokens, at, selectors, nrule) {
+    function parseGroup(tokens, at, rule, nrule) {
         var rule_modifier_specified = false;
 
         // console.log(tokens); // useful for debugging of tokenize
@@ -1374,17 +1373,17 @@ export default function(value, nominatim_object, optional_conf_parm) {
         while (at < tokens.length) {
             // console.log('Parsing at position', at +':', tokens[at]);
             if (matchTokens(tokens, at, 'weekday')) {
-                at = parseWeekdayRange(tokens, at, selectors, undefined, nrule);
+                at = parseWeekdayRange(tokens, at, rule, undefined, nrule);
             } else if (matchTokens(tokens, at, '24/7')) {
-                selectors.time.push(function() { return [true]; });
+                rule.time.push(function() { return [true]; });
                 // Not needed. If there is no selector it automatically matches everything.
                 // WRONG: This only works if there is no other selector in this selector group ...
                 at++;
             } else if (matchTokens(tokens, at, 'holiday')) {
                 if (matchTokens(tokens, at+1, ',')) {
-                    at = parseHoliday(tokens, at, selectors, true);
+                    at = parseHoliday(tokens, at, rule, true);
                 } else {
-                    at = parseHoliday(tokens, at, selectors, false);
+                    at = parseHoliday(tokens, at, rule, false);
                 }
                 week_stable = false;
             } else if (matchTokens(tokens, at, 'month', 'number')
@@ -1424,18 +1423,18 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     || matchTokens(tokens, at, '(', 'timevar')
                     || matchTokens(tokens, at, 'number', '-')) {
 
-                at = parseTimeRange(tokens, at, selectors, false, nrule);
+                at = parseTimeRange(tokens, at, rule, false, nrule);
                 last_selector = [ at, 'time' ];
 
             } else if (matchTokens(tokens, at, 'state')) {
 
                 if (tokens[at][0] === 'open') {
-                    selectors.meaning = true;
+                    rule.meaning = true;
                 } else if (tokens[at][0] === 'closed' || tokens[at][0] === 'off') {
-                    selectors.meaning = false;
+                    rule.meaning = false;
                 } else {
-                    selectors.meaning = false;
-                    selectors.unknown = true;
+                    rule.meaning = false;
+                    rule.unknown = true;
                 }
 
                 rule_modifier_specified = true;
@@ -1444,12 +1443,12 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     at = [ at + 1 ];
 
             } else if (matchTokens(tokens, at, 'comment')) {
-                selectors.comment = tokens[at][0];
+                rule.comment = tokens[at][0];
                 if (!rule_modifier_specified) {
                     // Then it is unknown. Either with unknown explicitly
                     // specified or just a comment.
-                    selectors.meaning = false;
-                    selectors.unknown = true;
+                    rule.meaning = false;
+                    rule.unknown = true;
                 }
 
                 rule_modifier_specified = true;
@@ -1687,14 +1686,14 @@ export default function(value, nominatim_object, optional_conf_parm) {
      *
      * :param tokens: List of token objects.
      * :param at: Position where to start.
-     * :param selectors: Reference to selector object.
+     * :param rule: Reference to rule object.
      * :param extended_open_end: Used for combined time range with open end.
      * :param nrule: Rule number starting with 0.
      * extended_open_end: <time> - <time> +
      *        parameter at is here A (if extended_open_end is true)
      * :returns: Position at which the token does not belong to the selector anymore.
      */
-    function parseTimeRange(tokens, at, selectors, extended_open_end, nrule) {
+    function parseTimeRange(tokens, at, rule, extended_open_end, nrule) {
         if (!extended_open_end)
             tokens[at][3] = 'time';
 
@@ -1811,7 +1810,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
 
                     is_point_in_time = true;
                 } else if (matchTokens(tokens, at, '+')) {
-                    parseTimeRange(tokens, at_end_time, selectors, minutes_to < minutes_from ? 1 : true, nrule);
+                    parseTimeRange(tokens, at_end_time, rule, minutes_to < minutes_from ? 1 : true, nrule);
                     at++;
                 } else if (oh_mode === 1 && !is_point_in_time) {
                     throw formatWarnErrorMessage(nrule, at_end_time,
@@ -1841,10 +1840,10 @@ export default function(value, nominatim_object, optional_conf_parm) {
 
                 // This shortcut makes always-open range check faster.
                 if (minutes_from === 0 && minutes_to === minutes_in_day) {
-                    selectors.time.push(function() { return [true]; });
+                    rule.time.push(function() { return [true]; });
                 } else {
                     if (minutes_to > minutes_in_day) { // has_normal_time[1] must be true
-                        selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period, extended_open_end) { return function(date) {
+                        rule.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period, extended_open_end) { return function(date) {
                             var ourminutes = date.getHours() * 60 + date.getMinutes();
 
                             if (timevar_string[0]) {
@@ -1888,7 +1887,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                                 rule_infos[nrule] = {};
                             }
                             rule_infos[nrule]['time_wraps_over_midnight'] = true;
-                            selectors.wraptime.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, point_in_time_period, extended_open_end) { return function(date) {
+                            rule.wraptime.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, point_in_time_period, extended_open_end) { return function(date) {
                                 var ourminutes = date.getHours() * 60 + date.getMinutes();
 
                                 if (timevar_string[0]) {
@@ -1923,7 +1922,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                             }}(minutes_from, minutes_to - minutes_in_day, timevar_string, timevar_add, has_open_end, point_in_time_period, extended_open_end));
                         }
                     } else {
-                        selectors.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period) { return function(date) {
+                        rule.time.push(function(minutes_from, minutes_to, timevar_string, timevar_add, has_open_end, is_point_in_time, point_in_time_period) { return function(date) {
                             var ourminutes = date.getHours() * 60 + date.getMinutes();
 
                             if (timevar_string[0]) {
@@ -1980,7 +1979,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     throw formatWarnErrorMessage(nrule, at + 2, t('two midnights'));
 
                 if (minutes_to > minutes_in_day) {
-                    selectors.time.push(function(minutes_from, minutes_to) { return function(date) {
+                    rule.time.push(function(minutes_from, minutes_to) { return function(date) {
                         var ourminutes = date.getHours() * 60 + date.getMinutes();
 
                         if (ourminutes < minutes_from)
@@ -1994,7 +1993,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                             rule_infos[nrule] = {};
                         }
                         rule_infos[nrule]['time_wraps_over_midnight'] = true;
-                        selectors.wraptime.push(function(minutes_to) { return function(date) {
+                        rule.wraptime.push(function(minutes_to) { return function(date) {
                             var ourminutes = date.getHours() * 60 + date.getMinutes();
 
                             if (ourminutes < minutes_to) {
@@ -2005,7 +2004,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                         }}(minutes_to - minutes_in_day));
                     }
                 } else {
-                    selectors.time.push(function(minutes_from, minutes_to) { return function(date) {
+                    rule.time.push(function(minutes_from, minutes_to) { return function(date) {
                         var ourminutes = date.getHours() * 60 + date.getMinutes();
 
                         if (ourminutes < minutes_from)
@@ -2100,11 +2099,11 @@ export default function(value, nominatim_object, optional_conf_parm) {
      *
      * :param tokens: List of token objects.
      * :param at: Position where the weekday tokens could be.
-     * :param selectors: Reference to selector object.
+     * :param rule: Reference to rule object.
      * :param nrule: Rule number starting with 0.
      * :returns: Position at which the token does not belong to the selector anymore.
      */
-    function parseWeekdayRange(tokens, at, selectors, in_holiday_selector, nrule) {
+    function parseWeekdayRange(tokens, at, rule, in_holiday_selector, nrule) {
         if (!in_holiday_selector) {
             in_holiday_selector = true;
             tokens[at][3] = 'weekday';
@@ -2154,7 +2153,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 // Create selector for each list element.
                 for (var nnumber = 0; nnumber < numbers.length; nnumber++) {
 
-                    selectors.weekday.push(function(weekday, number, add_days) { return function(date) {
+                    rule.weekday.push(function(weekday, number, add_days) { return function(date) {
                         var date_num = getValueForDate(date, false); // Year not needed to distinguish.
                         var start_of_this_month = new Date(date.getFullYear(), date.getMonth(), 1);
                         var start_of_next_month = new Date(date.getFullYear(), date.getMonth() + 1, 1);
@@ -2262,11 +2261,11 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 }
 
                 if (weekday_to < weekday_from) { // handle full range
-                    selectors.weekday.push(function() { return [true]; });
+                    rule.weekday.push(function() { return [true]; });
                     // Not needed. If there is no selector it automatically matches everything.
                     // WRONG: This only works if there is no other selector in this selector group ...
                 } else {
-                    selectors.weekday.push(function(weekday_from, weekday_to, inside) { return function(date) {
+                    rule.weekday.push(function(weekday_from, weekday_to, inside) { return function(date) {
                         var ourweekday = date.getDay();
 
                         if (ourweekday < weekday_from || ourweekday > weekday_to) {
@@ -2280,7 +2279,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 at += is_range ? 3 : 1;
             } else if (matchTokens(tokens, at, 'holiday')) {
                 week_stable = false;
-                return parseHoliday(tokens, at, selectors, true, in_holiday_selector);
+                return parseHoliday(tokens, at, rule, true, in_holiday_selector);
             } else if (matchTokens(tokens, at - 1, ',')) { // additional rule
                 throw formatWarnErrorMessage(
                     nrule,
@@ -2331,11 +2330,11 @@ export default function(value, nominatim_object, optional_conf_parm) {
      *
      * :param tokens: List of token objects.
      * :param at: Position where to start.
-     * :param selectors: Reference to selector object.
+     * :param rule: Reference to rule object.
      * :param push_to_weekday: Will push the selector into the weekday selector array which has the desired side effect of working in conjunction with the weekday selectors (either the holiday match or the weekday), which is the normal and expected behavior.
      * :returns: Position at which the token does not belong to the selector anymore.
      */
-    function parseHoliday(tokens, at, selectors, push_to_weekday, in_holiday_selector) {
+    function parseHoliday(tokens, at, rule, push_to_weekday, in_holiday_selector) {
         if (!in_holiday_selector) {
 
             if (push_to_weekday)
@@ -2405,9 +2404,9 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     }}(applying_holidays, add_days);
 
                     if (push_to_weekday)
-                        selectors.weekday.push(selector);
+                        rule.weekday.push(selector);
                     else
-                        selectors.holiday.push(selector);
+                        rule.holiday.push(selector);
 
                     at += 1 + add_days[1];
                 } else if (tokens[at][0] === 'SH') {
@@ -2483,13 +2482,13 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     }}(applying_holidays);
 
                     if (push_to_weekday)
-                        selectors.weekday.push(selector);
+                        rule.weekday.push(selector);
                     else
-                        selectors.holiday.push(selector);
+                        rule.holiday.push(selector);
                     at += 1; // FIXME: test
                 }
             } else if (matchTokens(tokens, at, 'weekday')) {
-                return parseWeekdayRange(tokens, at, selectors, true, nrule);
+                return parseWeekdayRange(tokens, at, rule, true, nrule);
             } else if (matchTokens(tokens, at - 1, ',')) { // additional rule
                 throw formatWarnErrorMessage(
                     nrule,
@@ -2832,7 +2831,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     }
                 /* }}} */
 
-                selectors.year.push(function(tokens, at, year_from, is_range, has_period, period) { return function(date) {
+                rule.year.push(function(tokens, at, year_from, is_range, has_period, period) { return function(date) {
                     var ouryear = date.getFullYear();
                     var year_to = is_range ? parseInt(tokens[at+2][0]) : year_from;
 
@@ -2921,10 +2920,10 @@ export default function(value, nominatim_object, optional_conf_parm) {
 
                 if (!period && week_from === 1 && week_to === 53) {
                     /* Shortcut and work around bug. */
-                    selectors.week.push(function() { return [true]; });
+                    rule.week.push(function() { return [true]; });
                 } else {
 
-                    selectors.week.push(function(week_from, week_to, period) { return function(date) {
+                    rule.week.push(function(week_from, week_to, period) { return function(date) {
                         var ourweek = getWeekNumber(date);
 
                         // console.log("week_from: %s, week_to: %s", week_from, week_to);
@@ -3078,9 +3077,9 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 }}(month_from, month_to, inside);
 
                 if (push_to_monthday === true)
-                    selectors.monthday.push(selector);
+                    rule.monthday.push(selector);
                 else
-                    selectors.month.push(selector);
+                    rule.month.push(selector);
 
                 at += is_range ? 3 : 1;
             } else {
@@ -3231,9 +3230,9 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 }}(tokens, at, nrule, has_year, has_event, has_calc, at_sec_event_or_month, has_constrained_weekday);
 
                 if (push_to_month === true)
-                    selectors.month.push(selector);
+                    rule.month.push(selector);
                 else
-                    selectors.monthday.push(selector);
+                    rule.monthday.push(selector);
 
                 at = (has_constrained_weekday[1]
                         ? has_constrained_weekday[1][1]
@@ -3316,9 +3315,9 @@ export default function(value, nominatim_object, optional_conf_parm) {
                     }}(year, has_year, month, range_from, range_to, period);
 
                     if (push_to_month === true)
-                        selectors.month.push(selector);
+                        rule.month.push(selector);
                     else
-                        selectors.monthday.push(selector);
+                        rule.monthday.push(selector);
 
                     at += 2 + has_year + (is_range ? 2 : 0) + (period ? 2 : 0);
 
@@ -3357,9 +3356,9 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 }}(tokens, at, nrule, has_year[0], has_calc[0]);
 
                 if (push_to_month === true)
-                    selectors.month.push(selector);
+                    rule.month.push(selector);
                 else
-                    selectors.monthday.push(selector);
+                    rule.monthday.push(selector);
 
                 at += has_year[0] + has_event[0] + (typeof has_calc[0][1] === 'number' && has_calc[0][1] ? 3 : 0);
                 /* }}} */
@@ -3854,7 +3853,6 @@ export default function(value, nominatim_object, optional_conf_parm) {
 
     /* getOpenDuration: Get total number of milliseconds a facility is open,unknown within a given date range {{{ */
     this.getOpenDuration = function(from, to) {
-    // console.log('-----------');
 
         var open    = 0;
         var unknown = 0;
@@ -3976,10 +3974,10 @@ export default function(value, nominatim_object, optional_conf_parm) {
 
                     // console.log('\n' + 'previous check time:', prevstate[1]
                     //     + ', current check time:',
-                    //     // (state[1].getHours() < 10 ? '0' : '') + state[1].getHours() +
-                    //     // ':'+(state[1].getMinutes() < 10 ? '0' : '')+ state[1].getMinutes(), state[1].getDate(),
                     //     state[1],
-                    //     (state[0] ? 'open' : (state[2] ? 'unknown' : 'closed')) + ', comment:', state[3]);
+                    //     (state[0] ? 'open' : (state[2] ? 'unknown' : 'closed'))
+                    //     + ', comment:', state[3]
+                    //     + ', match_rule:', state[4]);
 
                     if (state[1].getTime() <= prevstate[1].getTime()) {
                         /* We're going backwards or staying at the same time.
