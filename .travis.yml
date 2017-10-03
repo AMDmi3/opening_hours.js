@@ -10,12 +10,10 @@ node_js:
   - '5'
   - '6'
   - '7'
-
-  # Seems NodeJS v8 support is currently broken for some reason:
-  # https://travis-ci.org/opening-hours/opening_hours.js/jobs/240152402#L6243-L6257
-  # - 'node'
+  - 'node'
 
 install:
+  - 'make dependencies-user-wide-get'
   - 'make dependencies-get'
   - 'sudo apt-get update -qq'
   - 'sudo apt-get install -qq oracle-java8-installer'
