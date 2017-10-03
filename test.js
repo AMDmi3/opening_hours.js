@@ -4808,7 +4808,7 @@ test.addShouldWarn('Value not ideal (probably wrong). Should throw a warning. wa
 // values which should fail during parsing {{{
 test.addShouldFail('Incorrect syntax which should throw an error', [
         // stupid tests {{{
-        'sdasdlasdj a3reaw', // Test for the test framwork. This test should pass :) (passes when the value can not be parsed)
+        'sdasdlasdj a3reaw', // Test for the test framework. This test should pass :) (passes when the value can not be parsed)
         '', // empty string
         ' ', // empty string
         "\n", // newline
