@@ -47,6 +47,7 @@ CHECK_LANG ?= 'en'
 ## }}}
 
 REPO_FILES ?= git ls-files -z | xargs --null -I '{}' find '{}' -type f -print0 | egrep -zZv '^(submodules|holidays/nominatim_cache).*$$'
+REPO_SOURCE_FILES ?= $(REPO_FILES) | egrep -zZv '(\.png)$$'
 
 .PHONY: default
 default: list
@@ -152,13 +153,13 @@ qa-phrases-to-avoid:
 
 .PHONY: qa-source-code
 qa-source-code:
-	$(REPO_FILES) | egrep --null-data '\.js$$' --null | xargs --null sed -i 's/\([^=!]\)==\([^=]\)/\1===\2/g;s/\([^=!]\)!=\([^=]\)/\1!==\2/g;'
+	$(REPO_FILES) | egrep -zZ '\.js$$' | xargs --null sed -i 's/\([^=!]\)==\([^=]\)/\1===\2/g;s/\([^=!]\)!=\([^=]\)/\1!==\2/g;'
 
 .PHONY: qa-https-everywhere
 qa-https-everywhere:
-	$(REPO_FILES) | xargs --null sed --regexp-extended --in-place 's#http(:\\?/\\?/)(momentjs\.com|overpass-turbo\.eu|www\.gnu\.org|stackoverflow\.com|(:?www\.)?openstreetmap\.(org|de)|nominatim\.openstreetmap\.org|taginfo\.openstreetmap\.org|wiki\.openstreetmap\.org|josm.openstreetmap.de|www.openstreetmap.org\\/copyright|github\.com|xkcd\.com|www\.heise\.de|www\.readthedocs\.org|askubuntu\.com|xpra\.org|docker\.com|linuxcontainers\.org|www\.ecma-international\.org|www\.w3\.org|example\.com|www\.example\.com)#https\1\2#g;'
-	$(REPO_FILES) | xargs --null sed -i 's#http://overpass-api\.de#https://overpass-api.de#g;'
-	$(REPO_FILES) | xargs --null sed --regexp-extended --in-place 's#http://(\w+\.wikipedia\.org)#https://\1#g;'
+	$(REPO_SOURCE_FILES) | xargs --null sed --regexp-extended --in-place 's#http(:\\?/\\?/)(momentjs\.com|overpass-turbo\.eu|www\.gnu\.org|stackoverflow\.com|(:?www\.)?openstreetmap\.(org|de)|nominatim\.openstreetmap\.org|taginfo\.openstreetmap\.org|wiki\.openstreetmap\.org|josm.openstreetmap.de|www.openstreetmap.org\\/copyright|github\.com|xkcd\.com|www\.heise\.de|www\.readthedocs\.org|askubuntu\.com|xpra\.org|docker\.com|linuxcontainers\.org|www\.ecma-international\.org|www\.w3\.org|example\.com|www\.example\.com)#https\1\2#g;'
+	$(REPO_SOURCE_FILES) | xargs --null sed -i 's#http://overpass-api\.de#https://overpass-api.de#g;'
+	$(REPO_SOURCE_FILES) | xargs --null sed --regexp-extended --in-place 's#http://(\w+\.wikipedia\.org)#https://\1#g;'
 	test -f index.html && git checkout index.html
 	# ack 'http://'
 ## }}}
