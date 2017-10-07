@@ -272,7 +272,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
 
     var rules = [];
     var rule_infos = {};
-    /* Not reliable because tokens != new_tokens */
+    /* Not reliable because tokens !== new_tokens */
     // for (var nrule = 0; nrule < tokens.length; nrule++) {
     //     rule_infos[nrule] = {};
     // }
@@ -599,7 +599,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
                 ok += regular_number;
                 if (!done_with_warnings) {
                     for (var i = 0; i <= tmp[0].length; i++) {
-                        if (value.charCodeAt(i) == 176) {
+                        if (value.charCodeAt(i) === 176) {
                             parsing_warnings.push([ -1, value.length - (1 + i),
                                     t('rant degree sign used for zero')]);
                         }
