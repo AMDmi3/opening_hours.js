@@ -52,9 +52,9 @@ fs.readFile(json_file, 'utf8', function (err, json) {
     rl.prompt();
 
     rl.on('line', function(line) {
-        if (line.match(/^\s*$/))
+        if (line.match(/^\s*$/)) {
             process.exit(0);
-        console.log('Say what? I might have heard `' + line + '`');
+        }
 
         var user_re_ok = false;
         try {
@@ -82,7 +82,7 @@ fs.readFile(json_file, 'utf8', function (err, json) {
                 }
 
                 console.log('Matched '.green + matched.length + ' different value' + (matched.length === 1 ? '' : 's')
-                    + (matched.length !== 1 ? ', total in use: ' + total_in_use : ''));
+                    + (matched.length !== 1 ? ', total in use ' + total_in_use : '') + '.');
                 if (matched.length < page_width) {
                     print_values(matched);
                 } else {
