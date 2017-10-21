@@ -669,6 +669,7 @@ YoHours currently only checks with this lib if the opening_hours value can be ev
 * PHP: https://github.com/kenguest/Services_Openstreetmap/blob/master/Services/OpenStreetMap/OpeningHours.php (reimplementation, Status: Basic language features implemented)
 * C: https://github.com/anthill/C_OpeningHours Implementation in C.
 * JavaScript: https://github.com/ubahnverleih/simple-opening-hours In the words of the author "It only supports the human readable parts and not this complete crazy overengineered specification." Only covers a very small subset of the spec and API, which is a design goal. There is no clear definition/spec what "simple" or "crazy" means (seems subjective and might change over time, ref: [open end syntax listed as TODO in the code](https://github.com/ubahnverleih/simple-opening-hours/blob/a81c9f2b260114be049e335b6a751977f9425919/src/simple-opening-hours.ts#L32)). Also refer to [issue 143](https://github.com/opening-hours/opening_hours.js/issues/143#issuecomment-259721731).
+* Ruby: https://github.com/Publidata/opening_hours_converter
 
 ## Related links
 
