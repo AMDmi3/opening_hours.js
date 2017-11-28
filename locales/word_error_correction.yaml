@@ -229,13 +229,13 @@
   sobota: Sa
 
   # Spanish
-  martes: Su
-  miércoles: Mo
-  jueves: Tu
-  viernes: We
-  sábado: Th
-  domingo: Fr
-  lunes: Sa
+  martes: Tu
+  miércoles: We
+  jueves: Th
+  viernes: Fr
+  sábado: Sa
+  domingo: Su
+  lunes: Mo
 
   # Indonesian
   selasa: Su
