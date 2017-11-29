@@ -187,6 +187,7 @@ Fixed
 * Fix ``check-diff-%.js`` Makefile target. :command:`git diff` might not have
   shown changes or failed to return with an error before. [ypid_]
 * Fix support for legacy browsers (IE) with using proper for...in loops. [shouze_]
+* Error tolerance: Fix mapping of Spanish weekdays. [maxerickson_]
 
 
 v3.5.0_ - 2017-02-17
