@@ -57,6 +57,7 @@ Contributors
 * [shouze_] - Sébastien HOUZÉ
 * [Gazer75_]
 * [yourock17_]
+* [urbalazs_] - Balázs Úr
 
 Thanks very much to all contributors!
 
@@ -97,6 +98,7 @@ Thanks very much to all contributors!
 .. _shouze: https://github.com/shouze
 .. _Gazer75: https://github.com/Gazer75
 .. _yourock17: https://github.com/yourock17
+.. _urbalazs: https://github.com/urbalazs
 
 Supporters
 ~~~~~~~~~~
@@ -126,6 +128,7 @@ Added
   * Australia [yourock17_, ypid_]
 
 * Added Easter Sunday to Slovak holidays. [chiak597_]
+* Localizations added: Hungarian [urbalazs_]
 
 * School holiday definitions added: Germany 2017 until 2024. [ypid_]
 * Translate error tolerance warnings into German. [ypid_]
