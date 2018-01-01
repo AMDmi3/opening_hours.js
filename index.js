@@ -2577,22 +2577,32 @@ export default function(value, nominatim_object, optional_conf_parm) {
                      * use it and ignore lesser specific ones (for the
                      * country)
                      */
-                    var holidays_by_name = {};
-                    var country_holidays = holiday_definitions[location_cc][type_of_holidays];
+                    var country_holidays = holiday_definitions[location_cc][type_of_holidays] || [];
                     var state_holidays = holiday_definitions[location_cc][location_state][type_of_holidays];
                     if (type_of_holidays === 'PH') {
                         return state_holidays;
+                    } else if (!country_holidays.length) {
+                        return state_holidays;
                     } else {
-                        (country_holidays || []).forEach(function(holiday) {
-                            holidays_by_name[holiday.name] = holiday;
+                        // Merge country and state holidays chronologically
+                        var country_holiday_names = country_holidays.map(function(country_holiday) {
+                            return country_holiday.name;
                         });
-                        state_holidays.forEach(function(holiday) {
-                            holidays_by_name[holiday.name] = holiday;
+                        var merged_holidays = [];
+                        merged_holidays.push.apply(merged_holidays, country_holidays);
+                        merged_holidays.push.apply(merged_holidays, state_holidays.filter(function is_not_a_country_holiday(state_holiday) {
+                            return country_holiday_names.indexOf(state_holiday.name) === -1;
+                        }));
+                        merged_holidays.sort(function(h1, h2) {
+                            var h1_year = Object.keys(h1).find(function(k) {return k !== 'name';});
+                            var h2_year = Object.keys(h2).find(function(k) {return k !== 'name';});
+                            var h1_date = h1[h1_year];
+                            var h2_date = h2[h2_year];
+                            // compare both months, or to break a tie both days
+                            return (h1_date[0] - h2_date[0]) || (h1_date[1] - h2_date[1]);
                         });
+                        return merged_holidays;
                     }
-                    return Object.keys(holidays_by_name).map(function(k) {
-                        return holidays_by_name[k];
-                    });
 
                 } else if (holiday_definitions[location_cc][type_of_holidays]) {
                     /* Holidays are defined country wide. Some
