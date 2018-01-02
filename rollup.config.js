@@ -8,9 +8,8 @@ var dependencies = process.env.DEPS === 'YES';
 
 export default {
     banner: banner,
-    entry: './index',
-    format: 'umd',
-    moduleName: 'opening_hours',
+    input: './index',
+    name: 'opening_hours',
     plugins: dependencies ? [
         nodeResolve(),
         common(),
@@ -23,5 +22,13 @@ export default {
         'moment',
         'suncalc'
     ],
-    dest: dependencies ? 'opening_hours+deps.js' : 'opening_hours.js'
+    globals: dependencies ? {} : {
+        'i18next-client': 'i18n',
+        'moment': 'moment',
+        'suncalc': 'SunCalc'
+    },
+    output: {
+        format: 'umd',
+        file: dependencies ? 'opening_hours+deps.js' : 'opening_hours.js'
+    }
 };
