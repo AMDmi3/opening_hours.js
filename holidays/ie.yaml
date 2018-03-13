@@ -12,5 +12,5 @@
     'August Bank Holiday': [firstAugustMonday, 0]
     'October Bank Holiday': [lastOctoberMonday, 0]
     'Christmas': [12, 25]
-    'St Stephen\'s Day': [12, 26]
+    'St Stephens Day': [12, 26]
     'Bank Holiday': [12, 27]
