@@ -2737,10 +2737,12 @@ export default function(value, nominatim_object, optional_conf_parm) {
             'lastAugustMonday'      : new Date(year,  7, lastWeekdayOfMonth(7, 1)),
             'lastSeptemberMonday'   : new Date(year,  8, lastWeekdayOfMonth(8, 1)),
             'lastSeptemberFriday'   : new Date(year,  8, lastWeekdayOfMonth(8, 5)),
+            'lastOctoberMonday'     : new Date(year,  9, lastWeekdayOfMonth(9, 1)),
             'lastOctoberFriday'     : new Date(year,  9, lastWeekdayOfMonth(9, 5)),
             'nextSaturday20Jun'     : getDateOfWeekdayInDateRange(6, new Date(year, 5, 20)),
             'nextSaturday31Oct'     : getDateOfWeekdayInDateRange(6, new Date(year, 9, 31)),
             'nextWednesday16Nov'    : getDateOfWeekdayInDateRange(3, new Date(year, 10, 16)),
+            'nextMonday17March'     : getDateOfWeekdayInDateRange(1, new Date(year, 2, 17)),
         };
     }
     /* }}} */
