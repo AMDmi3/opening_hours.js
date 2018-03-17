@@ -58,6 +58,7 @@ Contributors
 * [Gazer75_]
 * [yourock17_]
 * [urbalazs_] - Balázs Úr
+* [Gerw88_]
 
 Thanks very much to all contributors!
 
@@ -99,6 +100,7 @@ Thanks very much to all contributors!
 .. _Gazer75: https://github.com/Gazer75
 .. _yourock17: https://github.com/yourock17
 .. _urbalazs: https://github.com/urbalazs
+.. _Gerw88: https://github.com/Gerw88
 
 Supporters
 ~~~~~~~~~~
@@ -126,6 +128,7 @@ Added
   * England and Wales [skifans_, simon04_]
   * Norway [Gazer75_]
   * Australia [yourock17_, ypid_]
+  * Ireland [Gerw88_, ypid_]
 
 * Added Easter Sunday to Slovak holidays. [chiak597_]
 * Localizations added: Hungarian [urbalazs_]
