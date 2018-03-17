@@ -156,6 +156,7 @@ Changed
 ~~~~~~~
 
 * Migrated to use `ES2015 modules`_ and rollup_ for module bundling. [simon04_]
+* Increased NodeJS version requirement to `4.0.0`. [ypid_]
 * Update to holiday definition format 2.2.0. Holidays are now maintained in
   YAML files, one for each country. [ypid_]
 * Rework the way Nominatim responses are handled (used for testing). [ypid_]
