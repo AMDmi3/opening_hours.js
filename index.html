@@ -52,7 +52,7 @@
                 <p>
                     <script type="text/javascript">
                         document.write('<span class="hd">' + i18n.t('words.date') + ' ' + i18n.t('words.and') + ' ' + i18n.t('words.time.time') + ':</span>');
-                        document.write('<input id="dd" size="3" name="dd" value="02" onblur="Evaluate()"/>.');
+                        document.write('<input type="number" step="1" min="0" max="31" id="dd" size="3" name="dd" value="02" onblur="Evaluate()"/>.');
                         document.write('<select id="mm" name="mm" onchange="Evaluate()">');
                         for (var i = 0; i < moment.monthsShort().length; i++) {
                             document.write('<option value="monthNumber' + i + '">' + moment.monthsShort(i) + '</option>');
@@ -60,9 +60,9 @@
                         document.write('</select>');
                     </script>
 
-                    <input id="yyyy" size="5" name="yyyy" value="2013" onblur="Evaluate()" />
+                    <input type="number" step="1" id="yyyy" size="5" name="yyyy" value="2013" onblur="Evaluate()" />
                     &#160;
-                    <input size="3" name="HH" value="22" onblur="Evaluate()" />:<input size="3" name="MM" value="21" onblur="Evaluate()" />
+                    <input type="number" step="1" min="0" max="24" size="3" name="HH" value="22" onblur="Evaluate()" />:<input type="number" step="1" min="0" max="59" size="3" name="MM" value="21" onblur="Evaluate()" />
                     &#160;
                     <input size="10" name="wday" readonly="readonly" />
                     <input size="3"  name="week" readonly="readonly" />
