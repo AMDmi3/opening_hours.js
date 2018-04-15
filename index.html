@@ -3,6 +3,7 @@
     <head><!-- {{{ -->
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
         <meta name="referrer" content="no-referrer">
+        <meta name="viewport" content="width=device-width">
         <title>opening_hours evaluation tool</title>
         <link rel="icon" type="image/png" href="img/favicon.png">
         <link rel="stylesheet" href="css/main.css"/>
@@ -104,7 +105,7 @@
 
                 <p>
                     <script type="text/javascript">
-                        document.write('<span class="hd">' + i18n.t('words.mode') + ': </span><select id="mode" name="mode" onchange="Evaluate()">');
+                        document.write('<span class="hd">' + i18n.t('words.mode') + ': </span><select id="mode" name="mode" onchange="Evaluate()" style="max-width:100%;">');
                         for (var i = 0; i <= 2; i++) {
                             document.write('<option value="' + i + '">' + i18n.t('texts.mode ' + i) + '</option>');
                         }
