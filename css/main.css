@@ -34,3 +34,15 @@ noscript { color: #AA4400 }
 .hd q { display:inline }
 #expression, #diff_value, .w100 { width:100% }
 .nostyle { border:none }
+
+input[type="number"] {
+    width:3em;
+}
+
+input[type="number"].input__year {
+    width:4em;
+}
+
+input[type="number"].input__coordinate {
+    width:6em;
+}

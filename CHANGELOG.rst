@@ -58,6 +58,7 @@ Contributors
 * [Gazer75_]
 * [yourock17_]
 * [urbalazs_] - Balázs Úr
+* [HolgerJeromin_] - Holger Jeromin
 
 Thanks very much to all contributors!
 
@@ -99,6 +100,7 @@ Thanks very much to all contributors!
 .. _Gazer75: https://github.com/Gazer75
 .. _yourock17: https://github.com/yourock17
 .. _urbalazs: https://github.com/urbalazs
+.. _HolgerJeromin: https://github.com/HolgerJeromin
 
 Supporters
 ~~~~~~~~~~
@@ -176,6 +178,7 @@ Changed
 * Make error tolerance warnings translatable. [ypid_]
 
 * Improved performance of common constructor calls by factor 6! [ypid_]
+* Improve number input in the evaluation tool. Useful for example on mobile devices. [HolgerJeromin_, ypid_]
 
 .. _ES2015 modules: http://exploringjs.com/es6/ch_modules.html
 .. _rollup: http://rollupjs.org/

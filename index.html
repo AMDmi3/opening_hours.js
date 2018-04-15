@@ -60,9 +60,9 @@
                         document.write('</select>');
                     </script>
 
-                    <input type="number" step="1" id="yyyy" size="5" name="yyyy" value="2013" onblur="Evaluate()" />
+                    <input type="number" step="1" class="input__year" id="yyyy" name="yyyy" value="2013" onblur="Evaluate()" />
                     &#160;
-                    <input type="number" step="1" min="0" max="23" size="3" name="HH" value="22" onblur="Evaluate()" />:<input type="number" step="1" min="0" max="59" size="3" name="MM" value="21" onblur="Evaluate()" />
+                    <input type="number" step="1" min="0" max="23" name="HH" value="22" onblur="Evaluate()" />:<input type="number" step="1" min="0" max="59" name="MM" value="21" onblur="Evaluate()" />
                     &#160;
                     <input size="10" name="wday" readonly="readonly" />
                     <input size="3"  name="week" readonly="readonly" />
@@ -94,8 +94,8 @@
                 <p>
                     <script type="text/javascript">
                         document.write('<span class="hd">' + i18n.t('words.position') + ':</span>');
-                        document.write(i18n.t('words.lat') + ': <input type="number" size="7" id="lat" value="' + default_lat + '" onblur="Evaluate()" /> ');
-                        document.write(i18n.t('words.lon') + ': <input type="number" size="7" id="lon" value="' + default_lon + '"  onblur="Evaluate()" /> ');
+                        document.write(i18n.t('words.lat') + ': <input type="number" class="input__coordinate" id="lat" value="' + default_lat + '" onblur="Evaluate()" /> ');
+                        document.write(i18n.t('words.lon') + ': <input type="number" class="input__coordinate" id="lon" value="' + default_lon + '" onblur="Evaluate()" /> ');
                         document.write(i18n.t('words.country') + ': <input size="3" id="cc" readonly="readonly" /> ');
                         document.write(i18n.t('words.state') + ': <input size="20" id="state" readonly="readonly" /><br />');
                         // document.write('<button type="button" onclick="setCurrentPosition()">' + i18n.t('texts.get my position') + '</button>');
