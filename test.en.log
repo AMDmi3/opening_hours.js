@@ -401,115 +401,115 @@ expected:
 "Variable times spanning midnight" for "Mo-Su 19:00-sunrise": [1m[32mPASSED[39m[22m
 "Variable days: public holidays" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "holiday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*holiday <--- (Please use notation "PH" for "holiday".)
-	*holiday <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*holiday <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "holidays": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*holidays <--- (Please use notation "PH" for "holidays".)
-	*holidays <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*holidays <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "public holidays": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*public holidays <--- (Please use notation "PH" for "public holidays".)
-	*public holidays <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*public holidays <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "public holiday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*public holiday <--- (Please use notation "PH" for "public holiday".)
-	*public holiday <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*public holiday <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Germany school holidays" for "SH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Germany school holidays. Rheinland-Pfalz" for "SH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "open; PH off": [1m[32mPASSED[39m[22m
 "Variable days: public holidays (with time range)" for "PH 12:00-13:00": [1m[32mPASSED[39m[22m
 "Variable days: public holidays (with time range)" for "PH 12:00-13:00 open "this comment should override the holiday name which is returned as comment if PH matches."": [1m[32mPASSED[39m[22m
 "PH: Only if PH is Wednesday" for "PH We,Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH We,Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH We,Fr <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "PH: Only if PH is Wednesday" for "PH: We,Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH:  <--- (Please don’t use ":" after holiday.)
-	*PH: We,Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH: We,Fr <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "PH: Only if PH is Wednesday" for " We,Fr: PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	* We,Fr: PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	* We,Fr: PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 	*PH <--- (The selector "holiday" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
 	*PH We,Fr <--- (The selector "weekday" was switched with the selector "holiday" for readablitity and compatibiltity reasons.)
 "SH" for "SH Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH" for "Schulferien Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Schulferien <--- (Please use notation "SH" for "schulferien".)
-	*Schulferien Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Schulferien Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH" for "Ferien Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Ferien <--- (Please use notation "SH" for "ferien".)
-	*Ferien Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Ferien Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH" for "schoolholiday Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*schoolholiday <--- (Please use notation "SH" for "schoolholiday".)
-	*schoolholiday Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*schoolholiday Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH" for "school holiday Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*school holiday <--- (Please use notation "SH" for "school holiday".)
-	*school holiday Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*school holiday Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH" for "school holidays Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*school holidays <--- (Please use notation "SH" for "school holidays".)
-	*school holidays Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*school holidays Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH" for "SH: Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH:  <--- (Please don’t use ":" after holiday.)
-	*SH: Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH: Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH" for "SH on work day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH on work day <--- (Assuming "Mo-Fr" for "on work day". Please avoid using "workday": https://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays)
-	*SH on work day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH on work day <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH" for "SH on work days": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH on work days <--- (Assuming "Mo-Fr" for "on work days". Please avoid using "workday": https://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays)
-	*SH on work days <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH on work days <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH" for "SH Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH Mo-Fr <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "PH +1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH +1 day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH +1 day <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "day after public holiday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*day after public holiday <--- (Please use notation "PH +1 day" for "day after public holiday".)
-	*day after public holiday <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*day after public holiday <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "one day after public holiday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*one day after public holiday <--- (Please use notation "PH +1 day" for "one day after public holiday".)
-	*one day after public holiday <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*one day after public holiday <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "PH -1 day Mo-We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH -1 day Mo-We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH -1 day Mo-We <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "Mo-We PH -1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-We PH -1 day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Mo-We PH -1 day <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 	*PH -1 day <--- (The selector "holiday" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
 	*PH -1 day Mo-We <--- (The selector "weekday" was switched with the selector "holiday" for readablitity and compatibiltity reasons.)
 "Variable days: public holidays" for "day before public holiday Mo-We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*day before public holiday <--- (Please use notation "PH -1 day" for "day before public holiday".)
-	*day before public holiday Mo-We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*day before public holiday Mo-We <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "one day before public holiday Mo-We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*one day before public holiday <--- (Please use notation "PH -1 day" for "one day before public holiday".)
-	*one day before public holiday Mo-We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*one day before public holiday Mo-We <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "SH PH -1 day Mo-We": [1m[31mFAILED[39m[22m, bad duration(s): 864000000,0, expected 259200000,0, bad intervals: 
 [ '2014-10-27 00:00', '2014-10-30 00:00', false, 'Herbstferien' ],
 [ '2014-12-22 00:00', '2014-12-24 00:00', false, 'Weihnachtsferien' ],
@@ -523,7 +523,7 @@ expected:
 [ '2015-01-05 00:00', '2015-01-06 00:00', false, 'Day before Heilige Drei Könige' ],
 With [1m[34mwarnings[39m[22m:
 	*SH PH -1 day  <--- (You have used 2 not connected holiday ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-	*SH PH -1 day Mo-We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH PH -1 day Mo-We <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "PH -1 day SH Mo-We": [1m[31mFAILED[39m[22m, bad duration(s): 864000000,0, expected 259200000,0, bad intervals: 
 [ '2014-10-27 00:00', '2014-10-30 00:00', false, 'Herbstferien' ],
 [ '2014-12-22 00:00', '2014-12-25 00:00', false, 'Weihnachtsferien' ],
@@ -535,51 +535,51 @@ expected:
 [ '2015-01-05 00:00', '2015-01-06 00:00', false, 'Day before Heilige Drei Könige' ],
 With [1m[34mwarnings[39m[22m:
 	*PH -1 day SH  <--- (You have used 2 not connected holiday ranges in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-	*PH -1 day SH Mo-We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH -1 day SH Mo-We <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "PH -1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH -1 day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH -1 day <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "PH-1day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH-1day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH-1day <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "day before public holiday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*day before public holiday <--- (Please use notation "PH -1 day" for "day before public holiday".)
-	*day before public holiday <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*day before public holiday <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: public holidays" for "one day before public holiday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*one day before public holiday <--- (Please use notation "PH -1 day" for "one day before public holiday".)
-	*one day before public holiday <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*one day before public holiday <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holiday" for "open; SH off": [1m[32mPASSED[39m[22m
 "SH: Only if SH is Wednesday" for "SH We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH We <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH: Only if SH is Wednesday" for "SHWe": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SHWe <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SHWe <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH: Only if SH is Wednesday" for "2014 SH We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2014  <--- (The year is in the past.)
-	*2014 SH We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2014 SH We <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH,PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH,PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH,PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "2014 SH,PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2014  <--- (The year is in the past.)
-	*2014 SH,PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2014 SH,PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "Jan-Feb SH,PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan-Feb SH,PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan-Feb SH,PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "Su,SH,PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Su,SH,PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Su,SH,PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH,Su,PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH,Su,PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH,Su,PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH,PH,Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH,PH,Su <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH,PH,Su <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "PH,Su,SH": [1m[31mFAILED[39m[22m, bad intervals: 
 [ '2014-01-01 00:00', '2014-01-05 00:00', false, 'Weihnachtsferien' ],
 [ '2014-01-05 00:00', '2014-01-06 00:00', false, undefined ],
@@ -600,301 +600,301 @@ expected:
 [ '2014-02-02 00:00', '2014-02-03 00:00', false, undefined ],
 [ '2014-02-09 00:00', '2014-02-10 00:00', false, undefined ],
 With [1m[34mwarnings[39m[22m:
-	*PH,Su,SH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH,Su,SH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH,Sonntag und an Feiertagen": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH,Sonntag <--- (Please use the English abbreviation "Su" for "sonntag".)
 	*SH,Sonntag und <--- (Please use notation "," for "und".)
 	*SH,Sonntag und an Feiertagen <--- (Please use the English written "PH" for "an feiertagen".)
-	*SH,Sonntag und an Feiertagen <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH,Sonntag und an Feiertagen <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH,Sonn und Feiertag": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH,Sonn und Feiertag <--- (Please use notation "PH,Su" for "sonn und feiertag".)
-	*SH,Sonn und Feiertag <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH,Sonn und Feiertag <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH,Sonn und Feiertags": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH,Sonn und Feiertags <--- (Please use notation "PH,Su" for "sonn und feiertags".)
-	*SH,Sonn und Feiertags <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH,Sonn und Feiertags <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH,Sonn- und Feiertags": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH,Sonn- und Feiertags <--- (Please use notation "PH,Su" for "sonn- und feiertags".)
-	*SH,Sonn- und Feiertags <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH,Sonn- und Feiertags <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH,Sonn- und Feiertage": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH,Sonn- und Feiertage <--- (Please use notation "PH,Su" for "sonn- und feiertage".)
-	*SH,Sonn- und Feiertage <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH,Sonn- und Feiertage <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH,Sonn-/Feiertag": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH,Sonn-/Feiertag <--- (Please use notation "PH,Su" for "sonn-/feiertag".)
-	*SH,Sonn-/Feiertag <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH,Sonn-/Feiertag <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH,Sonn-/Feiertags": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH,Sonn-/Feiertags <--- (Please use notation "PH,Su" for "sonn-/feiertags".)
-	*SH,Sonn-/Feiertags <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH,Sonn-/Feiertags <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH und nur Sonn-/Feiertags": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH und <--- (Please use notation "," for "und".)
 	*SH und nur Sonn-/Feiertags <--- (Please use notation "PH,Su" for "nur sonn-/feiertags".)
-	*SH und nur Sonn-/Feiertags <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH und nur Sonn-/Feiertags <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH und Sonn-/Feiertags": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH und <--- (Please use notation "," for "und".)
 	*SH und Sonn-/Feiertags <--- (Please use notation "PH,Su" for "sonn-/feiertags".)
-	*SH und Sonn-/Feiertags <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH und Sonn-/Feiertags <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: school holidays" for "SH und an Sonn- und Feiertagen": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH und <--- (Please use notation "," for "und".)
 	*SH und an Sonn- und Feiertagen <--- (Please use notation "PH,Su" for "an sonn- und feiertagen".)
-	*SH und an Sonn- und Feiertagen <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH und an Sonn- und Feiertagen <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Everyday including public holidays" for "Mo-Su,PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-Su,PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Mo-Su,PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Everyday including public holidays" for "PH,Mo-Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH,Mo-Su <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH,Mo-Su <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH(summer holiday) workaround" for "Jul-Sep SH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jul-Sep SH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jul-Sep SH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Italian public holidays" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "SH for Romania" for "SH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*SH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian common public holidays" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Republic of Tatarstan" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Republic of Bashkortostan" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Chuvash Republic" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Sakha Republic" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Republic of Kalmykia" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Republic of Buryatia" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Republic of Karelia" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Republic of Udmurtia" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Republic of Adygea" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Republic of Dagestan" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Republic of Ingushetia" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Karachay-Cherkess Republic" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Chechen Republic" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Kabardino-Balkar Republic" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Altai Republic" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Tyva Republic" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Saratov Oblast" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Bryansk Oblast" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian public holidays. Komi Republic" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States common public holidays" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Alabama" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Alaska" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Arizona" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Arkansas" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. California" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Colorado" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Connecticut" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Delaware" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. District of Columbia" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Florida" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Georgia" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Guam" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Hawaii" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Idaho" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Illinois" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Indiana" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Iowa" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Kansas" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Kentucky" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Louisiana" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Maine" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Maryland" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Massachusetts" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Michigan" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Minnesota" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Mississippi" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Missouri" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Montana" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Nebraska" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Nevada" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. New Hampshire" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. New Jersey" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. New Mexico" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. New York" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. North Carolina" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Ohio" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Oklahoma" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Oregon" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Pennsylvania" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Puerto Rico" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Rhode Island" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. South Carolina" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. South Dakota" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Tennessee" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Texas" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. United States Virgin Islands" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Utah" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Vermont" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Virginia" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Washington" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. West Virginia" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Wisconsin" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: United States public holidays. Wyoming" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Czech Republic public holidays." for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Swedish public holidays." for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Weekday in given week." for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Weekday in given week." for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Weekdays" for "Mo,Th,Sa,Su 10:00-12:00": [1m[32mPASSED[39m[22m
 "Weekdays" for "Mo,Th,weekend 10:00-12:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -911,18 +911,18 @@ With [1m[34mwarnings[39m[22m:
 "Weekdays" for "10:00-12:00; Tu-We off; Fr off": [1m[32mPASSED[39m[22m
 "Omitted time" for "Mo,We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo,We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Mo,We <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Omitted time" for "Mo&We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo& <--- (Please use notation "," for "&".)
-	*Mo&We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Mo&We <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Omitted time" for "Mo and We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo and <--- (Please use notation "," for "and".)
-	*Mo and We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Mo and We <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Omitted time" for "Mo-We; Tu off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Mo-We <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Time ranges spanning midnight w/weekdays" for "We 22:00-02:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight w/weekdays" for "We 22:00-26:00": [1m[32mPASSED[39m[22m
 "Exception rules" for "Mo-Fr 10:00-16:00; We 12:00-18:00": [1m[32mPASSED[39m[22m
@@ -952,25 +952,25 @@ With [1m[34mwarnings[39m[22m:
 "Full range" for "00:00-24:00,12:00-13:00": [1m[32mPASSED[39m[22m
 "Full range" for "Mo-Fr,Sa,Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-Fr,Sa,Su <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Mo-Fr,Sa,Su <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Full range" for "PH,Mo-Fr,Sa,Su": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
 "Full range" for "PH,Mo-Fr,Sa,Su,SH": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
 "Full range" for "Mo-Fr,Sa,PH,Su,SH": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
 "Full range" for "Jan-Dec": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan-Dec <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan-Dec <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Full range" for "Feb-Jan": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb-Jan <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Feb-Jan <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Full range" for "Dec-Nov": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Dec-Nov <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Dec-Nov <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Full range" for "Jan 01-Dec 31": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m weekstable which is ignored for now
 With [1m[34mwarnings[39m[22m:
-	*Jan 01-Dec 31 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 01-Dec 31 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Full range" for "week 01-53": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 01-53 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*week 01-53 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Full range" for "Mo 00:00-24:00; Tu 00:00-24:00; We 00:00-24:00; Th 00:00-24:00; Fr 00:00-24:00; Sa 00:00-24:00; Su 00:00-24:00": [1m[32mPASSED[39m[22m
 "24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We 00:00-24:00": [1m[32mPASSED[39m[22m
 "24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We 24/7": [1m[32mPASSED[39m[22m
@@ -978,14 +978,14 @@ With [1m[34mwarnings[39m[22m:
 	*Mo,We 24/7 <--- (You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week". For correctness you might want to use "open" or "closed" for this rule and then write your exceptions which should achieve the same goal and is more clear e.g. "open; Mo 12:00-14:00 off".)
 "24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We open": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo,We open <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Mo,We open <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We: open": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*Mo,We: open <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Mo,We: open <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 	*Mo,We:  <--- (You have used the optional symbol <separator_for_readability> in the wrong place. Please check the syntax specification to see where it could be used or remove it.)
 "24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo,We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Mo,We <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Constrained weekdays" for "We[4,5] 10:00-12:00": [1m[32mPASSED[39m[22m
 "Constrained weekdays" for "We[4-5] 10:00-12:00": [1m[32mPASSED[39m[22m
 "Constrained weekdays" for "We[4],We[5] 10:00-12:00": [1m[32mPASSED[39m[22m
@@ -1022,20 +1022,20 @@ expected:
 "Calculations based on constrained weekdays: last weekend in month" for "Sa[-1],Sa[-1] +1 day 10:00-12:00": [1m[32mPASSED[39m[22m
 "Calculations based on constrained weekdays: last weekend in month" for "Sa[-1],Sa[-1] +1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Sa[-1],Sa[-1] +1 day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Sa[-1],Sa[-1] +1 day <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Calculations based on constrained weekdays" for "Sa[2] +3 days 10:00-12:00": [1m[32mPASSED[39m[22m
 "Calculations based on constrained weekdays" for "Sa[1] -5 days": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Sa[1] -5 days <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Sa[1] -5 days <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Calculations based on constrained weekdays" for "Su[-1] -1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Su[-1] -1 day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Su[-1] -1 day <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Calculations based on constrained weekdays" for "Aug Su[-1] +1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Aug Su[-1] +1 day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Aug Su[-1] +1 day <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Calculations based on constrained weekdays" for "Aug Su[-1] +1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Aug Su[-1] +1 day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Aug Su[-1] +1 day <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Constrained weekday (complex real world example)" for "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug: Su[-1] 10:00-18:00": [1m[32mPASSED[39m[22m
 "Constrained weekday (complex real world example)" for "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug: Su[-1] 10:00-18:00": [1m[32mPASSED[39m[22m
 "Additional rules" for "Mo-Fr 10:00-16:00, We 12:00-18:00": [1m[32mPASSED[39m[22m
@@ -1066,40 +1066,40 @@ With [1m[34mwarnings[39m[22m:
 "Week ranges" for "week 01: 00:00-24:00; week 03: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 01; week 03": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 01 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-	*week 01; week 03 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*week 01 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
+	*week 01; week 03 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Week ranges" for "week 01-3/2 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 02,4 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 02-4/2 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range limit" for "week 02-53": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 02-53 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*week 02-53 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Week range limit" for "week 02-53 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range full range" for "week 01-53": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 01-53 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*week 01-53 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Week range full range" for "week 01-53 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range second week" for "week 02 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range" for "week 01-53/2 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range" for "week 01-53/2 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range" for "week 02-53/2 We; week 01-53/2 Sa 00:00-24:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 02-53/2 We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*week 02-53/2 We <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Week range (beginning in last year)" for "week 04-16": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 04-16 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*week 04-16 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Week range (beginning in matching year)" for "week 04-16": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 04-16 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*week 04-16 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Week range first week" for "week 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 01 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*week 01 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Week range first week" for "week 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 01 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*week 01 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Week range first week" for "week 01 open": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 01 open <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*week 01 open <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Week range first week" for "week 01 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range first week" for "week 01 00:00-23:59": [1m[32mPASSED[39m[22m
 "Only in one month of the year" for "Apr 08:00-12:00": [1m[32mPASSED[39m[22m
@@ -1108,7 +1108,7 @@ With [1m[34mwarnings[39m[22m:
 "Month ranges" for "Nov-Feb00:00-24:00": [1m[32mPASSED[39m[22m
 "Month ranges" for "Nov-Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Nov-Feb <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Nov-Feb <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Month ranges" for "Nov-Feb 00-24": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Nov-Feb 00-24 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead "00:00-24:00".)
@@ -1119,36 +1119,36 @@ With [1m[34mwarnings[39m[22m:
 "Month ranges" for "Nov-Nov 00:00-24:00": [1m[32mPASSED[39m[22m
 "Month ranges" for "Nov-Nov": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Nov-Nov <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Nov-Nov <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Month ranges" for "2012 Nov-Nov": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2012  <--- (The year is in the past.)
-	*2012 Nov-Nov <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2012 Nov-Nov <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Month ranges" for "Jan 01,Dec 24-25; Nov Th[4]": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 01,Dec 24-25 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-	*Jan 01,Dec 24-25; Nov Th[4] <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 01,Dec 24-25 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 01,Dec 24-25; Nov Th[4] <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Month ranges" for "Jan 01,Dec 24.-25.; Nov Th[4]": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan 01,Dec 24. <--- (Please omit ".".)
 	*Jan 01,Dec 24.-25. <--- (Please omit ".".)
-	*Jan 01,Dec 24.-25. <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-	*Jan 01,Dec 24.-25.; Nov Th[4] <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 01,Dec 24.-25. <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 01,Dec 24.-25.; Nov Th[4] <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Month ranges" for "Jan 01,Dec 24,25; Nov Th[4]": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 01,Dec 24,25 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-	*Jan 01,Dec 24,25; Nov Th[4] <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 01,Dec 24,25 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 01,Dec 24,25; Nov Th[4] <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Month ranges" for "2012 Jan 01,2012 Dec 24-25; 2012 Nov Th[4]": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2012 Jan 01,2012 Dec 24-25; 2012  <--- (The year is in the past.)
-	*2012 Jan 01,2012 Dec 24-25 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-	*2012 Jan 01,2012 Dec 24-25; 2012 Nov Th[4] <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2012 Jan 01,2012 Dec 24-25 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2012 Jan 01,2012 Dec 24-25; 2012 Nov Th[4] <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Month ranges" for "Jan 01,Dec 11,Dec 15-17,Dec 19-23/2,Dec 24-25": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 01,Dec 11,Dec 15-17,Dec 19-23/2,Dec 24-25 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 01,Dec 11,Dec 15-17,Dec 19-23/2,Dec 24-25 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Month ranges" for "Jan 01,Dec 11,15-17,19-23/2,24,25": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 01,Dec 11,15-17,19-23/2,24,25 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 01,Dec 11,15-17,19-23/2,24,25 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Monthday ranges" for "Jan 23-31 00:00-24:00; Feb 01-12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Jan 23-Feb 12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Jan 23-Feb 12: 00:00-24:00": [1m[32mPASSED[39m[22m
@@ -1157,11 +1157,11 @@ With [1m[34mwarnings[39m[22m:
 "Monthday ranges" for "Jan 31-Feb 01,Aug: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Aug,Jan 31-Feb 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Aug,Jan 31-Feb 01 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Aug,Jan 31-Feb 01 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Monthday ranges" for "Jan 31-Feb 01; Aug": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 31-Feb 01 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-	*Jan 31-Feb 01; Aug <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 31-Feb 01 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 31-Feb 01; Aug <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Monthday ranges" for "Jan 23,25": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Monthday ranges" for "Dec 24,Jan 02: 18:00-22:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Dec 24,Jan 02: 18:00-22:00; Jan 20: off": [1m[32mPASSED[39m[22m
@@ -1172,65 +1172,65 @@ With [1m[34mwarnings[39m[22m:
 "Monthday ranges (with year)" for "2012 Jan 23-31 00:00-24:00; 2012 Feb 01-12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges spanning year boundary" for "Dec 31-Jan 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Dec 31-Jan 01 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Dec 31-Jan 01 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Full day (with year)" for "2013 Dec 31,2014 Jan 05": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2013 Dec 31,2014 Jan 05 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2013 Dec 31,2014 Jan 05 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Full day (with year)" for "2013 Dec 31; 2014 Jan 05": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2013 Dec 31 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-	*2013 Dec 31; 2014 Jan 05 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2013 Dec 31 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2013 Dec 31; 2014 Jan 05 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Full day (with year)" for "2013/10 Dec 31; 2014/10 Jan 05": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 <--- (The year is in the past.)
 	*2013/10 Dec 31; 2014 <--- (The year is in the past.)
-	*2013/10 Dec 31 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-	*2013/10 Dec 31; 2014/10 Jan 05 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2013/10 Dec 31 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2013/10 Dec 31; 2014/10 Jan 05 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Date range which only applies for one year" for "2013 Dec 31": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2013 Dec 31 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2013 Dec 31 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Date range which only applies for one year" for "2013 Dec 31; 2014 Jan 05; 2014+ off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 Dec 31; 2014 Jan 05; 2014 <--- (The year is in the past.)
-	*2013 Dec 31 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-	*2013 Dec 31; 2014 Jan 05 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2013 Dec 31 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2013 Dec 31; 2014 Jan 05 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Monthday (with year) ranges spanning year boundary" for "2013 Dec 31-2014 Jan 02": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2013 Dec 31-2014 Jan 02 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2013 Dec 31-2014 Jan 02 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Monthday (with year) ranges spanning year boundary" for "open; 2010 Jan 01-2013 Dec 30 off; 2014 Jan 03-2016 Jan 01 off": [1m[32mPASSED[39m[22m
 "Monthday ranges with constrained weekday" for "Jan Su[2]-Jan 15": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan Su[2]-Jan 15 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan Su[2]-Jan 15 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Monthday ranges with constrained weekday" for "Jan 20-Jan Su[-1]": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 20-Jan Su[-1] <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 20-Jan Su[-1] <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Monthday ranges with constrained weekday" for "Jan Su[1] +2 days-Jan Su[3] -2 days": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan Su[1] +2 days-Jan Su[3] -2 days <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan Su[1] +2 days-Jan Su[3] -2 days <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Monthday ranges with constrained weekday spanning year" for "Dec 20-Dec Su[-1] +4 days": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Dec 20-Dec Su[-1] +4 days <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Dec 20-Dec Su[-1] +4 days <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Monthday ranges with constrained" for "Nov Su[-1]-Dec Su[1] -1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Nov Su[-1]-Dec Su[1] -1 day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Nov Su[-1]-Dec Su[1] -1 day <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Monthday ranges with constrained weekday spanning year" for "Jan Su[1] -5 days-Jan 10": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Monthday ranges" for "Mar Su[-1]-Oct Su[-1] -1 day open; Oct Su[-1]-Mar Su[-1] -1 day off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mar Su[-1]-Oct Su[-1] -1 day open <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Mar Su[-1]-Oct Su[-1] -1 day open <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Monthday ranges" for "Mar Su[-1]-Oct Su[-1] -1 day open": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mar Su[-1]-Oct Su[-1] -1 day open <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Mar Su[-1]-Oct Su[-1] -1 day open <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Month ranges with year" for "2012 Jan 10-15,Jan 11": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2012 Jan 10-15,Jan 11 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2012 Jan 10-15,Jan 11 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Complex monthday ranges" for "Jan 23-31,Feb 01-12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Complex monthday ranges" for "Jan 23-Feb 11,Feb 12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Leap year monthday" for "2016 Feb 29": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2016 Feb 29 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2016 Feb 29 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Leap year monthday" for "2015 Feb 29": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2015 Feb 29 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2015 Feb 29 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Last day in month" for "Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; Feb 29 open "last day in month (Feb, leap year)"; 2009 <--- (The year is in the past.)
@@ -1246,81 +1246,81 @@ With [1m[34mwarnings[39m[22m:
 "Periodical monthdays" for "Jan 01-31/8: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Periodical monthdays" for "Jan 01-31/8": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 01-31/8 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 01-31/8 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Periodical monthdays" for "2012 Jan 01-31/8": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2012 Jan 01-31/8 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2012 Jan 01-31/8 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Periodical monthdays" for "2012 Jan 01-31/8; 2010 Dec 01-31/8": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2012 Jan 01-31/8 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-	*2012 Jan 01-31/8; 2010 Dec 01-31/8 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2012 Jan 01-31/8 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2012 Jan 01-31/8; 2010 Dec 01-31/8 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Periodical monthdays" for "2012 Jan 01-31/8; 2015 Dec 01-31/8": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2012 Jan 01-31/8 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-	*2012 Jan 01-31/8; 2015 Dec 01-31/8 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2012 Jan 01-31/8 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2012 Jan 01-31/8; 2015 Dec 01-31/8 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Periodical monthdays" for "2012 Jan 01-31/8; 2025 Dec 01-31/8": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2012 Jan 01-31/8 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-	*2012 Jan 01-31/8; 2025 Dec 01-31/8 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2012 Jan 01-31/8 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2012 Jan 01-31/8; 2025 Dec 01-31/8 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Periodical monthdays" for "2012 Jan 01-31/8: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Periodical monthdays" for "Jan 10-31/7": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 10-31/7 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 10-31/7 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 <--- (The year is in the past.)
-	*2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 Mo-Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 <--- (The year is in the past.)
-	*2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 Mo-Su <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 Mo-Su <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Date range which only applies for specific year" for "2060+": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2060+ <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2060+ <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Date range which only applies for specific year" for "2040-2050": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2040-2050 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2040-2050 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Date range which only applies for specific year" for "2012-2016": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2012-2016 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2012-2016 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Selector combination" for "week 02 We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 02 We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*week 02 We <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Selector combination" for "Jan 11-Jan 11 week 02": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 11-Jan 11 week 02 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 11-Jan 11 week 02 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Selector combination" for "Jan 11-Jan 11: week 02: 00:00-24:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan 11-Jan 11:  <--- (You have used the optional symbol <separator_for_readability> in the wrong place. Please check the syntax specification to see where it could be used or remove it.)
 "Selector combination" for "Jan 11 week 02": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 11 week 02 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 11 week 02 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Selector combination" for "Jan week 02": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan week 02 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan week 02 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Selector combination" for "Jan-Feb Jan 09-Jan 15": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan-Feb Jan 09-Jan 15 <--- (You have used 2 not connected months in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-	*Jan-Feb Jan 09-Jan 15 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan-Feb Jan 09-Jan 15 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Selector combination" for "Jan-Feb Jan 09-15": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan-Feb Jan 09-15 <--- (You have used 2 not connected months in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-	*Jan-Feb Jan 09-15 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan-Feb Jan 09-15 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Selector combination" for "Jan We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan We <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Selector combination" for "Jan 02-27 We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 02-27 We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 02-27 We <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Selector combination" for "Dec 30-Jan 27 We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Dec 30-Jan 27 We <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Dec 30-Jan 27 We <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Selector order" for "Feb week 05": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue Ignored but passes!
 With [1m[34mwarnings[39m[22m:
-	*Feb week 05 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Feb week 05 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Selector order" for "Feb week 05": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb week 05 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Feb week 05 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Selector order" for "00:00-24:00 week 05 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
@@ -1367,21 +1367,21 @@ With [1m[34mwarnings[39m[22m:
 "Selector order" for "week 05 Feb 2012-2014": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*week 05 Feb 2012-2014 <--- (The year is in the past.)
-	*week 05 Feb 2012-2014 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*week 05 Feb 2012-2014 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 	*2012-2014 <--- (The selector "year" was switched with the selector "week" for readablitity and compatibiltity reasons.)
 	*2012-2014 Feb week 05 <--- (The selector "week" was switched with the selector "year" for readablitity and compatibiltity reasons.)
 "Selector order" for "Feb week 06": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue Ignored but passes!
 With [1m[34mwarnings[39m[22m:
-	*Feb week 06 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Feb week 06 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Selector order" for "Feb week 06": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb week 06 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Feb week 06 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Selector order" for "Feb week 06 open": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb week 06 open <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Feb week 06 open <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Selector order" for "open week 06 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*open week 06 Feb <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*open week 06 Feb <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 	*Feb <--- (The selector "month" was switched with the selector "state" for readablitity and compatibiltity reasons.)
 	*Feb week 06 open <--- (The selector "state" was switched with the selector "month" for readablitity and compatibiltity reasons.)
 "Additional comment "Nach Vereinbarung"" for "Mo-Fr 08:00-12:00 open "Kein Termin erforderlich", Mo-Fr 13:00-17:00 open "Nach Vereinbarung"": [1m[32mPASSED[39m[22m
@@ -1423,13 +1423,13 @@ With [1m[34mwarnings[39m[22m:
 "Additional comments combined with additional rules" for "Mo 12:00-14:00 open "female only", Mo 14:00-16:00 open "male only"": [1m[32mPASSED[39m[22m
 "Additional comments combined with months" for "Apr-Sep; Oct-Dec "on request"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Apr-Sep <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Apr-Sep <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Additional comments combined with months" for "Apr-Sep; Oct-Dec"on request"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Apr-Sep <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Apr-Sep <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Additional comments combined with months" for "Oct-Dec "on request"; Apr-Sep": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Oct-Dec "on request"; Apr-Sep <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Oct-Dec "on request"; Apr-Sep <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Complex example used in README" for "open; Tu-Su 08:30-09:00 off; Tu-Su,PH 14:00-14:30 off; Mo 08:00-13:00 off": [1m[32mPASSED[39m[22m
 "Complex example used in README" for "00:00-24:00; Tu-Su,PH 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off": [1m[32mPASSED[39m[22m
 "Complex example used in README and benchmark" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
@@ -1446,7 +1446,7 @@ With [1m[34mwarnings[39m[22m:
 "Real world example: Was not processed right." for "Mo off; Tu 14:00-18:00; We-Sa 10:00-18:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right (month range/monthday range)" for "Aug,Dec 25-easter": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Aug,Dec 25-easter <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Aug,Dec 25-easter <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Real world example: Was processed right (month range/monthday range with additional rule)" for "Nov-Mar Mo-Fr 11:30-17:00, Mo-Su 17:00-01:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right (month range/monthday range)" for "Mo-Sa 18:00+; SH off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1455,8 +1455,8 @@ With [1m[34mwarnings[39m[22m:
 "Real world example: Was processed right (month range/monthday range)" for "Mo-Sa 17:15-01:00, PH,Su 17:15-24:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right (month range/monthday range)" for "Jun 15-Sep 15; Sep 16-Dec 31; Jan-Mar off; Dec 25-easter off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jun 15-Sep 15 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
-	*Jun 15-Sep 15; Sep 16-Dec 31 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jun 15-Sep 15 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jun 15-Sep 15; Sep 16-Dec 31 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Real world example: Was not processed right" for "Mo,Tu,We,Th,Fr,Su 11:00-01:00; Sa 11:00-02:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo,Tu,We,Th,Fr,Su 11:00-01:00; Sa 11:00-02:00 <--- (This rule overwrites parts of the previous rule. This happens because normal rules apply to the whole day and overwrite any definition made by previous rules. You can make this rule an additional rule by using a "," instead of the normal ";" to separate the rules. Note that the overwriting can also be desirable in which case you can ignore this warning.)
@@ -1467,7 +1467,7 @@ With [1m[34mwarnings[39m[22m:
 "Real world example: Was not processed right." for "Jan Su[-2]-Jan Su[-1],Feb Su[-2]-Feb Su[-1]: Fr-Su 12:00+; Mar 01-Dec 31: Tu-Su 12:00+; Dec 24-26,Dec 31: off": [1m[32mPASSED[39m[22m
 "Simplifed real world example: Was not processed right." for "Nov 01-20,Dec": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Nov 01-20,Dec <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Nov 01-20,Dec <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Real world example: Was processed right form library." for "Mo 19:00+; We 14:00+; Su 10:00+ || "Führung, Sonderführungen nach Vereinbarung."": [1m[32mPASSED[39m[22m
 "Real world example: Was processed right form library." for "Mo 19:00-05:00 || "Sonderführungen nach Vereinbarung."": [1m[32mPASSED[39m[22m
 "Real world example: Was processed right form library." for "Mo 19:00+ || "Sonderführungen nach Vereinbarung."": [1m[32mPASSED[39m[22m
@@ -1492,18 +1492,18 @@ With [1m[34mwarnings[39m[22m:
 "Real world example: Was not processed right" for "Tu 10:00-12:00, Fr 16:00-18:00; unknown": [1m[35mCRASHED[39m[22m, reason: TypeError: Cannot read property '0' of undefined
 "Real world example: Problem with <additional_rule_separator> in holiday parser" for "PH; Aug-Sep 00:00-24:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Real world example: Problem with <additional_rule_separator> in holiday parser" for "We off; Mo,Tu,Th-Su,PH; Jun-Aug We 11:00-14:00,17:00+": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*We off; Mo,Tu,Th-Su,PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*We off; Mo,Tu,Th-Su,PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Real world example: Problem with <additional_rule_separator> in holiday parser" for "We off; Mo,Tu,Th-Su,PH; Sommer We 11:00-14:00,17:00+": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*We off; Mo,Tu,Th-Su,PH; Sommer <--- (Assuming "Jun-Aug" for "sommer".)
-	*We off; Mo,Tu,Th-Su,PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*We off; Mo,Tu,Th-Su,PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Real world example: Problem with <additional_rule_separator> in holiday parser" for "We off; Mo,Tu,Th-Su,PH; sommer We 11:00-14:00,17:00+": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*We off; Mo,Tu,Th-Su,PH; sommer <--- (Assuming "Jun-Aug" for "sommer".)
-	*We off; Mo,Tu,Th-Su,PH <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*We off; Mo,Tu,Th-Su,PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Real world example: Problem with <additional_rule_separator> in holiday parser" for "Mo,Tu,Th-Su,PH 00:00-24:00; Jun-Aug We 11:00-14:00,17:00+": [1m[32mPASSED[39m[22m
 "Real world example: Problem with daylight saving?" for "Mo-Su,PH 15:00-03:00; easter -2 days 15:00-24:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1511,7 +1511,7 @@ With [1m[34mwarnings[39m[22m:
 "Real world example: Was not processed right" for "Mo-Fr 17:00-12:00, Su-Mo 00:00-12:00": [1m[32mPASSED[39m[22m
 "Variable events" for "easter": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*easter <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*easter <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Calculations based on variable events" for "easter +1 day open "Easter Monday"": [1m[32mPASSED[39m[22m
 "Calculations based on variable events" for "Apr 05-easter -1 day: open "Before easter"": [1m[32mPASSED[39m[22m
 "Calculations based on variable events" for "easter-Apr 20: open "Around easter"": [1m[32mPASSED[39m[22m
@@ -1785,79 +1785,79 @@ With [1m[34mwarnings[39m[22m:
 	*mon., Tuesday, wed., Thursday. <--- (Please omit ".".)
 "Error tolerance: Full range" for "Mo-Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-Su <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Mo-Su <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "Montag-Sonntag": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Montag <--- (Please use the English abbreviation "Mo" for "montag".)
 	*Montag-Sonntag <--- (Please use the English abbreviation "Su" for "sonntag".)
-	*Montag-Sonntag <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Montag-Sonntag <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "Montags bis sonntags": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Montags <--- (Please use the English abbreviation "Mo" for "montags".)
 	*Montags bis <--- (Please use notation "-" for "bis".)
 	*Montags bis sonntags <--- (Please use the English abbreviation "Su" for "sonntags".)
-	*Montags bis sonntags <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Montags bis sonntags <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "Montag-Sonntags": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Montag <--- (Please use the English abbreviation "Mo" for "montag".)
 	*Montag-Sonntags <--- (Please use the English abbreviation "Su" for "sonntags".)
-	*Montag-Sonntags <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Montag-Sonntags <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "monday-sunday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*monday <--- (Please use the English abbreviation "Mo" for "monday".)
 	*monday-sunday <--- (Please use the English abbreviation "Su" for "sunday".)
-	*monday-sunday <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*monday-sunday <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "daily": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*daily <--- (Please use notation "Mo-Su" for "daily".)
-	*daily <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*daily <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "everyday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*everyday <--- (Please use notation "Mo-Su" for "everyday".)
-	*everyday <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*everyday <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "every day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*every day <--- (Please use notation "Mo-Su" for "every day".)
-	*every day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*every day <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "all days": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*all days <--- (Please use notation "Mo-Su" for "all days".)
-	*all days <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*all days <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "every day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*every day <--- (Please use notation "Mo-Su" for "every day".)
-	*every day <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*every day <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "7days": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7days <--- (Please use notation "Mo-Su" for "7days".)
-	*7days <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*7days <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "7j/7": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7j/7 <--- (Please use notation "Mo-Su" for "7j/7".)
-	*7j/7 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*7j/7 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "7/7": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7/7 <--- (Please use notation "Mo-Su" for "7/7".)
-	*7/7 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*7/7 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "7 days": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7 days <--- (Please use notation "Mo-Su" for "7 days".)
-	*7 days <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*7 days <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "7 days a week": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7 days a week <--- (Please use notation "Mo-Su" for "7 days a week".)
-	*7 days a week <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*7 days a week <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "7 days/week": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7 days/week <--- (Please use notation "Mo-Su" for "7 days/week".)
-	*7 days/week <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*7 days/week <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "täglich": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*täglich <--- (Please use notation "Mo-Su" for "täglich".)
-	*täglich <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*täglich <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "week 01-53": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 01-53 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*week 01-53 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Error tolerance: Full range" for "24/7": [1m[32mPASSED[39m[22m
 "Error tolerance: Full range" for "always": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1934,15 +1934,15 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "Mo[2] - 0 days; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo[2] - 0 days <--- (Adding 0 does not change the date. Please omit this.)
-	*Mo[2] - 0 days <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Mo[2] - 0 days <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo&Th; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo& <--- (Please use notation "," for "&".)
-	*Mo&Th <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Mo&Th <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mon; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mon <--- (Please use the English abbreviation "Mo" for "mon".)
-	*Mon <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Mon <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "8-18; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*8-18 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead "08:00-18:00".)
@@ -1955,12 +1955,12 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "2013-2015/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013-2015/1 <--- (Please don’t use year ranges with period equals one.)
-	*2013-2015/1 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2013-2015/1 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 01; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 <--- (The year is in the past.)
 	*2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1  <--- (Please don’t use year ranges with period equals one.)
-	*2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 01 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 01 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo: 15:00-16:00 off; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo:  <--- (You have used the optional symbol <separator_for_readability> in the wrong place. Please check the syntax specification to see where it could be used or remove it.)
@@ -1978,7 +1978,7 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "Mo Tu Fr; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo Tu Fr <--- (You have used 3 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-	*Mo Tu Fr <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Mo Tu Fr <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo,Mo 12:00-15:00": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Value not ideal (probably wrong). Should throw a warning." for "Mo,Sa,Mo 12:00-15:00": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Value not ideal (probably wrong). Should throw a warning." for "Jan,Jan 12:00-15:00": [1m[33mIGNORED[39m[22m, reason: not implemented yet
@@ -1986,11 +1986,11 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "Jan Dec; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan Dec <--- (You have used 2 not connected months in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
-	*Jan Dec <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan Dec <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "Jan 01-22/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan 01-22/1 <--- (Please don’t use day ranges with period equals one.)
-	*Jan 01-22/1 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jan 01-22/1 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for ""testing" "second comment"; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*"testing" "second comment" <--- (You have used 2 comments in one rule. You may only use one in one rule. Rules can be separated by ";".)
@@ -2042,16 +2042,16 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "Jun 02-20/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jun 02-20/1 <--- (Please don’t use day ranges with period equals one.)
-	*Jun 02-20/1 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Jun 02-20/1 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "2014-2020/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2014-2020/1 <--- (Please don’t use year ranges with period equals one.)
-	*2014-2020/1 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2014-2020/1 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "2014/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2014/1 <--- (Please don’t use year ranges with period equals one. If you want to express that a facility is open starting from a year without limit use "<year>+".)
 	*2014 <--- (The year is in the past.)
-	*2014/1 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2014/1 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-Sa 11:00-21:00 Su off; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Sa 11:00-21:00 Su  <--- (You have used 2 not connected weekdays in one rule. This is probably an error. Equal selector types can (and should) always be written in conjunction separated by comma. Example for time ranges "12:00-13:00,15:00-18:00". Example for weekdays "Mo-We,Fr". Rules can be separated by ";".)
@@ -2067,12 +2067,12 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "Sa 2200; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Sa 2 <--- (The number 2200 will be interpreted as year. This is probably not intended. Times can be specified as "12:00".)
-	*Sa 2200 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Sa 2200 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 	*2200 <--- (The selector "year" was switched with the selector "weekday" for readablitity and compatibiltity reasons.)
 	*2200 Sa <--- (The selector "weekday" was switched with the selector "year" for readablitity and compatibiltity reasons.)
 "Value not ideal (probably wrong). Should throw a warning." for "Feb week 06": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb week 06 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*Feb week 06 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 week 06 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Feb <--- (The selector "month" was switched with the selector "time" for readablitity and compatibiltity reasons.)
@@ -2116,17 +2116,17 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "week 06 Feb 2012-2014": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*week 06 Feb 2012-2014 <--- (The year is in the past.)
-	*week 06 Feb 2012-2014 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*week 06 Feb 2012-2014 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 	*2012-2014 <--- (The selector "year" was switched with the selector "week" for readablitity and compatibiltity reasons.)
 	*2012-2014 Feb week 06 <--- (The selector "week" was switched with the selector "year" for readablitity and compatibiltity reasons.)
 "Value not ideal (probably wrong). Should throw a warning." for "2012 Jan-Feb; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2012  <--- (The year is in the past.)
-	*2012 Jan-Feb <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2012 Jan-Feb <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "2012 Jan-Feb open; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2012  <--- (The year is in the past.)
-	*2012 Jan-Feb open <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)
+	*2012 Jan-Feb open <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "12:00-14:00 ""; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*12:00-14:00 "" <--- (You have used an empty comment. Please either write something in the comment or use the keyword unknown instead.)

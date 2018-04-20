@@ -29,7 +29,7 @@
 'weekdays': weekdays
 'ranges': ranges
 'default state': 'This rule which changes the default state (which is closed) for all following rules is not the first rule. The rule will overwrite all previous rules. It can be legitimate to change the default state to open for example and then only specify for which times the facility is closed.'
-'vague': 'This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.'
+'vague': 'This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.'
 'empty comment': 'You have used an empty comment. Please either write something in the comment or use the keyword unknown instead.'
 'separator_for_readability': 'You have used the optional symbol <separator_for_readability> in the wrong place. Please check the syntax specification to see where it could be used or remove it.'
 'strange 24/7': 'You used 24/7 in a way that is probably not interpreted as "24 hours 7 days a week". For correctness you might want to use "open" or "closed" for this rule and then write your exceptions which should achieve the same goal and is more clear e.g. "open; Mo 12:00-14:00 off".'

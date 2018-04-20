@@ -580,115 +580,115 @@ expected:
 "Variable times spanning midnight" for "Mo-Su 19:00-sunrise": [1m[32mPASSED[39m[22m
 "Variable days: public holidays" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "holiday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*holiday <--- (Bitte verwende "PH" anstelle von "holiday".)
-	*holiday <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*holiday <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "holidays": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*holidays <--- (Bitte verwende "PH" anstelle von "holidays".)
-	*holidays <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*holidays <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "public holidays": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*public holidays <--- (Bitte verwende "PH" anstelle von "public holidays".)
-	*public holidays <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*public holidays <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "public holiday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*public holiday <--- (Bitte verwende "PH" anstelle von "public holiday".)
-	*public holiday <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*public holiday <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "SH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "SH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Germany school holidays" for "SH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Germany school holidays. Rheinland-Pfalz" for "SH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "open; PH off": [1m[32mPASSED[39m[22m
 "Variable days: public holidays (with time range)" for "PH 12:00-13:00": [1m[32mPASSED[39m[22m
 "Variable days: public holidays (with time range)" for "PH 12:00-13:00 open "this comment should override the holiday name which is returned as comment if PH matches."": [1m[32mPASSED[39m[22m
 "PH: Only if PH is Wednesday" for "PH We,Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH We,Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH We,Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "PH: Only if PH is Wednesday" for "PH: We,Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH:  <--- (Bitte Benutze kein ":" nach dem Token holiday.)
-	*PH: We,Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH: We,Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "PH: Only if PH is Wednesday" for " We,Fr: PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	* We,Fr: PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	* We,Fr: PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 	*PH <--- (Der Selektor "holiday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "weekday" getauscht.)
 	*PH We,Fr <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "holiday" getauscht.)
 "SH" for "SH Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH Mo-Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH Mo-Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "SH" for "Schulferien Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Schulferien <--- (Bitte verwende "SH" anstelle von "schulferien".)
-	*Schulferien Mo-Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Schulferien Mo-Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "SH" for "Ferien Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Ferien <--- (Bitte verwende "SH" anstelle von "ferien".)
-	*Ferien Mo-Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Ferien Mo-Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "SH" for "schoolholiday Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*schoolholiday <--- (Bitte verwende "SH" anstelle von "schoolholiday".)
-	*schoolholiday Mo-Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*schoolholiday Mo-Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "SH" for "school holiday Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*school holiday <--- (Bitte verwende "SH" anstelle von "school holiday".)
-	*school holiday Mo-Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*school holiday Mo-Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "SH" for "school holidays Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*school holidays <--- (Bitte verwende "SH" anstelle von "school holidays".)
-	*school holidays Mo-Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*school holidays Mo-Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "SH" for "SH: Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH:  <--- (Bitte Benutze kein ":" nach dem Token holiday.)
-	*SH: Mo-Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH: Mo-Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "SH" for "SH on work day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH on work day <--- ("on work day" wird als "Mo-Fr" interpretiert. Werktag sollte nicht verwendet werden. Siehe https://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays)
-	*SH on work day <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH on work day <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "SH" for "SH on work days": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH on work days <--- ("on work days" wird als "Mo-Fr" interpretiert. Werktag sollte nicht verwendet werden. Siehe https://wiki.openstreetmap.org/wiki/Talk:Key:opening_hours#need_syntax_for_holidays_and_workingdays)
-	*SH on work days <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH on work days <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "SH" for "SH Mo-Fr": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH Mo-Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH Mo-Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "PH +1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH +1 day <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH +1 day <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "day after public holiday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*day after public holiday <--- (Bitte verwende "PH +1 day" anstelle von "day after public holiday".)
-	*day after public holiday <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*day after public holiday <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "one day after public holiday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*one day after public holiday <--- (Bitte verwende "PH +1 day" anstelle von "one day after public holiday".)
-	*one day after public holiday <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*one day after public holiday <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "PH -1 day Mo-We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH -1 day Mo-We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH -1 day Mo-We <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "Mo-We PH -1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-We PH -1 day <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Mo-We PH -1 day <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 	*PH -1 day <--- (Der Selektor "holiday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "weekday" getauscht.)
 	*PH -1 day Mo-We <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "holiday" getauscht.)
 "Variable days: public holidays" for "day before public holiday Mo-We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*day before public holiday <--- (Bitte verwende "PH -1 day" anstelle von "day before public holiday".)
-	*day before public holiday Mo-We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*day before public holiday Mo-We <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "one day before public holiday Mo-We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*one day before public holiday <--- (Bitte verwende "PH -1 day" anstelle von "one day before public holiday".)
-	*one day before public holiday Mo-We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*one day before public holiday Mo-We <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "SH PH -1 day Mo-We": [1m[31mFAILED[39m[22m, bad duration(s): 864000000,0, expected 259200000,0, bad intervals: 
 [ '2014-10-27 00:00', '2014-10-30 00:00', false, 'Herbstferien' ],
 [ '2014-12-22 00:00', '2014-12-24 00:00', false, 'Weihnachtsferien' ],
@@ -702,7 +702,7 @@ expected:
 [ '2015-01-05 00:00', '2015-01-06 00:00', false, 'Day before Heilige Drei Könige' ],
 With [1m[34mwarnings[39m[22m:
 	*SH PH -1 day  <--- (Du hast 2 nicht verbundene opening_hours:texts.holiday ranges in einer Regel benutzt. Das ist vermutlich ein Fehler. Gleiche Selektoren können (und sollten) immer zusammen und durch Kommas getrennt geschrieben werden. Beispiel für Zeitspannen "12:00-13:00,15:00-18:00". Beispiel für Wochentage "Mo-We,Fr". Einzelne Regeln können mit ";" getrennt werden.)
-	*SH PH -1 day Mo-We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH PH -1 day Mo-We <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "PH -1 day SH Mo-We": [1m[31mFAILED[39m[22m, bad duration(s): 864000000,0, expected 259200000,0, bad intervals: 
 [ '2014-10-27 00:00', '2014-10-30 00:00', false, 'Herbstferien' ],
 [ '2014-12-22 00:00', '2014-12-25 00:00', false, 'Weihnachtsferien' ],
@@ -714,51 +714,51 @@ expected:
 [ '2015-01-05 00:00', '2015-01-06 00:00', false, 'Day before Heilige Drei Könige' ],
 With [1m[34mwarnings[39m[22m:
 	*PH -1 day SH  <--- (Du hast 2 nicht verbundene opening_hours:texts.holiday ranges in einer Regel benutzt. Das ist vermutlich ein Fehler. Gleiche Selektoren können (und sollten) immer zusammen und durch Kommas getrennt geschrieben werden. Beispiel für Zeitspannen "12:00-13:00,15:00-18:00". Beispiel für Wochentage "Mo-We,Fr". Einzelne Regeln können mit ";" getrennt werden.)
-	*PH -1 day SH Mo-We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH -1 day SH Mo-We <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "PH -1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH -1 day <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH -1 day <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "PH-1day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH-1day <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH-1day <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "day before public holiday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*day before public holiday <--- (Bitte verwende "PH -1 day" anstelle von "day before public holiday".)
-	*day before public holiday <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*day before public holiday <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: public holidays" for "one day before public holiday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*one day before public holiday <--- (Bitte verwende "PH -1 day" anstelle von "one day before public holiday".)
-	*one day before public holiday <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*one day before public holiday <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holiday" for "open; SH off": [1m[32mPASSED[39m[22m
 "SH: Only if SH is Wednesday" for "SH We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH We <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "SH: Only if SH is Wednesday" for "SHWe": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SHWe <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SHWe <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "SH: Only if SH is Wednesday" for "2014 SH We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2014  <--- (Das Jahr liegt in der Vergangenheit.)
-	*2014 SH We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2014 SH We <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "SH,PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH,PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH,PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "2014 SH,PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2014  <--- (Das Jahr liegt in der Vergangenheit.)
-	*2014 SH,PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2014 SH,PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "Jan-Feb SH,PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan-Feb SH,PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan-Feb SH,PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "Su,SH,PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Su,SH,PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Su,SH,PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "SH,Su,PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH,Su,PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH,Su,PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "SH,PH,Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH,PH,Su <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH,PH,Su <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "PH,Su,SH": [1m[31mFAILED[39m[22m, bad intervals: 
 [ '2014-01-01 00:00', '2014-01-05 00:00', false, 'Weihnachtsferien' ],
 [ '2014-01-05 00:00', '2014-01-06 00:00', false, undefined ],
@@ -779,301 +779,301 @@ expected:
 [ '2014-02-02 00:00', '2014-02-03 00:00', false, undefined ],
 [ '2014-02-09 00:00', '2014-02-10 00:00', false, undefined ],
 With [1m[34mwarnings[39m[22m:
-	*PH,Su,SH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH,Su,SH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "SH,Sonntag und an Feiertagen": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH,Sonntag <--- (Bitte benutze die englische Abkürzung "Su" für "sonntag".)
 	*SH,Sonntag und <--- (Bitte verwende "," anstelle von "und".)
 	*SH,Sonntag und an Feiertagen <--- (Bitte benutze die englische Schreibweise "PH" für "an feiertagen".)
-	*SH,Sonntag und an Feiertagen <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH,Sonntag und an Feiertagen <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "SH,Sonn und Feiertag": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH,Sonn und Feiertag <--- (Bitte verwende "PH,Su" anstelle von "sonn und feiertag".)
-	*SH,Sonn und Feiertag <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH,Sonn und Feiertag <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "SH,Sonn und Feiertags": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH,Sonn und Feiertags <--- (Bitte verwende "PH,Su" anstelle von "sonn und feiertags".)
-	*SH,Sonn und Feiertags <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH,Sonn und Feiertags <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "SH,Sonn- und Feiertags": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH,Sonn- und Feiertags <--- (Bitte verwende "PH,Su" anstelle von "sonn- und feiertags".)
-	*SH,Sonn- und Feiertags <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH,Sonn- und Feiertags <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "SH,Sonn- und Feiertage": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH,Sonn- und Feiertage <--- (Bitte verwende "PH,Su" anstelle von "sonn- und feiertage".)
-	*SH,Sonn- und Feiertage <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH,Sonn- und Feiertage <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "SH,Sonn-/Feiertag": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH,Sonn-/Feiertag <--- (Bitte verwende "PH,Su" anstelle von "sonn-/feiertag".)
-	*SH,Sonn-/Feiertag <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH,Sonn-/Feiertag <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "SH,Sonn-/Feiertags": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH,Sonn-/Feiertags <--- (Bitte verwende "PH,Su" anstelle von "sonn-/feiertags".)
-	*SH,Sonn-/Feiertags <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH,Sonn-/Feiertags <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "SH und nur Sonn-/Feiertags": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH und <--- (Bitte verwende "," anstelle von "und".)
 	*SH und nur Sonn-/Feiertags <--- (Bitte verwende "PH,Su" anstelle von "nur sonn-/feiertags".)
-	*SH und nur Sonn-/Feiertags <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH und nur Sonn-/Feiertags <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "SH und Sonn-/Feiertags": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH und <--- (Bitte verwende "," anstelle von "und".)
 	*SH und Sonn-/Feiertags <--- (Bitte verwende "PH,Su" anstelle von "sonn-/feiertags".)
-	*SH und Sonn-/Feiertags <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH und Sonn-/Feiertags <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: school holidays" for "SH und an Sonn- und Feiertagen": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*SH und <--- (Bitte verwende "," anstelle von "und".)
 	*SH und an Sonn- und Feiertagen <--- (Bitte verwende "PH,Su" anstelle von "an sonn- und feiertagen".)
-	*SH und an Sonn- und Feiertagen <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH und an Sonn- und Feiertagen <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Everyday including public holidays" for "Mo-Su,PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-Su,PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Mo-Su,PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Everyday including public holidays" for "PH,Mo-Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH,Mo-Su <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH,Mo-Su <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "SH(summer holiday) workaround" for "Jul-Sep SH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jul-Sep SH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jul-Sep SH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Italian public holidays" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "SH for Romania" for "SH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*SH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*SH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian common public holidays" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Republic of Tatarstan" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Republic of Bashkortostan" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Chuvash Republic" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Sakha Republic" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Republic of Kalmykia" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Republic of Buryatia" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Republic of Karelia" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Republic of Udmurtia" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Republic of Adygea" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Republic of Dagestan" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Republic of Ingushetia" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Karachay-Cherkess Republic" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Chechen Republic" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Kabardino-Balkar Republic" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Altai Republic" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Tyva Republic" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Saratov Oblast" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Bryansk Oblast" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian public holidays. Komi Republic" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States common public holidays" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Alabama" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Alaska" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Arizona" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Arkansas" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. California" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Colorado" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Connecticut" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Delaware" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. District of Columbia" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Florida" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Georgia" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Guam" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Hawaii" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Idaho" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Illinois" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Indiana" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Iowa" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Kansas" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Kentucky" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Louisiana" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Maine" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Maryland" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Massachusetts" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Michigan" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Minnesota" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Mississippi" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Missouri" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Montana" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Nebraska" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Nevada" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. New Hampshire" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. New Jersey" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. New Mexico" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. New York" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. North Carolina" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Ohio" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Oklahoma" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Oregon" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Pennsylvania" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Puerto Rico" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Rhode Island" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. South Carolina" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. South Dakota" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Tennessee" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Texas" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. United States Virgin Islands" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Utah" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Vermont" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Virginia" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Washington" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. West Virginia" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Wisconsin" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: United States public holidays. Wyoming" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Czech Republic public holidays." for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Swedish public holidays." for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Weekday in given week." for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Weekday in given week." for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Weekdays" for "Mo,Th,Sa,Su 10:00-12:00": [1m[32mPASSED[39m[22m
 "Weekdays" for "Mo,Th,weekend 10:00-12:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1090,18 +1090,18 @@ With [1m[34mwarnings[39m[22m:
 "Weekdays" for "10:00-12:00; Tu-We off; Fr off": [1m[32mPASSED[39m[22m
 "Omitted time" for "Mo,We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo,We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Mo,We <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Omitted time" for "Mo&We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo& <--- (Bitte verwende "," anstelle von "&".)
-	*Mo&We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Mo&We <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Omitted time" for "Mo and We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo and <--- (Bitte verwende "," anstelle von "and".)
-	*Mo and We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Mo and We <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Omitted time" for "Mo-We; Tu off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Mo-We <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Time ranges spanning midnight w/weekdays" for "We 22:00-02:00": [1m[32mPASSED[39m[22m
 "Time ranges spanning midnight w/weekdays" for "We 22:00-26:00": [1m[32mPASSED[39m[22m
 "Exception rules" for "Mo-Fr 10:00-16:00; We 12:00-18:00": [1m[32mPASSED[39m[22m
@@ -1131,25 +1131,25 @@ With [1m[34mwarnings[39m[22m:
 "Full range" for "00:00-24:00,12:00-13:00": [1m[32mPASSED[39m[22m
 "Full range" for "Mo-Fr,Sa,Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-Fr,Sa,Su <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Mo-Fr,Sa,Su <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Full range" for "PH,Mo-Fr,Sa,Su": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
 "Full range" for "PH,Mo-Fr,Sa,Su,SH": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
 "Full range" for "Mo-Fr,Sa,PH,Su,SH": [1m[33mIGNORED[39m[22m, reason: check for week stable not implemented
 "Full range" for "Jan-Dec": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan-Dec <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan-Dec <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Full range" for "Feb-Jan": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb-Jan <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Feb-Jan <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Full range" for "Dec-Nov": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Dec-Nov <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Dec-Nov <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Full range" for "Jan 01-Dec 31": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m weekstable which is ignored for now
 With [1m[34mwarnings[39m[22m:
-	*Jan 01-Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 01-Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Full range" for "week 01-53": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 01-53 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 01-53 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Full range" for "Mo 00:00-24:00; Tu 00:00-24:00; We 00:00-24:00; Th 00:00-24:00; Fr 00:00-24:00; Sa 00:00-24:00; Su 00:00-24:00": [1m[32mPASSED[39m[22m
 "24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We 00:00-24:00": [1m[32mPASSED[39m[22m
 "24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We 24/7": [1m[32mPASSED[39m[22m
@@ -1157,14 +1157,14 @@ With [1m[34mwarnings[39m[22m:
 	*Mo,We 24/7 <--- (Du hast 24/7 in einer Art verwendet, welche wahrscheinlich nicht als "24 Stunden, 7 Tage die Woche" interpretiert wird. Der Richtigkeit halber solltest du "open" oder "closed" für diese Regel verwenden und dann die Ausnahmen angeben um das selbe Ziel zu erreichen. So ist es klarer – zum Beispiel "open; Mo 12:00-14:00 off".)
 "24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We open": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo,We open <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Mo,We open <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We: open": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*Mo,We: open <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Mo,We: open <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 	*Mo,We:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax-Spezifikation um zu sehen, wo es verwendet werden kann, oder entferne es.)
 "24/7 as time interval alias (don’t use 24/7 as showen here)" for "Mo,We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo,We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Mo,We <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Constrained weekdays" for "We[4,5] 10:00-12:00": [1m[32mPASSED[39m[22m
 "Constrained weekdays" for "We[4-5] 10:00-12:00": [1m[32mPASSED[39m[22m
 "Constrained weekdays" for "We[4],We[5] 10:00-12:00": [1m[32mPASSED[39m[22m
@@ -1201,20 +1201,20 @@ expected:
 "Calculations based on constrained weekdays: last weekend in month" for "Sa[-1],Sa[-1] +1 day 10:00-12:00": [1m[32mPASSED[39m[22m
 "Calculations based on constrained weekdays: last weekend in month" for "Sa[-1],Sa[-1] +1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Sa[-1],Sa[-1] +1 day <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Sa[-1],Sa[-1] +1 day <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Calculations based on constrained weekdays" for "Sa[2] +3 days 10:00-12:00": [1m[32mPASSED[39m[22m
 "Calculations based on constrained weekdays" for "Sa[1] -5 days": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Sa[1] -5 days <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Sa[1] -5 days <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Calculations based on constrained weekdays" for "Su[-1] -1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Su[-1] -1 day <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Su[-1] -1 day <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Calculations based on constrained weekdays" for "Aug Su[-1] +1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Aug Su[-1] +1 day <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Aug Su[-1] +1 day <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Calculations based on constrained weekdays" for "Aug Su[-1] +1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Aug Su[-1] +1 day <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Aug Su[-1] +1 day <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Constrained weekday (complex real world example)" for "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00, Aug: Su[-1] 10:00-18:00": [1m[32mPASSED[39m[22m
 "Constrained weekday (complex real world example)" for "Apr-Oct: Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug: Su[-1] 10:00-18:00": [1m[32mPASSED[39m[22m
 "Additional rules" for "Mo-Fr 10:00-16:00, We 12:00-18:00": [1m[32mPASSED[39m[22m
@@ -1245,40 +1245,40 @@ With [1m[34mwarnings[39m[22m:
 "Week ranges" for "week 01: 00:00-24:00; week 03: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 01; week 03": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*week 01; week 03 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 01; week 03 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Week ranges" for "week 01-3/2 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 02,4 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week ranges" for "week 02-4/2 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range limit" for "week 02-53": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 02-53 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 02-53 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Week range limit" for "week 02-53 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range full range" for "week 01-53": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 01-53 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 01-53 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Week range full range" for "week 01-53 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range second week" for "week 02 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range" for "week 01-53/2 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range" for "week 01-53/2 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range" for "week 02-53/2 We; week 01-53/2 Sa 00:00-24:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 02-53/2 We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 02-53/2 We <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Week range (beginning in last year)" for "week 04-16": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 04-16 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 04-16 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Week range (beginning in matching year)" for "week 04-16": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 04-16 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 04-16 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Week range first week" for "week 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Week range first week" for "week 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Week range first week" for "week 01 open": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 01 open <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 01 open <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Week range first week" for "week 01 00:00-24:00": [1m[32mPASSED[39m[22m
 "Week range first week" for "week 01 00:00-23:59": [1m[32mPASSED[39m[22m
 "Only in one month of the year" for "Apr 08:00-12:00": [1m[32mPASSED[39m[22m
@@ -1287,7 +1287,7 @@ With [1m[34mwarnings[39m[22m:
 "Month ranges" for "Nov-Feb00:00-24:00": [1m[32mPASSED[39m[22m
 "Month ranges" for "Nov-Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Nov-Feb <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Nov-Feb <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Month ranges" for "Nov-Feb 00-24": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Nov-Feb 00-24 <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "00:00-24:00".)
@@ -1298,36 +1298,36 @@ With [1m[34mwarnings[39m[22m:
 "Month ranges" for "Nov-Nov 00:00-24:00": [1m[32mPASSED[39m[22m
 "Month ranges" for "Nov-Nov": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Nov-Nov <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Nov-Nov <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Month ranges" for "2012 Nov-Nov": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2012  <--- (Das Jahr liegt in der Vergangenheit.)
-	*2012 Nov-Nov <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2012 Nov-Nov <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Month ranges" for "Jan 01,Dec 24-25; Nov Th[4]": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 01,Dec 24-25 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*Jan 01,Dec 24-25; Nov Th[4] <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 01,Dec 24-25 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 01,Dec 24-25; Nov Th[4] <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Month ranges" for "Jan 01,Dec 24.-25.; Nov Th[4]": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan 01,Dec 24. <--- (Bitte verzichte auf ".".)
 	*Jan 01,Dec 24.-25. <--- (Bitte verzichte auf ".".)
-	*Jan 01,Dec 24.-25. <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*Jan 01,Dec 24.-25.; Nov Th[4] <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 01,Dec 24.-25. <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 01,Dec 24.-25.; Nov Th[4] <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Month ranges" for "Jan 01,Dec 24,25; Nov Th[4]": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 01,Dec 24,25 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*Jan 01,Dec 24,25; Nov Th[4] <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 01,Dec 24,25 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 01,Dec 24,25; Nov Th[4] <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Month ranges" for "2012 Jan 01,2012 Dec 24-25; 2012 Nov Th[4]": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2012 Jan 01,2012 Dec 24-25; 2012  <--- (Das Jahr liegt in der Vergangenheit.)
-	*2012 Jan 01,2012 Dec 24-25 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*2012 Jan 01,2012 Dec 24-25; 2012 Nov Th[4] <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2012 Jan 01,2012 Dec 24-25 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2012 Jan 01,2012 Dec 24-25; 2012 Nov Th[4] <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Month ranges" for "Jan 01,Dec 11,Dec 15-17,Dec 19-23/2,Dec 24-25": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 01,Dec 11,Dec 15-17,Dec 19-23/2,Dec 24-25 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 01,Dec 11,Dec 15-17,Dec 19-23/2,Dec 24-25 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Month ranges" for "Jan 01,Dec 11,15-17,19-23/2,24,25": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 01,Dec 11,15-17,19-23/2,24,25 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 01,Dec 11,15-17,19-23/2,24,25 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Monthday ranges" for "Jan 23-31 00:00-24:00; Feb 01-12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Jan 23-Feb 12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Jan 23-Feb 12: 00:00-24:00": [1m[32mPASSED[39m[22m
@@ -1336,11 +1336,11 @@ With [1m[34mwarnings[39m[22m:
 "Monthday ranges" for "Jan 31-Feb 01,Aug: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Aug,Jan 31-Feb 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Aug,Jan 31-Feb 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Aug,Jan 31-Feb 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Monthday ranges" for "Jan 31-Feb 01; Aug": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 31-Feb 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*Jan 31-Feb 01; Aug <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 31-Feb 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 31-Feb 01; Aug <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Monthday ranges" for "Jan 23,25": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Monthday ranges" for "Dec 24,Jan 02: 18:00-22:00": [1m[32mPASSED[39m[22m
 "Monthday ranges" for "Dec 24,Jan 02: 18:00-22:00; Jan 20: off": [1m[32mPASSED[39m[22m
@@ -1351,65 +1351,65 @@ With [1m[34mwarnings[39m[22m:
 "Monthday ranges (with year)" for "2012 Jan 23-31 00:00-24:00; 2012 Feb 01-12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Monthday ranges spanning year boundary" for "Dec 31-Jan 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Dec 31-Jan 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Dec 31-Jan 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Full day (with year)" for "2013 Dec 31,2014 Jan 05": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2013 Dec 31,2014 Jan 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2013 Dec 31,2014 Jan 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Full day (with year)" for "2013 Dec 31; 2014 Jan 05": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2013 Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*2013 Dec 31; 2014 Jan 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2013 Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2013 Dec 31; 2014 Jan 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Full day (with year)" for "2013/10 Dec 31; 2014/10 Jan 05": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 <--- (Das Jahr liegt in der Vergangenheit.)
 	*2013/10 Dec 31; 2014 <--- (Das Jahr liegt in der Vergangenheit.)
-	*2013/10 Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*2013/10 Dec 31; 2014/10 Jan 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2013/10 Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2013/10 Dec 31; 2014/10 Jan 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Date range which only applies for one year" for "2013 Dec 31": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2013 Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2013 Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Date range which only applies for one year" for "2013 Dec 31; 2014 Jan 05; 2014+ off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 Dec 31; 2014 Jan 05; 2014 <--- (Das Jahr liegt in der Vergangenheit.)
-	*2013 Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*2013 Dec 31; 2014 Jan 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2013 Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2013 Dec 31; 2014 Jan 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Monthday (with year) ranges spanning year boundary" for "2013 Dec 31-2014 Jan 02": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2013 Dec 31-2014 Jan 02 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2013 Dec 31-2014 Jan 02 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Monthday (with year) ranges spanning year boundary" for "open; 2010 Jan 01-2013 Dec 30 off; 2014 Jan 03-2016 Jan 01 off": [1m[32mPASSED[39m[22m
 "Monthday ranges with constrained weekday" for "Jan Su[2]-Jan 15": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan Su[2]-Jan 15 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan Su[2]-Jan 15 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Monthday ranges with constrained weekday" for "Jan 20-Jan Su[-1]": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 20-Jan Su[-1] <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 20-Jan Su[-1] <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Monthday ranges with constrained weekday" for "Jan Su[1] +2 days-Jan Su[3] -2 days": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan Su[1] +2 days-Jan Su[3] -2 days <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan Su[1] +2 days-Jan Su[3] -2 days <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Monthday ranges with constrained weekday spanning year" for "Dec 20-Dec Su[-1] +4 days": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Dec 20-Dec Su[-1] +4 days <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Dec 20-Dec Su[-1] +4 days <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Monthday ranges with constrained" for "Nov Su[-1]-Dec Su[1] -1 day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Nov Su[-1]-Dec Su[1] -1 day <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Nov Su[-1]-Dec Su[1] -1 day <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Monthday ranges with constrained weekday spanning year" for "Jan Su[1] -5 days-Jan 10": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Monthday ranges" for "Mar Su[-1]-Oct Su[-1] -1 day open; Oct Su[-1]-Mar Su[-1] -1 day off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mar Su[-1]-Oct Su[-1] -1 day open <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Mar Su[-1]-Oct Su[-1] -1 day open <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Monthday ranges" for "Mar Su[-1]-Oct Su[-1] -1 day open": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mar Su[-1]-Oct Su[-1] -1 day open <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Mar Su[-1]-Oct Su[-1] -1 day open <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Month ranges with year" for "2012 Jan 10-15,Jan 11": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2012 Jan 10-15,Jan 11 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2012 Jan 10-15,Jan 11 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Complex monthday ranges" for "Jan 23-31,Feb 01-12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Complex monthday ranges" for "Jan 23-Feb 11,Feb 12 00:00-24:00": [1m[32mPASSED[39m[22m
 "Leap year monthday" for "2016 Feb 29": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2016 Feb 29 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2016 Feb 29 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Leap year monthday" for "2015 Feb 29": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2015 Feb 29 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2015 Feb 29 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Last day in month" for "Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; Feb 29 open "last day in month (Feb, leap year)"; 2009/4,2010/4,2011/4 Feb 28 open "last day in month (Feb, not leap year)"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan 31,Mar 31,Apr 30,May 31,Jun 30,Jul 31,Aug 31,Sep 30,Oct 31,Nov 30,Dec 31 open "last day in month"; Feb 29 open "last day in month (Feb, leap year)"; 2009 <--- (Das Jahr liegt in der Vergangenheit.)
@@ -1425,81 +1425,81 @@ With [1m[34mwarnings[39m[22m:
 "Periodical monthdays" for "Jan 01-31/8: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Periodical monthdays" for "Jan 01-31/8": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Periodical monthdays" for "2012 Jan 01-31/8": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2012 Jan 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2012 Jan 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Periodical monthdays" for "2012 Jan 01-31/8; 2010 Dec 01-31/8": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2012 Jan 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*2012 Jan 01-31/8; 2010 Dec 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2012 Jan 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2012 Jan 01-31/8; 2010 Dec 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Periodical monthdays" for "2012 Jan 01-31/8; 2015 Dec 01-31/8": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2012 Jan 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*2012 Jan 01-31/8; 2015 Dec 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2012 Jan 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2012 Jan 01-31/8; 2015 Dec 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Periodical monthdays" for "2012 Jan 01-31/8; 2025 Dec 01-31/8": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2012 Jan 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*2012 Jan 01-31/8; 2025 Dec 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2012 Jan 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2012 Jan 01-31/8; 2025 Dec 01-31/8 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Periodical monthdays" for "2012 Jan 01-31/8: 00:00-24:00": [1m[32mPASSED[39m[22m
 "Periodical monthdays" for "Jan 10-31/7": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 10-31/7 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 10-31/7 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 <--- (Das Jahr liegt in der Vergangenheit.)
-	*2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 Mo-Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 <--- (Das Jahr liegt in der Vergangenheit.)
-	*2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 Mo-Su <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 Mo-Su <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Date range which only applies for specific year" for "2060+": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2060+ <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2060+ <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Date range which only applies for specific year" for "2040-2050": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2040-2050 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2040-2050 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Date range which only applies for specific year" for "2012-2016": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*2012-2016 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2012-2016 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector combination" for "week 02 We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 02 We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 02 We <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector combination" for "Jan 11-Jan 11 week 02": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 11-Jan 11 week 02 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 11-Jan 11 week 02 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector combination" for "Jan 11-Jan 11: week 02: 00:00-24:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan 11-Jan 11:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax-Spezifikation um zu sehen, wo es verwendet werden kann, oder entferne es.)
 "Selector combination" for "Jan 11 week 02": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 11 week 02 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 11 week 02 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector combination" for "Jan week 02": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan week 02 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan week 02 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector combination" for "Jan-Feb Jan 09-Jan 15": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan-Feb Jan 09-Jan 15 <--- (Du hast 2 nicht verbundene Monate in einer Regel benutzt. Das ist vermutlich ein Fehler. Gleiche Selektoren können (und sollten) immer zusammen und durch Kommas getrennt geschrieben werden. Beispiel für Zeitspannen "12:00-13:00,15:00-18:00". Beispiel für Wochentage "Mo-We,Fr". Einzelne Regeln können mit ";" getrennt werden.)
-	*Jan-Feb Jan 09-Jan 15 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan-Feb Jan 09-Jan 15 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector combination" for "Jan-Feb Jan 09-15": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan-Feb Jan 09-15 <--- (Du hast 2 nicht verbundene Monate in einer Regel benutzt. Das ist vermutlich ein Fehler. Gleiche Selektoren können (und sollten) immer zusammen und durch Kommas getrennt geschrieben werden. Beispiel für Zeitspannen "12:00-13:00,15:00-18:00". Beispiel für Wochentage "Mo-We,Fr". Einzelne Regeln können mit ";" getrennt werden.)
-	*Jan-Feb Jan 09-15 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan-Feb Jan 09-15 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector combination" for "Jan We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan We <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector combination" for "Jan 02-27 We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jan 02-27 We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 02-27 We <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector combination" for "Dec 30-Jan 27 We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Dec 30-Jan 27 We <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Dec 30-Jan 27 We <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector order" for "Feb week 05": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue Ignored but passes!
 With [1m[34mwarnings[39m[22m:
-	*Feb week 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Feb week 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector order" for "Feb week 05": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb week 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Feb week 05 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector order" for "00:00-24:00 week 05 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
@@ -1546,21 +1546,21 @@ With [1m[34mwarnings[39m[22m:
 "Selector order" for "week 05 Feb 2012-2014": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
 	*week 05 Feb 2012-2014 <--- (Das Jahr liegt in der Vergangenheit.)
-	*week 05 Feb 2012-2014 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 05 Feb 2012-2014 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 	*2012-2014 <--- (Der Selektor "year" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "week" getauscht.)
 	*2012-2014 Feb week 05 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "year" getauscht.)
 "Selector order" for "Feb week 06": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue Ignored but passes!
 With [1m[34mwarnings[39m[22m:
-	*Feb week 06 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Feb week 06 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector order" for "Feb week 06": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb week 06 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Feb week 06 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector order" for "Feb week 06 open": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb week 06 open <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Feb week 06 open <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector order" for "open week 06 Feb": [1m[32mPASSED[39m[22m, [1m[33mexcept[39m[22m prettifyValue
 With [1m[34mwarnings[39m[22m:
-	*open week 06 Feb <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*open week 06 Feb <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "state" getauscht.)
 	*Feb week 06 open <--- (Der Selektor "state" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "month" getauscht.)
 "Additional comment "Nach Vereinbarung"" for "Mo-Fr 08:00-12:00 open "Kein Termin erforderlich", Mo-Fr 13:00-17:00 open "Nach Vereinbarung"": [1m[32mPASSED[39m[22m
@@ -1602,13 +1602,13 @@ With [1m[34mwarnings[39m[22m:
 "Additional comments combined with additional rules" for "Mo 12:00-14:00 open "female only", Mo 14:00-16:00 open "male only"": [1m[32mPASSED[39m[22m
 "Additional comments combined with months" for "Apr-Sep; Oct-Dec "on request"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Apr-Sep <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Apr-Sep <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Additional comments combined with months" for "Apr-Sep; Oct-Dec"on request"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Apr-Sep <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Apr-Sep <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Additional comments combined with months" for "Oct-Dec "on request"; Apr-Sep": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Oct-Dec "on request"; Apr-Sep <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Oct-Dec "on request"; Apr-Sep <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Complex example used in README" for "open; Tu-Su 08:30-09:00 off; Tu-Su,PH 14:00-14:30 off; Mo 08:00-13:00 off": [1m[32mPASSED[39m[22m
 "Complex example used in README" for "00:00-24:00; Tu-Su,PH 08:30-09:00 off; Tu-Su 14:00-14:30 off; Mo 08:00-13:00 off": [1m[32mPASSED[39m[22m
 "Complex example used in README and benchmark" for "Mo-Fr 12:00-18:00; We off; Sa,PH 12:00-17:00; Th[3],Th[-1] off": [1m[32mPASSED[39m[22m
@@ -1625,7 +1625,7 @@ With [1m[34mwarnings[39m[22m:
 "Real world example: Was not processed right." for "Mo off; Tu 14:00-18:00; We-Sa 10:00-18:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right (month range/monthday range)" for "Aug,Dec 25-easter": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Aug,Dec 25-easter <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Aug,Dec 25-easter <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Real world example: Was processed right (month range/monthday range with additional rule)" for "Nov-Mar Mo-Fr 11:30-17:00, Mo-Su 17:00-01:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right (month range/monthday range)" for "Mo-Sa 18:00+; SH off": [1m[31mFAILED[39m[22m, bad intervals: 
 [ '2014-09-14 00:00', '2014-09-14 04:00', true, 'Angegeben als "open end". Schließzeit wurde geraten.' ],
@@ -1686,8 +1686,8 @@ expected:
 "Real world example: Was processed right (month range/monthday range)" for "Mo-Sa 17:15-01:00, PH,Su 17:15-24:00": [1m[32mPASSED[39m[22m
 "Real world example: Was not processed right (month range/monthday range)" for "Jun 15-Sep 15; Sep 16-Dec 31; Jan-Mar off; Dec 25-easter off": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Jun 15-Sep 15 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-	*Jun 15-Sep 15; Sep 16-Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jun 15-Sep 15 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jun 15-Sep 15; Sep 16-Dec 31 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Real world example: Was not processed right" for "Mo,Tu,We,Th,Fr,Su 11:00-01:00; Sa 11:00-02:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo,Tu,We,Th,Fr,Su 11:00-01:00; Sa 11:00-02:00 <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
@@ -1796,7 +1796,7 @@ expected:
 [ '2014-12-30 12:00', '2014-12-31 00:00', true, 'Specified as open end. Closing time was guessed.' ],
 "Simplifed real world example: Was not processed right." for "Nov 01-20,Dec": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Nov 01-20,Dec <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Nov 01-20,Dec <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Real world example: Was processed right form library." for "Mo 19:00+; We 14:00+; Su 10:00+ || "Führung, Sonderführungen nach Vereinbarung."": [1m[31mFAILED[39m[22m, bad intervals: 
 [ '2014-01-06 00:00', '2014-01-06 19:00', true, 'Führung, Sonderführungen nach Vereinbarung.' ],
 [ '2014-01-06 19:00', '2014-01-07 05:00', true, 'Angegeben als "open end". Schließzeit wurde geraten.' ],
@@ -1839,7 +1839,7 @@ With [1m[34mwarnings[39m[22m:
 "Real world example: Was not processed right" for "Tu 10:00-12:00, Fr 16:00-18:00; unknown": [1m[35mCRASHED[39m[22m, reason: TypeError: Cannot read property '0' of undefined
 "Real world example: Problem with <additional_rule_separator> in holiday parser" for "PH; Aug-Sep 00:00-24:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Real world example: Problem with <additional_rule_separator> in holiday parser" for "We off; Mo,Tu,Th-Su,PH; Jun-Aug We 11:00-14:00,17:00+": [1m[31mFAILED[39m[22m, bad intervals: 
 [ '2015-05-25 00:00', '2015-05-26 00:00', false, 'Pfingstmontag' ],
 [ '2015-05-26 00:00', '2015-05-27 00:00', false, undefined ],
@@ -1857,7 +1857,7 @@ expected:
 [ '2015-06-04 03:00', '2015-06-05 00:00', false, 'Fronleichnam' ],
 [ '2015-06-05 00:00', '2015-06-10 00:00', false, undefined ],
 With [1m[34mwarnings[39m[22m:
-	*We off; Mo,Tu,Th-Su,PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*We off; Mo,Tu,Th-Su,PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Real world example: Problem with <additional_rule_separator> in holiday parser" for "We off; Mo,Tu,Th-Su,PH; Sommer We 11:00-14:00,17:00+": [1m[31mFAILED[39m[22m, bad intervals: 
 [ '2015-05-25 00:00', '2015-05-26 00:00', false, 'Pfingstmontag' ],
 [ '2015-05-26 00:00', '2015-05-27 00:00', false, undefined ],
@@ -1876,7 +1876,7 @@ expected:
 [ '2015-06-05 00:00', '2015-06-10 00:00', false, undefined ],
 With [1m[34mwarnings[39m[22m:
 	*We off; Mo,Tu,Th-Su,PH; Sommer <--- ("sommer" wird als "Jun-Aug" interpretiert.)
-	*We off; Mo,Tu,Th-Su,PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*We off; Mo,Tu,Th-Su,PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Real world example: Problem with <additional_rule_separator> in holiday parser" for "We off; Mo,Tu,Th-Su,PH; sommer We 11:00-14:00,17:00+": [1m[31mFAILED[39m[22m, bad intervals: 
 [ '2015-05-25 00:00', '2015-05-26 00:00', false, 'Pfingstmontag' ],
 [ '2015-05-26 00:00', '2015-05-27 00:00', false, undefined ],
@@ -1895,7 +1895,7 @@ expected:
 [ '2015-06-05 00:00', '2015-06-10 00:00', false, undefined ],
 With [1m[34mwarnings[39m[22m:
 	*We off; Mo,Tu,Th-Su,PH; sommer <--- ("sommer" wird als "Jun-Aug" interpretiert.)
-	*We off; Mo,Tu,Th-Su,PH <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*We off; Mo,Tu,Th-Su,PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Real world example: Problem with <additional_rule_separator> in holiday parser" for "Mo,Tu,Th-Su,PH 00:00-24:00; Jun-Aug We 11:00-14:00,17:00+": [1m[31mFAILED[39m[22m, bad intervals: 
 [ '2015-05-25 00:00', '2015-05-26 00:00', false, 'Pfingstmontag' ],
 [ '2015-05-26 00:00', '2015-05-27 00:00', false, undefined ],
@@ -1918,7 +1918,7 @@ With [1m[34mwarnings[39m[22m:
 "Real world example: Was not processed right" for "Mo-Fr 17:00-12:00, Su-Mo 00:00-12:00": [1m[32mPASSED[39m[22m
 "Variable events" for "easter": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*easter <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*easter <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Calculations based on variable events" for "easter +1 day open "Easter Monday"": [1m[32mPASSED[39m[22m
 "Calculations based on variable events" for "Apr 05-easter -1 day: open "Before easter"": [1m[32mPASSED[39m[22m
 "Calculations based on variable events" for "easter-Apr 20: open "Around easter"": [1m[32mPASSED[39m[22m
@@ -2192,79 +2192,79 @@ With [1m[34mwarnings[39m[22m:
 	*mon., Tuesday, wed., Thursday. <--- (Bitte verzichte auf ".".)
 "Error tolerance: Full range" for "Mo-Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Mo-Su <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Mo-Su <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "Montag-Sonntag": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Montag <--- (Bitte benutze die englische Abkürzung "Mo" für "montag".)
 	*Montag-Sonntag <--- (Bitte benutze die englische Abkürzung "Su" für "sonntag".)
-	*Montag-Sonntag <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Montag-Sonntag <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "Montags bis sonntags": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Montags <--- (Bitte benutze die englische Abkürzung "Mo" für "montags".)
 	*Montags bis <--- (Bitte verwende "-" anstelle von "bis".)
 	*Montags bis sonntags <--- (Bitte benutze die englische Abkürzung "Su" für "sonntags".)
-	*Montags bis sonntags <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Montags bis sonntags <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "Montag-Sonntags": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Montag <--- (Bitte benutze die englische Abkürzung "Mo" für "montag".)
 	*Montag-Sonntags <--- (Bitte benutze die englische Abkürzung "Su" für "sonntags".)
-	*Montag-Sonntags <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Montag-Sonntags <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "monday-sunday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*monday <--- (Bitte benutze die englische Abkürzung "Mo" für "monday".)
 	*monday-sunday <--- (Bitte benutze die englische Abkürzung "Su" für "sunday".)
-	*monday-sunday <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*monday-sunday <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "daily": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*daily <--- (Bitte verwende "Mo-Su" anstelle von "daily".)
-	*daily <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*daily <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "everyday": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*everyday <--- (Bitte verwende "Mo-Su" anstelle von "everyday".)
-	*everyday <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*everyday <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "every day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*every day <--- (Bitte verwende "Mo-Su" anstelle von "every day".)
-	*every day <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*every day <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "all days": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*all days <--- (Bitte verwende "Mo-Su" anstelle von "all days".)
-	*all days <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*all days <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "every day": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*every day <--- (Bitte verwende "Mo-Su" anstelle von "every day".)
-	*every day <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*every day <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "7days": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7days <--- (Bitte verwende "Mo-Su" anstelle von "7days".)
-	*7days <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*7days <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "7j/7": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7j/7 <--- (Bitte verwende "Mo-Su" anstelle von "7j/7".)
-	*7j/7 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*7j/7 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "7/7": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7/7 <--- (Bitte verwende "Mo-Su" anstelle von "7/7".)
-	*7/7 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*7/7 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "7 days": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7 days <--- (Bitte verwende "Mo-Su" anstelle von "7 days".)
-	*7 days <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*7 days <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "7 days a week": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7 days a week <--- (Bitte verwende "Mo-Su" anstelle von "7 days a week".)
-	*7 days a week <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*7 days a week <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "7 days/week": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*7 days/week <--- (Bitte verwende "Mo-Su" anstelle von "7 days/week".)
-	*7 days/week <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*7 days/week <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "täglich": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*täglich <--- (Bitte verwende "Mo-Su" anstelle von "täglich".)
-	*täglich <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*täglich <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "week 01-53": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*week 01-53 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 01-53 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Error tolerance: Full range" for "24/7": [1m[32mPASSED[39m[22m
 "Error tolerance: Full range" for "always": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -2341,15 +2341,15 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "Mo[2] - 0 days; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo[2] - 0 days <--- (Addition von 0 verändert das Datum nicht. Bitte weglassen.)
-	*Mo[2] - 0 days <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Mo[2] - 0 days <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo&Th; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo& <--- (Bitte verwende "," anstelle von "&".)
-	*Mo&Th <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Mo&Th <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mon; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mon <--- (Bitte benutze die englische Abkürzung "Mo" für "mon".)
-	*Mon <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Mon <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "8-18; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*8-18 <--- (Zeitspanne ohne Minutenangabe angegeben. Das ist nicht sehr eindeutig! Bitte verwende stattdessen folgende Syntax "08:00-18:00".)
@@ -2362,12 +2362,12 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "2013-2015/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013-2015/1 <--- (Bitte verwende keine year-Spannen mit Periode "1".)
-	*2013-2015/1 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2013-2015/1 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 01; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 <--- (Das Jahr liegt in der Vergangenheit.)
 	*2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1  <--- (Bitte verwende keine year-Spannen mit Periode "1".)
-	*2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo: 15:00-16:00 off; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo:  <--- (Du hast das optionale Symbol <separator_for_readability> an der falschen Stelle benutzt. Bitte lies die Syntax-Spezifikation um zu sehen, wo es verwendet werden kann, oder entferne es.)
@@ -2385,7 +2385,7 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "Mo Tu Fr; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo Tu Fr <--- (Du hast 3 nicht verbundene Wochentage in einer Regel benutzt. Das ist vermutlich ein Fehler. Gleiche Selektoren können (und sollten) immer zusammen und durch Kommas getrennt geschrieben werden. Beispiel für Zeitspannen "12:00-13:00,15:00-18:00". Beispiel für Wochentage "Mo-We,Fr". Einzelne Regeln können mit ";" getrennt werden.)
-	*Mo Tu Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Mo Tu Fr <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo,Mo 12:00-15:00": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Value not ideal (probably wrong). Should throw a warning." for "Mo,Sa,Mo 12:00-15:00": [1m[33mIGNORED[39m[22m, reason: not implemented yet
 "Value not ideal (probably wrong). Should throw a warning." for "Jan,Jan 12:00-15:00": [1m[33mIGNORED[39m[22m, reason: not implemented yet
@@ -2393,11 +2393,11 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "Jan Dec; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan Dec <--- (Du hast 2 nicht verbundene Monate in einer Regel benutzt. Das ist vermutlich ein Fehler. Gleiche Selektoren können (und sollten) immer zusammen und durch Kommas getrennt geschrieben werden. Beispiel für Zeitspannen "12:00-13:00,15:00-18:00". Beispiel für Wochentage "Mo-We,Fr". Einzelne Regeln können mit ";" getrennt werden.)
-	*Jan Dec <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan Dec <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "Jan 01-22/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jan 01-22/1 <--- (Bitte verwende keine day-Spannen mit Periode "1".)
-	*Jan 01-22/1 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jan 01-22/1 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for ""testing" "second comment"; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*"testing" "second comment" <--- (Du hast 2 Kommentare in einer Regel benutzt. Du kannst nur einen davon je Regel verwenden Einzelne Regeln können mit ";" getrennt werden.)
@@ -2449,16 +2449,16 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "Jun 02-20/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Jun 02-20/1 <--- (Bitte verwende keine day-Spannen mit Periode "1".)
-	*Jun 02-20/1 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Jun 02-20/1 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "2014-2020/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2014-2020/1 <--- (Bitte verwende keine year-Spannen mit Periode "1".)
-	*2014-2020/1 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2014-2020/1 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "2014/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2014/1 <--- (Bitte verwende keine year-Spannen mit Periode "1". Wenn du ausdrücken willst, das eine Einrichtung ab einem bestimmten Jahr immer offen ist, benutze bitte "<year>+".)
 	*2014 <--- (Das Jahr liegt in der Vergangenheit.)
-	*2014/1 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2014/1 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-Sa 11:00-21:00 Su off; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Mo-Sa 11:00-21:00 Su  <--- (Du hast 2 nicht verbundene Wochentage in einer Regel benutzt. Das ist vermutlich ein Fehler. Gleiche Selektoren können (und sollten) immer zusammen und durch Kommas getrennt geschrieben werden. Beispiel für Zeitspannen "12:00-13:00,15:00-18:00". Beispiel für Wochentage "Mo-We,Fr". Einzelne Regeln können mit ";" getrennt werden.)
@@ -2474,12 +2474,12 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "Sa 2200; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Sa 2 <--- (Die Zahl 2200 wird als Jahr interpretiert. Vermutlich ist das nicht beabsichtigt. Uhrzeiten werden als "12:00" angegeben.)
-	*Sa 2200 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Sa 2200 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 	*2200 <--- (Der Selektor "year" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "weekday" getauscht.)
 	*2200 Sa <--- (Der Selektor "weekday" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "year" getauscht.)
 "Value not ideal (probably wrong). Should throw a warning." for "Feb week 06": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
-	*Feb week 06 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*Feb week 06 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "00:00-24:00 week 06 Feb": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*Feb <--- (Der Selektor "month" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "time" getauscht.)
@@ -2523,17 +2523,17 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "week 06 Feb 2012-2014": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*week 06 Feb 2012-2014 <--- (Das Jahr liegt in der Vergangenheit.)
-	*week 06 Feb 2012-2014 <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*week 06 Feb 2012-2014 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 	*2012-2014 <--- (Der Selektor "year" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "week" getauscht.)
 	*2012-2014 Feb week 06 <--- (Der Selektor "week" wurde für eine bessere Lesbarkeit und der Vollständigkeit halber mit "year" getauscht.)
 "Value not ideal (probably wrong). Should throw a warning." for "2012 Jan-Feb; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2012  <--- (Das Jahr liegt in der Vergangenheit.)
-	*2012 Jan-Feb <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2012 Jan-Feb <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "2012 Jan-Feb open; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2012  <--- (Das Jahr liegt in der Vergangenheit.)
-	*2012 Jan-Feb open <--- (Diese Regel ist nicht sehr aussagekräftig, da keine Zeit angegeben wurde. Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
+	*2012 Jan-Feb open <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Object geöffnet hat zum Beispiel  "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "12:00-14:00 ""; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*12:00-14:00 "" <--- (Du hast einen leeren Kommentar verwendet." Bitte schreibe entweder einen Kommentar-Text oder benutze stattdessen das Schlüsselwort "unknown".)
