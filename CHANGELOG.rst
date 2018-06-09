@@ -135,7 +135,11 @@ Added
 * Added Easter Sunday to Slovak holidays. [chiak597_]
 * Localizations added: Hungarian [urbalazs_]
 
-* School holiday definitions added: Germany 2017 until 2024. [ypid_]
+* School holiday definitions added:
+
+  * Germany 2017 until 2024 [ypid_]
+  * Austria [simon04_]
+
 * Translate error tolerance warnings into German. [ypid_]
 * Add additional warnings:
 
@@ -157,7 +161,6 @@ Added
   * Handle super/subscript digits properly. Example: ``Mo 00³°-¹⁴:⁰⁹``. [ypid_]
   * Handle misused ``.`` character following a number. Example: ``Jan 01,Dec 24.-25.``. [ypid_]
 
-* School holiday definitions added: Austria [simon04_]
 
 Changed
 ~~~~~~~
