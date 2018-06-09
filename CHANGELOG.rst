@@ -157,6 +157,8 @@ Added
   * Handle super/subscript digits properly. Example: ``Mo 00³°-¹⁴:⁰⁹``. [ypid_]
   * Handle misused ``.`` character following a number. Example: ``Jan 01,Dec 24.-25.``. [ypid_]
 
+* School holiday definitions added: Austria [simon04_]
+
 Changed
 ~~~~~~~
 
@@ -184,6 +186,9 @@ Changed
 
 * Improved performance of common constructor calls by factor 6! [ypid_]
 * Improve number input in the evaluation tool and other HTML and CSS improvements. Useful for example on mobile devices. [HolgerJeromin_, ypid_]
+
+* Merge country into state holidays. This avoids repeating country-wide holidays.
+  [simon04_]
 
 .. _ES2015 modules: http://exploringjs.com/es6/ch_modules.html
 .. _rollup: http://rollupjs.org/
