@@ -837,7 +837,9 @@ With [1m[34mwarnings[39m[22m:
 "Variable days: Italian public holidays" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Objekt geöffnet hat, zum Beispiel "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
-"SH for Romania" for "SH": [1m[32mPASSED[39m[22m
+Bei der Auswertung des Wertes "SH" ist ein Fehler aufgetreten. Du kannst dies korrigieren, indem du das Problem löst und in Form eines Pull Requests oder Patches zum Projekt beiträgst: https://github.com/opening-hours/opening_hours.js. Die Schulferien sind für das Jahr 2018 nicht definiert
+"SH for Romania" for "SH": [1m[35mCRASHED[39m[22m, reason: Bei der Auswertung des Wertes "SH" ist ein Fehler aufgetreten. Du kannst dies korrigieren, indem du das Problem löst und in Form eines Pull Requests oder Patches zum Projekt beiträgst: https://github.com/opening-hours/opening_hours.js. Die Schulferien sind für das Jahr 2018 nicht definiert
+"SH for Austria" for "SH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Objekt geöffnet hat, zum Beispiel "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Variable days: Russian common public holidays" for "PH": [1m[32mPASSED[39m[22m
@@ -1451,10 +1453,12 @@ With [1m[34mwarnings[39m[22m:
 "Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 <--- (Das Jahr liegt in der Vergangenheit.)
+	*2013,2015 <--- (Das Jahr liegt in der Vergangenheit.)
 	*2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Objekt geöffnet hat, zum Beispiel "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 Mo-Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 <--- (Das Jahr liegt in der Vergangenheit.)
+	*2013,2015 <--- (Das Jahr liegt in der Vergangenheit.)
 	*2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 Mo-Su <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Objekt geöffnet hat, zum Beispiel "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Date range which only applies for specific year" for "2060+": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1464,6 +1468,7 @@ With [1m[34mwarnings[39m[22m:
 	*2040-2050 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Objekt geöffnet hat, zum Beispiel "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Date range which only applies for specific year" for "2012-2016": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*2012-2016 <--- (Das Jahr liegt in der Vergangenheit.)
 	*2012-2016 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Objekt geöffnet hat, zum Beispiel "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Selector combination" for "week 02 We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -2365,10 +2370,12 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "2013-2015/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013-2015/1 <--- (Bitte verwende keine year-Spannen mit Periode "1".)
+	*2013-2015 <--- (Das Jahr liegt in der Vergangenheit.)
 	*2013-2015/1 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Objekt geöffnet hat, zum Beispiel "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 01; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 <--- (Das Jahr liegt in der Vergangenheit.)
+	*2013,2015 <--- (Das Jahr liegt in der Vergangenheit.)
 	*2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1  <--- (Bitte verwende keine year-Spannen mit Periode "1".)
 	*2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 01 <--- (Diese Regel ist nicht sehr aussagekräftig, da kein Zeit Selektor angegeben wurde. Ein Zeit Selektor ist die Komponente die angibt, zu welcher Tageszeit ein Objekt geöffnet hat, zum Beispiel "10:00-19:00". Bitte füge eine Zeitangabe oder einen Kommentar hinzu, um dies zu verbessern.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo: 15:00-16:00 off; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
@@ -2577,9 +2584,11 @@ With [1m[34mwarnings[39m[22m:
 	*Mo-Su 09:00-01:00; PH 08:00-02:00 <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
 "Value not ideal (probably wrong). Should throw a warning." for "2015 Mo-Su 09:00-01:00; PH 08:00-02:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*2015  <--- (Das Jahr liegt in der Vergangenheit.)
 	*2015 Mo-Su 09:00-01:00; PH 08:00-02:00 <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
 "Value not ideal (probably wrong). Should throw a warning." for "2015 Mo 09:00-01:00; PH Tu 08:00-02:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*2015  <--- (Das Jahr liegt in der Vergangenheit.)
 	*2015 Mo 09:00-01:00; PH Tu 08:00-02:00 <--- (Diese Regel überschreibt Teile der vorherigen Regel. Der Grund dafür ist, dass normale Regeln auf den ganzen Tag zutreffen und alle Definitionen von vorhergehenden Regeln für diesen Tag überschreiben. Du kannst diese Regel als additive Regel deklarieren indem du ein "," anstelle des üblichen ";" für diese Regel verwendest. Beachte das die Überschreibung auch gewünscht sein kann und in so einem Fall diese Warnung ignoriert werden kann.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-Su 09:00-01:00; 2014 PH 08:00-02:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -3145,7 +3154,7 @@ Der optional_conf_parm["tag_key"] fehlt, ist aber notwendig wegen optional_conf_
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-888/942 tests passed. 54 did not pass.
+888/943 tests passed. 55 did not pass.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

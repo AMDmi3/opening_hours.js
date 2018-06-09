@@ -658,7 +658,9 @@ With [1m[34mwarnings[39m[22m:
 "Variable days: Italian public holidays" for "PH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*PH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
-"SH for Romania" for "SH": [1m[32mPASSED[39m[22m
+An error occurred during evaluation of the value "SH". Please submit a pull request: https://github.com/opening-hours/opening_hours.js. School holiday not defined for the year 2018.
+"SH for Romania" for "SH": [1m[35mCRASHED[39m[22m, reason: An error occurred during evaluation of the value "SH". Please submit a pull request: https://github.com/opening-hours/opening_hours.js. School holiday not defined for the year 2018.
+"SH for Austria" for "SH": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*SH <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Variable days: Russian common public holidays" for "PH": [1m[32mPASSED[39m[22m
@@ -1272,10 +1274,12 @@ With [1m[34mwarnings[39m[22m:
 "Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 <--- (The year is in the past.)
+	*2013,2015 <--- (The year is in the past.)
 	*2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Date range which only applies for specific year" for "2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 Mo-Su": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 <--- (The year is in the past.)
+	*2013,2015 <--- (The year is in the past.)
 	*2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 01 Mo-Su <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Date range which only applies for specific year" for "2060+": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1285,6 +1289,7 @@ With [1m[34mwarnings[39m[22m:
 	*2040-2050 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Date range which only applies for specific year" for "2012-2016": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*2012-2016 <--- (The year is in the past.)
 	*2012-2016 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Selector combination" for "week 02 We": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -1958,10 +1963,12 @@ With [1m[34mwarnings[39m[22m:
 "Value not ideal (probably wrong). Should throw a warning." for "2013-2015/1; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013-2015/1 <--- (Please don’t use year ranges with period equals one.)
+	*2013-2015 <--- (The year is in the past.)
 	*2013-2015/1 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 01; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
 	*2013 <--- (The year is in the past.)
+	*2013,2015 <--- (The year is in the past.)
 	*2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1  <--- (Please don’t use year ranges with period equals one.)
 	*2013,2015,2050-2053,2055/2,2020-2029/3,2060-2065/1 Jan 01 <--- (This rule is not very explicit because there is no time selector being used. A time selector is the part specifying hours when the object is opened, for example "10:00-19:00". Please add a time selector to this rule or use a comment to make it more explicit.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo: 15:00-16:00 off; 00:23-00:42 unknown "warning at correct position?"": [1m[32mPASSED[39m[22m
@@ -2170,9 +2177,11 @@ With [1m[34mwarnings[39m[22m:
 	*Mo-Su 09:00-01:00; PH 08:00-02:00 <--- (This rule overwrites parts of the previous rule. This happens because normal rules apply to the whole day and overwrite any definition made by previous rules. You can make this rule an additional rule by using a "," instead of the normal ";" to separate the rules. Note that the overwriting can also be desirable in which case you can ignore this warning.)
 "Value not ideal (probably wrong). Should throw a warning." for "2015 Mo-Su 09:00-01:00; PH 08:00-02:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*2015  <--- (The year is in the past.)
 	*2015 Mo-Su 09:00-01:00; PH 08:00-02:00 <--- (This rule overwrites parts of the previous rule. This happens because normal rules apply to the whole day and overwrite any definition made by previous rules. You can make this rule an additional rule by using a "," instead of the normal ";" to separate the rules. Note that the overwriting can also be desirable in which case you can ignore this warning.)
 "Value not ideal (probably wrong). Should throw a warning." for "2015 Mo 09:00-01:00; PH Tu 08:00-02:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
+	*2015  <--- (The year is in the past.)
 	*2015 Mo 09:00-01:00; PH Tu 08:00-02:00 <--- (This rule overwrites parts of the previous rule. This happens because normal rules apply to the whole day and overwrite any definition made by previous rules. You can make this rule an additional rule by using a "," instead of the normal ";" to separate the rules. Note that the overwriting can also be desirable in which case you can ignore this warning.)
 "Value not ideal (probably wrong). Should throw a warning." for "Mo-Su 09:00-01:00; 2014 PH 08:00-02:00": [1m[32mPASSED[39m[22m
 With [1m[34mwarnings[39m[22m:
@@ -2731,7 +2740,7 @@ The optional_conf_parm["tag_key"] is missing, required by optional_conf_parm["ma
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-20:01": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "Mo 10:00-20:00; We-Fr 10:00-19:59": [1m[32mPASSED[39m[22m
 "Test isEqualTo function" for "closed; Sa unknown "comment"": [1m[32mPASSED[39m[22m
-922/935 tests passed. 13 did not pass.
+922/936 tests passed. 14 did not pass.
 41 tests where (partly) ignored, sorted by commonness:
 * 26: prettifyValue (most of the cases this is used to test if values with selectors in wrong order or wrong symbols (error tolerance) are evaluated correctly)
 * 11: not implemented yet

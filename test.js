@@ -48,7 +48,7 @@ colors.setTheme({
 process.env.TZ = 'Europe/Berlin';
 
 /* Fake time to make "The year is in the past." test deterministic. */
-var timekeeperTime = new Date('Sat May 23 2015 23:23:23 GMT+0200 (CEST)');
+var timekeeperTime = new Date('Sat May 23 2018 23:23:23 GMT+0200 (CEST)');
 timekeeper.travel(timekeeperTime); // Travel to that date.
 
 var test = new opening_hours_test();
@@ -1045,6 +1045,21 @@ test.addTest('SH for Romania', [
     [ '2016-04-23 00:00', '2016-05-04 00:00', false, 'Vacanța de primăvară' ],
     [ '2016-06-18 00:00', '2016-09-05 00:00', false, 'Vacanța de vară' ],
 ], 19267200000, 0, false, nominatim_by_loc.ro, 'not only test');
+/* }}} */
+
+/* Austria {{{ */
+
+test.addTest('SH for Austria', [
+    'SH',
+], '2017-01-01 0:00', '2018-02-01 0:00', [
+	[ '2017-01-01 00:00', '2017-01-08 00:00', false, 'Weihnachtsferien' ],
+	[ '2017-02-05 00:00', '2017-02-11 00:00', false, 'Semesterferien' ],
+	[ '2017-03-24 00:00', '2017-04-04 00:00', false, 'Osterferien' ],
+	[ '2017-05-19 00:00', '2017-05-23 00:00', false, 'Pfingstferien' ],
+	[ '2017-07-01 00:00', '2017-09-04 00:00', false, 'Sommerferien' ],
+	[ '2017-12-24 00:00', '2018-01-07 00:00', false, 'Weihnachtsferien' ],
+], 9241200000, 0, false, nominatim_by_loc.at_1, 'not only test');
+
 /* }}} */
 
 /* Russian holidays {{{ */

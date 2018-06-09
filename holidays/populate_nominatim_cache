@@ -54,14 +54,16 @@ KEEP_STATE_LEVEL_ADDRESS_ATTRS = [
 
 
 def handle_nominatim_url(nominatim_url, country_holiday_def_file, state=None):
-    level = 'state' if type(state) == str else 'country'
+    LOG.debug('Calling handle_nominatim_url for {}, state: {}'.format(nominatim_url, state))
+    level = 'state' if type(state) in [str, int] else 'country'
     country_code_re = re.match(r'.*?(?P<cc>\w+)\.', country_holiday_def_file)
     country_code = country_code_re.group('cc')
     cache_file = '{}{}.yaml'.format(
         country_code,
-        '_' + state if type(state) == str else '',
+        '_' + str(state) if level == 'state' else '',
     )
     nominatim_file = os.path.join('nominatim_cache', cache_file)
+    LOG.debug('nominatim_file: {}'.format(nominatim_file))
 
     if not os.path.exists(nominatim_file):
         LOG.info('Writing file {}'.format(nominatim_file))
