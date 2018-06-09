@@ -2435,6 +2435,59 @@ test.addTest('Variable days: Weekday in given week.', [
 
 /* }}} */
 
+/* Ireland holidays {{{ */
+test.addTest('Variable days: Ireland public holidays.', [
+    'PH',
+], '2017-01-01 0:00', '2020-12-31 23:59', [
+	[ '2017-01-01 00:00', '2017-01-02 00:00', false, 'New Year’s Day' ],
+	[ '2017-03-17 00:00', '2017-03-18 00:00', false, 'St Patrick’s Day' ],
+	[ '2017-04-14 00:00', '2017-04-15 00:00', false, 'Good Friday' ],
+	[ '2017-04-17 00:00', '2017-04-18 00:00', false, 'Easter Monday' ],
+	[ '2017-05-01 00:00', '2017-05-02 00:00', false, 'May Bank Holiday' ],
+	[ '2017-06-05 00:00', '2017-06-06 00:00', false, 'June Bank Holiday' ],
+	[ '2017-08-07 00:00', '2017-08-08 00:00', false, 'August Bank Holiday' ],
+	[ '2017-10-30 00:00', '2017-10-31 00:00', false, 'October Bank Holiday (Halloween)' ],
+	[ '2017-12-25 00:00', '2017-12-26 00:00', false, 'Christmas' ],
+	[ '2017-12-26 00:00', '2017-12-27 00:00', false, 'St Stephen’s Day' ],
+	[ '2017-12-27 00:00', '2017-12-28 00:00', false, 'Bank Holiday' ],
+	[ '2018-01-01 00:00', '2018-01-02 00:00', false, 'New Year’s Day' ],
+	[ '2018-03-17 00:00', '2018-03-18 00:00', false, 'St Patrick’s Day' ],
+	[ '2018-03-19 00:00', '2018-03-20 00:00', false, 'St Patrick’s Day' ],
+	[ '2018-03-30 00:00', '2018-03-31 00:00', false, 'Good Friday' ],
+	[ '2018-04-02 00:00', '2018-04-03 00:00', false, 'Easter Monday' ],
+	[ '2018-05-07 00:00', '2018-05-08 00:00', false, 'May Bank Holiday' ],
+	[ '2018-06-04 00:00', '2018-06-05 00:00', false, 'June Bank Holiday' ],
+	[ '2018-08-06 00:00', '2018-08-07 00:00', false, 'August Bank Holiday' ],
+	[ '2018-10-29 00:00', '2018-10-30 00:00', false, 'October Bank Holiday (Halloween)' ],
+	[ '2018-12-25 00:00', '2018-12-26 00:00', false, 'Christmas' ],
+	[ '2018-12-26 00:00', '2018-12-27 00:00', false, 'St Stephen’s Day' ],
+	[ '2018-12-27 00:00', '2018-12-28 00:00', false, 'Bank Holiday' ],
+	[ '2019-01-01 00:00', '2019-01-02 00:00', false, 'New Year’s Day' ],
+	[ '2019-03-17 00:00', '2019-03-19 00:00', false, 'St Patrick’s Day' ], /* Two days */
+	[ '2019-04-19 00:00', '2019-04-20 00:00', false, 'Good Friday' ],
+	[ '2019-04-22 00:00', '2019-04-23 00:00', false, 'Easter Monday' ],
+	[ '2019-05-06 00:00', '2019-05-07 00:00', false, 'May Bank Holiday' ],
+	[ '2019-06-03 00:00', '2019-06-04 00:00', false, 'June Bank Holiday' ],
+	[ '2019-08-05 00:00', '2019-08-06 00:00', false, 'August Bank Holiday' ],
+	[ '2019-10-28 00:00', '2019-10-29 00:00', false, 'October Bank Holiday (Halloween)' ],
+	[ '2019-12-25 00:00', '2019-12-26 00:00', false, 'Christmas' ],
+	[ '2019-12-26 00:00', '2019-12-27 00:00', false, 'St Stephen’s Day' ],
+	[ '2019-12-27 00:00', '2019-12-28 00:00', false, 'Bank Holiday' ],
+	[ '2020-01-01 00:00', '2020-01-02 00:00', false, 'New Year’s Day' ],
+	[ '2020-03-17 00:00', '2020-03-18 00:00', false, 'St Patrick’s Day' ],
+	[ '2020-04-10 00:00', '2020-04-11 00:00', false, 'Good Friday' ],
+	[ '2020-04-13 00:00', '2020-04-14 00:00', false, 'Easter Monday' ],
+	[ '2020-05-04 00:00', '2020-05-05 00:00', false, 'May Bank Holiday' ],
+	[ '2020-06-01 00:00', '2020-06-02 00:00', false, 'June Bank Holiday' ],
+	[ '2020-08-03 00:00', '2020-08-04 00:00', false, 'August Bank Holiday' ],
+	[ '2020-10-26 00:00', '2020-10-27 00:00', false, 'October Bank Holiday (Halloween)' ],
+	[ '2020-12-25 00:00', '2020-12-26 00:00', false, 'Christmas' ],
+	[ '2020-12-26 00:00', '2020-12-27 00:00', false, 'St Stephen’s Day' ],
+	[ '2020-12-27 00:00', '2020-12-28 00:00', false, 'Bank Holiday' ],
+], 1000 * 60 * 60 * 24 * 46, 0, false, nominatim_by_loc.ie, 'not only test');
+
+/* }}} */
+
 // }}}
 
 // weekdays {{{
