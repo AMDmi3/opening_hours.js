@@ -59,7 +59,7 @@ a [Nominatim reverse geocoding][] query because of different attributes being re
 
 ## Holiday definition format
 
-Data format version `2.2.0`. The data format will probably need to be adapted to support more holiday definitions in the future.
+Data format version `3.0.0`. The data format will probably need to be adapted to support more holiday definitions in the future.
 The data format versioning complies with [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 Each country has it’s own [YAML] file below [./holidays/][ohlib.holidays] with
@@ -73,7 +73,7 @@ general structure:
 _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487&lon=9.8160&zoom=18&addressdetails=1&accept-language=de,en'
 # Somewhere in this country.
 
-PH: {}  # https://de.wikipedia.org/wiki/Feiertage_in_Deutschland
+PH: []  # https://de.wikipedia.org/wiki/Feiertage_in_Deutschland
 
 Baden-Württemberg:  # Does only apply in Baden-Württemberg
   _state_code: bw
@@ -84,7 +84,7 @@ Baden-Württemberg:  # Does only apply in Baden-Württemberg
   _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487&lon=9.8160&zoom=18&addressdetails=1&accept-language=de,en'
   # Somewhere in this state/state.
 
-  # PH: {}
+  # PH: []
   # This more specific rule set overwrites the country wide one (they are just ignored).
   # You may use this instead of the country wide with when one state
   # totally disagrees about how to do public holidays.
@@ -99,31 +99,38 @@ Note that the data format versions below 2.2.0 used JSON as data serialization l
 
 ### Holiday definition format: PH
 
-Now lets look at the public holiday (`PH`) definition in more detail. Each `PH` definition consists of a dictionary with holiday name as key and date definition as values (specifying one day).
-Holiday names should be in the local language. A date definition either consists of two integers representing month and day or the name of a movable event and the offset to that event. The movable events and the formulas for calculating them for a given year are defined in the `getMovableEventsForYear` function.
+Now lets look at the public holiday (`PH`) definition in more detail. Each `PH` definition consists of an array of dictionaries for each holiday.
+
+The following keys in the dictionary are supported:
+
+* `name`: Holiday name in local language.
+* `fixed_date`: Array consisting of two integers representing month and day.
+* `variable_date`: The name of a movable event and the offset to that event. The movable events and the formulas for calculating them for a given year are defined in the `getMovableEventsForYear` function.
+* `offset`: Optional, defaults to 0. Offset in days to `variable_date`. Can only be used when `variable_date` is specified.
+* `only_states`: Optional. Array of `address.state` strings for which the holiday applies.
+
+Only one of `fixed_date` or `variable_date` can be used for one holiday.
 
 ```YAML
 PH:  # https://de.wikipedia.org/wiki/Feiertage_in_Deutschland
-  'Neujahrstag': [1, 1]
-  'Heilige Drei Könige': [1, 6, [Baden-Württemberg, Bayern, Sachsen-Anhalt]]
-  'Tag der Arbeit': [5, 1]
-  'Karfreitag': [easter, -2]
-  'Ostersonntag': [easter, 0, [Brandenburg]]
-  'Ostermontag': [easter, 1]
-  'Christi Himmelfahrt': [easter, 39]
-  'Pfingstsonntag': [easter, 49, [Brandenburg]]
-  'Pfingstmontag': [easter, 50]
-  'Fronleichnam': [easter, 60, [Baden-Württemberg, Bayern, Hessen, Nordrhein-Westfalen, Rheinland-Pfalz, Saarland]]
-  'Mariä Himmelfahrt': [8, 15, [Saarland]]
-  'Tag der Deutschen Einheit': [10, 3]
-  'Reformationstag': [10, 31, [Brandenburg, Mecklenburg-Vorpommern, Sachsen, Sachsen-Anhalt, Thüringen]]
-  'Allerheiligen': [11, 1, [Baden-Württemberg, Bayern, Nordrhein-Westfalen, Rheinland-Pfalz, Saarland]]
-  'Buß- und Bettag': [nextWednesday16Nov, 0, [Sachsen]]
-  '1. Weihnachtstag': [12, 25]
-  '2. Weihnachtstag': [12, 26]
+  - {'name': 'Neujahrstag', 'fixed_date': [1, 1]}
+  - {'name': 'Heilige Drei Könige', 'fixed_date': [1, 6], 'only_states': [Baden-Württemberg, Bayern, Sachsen-Anhalt]}
+  - {'name': 'Tag der Arbeit', 'fixed_date': [5, 1]}
+  - {'name': 'Karfreitag', 'variable_date': easter, 'offset': -2}
+  - {'name': 'Ostersonntag', 'variable_date': easter, 'only_states': [Brandenburg]}
+  - {'name': 'Ostermontag', 'variable_date': easter, 'offset': 1}
+  - {'name': 'Christi Himmelfahrt', 'variable_date': easter, 'offset': 39}
+  - {'name': 'Pfingstsonntag', 'variable_date': easter, 'offset': 49, 'only_states': [Brandenburg]}
+  - {'name': 'Pfingstmontag', 'variable_date': easter, 'offset': 50}
+  - {'name': 'Fronleichnam', 'variable_date': easter, 'offset': 60, 'only_states': [Baden-Württemberg, Bayern, Hessen, Nordrhein-Westfalen, Rheinland-Pfalz, Saarland]}
+  - {'name': 'Mariä Himmelfahrt', 'fixed_date': [8, 15], 'only_states': [Saarland]}
+  - {'name': 'Tag der Deutschen Einheit', 'fixed_date': [10, 3]}
+  - {'name': 'Reformationstag', 'fixed_date': [10, 31], 'only_states': [Brandenburg, Mecklenburg-Vorpommern, Sachsen, Sachsen-Anhalt, Thüringen]}
+  - {'name': 'Allerheiligen', 'fixed_date': [11, 1], 'only_states': [Baden-Württemberg, Bayern, Nordrhein-Westfalen, Rheinland-Pfalz, Saarland]}
+  - {'name': 'Buß- und Bettag', 'variable_date': nextWednesday16Nov, 'only_states': [Sachsen]}
+  - {'name': '1. Weihnachtstag', 'fixed_date': [12, 25]}
+  - {'name': '2. Weihnachtstag', 'fixed_date': [12, 26]}
 ```
-
-Note that the array of date definitions can hold an optional array of `address.state` strings. When this list is present, the holiday is only applied when `address.state` is found in that array of strings.
 
 ### Holiday definition format: SH
 

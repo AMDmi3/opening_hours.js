@@ -161,6 +161,8 @@ Changed
 * Migrated to use `ES2015 modules`_ and rollup_ for module bundling. [simon04_]
 * Update to holiday definition format 2.2.0. Holidays are now maintained in
   YAML files, one for each country. [ypid_]
+* Update to holiday definition format 3.0.0. Use nested key-value pairs
+  instead of arrays with a known structure. [ypid_]
 * Rework the way Nominatim responses are handled (used for testing). [ypid_]
 * Allow "gaps" in school holiday definitions. This became necessary because
   countries/states might add/remove holidays like winter holidays from one year

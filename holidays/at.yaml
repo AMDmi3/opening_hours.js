@@ -1,25 +1,25 @@
 ---
 
 PH:  # https://de.wikipedia.org/wiki/Feiertage_in_%C3%96sterreich
-  'Neujahrstag': [1, 1]
-  'Heilige Drei Könige': [1, 6]
-  # 'Josef': [3, 19, [Kärnten, Steiermark, Tirol, Vorarlberg]]
-  # 'Karfreitag': [easter, -2]
-  'Ostermontag': [easter, 1]
-  'Staatsfeiertag': [5, 1]
-  # Florian: [5, 4, [Oberösterreich]]
-  'Christi Himmelfahrt': [easter, 39]
-  'Pfingstmontag': [easter, 50]
-  'Fronleichnam': [easter, 60]
-  'Mariä Himmelfahrt': [8, 15]
-  # 'Rupert': [9, 24, [Salzburg]]
-  # 'Tag der Volksabstimmung': [10, 10, [Kärnten]]
-  'Nationalfeiertag': [10, 26]
-  'Allerheiligen': [11, 1]
-  # 'Martin': [11, 11, [Burgenland]]
-  # 'Leopold': [11, 15, [Niederösterreich, Wien]]
-  'Mariä Empfängnis': [12, 8]
-  # 'Heiliger Abend': [12, 24]
-  'Christtag': [12, 25]
-  'Stefanitag': [12, 26]
-  # 'Silvester': [12, 31]
+  - {'name': 'Neujahrstag', 'fixed_date': [1, 1]}
+  - {'name': 'Heilige Drei Könige', 'fixed_date': [1, 6]}
+  # - {'name': 'Josef', 'fixed_date': [3, 19], 'only_states': [Kärnten, Steiermark, Tirol, Vorarlberg]}
+  # - {'name': 'Karfreitag', 'variable_date': easter, 'offset': -2}
+  - {'name': 'Ostermontag', 'variable_date': easter, 'offset': 1}
+  - {'name': 'Staatsfeiertag', 'fixed_date': [5, 1]}
+  # - {'name': 'Florian', 'fixed_date': [5, 4], 'only_states': [Oberösterreich]}
+  - {'name': 'Christi Himmelfahrt', 'variable_date': easter, 'offset': 39}
+  - {'name': 'Pfingstmontag', 'variable_date': easter, 'offset': 50}
+  - {'name': 'Fronleichnam', 'variable_date': easter, 'offset': 60}
+  - {'name': 'Mariä Himmelfahrt', 'fixed_date': [8, 15]}
+  # - {'name': 'Rupert', 'fixed_date': [9, 24], 'only_states': [Salzburg]}
+  # - {'name': 'Tag der Volksabstimmung', 'fixed_date': [10, 10], 'only_states': [Kärnten]}
+  - {'name': 'Nationalfeiertag', 'fixed_date': [10, 26]}
+  - {'name': 'Allerheiligen', 'fixed_date': [11, 1]}
+  # - {'name': 'Martin', 'fixed_date': [11, 11], 'only_states': [Burgenland]}
+  # - {'name': 'Leopold', 'fixed_date': [11, 15], 'only_states': [Niederösterreich, Wien]}
+  - {'name': 'Mariä Empfängnis', 'fixed_date': [12, 8]}
+  # - {'name': 'Heiliger Abend', 'fixed_date': [12, 24]}
+  - {'name': 'Christtag', 'fixed_date': [12, 25]}
+  - {'name': 'Stefanitag', 'fixed_date': [12, 26]}
+  # - {'name': 'Silvester', 'fixed_date': [12, 31]}

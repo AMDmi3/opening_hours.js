@@ -841,7 +841,7 @@ Edit: This does also work on npmjs in this short version … -->
 [PH-fr]: https://fr.wikipedia.org/wiki/F%EAtes_et_jours_f%E9ri%E9s_en_France
 [PH-gb]: https://www.gov.uk/bank-holidays#england-and-wales
 [PH-hu]: https://en.wikipedia.org/wiki/Public_holidays_in_Hungary
-[PH-ie]: https://www.officeholidays.com/countries/ireland/index.php
+[PH-ie]: https://en.wikipedia.org/wiki/Public_holidays_in_the_Republic_of_Ireland
 [PH-it]: http://www.governo.it/Presidenza/ufficio_cerimoniale/cerimoniale/giornate.html
 [PH-ne]: https://nl.wikipedia.org/wiki/Feestdagen_in_Nederland
 [PH-nl]: https://pl.wikipedia.org/wiki/Dni_wolne_od_pracy_w_Polsce

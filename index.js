@@ -2524,7 +2524,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
         // Implicit because undefined evaluates to false.
         // include_year = typeof include_year !== 'undefined' ? include_year : false;
 
-        return (include_year ? date.getFullYear() * 10000 : 0) + date.getMonth() * 100 + date.getDate();
+        return (include_year ? (date.getFullYear() * 10000) : 0) + (date.getMonth() * 100) + date.getDate();
     }
     /* }}} */
 
@@ -2567,65 +2567,68 @@ export default function(value, nominatim_object, optional_conf_parm) {
      * :returns: Public or school holiday list.
      */
     function getMatchingHoliday(type_of_holidays) {
-        if (typeof location_cc === 'string') {
-            if (holiday_definitions[location_cc]) {
-                if (typeof location_state === 'string'
-                    && typeof holiday_definitions[location_cc][location_state] === 'object'
-                    && typeof holiday_definitions[location_cc][location_state][type_of_holidays] === 'object') {
-
-                    /* If holiday_definitions for the state are specified,
-                     * use it and ignore lesser specific ones (for the
-                     * country)
-                     */
-                    return holiday_definitions[location_cc][location_state][type_of_holidays];
-
-                } else if (holiday_definitions[location_cc][type_of_holidays]) {
-                    /* Holidays are defined country wide. Some
-                     * countries only have country-wide holiday definitions
-                     * so that is ok too.
-                     */
-                    var applying_holidays_for_country = holiday_definitions[location_cc][type_of_holidays];
-
-                    var matching_holiday = {}; /* Holidays in the country-wide scope can be limited to certain states. */
-                    switch (type_of_holidays) {
-                        case 'PH':
-                            Object.keys(applying_holidays_for_country).forEach(function (holiday_name) {
-                                if (typeof applying_holidays_for_country[holiday_name][2] === 'object') {
-                                    if (-1 !== applying_holidays_for_country[holiday_name][2].indexOf(location_state)) {
-                                        matching_holiday[holiday_name] = applying_holidays_for_country[holiday_name];
-                                    }
-                                } else {
-                                    matching_holiday[holiday_name] = applying_holidays_for_country[holiday_name];
-                                }
-                            });
-                            break;
-                        case 'SH':
-                            matching_holiday = applying_holidays_for_country;
-                            break;
-                    }
-                    if (Object.keys(matching_holiday).length === 0) {
-                        throw formatLibraryBugMessage(t('no holiday definition', {
-                            'name': type_of_holidays,
-                            'cc': location_cc,
-                        }), 'library bug PR only');
-                    }
-                    return matching_holiday;
-                } else {
-                    throw formatLibraryBugMessage(t('no holiday definition state', {
-                        'name': type_of_holidays,
-                        'cc': location_cc,
-                        'state': location_state,
-                    }), 'library bug PR only');
-                }
-            } else {
-                throw formatLibraryBugMessage(t('no holiday definition', {
-                    'name': type_of_holidays,
-                    'cc': location_cc,
-                }), 'library bug PR only');
-            }
-        } else { /* We have no idea which holidays do apply because the country code was not provided. */
+        if (typeof location_cc !== 'string') {
+            /* We have no idea which holidays do apply because the country code was not provided. */
             throw t('no country code');
         }
+
+        if (!holiday_definitions[location_cc]) {
+            throw formatLibraryBugMessage(t('no holiday definition', {
+                'name': type_of_holidays,
+                'cc': location_cc,
+            }), 'library bug PR only');
+        }
+
+        var matching_holiday = [];
+        if (typeof location_state === 'string'
+            && typeof holiday_definitions[location_cc][location_state] === 'object'
+            && typeof holiday_definitions[location_cc][location_state][type_of_holidays] === 'object') {
+
+            /* If holiday_definitions for the state are specified,
+             * use it and ignore lesser specific ones (for the
+             * country).
+             */
+            matching_holiday = holiday_definitions[location_cc][location_state][type_of_holidays];
+        } else if (holiday_definitions[location_cc][type_of_holidays]) {
+            /* Holidays are defined country wide. Some
+             * countries only have country-wide holiday definitions
+             * so that is ok too.
+             */
+            var applying_holidays_for_country = holiday_definitions[location_cc][type_of_holidays];
+
+            switch (type_of_holidays) {
+                case 'PH':
+                    applying_holidays_for_country.forEach(function (holiday_item) {
+                        /* Holidays in the country-wide scope can be limited to certain states. */
+                        if ('only_states' in holiday_item) {
+                            if (-1 === holiday_item.only_states.indexOf(location_state)) {
+                                return;
+                            }
+                        }
+
+                        matching_holiday.push(holiday_item);
+                    });
+                    break;
+                case 'SH':
+                    matching_holiday = applying_holidays_for_country;
+                    break;
+            }
+        } else {
+            throw formatLibraryBugMessage(t('no holiday definition state', {
+                'name': type_of_holidays,
+                'cc': location_cc,
+                'state': location_state,
+            }), 'library bug PR only');
+        }
+
+        if (matching_holiday.length === 0) {
+            throw formatLibraryBugMessage(t('no holiday definition', {
+                'name': type_of_holidays,
+                'cc': location_cc,
+            }), 'library bug PR only');
+        }
+
+        return matching_holiday;
     }
     /* }}} */
 
@@ -2704,6 +2707,24 @@ export default function(value, nominatim_object, optional_conf_parm) {
             start_date.setDate(start_date.getDate() + days_to_dest_date);
             return start_date;
         }
+
+        function getDateOfNextWeekdayRange(first_weekday, last_weekday, start_date){
+            if (first_weekday >= last_weekday) {
+                throw formatLibraryBugMessage('Not implemented yet.');
+            }
+
+            if (first_weekday <= start_date.getDay() && start_date.getDay() <= last_weekday) {
+                return start_date;
+            } else {
+                var days_to_dest_date = first_weekday - start_date.getDay();
+                if (days_to_dest_date < 0) {
+                    days_to_dest_date += 7;
+                }
+                start_date.setDate(start_date.getDate() + days_to_dest_date);
+                return start_date;
+            }
+
+        }
         /* }}} */
 
         return {
@@ -2742,7 +2763,7 @@ export default function(value, nominatim_object, optional_conf_parm) {
             'nextSaturday20Jun'     : getDateOfWeekdayInDateRange(6, new Date(year, 5, 20)),
             'nextSaturday31Oct'     : getDateOfWeekdayInDateRange(6, new Date(year, 9, 31)),
             'nextWednesday16Nov'    : getDateOfWeekdayInDateRange(3, new Date(year, 10, 16)),
-            'nextMonday17March'     : getDateOfWeekdayInDateRange(1, new Date(year, 2, 17)),
+            'nextMo-Fr17March'      : getDateOfNextWeekdayRange(1, 5, new Date(year, 2, 17)),
         };
     }
     /* }}} */
@@ -2753,29 +2774,38 @@ export default function(value, nominatim_object, optional_conf_parm) {
         var sorted_holidays = [];
         var next_holiday;
 
-        Object.keys(applying_holidays).forEach(function (holiday_name) {
-            if (typeof applying_holidays[holiday_name][0] === 'string') {
-                var selected_movableDay = movableDays[applying_holidays[holiday_name][0]];
-                if (!selected_movableDay)
-                    throw t('movable no formula', {'name': applying_holidays[holiday_name][0]});
-                next_holiday = new Date(selected_movableDay.getFullYear(),
-                        selected_movableDay.getMonth(),
-                        selected_movableDay.getDate()
-                        + applying_holidays[holiday_name][1]
-                    );
-                if (year !== next_holiday.getFullYear())
-                    throw t('movable not in year', {
-                        'name': applying_holidays[holiday_name][0], 'days': applying_holidays[holiday_name][1]});
-            } else {
+        applying_holidays.forEach(function (holiday_item) {
+            if ('fixed_date' in holiday_item) {
                 next_holiday = new Date(year,
-                        applying_holidays[holiday_name][0] - 1,
-                        applying_holidays[holiday_name][1]
+                        holiday_item.fixed_date[0] - 1,
+                        holiday_item.fixed_date[1]
                     );
+            } else if ('variable_date' in holiday_item) {
+                var selected_movableDay = movableDays[holiday_item.variable_date];
+                if (!selected_movableDay) {
+                    throw t('movable no formula', {'name': holiday_item.name});
+                }
+                var date_offset = 0;
+                if ('offset' in holiday_item) {
+                    date_offset = holiday_item.offset;
+                }
+                next_holiday = new Date(selected_movableDay.getFullYear(),
+                    selected_movableDay.getMonth(),
+                    selected_movableDay.getDate() + date_offset
+                );
+                if (year !== next_holiday.getFullYear()) {
+                    throw t('movable not in year', {
+                        'name': holiday_item.variable_date, 'days': offset});
+                }
+            } else {
+                throw formatLibraryBugMessage('Unexpected object: ' + JSON.stringify(holiday_item, null, '    '));
             }
-            if (add_days[0])
-                next_holiday.setDate(next_holiday.getDate() + add_days[0]);
 
-            sorted_holidays.push([ next_holiday, holiday_name ]);
+            if (add_days[0]) {
+                next_holiday.setDate(next_holiday.getDate() + add_days[0]);
+            }
+
+            sorted_holidays.push([ next_holiday, holiday_item.name ]);
         });
 
         sorted_holidays = sorted_holidays.sort(function(a,b){
