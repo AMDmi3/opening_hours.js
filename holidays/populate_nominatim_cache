@@ -66,9 +66,10 @@ def handle_nominatim_url(nominatim_url, country_holiday_def_file, state=None):
     if not os.path.exists(nominatim_file):
         LOG.info('Writing file {}'.format(nominatim_file))
         LOG.info('Loading {}'.format(nominatim_url))
-        # Caused http.client.BadStatusLine exception with wired encoding in them multiple times.
+        # Caused http.client.BadStatusLine exception with wired encoding in them.
         #  nominatim_data = json.loads(requests.get(nominatim_url).text)
-        nominatim_data = json.loads(urllib.request.urlopen(nominatim_url).read().decode('utf-8'))
+        req = urllib.request.Request(nominatim_url, headers={'User-Agent': 'curl/7.38.0'})
+        nominatim_data = json.loads(urllib.request.urlopen(req).read().decode('utf-8'))
         nominatim_data = OrderedDict(sorted(
             nominatim_data.items(),
             key=lambda k: NOMINATIM_SORTING.get(k[0], k[0])))

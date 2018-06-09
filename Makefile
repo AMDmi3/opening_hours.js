@@ -68,7 +68,7 @@ build: opening_hours.min.js
 check: qa-quick check-diff check-package.json
 
 .PHONY: check-full
-check-full: clean check-diff-all check-package.json check-yaml check-html
+check-full: clean check-diff-all check-package.json check-yaml check-html check-holidays
 
 .PHONY: benchmark
 benchmark: benchmark-opening_hours.min.js

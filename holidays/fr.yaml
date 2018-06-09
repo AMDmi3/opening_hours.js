@@ -2,25 +2,25 @@
 
 # https://fr.wikipedia.org/wiki/F%C3%AAtes_et_jours_f%C3%A9ri%C3%A9s_en_France
 PH:
-  'Jour de l''an': [1, 1]
-  'Vendredi saint': [easter, -2, [Moselle, Bas-Rhin, Haut-Rhin, Guadeloupe, Martinique, 'Polynésie française']]
-  'Lundi de Pâques': [easter, 1]
-  'Saint-Pierre-Chanel': [4, 28, [Wallis-et-Futuna]]
-  'Fête du Travail': [5, 1]
-  'Fête de la Victoire': [5, 8]
-  'Abolition de l''esclavage (Martinique)': [5, 22, [Martinique]]
-  'Abolition de l''esclavage (Guadeloupe)': [5, 27, [Guadeloupe]]
-  'Jeudi de l''Ascension': [easter, 39]
-  'Lundi de Pentecôte': [easter, 50]
-  'Abolition de l''esclavage (Guyane)': [6, 10, [Guyane]]
-  'Fête de l''autonomie': [6, 29, ['Polynésie française']]
-  'Fête nationale': [7, 14]
-  'Fête Victor Schoelcher': [7, 21, [Guadeloupe, Martinique]]
-  'Fête du Territoire': [7, 29, [Wallis-et-Futuna]]
-  'Assomption': [8, 15]
-  'Fête de la citoyenneté': [9, 24, [Nouvelle-Calédonie]]
-  'Toussaint': [11, 1]
-  'Armistice': [11, 11]
-  'Abolition de l''esclavage (Réunion)': [12, 20, [Réunion]]
-  'Noël': [12, 25]
-  'Saint-Étienne ': [12, 26, [Moselle, Bas-Rhin, Haut-Rhin]]
+  - {'name': 'Jour de l''an', 'fixed_date': [1, 1]}
+  - {'name': 'Vendredi saint', 'variable_date': easter, 'offset': -2, 'only_states': [Moselle, Bas-Rhin, Haut-Rhin, Guadeloupe, Martinique, 'Polynésie française']}
+  - {'name': 'Lundi de Pâques', 'variable_date': easter, 'offset': 1}
+  - {'name': 'Saint-Pierre-Chanel', 'fixed_date': [4, 28], 'only_states': [Wallis-et-Futuna]}
+  - {'name': 'Fête du Travail', 'fixed_date': [5, 1]}
+  - {'name': 'Fête de la Victoire', 'fixed_date': [5, 8]}
+  - {'name': 'Abolition de l''esclavage (Martinique)', 'fixed_date': [5, 22], 'only_states': [Martinique]}
+  - {'name': 'Abolition de l''esclavage (Guadeloupe)', 'fixed_date': [5, 27], 'only_states': [Guadeloupe]}
+  - {'name': 'Jeudi de l''Ascension', 'variable_date': easter, 'offset': 39}
+  - {'name': 'Lundi de Pentecôte', 'variable_date': easter, 'offset': 50}
+  - {'name': 'Abolition de l''esclavage (Guyane)', 'fixed_date': [6, 10], 'only_states': [Guyane]}
+  - {'name': 'Fête de l''autonomie', 'fixed_date': [6, 29], 'only_states': ['Polynésie française']}
+  - {'name': 'Fête nationale', 'fixed_date': [7, 14]}
+  - {'name': 'Fête Victor Schoelcher', 'fixed_date': [7, 21], 'only_states': [Guadeloupe, Martinique]}
+  - {'name': 'Fête du Territoire', 'fixed_date': [7, 29], 'only_states': [Wallis-et-Futuna]}
+  - {'name': 'Assomption', 'fixed_date': [8, 15]}
+  - {'name': 'Fête de la citoyenneté', 'fixed_date': [9, 24], 'only_states': [Nouvelle-Calédonie]}
+  - {'name': 'Toussaint', 'fixed_date': [11, 1]}
+  - {'name': 'Armistice', 'fixed_date': [11, 11]}
+  - {'name': 'Abolition de l''esclavage (Réunion)', 'fixed_date': [12, 20], 'only_states': [Réunion]}
+  - {'name': 'Noël', 'fixed_date': [12, 25]}
+  - {'name': 'Saint-Étienne ', 'fixed_date': [12, 26], 'only_states': [Moselle, Bas-Rhin, Haut-Rhin]}

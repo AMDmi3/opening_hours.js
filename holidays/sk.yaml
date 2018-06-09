@@ -4,19 +4,19 @@ _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=48.
 
 # https://sk.wikipedia.org/wiki/Zoznam_sviatkov_na_Slovensku or english: https://en.wikipedia.org/wiki/Public_holidays_in_Slovakia
 PH:
-  'Deň vzniku Slovenskej republiky': [1, 1]
-  'Zjavenie Pána': [1, 6]
-  'Veľký piatok': [easter, -2]
-  'Veľkonočná nedeľa': [easter, 0]
-  'Veľkonočný pondelok': [easter, 1]
-  'Sviatok práce': [5, 1]
-  'Deň víťazstva nad fašizmom': [5, 8]
-  'Sviatok svätého Cyrila a Metoda': [7, 5]
-  'Výročie Slovenského národného povstania': [8, 29]
-  'Deň Ústavy Slovenskej republiky': [9, 1]
-  'Sviatok Panny Márie Sedembolestnej': [9, 15]
-  'Sviatok všetkých svätých': [11, 1]
-  'Deň boja za slobodu a demokraciu': [11, 17]
-  'Štedrý deň': [12, 24]
-  'Prvý sviatok vianočný': [12, 25]
-  'Druhý sviatok vianočný': [12, 26]
+  - {'name': 'Deň vzniku Slovenskej republiky', 'fixed_date': [1, 1]}
+  - {'name': 'Zjavenie Pána', 'fixed_date': [1, 6]}
+  - {'name': 'Veľký piatok', 'variable_date': easter, 'offset': -2}
+  - {'name': 'Veľkonočná nedeľa', 'variable_date': easter}
+  - {'name': 'Veľkonočný pondelok', 'variable_date': easter, 'offset': 1}
+  - {'name': 'Sviatok práce', 'fixed_date': [5, 1]}
+  - {'name': 'Deň víťazstva nad fašizmom', 'fixed_date': [5, 8]}
+  - {'name': 'Sviatok svätého Cyrila a Metoda', 'fixed_date': [7, 5]}
+  - {'name': 'Výročie Slovenského národného povstania', 'fixed_date': [8, 29]}
+  - {'name': 'Deň Ústavy Slovenskej republiky', 'fixed_date': [9, 1]}
+  - {'name': 'Sviatok Panny Márie Sedembolestnej', 'fixed_date': [9, 15]}
+  - {'name': 'Sviatok všetkých svätých', 'fixed_date': [11, 1]}
+  - {'name': 'Deň boja za slobodu a demokraciu', 'fixed_date': [11, 17]}
+  - {'name': 'Štedrý deň', 'fixed_date': [12, 24]}
+  - {'name': 'Prvý sviatok vianočný', 'fixed_date': [12, 25]}
+  - {'name': 'Druhý sviatok vianočný', 'fixed_date': [12, 26]}

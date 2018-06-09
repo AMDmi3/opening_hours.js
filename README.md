@@ -496,6 +496,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
         * [France][PH-fr]
         * [Germany][PH-de] ([footnotes][PH-de] are ignored)
         * [Hungary][PH-hu]
+        * [Ireland][PH-ie]
         * [Italy][PH-it] (Without the Saint Patron day, see [comment](https://github.com/opening-hours/opening_hours.js/pull/74#issuecomment-76194891))
         * [Netherlands][PH-ne]
         * [Poland][PH-nl]
@@ -829,25 +830,26 @@ Edit: This does also work on npmjs in this short version … -->
 
 [schulferien.org]: http://www.schulferien.org/iCal/
 
-[PH-be]: https://de.wikipedia.org/wiki/Feiertage_in_Belgien
-[PH-de]: https://de.wikipedia.org/wiki/Feiertage_in_Deutschland
 [PH-at]: https://de.wikipedia.org/wiki/Feiertage_in_%C3%96sterreich
-[PH-fr]: https://fr.wikipedia.org/wiki/F%EAtes_et_jours_f%E9ri%E9s_en_France
+[PH-au]: https://en.wikipedia.org/wiki/Public_holidays_in_Australia
+[PH-be]: https://de.wikipedia.org/wiki/Feiertage_in_Belgien
+[PH-br]: https://pt.wikipedia.org/wiki/Feriados_no_Brasil
 [PH-ca]: https://en.wikipedia.org/wiki/Public_holidays_in_Canada
-[PH-ua]: https://uk.wikipedia.org/wiki/%D0%A1%D0%B2%D1%8F%D1%82%D0%B0_%D1%82%D0%B0_%D0%BF%D0%B0%D0%BC%27%D1%8F%D1%82%D0%BD%D1%96_%D0%B4%D0%BD%D1%96_%D0%B2_%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%96
-[PH-si]: http://www.vlada.si/o_sloveniji/politicni_sistem/prazniki/
-[PH-ru]: https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%D0%B8_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8
-[PH-it]: http://www.governo.it/Presidenza/ufficio_cerimoniale/cerimoniale/giornate.html
-[PH-us]: https://en.wikipedia.org/wiki/Public_holidays_in_the_United_States
-[PH-dk]: https://en.wikipedia.org/wiki/Public_holidays_in_Denmark
 [PH-cz]: https://en.wikipedia.org/wiki/Public_holidays_in_the_Czech_Republic
-[PH-ro]: https://en.wikipedia.org/wiki/Public_holidays_in_Romania#Official_non-working_holidays
+[PH-de]: https://de.wikipedia.org/wiki/Feiertage_in_Deutschland
+[PH-dk]: https://en.wikipedia.org/wiki/Public_holidays_in_Denmark
+[PH-fr]: https://fr.wikipedia.org/wiki/F%EAtes_et_jours_f%E9ri%E9s_en_France
+[PH-gb]: https://www.gov.uk/bank-holidays#england-and-wales
+[PH-hu]: https://en.wikipedia.org/wiki/Public_holidays_in_Hungary
+[PH-ie]: https://en.wikipedia.org/wiki/Public_holidays_in_the_Republic_of_Ireland
+[PH-it]: http://www.governo.it/Presidenza/ufficio_cerimoniale/cerimoniale/giornate.html
 [PH-ne]: https://nl.wikipedia.org/wiki/Feestdagen_in_Nederland
 [PH-nl]: https://pl.wikipedia.org/wiki/Dni_wolne_od_pracy_w_Polsce
+[PH-ro]: https://en.wikipedia.org/wiki/Public_holidays_in_Romania#Official_non-working_holidays
+[PH-ru]: https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%D0%B8_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8
 [PH-se]: https://en.wikipedia.org/wiki/Public_holidays_in_Sweden
-[PH-br]: https://pt.wikipedia.org/wiki/Feriados_no_Brasil
-[PH-hu]: https://en.wikipedia.org/wiki/Public_holidays_in_Hungary
-[PH-gb]: https://www.gov.uk/bank-holidays#england-and-wales
-[PH-au]: https://en.wikipedia.org/wiki/Public_holidays_in_Australia
+[PH-si]: http://www.vlada.si/o_sloveniji/politicni_sistem/prazniki/
+[PH-ua]: https://uk.wikipedia.org/wiki/%D0%A1%D0%B2%D1%8F%D1%82%D0%B0_%D1%82%D0%B0_%D0%BF%D0%B0%D0%BC%27%D1%8F%D1%82%D0%BD%D1%96_%D0%B4%D0%BD%D1%96_%D0%B2_%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%96
+[PH-us]: https://en.wikipedia.org/wiki/Public_holidays_in_the_United_States
 
 <!-- }}} -->

@@ -2,17 +2,17 @@
 
 # http://www.vlada.si/o_sloveniji/politicni_sistem/prazniki/
 PH:
-  'novo leto': [1, 1]
-  'Prešernov dan, slovenski kulturni praznik': [2, 8]
-  'velikonočna nedelja': [easter, 0]
-  'velikonočni ponedeljek': [easter, 1]
-  'dan upora proti okupatorju': [4, 27]
-  'praznik dela 1': [5, 1]
-  'praznik dela 2': [5, 2]
-  'binkoštna nedelja - binkošti': [easter, 49]
-  'dan državnosti': [6, 25]
-  'Marijino vnebovzetje': [8, 15]
-  'dan reformacije': [10, 31]
-  'dan spomina na mrtve': [11, 1]
-  'božič': [12, 25]
-  'dan samostojnosti in enotnosti': [12, 26]
+  - {'name': 'novo leto', 'fixed_date': [1, 1]}
+  - {'name': 'Prešernov dan, slovenski kulturni praznik', 'fixed_date': [2, 8]}
+  - {'name': 'velikonočna nedelja', 'variable_date': easter}
+  - {'name': 'velikonočni ponedeljek', 'variable_date': easter, 'offset': 1}
+  - {'name': 'dan upora proti okupatorju', 'fixed_date': [4, 27]}
+  - {'name': 'praznik dela 1', 'fixed_date': [5, 1]}
+  - {'name': 'praznik dela 2', 'fixed_date': [5, 2]}
+  - {'name': 'binkoštna nedelja - binkošti', 'variable_date': easter, 'offset': 49}
+  - {'name': 'dan državnosti', 'fixed_date': [6, 25]}
+  - {'name': 'Marijino vnebovzetje', 'fixed_date': [8, 15]}
+  - {'name': 'dan reformacije', 'fixed_date': [10, 31]}
+  - {'name': 'dan spomina na mrtve', 'fixed_date': [11, 1]}
+  - {'name': 'božič', 'fixed_date': [12, 25]}
+  - {'name': 'dan samostojnosti in enotnosti', 'fixed_date': [12, 26]}

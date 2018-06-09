@@ -3,23 +3,23 @@
 _nominatim_url: 'https://nominatim.openstreetmap.org/reverse?format=json&lat=49.5487&lon=9.8160&zoom=18&addressdetails=1&accept-language=de,en'
 
 PH:  # https://de.wikipedia.org/wiki/Feiertage_in_Deutschland
-  'Neujahrstag': [1, 1]
-  'Heilige Drei Könige': [1, 6, [Baden-Württemberg, Bayern, Sachsen-Anhalt]]
-  'Tag der Arbeit': [5, 1]
-  'Karfreitag': [easter, -2]
-  'Ostersonntag': [easter, 0, [Brandenburg]]
-  'Ostermontag': [easter, 1]
-  'Christi Himmelfahrt': [easter, 39]
-  'Pfingstsonntag': [easter, 49, [Brandenburg]]
-  'Pfingstmontag': [easter, 50]
-  'Fronleichnam': [easter, 60, [Baden-Württemberg, Bayern, Hessen, Nordrhein-Westfalen, Rheinland-Pfalz, Saarland]]
-  'Mariä Himmelfahrt': [8, 15, [Saarland]]
-  'Tag der Deutschen Einheit': [10, 3]
-  'Reformationstag': [10, 31, [Brandenburg, Mecklenburg-Vorpommern, Sachsen, Sachsen-Anhalt, Thüringen]]
-  'Allerheiligen': [11, 1, [Baden-Württemberg, Bayern, Nordrhein-Westfalen, Rheinland-Pfalz, Saarland]]
-  'Buß- und Bettag': [nextWednesday16Nov, 0, [Sachsen]]
-  '1. Weihnachtstag': [12, 25]
-  '2. Weihnachtstag': [12, 26]
+  - {'name': 'Neujahrstag', 'fixed_date': [1, 1]}
+  - {'name': 'Heilige Drei Könige', 'fixed_date': [1, 6], 'only_states': [Baden-Württemberg, Bayern, Sachsen-Anhalt]}
+  - {'name': 'Tag der Arbeit', 'fixed_date': [5, 1]}
+  - {'name': 'Karfreitag', 'variable_date': easter, 'offset': -2}
+  - {'name': 'Ostersonntag', 'variable_date': easter, 'only_states': [Brandenburg]}
+  - {'name': 'Ostermontag', 'variable_date': easter, 'offset': 1}
+  - {'name': 'Christi Himmelfahrt', 'variable_date': easter, 'offset': 39}
+  - {'name': 'Pfingstsonntag', 'variable_date': easter, 'offset': 49, 'only_states': [Brandenburg]}
+  - {'name': 'Pfingstmontag', 'variable_date': easter, 'offset': 50}
+  - {'name': 'Fronleichnam', 'variable_date': easter, 'offset': 60, 'only_states': [Baden-Württemberg, Bayern, Hessen, Nordrhein-Westfalen, Rheinland-Pfalz, Saarland]}
+  - {'name': 'Mariä Himmelfahrt', 'fixed_date': [8, 15], 'only_states': [Saarland]}
+  - {'name': 'Tag der Deutschen Einheit', 'fixed_date': [10, 3]}
+  - {'name': 'Reformationstag', 'fixed_date': [10, 31], 'only_states': [Brandenburg, Mecklenburg-Vorpommern, Sachsen, Sachsen-Anhalt, Thüringen]}
+  - {'name': 'Allerheiligen', 'fixed_date': [11, 1], 'only_states': [Baden-Württemberg, Bayern, Nordrhein-Westfalen, Rheinland-Pfalz, Saarland]}
+  - {'name': 'Buß- und Bettag', 'variable_date': nextWednesday16Nov, 'only_states': [Sachsen]}
+  - {'name': '1. Weihnachtstag', 'fixed_date': [12, 25]}
+  - {'name': '2. Weihnachtstag', 'fixed_date': [12, 26]}
 
 # Everything below is generated and kept up-to-date by hc.
 Baden-Württemberg:

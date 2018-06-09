@@ -59,6 +59,7 @@ Contributors
 * [yourock17_]
 * [urbalazs_] - Balázs Úr
 * [HolgerJeromin_] - Holger Jeromin
+* [Gerw88_]
 
 Thanks very much to all contributors!
 
@@ -101,6 +102,7 @@ Thanks very much to all contributors!
 .. _yourock17: https://github.com/yourock17
 .. _urbalazs: https://github.com/urbalazs
 .. _HolgerJeromin: https://github.com/HolgerJeromin
+.. _Gerw88: https://github.com/Gerw88
 
 Supporters
 ~~~~~~~~~~
@@ -128,6 +130,7 @@ Added
   * England and Wales [skifans_, simon04_]
   * Norway [Gazer75_]
   * Australia [yourock17_, ypid_]
+  * Ireland [Gerw88_, ypid_]
 
 * Added Easter Sunday to Slovak holidays. [chiak597_]
 * Localizations added: Hungarian [urbalazs_]
@@ -161,6 +164,8 @@ Changed
 * Increased NodeJS version requirement to `4.0.0`. [ypid_]
 * Update to holiday definition format 2.2.0. Holidays are now maintained in
   YAML files, one for each country. [ypid_]
+* Update to holiday definition format 3.0.0. Use nested key-value pairs
+  instead of arrays with a known structure. [ypid_]
 * Rework the way Nominatim responses are handled (used for testing). [ypid_]
 * Allow "gaps" in school holiday definitions. This became necessary because
   countries/states might add/remove holidays like winter holidays from one year

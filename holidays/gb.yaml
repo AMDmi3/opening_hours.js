@@ -3,22 +3,22 @@
 'England':  # https://www.gov.uk/bank-holidays#england-and-wales
   _nominatim_url: https://nominatim.openstreetmap.org/reverse?format=json&lat=51.5073219&lon=-0.1276474&zoom=18&addressdetails=1&accept-language=en
   PH:
-    'New Year’s Day': [1, 1]
-    'Good Friday': [easter, -2]
-    'Easter Monday': [easter, 1]
-    'Early May bank holiday': [firstMayMonday, 0]
-    'Spring bank holiday': [lastMayMonday, 0]
-    'Summer bank holiday': [lastAugustMonday, 0]
-    'Christmas': [12, 25]
-    'Boxing Day': [12, 26]
+    - {'name': 'New Year’s Day', 'fixed_date': [1, 1]}
+    - {'name': 'Good Friday', 'variable_date': easter, 'offset': -2}
+    - {'name': 'Easter Monday', 'variable_date': easter, 'offset': 1}
+    - {'name': 'Early May bank holiday', 'variable_date': firstMayMonday}
+    - {'name': 'Spring bank holiday', 'variable_date': lastMayMonday}
+    - {'name': 'Summer bank holiday', 'variable_date': lastAugustMonday}
+    - {'name': 'Christmas', 'fixed_date': [12, 25]}
+    - {'name': 'Boxing Day', 'fixed_date': [12, 26]}
 'Wales':  # https://www.gov.uk/bank-holidays#england-and-wales
   _nominatim_url: https://nominatim.openstreetmap.org/reverse?format=json&lat=52.2928116&lon=-3.73893&zoom=18&addressdetails=1&accept-language=en
   PH:
-    'New Year’s Day': [1, 1]
-    'Good Friday': [easter, -2]
-    'Easter Monday': [easter, 1]
-    'Early May bank holiday': [firstMayMonday, 0]
-    'Spring bank holiday': [lastMayMonday, 0]
-    'Summer bank holiday': [lastAugustMonday, 0]
-    'Christmas': [12, 25]
-    'Boxing Day': [12, 26]
+    - {'name': 'New Year’s Day', 'fixed_date': [1, 1]}
+    - {'name': 'Good Friday', 'variable_date': easter, 'offset': -2}
+    - {'name': 'Easter Monday', 'variable_date': easter, 'offset': 1}
+    - {'name': 'Early May bank holiday', 'variable_date': firstMayMonday}
+    - {'name': 'Spring bank holiday', 'variable_date': lastMayMonday}
+    - {'name': 'Summer bank holiday', 'variable_date': lastAugustMonday}
+    - {'name': 'Christmas', 'fixed_date': [12, 25]}
+    - {'name': 'Boxing Day', 'fixed_date': [12, 26]}
