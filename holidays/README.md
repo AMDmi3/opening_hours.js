@@ -163,6 +163,8 @@ SH:
 
 Note that the 4-digit keys define the year are in fact strings. This is done for compatibility reasons.
 
+If some school holidays are the same for all states, you can define them on the country level and they will be merged with the state level definition. Refer to `./at.yaml` for an example.
+
 Also note that past year definitions can be removed from the definition as long as the SH dataset can be regenerated as a whole by Free Software without depending on none-cached resources and as long as the unit tests pass which might where written against previous holidays.
 Two years in the past should be more then enough for the typical use cases of the library. In the far future, a compile time option might be provided to make this configurable to also make historian’s happy.
 
