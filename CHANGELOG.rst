@@ -60,6 +60,7 @@ Contributors
 * [urbalazs_] - Balázs Úr
 * [HolgerJeromin_] - Holger Jeromin
 * [Gerw88_]
+* [sommerluk_] - Lukas Sommer
 
 Thanks very much to all contributors!
 
@@ -103,6 +104,7 @@ Thanks very much to all contributors!
 .. _urbalazs: https://github.com/urbalazs
 .. _HolgerJeromin: https://github.com/HolgerJeromin
 .. _Gerw88: https://github.com/Gerw88
+.. _sommerluk: https://github.com/sommerluk
 
 Supporters
 ~~~~~~~~~~
@@ -131,6 +133,7 @@ Added
   * Norway [Gazer75_]
   * Australia [yourock17_, ypid_]
   * Ireland [Gerw88_, ypid_]
+  * Ivory Coast [sommerluk_, ypid_]
 
 * Added Easter Sunday to Slovak holidays. [chiak597_]
 * Localizations added: Hungarian [urbalazs_]

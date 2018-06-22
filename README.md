@@ -498,6 +498,7 @@ Almost everything from opening_hours definition is supported, as well as some ex
         * [Hungary][PH-hu]
         * [Ireland][PH-ie]
         * [Italy][PH-it] (Without the Saint Patron day, see [comment](https://github.com/opening-hours/opening_hours.js/pull/74#issuecomment-76194891))
+        * [Ivory Coast][PH-ci] (Without the four islamic holidays because they can not be calculated and depend on subjective ad-hoc definition)
         * [Netherlands][PH-ne]
         * [Poland][PH-nl]
         * [Romania][PH-ro]
@@ -836,6 +837,7 @@ Edit: This does also work on npmjs in this short version … -->
 [PH-be]: https://de.wikipedia.org/wiki/Feiertage_in_Belgien
 [PH-br]: https://pt.wikipedia.org/wiki/Feriados_no_Brasil
 [PH-ca]: https://en.wikipedia.org/wiki/Public_holidays_in_Canada
+[PH-ci]: https://fr.wikipedia.org/wiki/Jour_f%C3%A9ri%C3%A9#_C%C3%B4te_d%27Ivoire
 [PH-cz]: https://en.wikipedia.org/wiki/Public_holidays_in_the_Czech_Republic
 [PH-de]: https://de.wikipedia.org/wiki/Feiertage_in_Deutschland
 [PH-dk]: https://en.wikipedia.org/wiki/Public_holidays_in_Denmark

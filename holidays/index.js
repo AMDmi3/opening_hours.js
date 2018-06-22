@@ -3,6 +3,7 @@ export {default as au} from "./au.yaml";
 export {default as be} from "./be.yaml";
 export {default as br} from "./br.yaml";
 export {default as ca} from "./ca.yaml";
+export {default as ci} from "./ci.yaml";
 export {default as cz} from "./cz.yaml";
 export {default as de} from "./de.yaml";
 export {default as dk} from "./dk.yaml";
