@@ -719,7 +719,7 @@ Translations for error messages and warnings for the opening_hours.js library ca
 
 Please do not open issues for missing holidays. It is obvious that there are more missing holidays then holidays which are defined in this library. Instead consider if you can add your missing holidays and send me a pull request or patch. If you are hitting a problem because some holidays depend on variable days or something like this, consider opening a unfinished PR so that the more complicated things can be discussed there.
 
-Holidays can be added to the file [opening_hours.js][ohlib.opening_hours.js]. Have a look at the current definitions for [other holidays][ohlib.holidays]. You can check [#125](https://github.com/opening-hours/opening_hours.js/pull/125) as an example pull request in which @afita added public holidays for Romania. For more examples, just check the [merged pull requests](https://github.com/opening-hours/opening_hours.js/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Amerged).
+Holidays can be added to the file [index.js][ohlib.opening_hours.js]. Have a look at the current definitions for [other holidays][ohlib.holidays].
 
 Please refer to the [holiday documentation][ohlib.docs.holiday] for more details about the data format.
 
@@ -816,7 +816,7 @@ Edit: This does also work on npmjs in this short version … -->
 [ohlib.docs.holiday]: /holidays/README.md
 
 [ohlib.js/locales/core.js]: /locales/core.js
-[ohlib.opening_hours.js]: /opening_hours.js
+[ohlib.opening_hours.js]: /index.js
 [ohlib.test.js]: /test.js
 [ohlib.Makefile]: /Makefile
 [ohlib.js/i18n-resources.js]: /js/i18n-resources.js
