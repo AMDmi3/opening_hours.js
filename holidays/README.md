@@ -105,7 +105,7 @@ The following keys in the dictionary are supported:
 
 * `name`: Holiday name in local language.
 * `fixed_date`: Array consisting of two integers representing month and day.
-* `variable_date`: The name of a movable event and the offset to that event. The movable events and the formulas for calculating them for a given year are defined in the `getMovableEventsForYear` function.
+* `variable_date`: The name of a movable event. The movable events and the formulas for calculating them for a given year are defined in the `getMovableEventsForYear` function.
 * `offset`: Optional, defaults to 0. Offset in days to `variable_date`. Can only be used when `variable_date` is specified.
 * `only_states`: Optional. Array of `address.state` strings for which the holiday applies.
 
@@ -131,6 +131,8 @@ PH:  # https://de.wikipedia.org/wiki/Feiertage_in_Deutschland
   - {'name': '1. Weihnachtstag', 'fixed_date': [12, 25]}
   - {'name': '2. Weihnachtstag', 'fixed_date': [12, 26]}
 ```
+
+Order matters, "first come first serve"/"first rule wins" is used to determine the name of a holiday. Evaluation is done in sequence so if two PH definitions evaluate to the same date for a given year, then the first definition is used.
 
 ### Holiday definition format: SH
 
