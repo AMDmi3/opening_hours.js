@@ -2733,6 +2733,13 @@ export default function(value, nominatim_object, optional_conf_parm) {
             return start_date;
         }
 
+        /* Date of next weekday range. {{{
+         *
+         * :param first_weekday: First weekday in range of wanted weekday (1 is Mo).
+         * :param last_weekday: Last weekday in range of wanted weekday (1 is Mo).
+         * :param start_date: Earliest possible date to consider.
+         * :returns: start_date if in weekday range, otherwise the next day which is in range.
+         */
         function getDateOfNextWeekdayRange(first_weekday, last_weekday, start_date){
             if (first_weekday >= last_weekday) {
                 throw formatLibraryBugMessage('Not implemented yet.');
@@ -2789,6 +2796,9 @@ export default function(value, nominatim_object, optional_conf_parm) {
             'nextSaturday31Oct'     : getDateOfWeekdayInDateRange(6, new Date(year, 9, 31)),
             'nextWednesday16Nov'    : getDateOfWeekdayInDateRange(3, new Date(year, 10, 16)),
             'nextMo-Fr17March'      : getDateOfNextWeekdayRange(1, 5, new Date(year, 2, 17)),
+            'nextMo-Sa01May'        : getDateOfNextWeekdayRange(1, 6, new Date(year, 4, 1)),
+            'nextMo-Sa07August'     : getDateOfNextWeekdayRange(1, 6, new Date(year, 7, 7)),
+            'nextMo-Sa25December'   : getDateOfNextWeekdayRange(1, 6, new Date(year, 11, 25)),
         };
     }
     /* }}} */
