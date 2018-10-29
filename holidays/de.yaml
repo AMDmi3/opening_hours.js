@@ -15,7 +15,7 @@ PH:  # https://de.wikipedia.org/wiki/Feiertage_in_Deutschland
   - {'name': 'Fronleichnam', 'variable_date': easter, 'offset': 60, 'only_states': [Baden-Württemberg, Bayern, Hessen, Nordrhein-Westfalen, Rheinland-Pfalz, Saarland]}
   - {'name': 'Mariä Himmelfahrt', 'fixed_date': [8, 15], 'only_states': [Saarland]}
   - {'name': 'Tag der Deutschen Einheit', 'fixed_date': [10, 3]}
-  - {'name': 'Reformationstag', 'fixed_date': [10, 31], 'only_states': [Brandenburg, Mecklenburg-Vorpommern, Sachsen, Sachsen-Anhalt, Thüringen]}
+  - {'name': 'Reformationstag', 'fixed_date': [10, 31], 'only_states': [Brandenburg, Bremen, Hamburg, Mecklenburg-Vorpommern, Niedersachsen, Sachsen, Sachsen-Anhalt, Schleswig-Holstein, Thüringen]}
   - {'name': 'Allerheiligen', 'fixed_date': [11, 1], 'only_states': [Baden-Württemberg, Bayern, Nordrhein-Westfalen, Rheinland-Pfalz, Saarland]}
   - {'name': 'Buß- und Bettag', 'variable_date': nextWednesday16Nov, 'only_states': [Sachsen]}
   - {'name': '1. Weihnachtstag', 'fixed_date': [12, 25]}
