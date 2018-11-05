@@ -1,4 +1,4 @@
-#!/usr/bin/env nodejs
+#!/usr/bin/env node
 
 /* Info, license and author {{{
  * @license AGPLv3 <https://www.gnu.org/licenses/agpl-3.0.html>

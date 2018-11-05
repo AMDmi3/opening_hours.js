@@ -2,7 +2,7 @@
 
 ## Variables {{{
 SHELL   := /bin/bash -o nounset -o pipefail -o errexit
-NODEJS  ?= nodejs
+NODEJS  ?= node
 SEARCH  ?= opening_hours
 VERBOSE ?= 1
 RELEASE_OPENPGP_FINGERPRINT ?= C505B5C93B0DB3D338A1B6005FE92C12EE88E1F0

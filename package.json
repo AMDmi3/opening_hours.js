@@ -68,6 +68,6 @@
     "country-language": "^0.1.7"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=6.0.0"
   }
 }

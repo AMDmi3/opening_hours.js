@@ -169,7 +169,7 @@ Changed
 ~~~~~~~
 
 * Migrated to use `ES2015 modules`_ and rollup_ for module bundling. [simon04_]
-* Increased NodeJS version requirement to `4.0.0`. [ypid_]
+* Increased NodeJS version requirement to ``6.0.0``. Technically, the code should still work with ``4.0.0`` but support has been dropped because ``npm-install-peers`` depends on ``6.0.0``. [ypid_]
 * Update to holiday definition format 2.2.0. Holidays are now maintained in
   YAML files, one for each country. [ypid_]
 * Update to holiday definition format 3.0.0. Use nested key-value pairs
