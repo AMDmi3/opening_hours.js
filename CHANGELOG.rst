@@ -61,6 +61,7 @@ Contributors
 * [HolgerJeromin_] - Holger Jeromin
 * [Gerw88_]
 * [sommerluk_] - Lukas Sommer
+* [Discostu36_] - Michael
 
 Thanks very much to all contributors!
 
@@ -105,6 +106,7 @@ Thanks very much to all contributors!
 .. _HolgerJeromin: https://github.com/HolgerJeromin
 .. _Gerw88: https://github.com/Gerw88
 .. _sommerluk: https://github.com/sommerluk
+.. _Discostu36: https://github.com/Discostu36
 
 Supporters
 ~~~~~~~~~~
@@ -202,6 +204,7 @@ Changed
 Fixed
 ~~~~~
 
+* Fix German public holiday definitions. Since 2018, Reformationstag is also a public holiday in Bremen, Schleswig-Holstein, Niedersachsen and Hamburg. [Discostu36_, ypid_]
 * Fix Russian public holiday definitions. Regions where not in local language and thus not matched properly. [ypid_]
 * Fix school holiday selector code which caused the main selector traversal
   function to not advance any further (returning closed for all following dates) after the
