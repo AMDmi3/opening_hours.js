@@ -1,4 +1,4 @@
-#!/usr/bin/env nodejs
+#!/usr/bin/env node
 
 var optimist = require('optimist')
     .usage('Usage: $0 [optional parameters] [server_listening_ports]')

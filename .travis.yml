@@ -21,4 +21,4 @@ install:
   - 'sudo pip install html5validator yq'
 
 script:
-  - "make NODEJS=node check-full"
+  - "make check-full"
