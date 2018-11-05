@@ -10,19 +10,19 @@
         <link rel="stylesheet" href="css/table.css"/>
         <!-- Javascript {{{ -->
         <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="opening_hours+deps.min.js"></script>
-        <script type="text/javascript" src="node_modules/i18next-client/i18next.min.js"></script>
-        <script type="text/javascript" src="node_modules/moment/min/moment-with-locales.min.js"></script>
-        <script type="text/javascript" src="js/i18n-resources.js"></script>
-        <script type="text/javascript" src="js/opening_hours_table.js"></script>
-        <script type="text/javascript" src="js/helpers.js"></script>
-        <script type="text/javascript" src="js/countryToLanguageMapping.js"></script>
-        <script type="text/javascript">
+        <script src="opening_hours+deps.min.js"></script>
+        <script src="node_modules/i18next-client/i18next.min.js"></script>
+        <script src="node_modules/moment/min/moment-with-locales.min.js"></script>
+        <script src="js/i18n-resources.js"></script>
+        <script src="js/opening_hours_table.js"></script>
+        <script src="js/helpers.js"></script>
+        <script src="js/countryToLanguageMapping.js"></script>
+        <script>
             var YoHours = function() {};
             // Needed by YoHours modul.js
         </script>
-        <script type="text/javascript" src="js/yohours_model.js"></script>
-        <script type="text/javascript">
+        <script src="js/yohours_model.js"></script>
+        <script>
             var YoHoursChecker = new YoHoursChecker();
 
             if (document.title !== i18n.t('texts.title')) {
@@ -42,7 +42,7 @@
     </head> <!-- }}} -->
     <body><!-- {{{ -->
         <noscript>You don‘t have JavaScript enabled and that is a good thing but this tool makes heavy use of JavaScript so you need to enable it in order to use this tool. If you don’t trust the code that is going to be executed that is good as well. I encourage you to read all the source code on <a href="https://github.com/opening-hours/opening_hours.js">GitHub</a>. Also note that every commit and all releases are GPG signed. You might want to check this out as well :) Stay safe.</noscript>
-        <script type="text/javascript">
+        <script>
             document.write('<h1>' + i18n.t('texts.title') + '</h1>');
             document.write(getUserSelectTranslateHTMLCode());
         </script>
@@ -51,7 +51,7 @@
             <form id="check" action="#">
                 <!-- User input {{{ -->
                 <p>
-                    <script type="text/javascript">
+                    <script>
                         document.write('<span class="hd">' + i18n.t('words.date') + ' ' + i18n.t('words.and') + ' ' + i18n.t('words.time.time') + ':</span>');
                         document.write('<input type="number" step="1" min="1" max="31" id="dd" size="3" name="dd" value="02" onblur="Evaluate()"/>.');
                         document.write('<select id="mm" name="mm" onchange="Evaluate()">');
@@ -68,7 +68,7 @@
                     <input size="10" name="wday" readonly="readonly" />
                     <input size="3"  name="week" readonly="readonly" />
                 </p>
-                <p><script type="text/javascript">
+                <p><script>
                     var buttons = [
                         [ 3600 * 24 * 365, 1, 'words.time.year'    ],
                         [ 3600 * 24      , 1, 'words.time.day'     ],
@@ -93,7 +93,7 @@
                 </p>
 
                 <p>
-                    <script type="text/javascript">
+                    <script>
                         document.write('<span class="hd">' + i18n.t('words.position') + ':</span>');
                         document.write(i18n.t('words.lat') + ': <input type="number" class="input__coordinate" id="lat" value="' + default_lat + '" onblur="Evaluate()" /> ');
                         document.write(i18n.t('words.lon') + ': <input type="number" class="input__coordinate" id="lon" value="' + default_lon + '" onblur="Evaluate()" /> ');
@@ -104,7 +104,7 @@
                 </p>
 
                 <p>
-                    <script type="text/javascript">
+                    <script>
                         document.write('<span class="hd">' + i18n.t('words.mode') + ': </span><select id="mode" name="mode" onchange="Evaluate()" style="max-width:100%;">');
                         for (var i = 0; i <= 2; i++) {
                             document.write('<option value="' + i + '">' + i18n.t('texts.mode ' + i) + '</option>');
@@ -117,7 +117,7 @@
                     <a href="#" onclick="permalink();return false">permalink</a>,
                 </div>
                 <p>
-                    <script type="text/javascript">
+                    <script>
                         document.write('<span class="hd">' + i18n.t('texts.value for') + ' <q>opening_hours</q>:'
                                 + '</span>');
                     </script>
@@ -128,7 +128,7 @@
                         onblur="Evaluate()"
                     />
 
-                    <script type="text/javascript">
+                    <script>
                         document.write('<span class="hd">' + i18n.t('texts.value to compare') + ':</span>');
                     </script>
                     <input
@@ -151,7 +151,7 @@
             </form>
 
             <hr /><!-- Examples {{{ -->
-            <script type="text/javascript">document.write('<a href="javascript:toggle(\'user_examples\')"><h2 id="examples">'
+            <script>document.write('<a href="javascript:toggle(\'user_examples\')"><h2 id="examples">'
                 + i18n.t('words.examples') + ':</h2></a>');
             </script>
             <div id="user_examples"><!-- {{{ -->
@@ -198,7 +198,7 @@
                     <li><a href="#check" onclick="EX(this)">24/7 closed "always closed"</a></li>
                     <li>
                         <a href="#check" onclick="EX(this)">2013,2015,2050-2053,2055/2,2020-2029/3,2060+ Jan 1</a>,
-                        <script type="text/javascript">
+                        <script>
                             document.write('<a href="' + repo_url + '/tree/master#year-ranges" target="_blank">' + i18n.t('words.docu') + '</a>');
                         </script>
                     </li>
@@ -206,12 +206,12 @@
                     <li><a href="#check" onclick="EX(this)">Apr-Oct Su[2] 14:00-18:00; Aug Su[-1] -1 day 10:00-18:00; Aug Su[-1] 10:00-18:00; PH off</a></li>
                     <li><a href="#check" onclick="EX(this)">Mo-Fr 08:00-12:00, We 14:00-18:00; Su,PH off</a></li>
                     <li><a href="#check" onclick="EX(this)">00:00-24:00 week 6 Mo-Su Feb; PH off</a>,
-                        <script type="text/javascript">
+                        <script>
                             document.write('(' + i18n.t('texts.check out error correction, prettify') + ')');
                         </script>
                     </li>
                     <li><a href="#check" onclick="EX(this)">   monday,    Tu, wE,   TH    12:00 - 20:00  ; 14:00-16:00      Off  ; closed public Holiday</a>,
-                        <script type="text/javascript">
+                        <script>
                             document.write('(' + i18n.t('texts.check out error correction, prettify') + ')');
                         </script>
                     </li>
@@ -221,7 +221,7 @@
                     <li><a href="#check" onclick="EX(this)">We; PH off</a></li>
                     <li><a href="#check" onclick="EX(this)">PH</a></li>
                     <li><a href="#check" onclick="EX(this)">PH Mo-Fr</a>
-                        <script type="text/javascript">
+                        <script>
                             document.write('(' + i18n.t('texts.if PH is between Mo and Fr') + ')');
                         </script>
                     </li>
@@ -229,7 +229,7 @@
                     <li><a href="#check" onclick="EX(this)">SH</a></li>
                     <li><a href="#check" onclick="EX(this)">SH,PH</a></li>
                     <li><a href="#check" onclick="EX(this)">PH,SH</a>
-                        <script type="text/javascript">
+                        <script>
                             document.write('(' + i18n.t('texts.SH,PH or PH,SH') + ')');
                         </script>
                     </li>
@@ -245,7 +245,7 @@
                 </ol> <!-- }}} -->
             </div><!-- }}} -->
 
-        <script type="text/javascript">
+        <script>
             document.write(i18n.t('texts.more information',
                 { href: 'href="https://wiki.openstreetmap.org/wiki/Key:opening_hours" target="_blank"' }) + '<br />');
 

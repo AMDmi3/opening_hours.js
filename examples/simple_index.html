@@ -5,12 +5,12 @@
     <meta name="viewport" content="initial-scale=1, width=device-width">
     <title>Simple page using opening_hours.js</title>
     <!-- Javascript {{{ -->
-    <script type="text/javascript" src="opening_hours+deps.js"></script>
+    <script src="opening_hours+deps.js"></script>
     <!-- }}} -->
   </head> <!-- }}} -->
   <body><!-- {{{ -->
     <h1>Nothing to see here, open a debug console in your browser to see the interesting stuff.</h1>
-    <script type="text/javascript">
+    <script>
       var opening_hours = require('opening_hours');
 
       var oh = new opening_hours('do', {}, { 'locale': 'de' });
