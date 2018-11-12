@@ -782,7 +782,6 @@ Refer to the [Changelog](https://github.com/opening-hours/opening_hours.js/blob/
 
 ## Stats
 
-* [Issue Stats](http://issuestats.com/github/opening-hours/opening_hours.js)
 * [Open HUB](https://www.openhub.net/p/opening_hours)
 
 ## License
