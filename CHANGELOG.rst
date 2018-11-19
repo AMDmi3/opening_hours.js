@@ -62,6 +62,7 @@ Contributors
 * [Gerw88_]
 * [sommerluk_] - Lukas Sommer
 * [Discostu36_] - Michael
+* [debyos_] - Gábor Babos
 
 Thanks very much to all contributors!
 
@@ -107,6 +108,7 @@ Thanks very much to all contributors!
 .. _Gerw88: https://github.com/Gerw88
 .. _sommerluk: https://github.com/sommerluk
 .. _Discostu36: https://github.com/Discostu36
+.. _debyos: https://github.com/debyos
 
 Supporters
 ~~~~~~~~~~
@@ -138,7 +140,7 @@ Added
   * Ivory Coast [sommerluk_, ypid_]
 
 * Added Easter Sunday to Slovak holidays. [chiak597_]
-* Localizations added: Hungarian [urbalazs_]
+* Localizations added: Hungarian [urbalazs_, debyos_]
 
 * School holiday definitions added:
 
