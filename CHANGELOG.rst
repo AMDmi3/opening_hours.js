@@ -63,6 +63,7 @@ Contributors
 * [sommerluk_] - Lukas Sommer
 * [Discostu36_] - Michael
 * [debyos_] - Gábor Babos
+* [StephanGeorg_] - Stephan Georg
 
 Thanks very much to all contributors!
 
@@ -109,6 +110,7 @@ Thanks very much to all contributors!
 .. _sommerluk: https://github.com/sommerluk
 .. _Discostu36: https://github.com/Discostu36
 .. _debyos: https://github.com/debyos
+.. _StephanGeorg: https://github.com/StephanGeorg
 
 Supporters
 ~~~~~~~~~~
@@ -171,6 +173,10 @@ Added
 
 Changed
 ~~~~~~~
+
+* Public holiday definitions updated:
+
+  * Germany [StephanGeorg_]
 
 * Migrated to use `ES2015 modules`_ and rollup_ for module bundling. [simon04_]
 * Increased NodeJS version requirement to ``6.0.0``. Technically, the code should still work with ``4.0.0`` but support has been dropped because ``npm-install-peers`` depends on ``6.0.0``. [ypid_]
