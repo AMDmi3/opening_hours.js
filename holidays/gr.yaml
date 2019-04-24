@@ -1,0 +1,16 @@
+
+---
+
+'Ελλάδα':  # https://el.wikipedia.org/wiki/%CE%95%CF%80%CE%AF%CF%83%CE%B7%CE%BC%CE%B5%CF%82_%CE%B1%CF%81%CE%B3%CE%AF%CE%B5%CF%82_%CF%83%CF%84%CE%B7%CE%BD_%CE%95%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1
+ 
+  PH:
+    - {'name': 'Πρωτοχρονιά', 'fixed_date': [1, 1]}
+    - {'name': 'Θεοφάνια', 'fixed_date': [1, 6]}
+    - {'name': 'Καθαρά Δευτέρα', 'variable_date': orthodox easter, 'offset': -48}
+    - {'name': '25η Μαρτίου', 'fixed_date': [03, 25]}
+    - {'name': 'Μεγάλη Παρασκευή', 'variable_date': orthodox easter, 'offset': -2}
+    - {'name': 'Πρωτομαγιά', 'fixed_date': [5, 1]}
+    - {'name': 'Κοίμηση της Θεοτόκου', 'fixed_date': [8, 15]}
+    - {'name': '28η Οκτωβρίου', 'fixed_date': [10, 28]}
+    - {'name': 'Χριστούγεννα', 'fixed_date': [12, 25]}
+    - {'name': '2η μέρα Χριστουγέννων', 'fixed_date': [12, 26]}
